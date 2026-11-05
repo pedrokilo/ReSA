@@ -63,10 +63,10 @@ class,function,address,source,origins
 (biblioteca) CRT / runtime estático,_pow,0x008220F0,source/game_sa/PostEffects.cpp:52,cohorte nuevo 2026-10-17 (biblioteca)
 (biblioteca) CRT / runtime estático,_sscanf,0x008220AD,source/game_sa/Stats.cpp:616,cohorte nuevo 2026-10-17 (biblioteca)
 (biblioteca) CRT / runtime estático,helper sin símbolo confirmado,0x008219F0,source/game_sa/PedGeometryAnalyser.cpp:792,cohorte nuevo 2026-10-17 (biblioteca)
-(biblioteca) CRT / runtime estático,operator delete,0x008214BD,source/game_sa/MemoryMgr.cpp:560,envoltura en el código fuente
-(biblioteca) CRT / runtime estático,operator delete[],0x008213AE,source/game_sa/MemoryMgr.cpp:564,envoltura en el código fuente
-(biblioteca) CRT / runtime estático,operator new,0x0082119A,source/game_sa/MemoryMgr.cpp:552,envoltura en el código fuente
-(biblioteca) CRT / runtime estático,operator new[],0x00821195,source/game_sa/MemoryMgr.cpp:556,envoltura en el código fuente
+(biblioteca) CRT / runtime estático,operator delete,0x008214BD,source/game_sa/MemoryMgr.cpp:561,envoltura en el código fuente
+(biblioteca) CRT / runtime estático,operator delete[],0x008213AE,source/game_sa/MemoryMgr.cpp:565,envoltura en el código fuente
+(biblioteca) CRT / runtime estático,operator new,0x0082119A,source/game_sa/MemoryMgr.cpp:553,envoltura en el código fuente
+(biblioteca) CRT / runtime estático,operator new[],0x00821195,source/game_sa/MemoryMgr.cpp:557,envoltura en el código fuente
 (biblioteca) CRT / runtime estático,Realloc,0x00824269,source/game_sa/MemoryMgr.cpp:355,cohorte nuevo 2026-10-17 (biblioteca)
 (biblioteca) QuickTime/QTML,QuickTime dispatch thunk,0x00819840,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:212,cohorte nuevo 2026-10-17 (biblioteca)
 (biblioteca) QuickTime/QTML,QuickTime runtime shutdown helper,0x00819770,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:213,cohorte nuevo 2026-10-17 (biblioteca)

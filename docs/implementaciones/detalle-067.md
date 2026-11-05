@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 05/11/2026 (Ciudad de México):** 835 grupos / 9107 funciones reconstruidas; 9107 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 05/11/2026 (Ciudad de México):** 836 grupos / 9126 funciones reconstruidas; 9126 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -52,31 +52,24 @@
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | FlushWaterRenderBuffer() | [source/game_sa/WaterLevel.cpp:31](../../source/game_sa/WaterLevel.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958) |
-| GetWaterLayerParams(int32 layer) | [source/game_sa/WaterLevel.cpp:309](../../source/game_sa/WaterLevel.cpp#L309) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| WaterVertexColor(const CRGBA& c, uint8 alpha) | [source/game_sa/WaterLevel.cpp:316](../../source/game_sa/WaterLevel.cpp#L316) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| WaterBaseUV(int32 x, int32 y, int32 dy, const WaterLayerParams& l, float& baseU, float& baseV) | [source/game_sa/WaterLevel.cpp:321](../../source/game_sa/WaterLevel.cpp#L321) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| WaterSetVertex(int32 idx, float x, float y, float z, uint32 color, float u, float v) | [source/game_sa/WaterLevel.cpp:329](../../source/game_sa/WaterLevel.cpp#L329) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958) |
-| WaterDebugColor(const CRGBA& c) | [source/game_sa/WaterLevel.cpp:335](../../source/game_sa/WaterLevel.cpp#L335) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| MakeWaterWaveSetup(int32 x, int32 y) | [source/game_sa/WaterLevel.cpp:1117](../../source/game_sa/WaterLevel.cpp#L1117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo faWaveMultipliersX: source/game_sa/WaterLevel.h:85 (0x008D38C8); Posible dato fijo faWaveMultipliersY: source/game_sa/WaterLevel.h:86 (0x008D38E8); Posible dato fijo m_nWaterTimeOffset: source/game_sa/WaterLevel.h:80 (0x00C228A4); Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84) |
-| * WaterSinTable() | [source/game_sa/WaterLevel.cpp:1131](../../source/game_sa/WaterLevel.cpp#L1131) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| WaterRenderShifts() | [source/game_sa/WaterLevel.cpp:1263](../../source/game_sa/WaterLevel.cpp#L1263) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Colaborador por dirección 0x00821B1E: fuera del catálogo consultado; ruta efectiva sin resolver; Conversión de dirección fija: 0x008D3824; Posible dato fijo TextureShiftFirstV: source/game_sa/WaterLevel.h:115 (0x00C21178); Posible dato fijo TextureShiftSecondU: source/game_sa/WaterLevel.h:119 (0x00C21184); Posible dato fijo TextureShiftSecondV: source/game_sa/WaterLevel.h:118 (0x00C21180); Posible dato fijo Wavyness: source/game_sa/Weather.h:41 (0x00C812E8); Posible dato fijo m_CurrentFlow: source/game_sa/WaterLevel.h:140 (0x00C22890) |
-| & WaterColorR(int32 i) | [source/game_sa/WaterLevel.cpp:1607](../../source/game_sa/WaterLevel.cpp#L1607) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & WaterColorG(int32 i) | [source/game_sa/WaterLevel.cpp:1608](../../source/game_sa/WaterLevel.cpp#L1608) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & WaterColorB(int32 i) | [source/game_sa/WaterLevel.cpp:1609](../../source/game_sa/WaterLevel.cpp#L1609) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & WaterBufferVertex(int32 i) | [source/game_sa/WaterLevel.cpp:1610](../../source/game_sa/WaterLevel.cpp#L1610) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| WaterPackColor(uint32 alpha, uint32 r, uint32 g, uint32 b) | [source/game_sa/WaterLevel.cpp:1612](../../source/game_sa/WaterLevel.cpp#L1612) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & WaterIndexWord(int32 i) | [source/game_sa/WaterLevel.cpp:1613](../../source/game_sa/WaterLevel.cpp#L1613) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * WaterVertexAt(uint16 index) | [source/game_sa/WaterLevel.cpp:2005](../../source/game_sa/WaterLevel.cpp#L2005) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:103 (0x00C22910) |
+| lerp(CRenPar rp1, CRenPar rp2, float t) | [source/game_sa/WaterLevel.cpp:60](../../source/game_sa/WaterLevel.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetWaterLayerParams(int32 layer) | [source/game_sa/WaterLevel.cpp:331](../../source/game_sa/WaterLevel.cpp#L331) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| WaterVertexColor(const CRGBA& c, uint8 alpha) | [source/game_sa/WaterLevel.cpp:338](../../source/game_sa/WaterLevel.cpp#L338) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| WaterBaseUV(int32 x, int32 y, int32 dy, const WaterLayerParams& l, float& baseU, float& baseV) | [source/game_sa/WaterLevel.cpp:343](../../source/game_sa/WaterLevel.cpp#L343) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| WaterSetVertex(int32 idx, float x, float y, float z, uint32 color, float u, float v) | [source/game_sa/WaterLevel.cpp:351](../../source/game_sa/WaterLevel.cpp#L351) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958) |
+| WaterDebugColor(const CRGBA& c) | [source/game_sa/WaterLevel.cpp:357](../../source/game_sa/WaterLevel.cpp#L357) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| MakeWaterWaveSetup(int32 x, int32 y) | [source/game_sa/WaterLevel.cpp:1139](../../source/game_sa/WaterLevel.cpp#L1139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo faWaveMultipliersX: source/game_sa/WaterLevel.h:78 (0x008D38C8); Posible dato fijo faWaveMultipliersY: source/game_sa/WaterLevel.h:79 (0x008D38E8); Posible dato fijo m_nWaterTimeOffset: source/game_sa/WaterLevel.h:73 (0x00C228A4); Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84) |
+| * WaterSinTable() | [source/game_sa/WaterLevel.cpp:1153](../../source/game_sa/WaterLevel.cpp#L1153) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| WaterRenderShifts() | [source/game_sa/WaterLevel.cpp:1285](../../source/game_sa/WaterLevel.cpp#L1285) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Colaborador por dirección 0x00821B1E: fuera del catálogo consultado; ruta efectiva sin resolver; Conversión de dirección fija: 0x008D3824; Posible dato fijo TextureShiftFirstV: source/game_sa/WaterLevel.h:108 (0x00C21178); Posible dato fijo TextureShiftSecondU: source/game_sa/WaterLevel.h:112 (0x00C21184); Posible dato fijo TextureShiftSecondV: source/game_sa/WaterLevel.h:111 (0x00C21180); Posible dato fijo Wavyness: source/game_sa/Weather.h:41 (0x00C812E8); Posible dato fijo m_CurrentFlow: source/game_sa/WaterLevel.h:133 (0x00C22890) |
+| & WaterColorR(int32 i) | [source/game_sa/WaterLevel.cpp:1629](../../source/game_sa/WaterLevel.cpp#L1629) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & WaterColorG(int32 i) | [source/game_sa/WaterLevel.cpp:1630](../../source/game_sa/WaterLevel.cpp#L1630) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & WaterColorB(int32 i) | [source/game_sa/WaterLevel.cpp:1631](../../source/game_sa/WaterLevel.cpp#L1631) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & WaterBufferVertex(int32 i) | [source/game_sa/WaterLevel.cpp:1632](../../source/game_sa/WaterLevel.cpp#L1632) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| WaterPackColor(uint32 alpha, uint32 r, uint32 g, uint32 b) | [source/game_sa/WaterLevel.cpp:1634](../../source/game_sa/WaterLevel.cpp#L1634) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & WaterIndexWord(int32 i) | [source/game_sa/WaterLevel.cpp:1635](../../source/game_sa/WaterLevel.cpp#L1635) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * WaterVertexAt(uint16 index) | [source/game_sa/WaterLevel.cpp:2027](../../source/game_sa/WaterLevel.cpp#L2027) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:96 (0x00C22910) |
 
 <a id="grupo-1326"></a>
-
-## Globales y helpers: source/game_sa/WaterLevel.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| lerp(CRenPar rp1, CRenPar rp2, float t) | [source/game_sa/WaterLevel.h:18](../../source/game_sa/WaterLevel.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1327"></a>
 
 ## Globales y helpers: source/game_sa/Weapon.cpp
 
@@ -89,7 +82,7 @@
 | InstantHitSwayAccumulate355(CVector* endpoint,const CVector* sineBasis,const CVector* cosineBasis,float amplitude,float sine,float cosine) | [source/game_sa/Weapon.cpp:1789](../../source/game_sa/Weapon.cpp#L1789) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | InstantHitOscillation(uint32 milliseconds, float& sine, float& cosine) | [source/game_sa/Weapon.cpp:1794](../../source/game_sa/Weapon.cpp#L1794) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1328"></a>
+<a id="grupo-1327"></a>
 
 ## Globales y helpers: source/game_sa/WeaponEffects.cpp
 
@@ -97,7 +90,7 @@
 | --- | --- | --- | --- | --- | --- |
 | RenderPlayerCrosshair_Hook(uint32* crosshair, void* /*edx*/, int32 playerIndex) | [source/game_sa/WeaponEffects.cpp:344](../../source/game_sa/WeaponEffects.cpp#L344) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponEffects::RenderPlayerCrosshair 0x0056EF90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1329"></a>
+<a id="grupo-1328"></a>
 
 ## Globales y helpers: source/game_sa/WeaponInfo.cpp
 
@@ -106,7 +99,7 @@
 | GetBaseComboByName(const char* name) | [source/game_sa/WeaponInfo.cpp:160](../../source/game_sa/WeaponInfo.cpp#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FindAnimGroupIndexByName(const char* name, bool& found) | [source/game_sa/WeaponInfo.cpp:180](../../source/game_sa/WeaponInfo.cpp#L180) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1330"></a>
+<a id="grupo-1329"></a>
 
 ## Globales y helpers: source/game_sa/Weather.cpp
 
@@ -121,7 +114,7 @@
 | IsHeatHazeType(int16 w) | [source/game_sa/Weather.cpp:105](../../source/game_sa/Weather.cpp#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | StepTowards(float& value, float target, float step) | [source/game_sa/Weather.cpp:110](../../source/game_sa/Weather.cpp#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1331"></a>
+<a id="grupo-1330"></a>
 
 ## Globales y helpers: source/game_sa/World.cpp
 
@@ -146,7 +139,7 @@
 | WldEMultiply3x3VM(const CVector& v, const CMatrix& m) | [source/game_sa/World.cpp:2104](../../source/game_sa/World.cpp#L2104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | WldEMatrixTimesPoint(const CMatrix& m, const CVector& v) | [source/game_sa/World.cpp:2113](../../source/game_sa/World.cpp#L2113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1332"></a>
+<a id="grupo-1331"></a>
 
 ## Globales y helpers: source/game_sa/World_Helper.cpp
 
@@ -157,7 +150,7 @@
 | FindPlayerHeight(int32 playerId) | [source/game_sa/World_Helper.cpp:147](../../source/game_sa/World_Helper.cpp#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & FindPlayerGroup(int32 playerId) | [source/game_sa/World_Helper.cpp:158](../../source/game_sa/World_Helper.cpp#L158) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1333"></a>
+<a id="grupo-1332"></a>
 
 ## Globales y helpers: source/game_sa/X87Math.cpp
 
@@ -1386,8 +1379,11 @@
 | WeaveDistance(float dx, float dy) | [source/game_sa/X87Math.cpp:18134](../../source/game_sa/X87Math.cpp#L18134) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | WeaveFoldAbs(double angle, double bound) | [source/game_sa/X87Math.cpp:18143](../../source/game_sa/X87Math.cpp#L18143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | WeaveForPedArcCpp(float dx, float dy, float angle, WeaveMaxXFn getMaxX, const void* vehicle, float* a, float* b) | [source/game_sa/X87Math.cpp:18161](../../source/game_sa/X87Math.cpp#L18161) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __cdecl MatrixInvertExeCpp(const float* in, float* out) | [source/game_sa/X87Math.cpp:18201](../../source/game_sa/X87Math.cpp#L18201) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores): CMatrix::Invert-1 0x0059B920 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __cdecl MatrixMultiplyExeCpp(float* out, const float* a, const float* b) | [source/game_sa/X87Math.cpp:18230](../../source/game_sa/X87Math.cpp#L18230) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| WaterLerpRenParCpp(const float* a, const float* b, float t, float* out) | [source/game_sa/X87Math.cpp:18320](../../source/game_sa/X87Math.cpp#L18320) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1334"></a>
+<a id="grupo-1333"></a>
 
 ## Globales y helpers: source/game_sa/cHandlingDataMgr.cpp
 
@@ -1395,7 +1391,7 @@
 | --- | --- | --- | --- | --- | --- |
 | & HandlingField(void* record, size_t offset) | [source/game_sa/cHandlingDataMgr.cpp:198](../../source/game_sa/cHandlingDataMgr.cpp#L198) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1335"></a>
+<a id="grupo-1334"></a>
 
 ## Globales y helpers: source/game_sa/common.cpp
 
@@ -1415,7 +1411,7 @@
 | UnicodeToUTF8(const std::wstring& str) | [source/game_sa/common.cpp:288](../../source/game_sa/common.cpp#L288) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * RpAnimBlendClumpGetAssociation(RpClump* clump, std::initializer_list&lt;AnimationId&gt; ids) | [source/game_sa/common.cpp:309](../../source/game_sa/common.cpp#L309) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1336"></a>
+<a id="grupo-1335"></a>
 
 ## Globales y helpers: source/game_sa/common.h
 
@@ -1448,7 +1444,7 @@
 | make_fourcc4(const char* line, const char abcd\[4\]) | [source/game_sa/common.h:232](../../source/game_sa/common.h#L232) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MakeFourCC(const char fourcc\[4\]) | [source/game_sa/common.h:237](../../source/game_sa/common.h#L237) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1337"></a>
+<a id="grupo-1336"></a>
 
 ## HeapBlockDesc
 
@@ -1460,7 +1456,7 @@
 | * HeapBlockDesc::_GetBlockData() const | [source/game_sa/Memory/HeapBlockDesc.cpp:25](../../source/game_sa/Memory/HeapBlockDesc.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HeapBlockDesc::_DumpBlockInfo() const | [source/game_sa/Memory/HeapBlockDesc.cpp:29](../../source/game_sa/Memory/HeapBlockDesc.cpp#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1338"></a>
+<a id="grupo-1337"></a>
 
 ## HeapBlockFlags
 
@@ -1468,7 +1464,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ResetFlags(bool IsBound = false) | [source/game_sa/Memory/HeapBlockDesc.h:25](../../source/game_sa/Memory/HeapBlockDesc.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1339"></a>
+<a id="grupo-1338"></a>
 
 ## HeapFreeBlockDesc
 
@@ -1481,7 +1477,7 @@
 | HeapFreeBlockDesc::ReplaceHeapFreeBlock(HeapFreeBlockDesc* desc) | [source/game_sa/Memory/HeapFreeBlockDesc.cpp:33](../../source/game_sa/Memory/HeapFreeBlockDesc.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HeapFreeBlockDesc::RemoveHeapFreeBlock() | [source/game_sa/Memory/HeapFreeBlockDesc.cpp:43](../../source/game_sa/Memory/HeapFreeBlockDesc.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1340"></a>
+<a id="grupo-1339"></a>
 
 ## IKChainManager_c
 
@@ -1507,3 +1503,35 @@
 | IKChainManager_c::AbortPointArmIfPointing(eIKArm arm, CPed* ped, int32 blendOutTime) | [source/game_sa/Ragdoll/IKChainManager.cpp:331](../../source/game_sa/Ragdoll/IKChainManager.cpp#L331) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IKChainManager_c::IsFacingTarget(CPed* ped, eIKChainSlot slot) const | [source/game_sa/Ragdoll/IKChainManager.cpp:338](../../source/game_sa/Ragdoll/IKChainManager.cpp#L338) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChainManager_c::IsFacingTarget 0x00618330 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IKChainManager_c::PointArm(const char* purpose, eIKArm pedArmId, CPed* ped, CEntity* lookAtEntity, eBoneTag32 offsetBoneTag, CVector* offset, float speed, int32 blendTime, float cullDist) const | [source/game_sa/Ragdoll/IKChainManager.cpp:348](../../source/game_sa/Ragdoll/IKChainManager.cpp#L348) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChainManager_c::PointArm 0x00618B60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1340"></a>
+
+## IKChain_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| IKChain_c::InjectHooks() | [source/game_sa/Ragdoll/IKChain.cpp:27](../../source/game_sa/Ragdoll/IKChain.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::Init( const char* name, // unused eIKChainSlot ikSlot, CPed* ped, eBoneTag32 effectorBone, CVector effectorPos, eBoneTag32 pivotBone, CEntity* entity, eBoneTag32 offsetBone, CVector offsetPos, float speed, int32 priority ) | [source/game_sa/Ragdoll/IKChain.cpp:61](../../source/game_sa/Ragdoll/IKChain.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::Init 0x00618370 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::Exit() | [source/game_sa/Ragdoll/IKChain.cpp:116](../../source/game_sa/Ragdoll/IKChain.cpp#L116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::Exit 0x00617870 | 0 / 0 | Posible dato fijo g_boneNodeMan: source/game_sa/Ragdoll/BoneNodeManager.h:57 (0x00C10820) |
+| IKChain_c::Update(float deltaTime) | [source/game_sa/Ragdoll/IKChain.cpp:124](../../source/game_sa/Ragdoll/IKChain.cpp#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::Update 0x006184B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::IsAtTarget(float range, float* outDist) const | [source/game_sa/Ragdoll/IKChain.cpp:139](../../source/game_sa/Ragdoll/IKChain.cpp#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::IsAtTarget 0x00617F30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::IsFacingTarget() const | [source/game_sa/Ragdoll/IKChain.cpp:151](../../source/game_sa/Ragdoll/IKChain.cpp#L151) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::IsFacingTarget 0x00617E60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::UpdateTarget(bool update) | [source/game_sa/Ragdoll/IKChain.cpp:169](../../source/game_sa/Ragdoll/IKChain.cpp#L169) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::UpdateTarget 0x00617E50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::UpdateOffset(eBoneTag32 offsetBone, CVector offsetPos) | [source/game_sa/Ragdoll/IKChain.cpp:174](../../source/game_sa/Ragdoll/IKChain.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::UpdateOffset 0x00617E20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::ClampLimits(eBoneTag32 boneTag, bool limitX, bool limitY, bool limitZ, bool current) | [source/game_sa/Ragdoll/IKChain.cpp:180](../../source/game_sa/Ragdoll/IKChain.cpp#L180) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::ClampLimits 0x00618520 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::UpdateEntity(CEntity* entity) | [source/game_sa/Ragdoll/IKChain.cpp:190](../../source/game_sa/Ragdoll/IKChain.cpp#L190) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::UpdateEntity 0x00617E00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * IKChain_c::GetBoneNodeFromTag(eBoneTag32 boneTag) | [source/game_sa/Ragdoll/IKChain.cpp:201](../../source/game_sa/Ragdoll/IKChain.cpp#L201) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::GetBoneNodeFromTag 0x00617C60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::GetPriority() const | [source/game_sa/Ragdoll/IKChain.cpp:212](../../source/game_sa/Ragdoll/IKChain.cpp#L212) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::GetPriority 0x00617C50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::SetOffsetPos(CVector offsetPos) | [source/game_sa/Ragdoll/IKChain.cpp:217](../../source/game_sa/Ragdoll/IKChain.cpp#L217) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::SetOffsetPos 0x00617C30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::SetOffsetBoneTag(eBoneTag32 offsetBone) | [source/game_sa/Ragdoll/IKChain.cpp:222](../../source/game_sa/Ragdoll/IKChain.cpp#L222) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::SetOffsetBoneTag 0x00617C20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::SetBlend(float blend) | [source/game_sa/Ragdoll/IKChain.cpp:227](../../source/game_sa/Ragdoll/IKChain.cpp#L227) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::SetBlend 0x00617C10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::MoveBonesToTarget() | [source/game_sa/Ragdoll/IKChain.cpp:232](../../source/game_sa/Ragdoll/IKChain.cpp#L232) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::MoveBonesToTarget 0x006178B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::SetupBones(eBoneTag32 effector, CVector effectorPos, eBoneTag32 pivot, AnimBlendFrameData* frames) | [source/game_sa/Ragdoll/IKChain.cpp:335](../../source/game_sa/Ragdoll/IKChain.cpp#L335) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: IKChain_c::SetupBones 0x00617CA0 | 0 / 0 | Posible dato fijo g_boneNodeMan: source/game_sa/Ragdoll/BoneNodeManager.h:57 (0x00C10820) |
+| IKChain_c::SetLimits(eBoneTag32 boneTag, eRotationAxis axis, float min, float max) | [source/game_sa/Ragdoll/IKChain.cpp:381](../../source/game_sa/Ragdoll/IKChain.cpp#L381) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::SetLimits 0x006185E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::GetBoneSpeed(eBoneTag32 boneTag) | [source/game_sa/Ragdoll/IKChain.cpp:387](../../source/game_sa/Ragdoll/IKChain.cpp#L387) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::GetBoneSpeed 0x00618630 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::SetBoneSpeed(eBoneTag32 boneTag, float speed) | [source/game_sa/Ragdoll/IKChain.cpp:393](../../source/game_sa/Ragdoll/IKChain.cpp#L393) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::SetBoneSpeed 0x00618680 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IKChain_c::GetLimits(eBoneTag32 boneTag, eRotationAxis axis, float& min, float& max) | [source/game_sa/Ragdoll/IKChain.cpp:398](../../source/game_sa/Ragdoll/IKChain.cpp#L398) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: IKChain_c::GetLimits 0x00618590 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetParentPed() const | [source/game_sa/Ragdoll/IKChain.h:47](../../source/game_sa/Ragdoll/IKChain.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetBones() const | [source/game_sa/Ragdoll/IKChain.h:51](../../source/game_sa/Ragdoll/IKChain.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetBones() | [source/game_sa/Ragdoll/IKChain.h:52](../../source/game_sa/Ragdoll/IKChain.h#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetIKSlot() const | [source/game_sa/Ragdoll/IKChain.h:54](../../source/game_sa/Ragdoll/IKChain.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 05/11/2026 (Ciudad de México):** 835 grupos / 9107 funciones reconstruidas; 9107 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 05/11/2026 (Ciudad de México):** 836 grupos / 9126 funciones reconstruidas; 9126 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,59 +8,13 @@
 
 <a id="grupo-1381"></a>
 
-## RwHelper
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * GetFirstTexture(RwTexDictionary* txd) | [source/game_sa/RenderWare/rw/rwtexdict.cpp:11](../../source/game_sa/RenderWare/rw/rwtexdict.cpp#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::GetFirstTexture 0x00734940 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetFirstTextureCallback(RwTexture* texture, void* data) | [source/game_sa/RenderWare/rw/rwtexdict.cpp:21](../../source/game_sa/RenderWare/rw/rwtexdict.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::GetFirstTextureCallback 0x00734930 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RwTextureGtaStreamRead(RwStream* stream) | [source/game_sa/RenderWare/rw/rwtexdict.cpp:35](../../source/game_sa/RenderWare/rw/rwtexdict.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::RwTextureGtaStreamRead 0x00730E60 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo RwEngineInstance: source/game_sa/RenderWare/RenderWare.h:23 (0x00C97B24); Posible dato fijo anisotropySupportedByGFX: source/app/platform/win/WinPlatform.h:42 (0x00C87FFC); Posible dato fijo gGameState: source/app/app.h:19 (0x00C8D4C0); Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00); Posible dato fijo s_textureReadAverage: source/game_sa/RenderWare/rw/rwtexdict.cpp:28 (0x00C87FEC); Posible dato fijo s_textureReadCount: source/game_sa/RenderWare/rw/rwtexdict.cpp:27 (0x00C87FF0) |
-| * RwTexDictionaryGtaStreamRead(RwStream* stream) | [source/game_sa/RenderWare/rw/rwtexdict.cpp:84](../../source/game_sa/RenderWare/rw/rwtexdict.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::RwTexDictionaryGtaStreamRead 0x00730FC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x00730E50 |
-| * RwTexDictionaryGtaStreamRead1(RwStream* stream) | [source/game_sa/RenderWare/rw/rwtexdict.cpp:137](../../source/game_sa/RenderWare/rw/rwtexdict.cpp#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::RwTexDictionaryGtaStreamRead1 0x00731070 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x00730E50; Posible dato fijo s_txdStreamPos: source/game_sa/RenderWare/rw/rwtexdict.cpp:124 (0x00C87FE8); Posible dato fijo s_txdTexturesLeft: source/game_sa/RenderWare/rw/rwtexdict.cpp:123 (0x008D6088) |
-| * RwTexDictionaryGtaStreamRead2(RwStream* stream, RwTexDictionary* txd) | [source/game_sa/RenderWare/rw/rwtexdict.cpp:182](../../source/game_sa/RenderWare/rw/rwtexdict.cpp#L182) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::RwTexDictionaryGtaStreamRead2 0x00731150 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x00730E50; Posible dato fijo s_txdStreamPos: source/game_sa/RenderWare/rw/rwtexdict.cpp:124 (0x00C87FE8); Posible dato fijo s_txdTexturesLeft: source/game_sa/RenderWare/rw/rwtexdict.cpp:123 (0x008D6088) |
-| RpClumpGtaStreamRead1(RwStream* stream) | [source/game_sa/RenderWare/rw/rwtexdict.cpp:352](../../source/game_sa/RenderWare/rw/rwtexdict.cpp#L352) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::RpClumpGtaStreamRead1 0x0072E570 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo s_clumpFrameList: source/game_sa/RenderWare/rw/rwtexdict.cpp:225 (0x00C87AF4); Posible dato fijo s_clumpGeometryList: source/game_sa/RenderWare/rw/rwtexdict.cpp:227 (0x00C87B00); Posible dato fijo s_clumpHeader: source/game_sa/RenderWare/rw/rwtexdict.cpp:224 (0x00C87AE8); Posible dato fijo s_clumpStreamPos: source/game_sa/RenderWare/rw/rwtexdict.cpp:226 (0x00C87AFC) |
-| * RpClumpGtaStreamRead2(RwStream* stream) | [source/game_sa/RenderWare/rw/rwtexdict.cpp:378](../../source/game_sa/RenderWare/rw/rwtexdict.cpp#L378) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::RpClumpGtaStreamRead2 0x0072E620 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo s_clumpFrameList: source/game_sa/RenderWare/rw/rwtexdict.cpp:225 (0x00C87AF4); Posible dato fijo s_clumpGeometryList: source/game_sa/RenderWare/rw/rwtexdict.cpp:227 (0x00C87B00); Posible dato fijo s_clumpHeader: source/game_sa/RenderWare/rw/rwtexdict.cpp:224 (0x00C87AE8); Posible dato fijo s_clumpStreamPos: source/game_sa/RenderWare/rw/rwtexdict.cpp:226 (0x00C87AFC) |
-| RpClumpGtaCancelStream() | [source/game_sa/RenderWare/rw/rwtexdict.cpp:412](../../source/game_sa/RenderWare/rw/rwtexdict.cpp#L412) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::RpClumpGtaCancelStream 0x0072E700 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo s_clumpFrameList: source/game_sa/RenderWare/rw/rwtexdict.cpp:225 (0x00C87AF4); Posible dato fijo s_clumpGeometryList: source/game_sa/RenderWare/rw/rwtexdict.cpp:227 (0x00C87B00) |
-| * GetEventGlobalGroup() | [source/game_sa/RwHelper.cpp:72](../../source/game_sa/RwHelper.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::GetEventGlobalGroup 0x004ABA50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetNameAndDamage(const char* name, char* objName, bool& bIsDamageModel) | [source/game_sa/RwHelper.cpp:84](../../source/game_sa/RwHelper.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::GetNameAndDamage 0x005370A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetFirstAtomicCallback(RpAtomic* atomic, void* data) | [source/game_sa/RwHelper.cpp:112](../../source/game_sa/RwHelper.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::GetFirstAtomicCallback 0x00734810 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetFirstAtomic(RpClump* clump) | [source/game_sa/RwHelper.cpp:118](../../source/game_sa/RwHelper.cpp#L118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::GetFirstAtomic 0x00734820 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Get2DEffectAtomic(RpClump* clump) | [source/game_sa/RwHelper.cpp:130](../../source/game_sa/RwHelper.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::Get2DEffectAtomic 0x00734880 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetFirstObjectCallback(RwObject* object, void* data) | [source/game_sa/RwHelper.cpp:137](../../source/game_sa/RwHelper.cpp#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::GetFirstObjectCallback 0x007348B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetFirstObject(RwFrame* frame) | [source/game_sa/RwHelper.cpp:143](../../source/game_sa/RwHelper.cpp#L143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::GetFirstObject 0x007348C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetFirstFrameCallback(RwFrame* frame, void* data) | [source/game_sa/RwHelper.cpp:150](../../source/game_sa/RwHelper.cpp#L150) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::GetFirstFrameCallback 0x007348F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetFirstChild(RwFrame* frame) | [source/game_sa/RwHelper.cpp:156](../../source/game_sa/RwHelper.cpp#L156) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::GetFirstChild 0x00734900 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetAnimHierarchyFromFrameCallback(RwFrame* frame, void* data) | [source/game_sa/RwHelper.cpp:166](../../source/game_sa/RwHelper.cpp#L166) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::GetAnimHierarchyFromFrameCallback 0x00734A70 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetAnimHierarchyFromFrame(RwFrame* frame) | [source/game_sa/RwHelper.cpp:178](../../source/game_sa/RwHelper.cpp#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::GetAnimHierarchyFromFrame 0x00734AB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetAnimHierarchyFromClump(RpClump* clump) | [source/game_sa/RwHelper.cpp:206](../../source/game_sa/RwHelper.cpp#L206) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::GetAnimHierarchyFromClump 0x00734B10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetAnimHierarchyFromSkinClump(RpClump* clump) | [source/game_sa/RwHelper.cpp:212](../../source/game_sa/RwHelper.cpp#L212) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::GetAnimHierarchyFromSkinClump 0x00734A40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * SkinAtomicGetHAnimHierarchCB(RpAtomic* atomic, void* data) | [source/game_sa/RwHelper.cpp:220](../../source/game_sa/RwHelper.cpp#L220) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::SkinAtomicGetHAnimHierarchCB 0x00734A20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * AtomicRemoveAnimFromSkinCB(RpAtomic* atomic, void* data) | [source/game_sa/RwHelper.cpp:226](../../source/game_sa/RwHelper.cpp#L226) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::AtomicRemoveAnimFromSkinCB 0x00734B90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAtomicConvertGeometryToTL(RpAtomic* atomic) | [source/game_sa/RwHelper.cpp:240](../../source/game_sa/RwHelper.cpp#L240) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::RpAtomicConvertGeometryToTL 0x00734BE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAtomicConvertGeometryToTS(RpAtomic* atomic) | [source/game_sa/RwHelper.cpp:255](../../source/game_sa/RwHelper.cpp#L255) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::RpAtomicConvertGeometryToTS 0x00734C20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * atomicConvertGeometryToTL(RpAtomic* atomic, void* data) | [source/game_sa/RwHelper.cpp:270](../../source/game_sa/RwHelper.cpp#L270) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::atomicConvertGeometryToTL 0x00734C60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpClumpConvertGeometryToTL(RpClump* clump) | [source/game_sa/RwHelper.cpp:278](../../source/game_sa/RwHelper.cpp#L278) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::RpClumpConvertGeometryToTL 0x00734CB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * atomicConvertGeometryToTS(RpAtomic* atomic, void* data) | [source/game_sa/RwHelper.cpp:285](../../source/game_sa/RwHelper.cpp#L285) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::atomicConvertGeometryToTS 0x00734CE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpClumpConvertGeometryToTS(RpClump* clump) | [source/game_sa/RwHelper.cpp:293](../../source/game_sa/RwHelper.cpp#L293) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::RpClumpConvertGeometryToTS 0x00734D30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * forceLinearFilteringMatTexturesCB(RpMaterial* material, void* data) | [source/game_sa/RwHelper.cpp:300](../../source/game_sa/RwHelper.cpp#L300) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::forceLinearFilteringMatTexturesCB 0x00734D60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetFilterModeOnAtomicsTextures(RpAtomic* atomic, RwTextureFilterMode filtering) | [source/game_sa/RwHelper.cpp:308](../../source/game_sa/RwHelper.cpp#L308) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::SetFilterModeOnAtomicsTextures 0x00734D80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * forceLinearFilteringAtomicsCB(RpAtomic* atomic, void* data) | [source/game_sa/RwHelper.cpp:314](../../source/game_sa/RwHelper.cpp#L314) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::forceLinearFilteringAtomicsCB 0x00734DA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetFilterModeOnClumpsTextures(RpClump* clump, RwTextureFilterMode filtering) | [source/game_sa/RwHelper.cpp:320](../../source/game_sa/RwHelper.cpp#L320) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::SetFilterModeOnClumpsTextures 0x00734DC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpGeometryReplaceOldMaterialWithNewMaterial(RpGeometry* geometry, RpMaterial* oldMaterial, RpMaterial* newMaterial) | [source/game_sa/RwHelper.cpp:329](../../source/game_sa/RwHelper.cpp#L329) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::RpGeometryReplaceOldMaterialWithNewMaterial 0x00734DE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RwTexDictionaryFindHashNamedTexture(RwTexDictionary* dictionary, uint32 hash) | [source/game_sa/RwHelper.cpp:348](../../source/game_sa/RwHelper.cpp#L348) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::RwTexDictionaryFindHashNamedTexture 0x00734E50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpClumpGetBoundingSphere(RpClump* clump, RwSphere* sphere, bool bUseLTM) | [source/game_sa/RwHelper.cpp:366](../../source/game_sa/RwHelper.cpp#L366) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::RpClumpGetBoundingSphere 0x00734FC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x00734970, 0x00734ED0 |
-| SkinGetBonePositionsToTable(RpClump* clump, RwV3d* table) | [source/game_sa/RwHelper.cpp:417](../../source/game_sa/RwHelper.cpp#L417) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwHelper::SkinGetBonePositionsToTable 0x00735360 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x00734810, 0x00734A20 |
-| * RemoveRefsCB(RpAtomic* atomic, void* data) | [source/game_sa/RwHelper.cpp:460](../../source/game_sa/RwHelper.cpp#L460) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RwHelper::RemoveRefsCB 0x007226D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1382"></a>
-
 ## RwObjectNameIdAssocation
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | AsFlagsUnion() | [source/game_sa/RwObjectNameIdAssocation.h:81](../../source/game_sa/RwObjectNameIdAssocation.h#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1383"></a>
+<a id="grupo-1382"></a>
 
 ## RwPlCore
 
@@ -81,7 +35,7 @@
 | RwEngineGetPluginOffset(RwUInt32 pluginID) | [source/game_sa/RenderWare/rw/rwplcore.cpp:410](../../source/game_sa/RenderWare/rw/rwplcore.cpp#L410) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwPlCore::RwEngineGetPluginOffset 0x007F2BE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * RwStreamWriteInt32(RwStream* stream, const RwInt32* ints, RwUInt32 numBytes) | [source/game_sa/RenderWare/rw/rwplcore.cpp:539](../../source/game_sa/RenderWare/rw/rwplcore.cpp#L539) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwPlCore::RwStreamWriteInt32 0x007ED460 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1384"></a>
+<a id="grupo-1383"></a>
 
 ## SArray
 
@@ -108,7 +62,7 @@
 | * Allocate(size_t n) | [source/game_sa/Core/SArray.h:119](../../source/game_sa/Core/SArray.h#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Deallocate(T* p) | [source/game_sa/Core/SArray.h:120](../../source/game_sa/Core/SArray.h#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1385"></a>
+<a id="grupo-1384"></a>
 
 ## Securom
 
@@ -118,7 +72,7 @@
 | SecuromDisplayInit() | [source/app/securom/Securom.cpp:37](../../source/app/securom/Securom.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Securom::SecuromDisplayInit 0x00744A70 | 0 / 0 | Posible dato fijo trapDisplay: source/app/securom/Securom.cpp:24 (0x00C8CDE8); Posible dato fijo triggerDisplay: source/app/securom/Securom.cpp:25 (0x00C8CE68) |
 | SecuromStateDisplay() | [source/app/securom/Securom.cpp:43](../../source/app/securom/Securom.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Securom::SecuromStateDisplay 0x00744AE0 | 0 / 0 | Posible dato fijo trapDisplay: source/app/securom/Securom.cpp:24 (0x00C8CDE8); Posible dato fijo triggerDisplay: source/app/securom/Securom.cpp:25 (0x00C8CE68) |
 
-<a id="grupo-1386"></a>
+<a id="grupo-1385"></a>
 
 ## SurfaceInfo
 
@@ -126,7 +80,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Read(const char* line) | [source/game_sa/SurfaceInfo_c.h:64](../../source/game_sa/SurfaceInfo_c.h#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1387"></a>
+<a id="grupo-1386"></a>
 
 ## SurfaceInfos_c
 
@@ -185,7 +139,7 @@
 | SurfaceInfos_c::GetAdhesiveLimit(CColPoint* colPoint) | [source/game_sa/SurfaceInfos_c.cpp:696](../../source/game_sa/SurfaceInfos_c.cpp#L696) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: SurfaceInfos_c::GetAdhesiveLimit 0x0055EB50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsAudioGravelConcreteOrTile(SurfaceId id) | [source/game_sa/SurfaceInfos_c.h:73](../../source/game_sa/SurfaceInfos_c.h#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1388"></a>
+<a id="grupo-1387"></a>
 
 ## TList_c
 
@@ -213,7 +167,7 @@
 | end() | [source/game_sa/Core/List_c.h:267](../../source/game_sa/Core/List_c.h#L267) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsEmpty() const | [source/game_sa/Core/List_c.h:269](../../source/game_sa/Core/List_c.h#L269) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1389"></a>
+<a id="grupo-1388"></a>
 
 ## TList_c::BaseIterator
 
@@ -229,7 +183,7 @@
 | operator==(const BaseIterator&lt;Y&gt;& lhs, const BaseIterator&lt;Y&gt;& rhs) | [source/game_sa/Core/List_c.h:38](../../source/game_sa/Core/List_c.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | operator!=(const BaseIterator&lt;Y&gt;& lhs, const BaseIterator&lt;Y&gt;& rhs) | [source/game_sa/Core/List_c.h:39](../../source/game_sa/Core/List_c.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1390"></a>
+<a id="grupo-1389"></a>
 
 ## UpgradePosnDesc
 
@@ -238,7 +192,7 @@
 | UpgradePosnDesc() | [source/game_sa/Models/VehicleModelInfo.h:124](../../source/game_sa/Models/VehicleModelInfo.h#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ~UpgradePosnDesc() | [source/game_sa/Models/VehicleModelInfo.h:125](../../source/game_sa/Models/VehicleModelInfo.h#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1391"></a>
+<a id="grupo-1390"></a>
 
 ## UpsideDownCar
 
@@ -247,7 +201,7 @@
 | UpsideDownCar() | [source/game_sa/UpsideDownCarCheck.h:15](../../source/game_sa/UpsideDownCarCheck.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Clear() | [source/game_sa/UpsideDownCarCheck.h:19](../../source/game_sa/UpsideDownCarCheck.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1392"></a>
+<a id="grupo-1391"></a>
 
 ## UserTracksLegacyVector
 
@@ -255,7 +209,7 @@
 | --- | --- | --- | --- | --- | --- |
 | UserTracksLegacyVector::PushBack(tUserTracksInfo* const& value) | [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:671](../../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp#L671) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: UserTracksLegacyVector::PushBack 0x004F4620 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Colaborador por dirección 0x004F3B30: fuera del catálogo consultado; ruta efectiva sin resolver; Colaborador por dirección 0x004F4320: fuera del catálogo consultado; ruta efectiva sin resolver |
 
-<a id="grupo-1393"></a>
+<a id="grupo-1392"></a>
 
 ## VideoMode
 
@@ -266,7 +220,7 @@
 | SetVideoMode(int32 mode) | [source/app/platform/win/VideoMode.cpp:108](../../source/app/platform/win/VideoMode.cpp#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: VideoMode::SetVideoMode 0x00745C70 | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo gVideoModes: source/app/platform/win/VideoMode.h:46 (0x00C920D0) |
 | IsVideoModeExclusive() | [source/app/platform/win/VideoMode.cpp:119](../../source/app/platform/win/VideoMode.cpp#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: VideoMode::IsVideoModeExclusive 0x00745CA0 | 0 / 0 | Posible dato fijo gCurrentVideoMode: source/app/platform/win/VideoMode.h:48 (0x008D6220) |
 
-<a id="grupo-1394"></a>
+<a id="grupo-1393"></a>
 
 ## VideoPlayer
 
@@ -281,7 +235,7 @@
 | Play(int32 nCmdShow, const char* path) | [source/app/platform/win/VideoPlayer/VideoPlayer.cpp:123](../../source/app/platform/win/VideoPlayer/VideoPlayer.cpp#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: VideoPlayer::Play 0x00747660 | 0 / 0 | Posible dato fijo pvGraphBuilder: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:28 (0x00C920D4); Posible dato fijo pvMediaControl: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:29 (0x00C920D8); Posible dato fijo pvMediaEvent: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:30 (0x00C920DC); Posible dato fijo pvMediaSeeking: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:32 (0x00C920E4); Posible dato fijo pvVideoWindow: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:31 (0x00C920E0) |
 | GetMediaControl() -&gt; IMediaControl* | [source/app/platform/win/VideoPlayer/VideoPlayer.cpp:202](../../source/app/platform/win/VideoPlayer/VideoPlayer.cpp#L202) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo pvMediaControl: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:29 (0x00C920D8) |
 
-<a id="grupo-1395"></a>
+<a id="grupo-1394"></a>
 
 ## WaterCreatureManager_c
 
@@ -298,7 +252,7 @@
 | WaterCreatureManager_c::Update(float deltaTime) | [source/game_sa/WaterCreatureManager_c.cpp:151](../../source/game_sa/WaterCreatureManager_c.cpp#L151) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: WaterCreatureManager_c::Update 0x006E4F10 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | & GetCreatureInfo(uint32/*eWaterCreatureType*/ type) | [source/game_sa/WaterCreatureManager_c.h:62](../../source/game_sa/WaterCreatureManager_c.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_waterCreatureInfos: source/game_sa/WaterCreatureManager_c.h:37 (0x008D3698) |
 
-<a id="grupo-1396"></a>
+<a id="grupo-1395"></a>
 
 ## WaterCreature_c
 
@@ -313,7 +267,7 @@
 | IsJellyfish() const | [source/game_sa/WaterCreature_c.h:49](../../source/game_sa/WaterCreature_c.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsSmallFish() const | [source/game_sa/WaterCreature_c.h:50](../../source/game_sa/WaterCreature_c.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1397"></a>
+<a id="grupo-1396"></a>
 
 ## Win
 
@@ -327,7 +281,7 @@
 | GTATranslateKey(RsKeyCodes* ck, LPARAM lParam, UINT vk) | [source/app/platform/win/WinPlatform.cpp:83](../../source/app/platform/win/WinPlatform.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Win::GTATranslateKey 0x00747820 | 0 / 0 | Posible dato fijo s_OSStatus: source/app/platform/win/WinPlatform.h:40 (0x00C8CF68) |
 | __MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) | [source/app/platform/win/WndProc.cpp:49](../../source/app/platform/win/WndProc.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: Win::__MainWndProc 0x00747EB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo AEAudioHardware: source/game_sa/Audio/Hardware/AEAudioHardware.cpp:30 (0x00B5F8B8); Posible dato fijo CameraResizeRejectedDword: source/app/platform/win/WndProc.cpp:44 (0x00C9246C); Posible dato fijo ForegroundAppDword: source/app/platform/win/WndProc.cpp:42 (0x008D621C); Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748); Posible dato fijo Pads: source/game_sa/Pad.h:111 (0x00B73458); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo RwInitializedDword: source/app/platform/win/WndProc.cpp:41 (0x00C920E8); Posible dato fijo WindowedDword: source/app/platform/win/WndProc.cpp:43 (0x00C920CC); Posible dato fijo gGameState: source/app/app.h:19 (0x00C8D4C0); Posible dato fijo gbGammaChanged: source/game_sa/Gamma.h:23 (0x00C920C8); Posible dato fijo ms_GammaTable: source/game_sa/Gamma.h:6 (0x00C8DAC8); Posible dato fijo ms_SavedGamma: source/game_sa/Gamma.h:5 (0x00C8D4C8); Posible dato fijo ms_running: source/game_sa/CutsceneMgr.h:77 (0x00B5F851) |
 
-<a id="grupo-1398"></a>
+<a id="grupo-1397"></a>
 
 ## WinInput
 
@@ -349,7 +303,7 @@
 | IsKeyPressed(unsigned int keyCode) | [source/app/platform/win/WinInput.cpp:342](../../source/app/platform/win/WinInput.cpp#L342) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsKeyDown(unsigned int keyCode) | [source/app/platform/win/WinInput.cpp:346](../../source/app/platform/win/WinInput.cpp#L346) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1399"></a>
+<a id="grupo-1398"></a>
 
 ## cBuoyancy
 
@@ -366,7 +320,7 @@
 | cBuoyancy::FindWaterLevel(const CVector& vecInitialZPos, CVector* outVecOffset, tWaterLevel* outInWaterState) | [source/game_sa/Buoyancy.cpp:546](../../source/game_sa/Buoyancy.cpp#L546) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cBuoyancy::FindWaterLevel 0x006C2810 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | cBuoyancy::FindWaterLevelNorm(const CVector& vecInitialZPos, CVector* outVecOffset, tWaterLevel* outInWaterState, CVector* outVecNormal) | [source/game_sa/Buoyancy.cpp:566](../../source/game_sa/Buoyancy.cpp#L566) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cBuoyancy::FindWaterLevelNorm 0x006C28C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1400"></a>
+<a id="grupo-1399"></a>
 
 ## cHandlingDataMgr
 
@@ -387,3 +341,15 @@
 | cHandlingDataMgr::ConvertBikeDataToWorldUnits(tBikeHandlingData* bikeHandling) | [source/game_sa/cHandlingDataMgr.cpp:461](../../source/game_sa/cHandlingDataMgr.cpp#L461) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cHandlingDataMgr::ConvertBikeDataToWorldUnits 0x006F5240 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | cHandlingDataMgr::ConvertBikeDataToGameUnits(tBikeHandlingData* bikeHandling) | [source/game_sa/cHandlingDataMgr.cpp:469](../../source/game_sa/cHandlingDataMgr.cpp#L469) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cHandlingDataMgr::ConvertBikeDataToGameUnits 0x006F5290 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | cHandlingDataMgr::FindExactWord(const char* name, const char* nameTable, uint32 entrySize, uint32 entryCount) | [source/game_sa/cHandlingDataMgr.cpp:477](../../source/game_sa/cHandlingDataMgr.cpp#L477) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cHandlingDataMgr::FindExactWord 0x006F4F30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1400"></a>
+
+## cTransmission
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| cTransmission::InjectHooks() | [source/game_sa/cTransmission.cpp:24](../../source/game_sa/cTransmission.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| cTransmission::DisplayGearRatios() | [source/game_sa/cTransmission.cpp:42](../../source/game_sa/cTransmission.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cTransmission::DisplayGearRatios 0x006D0590 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| cTransmission::InitGearRatios() | [source/game_sa/cTransmission.cpp:60](../../source/game_sa/cTransmission.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cTransmission::InitGearRatios 0x006D0460 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| cTransmission::CalculateGearForSimpleCar(float speed, uint8& currentGear) | [source/game_sa/cTransmission.cpp:93](../../source/game_sa/cTransmission.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cTransmission::CalculateGearForSimpleCar 0x006D0530 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| cTransmission::CalculateDriveAcceleration(const float& gasPedal, uint8& currentGear, float& gearChangeCount, float& velocity, float* a6, float* a7, uint8 allWheelsOnGround, uint8 handlingCheat) | [source/game_sa/cTransmission.cpp:112](../../source/game_sa/cTransmission.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cTransmission::CalculateDriveAcceleration 0x006D05E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

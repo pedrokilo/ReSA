@@ -18311,6 +18311,8 @@ __declspec(noinline) float* __cdecl MatrixMultiplyExeCpp(float* out, const float
     reinterpret_cast<volatile unsigned int*>(o)[16] = 0;
     reinterpret_cast<volatile unsigned int*>(o)[17] = 0;
     return out;
+}
+#pragma float_control(pop)
 // Lote 100A: CWaterLevel lerp de CRenPar (0x6E5280): omt = 1.0f - t queda en el registro x87 (24 bits, sin guardar como float) y cada componente es
 // (a * omt) + (b * t) sin guardar el producto; el resultado se guarda como float (fstp). a, b y out apuntan a z, bigWaves, smallWaves consecutivos.
 #pragma float_control(push)
