@@ -286,7 +286,7 @@ inline void Update() {
                   {Pair{0x5FBB70,allocBody,true},reinterpret_cast<void*>(&FakeAllocType)},
                   {Pair{0x4B57A0,computeBody,true},reinterpret_cast<void*>(&FakeCompute)},
                   {Pair{0x4AC490,willBody,true},reinterpret_cast<void*>(&FakeWill)},
-                  {Pair{0x4B5620,eventNewBody,false},reinterpret_cast<void*>(&FakeEventNew)},
+                  {Pair{0x4B5620,eventNewBody,true},reinterpret_cast<void*>(&FakeEventNew)},
                   {Pair{0x4B5630,eventDeleteBody,false},reinterpret_cast<void*>(&FakeEventDelete)},
                   {Pair{0x5F7470,addEventBody,true},reinterpret_cast<void*>(&FakeAddEvent)},
                   {Pair{0x56F210,playerDataBody,true},reinterpret_cast<void*>(&FakePlayerData)},

@@ -14,26 +14,26 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD 67b315a68 + PlayerPed.cpp, X87Math.cpp/.h, source.patch). CPlayerPed::SetInitialState 0x60CD20 (thiscall, ret 4; void; llamadores 0x4421CD y 0x60D60F no leen los registros de salida): estado inicial del jugador (banderas, estados de ped, tareas por defecto y secundaria, grupo con evento de reunir). CPlayerPed::FindWeaponLockOnTarget 0x60DC50 (thiscall, bool; su unico llamador 0x68693A ignora AL): conserva o suelta el objetivo fijado y busca nuevo (bote de spray, peatones, objetos y vehiculos en cooperativo) con aritmetica x87 a 24 bits (ayudantes Pp79* de X87Math). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL); sin hook: ClearDrunkBlur, SetRealMoveAnim, CEvent::operator new/delete, rand(), CVector::Normalise/Magnitude. Los constructores de tareas y eventos corren de verdad. Dominio: ver README del banco (pools falsos de 5 peatones, 3 vehiculos y 3 objetos; un unico patron de NaN; sin denormales). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PlayerPed79-20261104-145647-641371",
-  "summary_sha256": "97ac9fdd8e51fe2aaf5dc491f4e731f69d63d4afce523a62546e2c1e65cd6262",
-  "result_txt_sha256": "862742ffaa58d4d9e1ee751d30ba75424d587d7cf29f0c3f15d84a20f8c60cd0",
-  "log_sha256": "25d6075206f9c40aae977dcb657790c835e68bcd69d20347f6bd267c3c16dadc",
+  "run": "reversing/CppTwelveLevel6Final/runs/PlayerPed79-20261105-113358-379517",
+  "summary_sha256": "67ea5bbec7e6901e928e324f30e005139eeeb7f0fa7b02c2390bc71eaa87751b",
+  "result_txt_sha256": "ae33111f3b176234ec2810dcdf269e5358c31c332428ba46c1629dffce3222fd",
+  "log_sha256": "54898ee28c63ba6bb778a94e67b0a59354de23d36f2da4c24484669bcfe82f32",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "12d9b0c86d369523d10e7882f2fe2962e5522c0b1ef3670914d8c2f9971081e2",
+  "executed_probe_sha256": "06fc96de6803dddc43a76c7fe309d1af7f1d248fbd6273725f0461c391866015",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
       "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
       "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
-      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
-      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
+      "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/PlayerPed79/LiveComparison.hpp": "ec4f0afcba0ed359ca8eb21e7d788628d267f8cbc309de7e248ed3944cd970bf",
+      "reversing/PlayerPed79/LiveComparison.hpp": "8efdd265c2a8016fd88e51a3af5f7cb454601c87d71571c856fe52cfc593ff17",
       "reversing/PlayerPed79/Core.hpp": "549a4820ba402d6db51cfe84b71ce33ea3ea27a27cf03aefdd8fe04c143c1a2e",
       "reversing/PlayerPed79/Fixtures.hpp": "a9343506eb92ce9f2143159e2cb2292c462971d958aa6894759a367ba887a8b9",
       "reversing/PlayerPed79/Fixtures1.hpp": "bd6d038c9f252a59d5d38e6bd6cc247220b09892eae449bf20091f41898d9be4",
@@ -43,10 +43,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PlayerPed79-20261104-145647-641371/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PlayerPed79-20261105-113358-379517/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "94ad5481375fbb9a055130cbed5b24e7dc68c02303f0b9412c0bd174ee7f2224",
-    "uncompressed_sha256": "25d6075206f9c40aae977dcb657790c835e68bcd69d20347f6bd267c3c16dadc"
+    "compressed_sha256": "e87080c99f97c51dcff0ef5c9f1332a0672f36a88b40a32de2902b8625801110",
+    "uncompressed_sha256": "54898ee28c63ba6bb778a94e67b0a59354de23d36f2da4c24484669bcfe82f32"
   }
 }

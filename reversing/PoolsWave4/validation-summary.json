@@ -22,7 +22,7 @@
     "CPools::LoadPedPool": true,
     "CPools::LoadVehiclePool": true
   },
-  "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2320 isolated CPU pairs for the 7 pending functions of CPools, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers/pools, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: operator new, operator delete and printf are doubled ONLY during the call, with a static arena (no credit); failure of new[] is NOT covered; Initialise and ShutDown touch the 17 real pool globals for microseconds with restoration after each run. Pools/PatrolRoutePool.h still declares CPool<void*> (not edited; the EXE uses 0x1A4 bytes per element, so the DLL pool object type is not tested beyond the element stride in Initialise). Only the own part of each function is validated. Source tested == current working tree at registration (Pools.cpp and Pools.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 2320 isolated CPU pairs for the 7 pending functions of CPools, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored and layout_ok, layout event ok, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs and compares the hash of the fake buffers/pools, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Limits: operator new, operator delete and printf are doubled ONLY during the call, with a static arena (no credit); failure of new[] is NOT covered; Initialise and ShutDown touch the 17 real pool globals for microseconds with restoration after each run. Pools/PatrolRoutePool.h still declares CPool<void*> (not edited; the EXE uses 0x1A4 bytes per element, so the DLL pool object type is not tested beyond the element stride in Initialise). Only the own part of each function is validated. Source tested == current working tree at registration (Pools.cpp and Pools.h match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "function_scope": {
     "CPools::Initialise": "Corpus 144; source corrected (EXE): CPool created without the 0xFD fill; patrol-route pool with 0x1A4 bytes per element (0x550B08 imul eax,eax,1A4h; the DLL used CPool<void*>); byte +0x11; null operator new branch (0x550F3E).",
     "CPools::ShutDown": "Corpus 256; source corrected (EXE): no 0xFD fill and no -1 write; signed size > 0 test; messages with printf 0x821982.",
@@ -33,75 +33,27 @@
     "CPools::LoadVehiclePool": "Corpus 768; MATCH, no source change (EXE 0x5D2A20)."
   },
   "dependency_review": null,
-  "run": "reversing/PoolsWave4/runs/20261009-123502-353564",
-  "summary_sha256": "22943739e49c3ab11c3660f9bb266c447cc8a8fd00f49409e62ade21239f7ab5",
-  "result_txt_sha256": "e4cf9b3b7aa177435315c2b5133a5157481f260bfcce4993306b8ae92750ac4a",
-  "log_sha256": "18cc6b4293ac2ef78b9718e8269a51aead5f84373670f4902e23be1936b2a3c4",
+  "run": "reversing/CppTwelveLevel6Final/runs/PoolsWave4-20261105-112533-379197",
+  "summary_sha256": "7aa58df2c8f898c67a570916f8d51dec748b4ececbd294ecf4f0d1a4d8ea129d",
+  "result_txt_sha256": "cf875ff15b49dae24ebd8c46b58986ee3c03ad098fc23e3c497a2a8a71ad0dd8",
+  "log_sha256": "2d254e08e74cf8dbb7cdc5a99ddfd47440e001df3189e7d15a84abf33bf1bb04",
   "comparison_storage": {
-    "uncompressed_sha256": "18cc6b4293ac2ef78b9718e8269a51aead5f84373670f4902e23be1936b2a3c4",
-    "uncompressed_bytes": 607906,
-    "compressed_path": "reversing/PoolsWave4/runs/20261009-123502-353564/comparisons.jsonl.gz",
-    "compressed_sha256": "b632803d7bfb429fc641ee17c459de2d4e4e98e5dce1a20985900a5317b81e40",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PoolsWave4-20261105-112533-379197/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "lossless_roundtrip_sha256": "18cc6b4293ac2ef78b9718e8269a51aead5f84373670f4902e23be1936b2a3c4",
-    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-poolswave4\\20261009-123502-353564\\comparisons.jsonl"
+    "compressed_sha256": "8a0d3bf77b807a307df172baafff95283034d9fddd169459ea1a88b4f00e9791",
+    "uncompressed_sha256": "2d254e08e74cf8dbb7cdc5a99ddfd47440e001df3189e7d15a84abf33bf1bb04"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "3cf965a0806270dc99faee599ccaa29a59c19736594308d7b060937eeb3f89b9",
+  "executed_probe_sha256": "c8dead7b1f4d72641ce7caf5030c79d8edbc17df0889bff959dfa27f6583e392",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
-    "head_informational": "9dee409c407a6a001d0cbdf88625d2ac97da1fea",
-    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-    "expected_pairs": 2320,
-    "registered_pairs": 2320,
-    "asi": "3cf965a0806270dc99faee599ccaa29a59c19736594308d7b060937eeb3f89b9",
-    "pdb": "fc8b7df26f6577e3efc8b788f5dbeee9e95ddab0b0299eaa76fef69dd4a51bc3",
-    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-poolswave4-probe.pdb (not copied; hash verified)",
     "tested_sources": {
-      "source/game_sa/Pools.cpp": "db72465f520e6a16769a1182aa2d70ffa9bccf3df100fb1b5182f94a37cdbef8",
-      "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
-    },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-    "bank_sources": {
-      "LiveComparison.hpp": "9bac7dd8b4788315a735a3dc10823a542e129d3173f19b8bb028598ccc84437b",
-      "build_probe.py": "3a0c809233f098914b926c8257b358ba8a672dfc22408c1e3c8a980fc7b61283",
-      "run_local.py": "d59a6e41eca550fd1dc5d561a551f124e67ee93629df6a354932cd7f38d82b1f"
-    },
-    "uncommitted_source_changes": {
-      "source/game_sa/Pools.cpp": "Initialise: CPool without 0xFD fill, patrol-route pool with 0x1A4 bytes per element (0x550B08), byte +0x11, null operator new branch (0x550F3E); ShutDown: no 0xFD fill or -1, signed size > 0, printf messages 0x821982; Save/Load/LoadObjectPool/LoadPedPool/LoadVehiclePool without changes"
-    }
-  },
-  "reaudit": {
-    "comparison_events": 2320,
-    "complete_events": 1,
-    "terminal_error_events": 0,
-    "terminal_event": {
-      "event": "complete",
-      "layout_ok": true,
-      "pairs": 2320,
-      "state_restored": true
-    },
-    "layout_events": 1,
-    "layout_ok": true,
-    "waiting_for_player_events": 1,
-    "case_start_events": 2320,
-    "function_summaries": 7,
-    "functions_with_zero_failures": 7,
-    "unequal_pairs": 0,
-    "unequal_by_function": {},
-    "distinct_cases": 2320,
-    "per_function": {
-      "CPools::Initialise": 144,
-      "CPools::ShutDown": 256,
-      "CPools::Save": 64,
-      "CPools::Load": 64,
-      "CPools::LoadObjectPool": 512,
-      "CPools::LoadPedPool": 512,
-      "CPools::LoadVehiclePool": 768
+      "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+      "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93"
     }
   },
   "source_corrections": {

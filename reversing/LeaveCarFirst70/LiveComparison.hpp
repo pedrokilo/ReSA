@@ -62,7 +62,7 @@ inline void Update() {
     env.stub[2]={0x821982,0};   // printf del CRT del EXE (la DLL lo reemplaza con un salto en esa direccion): la DLL lo llama por esa direccion, no hay cuerpo aparte
     env.stub[3]={0x5F7E80,Body(std::bit_cast<uintptr_t>(&CPedGroups::GetPedsGroup))};
     env.stub[4]={0x5F69C0,Body(std::bit_cast<uintptr_t>(&CPedGroupMembership::IsLeader))};
-    env.stub[5]={0x4B5620,Body(std::bit_cast<uintptr_t>(static_cast<void*(*)(unsigned)>(&CEvent::operator new))),false};
+    env.stub[5]={0x4B5620,Body(std::bit_cast<uintptr_t>(static_cast<void*(*)(unsigned)>(&CEvent::operator new))),true};
     env.stub[6]={0x571B70,Body(std::bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference)))};
     env.stub[7]={0x5F7470,Body(std::bit_cast<uintptr_t>(static_cast<bool(CPedGroupIntelligence::*)(CEvent*)>(&CPedGroupIntelligence::AddEvent)))};
     env.stub[8]={0x571A00,Body(std::bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference)))};

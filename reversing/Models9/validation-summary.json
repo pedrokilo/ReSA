@@ -61,7 +61,7 @@
   "log_sha256": "fe52e7a879fc5ca4a87c5167cb0666c8df2fbd5e29abf5cb302ca0e33f7fff39",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-models9\\20261003-042152-701992",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-models9\\20261105-114700-338212",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAtomicModelInfo::AsAtomicModelInfoPtr": true,
@@ -112,20 +112,20 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "d30ba1018ef0b9e34cd16e8a0e1a15e5e7e7e415b982cc3e5cf0f4a4ef636960",
-      "pdb": "217163854358671fa6806a1b2742017bc8949a3e9cde4517b0c55dced95e25d9"
+      "asi": "593d02bdb1b4cbf4a4aa67324f9259c6ecca04ac8259a23b45f89bc27f1371d6",
+      "pdb": "b38adf7747e16387afd6ba8e60b0d8f8af68f62b6a21c1b952509193cb17de66"
     },
     "sources": {
-      "source/game_sa/Models/AtomicModelInfo.cpp": "8b25668ad5094c50dafb27b10e5a5a2c819ee995b629a8d9818630db8c4dcf31",
-      "source/game_sa/Models/PedModelInfo.cpp": "7c16290dd3e72b457144e16018acc31c4824dc21a6d913c76bcfb5dd055bfbb4",
-      "source/game_sa/Collision/ColModel.cpp": "7bf55e89216150050dc2df0aa48dbd3071e2fe85e21fac8ef23e9e748d83cfd3",
-      "source/game_sa/Collision/ColModel.h": "279eb38356de8e4d7e2525027243ce667cdd44c2e2bfd41e76d315df059ef205",
+      "source/game_sa/Models/AtomicModelInfo.cpp": "2174939350973d9bce7315c02043d2952bb74c1c88f9ada3c323cd6534444c01",
+      "source/game_sa/Models/PedModelInfo.cpp": "6b1290b38f3d0e7f8dd78400db046afa58292f042f55873aac1ac1eff9a4a4f6",
+      "source/game_sa/Collision/ColModel.cpp": "4da86f44edc44d449023b06945ae38a7c8838febffd946627dc665af537b0d25",
+      "source/game_sa/Collision/ColModel.h": "99580eb305e1804ec7478aa135ae6076e8f28a572e159cb056030be498710b52",
       "source/game_sa/Pools/ColModelPool.h": "c41dfb9bf6e873feeb88804cd9f8a4d1a891f08101e549c7a3a8a862f14de284",
-      "source/game_sa/CustomRoadsignMgr.cpp": "ad908c66e61aa38cb8b37fe6716caf9d84803ee1581514a080be1a6945256f00",
-      "source/game_sa/Text/Text.cpp": "190bf547893e14dadd5c472772b6eb18a9093a5c648eea60a60399a54c5db58f",
+      "source/game_sa/CustomRoadsignMgr.cpp": "6159ff224d801aaaa61321e2162ee98311b4574b8017d73e842dec70b57f6c08",
+      "source/game_sa/Text/Text.cpp": "d474d34d62c9736dfc123b55dbe074047270605fe4b187eb07238dbf2e078e23",
       "source/game_sa/Text/MissionTextOffsets.cpp": "16bc96bde23fc0b19560a70e11691f9897787ba9ff440e230f31deb20cd7a149"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "9b1f3c25ff7d37a50b7574731949683dffb67c47d9e1eaea4270cb155c77a4d8",
       "build_probe.py": "2b472519fd41a69748d75bcd720fef3c9a2b1a02e3583c14dfe4ac05522cb5f6",
@@ -134,6 +134,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

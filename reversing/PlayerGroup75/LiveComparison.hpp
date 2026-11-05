@@ -300,7 +300,7 @@ inline void Update() {
                   {Pair{0x5F8020,followerBody,true},reinterpret_cast<void*>(&FakeAddFollower)},
                   {Pair{0x5FC7E0,processBody,true},reinterpret_cast<void*>(&FakeProcess)},
                   {Pair{0x5E8BE0,giveBody,true},reinterpret_cast<void*>(&FakeGiveWeapon)},
-                  {Pair{0x4B5620,eventNewBody,false},reinterpret_cast<void*>(&FakeEventNew)},
+                  {Pair{0x4B5620,eventNewBody,true},reinterpret_cast<void*>(&FakeEventNew)},
                   {Pair{0x4B5630,eventDeleteBody,false},reinterpret_cast<void*>(&FakeEventDelete)},
                   {Pair{0x571B70,registerBody,true},reinterpret_cast<void*>(&FakeRegister)},
                   {Pair{0x571A00,cleanBody,true},reinterpret_cast<void*>(&FakeCleanUp)},

@@ -10,30 +10,37 @@
   "covered_functions": {
     "CPopulation::CreateSunbatheObject": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: rand() del CRT del EXE 0x821B1E (sin hook: la DLL lo llama por su direccion), CObject::operator new 0x5A1EE0 (sin hook, cuerpo de la DLL parcheado), constructor CObject(int32, bool) 0x5A1D70 (hook Constructor apagado; la DLL llama al constructor real, localizado tras la llamada a operator new), CMatrix::UpdateRwMatrix 0x59AD70, CSimpleTransform::UpdateRwMatrix 0x54EF40 (sin hook, cuerpo parcheado) y CWorld::Add 0x563220; SetIsStatic es la ranura 4 de una tabla de funciones virtuales propia. Registran sus argumentos en orden y el estado del objeto en ese momento. La seleccion del tipo efectivo, el modelo y el indicador de estatico, la posicion (matriz o compacta), las velocidades, el tipo temporal, el contador de temporales y la hora de borrado corren de verdad en ambos lados, y CEntity::UpdateRwMatrix real del lado de la DLL; el contador 0xBB4A70, la hora 0xB7CB84 y los words de modelo 0x8CD638..0x8CD698 son memoria real del juego (se rellenan y se restauran). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto, el contador final y los bytes cambiados de todas las arenas; cada lado de cada par coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN senalizantes en la posicion (la x87 del EXE los silencia con fld/fstp), bytes altos del indicador que el EXE pasa a SetIsStatic, objetos con matriz y sin objeto RW o con un marco padre nulo, un constructor que devuelva otro puntero y reservas que cambien entre llamadas.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: rand() del CRT del EXE 0x821B1E (sin hook: la DLL lo llama por su direccion), CObject::operator new 0x5A1EE0 (sin hook, cuerpo de la DLL parcheado), constructor CObject(int32, bool) 0x5A1D70 (hook Constructor apagado; la DLL llama al constructor real, localizado tras la llamada a operator new), CMatrix::UpdateRwMatrix 0x59AD70, CSimpleTransform::UpdateRwMatrix 0x54EF40 (sin hook, cuerpo parcheado) y CWorld::Add 0x563220; SetIsStatic es la ranura 4 de una tabla de funciones virtuales propia. Registran sus argumentos en orden y el estado del objeto en ese momento. La seleccion del tipo efectivo, el modelo y el indicador de estatico, la posicion (matriz o compacta), las velocidades, el tipo temporal, el contador de temporales y la hora de borrado corren de verdad en ambos lados, y CEntity::UpdateRwMatrix real del lado de la DLL; el contador 0xBB4A70, la hora 0xB7CB84 y los words de modelo 0x8CD638..0x8CD698 son memoria real del juego (se rellenan y se restauran). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto, el contador final y los bytes cambiados de todas las arenas; cada lado de cada par coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN senalizantes en la posicion (la x87 del EXE los silencia con fld/fstp), bytes altos del indicador que el EXE pasa a SetIsStatic, objetos con matriz y sin objeto RW o con un marco padre nulo, un constructor que devuelva otro puntero y reservas que cambien entre llamadas. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn86B-20261103-012159-845858",
-  "summary_sha256": "1149d6858d39e263d1751de02d688cfc8df02a6557d673661ac74d4b59e35cba",
-  "result_txt_sha256": "3ed039df9d1c8808a13c6f617854759338e5c96be10b09729a34beb56335441c",
-  "log_sha256": "8613b69d4c5f5b6babfe7b5c1ad591b9c46f506c2b4bc16fdd672ff198dbef3f",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn86B-20261105-122619-440010",
+  "summary_sha256": "cc3ee530349d8b32dd4c152bfb98bbbe608c9b5df8ec2d7084deb33e1c0fc666",
+  "result_txt_sha256": "ed77f447509a8fce0dffe566f03bff0231be0cb7f8d8e0303ec165437f555fe3",
+  "log_sha256": "9271d0b7893ec8d8df5cff9cedcbba3d73b648c9b1776b0117aaf729e4d504cb",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "f1114e4a44b4f31b1737b2d0fff6e3ab8567473b32aff32dbd4e6ab3da99a894",
+  "executed_probe_sha256": "4a7310263167632395054dc5c2da23d8eef92484a9976cc78e3755ffaa1186bb",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/Population.cpp": "77e89b7ba794947c22bf62e548336aa24f90f3b9fd84a0a2e0597fc254178492",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
+      "source/game_sa/Population.cpp": "767e9f9e3cc66357c5a6f6c665db0bd7a9a36695838f76536b55eafe22d68109",
       "source/game_sa/Population.h": "03d63c9f80cbddf755b71a5ef1b2f3b8e97dcb746fb0fa46cfe0b6d595ab51d5",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/Fn86B/LiveComparison.hpp": "b5442eef8e19aa72dc98e309c00c8eddf6b1aa41c7ef746b396df75fe6fbab70",
+      "reversing/Fn86B/LiveComparison.hpp": "df3f471723451cfdf3af45fb065fa7c918d95a22c1f81170c975e0b13acd09b0",
       "reversing/Fn86B/Core.hpp": "8720b1f86300c85bf3513b6f08861e515a48a6ecd605c7a087da2199c6021829",
       "reversing/Fn86B/Fixtures.hpp": "b3a04217e71318fe114e6823ad2d5b562314f63da2ff3938c9deed8f38197728",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn86B-20261105-122619-440010/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "3a66cef46c92c8d60afc4864daae5d37a2b4d011aa75d2c14a4a4e482e1138c2",
+    "uncompressed_sha256": "9271d0b7893ec8d8df5cff9cedcbba3d73b648c9b1776b0117aaf729e4d504cb"
   }
 }

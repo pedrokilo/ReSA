@@ -20,23 +20,23 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/we-4 (HEAD 0ac292a76 + fuentes del lote 62). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL; no se validan sus cuerpos reales): AddToQuadsAndTrianglesList (0x6E5750, sin reconstruir) en FillQuadsAndTrianglesList; CWaterLevel::GetWaterLevelNoWaves (0x6E8580) y GetGroundLevel (0x6EA8A0, sin reconstruir) en GetWaterDepth; CCamera::IsSphereVisible (0x420C40), SetUpWaterFog (0x6EA9F0), RenderHighDetailWaterRectangle_OneLayer (0x6E91D0, sin reconstruir), SplitWaterRectangleAlongXLine (0x6E73A0) y RenderWaterRectangle (0x6EC5D0) en RenderHighDetailWaterRectangle; IsSphereVisible, RenderHighDetailWaterTriangle_OneLayer (0x6E8780, sin reconstruir) y SplitWaterTriangleAlongXLine (0x6ECF00) en RenderHighDetailWaterTriangle. Las funciones de render NO se prueban contra una GPU: se comparan las llamadas a los colaboradores (que son los que escriben vertices y llaman a RenderWare) con sus argumentos exactos, en orden. El lerp (0x6E5280) NO se sustituye: la DLL usa el de WaterLevel.h y el EXE el suyo, y sus resultados se comparan en los argumentos de RenderWaterRectangle; los CRenPar de lerp se generan sin denormales (el SSE del juego vacia los denormales, el x87 no). TestLineAgainstWater y FillQuadsAndTrianglesList se prueban con un atlas de agua sintetico escrito en las tablas reales del juego (guardadas y restauradas en cada caso). Los indices de vertice 0xFFFF leen una ventana de 20 bytes anterior a m_aVertices (guardada y restaurada). GetWaterDepth: cuando GetGroundLevel devuelve true sin escribir, el EXE leeria basura de pila (no se prueba). EAX/ECX/EDX solo registrados; el AL de salida si se compara. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/WaterLevel62-20261104-082400-319070",
-  "summary_sha256": "35e18288ad0687bfc118ce0465a8ce9e8b09b377531df5452e199982126f9cea",
-  "result_txt_sha256": "36ca64661db8bf6d54648d72db9ea38acb14bfecddfc3806a8e06cf6216d406e",
-  "log_sha256": "820981b5755865baf4120e53816d6e64d1d70c71473cea9585fc5de4a3f5c6f2",
+  "run": "reversing/CppTwelveLevel6Final/runs/WaterLevel62-20261105-111954-059570",
+  "summary_sha256": "30b788e426595a0211aa5b133acd187581bf1c9c7ad6342a8b979362e69812c2",
+  "result_txt_sha256": "bbaf1e95fd1b30b0e90eb10c3127b8b87634a2f77d305c437e6b7b7c1814239b",
+  "log_sha256": "6bb11c4868f6866dc33557c8c3f4a8fbe27b5a09e8c6f8a1f6e2420ff93c766e",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "994e931f780451f8643864210145a15720bc6bd930f835e312095bc2b0a4e8d9",
+  "executed_probe_sha256": "075338ba855d5d31b59e3babd428cca93ec5160802d0511cc2421323d7f2676a",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
-      "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
-      "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
-      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+      "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
+      "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
+      "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/WaterLevel62/LiveComparison.hpp": "030ba418ff33ac8aa9674eee20e11db3c4349608e8b0970438c99fb81ac12652",
       "reversing/WaterLevel62/Core.hpp": "a469b2562e9a3b0168b29afdad2f82a2b27654baa2ea3893c18099a6731224f1",
@@ -47,10 +47,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/WaterLevel62-20261104-082400-319070/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/WaterLevel62-20261105-111954-059570/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "33716ba8f21d135d0bee66ba1396a55f5801029d94ca9993868646fcf6ddf88b",
-    "uncompressed_sha256": "820981b5755865baf4120e53816d6e64d1d70c71473cea9585fc5de4a3f5c6f2"
+    "compressed_sha256": "43f7f4cce61a900a99bd2e8f54e980df219349f039a9a115ff9d23d6686fc10d",
+    "uncompressed_sha256": "6bb11c4868f6866dc33557c8c3f4a8fbe27b5a09e8c6f8a1f6e2420ff93c766e"
   }
 }

@@ -297,7 +297,7 @@ inline void Update() {
         {Pair{0x5EFFE0,Addr(&CPed::Say)},reinterpret_cast<void*>(&FakeSay)},
         {Pair{0x5F7E80,Addr(&CPedGroups::GetPedsGroup)},reinterpret_cast<void*>(&FakeGetGroup)},
         {Pair{0x5F7F40,Addr(&CPedGroups::AreInSameGroup)},reinterpret_cast<void*>(&FakeSame)},
-        {Pair{0x4B5620,Addr(static_cast<void*(*)(unsigned)>(&CEvent::operator new)),false},reinterpret_cast<void*>(&FakeNew)},
+        {Pair{0x4B5620,Addr(static_cast<void*(*)(unsigned)>(&CEvent::operator new)),true},reinterpret_cast<void*>(&FakeNew)},
         {Pair{0x5F7470,Addr(static_cast<bool(CPedGroupIntelligence::*)(CEvent*)>(&CPedGroupIntelligence::AddEvent))},reinterpret_cast<void*>(&FakeAddEvent)},
         {Pair{0x4AB420,Addr(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add))},reinterpret_cast<void*>(&FakeGroupAdd)}};
     for(unsigned f=0;f<kFunctions;++f) {

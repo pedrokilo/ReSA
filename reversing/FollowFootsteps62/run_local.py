@@ -74,7 +74,7 @@ def analyze(path):
     col = b['collaborators']
     stubbed = col['stubbed']
     if ({w['address'] for w in b['watched_entries']} != WATCHED or col['dll_real'] != list(REAL_CTORS) or [s['exe'] for s in stubbed] != list(STUBBED) or not all(s['dll'] for s in stubbed)
-            or [s['hooked'] for s in stubbed] != [True, True, True, False, True, True]):
+            or [s['hooked'] for s in stubbed] != [True, True, True, True, True, True]):
         raise RuntimeError('Colaboradores o entradas vigiladas inesperados')
     seen = {n: set() for n in NAMES}
     cov = {n: {} for n in NAMES}

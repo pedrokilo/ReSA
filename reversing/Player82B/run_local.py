@@ -22,7 +22,7 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x60B650}
 # (direccion del EXE, hooked) EN EL ORDEN de LiveComparison.hpp
-STUBBED = {NAMES[0]: [(0x5E6580, True), (0x743C60, True), (0x514970, True), (0x56BA00, True), (0x5631C0, True), (0x5E0170, True), (0x571A00, True), (0x571B70, True), (0x600C60, True), (0x5EFFE0, True), (0x5F7E80, True), (0x5F7F40, True), (0x4B5620, False), (0x5F7470, True), (0x4AB420, True)]}
+STUBBED = {NAMES[0]: [(0x5E6580, True), (0x743C60, True), (0x514970, True), (0x56BA00, True), (0x5631C0, True), (0x5E0170, True), (0x571A00, True), (0x571B70, True), (0x600C60, True), (0x5EFFE0, True), (0x5F7E80, True), (0x5F7F40, True), (0x4B5620, True), (0x5F7470, True), (0x4AB420, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x60B650, 0x858B50}
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}
 COVER_FLOOR = 1   # todo contador medido debe alcanzarse al menos una vez; coverage.json sube los minimos

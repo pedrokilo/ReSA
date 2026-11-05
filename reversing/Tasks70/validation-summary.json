@@ -44,7 +44,7 @@
   "log_sha256": "5b02908c13fe9bbc251b1e78cce238633c4d0b9f6ce29eb652625e2807d0c077",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks70\\20261002-134118-747405",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks70\\20261105-113129-341445",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPedGroupDefaultTaskAllocatorChat::AllocateDefaultTasks": true,
@@ -78,17 +78,17 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "85655479f201dff5a7a6a759f4a57bfbef7c4ddb319fa634937d32328d00def0",
-      "pdb": "143bfc5d8904f007ff204266e92a6e745702aac20756356a5e306cdca8462587"
+      "asi": "9ac6682861517c3fe57747d1232bc6dc006277a1190fafdfe547941ce77d233b",
+      "pdb": "2cd52ab1c220f61ff7d384b9d15ffe5eec387ff819e14921640cc163bdead2e4"
     },
     "sources": {
       "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h": "86e999c2717d528c0c8fc620612ebcea972eb6c871665dfa20b188bb7b0d17a8",
-      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h": "889233c7c2c7106c66f67c46d70e1feedaa26c03e81d1ca9f22e352da3864e05",
-      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h": "743c53fb91c66991708dd2aabc682f48405de9b3cfbb6af0ece5796bb7708289",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h": "0290b1e9e77589faee2965c9765af40f523f5d8f63e15c3528922600da694789",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h": "9be9a41fd84551c565db23aebd753057ff92d226b7bb444462ec08e317421596",
       "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h": "e7a927c60ef81d61c0ee57c861e98f66ced0429ea78684c2e22346b0567a9c53",
       "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h": "0c7f59850e2aa28331fb0bc210602b79a874e84198a0685ab1fbc9a9694c8fbd",
-      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.h": "73444e863297d3a5a9a40373878db16113ed13d730022e890c829dca1f6703b4",
-      "source/game_sa/PedGroups.cpp": "52ed391b438c0f7a6357184d30d953ec14905bdec64c2a37e00573fd1690e179",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.h": "96b4ccde4b5660c6ec3c29eb82c84ab122779d4ca165de074b0bbff0f983cecc",
+      "source/game_sa/PedGroups.cpp": "1a0b022c25c9ff5b97a7dab6f2655851aba4b9477f2234dce9f5eed15d8560ca",
       "source/game_sa/PedGroups.h": "7d8028e72a95d1bada25d646618971afcac2ec09b6f1aa4096905a1fe8c27550",
       "source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp": "b107db29228594700631885bef9226d01ac03c12ed3e98e6bbd2997fdf329ad5",
       "source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h": "ffdbf0fd34f31d590e7fdfb65c00d4b7514101e51c51ca0aa7af90f8804c1fad",
@@ -100,22 +100,23 @@
       "source/game_sa/Tasks/TaskTypes/TaskSimpleLeaveGroup.h": "d3412e6298ad5fc4470b72986889263c96dce3e680a07a93974ef0a1a2f70d25",
       "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "d00deffb49f753d91dc114fd200de589b7620b41fff059e2407dc69aeecc316a",
       "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.h": "868f4bea9d5a5b44f1030ecb216a80a1c3ce65ec9874392a0f872a31c7043440",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleScratchHead.cpp": "7a76a030df6330d9297dff98e04d129448c83726abb2bb11dff669e7d62d9092",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleScratchHead.h": "83ac62ee35b51f036d0a55b0fe2e57d31d7936404ff2f468265b3dcd398a8202",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleScratchHead.cpp": "6dda08b2199253ed7aa3cab1575c5d9f92bab4aca5141707f0258539dae57dfb",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleScratchHead.h": "7afc3f7a35ea8722f703e271ccc3e61c6eb2fec3c161fd81a11e7ff2b09d20c2",
       "source/game_sa/Tasks/TaskSequences.cpp": "52256c67cec0c5f5953b7abd98e71e68acfee1384825ff8a65a63e60f1facf2d",
       "source/game_sa/Tasks/TaskSequences.h": "d5bd3ed94c21607e341346f00d229f7d7f4f5cbb6e0765294fa679cb8e593466",
       "source/game_sa/Models/TimeModelInfo.cpp": "a4e8208dfb8a03c0f746a62d93795e5fd55e3906affc5e5a902bc616a52777cf",
       "source/game_sa/Models/TimeModelInfo.h": "9d9c708b9acffa4fc88b7e46a866268fef7147028f842cdc82bf8a255673b6c8"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "ddb25cce8ee4bd3b8bbf41ac86fd2b7ffa335576870616af1aa413b8406b667c",
+      "LiveComparison.hpp": "301304adba961050f168ceb059a425767561e17e7db2dc5f9ff1edcd46f6bc29",
       "build_probe.py": "851562e58e4e380c421927580d6453dc3fde39bb5d32c59c6079a10f43df46d7",
       "run_local.py": "b06f779c24155fb25b8597fd7a22388952b5626f949ecc487a21a4b479b83da2"
     }
   },
   "limitations": [
     "Grupos de peatones falsos; ms_groups, secuencias y contadores restaurados por ejecucion; slot libre del pool de tareas restaurado.",
-    "La z del desplazamiento de seguir al lider se enmascara (el EXE pasa memoria de pila sin escribir)."
+    "La z del desplazamiento de seguir al lider se enmascara (el EXE pasa memoria de pila sin escribir).",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

@@ -26,7 +26,7 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh
 HOOKS = {NAMES[0]: 0x60C840}
 # (direccion del EXE, hooked) EN EL ORDEN de LiveComparison.hpp
 STUBBED = {NAMES[0]: [(0x5EFFE0, True), (0x681740, True), (0x5F6A10, True), (0x4E3ED0, False), (0x559A50, True), (0x558E40, True), (0x609380, True), (0x5F6AA0, True), (0x5F7E80, True),
-                      (0x5FB210, True), (0x61A5A0, True), (0x61A5B0, True), (0x56E210, True), (0x4AB420, True), (0x5F8020, True), (0x5FC7E0, True), (0x5E8BE0, True), (0x4B5620, False),
+                      (0x5FB210, True), (0x61A5A0, True), (0x61A5B0, True), (0x56E210, True), (0x4AB420, True), (0x5F8020, True), (0x5FC7E0, True), (0x5E8BE0, True), (0x4B5620, True),
                       (0x4B5630, False), (0x571B70, True), (0x571A00, True), (0x5F7470, True), (0x55C180, True), (0x55B980, True), (0x4442D0, True), (0x5839A0, True), (0x583CC0, True),
                       (0x583AB0, True), (0x583EB0, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x60C840, 0x86C6C0}

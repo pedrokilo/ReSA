@@ -66,7 +66,7 @@ inline void Update() {
     env.stub[StAlive]={0x5E0170,Body(std::bit_cast<uintptr_t>(&CPed::IsAlive))};
     env.stub[StLos]={0x56A490,Body(std::bit_cast<uintptr_t>(&CWorld::GetIsLineOfSightClear))};
     env.stub[StSimplest]={0x6819D0,Body(std::bit_cast<uintptr_t>(&CTaskManager::GetSimplestActiveTask))};
-    env.stub[StIsGoTo]={0x61A360,Body(std::bit_cast<uintptr_t>(&CTask::IsGoToTask)),false};   // sin hook: la entrada del EXE sigue siendo codigo original
+    env.stub[StIsGoTo]={0x61A360,Body(std::bit_cast<uintptr_t>(&CTask::IsGoToTask)),true};   // con hook desde el lote 100A (apagado durante el banco)
     env.stub[StUpdate]={0x645700,Body(std::bit_cast<uintptr_t>(&CTaskSimpleGoToPoint::UpdatePoint))};
     env.stub[StNew]={0x61A5A0,Body(std::bit_cast<uintptr_t>(static_cast<void*(*)(size_t)>(&CTask::operator new)))};
     Run(env,ready,registered,bodies);

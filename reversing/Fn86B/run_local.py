@@ -23,7 +23,7 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = dict(zip(NAMES, (0x6EABA0,)))
 # (direccion del EXE, hooked): con hook RH en la DLL (apagado durante el banco) el mismo falso va en el cuerpo de la DLL; sin hook (hooked False) la DLL llama a la direccion del EXE
-STUBBED = {NAMES[0]: [(0x821B1E, False), (0x5A1EE0, False), (0x5A1D70, True), (0x59AD70, False), (0x54EF40, False), (0x563220, True)]}
+STUBBED = {NAMES[0]: [(0x821B1E, False), (0x5A1EE0, True), (0x5A1D70, True), (0x59AD70, True), (0x54EF40, False), (0x563220, True)]}
 # la DLL tiene cuerpo parcheado en todos salvo rand() (0x821B1E: sin hook, la DLL lo llama por su direccion del EXE); operator new y CSimpleTransform::UpdateRwMatrix no tienen hook pero si cuerpo en la DLL
 DLL_BODY = {0x821B1E: False, 0x5A1EE0: True, 0x5A1D70: True, 0x59AD70: True, 0x54EF40: True, 0x563220: True}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | set(HOOKS.values())

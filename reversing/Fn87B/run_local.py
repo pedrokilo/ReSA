@@ -22,7 +22,7 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh
 HOOKS = {NAMES[0]: 0x60E530}
 # (direccion del EXE, hooked) EN EL ORDEN de LiveComparison.hpp: con hook RH en la DLL (apagado durante el banco) el mismo falso va en el cuerpo de la DLL; sin hook la DLL llama a la direccion del EXE
 STUBBED = {NAMES[0]: [(0x5E6580, True), (0x743C60, True), (0x53CC70, True), (0x73B380, True), (0x609F80, True), (0x60B550, True), (0x5F7F40, True), (0x59F320, True), (0x441390, True),
-                      (0x60D1C0, True), (0x5F7E80, True), (0x4B5620, False), (0x5F7470, True), (0x4AB420, True), (0x571B70, True), (0x571A00, True)]}
+                      (0x60D1C0, True), (0x5F7E80, True), (0x4B5620, True), (0x5F7470, True), (0x4AB420, True), (0x571B70, True), (0x571A00, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x60E530}
 COVER_FLOOR = 100
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}

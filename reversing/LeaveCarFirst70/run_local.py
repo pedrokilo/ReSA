@@ -25,7 +25,7 @@ FN = oracle.NAME
 HOOKS = {FN: 0x641FC0}
 # (direccion del EXE, hooked, cuerpo en la DLL): IsPlayer, CTask::operator new, printf del EXE (con salto a la DLL en HEAD; la DLL lo llama por su direccion, sin cuerpo aparte), GetPedsGroup, IsLeader, CEvent::operator new (sin hook),
 # RegisterReference, AddEvent, CleanUpOldReference, CEvent::operator delete (sin hook), SetRadioStation, PlayerAboutToExitVehicleAsDriver (sin hook: CAEVehicleAudioEntity::InjectHooks no esta encendido en HEAD)
-STUBBED = [(0x5DF8F0, True, True), (0x61A5A0, True, True), (0x821982, True, False), (0x5F7E80, True, True), (0x5F69C0, True, True), (0x4B5620, False, True), (0x571B70, True, True),
+STUBBED = [(0x5DF8F0, True, True), (0x61A5A0, True, True), (0x821982, True, False), (0x5F7E80, True, True), (0x5F69C0, True, True), (0x4B5620, True, True), (0x571B70, True, True),
            (0x5F7470, True, True), (0x571A00, True, True), (0x4B5630, False, True), (0x5DFD90, True, True), (0x4F5BA0, False, True)]
 REAL = (0x48E750, 0x63BB60, 0x5FF940, 0x4B8300)   # constructores de CTaskSimplePause, CTaskComplexLeaveBoat, CTaskSimpleCarDriveTimed y CEventLeaderExitedCarAsDriver: saltos a la DLL en ambos lados
 WATCHED = {a for a, _, _ in STUBBED} | set(REAL)

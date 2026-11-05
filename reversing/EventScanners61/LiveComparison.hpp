@@ -89,7 +89,7 @@ inline void Update() {
     };
     stub(S_ADD,kFnMental|kFnVpc|kFnScan|kFnStuck,0x4AB420,std::bit_cast<uintptr_t>(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add)),true,reinterpret_cast<void*>(&FakeAdd),"CEventGroup::Add");
     stub(S_SIMPLEST,kFnVpc|kFnScan,0x6819D0,std::bit_cast<uintptr_t>(&CTaskManager::GetSimplestActiveTask),true,reinterpret_cast<void*>(&FakeSimplest),"CTaskManager::GetSimplestActiveTask");
-    stub(S_ISGOTO,kFnVpc,0x61A360,std::bit_cast<uintptr_t>(&CTask::IsGoToTask),false,reinterpret_cast<void*>(&FakeIsGoto),"CTask::IsGoToTask");
+    stub(S_ISGOTO,kFnVpc,0x61A360,std::bit_cast<uintptr_t>(&CTask::IsGoToTask),true,reinterpret_cast<void*>(&FakeIsGoto),"CTask::IsGoToTask");
     stub(S_COLMODEL,kFnVpc,0x535300,std::bit_cast<uintptr_t>(&CEntity::GetColModel),true,reinterpret_cast<void*>(&FakeCol),"CEntity::GetColModel");
     stub(S_LOS,kFnVpc,0x5F5A30,std::bit_cast<uintptr_t>(static_cast<bool(*)(const CPed&,const CVector&,CEntity&,float&)>(&CPedGeometryAnalyser::GetIsLineOfSightClear)),true,reinterpret_cast<void*>(&FakeLos),"CPedGeometryAnalyser::GetIsLineOfSightClear");
     stub(S_REGREF,kFnVpc|kFnScan|kFnStuck,0x571B70,std::bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference)),true,reinterpret_cast<void*>(&FakeRegRef),"CEntity::RegisterReference");

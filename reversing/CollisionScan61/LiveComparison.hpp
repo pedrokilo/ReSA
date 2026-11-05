@@ -97,7 +97,7 @@ inline void Update() {
     const auto B=[](auto f){return std::bit_cast<uintptr_t>(f);};
     stub(S_ADD,0x4AB420,B(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add)),true,reinterpret_cast<void*>(&FakeAdd),"CEventGroup::Add");
     stub(S_SIMPLEST,0x6819D0,B(&CTaskManager::GetSimplestActiveTask),true,reinterpret_cast<void*>(&FakeSimplest),"CTaskManager::GetSimplestActiveTask");
-    stub(S_ISGOTO,0x61A360,B(&CTask::IsGoToTask),false,reinterpret_cast<void*>(&FakeIsGoto),"CTask::IsGoToTask");
+    stub(S_ISGOTO,0x61A360,B(&CTask::IsGoToTask),true,reinterpret_cast<void*>(&FakeIsGoto),"CTask::IsGoToTask");
     stub(S_COLMODEL,0x535300,B(&CEntity::GetColModel),true,reinterpret_cast<void*>(&FakeCol),"CEntity::GetColModel");
     stub(S_MOVE,0x601D70,B(&CPedIntelligence::GetMoveStateFromGoToTask),true,reinterpret_cast<void*>(&FakeMove),"CPedIntelligence::GetMoveStateFromGoToTask");
     stub(S_REGREF,0x571B70,B(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference)),true,reinterpret_cast<void*>(&FakeRegRef),"CEntity::RegisterReference");

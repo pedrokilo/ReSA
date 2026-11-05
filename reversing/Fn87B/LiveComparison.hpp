@@ -354,7 +354,7 @@ inline void Update() {
                   {Pair{0x441390,coopBody,true},reinterpret_cast<void*>(&FkCoop)},
                   {Pair{0x60D1C0,evalBody,true},reinterpret_cast<void*>(&FkEval)},
                   {Pair{0x5F7E80,getGroupBody,true},reinterpret_cast<void*>(&FkGetGroup)},
-                  {Pair{0x4B5620,eventNewBody,false},reinterpret_cast<void*>(&FkEventNew)},
+                  {Pair{0x4B5620,eventNewBody,true},reinterpret_cast<void*>(&FkEventNew)},
                   {Pair{0x5F7470,addEventBody,true},reinterpret_cast<void*>(&FkAddEvent)},
                   {Pair{0x4AB420,groupAddBody,true},reinterpret_cast<void*>(&FkGroupAdd)},
                   {Pair{0x571B70,registerBody,true},reinterpret_cast<void*>(&FkRegister)},

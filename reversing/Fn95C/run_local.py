@@ -28,8 +28,8 @@ STUBBED = {NAMES[0]: [],
            NAMES[2]: [(0x7ECD00, False), (0x730E60, True), (0x7F3980, False), (0x7F3730, False), (0x7F36A0, False)],
            NAMES[3]: [(0x7ED2D0, False), (0x7EC9D0, False), (0x807970, False), (0x807720, True), (0x72F420, True), (0x74D190, False)],
            NAMES[4]: [(0x74A290, False), (0x7ECD00, False), (0x7ED2D0, False), (0x74D190, False), (0x7EC9D0, False), (0x749C50, False), (0x74BF20, False), (0x749D40, False), (0x749DC0, False),
-                      (0x74CCC0, False), (0x74A490, False), (0x74A310, False), (0x807720, True), (0x72F430, False)],
-           NAMES[5]: [(0x74CCC0, False), (0x72F430, False), (0x807720, True)]}
+                      (0x74CCC0, False), (0x74A490, False), (0x74A310, False), (0x807720, True), (0x72F430, True)],
+           NAMES[5]: [(0x74CCC0, False), (0x72F430, True), (0x807720, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | set(HOOKS.values())
 COVER_FLOOR = 50
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}

@@ -12,24 +12,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wd-3 (HEAD d349867fb + estos cambios; ver source.patch). Colaboradores sustituidos por falsos identicos en ambos lados y comparados en orden y argumentos: CEventGroup::Add, CTaskManager::GetSimplestActiveTask, CTask::IsGoToTask, CPedIntelligence::GetMoveStateFromGoToTask/IncrementAngerAtPlayer, CEntity::GetColModel/RegisterReference/CleanUpOldReference, CPed::IsPlayer/KillPedWithCar/Say/GetLocalDirection, CPlaceable::GetHeading, CGeneral::LimitRadianAngle, CVector::Normalise (por V*0.5), CEventDamage::AffectsPed (volcado del evento), CPedDamageResponseCalculator::ComputeDamageResponse, CPedGeometryAnalyser::ComputePedHitSide, CAcquaintance::GetAcquaintances, CPedType::GetPedFlag, CPedClothesDesc::GetIsWearingBalaclava, CWeapon::GenerateDamageEvent. Reales en ambos lados: constructores/destructores de eventos y del calculador, CEntity::GetIsStatic/GetIsTypePhysical, GetEventGlobalGroup y la aritmetica de vectores (el EXE ejecuta 0x406DA0/0x40FE60/0x40FE90/0x40FDB0/0x4119D0/0x59C890 y la DLL las operaciones equivalentes en C++). No se validan los cuerpos reales de los colaboradores sustituidos. Los fixtures evitan valores cuyos productos salen del rango de float (el x87 conserva exponente extendido) y denormales. EAX/ECX/EDX solo registrados: el unico llamador del EXE (CPedIntelligence::Process, 0x6073D7) no los lee. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CollisionScan61-20261104-211031-218591",
-  "summary_sha256": "0e0379a38ae449a6606796751440e17091fe9e4fa5503ce7d73e03a7b175532b",
-  "result_txt_sha256": "80269e3303da88fa6d668d9ae72d11c992d91741aa5d47e8c2ae9b877d754b55",
-  "log_sha256": "b17cccf249451ca0219beddccada135e6db30f9d56649aeca2860771e67df081",
+  "run": "reversing/CppTwelveLevel6Final/runs/CollisionScan61-20261105-111551-305865",
+  "summary_sha256": "2a74018c8d1cd94c95f07fd15c28a6c6e5a06f272a0e8882afa7d29230f94258",
+  "result_txt_sha256": "51cca5aa83949dac87ab00d2ae8268c289e38613271078c3a999fedccff2373d",
+  "log_sha256": "680d7d442ca10f3046ef8665d84026f9f8cd6faa37b0ba6801166292c36ebb7f",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "c562ad3fa548bdfde7bf81af8d4501162e2911f8f552a33cc8be7a3c92023a1b",
+  "executed_probe_sha256": "144a0d03a0820c5b1df8f9008274eef7cba23d6cf0fb379d742c19de1b0ee593",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
       "source/game_sa/Collision/CollisionEventScanner.cpp": "724cfa3f6cbc20668a7388f2d88a7243c739a49ec2c517e1ee663d85041513ed",
       "source/game_sa/Collision/CollisionEventScanner.h": "faf1be848806f18188a173620ed9d50aa9ab6a84bee8395bcd8dcfad8cc4fc37",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/CollisionScan61/LiveComparison.hpp": "54c6fc118f595ea151094c661b4d1d4fecaeba0a6e73479ccf193f1e06a5deb3",
+      "reversing/CollisionScan61/LiveComparison.hpp": "1992bab9a4152777a92b984c916630e63f7930190c279f26c8aa4e1888f95a19",
       "reversing/CollisionScan61/Core.hpp": "97d2f84c4e203a171712b9b92206a678d77be03ef5b8f49d3a6fb46b2e474ed3",
       "reversing/CollisionScan61/Fixtures.hpp": "fab367ba6ef0bd0ec3cd1955e1aaa636031cedbb2fd7a4e45e9e98c415a72351",
       "reversing/CollisionScan61/CaseColl.hpp": "81fc8f9eecc8d77a3a7655b2323afe24b88af61d95bfa9192d69c6b71b6ed42a",
@@ -38,10 +38,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CollisionScan61-20261104-211031-218591/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CollisionScan61-20261105-111551-305865/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "5e46610f37a9965521ac403558f14beaf25be46ab6d343cd286b49dea2a56edd",
-    "uncompressed_sha256": "b17cccf249451ca0219beddccada135e6db30f9d56649aeca2860771e67df081"
+    "compressed_sha256": "c617fa8a1906f95de4ebcb1ab344cdfcd6341a2b07df422e88596f4db56219b7",
+    "uncompressed_sha256": "680d7d442ca10f3046ef8665d84026f9f8cd6faa37b0ba6801166292c36ebb7f"
   }
 }

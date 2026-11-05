@@ -268,7 +268,7 @@ inline void Update() {
     if (!dllObjCtor) { Write({{"event", "error"}, {"reason", "CObject constructor not found"}}); return; }
     auto S = [](const Pair& p, void* fake) { return StubSpec{p, fake}; };
     const Pair pRand = MakeCollab(env, 0x821B1E, hooksFound);
-    const Pair pNew{0x5A1EE0, dllObjNew, false};
+    Pair pNew = MakeCollab(env, 0x5A1EE0, hooksFound); pNew.dll = dllObjNew;   // con hook desde el lote 100A (apagado durante el banco)
     Pair pCtor = MakeCollab(env, 0x5A1D70, hooksFound); pCtor.dll = dllObjCtor;
     Pair pMat = MakeCollab(env, 0x59AD70, hooksFound);
     if (!pMat.hooked) pMat.dll = Body(std::bit_cast<uintptr_t>(static_cast<void (CMatrix::*)(RwMatrix*) const>(&CMatrix::UpdateRwMatrix)));   // sin hook registrado: cuerpo de la DLL por su simbolo

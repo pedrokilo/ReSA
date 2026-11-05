@@ -150,6 +150,9 @@ inline void Update() {
     OriginalDependencies499::HookRoute calculateRoute("CCollision",fns[0].name,0x418580,calculate);
     OriginalDependencies499::HookRoute removeRoute("CCollision",fns[1].name,0x4185A0,remove);
     std::array<OriginalDependencies499::HookRoute*,2> routes{&calculateRoute,&removeRoute};
+    // El asignador (0x72F420 y 0x72F430) debe ser el codigo original durante todo el banco: rutas con el hook apagado (CMemoryMgr::Free tiene hook desde el lote 100A)
+    OriginalDependencies499::HookRoute mallocRoute("CMemoryMgr","Malloc-SizeHint",0x72F420,OriginalDependencies499::HookRoute::RegisteredTarget{});
+    OriginalDependencies499::HookRoute freeRoute("CMemoryMgr","Free",0x72F430,OriginalDependencies499::HookRoute::RegisteredTarget{});
     HelperHookRoute calcHelper("CCollision","CalculateTrianglePlanes-colData",0x416330,reinterpret_cast<void*>(static_cast<void(*)(CCollisionData*)>(&CCollision::CalculateTrianglePlanes)));
     HelperHookRoute removeHelper("CCollision","RemoveTrianglePlanes-colData",0x416400,reinterpret_cast<void*>(static_cast<void(*)(CCollisionData*)>(&CCollision::RemoveTrianglePlanes)));
     HelperHookRoute dataCalc("CCollisionData","CalculateTrianglePlanes",0x40F590,FunctionToVoidPtr(&CCollisionData::CalculateTrianglePlanes));
@@ -224,7 +227,7 @@ inline void Update() {
         }
         Write({{"event","function_summary"},{"function",label},{"cases",1024},{"failures",failures}});
     }
-    restore();allRestored&=restored();for(auto* r:routes)allRestored&=r->Restore();for(auto* h:helpers)allRestored&=h->Restore();
+    restore();allRestored&=restored();for(auto* r:routes)allRestored&=r->Restore();for(auto* h:helpers)allRestored&=h->Restore();allRestored&=mallocRoute.Restore()&&freeRoute.Restore();
     for(auto& [at,bytes]:finalEntries)allRestored&=bytes==ReversingProbe::Bytes(reinterpret_cast<void*>(at),16);
     Write({{"event",passed&&allRestored?"complete":"error"},{"pairs",pair},{"state_restored",allRestored}});
 }

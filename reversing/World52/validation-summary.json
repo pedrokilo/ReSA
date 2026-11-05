@@ -55,10 +55,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "3bbff22459655b11578ffbf9a3dfef41510a50d53f5d6a78cae8cc3dd9a7a8d8",
+  "log_sha256": "9ff328fb322b407abbb66520c0b452cff7b81fe2a90238b0cff2f9c7f1864473",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-world52\\20261002-145352-297956",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-world52\\20261105-112933-220960",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAnimatedBuilding::ProcessControl": true,
@@ -106,48 +106,49 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "578d233d9d0718c3b2e274f173cc262dfff0b058e3c7be971406c4520046321f",
-      "pdb": "91b6103d36c51af4c22c45436acd33df702c138ee11c3de7184564c91113f2c2"
+      "asi": "ba02d951bf7c5001c6e7917358a592c503bc2104ae68e48b142d86c52a2d84e9",
+      "pdb": "b7d84a2728db4bb85a4b614169e1119c383ee1972c88e473ccb072f7e8da58bf"
     },
     "sources": {
       "source/game_sa/Entity/AnimatedBuilding.cpp": "c9457c5b022946bb34abf6d89c3028b722032a793cef20852195ff91214e223e",
       "source/game_sa/Entity/AnimatedBuilding.h": "239f6533fce2843205193985184a6fd00afc53ff1254a5cd4741182fc9a8737f",
-      "source/game_sa/BouncingPanel.cpp": "3c99ff8688fded8d6fcb252adc5b5780fbbe2977fe2621a94fc2a67cb813a359",
-      "source/game_sa/BouncingPanel.h": "368c6dacbf07883316630d154ddd8dbbc8f30aa0e3a3402714065c87e3e62e74",
-      "source/game_sa/CreepingFire.cpp": "5514c64c8673f8fd388a7d0370e73a803d26d5ef46ee439f3d5d016e4f4fd29e",
+      "source/game_sa/BouncingPanel.cpp": "7887f43e1c946be979056d2610cdf5a4d391e0fdec2fdbeb265ed6f603d7fd8a",
+      "source/game_sa/BouncingPanel.h": "88fb6c91d1793085611565ad6b37f0720f292bfb2406ce835dae0b655b25f918",
+      "source/game_sa/CreepingFire.cpp": "14d44520f2e970f3599af8d1217310ae286338e7e96185aa75026a418461b4cf",
       "source/game_sa/CreepingFire.h": "dce92e9fd77f66054a21c581f01c25c4ef79bb20d7c0ef3ba7e1a2429ce088a3",
       "source/game_sa/Entity/Object/HandObject.cpp": "67383e0b832160fb6dbfdf2257d6e6f27b9275d04efa1c74b4aff5400795a342",
       "source/game_sa/Entity/Object/HandObject.h": "605a0c9ca47b95e54107cf955460c35530026e0998bcee25f3f6c6398524d137",
       "source/game_sa/HandShaker.cpp": "941d350967f72aeffcf6aac6ff845cf576fdc48aaaccb5c40c775aeb7f29f4a8",
       "source/game_sa/HandShaker.h": "9caaf427c7bec144be3c3fc9ba8f07fadd0fa987a848f7fe2562e8e1aaa746de",
       "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
-      "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3",
+      "source/game_sa/MouseControllerState.h": "9c22fe3408e4a89413bd310ec1208f0fd786a09b996240350a580afbc04adc7b",
       "source/game_sa/Occluder.cpp": "45e57dbe6e09a34b4d018737e9d518f71e5081abfdec8a8fd970e97a849611ef",
       "source/game_sa/Occluder.h": "3fc2189c85b404030bb7c83b380d3b73f2e7ad44b3f2d0436e52da2169c98899",
-      "source/game_sa/PlaneTrail.cpp": "b5876f604aa5a3e65f4cbdd89a367f8f81dbedfe7483ab17ad8dd6f67276f7e1",
+      "source/game_sa/PlaneTrail.cpp": "ebc80dd55c6c5ea113582791712bba4c40b19b1326c49ee0444178fbe7642687",
       "source/game_sa/PlaneTrail.h": "c22d23f672bebb5f0ab2270852a20e4b9f68585f4f820ac515a4355fba5e4a38",
-      "source/game_sa/Plant/PlantLocTri.cpp": "d97e91db88f31a3bb4e81d8de3ba857a8b102b08084aaca657ba7960f1cb7d12",
+      "source/game_sa/Plant/PlantLocTri.cpp": "12050ff2cfd02c300477863ea16b1b3611f6ac6b6962887ee5217b7f90d6b7e0",
       "source/game_sa/Plant/PlantLocTri.h": "a94c7f369382b74af77f34614e5074aabf355f9950e15de92270dd8f94046a62",
-      "source/game_sa/StencilShadowObject.cpp": "56a6f8d906fc9ce5db66b36ae5766b9dc7701161807be4da5d9c154b71d40324",
-      "source/game_sa/StencilShadowObject.h": "5bbbc5a2bf1f82cda636319dd886a27116dc32e172b8a4be871d24c3bc178300",
+      "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
+      "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
       "source/game_sa/Models/WeaponModelInfo.cpp": "0f96159fa59bc92a00b7108f66e646459c2f5c5075be64e3cd36a72d3707d156",
       "source/game_sa/Models/WeaponModelInfo.h": "9ac7bf95bfda80eb27a6de2df1ff986f6163e86a51fe37b1adb79d57cab80481",
-      "source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp": "350089f803bf5ac1b6e11d732c280109aed5f2b2a030e5e643957386935221fa",
+      "source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp": "f0d2f6b68ce317211791122ce1c4556d585b1f2b9de61e6efe8b4c21deb43e74",
       "source/game_sa/Plugins/NodeNamePlugin/NodeName.h": "60f6c61830bb9b36869399451eafb928cb83120d3d1d9b7f2ea24acd20f7ddb5",
-      "source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp": "a93e2dfdd541aec631638daf8da624de8d2c2284643f0a357b17dcd0aca2f8f2",
+      "source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp": "8d20f427124257461024863eea197169cdc50c17ca2034f0517782c85b76dca3",
       "source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.h": "74f3d72cc055db9174edf5bfda57507a5979bfa4c62d7226fc6af7eaa08c9d8f",
-      "source/game_sa/WaterCreature_c.cpp": "131b14a9346f7b4d9c6682e56e50f8631af8ca8e2d6521f8713290b925a22a7f",
+      "source/game_sa/WaterCreature_c.cpp": "18c2bda82a08b8b3e7fec22e2b04d283baf5cb1b029e170b2a296a14e484a48a",
       "source/game_sa/WaterCreature_c.h": "e32cbbc26e9f2e92d17e4599105703d3111251d3b5edfada24ea001192596b7a"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "55655048b1c0a4164438308a3911d12b5cea2a9a7aaed5221667679b8df77747",
+      "LiveComparison.hpp": "6b1aa64ac9dbb998f13dd1c6bdf89b5eea84e53ca0f83a576e02b02a4cf3b4ca",
       "build_probe.py": "299e9763ceab107011878e19ada385f3a5d4f00e365078a64da1141a6fe52240",
       "run_local.py": "3cdf0732203573d5799e4ca6011835129ec30c6ba945174a7d3ebe05ac46cec7"
     }
   },
   "limitations": [
     "Objetos falsos; render, Im3D, CalcScreenCoors, consultas del mundo, fuego, creacion de objetos y registro de plugins de RW simulados; estado global restaurado.",
-    "WindowedModeHooks (NOTSA) fuera; el relleno de la matriz temporal de CHandObject se enmascara (memoria de pila sin inicializar en el EXE)."
+    "WindowedModeHooks (NOTSA) fuera; el relleno de la matriz temporal de CHandObject se enmascara (memoria de pila sin inicializar en el EXE).",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
