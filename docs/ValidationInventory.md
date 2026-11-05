@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,099 entradas reversed=1**, de 9,099 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,107 entradas reversed=1**, de 9,107 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9099 |
+| `validated=1` · evidencia aprobada vinculada | 9107 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9099 |
+| Evidencia histórica vinculada; revisión pendiente | 9107 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1444,6 +1444,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarAI | `FindPoliceCarSpeedForWantedLevel` | [Resumen](../reversing/CarAI25/validation-summary.json) |
 | CCarAI | `FindSwitchDistanceClose` | [Resumen](../reversing/CarAI25/validation-summary.json) |
 | CCarAI | `FindSwitchDistanceFar` | [Resumen](../reversing/CarAI25/validation-summary.json) |
+| CCarAI | `FloatMax` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CCarAI | `GetCarToGoToCoors` | [Resumen](../reversing/CarAI25/validation-summary.json) |
 | CCarAI | `GetCarToGoToCoorsAccurate` | [Resumen](../reversing/CarAI25/validation-summary.json) |
 | CCarAI | `GetCarToGoToCoorsRacing` | [Resumen](../reversing/CarAI25/validation-summary.json) |
@@ -1565,6 +1566,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarCtrl | `UpdateCarOnRails` | [Resumen](../reversing/CarCtrlWeave63C/validation-summary.json) |
 | CCarCtrl | `WeaveForObject` | [Resumen](../reversing/CarCtrlWeave63A/validation-summary.json) |
 | CCarCtrl | `WeaveForOtherCar` | [Resumen](../reversing/CarCtrlWeave63A/validation-summary.json) |
+| CCarCtrl | `WeaveForPed` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CCarCtrl | `WeaveThroughCarsSectorList<CPtrListDoubleLink<CVehicle*>>` | [Resumen](../reversing/CarCtrlWeave63B/validation-summary.json) |
 | CCarCtrl | `WeaveThroughObjectsSectorList<CPtrListDoubleLink<CObject*>>` | [Resumen](../reversing/CarCtrlWeave63B/validation-summary.json) |
 | CCarCtrl | `WeaveThroughPedsSectorList<CPtrListDoubleLink<CPed*>>` | [Resumen](../reversing/CarCtrlWeave63B/validation-summary.json) |
@@ -1618,6 +1620,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarGenerator | `Setup` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCarGenerator | `SwitchOff` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCarGenerator | `SwitchOn` | [Resumen](../reversing/Data8a/validation-summary.json) |
+| CCarPathLink | `GetNodeCoors-vector` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CCarPathLink | `OneWayLaneOffset` | [Resumen](../reversing/Fn93A/validation-summary.json) |
 | CCheat | `AddToCheatString` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
 | CCheat | `AdrenalineCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
@@ -4307,6 +4310,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlaceable | `AllocateMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `AllocateStaticMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `FreeStaticMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
+| CPlaceable | `GetForwardVector` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CPlaceable | `GetHeading` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `GetMatrix` | [Resumen](../reversing/World16/validation-summary.json) |
 | CPlaceable | `GetRoll` | [Resumen](../reversing/World16/validation-summary.json) |
@@ -4967,6 +4971,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CScriptsForBrains | `StartAttractorScriptBrainWithThisName` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CScriptsForBrains | `StartNewStreamedScriptBrain` | [Resumen](../reversing/ScriptsBrainsStart31/validation-summary.json) |
 | CScriptsForBrains | `StartOrRequestNewStreamedScriptBrain` | [Resumen](../reversing/Misc61a/validation-summary.json) |
+| CScriptsForBrains | `StartOrRequestNewStreamedScriptBrainWithThisName` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CSearchLight | `IsSpottedEntity` | [Resumen](../reversing/Misc61/validation-summary.json) |
 | CSetPiece | `TryToGenerateCopCar` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CSetPiece | `TryToGenerateCopPed` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
@@ -7560,6 +7565,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTheScripts | `InitialiseSpecialAnimGroupsAttachedToCharModels` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `IsPedStopped` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `IsPlayerOnAMission` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `IsPointWithinSearchLight` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CTheScripts | `IsVehicleStopped` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `Load` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `PrintListSizes` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
@@ -7976,6 +7982,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicleModelInfo | `HasAlphaMaterialCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
 | CVehicleModelInfo | `HideAllComponentsAtomicCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
 | CVehicleModelInfo | `HideDamagedAtomicCB` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
+| CVehicleModelInfo | `IncrementTimesUsed` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CVehicleModelInfo | `Init` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
 | CVehicleModelInfo | `IsUpgradeAvailable` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
 | CVehicleModelInfo | `IsValidCompRule` | [Resumen](../reversing/VehModelInfoFinal4/validation-summary.json) |
@@ -8652,6 +8659,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Input | `HandleKeyUp` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | Input | `KeyboardHandler` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | Input | `PadHandler` | [Resumen](../reversing/Fx43/validation-summary.json) |
+| Input | `diPadEnumerate` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | Input | `diPadInit` | [Resumen](../reversing/Dependencies24B/validation-summary.json) |
 | InteriorGroup_c | `AddInterior` | [Resumen](../reversing/InteriorCore355/validation-summary.json) |
 | InteriorGroup_c | `ArePathsLoaded` | [Resumen](../reversing/InteriorPathsLoaded355/validation-summary.json) |
@@ -9211,12 +9219,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
 | `CCam` | 53 | 0 | 53 | 0 |
 | `CCamera` | 122 | 0 | 122 | 0 |
-| `CCarAI` | 25 | 0 | 25 | 0 |
-| `CCarCtrl` | 111 | 0 | 111 | 0 |
+| `CCarAI` | 26 | 0 | 26 | 0 |
+| `CCarCtrl` | 112 | 0 | 112 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
 | `CCarFXRenderer` | 10 | 0 | 10 | 0 |
 | `CCarGenerator` | 8 | 0 | 8 | 0 |
-| `CCarPathLink` | 1 | 0 | 1 | 0 |
+| `CCarPathLink` | 2 | 0 | 2 | 0 |
 | `CCheat` | 72 | 0 | 72 | 0 |
 | `CCheckpoint` | 1 | 0 | 1 | 0 |
 | `CCheckpoints` | 8 | 0 | 8 | 0 |
@@ -9470,7 +9478,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPickup` | 12 | 0 | 12 | 0 |
 | `CPickups` | 38 | 0 | 38 | 0 |
 | `CPlaceName` | 2 | 0 | 2 | 0 |
-| `CPlaceable` | 16 | 0 | 16 | 0 |
+| `CPlaceable` | 17 | 0 | 17 | 0 |
 | `CPlane` | 23 | 0 | 23 | 0 |
 | `CPlaneTrail` | 3 | 0 | 3 | 0 |
 | `CPlaneTrails` | 4 | 0 | 4 | 0 |
@@ -9517,7 +9525,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CScripted2dEffects` | 5 | 0 | 5 | 0 |
 | `CScriptedBrainTaskEntry` | 1 | 0 | 1 | 0 |
 | `CScriptedBrainTaskStore` | 4 | 0 | 4 | 0 |
-| `CScriptsForBrains` | 10 | 0 | 10 | 0 |
+| `CScriptsForBrains` | 11 | 0 | 11 | 0 |
 | `CSearchLight` | 1 | 0 | 1 | 0 |
 | `CSetPiece` | 3 | 0 | 3 | 0 |
 | `CSetPieces` | 5 | 0 | 5 | 0 |
@@ -9860,7 +9868,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTempColModels` | 2 | 0 | 2 | 0 |
 | `CText` | 9 | 0 | 9 | 0 |
 | `CTheCarGenerators` | 7 | 0 | 7 | 0 |
-| `CTheScripts` | 69 | 0 | 69 | 0 |
+| `CTheScripts` | 70 | 0 | 70 | 0 |
 | `CTheZones` | 22 | 0 | 22 | 0 |
 | `CTimeCycle` | 20 | 0 | 20 | 0 |
 | `CTimeInfo` | 6 | 0 | 6 | 0 |
@@ -9877,7 +9885,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CVehicle` | 168 | 0 | 168 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
-| `CVehicleModelInfo` | 75 | 0 | 75 | 0 |
+| `CVehicleModelInfo` | 76 | 0 | 76 | 0 |
 | `CVehiclePool` | 2 | 0 | 2 | 0 |
 | `CVehiclePotentialCollisionScanner` | 1 | 0 | 1 | 0 |
 | `CVehicleRecording` | 29 | 0 | 29 | 0 |
@@ -9925,7 +9933,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `Game` | 12 | 0 | 12 | 0 |
 | `IKChainManager_c` | 17 | 0 | 17 | 0 |
 | `IKChain_c` | 20 | 0 | 20 | 0 |
-| `Input` | 6 | 0 | 6 | 0 |
+| `Input` | 7 | 0 | 7 | 0 |
 | `InteriorGroup_c` | 24 | 0 | 24 | 0 |
 | `InteriorManager_c` | 21 | 0 | 21 | 0 |
 | `Interior_c` | 52 | 0 | 52 | 0 |

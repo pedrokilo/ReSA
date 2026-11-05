@@ -15,10 +15,10 @@
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  *
  * ESTADO: CVehicleModelInfo
- * Reconstrucción: COMPLETA — 75/75 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 76/76 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 75/75 entradas.
+ * Validación registrada: 76/76 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
