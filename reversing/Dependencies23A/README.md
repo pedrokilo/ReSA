@@ -22,6 +22,10 @@ Clasificacion (juego) y firma verificada: `g23a-classification.md`. Desensamblad
 - Colaboradores falsos (EntryPatch en la direccion del EXE y en la entrada de la DLL, mismo falso): `CCoronas::RegisterCorona` 0x6FC580, `FindPlayerVehicle` 0x56E0D0, `CVehicle::GetVehicleLightsStatus` 0x6D55C0,
   `CDamageManager::GetLightStatus` 0x6C2130, `CVehicle::DoHeadLightEffect` 0x6E0A50, `CVehicle::DoTailLightEffect` 0x6E1780, `CVehicle::DoHeadLightReflection` 0x6E1720 y `CPointLights::AddLight` 0x7000E0.
   Son reales en los dos lados: `CMatrix * CVector` 0x59C890, `CVector::NormaliseAndMag` 0x59C970, `_ftol2` 0x821B40 y el maximo 0x420800 (en la DLL, bloques de `X87Math.cpp`).
+  Hook de `CVector::NormaliseAndMag` (0x59C970, lote 96A) APAGADO durante la corrida (`HookRoute` en `LiveComparison.hpp`, restaurado al final): su version C++ da las mismas salidas que el EXE (0 diferencias con
+  2744 combinaciones de NaN) pero no deja los mismos registros x87 muertos, y con el hook activo fallaban 4618 de 8192 pares (corrida 20261104-210415-094340). El hook de 0x59C890 (`Hp65MatrixTimesPointCpp`) sigue activo
+  en el lado original: su empate de signo entre NaN silenciosos de igual mantisa (gana el positivo, como la x87) se corrigio en `X87Math.cpp` (`Hp65Larger`); antes fallaban 4 de 8192 pares por el signo de un registro muerto.
+  Corrida aprobada: `reversing/CppTwelveLevel6Final/runs/Dependencies23A-20261104-210934-288226` (8192 pares, cero diferencias).
 - El EXE trae DOS COPIAS EN LINEA de `DoHeadLightEffect(lightId = 1)` (0x6E1F31..0x6E229F y 0x6E22C2..0x6E263B) que NO llaman a 0x6E0A50 (por eso el falso de 0x6E0A50 solo ve `lightId = 0`). La DLL las ejecuta con
   `VehicleHeadLightEffect(*this, true, 1, ...)` (funcion estatica de `Vehicle.cpp`, no pasa por la entrada parcheada) y sus `RegisterCorona` / `FindPlayerVehicle` van a los mismos falsos. Las copias en linea difieren de la
   funcion en un unico punto del x87: el tamano de la corona se calcula `((1 - d/150) * sqrtDot) * 0.4` (la funcion `((1 - d/150) * 0.4) * sqrtDot`); `inlinedCopy` elige el orden.
