@@ -27,22 +27,22 @@
     "CIdleCam::Run": "Corpus 384; first-round bank result, no function-specific source change recorded (EXE 0x51D3E0)."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/IdleCamWave4-20261104-221853-942812",
-  "summary_sha256": "44b2205ec89f2961f98e45493d9f7e4f83e20d3b7c9a9b548892058ea1ccc4d8",
-  "result_txt_sha256": "a0d6b3845ea283fa4ebdca36d937e4d96f4aec2a1214df737af0653e19e0c54c",
-  "log_sha256": "5aaf2408f7a27b31a5c0a6c62519687db65cda4f3633a7c5c4a61ed721e48f9a",
+  "run": "reversing/CppTwelveLevel6Final/runs/IdleCamWave4-20261105-104234-712228",
+  "summary_sha256": "e6271cd4e9f20793d17d5ec1a9bce3770844e879796880b727689ce71c1cc7ef",
+  "result_txt_sha256": "c3d1809c968274646d0cf572d6a2e173d02c4d43b4174f4138b04b257c37f5c7",
+  "log_sha256": "093518e644a9971b6790d93af5b120cbaadc18094957d8826fb0687929f09d1b",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/IdleCamWave4-20261104-221853-942812/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/IdleCamWave4-20261105-104234-712228/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "60dcc67b358ca2323783a9879a210709aca9e988ac1dac9ca99aee02dad0f42c",
-    "uncompressed_sha256": "5aaf2408f7a27b31a5c0a6c62519687db65cda4f3633a7c5c4a61ed721e48f9a"
+    "compressed_sha256": "6753ed2ae315bc99bb0d280d2c8d53c11027f34bf5cd44f5cc6223dce9b5e7f7",
+    "uncompressed_sha256": "093518e644a9971b6790d93af5b120cbaadc18094957d8826fb0687929f09d1b"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "50499ab259d17e2d14bb50a005cf3324ad6077f6a005d6e96417b9e04af31a7f",
+  "executed_probe_sha256": "f0ca0beb5d0b2342418c7d4a439bb6ff64587ecde7c8f7cfdca75eb15c436281",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {

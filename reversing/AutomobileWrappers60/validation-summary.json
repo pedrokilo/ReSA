@@ -16,25 +16,25 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261105-030731-684485",
-  "summary_sha256": "071986bd2440fc11a54f83d4a20bc3ebacd3ac4c5d5ca7a52cfd5d92c827d7aa",
-  "result_txt_sha256": "86f416e10c8c8be048f3f170ed7cbe82782654217ad81314f219a0fb11fe5973",
-  "log_sha256": "12067685fe6349f588293a6699e995025cff2d3f3cb1dcec4b83bd19e56db838",
+  "run": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261105-100740-088406",
+  "summary_sha256": "5c237bb5a6c3d15a95e38ab2431cdb71c7752b1418600a8133f62c4dfcccb55b",
+  "result_txt_sha256": "df65f0c8359abaaabea1a8862cb4c69eb4c1b3c41f00291c43e8691d18eb33ce",
+  "log_sha256": "3bafb297909d3ebdff7721cc02e95bbb6284ce7719b51da692c3ad91b7ce11d1",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "0e447fd1f18f911d9129cb7fe87ff3ff700e96f767e951d0c0946fc65b7ce5f9",
+  "executed_probe_sha256": "4704e6545c104bd90376a9d2dd7f13c6ef1c7b2f83537273f02061ddf568b05b",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
+      "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
       "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
       "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
-      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
-      "source/game_sa/Pathfind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
+      "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+      "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+      "source/game_sa/Pathfind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
       "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/AutomobileWrappers60/LiveComparison.hpp": "806dcff1c69e5bfc87467dffbc04018c60e3b0f7cbd5816651742c7f87896db1",
@@ -47,10 +47,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261105-030731-684485/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261105-100740-088406/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "5014b97cb1e29d1404713a5fc148ae954fdbccb7e738366799e17a91122d2c7b",
-    "uncompressed_sha256": "12067685fe6349f588293a6699e995025cff2d3f3cb1dcec4b83bd19e56db838"
+    "compressed_sha256": "8edb0e11121c453a21a22f94d5c1ad15c22ff7c30e50f7ed50ba1fd7ed611fbd",
+    "uncompressed_sha256": "3bafb297909d3ebdff7721cc02e95bbb6284ce7719b51da692c3ad91b7ce11d1"
   }
 }

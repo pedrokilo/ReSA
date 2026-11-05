@@ -714,6 +714,7 @@ void InjectHooksMain() {
     CMatrix::InjectHooksMultiplyVector(); // Only operator*(CMatrix, CVector) 0x59C890.
     CMatrix::InjectHooksAttachAssign(); // Only Attach 0x59BD10 and operator= 0x59BBC0.
     CMatrix::InjectHooksExactOps(); // Only UpdateRW 0x59BBB0, UpdateRwMatrix 0x59AD70, SetTranslate 0x59AF40, SetRotateZOnly 0x59B020, destructor 0x59ACD0 and constructors 0x59BCF0 / 0x59C050.
+    CMatrix::InjectHooksLote99A(); // Only SetUnity 0x59AE70, ResetOrientation 0x59AEA0, SetScale 0x59AED0 / 0x59AF00, SetTranslateOnly 0x59AF80, SetRotate xyz 0x59B120, Invert 0x59B920 and operator*(matrix, matrix) 0x59BE30.
     CMatrixLink::InjectHooks();
     CMatrixLinkList::InjectHooks();
     CEntryInfoNode::InjectHooks();

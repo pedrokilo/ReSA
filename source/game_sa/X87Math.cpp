@@ -18194,3 +18194,122 @@ __declspec(noinline) void __cdecl WeaveForPedArcCpp(float dx, float dy, float an
     }
 }
 #pragma float_control(pop)
+
+// --- Lote 99A (Fn99A): CMatrix::Invert(in, out) 0x59B920 y operator*(CMatrix, CMatrix) 0x59BE30 con la x87 exacta del EXE ---
+#pragma float_control(precise, on, push)
+// 0x59B920 (CMatrix Invert(in, out), cdecl, devuelve out en EAX)
+__declspec(noinline) float* __cdecl MatrixInvertExeCpp(const float* in, float* out) {
+    volatile unsigned int* const vo = reinterpret_cast<volatile unsigned int*>(out);
+    const volatile unsigned int* const vi = reinterpret_cast<const volatile unsigned int*>(in);
+    volatile float* const fo = out;
+    const volatile float* const fi = in;
+    static const volatile float kMinusOne = -1.0f;
+    vo[12] = 0; vo[13] = 0; vo[14] = 0;
+    vo[0] = vi[0];  vo[1] = vi[4];  vo[2] = vi[8];
+    vo[4] = vi[1];  vo[5] = vi[5];  vo[6] = vi[9];
+    vo[8] = vi[2];  vo[9] = vi[6];  vo[10] = vi[10];
+    { const double r = fi[12]; fo[12] = float(r * fo[0]); }
+    { const double r = fo[1];  fo[13] = float(r * fi[12]); }
+    { const double r = fo[2];  fo[14] = float(r * fi[12]); }
+    { const double r = fi[13]; const double p = r * fo[4]; fo[12] = float(p + fo[12]); }
+    { const double r = fo[5];  const double p = r * fi[13]; fo[13] = float(p + fo[13]); }
+    { const double r = fo[6];  const double p = r * fi[13]; fo[14] = float(p + fo[14]); }
+    { const double r = fo[8];  const double p = r * fi[14]; fo[12] = float(p + fo[12]); }
+    { const double r = fi[14]; const double p = r * fo[9];  fo[13] = float(p + fo[13]); }
+    { const double r = fo[10]; const double p = r * fi[14]; fo[14] = float(p + fo[14]); }
+    { const double r = fo[12]; fo[12] = float(r * kMinusOne); }
+    { const double r = fo[13]; fo[13] = float(r * kMinusOne); }
+    { const double r = fo[14]; fo[14] = float(r * kMinusOne); }
+    return out;
+}
+#pragma float_control(pop)
+#pragma float_control(precise, on, push)
+// 0x59BE30 (operator*(CMatrix, CMatrix), cdecl, resultado por puntero oculto devuelto en EAX): cada elemento se calcula en la x87 como en el EXE ((r1*m1 + r2*m2) + r3*m3 [+ posicion]), con el
+// primer factor de cada producto en el registro (fld) y el segundo en memoria (fmul) y cada resultado guardado como float en un temporal (volatile: fstp a la pila) antes de copiar. Se leen las
+// 24 palabras de entrada antes de escribir `out` (puede ser `a` o `b`). Las palabras de relleno (+0x0C, +0x1C, +0x2C, +0x3C) no se escriben: el EXE copia ahi basura de la pila.
+__declspec(noinline) float* __cdecl MatrixMultiplyExeCpp(float* out, const float* a, const float* b) {
+    const volatile float* const P = a;
+    const volatile float* const Q = b;
+    volatile float t[16];
+    {
+      const double r0 = P[4]; const double p0 = r0 * Q[1];
+      const double r1 = P[0]; const double p1 = r1 * Q[0];
+      const double r2 = Q[2]; const double p2 = r2 * P[8];
+      t[0] = float((p0 + p1) + p2);
+    }
+    {
+      const double r0 = P[9]; const double p0 = r0 * Q[2];
+      const double r1 = P[1]; const double p1 = r1 * Q[0];
+      const double r2 = P[5]; const double p2 = r2 * Q[1];
+      t[1] = float((p0 + p1) + p2);
+    }
+    {
+      const double r0 = P[6]; const double p0 = r0 * Q[1];
+      const double r1 = P[10]; const double p1 = r1 * Q[2];
+      const double r2 = Q[0]; const double p2 = r2 * P[2];
+      t[2] = float((p0 + p1) + p2);
+    }
+    {
+      const double r0 = Q[6]; const double p0 = r0 * P[8];
+      const double r1 = P[4]; const double p1 = r1 * Q[5];
+      const double r2 = Q[4]; const double p2 = r2 * P[0];
+      t[4] = float((p0 + p1) + p2);
+    }
+    {
+      const double r0 = P[9]; const double p0 = r0 * Q[6];
+      const double r1 = P[5]; const double p1 = r1 * Q[5];
+      const double r2 = P[1]; const double p2 = r2 * Q[4];
+      t[5] = float((p0 + p1) + p2);
+    }
+    {
+      const double r0 = Q[4]; const double p0 = r0 * P[2];
+      const double r1 = P[10]; const double p1 = r1 * Q[6];
+      const double r2 = P[6]; const double p2 = r2 * Q[5];
+      t[6] = float((p0 + p1) + p2);
+    }
+    {
+      const double r0 = P[4]; const double p0 = r0 * Q[9];
+      const double r1 = Q[10]; const double p1 = r1 * P[8];
+      const double r2 = Q[8]; const double p2 = r2 * P[0];
+      t[8] = float((p0 + p1) + p2);
+    }
+    {
+      const double r0 = P[9]; const double p0 = r0 * Q[10];
+      const double r1 = P[5]; const double p1 = r1 * Q[9];
+      const double r2 = Q[8]; const double p2 = r2 * P[1];
+      t[9] = float((p0 + p1) + p2);
+    }
+    {
+      const double r0 = Q[8]; const double p0 = r0 * P[2];
+      const double r1 = P[10]; const double p1 = r1 * Q[10];
+      const double r2 = P[6]; const double p2 = r2 * Q[9];
+      t[10] = float((p0 + p1) + p2);
+    }
+    {
+      const double r0 = P[4]; const double p0 = r0 * Q[13];
+      const double r1 = Q[14]; const double p1 = r1 * P[8];
+      const double r2 = Q[12]; const double p2 = r2 * P[0];
+      t[12] = float(((p0 + p1) + p2) + P[12]);
+    }
+    {
+      const double r0 = Q[14]; const double p0 = r0 * P[9];
+      const double r1 = Q[13]; const double p1 = r1 * P[5];
+      const double r2 = Q[12]; const double p2 = r2 * P[1];
+      t[13] = float(((p0 + p1) + p2) + P[13]);
+    }
+    {
+      const double r0 = Q[12]; const double p0 = r0 * P[2];
+      const double r1 = P[6]; const double p1 = r1 * Q[13];
+      const double r2 = P[10]; const double p2 = r2 * Q[14];
+      t[14] = float(((p0 + p1) + p2) + P[14]);
+    }
+    float* const o = out;
+    o[0] = t[0];   o[1] = t[1];   o[2] = t[2];
+    o[4] = t[4];   o[5] = t[5];   o[6] = t[6];
+    o[8] = t[8];   o[9] = t[9];   o[10] = t[10];
+    o[12] = t[12]; o[13] = t[13]; o[14] = t[14];
+    reinterpret_cast<volatile unsigned int*>(o)[16] = 0;
+    reinterpret_cast<volatile unsigned int*>(o)[17] = 0;
+    return out;
+}
+#pragma float_control(pop)

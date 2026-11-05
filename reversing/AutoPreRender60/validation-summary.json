@@ -12,24 +12,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wd-1 (HEAD d349867fb + source.patch de CAutomobile::PreRender; los ayudantes AutoPre* de X87Math ya estaban en HEAD). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/AutoPreRender60-20261101-052311-975286",
-  "summary_sha256": "29f5324c7cd10909664b920f899f4ffbb531c3e7f9323aa5f2dc098e4e060114",
-  "result_txt_sha256": "682ab33dee5fb078d2f831f666f94181f8218b001019e6c28bfee66fb53f4384",
-  "log_sha256": "9afbe7bbbcda725185bcf2fb4a94f32d3870995e5cd2449952fa1ea51198dbad",
+  "run": "reversing/CppTwelveLevel6Final/runs/AutoPreRender60-20261105-110156-630638",
+  "summary_sha256": "2fb7c4bb1e6568be12eec531d395a650c5d83ccace774fc8b501a9c99333dd8f",
+  "result_txt_sha256": "7b959d9212634c55f4b01bc0560b7637bada8dfc2f2c664bffebe2ce60fec59d",
+  "log_sha256": "fdbc43e38e168d229619921a85c2facbdf11e9e8ad8a139ba67f1d1090d4da6c",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "0d58a68f930485f9356248bf0075212e93b4b6acacc248b1f563804114801224",
+  "executed_probe_sha256": "5e35f17c65666725fbbb4ca9483557df55cb0de33f7286d1b483eb95a3a3c070",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
       "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
       "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-      "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-      "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378",
+      "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+      "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/AutoPreRender60/LiveComparison.hpp": "68164cbe4c5484c6b33c7e26bc0fcd9e88b98b55163abdf44111cbbe64640bce",
       "reversing/AutoPreRender60/Core.hpp": "316f52b2da958a9781355b095c17f0361f658b4b27c9f354c99bb157a24ff4a3",
@@ -41,10 +41,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/AutoPreRender60-20261101-052311-975286/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/AutoPreRender60-20261105-110156-630638/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "b098419b092ee99353b6be66801d6442a4868566f3721a553cb7e9a081b49869",
-    "uncompressed_sha256": "9afbe7bbbcda725185bcf2fb4a94f32d3870995e5cd2449952fa1ea51198dbad"
+    "compressed_sha256": "297cdcf2b022c0c294a20d4415818384ebfccbb5ee735d01e7c495968e8434b2",
+    "uncompressed_sha256": "fdbc43e38e168d229619921a85c2facbdf11e9e8ad8a139ba67f1d1090d4da6c"
   }
 }

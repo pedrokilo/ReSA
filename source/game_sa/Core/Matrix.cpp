@@ -45,14 +45,10 @@ void CMatrix::InjectHooks()
     RH_ScopedInstall(Update, 0x59BB60);
     RH_ScopedInstall(UpdateMatrix, 0x59AD20);
     // UpdateRW (0x59BBB0), UpdateRwMatrix (0x59AD70), SetTranslate (0x59AF40) y SetRotateZOnly (0x59B020) se instalan por InjectHooksExactOps.
-    RH_ScopedInstall(SetUnity, 0x59AE70);
-    RH_ScopedInstall(ResetOrientation, 0x59AEA0);
-    RH_ScopedOverloadedInstall(SetScale, "f", 0x59AED0, void(CMatrix::*)(float));
-    RH_ScopedOverloadedInstall(SetScale, "fff", 0x59AF00, void(CMatrix::*)(float, float, float));
-    RH_ScopedInstall(SetTranslateOnly, 0x59AF80);
+    // SetUnity (0x59AE70), ResetOrientation (0x59AEA0), SetScale (0x59AED0, 0x59AF00), SetTranslateOnly (0x59AF80), SetRotate xyz (0x59B120), Invert (0x59B920) y la multiplicacion
+    // de matrices (0x59BE30) se instalan por InjectHooksLote99A.
     RH_ScopedInstall(SetRotateXOnly, 0x59AFA0);
     RH_ScopedInstall(SetRotateYOnly, 0x59AFE0);
-    RH_ScopedOverloadedInstall(SetRotate, "xyz", 0x59B120, void(CMatrix::*)(float, float, float));
     RH_ScopedInstall(SetRotateX, 0x59B060);
     RH_ScopedInstall(SetRotateY, 0x59B0A0);
     RH_ScopedInstall(SetRotateZ, 0x59B0E0);
@@ -69,10 +65,8 @@ void CMatrix::InjectHooks()
     RH_ScopedInstall(ConvertFromEulerAngles, 0x59AA40);
     RH_ScopedInstall(operator+=, 0x59ADF0);
     RH_ScopedInstall(operator*=, 0x411A80);
-    RH_ScopedGlobalOverloadedInstall(operator*, "Mat", 0x59BE30, CMatrix(*)(const CMatrix&, const CMatrix&));
     //RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&)); // ver InjectHooksMultiplyVector
     RH_ScopedGlobalOverloadedInstall(operator+, "", 0x59BFA0, CMatrix(*)(const CMatrix&, const CMatrix&));
-    RH_ScopedGlobalOverloadedInstall(Invert, "1", 0x59B920, CMatrix&(*)(CMatrix&, CMatrix&));
     RH_ScopedGlobalOverloadedInstall(Invert, "2", 0x59BDD0, CMatrix(*)(const CMatrix&));
 }
 
@@ -114,6 +108,24 @@ void CMatrix::InjectHooksExactOps()
     RH_ScopedInstall(Destructor, 0x59ACD0);
     RH_ScopedInstall(ConstructCopy, 0x59BCF0);
     RH_ScopedInstall(ConstructAttached, 0x59C050);
+}
+
+// CMatrix::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); estas son, junto con las demas listas activas, las unicas entradas de CMatrix que se instalan
+// (lote 99A, banco Fn99A): SetUnity (0x59AE70), ResetOrientation (0x59AEA0), SetScale (0x59AED0 y 0x59AF00), SetTranslateOnly (0x59AF80), SetRotate xyz (0x59B120), Invert(in, out) (0x59B920)
+// y la multiplicacion de matrices (0x59BE30; se engancha MatrixMultiplyExe, con el puntero de salida explicito: operator* la llama con una matriz local).
+void CMatrix::InjectHooksLote99A()
+{
+    RH_ScopedClass(CMatrix);
+    RH_ScopedCategory("Core");
+
+    RH_ScopedInstall(SetUnity, 0x59AE70);
+    RH_ScopedInstall(ResetOrientation, 0x59AEA0);
+    RH_ScopedOverloadedInstall(SetScale, "f", 0x59AED0, void(CMatrix::*)(float));
+    RH_ScopedOverloadedInstall(SetScale, "fff", 0x59AF00, void(CMatrix::*)(float, float, float));
+    RH_ScopedInstall(SetTranslateOnly, 0x59AF80);
+    RH_ScopedOverloadedInstall(SetRotate, "xyz", 0x59B120, void(CMatrix::*)(float, float, float));
+    RH_ScopedGlobalOverloadedInstall(Invert, "1", 0x59B920, CMatrix&(*)(CMatrix&, CMatrix&));
+    RH_ScopedGlobalInstall(MatrixMultiplyExe, 0x59BE30);
 }
 
 CMatrix::CMatrix(const CMatrix& matrix) {
@@ -454,29 +466,19 @@ CMatrix CMatrix::GetIdentity() {
     return m;
 }
 
-// 0x59BE30: mismo resultado que el original bit a bit. Cada elemento es tx + ty + tz (tx = a.right·b.x,
-// ty = a.forward·b.y, tz = a.up·b.z) pero el EXE agrupa las sumas de forma distinta en cada uno.
+// 0x59BE30 (cdecl; puntero de retorno oculto como primer argumento, EAX = destino): out = a * b con las sumas y los redondeos a 24 bits de la x87 del EXE (X87Math, MatrixMultiplyExeCpp: cada
+// elemento es (r1*m1 + r2*m2) + r3*m3 [+ posicion] con el orden de operandos del EXE). Las tres matrices pueden ser la misma: el EXE lee todo antes de escribir. Pone a cero +0x40 (matriz enlazada)
+// y +0x44 (bandera de propiedad, dword) de la salida; las palabras de relleno no se escriben (el EXE copia ahi basura de la pila, nadie la lee).
+CMatrix* MatrixMultiplyExe(CMatrix* out, const CMatrix* a, const CMatrix* b)
+{
+    MatrixMultiplyExeCpp(reinterpret_cast<float*>(out), reinterpret_cast<const float*>(a), reinterpret_cast<const float*>(b));
+    return out;
+}
+
 CMatrix operator*(const CMatrix& a, const CMatrix& b)
 {
-    auto result = CMatrix();
-    const auto T = [&](int i, const CVector& col, float& tx, float& ty, float& tz) {
-        tx = (&a.m_right.x)[i] * col.x;
-        ty = (&a.m_forward.x)[i] * col.y;
-        tz = (&a.m_up.x)[i] * col.z;
-    };
-    float tx, ty, tz;
-    T(0, b.m_right, tx, ty, tz);   result.m_right.x   = (ty + tx) + tz;
-    T(1, b.m_right, tx, ty, tz);   result.m_right.y   = (tz + tx) + ty;
-    T(2, b.m_right, tx, ty, tz);   result.m_right.z   = (ty + tz) + tx;
-    T(0, b.m_forward, tx, ty, tz); result.m_forward.x = (tz + ty) + tx;
-    T(1, b.m_forward, tx, ty, tz); result.m_forward.y = (tz + ty) + tx;
-    T(2, b.m_forward, tx, ty, tz); result.m_forward.z = (tx + tz) + ty;
-    T(0, b.m_up, tx, ty, tz);      result.m_up.x      = (ty + tz) + tx;
-    T(1, b.m_up, tx, ty, tz);      result.m_up.y      = (tz + ty) + tx;
-    T(2, b.m_up, tx, ty, tz);      result.m_up.z      = (tx + tz) + ty;
-    T(0, b.m_pos, tx, ty, tz);     result.m_pos.x     = ((ty + tz) + tx) + a.m_pos.x;
-    T(1, b.m_pos, tx, ty, tz);     result.m_pos.y     = ((tz + ty) + tx) + a.m_pos.y;
-    T(2, b.m_pos, tx, ty, tz);     result.m_pos.z     = ((tx + ty) + tz) + a.m_pos.z;
+    CMatrix result;
+    MatrixMultiplyExe(&result, &a, &b);
     return result;
 }
 
@@ -500,9 +502,11 @@ CMatrix operator+(const CMatrix& a, const CMatrix& b)
     return result;
 }
 
+// 0x59B920 (cdecl, devuelve out en EAX): transposicion de la rotacion y posicion = -(pos * rotacion) con la x87 del EXE (X87Math, MatrixInvertExeCpp); no copia la matriz enlazada ni la bandera
+// de propiedad de `out` (no llama a operator=) y no actualiza ninguna RwMatrix, como el original.
 CMatrix& Invert(CMatrix& in, CMatrix& out)
 {
-    out = in.Inverted();
+    MatrixInvertExeCpp(reinterpret_cast<const float*>(&in), reinterpret_cast<float*>(&out));
     return out;
 }
 

@@ -12,8 +12,13 @@
 #include <float.h>
 #include <bit>
 #include <array>
+#include <map>
 #include "Matrix.h"
 #include "../ProbeRuntime.hpp"
+#include <reversiblehooks/RootHookCategory.h>
+#include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Simple.h>
+#include "../OriginalDependencies499/HookRoute.hpp"
 
 namespace CppMatrixExact1Live {
 inline bool done{};
@@ -147,11 +152,24 @@ inline void Update() {
     dll[4]=bit_cast<uintptr_t>(&CMatrix::RotateX); dll[5]=bit_cast<uintptr_t>(&CMatrix::RotateY); dll[6]=bit_cast<uintptr_t>(&CMatrix::RotateZ);
     dll[7]=bit_cast<uintptr_t>(&CMatrix::Reorthogonalise);
     dll[8]=bit_cast<uintptr_t>(&CMatrix::ConvertToEulerAngles); dll[9]=bit_cast<uintptr_t>(&CMatrix::ConvertFromEulerAngles);
+    // Lote 99A: SetRotateZOnly (0x59B020) y SetRotate(x,y,z) (0x59B120) tienen ahora hook RH. Cada entrada del EXE enganchada se llama con su ruta apagada (HookRoute); el resto sigue sin hook.
+    std::map<uintptr_t, std::unique_ptr<OriginalDependencies499::HookRoute>> exeRoutes;
+    for (const auto& fnd : fns) {
+        if (!ReversingProbe::JumpsToDll(fnd.address)) continue;
+        std::string cat, name;
+        ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c) {
+            for (auto& h : c.Items())
+                if (h->Type() == ReversibleHooks::ReversibleHook::Base::HookType::Simple
+                    && reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookGTAAddress()) == fnd.address) { cat = std::string(c.Name()); name = std::string(h->Name()); }
+        });
+        if (!name.empty()) exeRoutes[fnd.address].reset(new OriginalDependencies499::HookRoute(cat.c_str(), name.c_str(), fnd.address, OriginalDependencies499::HookRoute::RegisteredTarget{}));
+    }
+    auto routeOf = [&](uintptr_t a) -> OriginalDependencies499::HookRoute* { auto it = exeRoutes.find(a); return it == exeRoutes.end() ? nullptr : it->second.get(); };
     bool direct=true, exeUnhooked=true;
     std::vector<std::pair<uintptr_t,std::vector<uint8>>> entries;
     for(size_t f=0;f<fns.size();++f) {
         direct &= dll[f]>=0x1000000 && dll[f]!=fns[f].address;      // el metodo esta en la DLL, no en el EXE
-        exeUnhooked &= !ReversingProbe::JumpsToDll(fns[f].address); // sin hook: se ejecuta el codigo del EXE
+        exeUnhooked &= (routeOf(fns[f].address) ? routeOf(fns[f].address)->Registered() : !ReversingProbe::JumpsToDll(fns[f].address)); // sin hook: se ejecuta el codigo del EXE (los enganchados, con su ruta apagada)
         entries.push_back({fns[f].address,ReversingProbe::Bytes(reinterpret_cast<void*>(fns[f].address),16)});
         entries.push_back({dll[f],ReversingProbe::Bytes(reinterpret_cast<void*>(dll[f]),16)});
     }
@@ -221,7 +239,9 @@ inline void Update() {
                 buf=content;
                 const auto before=buf;
                 _controlfp(_PC_24|_RC_NEAR,_MCW_PC|_MCW_RC);
-                const auto abi=CallThis(candidate ? dll[f] : fns[f].address, buf.data()+kMatOff, args, arity);
+                decltype(CallThis(0, nullptr, args, arity)) abi{};
+                if (!candidate && routeOf(fns[f].address)) routeOf(fns[f].address)->Invoke(false, [&]{ abi=CallThis(fns[f].address, buf.data()+kMatOff, args, arity); return 0; });
+                else abi=CallThis(candidate ? dll[f] : fns[f].address, buf.data()+kMatOff, args, arity);
                 const unsigned fpAfter=_controlfp(0,0);
                 _controlfp(savedFP,_MCW_PC|_MCW_RC);
                 // Fuera de la matriz (y de la region de salida en ConvertToEuler) nada cambia.
@@ -229,7 +249,7 @@ inline void Update() {
                 for(unsigned off=0;off<kMatSize;++off){ maskedBefore[kMatOff+off]=0; maskedAfter[kMatOff+off]=0; }
                 if(f==8) for(unsigned off=0;off<kOutSize;++off){ maskedBefore[kOutOff+off]=0; maskedAfter[kOutOff+off]=0; }
                 const bool protectedOK = maskedBefore==maskedAfter && (fpAfter&(_MCW_PC|_MCW_RC))==(_PC_24|_RC_NEAR);
-                const bool routeOK = candidate ? (dll[f]>=0x1000000) : !ReversingProbe::JumpsToDll(fns[f].address);
+                const bool routeOK = candidate ? (dll[f]>=0x1000000) : (routeOf(fns[f].address) ? routeOf(fns[f].address)->Registered() : !ReversingProbe::JumpsToDll(fns[f].address));
                 json result{{"route_ok",routeOK},{"stack_restored",abi.stack},{"nonvolatile_registers_preserved",abi.registers},{"fpu_stack_balanced",abi.fpu},
                             {"protected_state_unchanged",protectedOK},{"buf",Hex(buf.data(),buf.size())}};
                 restore();

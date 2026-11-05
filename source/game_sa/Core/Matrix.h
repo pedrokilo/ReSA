@@ -93,6 +93,7 @@ public:
     static void InjectHooks();
     static void InjectHooksAttachAssign();    // Solo Attach 0x59BD10 y operator= 0x59BBC0
     static void InjectHooksExactOps();        // Solo UpdateRW, UpdateRwMatrix, SetTranslate, SetRotateZOnly, Destructor, ConstructCopy y ConstructAttached (lote 97A)
+    static void InjectHooksLote99A();         // Solo SetUnity, ResetOrientation, SetScale (2), SetTranslateOnly, SetRotate xyz, Invert(in, out) y la multiplicacion de matrices (lote 99A)
     static void InjectHooksMultiplyVector(); // Solo operator*(CMatrix, CVector) 0x59C890 (el resto de CMatrix::InjectHooks sigue desactivado)
 
     auto& GetRight(this auto&& self) { return self.m_right; }
@@ -256,6 +257,8 @@ private:
 VALIDATE_SIZE(CMatrix, 0x48);
 
 CMatrix operator*(const CMatrix& a, const CMatrix& b);
+// Cuerpo de la multiplicacion de matrices del EXE (0x59BE30) con el puntero de salida explicito (lote 99A): ver Matrix.cpp.
+CMatrix* MatrixMultiplyExe(CMatrix* out, const CMatrix* a, const CMatrix* b);
 [[deprecated]] CVector operator*(const CMatrix& a, const CVector& b);
 CMatrix operator+(const CMatrix& a, const CMatrix& b);
 

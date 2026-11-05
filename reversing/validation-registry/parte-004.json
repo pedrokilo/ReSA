@@ -73877,7 +73877,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::Shutdown"
@@ -73886,11 +73886,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -73907,7 +73907,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::DisableRandomTrains"
@@ -73916,11 +73916,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -73937,7 +73937,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::FindNumCarriagesPulled"
@@ -73946,11 +73946,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -73967,7 +73967,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::FindSideStationIsOn"
@@ -73976,11 +73976,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -73997,7 +73997,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::IsInTunnel"
@@ -74006,11 +74006,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74027,7 +74027,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::OpenTrainDoor"
@@ -74036,11 +74036,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74057,7 +74057,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::AddPassenger"
@@ -74066,11 +74066,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74087,7 +74087,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::RemovePassenger"
@@ -74096,11 +74096,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74117,7 +74117,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::ProcessTrainAnnouncements"
@@ -74126,11 +74126,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74147,7 +74147,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::PlayAnnouncement"
@@ -74156,11 +74156,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74177,7 +74177,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::UpdateTrains"
@@ -74186,11 +74186,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74207,7 +74207,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::ReleaseOneMissionTrain"
@@ -74216,11 +74216,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74237,7 +74237,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::RemoveOneMissionTrain"
@@ -74246,11 +74246,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74267,7 +74267,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::SetTrainSpeed"
@@ -74276,11 +74276,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74297,7 +74297,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::SetTrainCruiseSpeed"
@@ -74306,11 +74306,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74327,7 +74327,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::SetNewTrainPosition"
@@ -74336,11 +74336,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74357,7 +74357,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::RemoveMissionTrains"
@@ -74366,11 +74366,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74387,7 +74387,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::ReleaseMissionTrains"
@@ -74396,11 +74396,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74417,7 +74417,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CTrain::MarkSurroundingEntitiesForCollisionWithTrain"
@@ -74426,11 +74426,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74447,7 +74447,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::Constructor"
@@ -74456,11 +74456,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74477,7 +74477,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::InitPlaneGenerationAndRemoval"
@@ -74486,11 +74486,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74507,7 +74507,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::IsAlreadyFlying"
@@ -74516,11 +74516,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74537,7 +74537,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::SetGearUp"
@@ -74546,11 +74546,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74567,7 +74567,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::SetGearDown"
@@ -74576,11 +74576,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74597,7 +74597,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::CountPlanesAndHelis"
@@ -74606,11 +74606,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74627,7 +74627,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::AreWeInNoPlaneZone"
@@ -74636,11 +74636,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74657,7 +74657,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::AreWeInNoBigPlaneZone"
@@ -74666,11 +74666,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74687,7 +74687,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::Render"
@@ -74696,11 +74696,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74717,7 +74717,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::OpenDoor"
@@ -74726,11 +74726,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74747,7 +74747,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::SetUpWheelColModel"
@@ -74756,11 +74756,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74777,7 +74777,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::BurstTyre"
@@ -74786,11 +74786,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74807,7 +74807,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::Fix"
@@ -74816,11 +74816,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74837,7 +74837,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CPlane::SetupDamageAfterLoad"
@@ -74846,11 +74846,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74867,7 +74867,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::dmgDrawCarCollidingParticles"
@@ -74876,11 +74876,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74897,7 +74897,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::KnockOffRider"
@@ -74906,11 +74906,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74927,7 +74927,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::ReduceHornCounter"
@@ -74936,11 +74936,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74957,7 +74957,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::GetAllWheelsOffGround"
@@ -74966,11 +74966,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -74987,7 +74987,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::DebugCode"
@@ -74996,11 +74996,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75017,7 +75017,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::PlayHornIfNecessary"
@@ -75026,11 +75026,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75047,7 +75047,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::CalculateLeanMatrix"
@@ -75056,11 +75056,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75077,7 +75077,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::ProcessBuoyancy"
@@ -75086,11 +75086,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75107,7 +75107,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::SetModelIndex"
@@ -75116,11 +75116,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75137,7 +75137,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::Teleport"
@@ -75146,11 +75146,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75167,7 +75167,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::Render"
@@ -75176,11 +75176,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75197,7 +75197,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::ProcessControlCollisionCheck"
@@ -75206,11 +75206,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75227,7 +75227,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::GetComponentWorldPosition"
@@ -75236,11 +75236,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75257,7 +75257,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::ProcessOpenDoor"
@@ -75266,11 +75266,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75287,7 +75287,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::RemoveRefsToVehicle"
@@ -75296,11 +75296,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75317,7 +75317,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::ProcessDrivingAnims"
@@ -75326,11 +75326,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75347,7 +75347,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::Fix"
@@ -75356,11 +75356,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -75377,7 +75377,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "857ef410be64a1bf05962e860c5b4dda11972c4d4f150dbe4e562b8b397d5b12",
+        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
         "passed_path": [
           "covered_functions",
           "CBike::SetupDamageAfterLoad"
@@ -75386,11 +75386,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Train.cpp": "6142d24545f12c9870afd18c39d9a6231f84ff8c90c4649b53154e53d8d6613f",
-        "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "0369547db8f8269ea199d31966610445ebdf51ddfe47f14b125b673fb979337c",
-        "source/game_sa/Entity/Vehicle/Plane.h": "32cf4866945b573239d60df2baf8a1fe9c89fe79febca756d7428adadcc4bac7",
-        "source/game_sa/Entity/Vehicle/Bike.cpp": "0c3dc300f7666fd2acb67028dcf922a7e7d9e382f7cfb567b61ef745c8964409",
+        "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
+        "source/game_sa/Entity/Vehicle/Train.h": "446d8adc56c1d4d63e33e0e0eca6ddb264c8abf25f8251a8d8048e1ba1bdedf9",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
+        "source/game_sa/Entity/Vehicle/Plane.h": "12da4b9768a69eff2ef9c6a1ab7def1e9c36418245574999eb5645a1fc265482",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d"
       },
       "source_provenance": "Exact compiled VehWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 12864-row log reaudited offline and preserved gzipped with the original hash. Train.cpp, Plane.cpp and Bike.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -79797,7 +79797,7 @@
       },
       "evidence": {
         "path": "reversing/RoadScriptWave3/validation-summary.json",
-        "sha256": "5fb787f6fe9d2169d2e1f7fd2d64c362dce6f0547f301ed9c0a0240c15013cbf",
+        "sha256": "528cefdf1cd55c7f8cdd1bea92a35a605d9577da39f1d09508d793444058d3e0",
         "passed_path": [
           "covered_functions",
           "CRoadBlocks::Init"
@@ -79806,8 +79806,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RoadBlocks.cpp": "0b217cc43bbfc4b6aeb74f5357fd1b6057c8010deecea1ee13749b47da711570",
-        "source/game_sa/RoadBlocks.h": "2574b9f0525b4cb7ea2b60ac7411c1f724e00b6e53b28e8960db5f8a2fbc58c0"
+        "source/game_sa/RoadBlocks.cpp": "7d4c7bf2e87cd31ad05769ecfcd4afbd64c0529bdf74cd283a7c36ced507f1b1",
+        "source/game_sa/RoadBlocks.h": "2574b9f0525b4cb7ea2b60ac7411c1f724e00b6e53b28e8960db5f8a2fbc58c0",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
+        "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled RoadScriptWave3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3200-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal.",
       "dependency_review": null,
@@ -79823,7 +79825,7 @@
       },
       "evidence": {
         "path": "reversing/RoadScriptWave3/validation-summary.json",
-        "sha256": "5fb787f6fe9d2169d2e1f7fd2d64c362dce6f0547f301ed9c0a0240c15013cbf",
+        "sha256": "528cefdf1cd55c7f8cdd1bea92a35a605d9577da39f1d09508d793444058d3e0",
         "passed_path": [
           "covered_functions",
           "CRoadBlocks::GenerateRoadBlockPedsForCar"
@@ -79832,8 +79834,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RoadBlocks.cpp": "0b217cc43bbfc4b6aeb74f5357fd1b6057c8010deecea1ee13749b47da711570",
-        "source/game_sa/RoadBlocks.h": "2574b9f0525b4cb7ea2b60ac7411c1f724e00b6e53b28e8960db5f8a2fbc58c0"
+        "source/game_sa/RoadBlocks.cpp": "7d4c7bf2e87cd31ad05769ecfcd4afbd64c0529bdf74cd283a7c36ced507f1b1",
+        "source/game_sa/RoadBlocks.h": "2574b9f0525b4cb7ea2b60ac7411c1f724e00b6e53b28e8960db5f8a2fbc58c0",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
+        "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled RoadScriptWave3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3200-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal.",
       "dependency_review": null,
@@ -79849,7 +79853,7 @@
       },
       "evidence": {
         "path": "reversing/RoadScriptWave3/validation-summary.json",
-        "sha256": "5fb787f6fe9d2169d2e1f7fd2d64c362dce6f0547f301ed9c0a0240c15013cbf",
+        "sha256": "528cefdf1cd55c7f8cdd1bea92a35a605d9577da39f1d09508d793444058d3e0",
         "passed_path": [
           "covered_functions",
           "CRunningScript::GivePedScriptedTask-OG"
@@ -79858,7 +79862,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/RunningScript.cpp": "12f507eefef7a9fc3650ab95039ca04452054a671d9c6276a8c564fcfd592e80",
+        "source/game_sa/RoadBlocks.cpp": "7d4c7bf2e87cd31ad05769ecfcd4afbd64c0529bdf74cd283a7c36ced507f1b1",
+        "source/game_sa/RoadBlocks.h": "2574b9f0525b4cb7ea2b60ac7411c1f724e00b6e53b28e8960db5f8a2fbc58c0",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled RoadScriptWave3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3200-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal.",
@@ -80629,7 +80635,7 @@
       },
       "evidence": {
         "path": "reversing/IdleCamWave4/validation-summary.json",
-        "sha256": "0cc11d2f35ba5b0381b62b19598c4f5874969f02c6fa2cbc3b8f2c5394c2afb0",
+        "sha256": "b2f1a9ef7587c4fb7f9d1171d7c3a3f37041661be79e2fb2f22d30b9b2bb614a",
         "passed_path": [
           "covered_functions",
           "CIdleCam::FinaliseIdleCamera"
@@ -80655,7 +80661,7 @@
       },
       "evidence": {
         "path": "reversing/IdleCamWave4/validation-summary.json",
-        "sha256": "0cc11d2f35ba5b0381b62b19598c4f5874969f02c6fa2cbc3b8f2c5394c2afb0",
+        "sha256": "b2f1a9ef7587c4fb7f9d1171d7c3a3f37041661be79e2fb2f22d30b9b2bb614a",
         "passed_path": [
           "covered_functions",
           "CIdleCam::Process"
@@ -80681,7 +80687,7 @@
       },
       "evidence": {
         "path": "reversing/IdleCamWave4/validation-summary.json",
-        "sha256": "0cc11d2f35ba5b0381b62b19598c4f5874969f02c6fa2cbc3b8f2c5394c2afb0",
+        "sha256": "b2f1a9ef7587c4fb7f9d1171d7c3a3f37041661be79e2fb2f22d30b9b2bb614a",
         "passed_path": [
           "covered_functions",
           "CIdleCam::ProcessSlerp"
@@ -80707,7 +80713,7 @@
       },
       "evidence": {
         "path": "reversing/IdleCamWave4/validation-summary.json",
-        "sha256": "0cc11d2f35ba5b0381b62b19598c4f5874969f02c6fa2cbc3b8f2c5394c2afb0",
+        "sha256": "b2f1a9ef7587c4fb7f9d1171d7c3a3f37041661be79e2fb2f22d30b9b2bb614a",
         "passed_path": [
           "covered_functions",
           "CIdleCam::ProcessTargetSelection"
@@ -80733,7 +80739,7 @@
       },
       "evidence": {
         "path": "reversing/IdleCamWave4/validation-summary.json",
-        "sha256": "0cc11d2f35ba5b0381b62b19598c4f5874969f02c6fa2cbc3b8f2c5394c2afb0",
+        "sha256": "b2f1a9ef7587c4fb7f9d1171d7c3a3f37041661be79e2fb2f22d30b9b2bb614a",
         "passed_path": [
           "covered_functions",
           "CIdleCam::Run"
@@ -102611,7 +102617,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::AddShakeSimple"
@@ -102620,8 +102626,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -102637,7 +102643,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::AllowShootingWith2PlayersInCar"
@@ -102646,8 +102652,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -102663,7 +102669,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::ApplyVehicleCameraTweaks"
@@ -102672,8 +102678,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -102689,7 +102695,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::CalculateGroundHeight"
@@ -102698,8 +102704,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -102715,7 +102721,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::CalculateMirroredMatrix"
@@ -102724,8 +102730,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -102741,7 +102747,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::CamShake"
@@ -102750,8 +102756,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -102767,7 +102773,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::CamShakeNoPos"
@@ -102776,8 +102782,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -102793,7 +102799,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::CameraGenericModeSpecialCases"
@@ -102802,8 +102808,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -102819,7 +102825,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::CameraPedAimModeSpecialCases"
@@ -102828,8 +102834,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -102845,7 +102851,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::CameraPedModeSpecialCases"
@@ -102854,8 +102860,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,

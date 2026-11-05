@@ -2238,3 +2238,9 @@ bool __cdecl SearchLightPointWithinCpp(const float* pos, const float* origin, co
 // CCarCtrl::WeaveForPed (0x426970): lee el ancho del modelo del vehiculo (maxima x de su caja) solo si la distancia es de al menos 1.0
 typedef float (__cdecl *WeaveMaxXFn)(const void* vehicle);
 void __cdecl WeaveForPedArcCpp(float dx, float dy, float angle, WeaveMaxXFn getMaxX, const void* vehicle, float* a, float* b);
+
+// Lote 99A. CMatrix::Invert(in, out) (0x59B920, cdecl, devuelve out): transpone la rotacion (copias de dwords en el orden del EXE) y calcula la posicion con la x87 sobre la propia salida (si out solapa
+// con in se ven las escrituras anteriores, como en el EXE); no toca +0x0C, +0x1C, +0x2C, +0x3C ni +0x40/+0x44.
+float* __cdecl MatrixInvertExeCpp(const float* in, float* out);
+// operator*(CMatrix, CMatrix) (0x59BE30, cdecl, resultado por puntero oculto): out = a * b con el orden de sumas de la x87 del EXE; pone a cero +0x40 y +0x44; no escribe las palabras de relleno.
+float* __cdecl MatrixMultiplyExeCpp(float* out, const float* a, const float* b);

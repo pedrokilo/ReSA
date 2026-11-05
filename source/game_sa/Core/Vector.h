@@ -24,7 +24,7 @@ public:
 public:
     static void InjectHooks();
     static void InjectHooksExactMath(); // Solo Magnitude, Magnitude2D, Normalise y NormaliseAndMag (el resto de CVector::InjectHooks sigue desactivado)
-    static void InjectHooksExactOperators(); // Solo DotProduct, CrossProduct, Multiply3x3Exe, VectorAdd, VectorSubtract, FloatTimesVector, VectorTimesFloat, operator+= y operator*=(float) (lote 97A)
+    static void InjectHooksExactOperators(); // Solo DotProduct, CrossProduct, Multiply3x3Exe, VectorAdd, VectorSubtract, FloatTimesVector, VectorTimesFloat, operator+= y operator*=(float) (lote 97A), Multiply3x3VMExe y Difference (lote 99A)
 
     static CVector Random(float min, float max);
     static CVector Random(CVector min, CVector max);
@@ -295,6 +295,8 @@ float DotProduct(CVector* v1, CVector* v2);
 // Funciones del EXE con su ABI original (cdecl; el resultado se escribe en `out`, que se devuelve): Multiply3x3 matriz * vector (0x59C790), suma (0x40FE30), resta (0x40FE60),
 // escalar * vector (0x40FE90) y vector * escalar (0x40FEC0). Ver Vector.cpp.
 CVector* Multiply3x3Exe(CVector* out, const CMatrix* matrix, const CVector* vector);
+// Vector * matriz (0x59C810, lote 99A): x = right . v, y = forward . v, z = up . v con el orden de sumas del EXE.
+CVector* Multiply3x3VMExe(CVector* out, const CVector* vector, const CMatrix* matrix);
 CVector* VectorAdd(CVector* out, const CVector* a, const CVector* b);
 CVector* VectorSubtract(CVector* out, const CVector* a, const CVector* b);
 CVector* FloatTimesVector(CVector* out, float factor, const CVector* vector);

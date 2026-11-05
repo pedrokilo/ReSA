@@ -10,7 +10,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::CameraVehicleModeSpecialCases"
@@ -19,8 +19,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -36,7 +36,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::ClearPlayerWeaponMode"
@@ -45,8 +45,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -62,7 +62,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::ConeCastCollisionResolve"
@@ -71,8 +71,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88,7 +88,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::ConsiderPedAsDucking"
@@ -97,8 +97,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -114,7 +114,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::Constructor"
@@ -123,8 +123,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -140,7 +140,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::DealWithMirrorBeforeConstructRenderList"
@@ -149,8 +149,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -166,7 +166,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::DeleteCutSceneCamDataMemory"
@@ -175,8 +175,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -192,7 +192,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::DontProcessObbeCinemaCamera"
@@ -201,8 +201,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -218,7 +218,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::DrawBordersForWideScreen"
@@ -227,8 +227,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -244,7 +244,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::Enable1rstPersonCamCntrlsScript"
@@ -253,8 +253,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -270,7 +270,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::Enable1rstPersonWeaponsCamera"
@@ -279,8 +279,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -296,7 +296,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::Fade"
@@ -305,8 +305,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -322,7 +322,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::Find3rdPersonCamTargetVector"
@@ -331,8 +331,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -348,7 +348,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::Find3rdPersonQuickAimPitch"
@@ -357,8 +357,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -374,7 +374,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::FindCamFOV"
@@ -383,8 +383,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -400,7 +400,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::FinishCutscene"
@@ -409,8 +409,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -426,7 +426,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetArrPosForVehicleType"
@@ -435,8 +435,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -452,7 +452,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetCutSceneFinishTime"
@@ -461,8 +461,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -478,7 +478,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetFading"
@@ -487,8 +487,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -504,7 +504,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetFadingDirection"
@@ -513,8 +513,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -530,7 +530,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetGameCamPosition"
@@ -539,8 +539,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -556,7 +556,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetLookDirection"
@@ -565,8 +565,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -582,7 +582,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetLookingForwardFirstPerson"
@@ -591,8 +591,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -608,7 +608,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetLookingLRBFirstPerson"
@@ -617,8 +617,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -634,7 +634,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetPositionAlongSpline"
@@ -643,8 +643,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -660,7 +660,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetRoughDistanceToGround"
@@ -669,8 +669,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -686,7 +686,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetScreenFadeStatus"
@@ -695,8 +695,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -712,7 +712,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::GetScreenRect"
@@ -721,8 +721,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -738,7 +738,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::Get_Just_Switched_Status"
@@ -747,8 +747,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -764,7 +764,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::Init"
@@ -773,8 +773,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -790,7 +790,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::InitCameraVehicleTweaks"
@@ -799,8 +799,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -816,7 +816,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::InitialiseCameraForDebugMode"
@@ -825,8 +825,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -842,7 +842,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::InitialiseScriptableComponents"
@@ -851,8 +851,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -868,7 +868,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::IsExtraEntityToIgnore"
@@ -877,8 +877,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -894,7 +894,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::LerpFOV"
@@ -903,8 +903,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -920,7 +920,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessFOVLerp-1"
@@ -929,8 +929,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -946,7 +946,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessFade"
@@ -955,8 +955,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -972,7 +972,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessMusicFade"
@@ -981,8 +981,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -998,7 +998,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessObbeCinemaCameraPed"
@@ -1007,8 +1007,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1024,7 +1024,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessScriptedCommands"
@@ -1033,8 +1033,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1050,7 +1050,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessWideScreenOn"
@@ -1059,8 +1059,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1076,7 +1076,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::RenderMotionBlur"
@@ -1085,8 +1085,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1102,7 +1102,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::ResetDuckingSystem"
@@ -1111,8 +1111,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1128,7 +1128,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::Restore"
@@ -1137,8 +1137,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1154,7 +1154,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::RestoreCameraAfterMirror"
@@ -1163,8 +1163,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1180,7 +1180,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::RestoreWithJumpCut"
@@ -1189,8 +1189,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1206,7 +1206,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCamCollisionVarDataSet"
@@ -1215,8 +1215,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1232,7 +1232,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCamCutSceneOffSet"
@@ -1241,8 +1241,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1258,7 +1258,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCamPositionForFixedMode"
@@ -1267,8 +1267,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1284,7 +1284,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyBehindForFollowPed_CamOnAString"
@@ -1293,8 +1293,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1310,7 +1310,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyBehindForFollowPed_ForAPed_CamOnAString"
@@ -1319,8 +1319,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1336,7 +1336,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyInFrontForFollowPed_CamOnAString"
@@ -1345,8 +1345,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1362,7 +1362,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyInFrontForFollowPed_ForAPed_CamOnAString"
@@ -1371,8 +1371,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1388,7 +1388,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraUpForMirror"
@@ -1397,8 +1397,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1414,7 +1414,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetColVarsAimWeapon"
@@ -1423,8 +1423,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1440,7 +1440,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetColVarsPed"
@@ -1449,8 +1449,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1466,7 +1466,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetColVarsVehicle"
@@ -1475,8 +1475,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1492,7 +1492,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetFadeColour"
@@ -1501,8 +1501,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1518,7 +1518,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetMotionBlur"
@@ -1527,8 +1527,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1544,7 +1544,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetMotionBlurAlpha"
@@ -1553,8 +1553,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1570,7 +1570,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetNearClipScript"
@@ -1579,8 +1579,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1596,7 +1596,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetNewPlayerWeaponMode"
@@ -1605,8 +1605,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1622,7 +1622,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetParametersForScriptInterpolation"
@@ -1631,8 +1631,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1648,7 +1648,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetPercentAlongCutScene"
@@ -1657,8 +1657,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1674,7 +1674,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetRwCamera"
@@ -1683,8 +1683,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1700,7 +1700,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetWideScreenOff"
@@ -1709,8 +1709,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1726,7 +1726,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetWideScreenOn"
@@ -1735,8 +1735,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1752,7 +1752,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetZoomValueCamStringScript"
@@ -1761,8 +1761,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1778,7 +1778,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::SetZoomValueFollowPedScript"
@@ -1787,8 +1787,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1804,7 +1804,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::StartCooperativeCamMode"
@@ -1813,8 +1813,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1830,7 +1830,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::StartTransition"
@@ -1839,8 +1839,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1856,7 +1856,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::StartTransitionWhenNotFinishedInter"
@@ -1865,8 +1865,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1882,7 +1882,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::StopCooperativeCamMode"
@@ -1891,8 +1891,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1908,7 +1908,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::StoreValuesDuringInterPol"
@@ -1917,8 +1917,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1934,7 +1934,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControl"
@@ -1943,8 +1943,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1960,7 +1960,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControlAttachToEntity"
@@ -1969,8 +1969,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -1986,7 +1986,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControlNoEntity"
@@ -1995,8 +1995,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -2012,7 +2012,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControlWithSpline"
@@ -2021,8 +2021,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -2038,7 +2038,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::UpdateAimingCoors"
@@ -2047,8 +2047,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -2064,7 +2064,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::UpdateTargetEntity"
@@ -2073,8 +2073,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -2090,7 +2090,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "1cb32badd40b2a19c1dfd1d690a7a5c2e59269e38f986870c84f0c1a53b3282a",
+        "sha256": "7385433a9195a9021f5ea239464a5e2e8e72814587aca133775eb89c7bff193b",
         "passed_path": [
           "covered_functions",
           "CCamera::Using1stPersonWeaponMode"
@@ -2099,8 +2099,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "7a6f6d3a58746c008ebddbe250547758f3b0c24f90ec82d7f97cc5bcb88134ad",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51"
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50"
       },
       "source_provenance": "Exact compiled CameraFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 19648-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -16359,7 +16359,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesWorld15/validation-summary.json",
-        "sha256": "95abd0a3c7bc0f57a7d1b2c9e9e6dc61af5e321d0591c2869d4cf2210c2a3330",
+        "sha256": "1a3001d4b783bcd88a144057b96e0924f2e5c5dcdcfae6e72ed47247ac3cf002",
         "passed_path": [
           "covered_functions",
           "CGarage::IsEntityTouching3D"
@@ -16368,34 +16368,34 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Garage.cpp": "15d0fbeb68b6701f13b39b8559df380ddcd4002051a5edbf9fc16a3bf9e5281e",
-        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a",
-        "source/game_sa/Garages.cpp": "e735bbddabf34637c7717d15d7a2aeb44f92404af9c8a00085a380435cf5272c",
-        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
-        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-        "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d",
-        "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+        "source/game_sa/Garages.cpp": "4f03dd2b536629f5c34b832ae78be81a09467cc7c1e2b9ccea97ee0c96c7de9c",
+        "source/game_sa/Garages.h": "f71fc96fd17d9d22cba76e913da868dea9b8359fe466eea9465241a3f093f658",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+        "source/game_sa/Entity/Placeable.cpp": "17e8ab6afa41cf7633488c179094a63c1e9d61b83f959f00a891de2f57758945",
         "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
         "source/game_sa/Core/MatrixLinkList.cpp": "3cd88e9890a2edd57d30aa4c6c2dc95f6c47fd2d5cee86f9085a584a6a9ad6f9",
         "source/game_sa/Core/MatrixLinkList.h": "e37f434ddb8b08d790dfabf61a58ee8055638fad7770e4e6aaee5a8749e1836d",
         "source/game_sa/Core/MatrixLink.cpp": "38c7a9a95b2c8c9c4a90063d38f42a1c88182c6a2d518bd98badc81dcee74320",
         "source/game_sa/Core/MatrixLink.h": "ce05ae9f46be69790be1ffb2a9270470e8b021519a83284270164fd3d8528355",
-        "source/game_sa/Core/Matrix.cpp": "f5c9d1f294ca4fdd5245eb23ff28148550d78e9a1615d3e1f4de6f814281d69b",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
-        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2",
+        "source/game_sa/Core/Matrix.cpp": "2f5073bcc2dd2b7daded6828a7dd02209510092f9ba0ef091bfa6b4d4896953f",
+        "source/game_sa/Core/Matrix.h": "74db8bbfa7ab360c4dbbb85bbe2d5421db1f7a2e98af9173f1c9e5ff025700b5",
+        "source/game_sa/SimpleTransform.cpp": "91cfe9e3ac4ceb4a2d63bca9a897a4d62b3ff298a32576300771df16a259c8c4",
         "source/game_sa/SimpleTransform.h": "48d68e2dbb22fb131e21e6b58078fc06be4136824c38dce24a268db8765374f8",
-        "source/game_sa/Collision/ColModel.h": "279eb38356de8e4d7e2525027243ce667cdd44c2e2bfd41e76d315df059ef205",
+        "source/game_sa/Collision/ColModel.h": "99580eb305e1804ec7478aa135ae6076e8f28a572e159cb056030be498710b52",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
         "source/game_sa/Collision/ColSphere.h": "bd100cf3052d51eec06d543245887a65817895416354a6dcf2499372956ca499",
-        "source/game_sa/Collision/Sphere.h": "39b77da495f035898452bf3b4ef38cd585463f93d52f2101d492598d8ea3c44a",
+        "source/game_sa/Collision/Sphere.h": "a47316d81e5f746994625e66d06f5b28aa3b5e8a477f82751642e2feee884ce9",
         "source/game_sa/Models/ModelInfo.h": "803a964d2c86424ef2464bd6841f77b1c7eba747f99b81632b217d90ad0f6ba0",
         "source/game_sa/Models/BaseModelInfo.h": "91bece0c4ec1c9f8772b17ba11dcbc9f8e75636292f995f735cbd06514419cc6",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
-        "source/game_sa/Pools/VehiclePool.h": "9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
-        "reversing/DependenciesWorld10/NewGameConfiguration.py": "ca4cff07327e65c41af1c90292c24e7e658baa6071fc5fbbbb49ed1231c2b6e4"
+        "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93",
+        "source/game_sa/Pools/VehiclePool.h": "e2381e0d1c8f4c9b4746e8620f9d2132b52d5a8bd8831ff1afe149bc3b31c469",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/DependenciesWorld10/NewGameConfiguration.py": "c3f80b5df1c5e29124fed8f316d5595d3abc7300c4ad336226e7ea03b577f6f1"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -22171,7 +22171,7 @@
       },
       "evidence": {
         "path": "reversing/CameraShake30/validation-summary.json",
-        "sha256": "2c7666364d8a39f96af6a49b0875dc02cc3fa92e716945fb219fca604041408d",
+        "sha256": "c2847b39bc18cfd5abb4f8b5ba1ce972610d02bef9d6669863fd9a4ade123da6",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessShake"
@@ -22181,13 +22181,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
         "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
         "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
         "source/game_sa/HandShaker.cpp": "941d350967f72aeffcf6aac6ff845cf576fdc48aaaccb5c40c775aeb7f29f4a8",
         "source/game_sa/HandShaker.h": "9caaf427c7bec144be3c3fc9ba8f07fadd0fa987a848f7fe2562e8e1aaa746de",
-        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
-        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/CameraShake30/LiveComparison.hpp": "b613bc922036745a9e1d8f236a690143136d5570486f36196902badaa54cc8cc",
         "reversing/CameraShake30/Core.hpp": "b343d7018f3837d0f480e1e6ae76246f6b956907884cf5af24d73a7a223586a3",
@@ -23276,7 +23276,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileWrappers60/validation-summary.json",
-        "sha256": "f38421a392e85a02ae3d60b3cf793330ac3ed679bad25d1b19aaf7a818451346",
+        "sha256": "44b4e1e86364ba3bac9900ae88bfe3351913a1da4dcc1c11166bdef84c8c0ec0",
         "passed_path": [
           "covered_functions",
           "CAutomobile::HasCarStoppedBecauseOfLight"
@@ -23286,12 +23286,12 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
         "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
-        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
-        "source/game_sa/Pathfind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "source/game_sa/Pathfind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/AutomobileWrappers60/LiveComparison.hpp": "806dcff1c69e5bfc87467dffbc04018c60e3b0f7cbd5816651742c7f87896db1",
@@ -23354,7 +23354,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileWrappers60/validation-summary.json",
-        "sha256": "f38421a392e85a02ae3d60b3cf793330ac3ed679bad25d1b19aaf7a818451346",
+        "sha256": "44b4e1e86364ba3bac9900ae88bfe3351913a1da4dcc1c11166bdef84c8c0ec0",
         "passed_path": [
           "covered_functions",
           "CAutomobile::UpdateWheelMatrix"
@@ -23364,12 +23364,12 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
         "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
-        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
-        "source/game_sa/Pathfind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "source/game_sa/Pathfind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/AutomobileWrappers60/LiveComparison.hpp": "806dcff1c69e5bfc87467dffbc04018c60e3b0f7cbd5816651742c7f87896db1",
@@ -23514,7 +23514,7 @@
       },
       "evidence": {
         "path": "reversing/AutoPreRender60/validation-summary.json",
-        "sha256": "ad81694c05978b74aba8ee44d8f6a45a19fa40e4f20c2888f7890edb513cedc5",
+        "sha256": "6a16cb678de7ef4d45a86c6e990cb222ae37bb4a45b57daead33bef0ebafd4d9",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PreRender"
@@ -23524,12 +23524,12 @@
         "original_address": "0x006AAB50"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
         "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/AutoPreRender60/LiveComparison.hpp": "68164cbe4c5484c6b33c7e26bc0fcd9e88b98b55163abdf44111cbbe64640bce",
         "reversing/AutoPreRender60/Core.hpp": "316f52b2da958a9781355b095c17f0361f658b4b27c9f354c99bb157a24ff4a3",
@@ -31984,7 +31984,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "4c177a6b28d77c30b51d1fbbede8fefa2e777c8bb869f5009d7dbda5770c9d39",
+        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWheelDust"
@@ -31993,14 +31993,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Fx/Fx.cpp": "7d7925086ca6c4c6d812f6731a4ff8fb033b2242fd0639f54a9c0d2a44a1b8bc",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "82f024f2f89c9b028e4f155b9e88d52369a44dab4d6dc56ae1916a43f2aa40bd",
-        "source/game_sa/X87Math.h": "65ec85114f13b50801ef1535eecf246f8b3a314a181aaa5dc6d708e5f3526eca",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "2b7cac11965bb4731dde39e80456c54b8e5f717198edfd8127cbce597033af8b",
+        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -32020,7 +32020,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "4c177a6b28d77c30b51d1fbbede8fefa2e777c8bb869f5009d7dbda5770c9d39",
+        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWheelSand"
@@ -32029,14 +32029,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Fx/Fx.cpp": "7d7925086ca6c4c6d812f6731a4ff8fb033b2242fd0639f54a9c0d2a44a1b8bc",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "82f024f2f89c9b028e4f155b9e88d52369a44dab4d6dc56ae1916a43f2aa40bd",
-        "source/game_sa/X87Math.h": "65ec85114f13b50801ef1535eecf246f8b3a314a181aaa5dc6d708e5f3526eca",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "2b7cac11965bb4731dde39e80456c54b8e5f717198edfd8127cbce597033af8b",
+        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -32056,7 +32056,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "4c177a6b28d77c30b51d1fbbede8fefa2e777c8bb869f5009d7dbda5770c9d39",
+        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddGlass"
@@ -32065,14 +32065,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Fx/Fx.cpp": "7d7925086ca6c4c6d812f6731a4ff8fb033b2242fd0639f54a9c0d2a44a1b8bc",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "82f024f2f89c9b028e4f155b9e88d52369a44dab4d6dc56ae1916a43f2aa40bd",
-        "source/game_sa/X87Math.h": "65ec85114f13b50801ef1535eecf246f8b3a314a181aaa5dc6d708e5f3526eca",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "2b7cac11965bb4731dde39e80456c54b8e5f717198edfd8127cbce597033af8b",
+        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -32092,7 +32092,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "4c177a6b28d77c30b51d1fbbede8fefa2e777c8bb869f5009d7dbda5770c9d39",
+        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddDebris"
@@ -32101,14 +32101,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Fx/Fx.cpp": "7d7925086ca6c4c6d812f6731a4ff8fb033b2242fd0639f54a9c0d2a44a1b8bc",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "82f024f2f89c9b028e4f155b9e88d52369a44dab4d6dc56ae1916a43f2aa40bd",
-        "source/game_sa/X87Math.h": "65ec85114f13b50801ef1535eecf246f8b3a314a181aaa5dc6d708e5f3526eca",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "2b7cac11965bb4731dde39e80456c54b8e5f717198edfd8127cbce597033af8b",
+        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -32128,7 +32128,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "4c177a6b28d77c30b51d1fbbede8fefa2e777c8bb869f5009d7dbda5770c9d39",
+        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWheelGrass"
@@ -32137,14 +32137,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Fx/Fx.cpp": "7d7925086ca6c4c6d812f6731a4ff8fb033b2242fd0639f54a9c0d2a44a1b8bc",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "82f024f2f89c9b028e4f155b9e88d52369a44dab4d6dc56ae1916a43f2aa40bd",
-        "source/game_sa/X87Math.h": "65ec85114f13b50801ef1535eecf246f8b3a314a181aaa5dc6d708e5f3526eca",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "2b7cac11965bb4731dde39e80456c54b8e5f717198edfd8127cbce597033af8b",
+        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -32164,7 +32164,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "4c177a6b28d77c30b51d1fbbede8fefa2e777c8bb869f5009d7dbda5770c9d39",
+        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWheelGravel"
@@ -32173,14 +32173,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Fx/Fx.cpp": "7d7925086ca6c4c6d812f6731a4ff8fb033b2242fd0639f54a9c0d2a44a1b8bc",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "82f024f2f89c9b028e4f155b9e88d52369a44dab4d6dc56ae1916a43f2aa40bd",
-        "source/game_sa/X87Math.h": "65ec85114f13b50801ef1535eecf246f8b3a314a181aaa5dc6d708e5f3526eca",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "2b7cac11965bb4731dde39e80456c54b8e5f717198edfd8127cbce597033af8b",
+        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -32200,7 +32200,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "4c177a6b28d77c30b51d1fbbede8fefa2e777c8bb869f5009d7dbda5770c9d39",
+        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWheelMud"
@@ -32209,14 +32209,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Fx/Fx.cpp": "7d7925086ca6c4c6d812f6731a4ff8fb033b2242fd0639f54a9c0d2a44a1b8bc",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "82f024f2f89c9b028e4f155b9e88d52369a44dab4d6dc56ae1916a43f2aa40bd",
-        "source/game_sa/X87Math.h": "65ec85114f13b50801ef1535eecf246f8b3a314a181aaa5dc6d708e5f3526eca",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "2b7cac11965bb4731dde39e80456c54b8e5f717198edfd8127cbce597033af8b",
+        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -32236,7 +32236,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "4c177a6b28d77c30b51d1fbbede8fefa2e777c8bb869f5009d7dbda5770c9d39",
+        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
         "passed_path": [
           "covered_functions",
           "Fx_c::TriggerGunshot"
@@ -32245,14 +32245,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Fx/Fx.cpp": "7d7925086ca6c4c6d812f6731a4ff8fb033b2242fd0639f54a9c0d2a44a1b8bc",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "82f024f2f89c9b028e4f155b9e88d52369a44dab4d6dc56ae1916a43f2aa40bd",
-        "source/game_sa/X87Math.h": "65ec85114f13b50801ef1535eecf246f8b3a314a181aaa5dc6d708e5f3526eca",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "2b7cac11965bb4731dde39e80456c54b8e5f717198edfd8127cbce597033af8b",
+        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -35680,7 +35680,7 @@
       },
       "evidence": {
         "path": "reversing/Fn92B/validation-summary.json",
-        "sha256": "ab7951df58198f4b1299fc8850e0139063f2fa5bb73acc76fbefe9b7889846fc",
+        "sha256": "ed2f1514cc63b3d4900355f71f2749e2fd95fdf6f13ea198a4882bacfcb5290c",
         "passed_path": [
           "covered_functions",
           "CObjectPotentialCollisionScanner::ScanForObjectPotentialCollisionEvents"
@@ -35689,11 +35689,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "59057abaab6437c5454c5b81a49e2927b42f33629b0893451a4d084600b1003d",
-        "source/game_sa/X87Math.cpp": "0f05c3064e745b369facce14e1d0791454011689498d2dd4f12afcc01d5d9afc",
-        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
-        "source/game_sa/Events/EventScanner.cpp": "eabc79b5af8adf336f42e41f861a7d009eb1a228090879e887fe781f0c523b4d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "source/game_sa/Events/EventScanner.cpp": "6f32096b36b933e4bd6c1925e190c12e0e048eb248cb9cb7f454c03cdb51074b",
         "source/game_sa/Events/EventScanner.h": "89b1738801e4ad0ad5b63f7523773a8d00133a7d8a4550aa17c31ccf74f7e58b",
         "source/game_sa/ObjectScanner.cpp": "8860fca0314d49ea1bcc5ea7c3d5b2d051d7c60b3af4ae762b99daf7990bb6cf",
         "source/game_sa/ObjectScanner.h": "77a6221a19d86d411fe288cb3749c9faec219aadb929171a57950a7d0eeb909c",
@@ -38030,6 +38030,386 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main dca501f0c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): 0x46AA30 y 0x46CD80 de CScriptsForBrains (CScriptsForBrains::StartOrRequestNewStreamedScriptBrainWithThisName), CVector::NormaliseAndMag 0x59C970 (CTheScripts::IsPointWithinSearchLight), diPadSetRanges 0x746D80 y la llamada virtual EnumDevices de una interfaz DirectInput falsa en una arena (WinInput::diPadEnumerate), CWorld::FindPlayerPed 0x56E210 y CGeneral::GetATanOfXY 0x53CC70 (CCarCtrl::WeaveForPed; la informacion de modelo del vehiculo y su caja de colision son arenas). FloatMax, CCarPathLink::GetNodeCoors, CVehicleModelInfo::IncrementTimesUsed y CPlaceable::GetForwardVector no tienen colaboradores (fsin/fcos de GetForwardVector corren de verdad en ambos lados). NO se sustituyen y corren de verdad en ambos lados: toda la aritmetica (x87 del EXE frente al C++ de la DLL; SearchLightPointWithinCpp vive en X87Math.cpp, compilado con /O2 /Oi /arch:IA32 /fp:fast). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits, ST0 de FloatMax a 80 bits, fsin/fcos con series de 100 digitos). Fuera de los fixtures: indices de StartOrRequestNewStreamedScriptBrain mayores que 255 (el EXE pasa EAX completo, la DLL un uint8), tipo con bits altos distintos de cero (la DLL pasa el byte extendido con ceros; el EXE pasa el dword tal cual, y los colaboradores solo leen el byte bajo), NaN senalizantes en las magnitudes que devuelve el falso de 0x59C970, rumbos finitos de modulo mayor que 8 (fsin depende de la reduccion interna de la x87), indices de foco mayores que 7, y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn98A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVector",
+        "fn_name": "Difference",
+        "address": "0x0040FE00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn99A/validation-summary.json",
+        "sha256": "24088feb49a777ff9ac55f53520fb6990e8dc8e87015230b33ae79063e2962ba",
+        "passed_path": [
+          "covered_functions",
+          "CVector::Difference"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Core/Vector.cpp": "e71cd251913f279c6f6d96823adaacd0d05e0d47c942cb19fb9b6a7ca96278ed",
+        "source/game_sa/Core/Vector.h": "f5ee9704e01cf63b345fe0b509b6ef79341cc8e990dc864a985ae88127631041",
+        "source/game_sa/Core/Matrix.cpp": "2f5073bcc2dd2b7daded6828a7dd02209510092f9ba0ef091bfa6b4d4896953f",
+        "source/game_sa/Core/Matrix.h": "74db8bbfa7ab360c4dbbb85bbe2d5421db1f7a2e98af9173f1c9e5ff025700b5",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn99A/LiveComparison.hpp": "6766ae7313d197d1370f2bc40411d819d24dd3b2128bc99d829d9d365986ebc0",
+        "reversing/Fn99A/Core.hpp": "0e82357cafbb816201d03248770774b576b8946adbc006a1d9c640c0c208bebd",
+        "reversing/Fn99A/Fixtures.hpp": "d7cd34cb379fe4d3bf6d10b6b215dbe227f57456e6fe46be7a7e391bd4d43b7b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 4557fb71e con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las diez funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto). Ventana de memoria con solapamientos (out == a, out == b, a == b y parciales). Ademas de resultado y bytes escritos se compara EAX de salida (out) en las funciones que lo devuelven, que leen los llamadores del EXE. En la multiplicacion de matrices no se comparan las palabras de relleno de la salida (el EXE copia ahi basura de la pila). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62 y excepciones x87 desenmascaradas.",
+      "review_reference": "reversing/Fn99A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "SetUnity",
+        "address": "0x0059AE70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn99A/validation-summary.json",
+        "sha256": "24088feb49a777ff9ac55f53520fb6990e8dc8e87015230b33ae79063e2962ba",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::SetUnity"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Core/Vector.cpp": "e71cd251913f279c6f6d96823adaacd0d05e0d47c942cb19fb9b6a7ca96278ed",
+        "source/game_sa/Core/Vector.h": "f5ee9704e01cf63b345fe0b509b6ef79341cc8e990dc864a985ae88127631041",
+        "source/game_sa/Core/Matrix.cpp": "2f5073bcc2dd2b7daded6828a7dd02209510092f9ba0ef091bfa6b4d4896953f",
+        "source/game_sa/Core/Matrix.h": "74db8bbfa7ab360c4dbbb85bbe2d5421db1f7a2e98af9173f1c9e5ff025700b5",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn99A/LiveComparison.hpp": "6766ae7313d197d1370f2bc40411d819d24dd3b2128bc99d829d9d365986ebc0",
+        "reversing/Fn99A/Core.hpp": "0e82357cafbb816201d03248770774b576b8946adbc006a1d9c640c0c208bebd",
+        "reversing/Fn99A/Fixtures.hpp": "d7cd34cb379fe4d3bf6d10b6b215dbe227f57456e6fe46be7a7e391bd4d43b7b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 4557fb71e con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las diez funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto). Ventana de memoria con solapamientos (out == a, out == b, a == b y parciales). Ademas de resultado y bytes escritos se compara EAX de salida (out) en las funciones que lo devuelven, que leen los llamadores del EXE. En la multiplicacion de matrices no se comparan las palabras de relleno de la salida (el EXE copia ahi basura de la pila). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62 y excepciones x87 desenmascaradas.",
+      "review_reference": "reversing/Fn99A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "ResetOrientation",
+        "address": "0x0059AEA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn99A/validation-summary.json",
+        "sha256": "24088feb49a777ff9ac55f53520fb6990e8dc8e87015230b33ae79063e2962ba",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::ResetOrientation"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Core/Vector.cpp": "e71cd251913f279c6f6d96823adaacd0d05e0d47c942cb19fb9b6a7ca96278ed",
+        "source/game_sa/Core/Vector.h": "f5ee9704e01cf63b345fe0b509b6ef79341cc8e990dc864a985ae88127631041",
+        "source/game_sa/Core/Matrix.cpp": "2f5073bcc2dd2b7daded6828a7dd02209510092f9ba0ef091bfa6b4d4896953f",
+        "source/game_sa/Core/Matrix.h": "74db8bbfa7ab360c4dbbb85bbe2d5421db1f7a2e98af9173f1c9e5ff025700b5",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn99A/LiveComparison.hpp": "6766ae7313d197d1370f2bc40411d819d24dd3b2128bc99d829d9d365986ebc0",
+        "reversing/Fn99A/Core.hpp": "0e82357cafbb816201d03248770774b576b8946adbc006a1d9c640c0c208bebd",
+        "reversing/Fn99A/Fixtures.hpp": "d7cd34cb379fe4d3bf6d10b6b215dbe227f57456e6fe46be7a7e391bd4d43b7b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 4557fb71e con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las diez funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto). Ventana de memoria con solapamientos (out == a, out == b, a == b y parciales). Ademas de resultado y bytes escritos se compara EAX de salida (out) en las funciones que lo devuelven, que leen los llamadores del EXE. En la multiplicacion de matrices no se comparan las palabras de relleno de la salida (el EXE copia ahi basura de la pila). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62 y excepciones x87 desenmascaradas.",
+      "review_reference": "reversing/Fn99A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "SetScale-f",
+        "address": "0x0059AED0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn99A/validation-summary.json",
+        "sha256": "24088feb49a777ff9ac55f53520fb6990e8dc8e87015230b33ae79063e2962ba",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::SetScale(f)"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Core/Vector.cpp": "e71cd251913f279c6f6d96823adaacd0d05e0d47c942cb19fb9b6a7ca96278ed",
+        "source/game_sa/Core/Vector.h": "f5ee9704e01cf63b345fe0b509b6ef79341cc8e990dc864a985ae88127631041",
+        "source/game_sa/Core/Matrix.cpp": "2f5073bcc2dd2b7daded6828a7dd02209510092f9ba0ef091bfa6b4d4896953f",
+        "source/game_sa/Core/Matrix.h": "74db8bbfa7ab360c4dbbb85bbe2d5421db1f7a2e98af9173f1c9e5ff025700b5",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn99A/LiveComparison.hpp": "6766ae7313d197d1370f2bc40411d819d24dd3b2128bc99d829d9d365986ebc0",
+        "reversing/Fn99A/Core.hpp": "0e82357cafbb816201d03248770774b576b8946adbc006a1d9c640c0c208bebd",
+        "reversing/Fn99A/Fixtures.hpp": "d7cd34cb379fe4d3bf6d10b6b215dbe227f57456e6fe46be7a7e391bd4d43b7b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 4557fb71e con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las diez funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto). Ventana de memoria con solapamientos (out == a, out == b, a == b y parciales). Ademas de resultado y bytes escritos se compara EAX de salida (out) en las funciones que lo devuelven, que leen los llamadores del EXE. En la multiplicacion de matrices no se comparan las palabras de relleno de la salida (el EXE copia ahi basura de la pila). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62 y excepciones x87 desenmascaradas.",
+      "review_reference": "reversing/Fn99A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "SetScale-fff",
+        "address": "0x0059AF00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn99A/validation-summary.json",
+        "sha256": "24088feb49a777ff9ac55f53520fb6990e8dc8e87015230b33ae79063e2962ba",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::SetScale(fff)"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Core/Vector.cpp": "e71cd251913f279c6f6d96823adaacd0d05e0d47c942cb19fb9b6a7ca96278ed",
+        "source/game_sa/Core/Vector.h": "f5ee9704e01cf63b345fe0b509b6ef79341cc8e990dc864a985ae88127631041",
+        "source/game_sa/Core/Matrix.cpp": "2f5073bcc2dd2b7daded6828a7dd02209510092f9ba0ef091bfa6b4d4896953f",
+        "source/game_sa/Core/Matrix.h": "74db8bbfa7ab360c4dbbb85bbe2d5421db1f7a2e98af9173f1c9e5ff025700b5",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn99A/LiveComparison.hpp": "6766ae7313d197d1370f2bc40411d819d24dd3b2128bc99d829d9d365986ebc0",
+        "reversing/Fn99A/Core.hpp": "0e82357cafbb816201d03248770774b576b8946adbc006a1d9c640c0c208bebd",
+        "reversing/Fn99A/Fixtures.hpp": "d7cd34cb379fe4d3bf6d10b6b215dbe227f57456e6fe46be7a7e391bd4d43b7b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 4557fb71e con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las diez funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto). Ventana de memoria con solapamientos (out == a, out == b, a == b y parciales). Ademas de resultado y bytes escritos se compara EAX de salida (out) en las funciones que lo devuelven, que leen los llamadores del EXE. En la multiplicacion de matrices no se comparan las palabras de relleno de la salida (el EXE copia ahi basura de la pila). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62 y excepciones x87 desenmascaradas.",
+      "review_reference": "reversing/Fn99A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "SetTranslateOnly",
+        "address": "0x0059AF80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn99A/validation-summary.json",
+        "sha256": "24088feb49a777ff9ac55f53520fb6990e8dc8e87015230b33ae79063e2962ba",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::SetTranslateOnly"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Core/Vector.cpp": "e71cd251913f279c6f6d96823adaacd0d05e0d47c942cb19fb9b6a7ca96278ed",
+        "source/game_sa/Core/Vector.h": "f5ee9704e01cf63b345fe0b509b6ef79341cc8e990dc864a985ae88127631041",
+        "source/game_sa/Core/Matrix.cpp": "2f5073bcc2dd2b7daded6828a7dd02209510092f9ba0ef091bfa6b4d4896953f",
+        "source/game_sa/Core/Matrix.h": "74db8bbfa7ab360c4dbbb85bbe2d5421db1f7a2e98af9173f1c9e5ff025700b5",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn99A/LiveComparison.hpp": "6766ae7313d197d1370f2bc40411d819d24dd3b2128bc99d829d9d365986ebc0",
+        "reversing/Fn99A/Core.hpp": "0e82357cafbb816201d03248770774b576b8946adbc006a1d9c640c0c208bebd",
+        "reversing/Fn99A/Fixtures.hpp": "d7cd34cb379fe4d3bf6d10b6b215dbe227f57456e6fe46be7a7e391bd4d43b7b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 4557fb71e con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las diez funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto). Ventana de memoria con solapamientos (out == a, out == b, a == b y parciales). Ademas de resultado y bytes escritos se compara EAX de salida (out) en las funciones que lo devuelven, que leen los llamadores del EXE. En la multiplicacion de matrices no se comparan las palabras de relleno de la salida (el EXE copia ahi basura de la pila). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62 y excepciones x87 desenmascaradas.",
+      "review_reference": "reversing/Fn99A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "SetRotate-xyz",
+        "address": "0x0059B120",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn99A/validation-summary.json",
+        "sha256": "24088feb49a777ff9ac55f53520fb6990e8dc8e87015230b33ae79063e2962ba",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::SetRotate(xyz)"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Core/Vector.cpp": "e71cd251913f279c6f6d96823adaacd0d05e0d47c942cb19fb9b6a7ca96278ed",
+        "source/game_sa/Core/Vector.h": "f5ee9704e01cf63b345fe0b509b6ef79341cc8e990dc864a985ae88127631041",
+        "source/game_sa/Core/Matrix.cpp": "2f5073bcc2dd2b7daded6828a7dd02209510092f9ba0ef091bfa6b4d4896953f",
+        "source/game_sa/Core/Matrix.h": "74db8bbfa7ab360c4dbbb85bbe2d5421db1f7a2e98af9173f1c9e5ff025700b5",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn99A/LiveComparison.hpp": "6766ae7313d197d1370f2bc40411d819d24dd3b2128bc99d829d9d365986ebc0",
+        "reversing/Fn99A/Core.hpp": "0e82357cafbb816201d03248770774b576b8946adbc006a1d9c640c0c208bebd",
+        "reversing/Fn99A/Fixtures.hpp": "d7cd34cb379fe4d3bf6d10b6b215dbe227f57456e6fe46be7a7e391bd4d43b7b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 4557fb71e con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las diez funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto). Ventana de memoria con solapamientos (out == a, out == b, a == b y parciales). Ademas de resultado y bytes escritos se compara EAX de salida (out) en las funciones que lo devuelven, que leen los llamadores del EXE. En la multiplicacion de matrices no se comparan las palabras de relleno de la salida (el EXE copia ahi basura de la pila). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62 y excepciones x87 desenmascaradas.",
+      "review_reference": "reversing/Fn99A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "Invert-1",
+        "address": "0x0059B920",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn99A/validation-summary.json",
+        "sha256": "24088feb49a777ff9ac55f53520fb6990e8dc8e87015230b33ae79063e2962ba",
+        "passed_path": [
+          "covered_functions",
+          "Invert"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Core/Vector.cpp": "e71cd251913f279c6f6d96823adaacd0d05e0d47c942cb19fb9b6a7ca96278ed",
+        "source/game_sa/Core/Vector.h": "f5ee9704e01cf63b345fe0b509b6ef79341cc8e990dc864a985ae88127631041",
+        "source/game_sa/Core/Matrix.cpp": "2f5073bcc2dd2b7daded6828a7dd02209510092f9ba0ef091bfa6b4d4896953f",
+        "source/game_sa/Core/Matrix.h": "74db8bbfa7ab360c4dbbb85bbe2d5421db1f7a2e98af9173f1c9e5ff025700b5",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn99A/LiveComparison.hpp": "6766ae7313d197d1370f2bc40411d819d24dd3b2128bc99d829d9d365986ebc0",
+        "reversing/Fn99A/Core.hpp": "0e82357cafbb816201d03248770774b576b8946adbc006a1d9c640c0c208bebd",
+        "reversing/Fn99A/Fixtures.hpp": "d7cd34cb379fe4d3bf6d10b6b215dbe227f57456e6fe46be7a7e391bd4d43b7b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 4557fb71e con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las diez funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto). Ventana de memoria con solapamientos (out == a, out == b, a == b y parciales). Ademas de resultado y bytes escritos se compara EAX de salida (out) en las funciones que lo devuelven, que leen los llamadores del EXE. En la multiplicacion de matrices no se comparan las palabras de relleno de la salida (el EXE copia ahi basura de la pila). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62 y excepciones x87 desenmascaradas.",
+      "review_reference": "reversing/Fn99A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "MatrixMultiplyExe",
+        "address": "0x0059BE30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn99A/validation-summary.json",
+        "sha256": "24088feb49a777ff9ac55f53520fb6990e8dc8e87015230b33ae79063e2962ba",
+        "passed_path": [
+          "covered_functions",
+          "MatrixMultiplyExe"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Core/Vector.cpp": "e71cd251913f279c6f6d96823adaacd0d05e0d47c942cb19fb9b6a7ca96278ed",
+        "source/game_sa/Core/Vector.h": "f5ee9704e01cf63b345fe0b509b6ef79341cc8e990dc864a985ae88127631041",
+        "source/game_sa/Core/Matrix.cpp": "2f5073bcc2dd2b7daded6828a7dd02209510092f9ba0ef091bfa6b4d4896953f",
+        "source/game_sa/Core/Matrix.h": "74db8bbfa7ab360c4dbbb85bbe2d5421db1f7a2e98af9173f1c9e5ff025700b5",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn99A/LiveComparison.hpp": "6766ae7313d197d1370f2bc40411d819d24dd3b2128bc99d829d9d365986ebc0",
+        "reversing/Fn99A/Core.hpp": "0e82357cafbb816201d03248770774b576b8946adbc006a1d9c640c0c208bebd",
+        "reversing/Fn99A/Fixtures.hpp": "d7cd34cb379fe4d3bf6d10b6b215dbe227f57456e6fe46be7a7e391bd4d43b7b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 4557fb71e con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las diez funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto). Ventana de memoria con solapamientos (out == a, out == b, a == b y parciales). Ademas de resultado y bytes escritos se compara EAX de salida (out) en las funciones que lo devuelven, que leen los llamadores del EXE. En la multiplicacion de matrices no se comparan las palabras de relleno de la salida (el EXE copia ahi basura de la pila). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62 y excepciones x87 desenmascaradas.",
+      "review_reference": "reversing/Fn99A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVector",
+        "fn_name": "Multiply3x3VMExe",
+        "address": "0x0059C810",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn99A/validation-summary.json",
+        "sha256": "24088feb49a777ff9ac55f53520fb6990e8dc8e87015230b33ae79063e2962ba",
+        "passed_path": [
+          "covered_functions",
+          "Multiply3x3VMExe"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/game_sa/Core/Vector.cpp": "e71cd251913f279c6f6d96823adaacd0d05e0d47c942cb19fb9b6a7ca96278ed",
+        "source/game_sa/Core/Vector.h": "f5ee9704e01cf63b345fe0b509b6ef79341cc8e990dc864a985ae88127631041",
+        "source/game_sa/Core/Matrix.cpp": "2f5073bcc2dd2b7daded6828a7dd02209510092f9ba0ef091bfa6b4d4896953f",
+        "source/game_sa/Core/Matrix.h": "74db8bbfa7ab360c4dbbb85bbe2d5421db1f7a2e98af9173f1c9e5ff025700b5",
+        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
+        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn99A/LiveComparison.hpp": "6766ae7313d197d1370f2bc40411d819d24dd3b2128bc99d829d9d365986ebc0",
+        "reversing/Fn99A/Core.hpp": "0e82357cafbb816201d03248770774b576b8946adbc006a1d9c640c0c208bebd",
+        "reversing/Fn99A/Fixtures.hpp": "d7cd34cb379fe4d3bf6d10b6b215dbe227f57456e6fe46be7a7e391bd4d43b7b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 4557fb71e con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las diez funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto). Ventana de memoria con solapamientos (out == a, out == b, a == b y parciales). Ademas de resultado y bytes escritos se compara EAX de salida (out) en las funciones que lo devuelven, que leen los llamadores del EXE. En la multiplicacion de matrices no se comparan las palabras de relleno de la salida (el EXE copia ahi basura de la pila). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62 y excepciones x87 desenmascaradas.",
+      "review_reference": "reversing/Fn99A/README.md"
     }
   ]
 }

@@ -47,7 +47,7 @@ void CVector::InjectHooks()
     // Magnitude, Magnitude2D, Normalise y NormaliseAndMag se instalan por separado en InjectHooksExactMath
     RH_ScopedInstall(Cross_OG, 0x70F890);
     RH_ScopedInstall(Sum, 0x40FDD0);
-    RH_ScopedInstall(Difference, 0x40FE00);
+    // Difference (0x40FE00) se instala por separado en InjectHooksExactOperators (lote 99A)
     RH_ScopedInstall(FromMultiply, 0x59C670);
     RH_ScopedInstall(FromMultiply3x3, 0x59C6D0);
     // CrossProduct (0x59C730), DotProduct (0x40FDB0), operator+= (0x411A00) y operator*=(float) (0x40FEF0) se instalan por separado en InjectHooksExactOperators
@@ -76,6 +76,8 @@ void CVector::InjectHooksExactOperators()
     RH_ScopedGlobalOverloadedInstall(DotProduct, "v3d*v3d*", 0x40FDB0, float(*)(CVector*, CVector*));
     RH_ScopedGlobalOverloadedInstall(CrossProduct, "out", 0x59C730, CVector*(*)(CVector*, CVector*, CVector*));
     RH_ScopedGlobalInstall(Multiply3x3Exe, 0x59C790);
+    RH_ScopedGlobalInstall(Multiply3x3VMExe, 0x59C810);
+    RH_ScopedInstall(Difference, 0x40FE00);
     RH_ScopedGlobalInstall(VectorAdd, 0x40FE30);
     RH_ScopedGlobalInstall(VectorSubtract, 0x40FE60);
     RH_ScopedGlobalInstall(FloatTimesVector, 0x40FE90);
@@ -188,11 +190,14 @@ void CVector::Sum(const CVector& left, const CVector &right)
 }
 
 // Subtracts left - right and stores result
+// 0x40FE00 (thiscall, `ret 8`): como el original, cada componente se carga (fld left.k, en el registro), se resta (fsub right.k, en memoria) y se guarda antes de pasar a la siguiente: con
+// `this` solapado con `left` o `right` se ven las escrituras anteriores. Las lecturas volatiles fijan que operando va en el registro de la x87 (cuenta para los NaN senalizantes).
 void CVector::Difference(const CVector& left, const CVector &right)
 {
-    x = left.x - right.x;
-    y = left.y - right.y;
-    z = left.z - right.z;
+    const volatile float* l = &left.x;
+    const double lx = l[0]; x = float(lx - right.x);
+    const double ly = l[1]; y = float(ly - right.y);
+    const double lz = l[2]; z = float(lz - right.z);
 }
 
 // Adds value from the second vector.
@@ -295,6 +300,31 @@ CVector* Multiply3x3Exe(CVector* out, const CMatrix* matrix, const CVector* vect
     const double c2 = m[2]; const double zx = c2 * vector->x;
     const double c3 = m[6]; const double zy = c3 * vector->y;
     const float z = float((zz + zx) + zy);
+    out->x = x;
+    out->y = y;
+    out->z = z;
+    return out;
+}
+
+// 0x59C810: vector * matriz (3x3, columnas por producto punto), cdecl con resultado por puntero oculto devuelto en EAX. x = (right.y*v.y + right.z*v.z) + v.x*right.x,
+// y = (fwd.y*v.y + fwd.x*v.x) + fwd.z*v.z, z = (up.y*v.y + up.x*v.x) + up.z*v.z; en los dos primeros productos de cada suma el elemento de la matriz va en el registro y el vector en
+// memoria, en el tercer producto de x el vector va en el registro (fld v.x; fmul right.x). Lee todo antes de escribir (`out` puede solaparse con `vector` o con la matriz).
+CVector* Multiply3x3VMExe(CVector* out, const CVector* vector, const CMatrix* matrix)
+{
+    const volatile float* m = reinterpret_cast<const float*>(matrix);   // right = m[0..2], forward = m[4..6], up = m[8..10]
+    const volatile float* v = &vector->x;
+    const double a1 = m[1]; const double xy = a1 * vector->y;
+    const double a2 = m[2]; const double xz = a2 * vector->z;
+    const double a3 = v[0]; const double xx = a3 * m[0];
+    const float x = float((xy + xz) + xx);
+    const double b1 = m[5]; const double yy = b1 * vector->y;
+    const double b2 = m[4]; const double yx = b2 * vector->x;
+    const double b3 = m[6]; const double yz = b3 * vector->z;
+    const float y = float((yy + yx) + yz);
+    const double c1 = m[9]; const double zy = c1 * vector->y;
+    const double c2 = m[8]; const double zx = c2 * vector->x;
+    const double c3 = m[10]; const double zz = c3 * vector->z;
+    const float z = float((zy + zx) + zz);
     out->x = x;
     out->y = y;
     out->z = z;
