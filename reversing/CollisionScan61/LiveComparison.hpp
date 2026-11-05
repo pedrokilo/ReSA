@@ -104,7 +104,7 @@ inline void Update() {
     stub(S_CLEANREF,0x571A00,B(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference)),true,reinterpret_cast<void*>(&FakeCleanRef),"CEntity::CleanUpOldReference");
     stub(S_ISPLAYER,0x5DF8F0,B(&CPed::IsPlayer),true,reinterpret_cast<void*>(&FakeIsPlayer),"CPed::IsPlayer");
     stub(S_GENDMG,0x73A530,B(&CWeapon::GenerateDamageEvent),true,reinterpret_cast<void*>(&FakeGenDmg),"CWeapon::GenerateDamageEvent");
-    stub(S_NORM,0x59C910,B(&CVector::Normalise),false,reinterpret_cast<void*>(&FakeNormalise),"CVector::Normalise");
+    stub(S_NORM,0x59C910,B(&CVector::Normalise),true,reinterpret_cast<void*>(&FakeNormalise),"CVector::Normalise");
     stub(S_LIMIT,0x53CB50,B(&CGeneral::LimitRadianAngle),true,reinterpret_cast<void*>(&FakeLimit),"CGeneral::LimitRadianAngle");
     stub(S_KILL,0x5F0360,B(&CPed::KillPedWithCar),true,reinterpret_cast<void*>(&FakeKill),"CPed::KillPedWithCar");
     stub(S_HEADING,0x441DB0,B(&CPlaceable::GetHeading),true,reinterpret_cast<void*>(&FakeHeading),"CPlaceable::GetHeading");

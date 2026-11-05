@@ -1,0 +1,3 @@
+APROBADO: Rope pendientes
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-rope-pending\20261104-212634-623291

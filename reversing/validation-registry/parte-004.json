@@ -91471,7 +91471,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::AddBlipToLegendList"
@@ -91497,7 +91497,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::CalculateBlipAlpha"
@@ -91523,7 +91523,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::CalculateCachedSinCos"
@@ -91549,7 +91549,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::ChangeBlipBrightness"
@@ -91575,7 +91575,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::ChangeBlipColour"
@@ -91601,7 +91601,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::ChangeBlipDisplay"
@@ -91627,7 +91627,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::ChangeBlipScale"
@@ -91653,7 +91653,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::ClearActualBlip-OG"
@@ -91679,7 +91679,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::ClearBlip"
@@ -91705,7 +91705,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::ClearBlipForEntity-OG"
@@ -91731,7 +91731,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::ClipRadarTileCoords"
@@ -91757,7 +91757,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DisplayThisBlip"
@@ -91783,7 +91783,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::Draw3dMarkers"
@@ -91809,7 +91809,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawAreaOnRadar"
@@ -91835,7 +91835,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawBlips"
@@ -91861,7 +91861,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawCoordBlip"
@@ -91887,7 +91887,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawLegend"
@@ -91913,7 +91913,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawMap"
@@ -91939,7 +91939,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawRadarGangOverlay"
@@ -91965,7 +91965,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawRadarMap"
@@ -91991,7 +91991,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawRadarMask"
@@ -92017,7 +92017,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawRadarSection"
@@ -92043,7 +92043,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawRadarSectionMap"
@@ -92069,7 +92069,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawRadarSprite"
@@ -92095,7 +92095,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawRotatingRadarSprite"
@@ -92121,7 +92121,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::DrawYouAreHereSprite"
@@ -92147,7 +92147,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::GetActualBlipArrayIndex"
@@ -92173,7 +92173,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::GetNewUniqueBlipIndex"
@@ -92199,7 +92199,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::GetRadarTraceColour"
@@ -92225,7 +92225,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::GetTextureCorners"
@@ -92251,7 +92251,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::InitFrontEndMap"
@@ -92277,7 +92277,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::Initialise"
@@ -92303,7 +92303,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::IsPointInsideRadar"
@@ -92329,7 +92329,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::LimitRadarPoint"
@@ -92355,7 +92355,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::LimitToMap"
@@ -92381,7 +92381,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::LineRadarBoxCollision"
@@ -92407,7 +92407,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::Load"
@@ -92433,7 +92433,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::LoadTextures"
@@ -92459,7 +92459,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::RemoveMapSection"
@@ -92485,7 +92485,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::RemoveRadarSections"
@@ -92511,7 +92511,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::RequestMapSection"
@@ -92537,7 +92537,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::Save"
@@ -92563,7 +92563,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetBlipAlwaysDisplayInZoom"
@@ -92589,7 +92589,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetBlipEntryExit"
@@ -92615,7 +92615,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetBlipFade"
@@ -92641,7 +92641,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetBlipFriendly"
@@ -92667,7 +92667,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetBlipSprite"
@@ -92693,7 +92693,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetCoordBlip"
@@ -92719,7 +92719,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetCoordBlipAppearance"
@@ -92745,7 +92745,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetEntityBlip"
@@ -92771,7 +92771,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetMapCentreToPlayerCoords"
@@ -92797,7 +92797,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetShortRangeCoordBlip"
@@ -92823,7 +92823,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetupAirstripBlips"
@@ -92849,7 +92849,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::SetupRadarRect"
@@ -92875,7 +92875,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::ShowRadarMarker"
@@ -92901,7 +92901,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::ShowRadarTrace"
@@ -92927,7 +92927,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::ShowRadarTraceWithHeight"
@@ -92953,7 +92953,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::Shutdown"
@@ -92979,7 +92979,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::StreamRadarSections-vec"
@@ -93005,7 +93005,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::StreamRadarSections-xy"
@@ -93031,7 +93031,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::TransformRadarPointToRealWorldSpace"
@@ -93057,7 +93057,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::TransformRadarPointToScreenSpace"
@@ -93083,7 +93083,7 @@
       },
       "evidence": {
         "path": "reversing/RadarFinal3/validation-summary.json",
-        "sha256": "1406ad127998729e33fe0853ef0c0e72a3e5052ea8de6689a5d9d589d41fab13",
+        "sha256": "1dd27bcd411b61ee598b7aa400936936f14d1be70a880668c854e4273d1ea714",
         "passed_path": [
           "covered_functions",
           "CRadar::TransformRealWorldPointToRadarSpace"
@@ -98205,7 +98205,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "ed51d4608486b988b79704c2e37fec27eb1dd4bbacaab9b7f51f63ae260a740f",
+        "sha256": "a8d2052e1c1095dd5d44637f3453d049098846ec3b2447052a81323b13fc15c8",
         "passed_path": [
           "covered_functions",
           "CPopulation::AddDeadPedInFrontOfCar"
@@ -98231,7 +98231,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "ed51d4608486b988b79704c2e37fec27eb1dd4bbacaab9b7f51f63ae260a740f",
+        "sha256": "a8d2052e1c1095dd5d44637f3453d049098846ec3b2447052a81323b13fc15c8",
         "passed_path": [
           "covered_functions",
           "CPopulation::AddPed"
@@ -98257,7 +98257,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "ed51d4608486b988b79704c2e37fec27eb1dd4bbacaab9b7f51f63ae260a740f",
+        "sha256": "a8d2052e1c1095dd5d44637f3453d049098846ec3b2447052a81323b13fc15c8",
         "passed_path": [
           "covered_functions",
           "CPopulation::AddPedAtAttractor"
@@ -98283,7 +98283,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "ed51d4608486b988b79704c2e37fec27eb1dd4bbacaab9b7f51f63ae260a740f",
+        "sha256": "a8d2052e1c1095dd5d44637f3453d049098846ec3b2447052a81323b13fc15c8",
         "passed_path": [
           "covered_functions",
           "CPopulation::AddPedInCar"
@@ -98309,7 +98309,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "ed51d4608486b988b79704c2e37fec27eb1dd4bbacaab9b7f51f63ae260a740f",
+        "sha256": "a8d2052e1c1095dd5d44637f3453d049098846ec3b2447052a81323b13fc15c8",
         "passed_path": [
           "covered_functions",
           "CPopulation::CreateWaitingCoppers"
@@ -98335,7 +98335,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "ed51d4608486b988b79704c2e37fec27eb1dd4bbacaab9b7f51f63ae260a740f",
+        "sha256": "a8d2052e1c1095dd5d44637f3453d049098846ec3b2447052a81323b13fc15c8",
         "passed_path": [
           "covered_functions",
           "CPopulation::GeneratePedsAtAttractors"
@@ -98361,7 +98361,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "ed51d4608486b988b79704c2e37fec27eb1dd4bbacaab9b7f51f63ae260a740f",
+        "sha256": "a8d2052e1c1095dd5d44637f3453d049098846ec3b2447052a81323b13fc15c8",
         "passed_path": [
           "covered_functions",
           "CPopulation::PlaceCouple"
@@ -98387,7 +98387,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "ed51d4608486b988b79704c2e37fec27eb1dd4bbacaab9b7f51f63ae260a740f",
+        "sha256": "a8d2052e1c1095dd5d44637f3453d049098846ec3b2447052a81323b13fc15c8",
         "passed_path": [
           "covered_functions",
           "CPopulation::PopulateInterior"
@@ -98413,7 +98413,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "ed51d4608486b988b79704c2e37fec27eb1dd4bbacaab9b7f51f63ae260a740f",
+        "sha256": "a8d2052e1c1095dd5d44637f3453d049098846ec3b2447052a81323b13fc15c8",
         "passed_path": [
           "covered_functions",
           "CPopulation::TestSafeForRealObject"

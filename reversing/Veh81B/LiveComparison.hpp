@@ -291,7 +291,8 @@ inline void Update() {
     void (CVector::*normalise)()=&CVector::Normalise;
     CVector* (*crossOut)(CVector*,CVector*,CVector*)=&CrossProduct;
     const Pair pSpeed=MakeCollab(env,kSpeed,hooksFound),pForce=MakeCollab(env,kForce,hooksFound);
-    const Pair pNorm{kNormalise,Body(std::bit_cast<uintptr_t>(normalise)),false},pCross{kCross,Body(reinterpret_cast<uintptr_t>(crossOut)),false};
+    env.collab.emplace_back(new HookRoute("CVector","Normalise",kNormalise,HookRoute::RegisteredTarget{}));   // hook RH desde el lote 96A: la ruta lo apaga; falso en el EXE y en el cuerpo de la DLL
+    const Pair pNorm{kNormalise,env.collab.back()->Registered()?Body(env.collab.back()->Body()):Body(std::bit_cast<uintptr_t>(normalise)),false},pCross{kCross,Body(reinterpret_cast<uintptr_t>(crossOut)),false};
     hooksFound.push_back({{"exe",kNormalise},{"class","CVector"},{"name","Normalise"},{"dll_body",pNorm.dll}});
     hooksFound.push_back({{"exe",kCross},{"class","(global)"},{"name","CrossProduct-out"},{"dll_body",pCross.dll}});
     auto S=[](const Pair& p,void* fake){return StubSpec{p,fake};};

@@ -23567,7 +23567,7 @@
       },
       "evidence": {
         "path": "reversing/EventScanners61/validation-summary.json",
-        "sha256": "082fe918743f32088b87cef7f62890ce77e9fa1ec4d9bcfad4768783b668c62f",
+        "sha256": "7abecee4978cf9924c7191ce32ae533a9b724728c6f7d3eb53f3f6ff39bd249e",
         "passed_path": [
           "covered_functions",
           "CMentalState::Process"
@@ -23576,13 +23576,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
-        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
-        "source/game_sa/MentalHealth.cpp": "a818ecad392ab18c54208709d43f503986c638fae7c12a0fd059442e46dc8648",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/MentalHealth.cpp": "0d33e6eae51aade08fb7d2e40d57226181b85eabb601e5e042d0d88d8f6c1dbe",
         "source/game_sa/MentalHealth.h": "16ce7ad7b3630f81babd072c802c4d58964b52aefe56dcbd02e2f199d674ce61",
-        "source/game_sa/Events/EventScanner.cpp": "2bfcad551fb9b56991cd28c2bfaef5a6933ff607758c8fbad0d2faab65dd28ec",
-        "source/game_sa/Events/EventScanner.h": "63b79c9852b395bddd1acf409f494f6dde38a9b1e586ebf510a2ea4913973a15",
-        "source/game_sa/PedStuckChecker.cpp": "28227d36c9bd97ef1c9524a340b502f770f4a718010c0798396ffe35b1960b4f",
+        "source/game_sa/Events/EventScanner.cpp": "6f32096b36b933e4bd6c1925e190c12e0e048eb248cb9cb7f454c03cdb51074b",
+        "source/game_sa/Events/EventScanner.h": "89b1738801e4ad0ad5b63f7523773a8d00133a7d8a4550aa17c31ccf74f7e58b",
+        "source/game_sa/PedStuckChecker.cpp": "16ae473c4e6cc7b064862d8a469cd8ce914cb9407c0110ab79c68c3f1b2cac33",
         "source/game_sa/PedStuckChecker.h": "19f3f664659e8b74d327099406ea41ba0e85c6c32f7f6d6d1d439de86cfde73d",
         "source/game_sa/Events/EventLowAngerAtPlayer.h": "3fb626b4b05d5dbe6cdf2e24944393d3da32128b04f225192996148c44c00243",
         "source/game_sa/Events/EventHealthLow.h": "5efcf5c5c529aa0dbc7911f541a4ade2350a9a9585f2d5f0ba70eaaa88ff098d",
@@ -23599,22 +23599,22 @@
         "source/game_sa/Events/EventDamage.cpp": "7aff5ec64306c598d0b260a825beb535cef42932a7343d67cd32b3bcf0f31e9c",
         "source/game_sa/Events/EventStuckInAir.cpp": "438125217433955634454e5268001d0939f545f23b980bba92774137b1d78807",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "26bfc70002622933a3d8127f2ea307e06eed66e54fa765b1ee6aa955826f29f6",
-        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "source/game_sa/Tasks/Task.cpp": "23b303826ad108736f38102ebf5180adaa7264f765f9f6e26a89a863bf595ae0",
         "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
         "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
         "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Ped/Ped.cpp": "b36c400f572e5755677059cde6ab05c570d3c6de651cbffc2576e933be11a103",
-        "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Core/Vector.cpp": "24229e5a8387bd0ea137a67b47be76de9b7c4af253736fb988fb497e82d5fbfd",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/EventScanners61/LiveComparison.hpp": "c74c074e8bf70a80af39125bcd99f61b91ae8d0c7421089c694bbba7fd72052a",
-        "reversing/EventScanners61/Core.hpp": "d06f5151d25ae1b9801f1cbb30a0d1bb843718cc46b0dbbf92398b8427acbc31",
+        "reversing/EventScanners61/LiveComparison.hpp": "5e7c09420c8c9d195d2dfda2a787c9f7e995220e11380cf805d60eca25c27902",
+        "reversing/EventScanners61/Core.hpp": "b5ed26621ad4b2463a0b5343d694eb594db3f77296056cfcc3d2951a43bb6811",
         "reversing/EventScanners61/Fixtures.hpp": "9c55fecc2a77d3737415b9bf794703db8071fa9072f39f92e0b88612414b2025",
-        "reversing/EventScanners61/CaseMental.hpp": "6c5d794cb4f743482a3ed2192175393eb09b9f4106434ad6cab09e75da59828b",
-        "reversing/EventScanners61/CaseVpc.hpp": "465b7bb34ab976a2e6989e32cb14565963e438966c790635b420d63c035104ee",
-        "reversing/EventScanners61/CaseScan.hpp": "2bf81f76b0e065091fb9d94f3b1955a4e7fdc3fa16a6913a83d2aaf5a677dc9f",
-        "reversing/EventScanners61/CaseStuck.hpp": "cbc96e41189d265db632888a1fb15405dee6f39ab856677296d27ead610761f7",
-        "reversing/EventScanners61/FixVpc.hpp": "1b8aa2615497eedd14633018383e9dc21efdbc5c666bd0221c6cb258f9da9653",
+        "reversing/EventScanners61/CaseMental.hpp": "4d91d22357987cb9a7b6777680acbbcc0538abc484094bf6dab759b11071db00",
+        "reversing/EventScanners61/CaseVpc.hpp": "a77cd079a44b69b0839660170f6503d2c0948fc583803c68a8544d497dee3c9e",
+        "reversing/EventScanners61/CaseScan.hpp": "3771074f3871dd399e5880ca7b90ae800fb99b8539596f692fa360916454ed1b",
+        "reversing/EventScanners61/CaseStuck.hpp": "18e735f595ab077f61d2821f75361df41d4de273a625838f5f3f94ec869b80c2",
+        "reversing/EventScanners61/FixVpc.hpp": "020cb8024e1a2720eb1842a594599d86fc661e5cafc612d4a28c26bd133afdb5",
         "reversing/EventScanners61/FixScan.hpp": "f927046992d724c3a427e3a94d8fce23a92f6096905767e5c4bc7f9db7422bc8",
         "reversing/EventScanners61/FixStuck.hpp": "6a7b0a95b8903385ef7e40ed96a87de9993b30b6b066390d7d11384faf0114bf",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -23634,7 +23634,7 @@
       },
       "evidence": {
         "path": "reversing/EventScanners61/validation-summary.json",
-        "sha256": "082fe918743f32088b87cef7f62890ce77e9fa1ec4d9bcfad4768783b668c62f",
+        "sha256": "7abecee4978cf9924c7191ce32ae533a9b724728c6f7d3eb53f3f6ff39bd249e",
         "passed_path": [
           "covered_functions",
           "CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents"
@@ -23643,13 +23643,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
-        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
-        "source/game_sa/MentalHealth.cpp": "a818ecad392ab18c54208709d43f503986c638fae7c12a0fd059442e46dc8648",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/MentalHealth.cpp": "0d33e6eae51aade08fb7d2e40d57226181b85eabb601e5e042d0d88d8f6c1dbe",
         "source/game_sa/MentalHealth.h": "16ce7ad7b3630f81babd072c802c4d58964b52aefe56dcbd02e2f199d674ce61",
-        "source/game_sa/Events/EventScanner.cpp": "2bfcad551fb9b56991cd28c2bfaef5a6933ff607758c8fbad0d2faab65dd28ec",
-        "source/game_sa/Events/EventScanner.h": "63b79c9852b395bddd1acf409f494f6dde38a9b1e586ebf510a2ea4913973a15",
-        "source/game_sa/PedStuckChecker.cpp": "28227d36c9bd97ef1c9524a340b502f770f4a718010c0798396ffe35b1960b4f",
+        "source/game_sa/Events/EventScanner.cpp": "6f32096b36b933e4bd6c1925e190c12e0e048eb248cb9cb7f454c03cdb51074b",
+        "source/game_sa/Events/EventScanner.h": "89b1738801e4ad0ad5b63f7523773a8d00133a7d8a4550aa17c31ccf74f7e58b",
+        "source/game_sa/PedStuckChecker.cpp": "16ae473c4e6cc7b064862d8a469cd8ce914cb9407c0110ab79c68c3f1b2cac33",
         "source/game_sa/PedStuckChecker.h": "19f3f664659e8b74d327099406ea41ba0e85c6c32f7f6d6d1d439de86cfde73d",
         "source/game_sa/Events/EventLowAngerAtPlayer.h": "3fb626b4b05d5dbe6cdf2e24944393d3da32128b04f225192996148c44c00243",
         "source/game_sa/Events/EventHealthLow.h": "5efcf5c5c529aa0dbc7911f541a4ade2350a9a9585f2d5f0ba70eaaa88ff098d",
@@ -23666,22 +23666,22 @@
         "source/game_sa/Events/EventDamage.cpp": "7aff5ec64306c598d0b260a825beb535cef42932a7343d67cd32b3bcf0f31e9c",
         "source/game_sa/Events/EventStuckInAir.cpp": "438125217433955634454e5268001d0939f545f23b980bba92774137b1d78807",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "26bfc70002622933a3d8127f2ea307e06eed66e54fa765b1ee6aa955826f29f6",
-        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "source/game_sa/Tasks/Task.cpp": "23b303826ad108736f38102ebf5180adaa7264f765f9f6e26a89a863bf595ae0",
         "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
         "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
         "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Ped/Ped.cpp": "b36c400f572e5755677059cde6ab05c570d3c6de651cbffc2576e933be11a103",
-        "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Core/Vector.cpp": "24229e5a8387bd0ea137a67b47be76de9b7c4af253736fb988fb497e82d5fbfd",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/EventScanners61/LiveComparison.hpp": "c74c074e8bf70a80af39125bcd99f61b91ae8d0c7421089c694bbba7fd72052a",
-        "reversing/EventScanners61/Core.hpp": "d06f5151d25ae1b9801f1cbb30a0d1bb843718cc46b0dbbf92398b8427acbc31",
+        "reversing/EventScanners61/LiveComparison.hpp": "5e7c09420c8c9d195d2dfda2a787c9f7e995220e11380cf805d60eca25c27902",
+        "reversing/EventScanners61/Core.hpp": "b5ed26621ad4b2463a0b5343d694eb594db3f77296056cfcc3d2951a43bb6811",
         "reversing/EventScanners61/Fixtures.hpp": "9c55fecc2a77d3737415b9bf794703db8071fa9072f39f92e0b88612414b2025",
-        "reversing/EventScanners61/CaseMental.hpp": "6c5d794cb4f743482a3ed2192175393eb09b9f4106434ad6cab09e75da59828b",
-        "reversing/EventScanners61/CaseVpc.hpp": "465b7bb34ab976a2e6989e32cb14565963e438966c790635b420d63c035104ee",
-        "reversing/EventScanners61/CaseScan.hpp": "2bf81f76b0e065091fb9d94f3b1955a4e7fdc3fa16a6913a83d2aaf5a677dc9f",
-        "reversing/EventScanners61/CaseStuck.hpp": "cbc96e41189d265db632888a1fb15405dee6f39ab856677296d27ead610761f7",
-        "reversing/EventScanners61/FixVpc.hpp": "1b8aa2615497eedd14633018383e9dc21efdbc5c666bd0221c6cb258f9da9653",
+        "reversing/EventScanners61/CaseMental.hpp": "4d91d22357987cb9a7b6777680acbbcc0538abc484094bf6dab759b11071db00",
+        "reversing/EventScanners61/CaseVpc.hpp": "a77cd079a44b69b0839660170f6503d2c0948fc583803c68a8544d497dee3c9e",
+        "reversing/EventScanners61/CaseScan.hpp": "3771074f3871dd399e5880ca7b90ae800fb99b8539596f692fa360916454ed1b",
+        "reversing/EventScanners61/CaseStuck.hpp": "18e735f595ab077f61d2821f75361df41d4de273a625838f5f3f94ec869b80c2",
+        "reversing/EventScanners61/FixVpc.hpp": "020cb8024e1a2720eb1842a594599d86fc661e5cafc612d4a28c26bd133afdb5",
         "reversing/EventScanners61/FixScan.hpp": "f927046992d724c3a427e3a94d8fce23a92f6096905767e5c4bc7f9db7422bc8",
         "reversing/EventScanners61/FixStuck.hpp": "6a7b0a95b8903385ef7e40ed96a87de9993b30b6b066390d7d11384faf0114bf",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -23701,7 +23701,7 @@
       },
       "evidence": {
         "path": "reversing/EventScanners61/validation-summary.json",
-        "sha256": "082fe918743f32088b87cef7f62890ce77e9fa1ec4d9bcfad4768783b668c62f",
+        "sha256": "7abecee4978cf9924c7191ce32ae533a9b724728c6f7d3eb53f3f6ff39bd249e",
         "passed_path": [
           "covered_functions",
           "CEventScanner::ScanForEvents"
@@ -23710,13 +23710,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
-        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
-        "source/game_sa/MentalHealth.cpp": "a818ecad392ab18c54208709d43f503986c638fae7c12a0fd059442e46dc8648",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/MentalHealth.cpp": "0d33e6eae51aade08fb7d2e40d57226181b85eabb601e5e042d0d88d8f6c1dbe",
         "source/game_sa/MentalHealth.h": "16ce7ad7b3630f81babd072c802c4d58964b52aefe56dcbd02e2f199d674ce61",
-        "source/game_sa/Events/EventScanner.cpp": "2bfcad551fb9b56991cd28c2bfaef5a6933ff607758c8fbad0d2faab65dd28ec",
-        "source/game_sa/Events/EventScanner.h": "63b79c9852b395bddd1acf409f494f6dde38a9b1e586ebf510a2ea4913973a15",
-        "source/game_sa/PedStuckChecker.cpp": "28227d36c9bd97ef1c9524a340b502f770f4a718010c0798396ffe35b1960b4f",
+        "source/game_sa/Events/EventScanner.cpp": "6f32096b36b933e4bd6c1925e190c12e0e048eb248cb9cb7f454c03cdb51074b",
+        "source/game_sa/Events/EventScanner.h": "89b1738801e4ad0ad5b63f7523773a8d00133a7d8a4550aa17c31ccf74f7e58b",
+        "source/game_sa/PedStuckChecker.cpp": "16ae473c4e6cc7b064862d8a469cd8ce914cb9407c0110ab79c68c3f1b2cac33",
         "source/game_sa/PedStuckChecker.h": "19f3f664659e8b74d327099406ea41ba0e85c6c32f7f6d6d1d439de86cfde73d",
         "source/game_sa/Events/EventLowAngerAtPlayer.h": "3fb626b4b05d5dbe6cdf2e24944393d3da32128b04f225192996148c44c00243",
         "source/game_sa/Events/EventHealthLow.h": "5efcf5c5c529aa0dbc7911f541a4ade2350a9a9585f2d5f0ba70eaaa88ff098d",
@@ -23733,22 +23733,22 @@
         "source/game_sa/Events/EventDamage.cpp": "7aff5ec64306c598d0b260a825beb535cef42932a7343d67cd32b3bcf0f31e9c",
         "source/game_sa/Events/EventStuckInAir.cpp": "438125217433955634454e5268001d0939f545f23b980bba92774137b1d78807",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "26bfc70002622933a3d8127f2ea307e06eed66e54fa765b1ee6aa955826f29f6",
-        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "source/game_sa/Tasks/Task.cpp": "23b303826ad108736f38102ebf5180adaa7264f765f9f6e26a89a863bf595ae0",
         "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
         "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
         "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Ped/Ped.cpp": "b36c400f572e5755677059cde6ab05c570d3c6de651cbffc2576e933be11a103",
-        "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Core/Vector.cpp": "24229e5a8387bd0ea137a67b47be76de9b7c4af253736fb988fb497e82d5fbfd",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/EventScanners61/LiveComparison.hpp": "c74c074e8bf70a80af39125bcd99f61b91ae8d0c7421089c694bbba7fd72052a",
-        "reversing/EventScanners61/Core.hpp": "d06f5151d25ae1b9801f1cbb30a0d1bb843718cc46b0dbbf92398b8427acbc31",
+        "reversing/EventScanners61/LiveComparison.hpp": "5e7c09420c8c9d195d2dfda2a787c9f7e995220e11380cf805d60eca25c27902",
+        "reversing/EventScanners61/Core.hpp": "b5ed26621ad4b2463a0b5343d694eb594db3f77296056cfcc3d2951a43bb6811",
         "reversing/EventScanners61/Fixtures.hpp": "9c55fecc2a77d3737415b9bf794703db8071fa9072f39f92e0b88612414b2025",
-        "reversing/EventScanners61/CaseMental.hpp": "6c5d794cb4f743482a3ed2192175393eb09b9f4106434ad6cab09e75da59828b",
-        "reversing/EventScanners61/CaseVpc.hpp": "465b7bb34ab976a2e6989e32cb14565963e438966c790635b420d63c035104ee",
-        "reversing/EventScanners61/CaseScan.hpp": "2bf81f76b0e065091fb9d94f3b1955a4e7fdc3fa16a6913a83d2aaf5a677dc9f",
-        "reversing/EventScanners61/CaseStuck.hpp": "cbc96e41189d265db632888a1fb15405dee6f39ab856677296d27ead610761f7",
-        "reversing/EventScanners61/FixVpc.hpp": "1b8aa2615497eedd14633018383e9dc21efdbc5c666bd0221c6cb258f9da9653",
+        "reversing/EventScanners61/CaseMental.hpp": "4d91d22357987cb9a7b6777680acbbcc0538abc484094bf6dab759b11071db00",
+        "reversing/EventScanners61/CaseVpc.hpp": "a77cd079a44b69b0839660170f6503d2c0948fc583803c68a8544d497dee3c9e",
+        "reversing/EventScanners61/CaseScan.hpp": "3771074f3871dd399e5880ca7b90ae800fb99b8539596f692fa360916454ed1b",
+        "reversing/EventScanners61/CaseStuck.hpp": "18e735f595ab077f61d2821f75361df41d4de273a625838f5f3f94ec869b80c2",
+        "reversing/EventScanners61/FixVpc.hpp": "020cb8024e1a2720eb1842a594599d86fc661e5cafc612d4a28c26bd133afdb5",
         "reversing/EventScanners61/FixScan.hpp": "f927046992d724c3a427e3a94d8fce23a92f6096905767e5c4bc7f9db7422bc8",
         "reversing/EventScanners61/FixStuck.hpp": "6a7b0a95b8903385ef7e40ed96a87de9993b30b6b066390d7d11384faf0114bf",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -23768,7 +23768,7 @@
       },
       "evidence": {
         "path": "reversing/EventScanners61/validation-summary.json",
-        "sha256": "082fe918743f32088b87cef7f62890ce77e9fa1ec4d9bcfad4768783b668c62f",
+        "sha256": "7abecee4978cf9924c7191ce32ae533a9b724728c6f7d3eb53f3f6ff39bd249e",
         "passed_path": [
           "covered_functions",
           "CPedStuckChecker::TestPedStuck"
@@ -23777,13 +23777,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
-        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
-        "source/game_sa/MentalHealth.cpp": "a818ecad392ab18c54208709d43f503986c638fae7c12a0fd059442e46dc8648",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/MentalHealth.cpp": "0d33e6eae51aade08fb7d2e40d57226181b85eabb601e5e042d0d88d8f6c1dbe",
         "source/game_sa/MentalHealth.h": "16ce7ad7b3630f81babd072c802c4d58964b52aefe56dcbd02e2f199d674ce61",
-        "source/game_sa/Events/EventScanner.cpp": "2bfcad551fb9b56991cd28c2bfaef5a6933ff607758c8fbad0d2faab65dd28ec",
-        "source/game_sa/Events/EventScanner.h": "63b79c9852b395bddd1acf409f494f6dde38a9b1e586ebf510a2ea4913973a15",
-        "source/game_sa/PedStuckChecker.cpp": "28227d36c9bd97ef1c9524a340b502f770f4a718010c0798396ffe35b1960b4f",
+        "source/game_sa/Events/EventScanner.cpp": "6f32096b36b933e4bd6c1925e190c12e0e048eb248cb9cb7f454c03cdb51074b",
+        "source/game_sa/Events/EventScanner.h": "89b1738801e4ad0ad5b63f7523773a8d00133a7d8a4550aa17c31ccf74f7e58b",
+        "source/game_sa/PedStuckChecker.cpp": "16ae473c4e6cc7b064862d8a469cd8ce914cb9407c0110ab79c68c3f1b2cac33",
         "source/game_sa/PedStuckChecker.h": "19f3f664659e8b74d327099406ea41ba0e85c6c32f7f6d6d1d439de86cfde73d",
         "source/game_sa/Events/EventLowAngerAtPlayer.h": "3fb626b4b05d5dbe6cdf2e24944393d3da32128b04f225192996148c44c00243",
         "source/game_sa/Events/EventHealthLow.h": "5efcf5c5c529aa0dbc7911f541a4ade2350a9a9585f2d5f0ba70eaaa88ff098d",
@@ -23800,22 +23800,22 @@
         "source/game_sa/Events/EventDamage.cpp": "7aff5ec64306c598d0b260a825beb535cef42932a7343d67cd32b3bcf0f31e9c",
         "source/game_sa/Events/EventStuckInAir.cpp": "438125217433955634454e5268001d0939f545f23b980bba92774137b1d78807",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "26bfc70002622933a3d8127f2ea307e06eed66e54fa765b1ee6aa955826f29f6",
-        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "source/game_sa/Tasks/Task.cpp": "23b303826ad108736f38102ebf5180adaa7264f765f9f6e26a89a863bf595ae0",
         "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
         "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
         "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Entity/Ped/Ped.cpp": "b36c400f572e5755677059cde6ab05c570d3c6de651cbffc2576e933be11a103",
-        "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Core/Vector.cpp": "24229e5a8387bd0ea137a67b47be76de9b7c4af253736fb988fb497e82d5fbfd",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/EventScanners61/LiveComparison.hpp": "c74c074e8bf70a80af39125bcd99f61b91ae8d0c7421089c694bbba7fd72052a",
-        "reversing/EventScanners61/Core.hpp": "d06f5151d25ae1b9801f1cbb30a0d1bb843718cc46b0dbbf92398b8427acbc31",
+        "reversing/EventScanners61/LiveComparison.hpp": "5e7c09420c8c9d195d2dfda2a787c9f7e995220e11380cf805d60eca25c27902",
+        "reversing/EventScanners61/Core.hpp": "b5ed26621ad4b2463a0b5343d694eb594db3f77296056cfcc3d2951a43bb6811",
         "reversing/EventScanners61/Fixtures.hpp": "9c55fecc2a77d3737415b9bf794703db8071fa9072f39f92e0b88612414b2025",
-        "reversing/EventScanners61/CaseMental.hpp": "6c5d794cb4f743482a3ed2192175393eb09b9f4106434ad6cab09e75da59828b",
-        "reversing/EventScanners61/CaseVpc.hpp": "465b7bb34ab976a2e6989e32cb14565963e438966c790635b420d63c035104ee",
-        "reversing/EventScanners61/CaseScan.hpp": "2bf81f76b0e065091fb9d94f3b1955a4e7fdc3fa16a6913a83d2aaf5a677dc9f",
-        "reversing/EventScanners61/CaseStuck.hpp": "cbc96e41189d265db632888a1fb15405dee6f39ab856677296d27ead610761f7",
-        "reversing/EventScanners61/FixVpc.hpp": "1b8aa2615497eedd14633018383e9dc21efdbc5c666bd0221c6cb258f9da9653",
+        "reversing/EventScanners61/CaseMental.hpp": "4d91d22357987cb9a7b6777680acbbcc0538abc484094bf6dab759b11071db00",
+        "reversing/EventScanners61/CaseVpc.hpp": "a77cd079a44b69b0839660170f6503d2c0948fc583803c68a8544d497dee3c9e",
+        "reversing/EventScanners61/CaseScan.hpp": "3771074f3871dd399e5880ca7b90ae800fb99b8539596f692fa360916454ed1b",
+        "reversing/EventScanners61/CaseStuck.hpp": "18e735f595ab077f61d2821f75361df41d4de273a625838f5f3f94ec869b80c2",
+        "reversing/EventScanners61/FixVpc.hpp": "020cb8024e1a2720eb1842a594599d86fc661e5cafc612d4a28c26bd133afdb5",
         "reversing/EventScanners61/FixScan.hpp": "f927046992d724c3a427e3a94d8fce23a92f6096905767e5c4bc7f9db7422bc8",
         "reversing/EventScanners61/FixStuck.hpp": "6a7b0a95b8903385ef7e40ed96a87de9993b30b6b066390d7d11384faf0114bf",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -25381,7 +25381,7 @@
       },
       "evidence": {
         "path": "reversing/CollisionScan61/validation-summary.json",
-        "sha256": "1b3ee340aae9268142c4d0772dd202ed4394ae9a0bdac4dd3314c244580fd1c3",
+        "sha256": "d7676ea861bfb59ad03df741dc2599dc1059e734ca680f32fbe8e203d18294ca",
         "passed_path": [
           "covered_functions",
           "CCollisionEventScanner::ScanForCollisionEvents"
@@ -25390,14 +25390,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/Collision/CollisionEventScanner.cpp": "119d51b181eabe80b7b4810db33db76e07f05bfaea9e0741b0450da7fb8b8036",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/Collision/CollisionEventScanner.cpp": "724cfa3f6cbc20668a7388f2d88a7243c739a49ec2c517e1ee663d85041513ed",
         "source/game_sa/Collision/CollisionEventScanner.h": "faf1be848806f18188a173620ed9d50aa9ab6a84bee8395bcd8dcfad8cc4fc37",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CollisionScan61/LiveComparison.hpp": "a0816dfcf381ae577d677cd11350ed30dde0b5ba76c10ef0254853bdc7f542e4",
-        "reversing/CollisionScan61/Core.hpp": "7e55267bb158fd085017288b4fc0f00040f348782c0aac10013b9f6278f0f5c3",
-        "reversing/CollisionScan61/Fixtures.hpp": "ead983e9732e45806073de0db636b401dc37bd4c1079bc63f33dff921ecebe00",
+        "reversing/CollisionScan61/LiveComparison.hpp": "54c6fc118f595ea151094c661b4d1d4fecaeba0a6e73479ccf193f1e06a5deb3",
+        "reversing/CollisionScan61/Core.hpp": "97d2f84c4e203a171712b9b92206a678d77be03ef5b8f49d3a6fb46b2e474ed3",
+        "reversing/CollisionScan61/Fixtures.hpp": "fab367ba6ef0bd0ec3cd1955e1aaa636031cedbb2fd7a4e45e9e98c415a72351",
         "reversing/CollisionScan61/CaseColl.hpp": "81fc8f9eecc8d77a3a7655b2323afe24b88af61d95bfa9192d69c6b71b6ed42a",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
@@ -26134,7 +26134,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::GetAIHeliToFlyInDirection"
@@ -26143,14 +26143,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26170,7 +26170,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::GetAIPlaneToDoDogFightAgainstPlayer"
@@ -26179,14 +26179,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26206,7 +26206,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIHeliToCrashAndBurn"
@@ -26215,14 +26215,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26242,7 +26242,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIPlaneToCrashAndBurn"
@@ -26251,14 +26251,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26278,7 +26278,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIPlaneTowardsTargetCoors"
@@ -26287,14 +26287,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26314,7 +26314,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIPlaneToFollowEntity"
@@ -26323,14 +26323,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26350,7 +26350,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIHeliTowardsTargetCoors"
@@ -26359,14 +26359,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26386,7 +26386,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIHeliFlyingAwayFromPlayer"
@@ -26395,14 +26395,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26422,7 +26422,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIHeliToLand"
@@ -26431,14 +26431,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26458,7 +26458,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIHeliAsPoliceHeli"
@@ -26467,14 +26467,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26494,7 +26494,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::TestWhetherToFirePlaneGuns"
@@ -26503,14 +26503,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26530,7 +26530,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::TriggerDogFightMoves"
@@ -26539,14 +26539,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26566,7 +26566,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::GetAIPlaneToAttackPlayer"
@@ -26575,14 +26575,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26602,7 +26602,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::GetAIPlaneToDoDogFight"
@@ -26611,14 +26611,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26638,7 +26638,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIHeliToFollowEntity"
@@ -26647,14 +26647,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26674,7 +26674,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIHeliToKeepEntityInView"
@@ -26683,14 +26683,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26710,7 +26710,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::GetAIHeliToAttackPlayer"
@@ -26719,14 +26719,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26746,7 +26746,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIBoatWithPhysicsHeadingForTarget"
@@ -26755,14 +26755,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26782,7 +26782,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIBoatWithPhysicsAttackingPlayer"
@@ -26791,14 +26791,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26818,7 +26818,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAIBoatWithPhysicsCirclingPlayer"
@@ -26827,14 +26827,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26854,7 +26854,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::FireHeliRocketsAtTarget"
@@ -26863,14 +26863,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26890,7 +26890,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::FlyAIHeliToTarget_FixedOrientation"
@@ -26899,14 +26899,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26926,7 +26926,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::FlyAIPlaneInCertainDirection"
@@ -26935,14 +26935,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -26962,7 +26962,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlAir63/validation-summary.json",
-        "sha256": "a7a2b08050bb97ab364315cbf0f065dbae1e5bf10a4177765ae54e05a64d3ba7",
+        "sha256": "2341701d9939c139e0128a1dc16813bab19e942cc2b9e3283ebcdeb9aceef041",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::FlyAIHeliInCertainDirection"
@@ -26971,14 +26971,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+        "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
         "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
         "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -31672,7 +31672,7 @@
       },
       "evidence": {
         "path": "reversing/CarNodes75/validation-summary.json",
-        "sha256": "6fbe72274c67900ff35183204a26d7a6dde9582a1ea211c1328a5cfcbf7e4949",
+        "sha256": "ef8ead6189c9dd8a9f67616d257bd203d580b2000a3d5ff742fdddcc729bc19b",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::FindNodesThisCarIsNearestTo"
@@ -31681,14 +31681,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-        "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
-        "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
-        "source/game_sa/CarCtrl.cpp": "4de8d81c0df4a1abefeb524d0ca7951815e1c6a72d840cda780946d1d2599da9",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarNodes75/LiveComparison.hpp": "a7699a119698a68ba3094777b789c5c0b43bd44d149e82bcdfde973967f25b2f",
+        "reversing/CarNodes75/LiveComparison.hpp": "d8880cf2c4fd4ec831693ebb546de0fed7fab01c139e79ccf5a06bf08b8bf65a",
         "reversing/CarNodes75/Core.hpp": "7cdf8aa98cea99560c839ac2110b9a348c12c12c5b1e64ba109a17df9698a7e4",
         "reversing/CarNodes75/Fixtures.hpp": "44592b46886173a732bb60b581a24af1ba2b9451c3643c611afe34ff79001ac6",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -31780,7 +31780,7 @@
       },
       "evidence": {
         "path": "reversing/FightHitPed75/validation-summary.json",
-        "sha256": "89d86f033cdbb3f5b0bd8cee24ea2238df0e10a005c8c3cb7b60e1c9ac4007cd",
+        "sha256": "bc4646078ff8334242bc63792779e6e41ae9d8f18becd0949bdbe8e4a22eca0e",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFight::FightHitPed"
@@ -31790,14 +31790,14 @@
         "original_address": "0x0061CBA0"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "962c14928e487e0c02553cfef2a6b4f1d7ff0752acab6f21f3fc48266e4677d0",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "4957b89633b88efd73588c5d1aaf9b18cd4c5a011f64eca1a580ad58c46f62ca",
-        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
-        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4b58c28c70b3460298f23cf7a80e635bed03f1e5ddd29b6302464bc19e4d51f8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "fe453f0e0df4c024c95063fa72d8c375e7714839d8c9eb5d00d989c899ff9532",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FightHitPed75/LiveComparison.hpp": "10c5c3e0cc203246a35c8ece891144759b47b192b74a95ae132460ea4decec42",
+        "reversing/FightHitPed75/LiveComparison.hpp": "14705b418f635afd05dec5cd0825adc2707a0b37306280e73c1005b83c38dafb",
         "reversing/FightHitPed75/Core.hpp": "23852a3a35e186637b60c36d3b780a220c58b9164ff423b2911cd66e79789118",
         "reversing/FightHitPed75/Fixtures.hpp": "410a907376223a041edd4d6ec661cbf4146924911e1256339f61c0a3aa716bdf",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -32686,7 +32686,7 @@
       },
       "evidence": {
         "path": "reversing/Veh81B/validation-summary.json",
-        "sha256": "c314f0990361a2b6b80abf452b644edd5f874378a158c04814639269ef91d5af",
+        "sha256": "2e830f3743ae3bcb7e7d7023f42b8da2b396563f6164a9a76b6e790740b0820c",
         "passed_path": [
           "covered_functions",
           "CVehicle::UpdateTractorLink"
@@ -32695,14 +32695,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "005a714829c3b8b48a27947a407d87cb6964c457ffd33eef20f3816e840ed9b4",
-        "source/game_sa/X87Math.h": "73988440f158ca26708f865cd55bd4f10c590c9010ad2ea1b1a3d9109424693d",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "33da6ec4684b5ca8069336a0698aee541a106eb8f1e1edb8e1b6ac29ecd5395b",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Veh81B/LiveComparison.hpp": "75c332b97148b7b40f8d674990bff22a067c59ac63a2a90094e9524df6a31a94",
+        "reversing/Veh81B/LiveComparison.hpp": "fd81c0fd2d449fc40dcda622c48b4bfd800c6c758d49fc31f01bd2ad0d680b09",
         "reversing/Veh81B/Core.hpp": "118dff763ddecd4fd9f38064dad767ead7618edbfb3244c2b3e0a846774bb25e",
         "reversing/Veh81B/Fixtures.hpp": "5ebc3b4c2890e8076ba0c60a4c8ede29a7800feeb257dfd693b8486a0f8a3a0e",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -34044,7 +34044,7 @@
       },
       "evidence": {
         "path": "reversing/Fn85D/validation-summary.json",
-        "sha256": "d99a5fe53052b2b666b072442d2c071c0d3322e04dd7a7f7465fe6429be516bf",
+        "sha256": "88af53af632215003f0c2edcda9bd70db16edfa71921579de672686ad0117b84",
         "passed_path": [
           "covered_functions",
           "CGarage::IsAnyOtherCarTouchingGarage"
@@ -34053,16 +34053,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Fn85D/LiveComparison.hpp": "73b1a9f84b8776b2cf1594422c90bbfabac28113524f10dc40d91666673a795f",
-        "reversing/Fn85D/Core.hpp": "79275b616ef780ef7479835d937d1e0b4ebe70c45416a3f2cd5c84c91380ab4c",
-        "reversing/Fn85D/Fixtures.hpp": "57c411236a392f43534926eeea42fd1018428d37defd4397ab25bf0b532ed15c",
+        "reversing/Fn85D/LiveComparison.hpp": "aaa23c36b07b55091dc74123ff4f0adbf2da9558045a29565f45920a3a6c9c2f",
+        "reversing/Fn85D/Core.hpp": "10f93605923569ddaed2f6def4abd1b21b575348c79d39f9e248899ed6a1cb9a",
+        "reversing/Fn85D/Fixtures.hpp": "e4ee98cfdea09991320a7626bbcabd0dfba726bb0459458647f51dd8244b5fa9",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -34080,7 +34080,7 @@
       },
       "evidence": {
         "path": "reversing/Fn85D/validation-summary.json",
-        "sha256": "d99a5fe53052b2b666b072442d2c071c0d3322e04dd7a7f7465fe6429be516bf",
+        "sha256": "88af53af632215003f0c2edcda9bd70db16edfa71921579de672686ad0117b84",
         "passed_path": [
           "covered_functions",
           "CGarage::ThrowCarsNearDoorOutOfGarage"
@@ -34089,16 +34089,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Fn85D/LiveComparison.hpp": "73b1a9f84b8776b2cf1594422c90bbfabac28113524f10dc40d91666673a795f",
-        "reversing/Fn85D/Core.hpp": "79275b616ef780ef7479835d937d1e0b4ebe70c45416a3f2cd5c84c91380ab4c",
-        "reversing/Fn85D/Fixtures.hpp": "57c411236a392f43534926eeea42fd1018428d37defd4397ab25bf0b532ed15c",
+        "reversing/Fn85D/LiveComparison.hpp": "aaa23c36b07b55091dc74123ff4f0adbf2da9558045a29565f45920a3a6c9c2f",
+        "reversing/Fn85D/Core.hpp": "10f93605923569ddaed2f6def4abd1b21b575348c79d39f9e248899ed6a1cb9a",
+        "reversing/Fn85D/Fixtures.hpp": "e4ee98cfdea09991320a7626bbcabd0dfba726bb0459458647f51dd8244b5fa9",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -34116,7 +34116,7 @@
       },
       "evidence": {
         "path": "reversing/Fn85D/validation-summary.json",
-        "sha256": "d99a5fe53052b2b666b072442d2c071c0d3322e04dd7a7f7465fe6429be516bf",
+        "sha256": "88af53af632215003f0c2edcda9bd70db16edfa71921579de672686ad0117b84",
         "passed_path": [
           "covered_functions",
           "CGarage::NeatlyLineUpStoredCars"
@@ -34125,16 +34125,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Fn85D/LiveComparison.hpp": "73b1a9f84b8776b2cf1594422c90bbfabac28113524f10dc40d91666673a795f",
-        "reversing/Fn85D/Core.hpp": "79275b616ef780ef7479835d937d1e0b4ebe70c45416a3f2cd5c84c91380ab4c",
-        "reversing/Fn85D/Fixtures.hpp": "57c411236a392f43534926eeea42fd1018428d37defd4397ab25bf0b532ed15c",
+        "reversing/Fn85D/LiveComparison.hpp": "aaa23c36b07b55091dc74123ff4f0adbf2da9558045a29565f45920a3a6c9c2f",
+        "reversing/Fn85D/Core.hpp": "10f93605923569ddaed2f6def4abd1b21b575348c79d39f9e248899ed6a1cb9a",
+        "reversing/Fn85D/Fixtures.hpp": "e4ee98cfdea09991320a7626bbcabd0dfba726bb0459458647f51dd8244b5fa9",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },

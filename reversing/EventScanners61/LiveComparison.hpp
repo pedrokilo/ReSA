@@ -113,7 +113,7 @@ inline void Update() {
     stub(S_SWIM,kFnStuck,0x601070,std::bit_cast<uintptr_t>(&CPedIntelligence::GetTaskSwim),true,reinterpret_cast<void*>(&FakeSwim),"CPedIntelligence::GetTaskSwim");
     stub(S_JET,kFnStuck,0x601110,std::bit_cast<uintptr_t>(&CPedIntelligence::GetTaskJetPack),true,reinterpret_cast<void*>(&FakeJet),"CPedIntelligence::GetTaskJetPack");
     stub(S_CLIMB,kFnStuck,0x601180,std::bit_cast<uintptr_t>(&CPedIntelligence::GetTaskClimb),true,reinterpret_cast<void*>(&FakeClimb),"CPedIntelligence::GetTaskClimb");
-    stub(S_NORM,kFnStuck,0x59C910,std::bit_cast<uintptr_t>(&CVector::Normalise),false,reinterpret_cast<void*>(&FakeNormalise),"CVector::Normalise");
+    stub(S_NORM,kFnStuck,0x59C910,std::bit_cast<uintptr_t>(&CVector::Normalise),true,reinterpret_cast<void*>(&FakeNormalise),"CVector::Normalise");
     stub(S_PVL,kFnStuck,0x5674E0,std::bit_cast<uintptr_t>(&CWorld::ProcessVerticalLine),true,reinterpret_cast<void*>(&FakePvl),"CWorld::ProcessVerticalLine");
     stub(S_LOSV,kFnStuck,0x56A490,std::bit_cast<uintptr_t>(static_cast<bool(*)(const CVector&,const CVector&,bool,bool,bool,bool,bool,bool,bool)>(&CWorld::GetIsLineOfSightClear)),true,reinterpret_cast<void*>(&FakeLosV),"CWorld::GetIsLineOfSightClear");
     stub(S_SETPOSN,kFnStuck,0x4241C0,std::bit_cast<uintptr_t>(static_cast<void(CPlaceable::*)(const CVector&)>(&CPlaceable::SetPosn)),true,reinterpret_cast<void*>(&FakeSetPosn),"CPlaceable::SetPosn");

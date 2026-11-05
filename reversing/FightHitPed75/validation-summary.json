@@ -12,26 +12,26 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-4 (HEAD 98ff78aaa + TaskSimpleFight.cpp/.h y el bloque del lote 75 de X87Math.cpp/.h, source.patch). CTaskSimpleFight::FightHitPed 0x61CBA0 (thiscall, ret 0x14; golpe de un ped contra otro; EAX = victima si GenerateDamageEvent la dano, si no 0): salida si la victima es el jugador con la tarea activa 0xCD, golpe bloqueado (BeHitWhileBlocking 0x61C650 sin reconstruir), danio _ftol2, ComputePedShotSide, GenerateDamageEvent, sonidos de golpe por lado y combo, Say del jugador, CEventSoundQuiet y sangre (probabilidad, direccion x87, Normalise, AddBlood). Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): IsPlayer, GetActiveTask, GetTaskFighting, GetWeaponInfo, FightStrikeDamage, ComputePedShotSide, GenerateDamageEvent, Say, GetEventGlobalGroup, CEventGroup::Add, RegisterReference/CleanUpOldReference e IsAlive (con hook); sin hook (el ejecutor pasa --unhook=Audio o no estan reconstruidas): CAEPedAudioEntity::AddAudioEvent 0x4E2BB0, CAEPedWeaponAudioEntity::AddAudioEvent 0x4E69F0, BeHitWhileBlocking 0x61C650, CVector::Normalise 0x59C910, Fx_c::AddBlood 0x49EB00 y rand 0x821B1E; CTask::GetTaskType por la vtable falsa de la tarea activa. CEventSoundQuiet (constructor y destructor) corre de verdad en ambos lados. Dominio: indices de la tabla de combos -8..15 y movimientos -8..40. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FightHitPed75-20261102-144422-584007",
-  "summary_sha256": "c48478522aecae68e023180817165a6f5a34fada9ac14654634bf8b25bca95bd",
-  "result_txt_sha256": "db8d52b18d8420042835ba93d9581d19cd6e400a77d1c4425f40c2017a7af7dd",
-  "log_sha256": "11c076fbdfa2837897ceeed196951785b6e6d305924fd37a448b09c496ba233a",
+  "run": "reversing/CppTwelveLevel6Final/runs/FightHitPed75-20261104-211530-139332",
+  "summary_sha256": "fe1389d364f7c915ef6bb21eb6f7078fba304cf9727c36dd2315f06ac2199f86",
+  "result_txt_sha256": "fc2a9213aad550874982726496b71dda28f3ee0a39a168bc1874724bb49dba2b",
+  "log_sha256": "224b0f8a34416d361e38df295d54faf127c2048286b8dddc4bffc796f7a01601",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "ed394ff326fddc50a8ac6fdf6822ba0c9ac44f4404467b9d8a7c3c49287bb10e",
+  "executed_probe_sha256": "e594d9c9ed3d85aa8597a394d61a75bfd5201e28aca8566bb355dd273de3ed0a",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "962c14928e487e0c02553cfef2a6b4f1d7ff0752acab6f21f3fc48266e4677d0",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "4957b89633b88efd73588c5d1aaf9b18cd4c5a011f64eca1a580ad58c46f62ca",
-      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
-      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4b58c28c70b3460298f23cf7a80e635bed03f1e5ddd29b6302464bc19e4d51f8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "fe453f0e0df4c024c95063fa72d8c375e7714839d8c9eb5d00d989c899ff9532",
+      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/FightHitPed75/LiveComparison.hpp": "10c5c3e0cc203246a35c8ece891144759b47b192b74a95ae132460ea4decec42",
+      "reversing/FightHitPed75/LiveComparison.hpp": "14705b418f635afd05dec5cd0825adc2707a0b37306280e73c1005b83c38dafb",
       "reversing/FightHitPed75/Core.hpp": "23852a3a35e186637b60c36d3b780a220c58b9164ff423b2911cd66e79789118",
       "reversing/FightHitPed75/Fixtures.hpp": "410a907376223a041edd4d6ec661cbf4146924911e1256339f61c0a3aa716bdf",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FightHitPed75-20261102-144422-584007/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FightHitPed75-20261104-211530-139332/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "001dfed19e49fbe29927d6c08c09b432b075d9529b0f77720d4fbfbbc7f522cf",
-    "uncompressed_sha256": "11c076fbdfa2837897ceeed196951785b6e6d305924fd37a448b09c496ba233a"
+    "compressed_sha256": "85b8419a44a5cfecdf1829aa0dae549fe155fdd4570640bc68f80ef8cac8658f",
+    "uncompressed_sha256": "224b0f8a34416d361e38df295d54faf127c2048286b8dddc4bffc796f7a01601"
   }
 }

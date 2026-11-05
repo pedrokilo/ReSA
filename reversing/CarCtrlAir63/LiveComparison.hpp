@@ -69,7 +69,7 @@ inline void Update() {
     const StubSpec flyHeliFix=mk({"CCarCtrl","FlyAIHeliToTarget_FixedOrientation",0x423940,reinterpret_cast<void*>(&FkFlyHeliFix),0});
     const StubSpec flyPlane=mk({"CCarCtrl","FlyAIPlaneInCertainDirection",0x423000,reinterpret_cast<void*>(&FkFlyPlane),0});
     const StubSpec dog=mk({"CCarCtrl","GetAIPlaneToDoDogFight",0x429890,reinterpret_cast<void*>(&FkDog),0});
-    const StubSpec norm=mk({nullptr,nullptr,0x59C910,reinterpret_cast<void*>(&FkNorm),0});
+    const StubSpec norm=mk({"CVector","Normalise",0x59C910,reinterpret_cast<void*>(&FkNorm),0});
     const StubSpec rnd=mk({nullptr,nullptr,0x821B1E,reinterpret_cast<void*>(&FkRand),0});
     const StubSpec speed=mk({"CWorld","FindPlayerSpeed",0x56E090,reinterpret_cast<void*>(&FkSpeed),0});
     const StubSpec app=mk({"CVehicle","GetVehicleAppearance",0x6D1080,reinterpret_cast<void*>(&FkApp),Body(std::bit_cast<uintptr_t>(&CVehicle::GetVehicleAppearance))});

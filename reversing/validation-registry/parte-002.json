@@ -27883,7 +27883,7 @@
       },
       "evidence": {
         "path": "reversing/RopePending/validation-summary.json",
-        "sha256": "c42515f78b3901598fd8794fbf189e85deddd6008cda5871e3bf55f2cd766fe9",
+        "sha256": "6b55b9ac35ad46de907756280f3c431ac87f0748fa6c43c44f23d7336f46bf69",
         "passed_path": [
           "covered_functions",
           "CRope::UpdateWeightInRope"
@@ -27892,11 +27892,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Rope.cpp": "0199bc9da2d62f4f1f17d0ce9c57fb12daff12dce2aa328f74a40a45d84f07b8",
+        "source/game_sa/Rope.cpp": "61ad1f372f8efcd78510b36b9f00063f788399162b946d2202513215fe353d96",
         "source/game_sa/Rope.h": "21862741e1609c8457bd7b66c18fd06c85126d600cf1fcc26fac1763c1e21fd1",
         "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac",
-        "source/game_sa/Core/Matrix.cpp": "f5c9d1f294ca4fdd5245eb23ff28148550d78e9a1615d3e1f4de6f814281d69b",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58"
+        "source/game_sa/Core/Matrix.cpp": "eb7e4cb12f35d1842b8d07404d43592b5980c33fe174cdbd2756d5cda666a0c9",
+        "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-200726-600449).",
       "dependency_review": null,
@@ -27912,7 +27912,7 @@
       },
       "evidence": {
         "path": "reversing/RopePending/validation-summary.json",
-        "sha256": "c42515f78b3901598fd8794fbf189e85deddd6008cda5871e3bf55f2cd766fe9",
+        "sha256": "6b55b9ac35ad46de907756280f3c431ac87f0748fa6c43c44f23d7336f46bf69",
         "passed_path": [
           "covered_functions",
           "CRope::Update"
@@ -27921,11 +27921,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Rope.cpp": "0199bc9da2d62f4f1f17d0ce9c57fb12daff12dce2aa328f74a40a45d84f07b8",
+        "source/game_sa/Rope.cpp": "61ad1f372f8efcd78510b36b9f00063f788399162b946d2202513215fe353d96",
         "source/game_sa/Rope.h": "21862741e1609c8457bd7b66c18fd06c85126d600cf1fcc26fac1763c1e21fd1",
         "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac",
-        "source/game_sa/Core/Matrix.cpp": "f5c9d1f294ca4fdd5245eb23ff28148550d78e9a1615d3e1f4de6f814281d69b",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58"
+        "source/game_sa/Core/Matrix.cpp": "eb7e4cb12f35d1842b8d07404d43592b5980c33fe174cdbd2756d5cda666a0c9",
+        "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-200726-600449).",
       "dependency_review": null,

@@ -303,13 +303,12 @@ inline void Update() {
     if (!ready) { Run(env, false, registered, bodies, collaborators); return; }
     auto S = [](const Pair& p, void* fake) { return StubSpec{p, fake}; };
     const Pair pTouch = MakeCollab(env, 0x448EE0, hooksFound), pCol = MakeCollab(env, 0x535300, hooksFound), pXform = MakeCollab(env, 0x59C890, hooksFound), pIpr = MakeCollab(env, 0x4487D0, hooksFound);
-    const Pair pNorm{0x59C910, 0, false};   // CVector::Normalise: sin hook RH; la DLL llama al metodo miembro (cuerpo parcheado abajo)
+    const Pair pNorm = MakeCollab(env, 0x59C910, hooksFound);   // CVector::Normalise tiene hook RH desde el lote 96A: falso en el EXE y en el cuerpo de la DLL
     env.stubs[0] = {S(pTouch, reinterpret_cast<void*>(&FkTouch)), S(pCol, reinterpret_cast<void*>(&FkCol)), S(pXform, reinterpret_cast<void*>(&FkXform)), S(pIpr, reinterpret_cast<void*>(&FkIpr))};
     env.stubs[1] = {S(pTouch, reinterpret_cast<void*>(&FkTouch)), S(pCol, reinterpret_cast<void*>(&FkCol)), S(pXform, reinterpret_cast<void*>(&FkXform)), S(pIpr, reinterpret_cast<void*>(&FkIpr)), S(pNorm, reinterpret_cast<void*>(&FkNorm))};
     env.stubs[2] = {S(pNorm, reinterpret_cast<void*>(&FkNorm))};
     // La DLL de C++ llama al metodo miembro IsPointInsideGarage(CVector, float), no al cuerpo del hook del EXE (GarageIsPointInsideRadiusRegs), y a CVector::Normalise (no a la direccion del EXE): se parchean tambien.
     env.dllOnly.push_back(S(Pair{0, Body(MA(static_cast<bool (CGarage::*)(CVector, float)>(&CGarage::IsPointInsideGarage))), true}, reinterpret_cast<void*>(&FkIpr)));
-    env.dllOnly.push_back(S(Pair{0, Body(MA(&CVector::Normalise)), true}, reinterpret_cast<void*>(&FkNorm)));
     for (unsigned f = 0; f < kFunctions; ++f) {
         json stubbed = json::array();
         for (const auto& s : env.stubs[f]) {
@@ -318,7 +317,7 @@ inline void Update() {
         }
         collaborators[kFn[f]] = {{"dll_real", json::array({"ayudantes x87 de X87Math.cpp (Veh83D*, Heli83GFtol)"})},
             {"stubbed", stubbed}, {"hooks_found", hooksFound}, {"own_hook", ownHooks[kFn[f]]},
-            {"dll_only", json::array({"CGarage::IsPointInsideGarage(CVector, float)", "CVector::Normalise"})}};
+            {"dll_only", json::array({"CGarage::IsPointInsideGarage(CVector, float)"})}};
     }
     for (unsigned f = 0; f < kFunctions; ++f) env.watches.emplace_back(kEntries[f], 16);
     SaveRegions();

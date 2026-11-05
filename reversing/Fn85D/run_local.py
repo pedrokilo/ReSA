@@ -27,8 +27,8 @@ HOOKS = dict(zip(NAMES, (0x449100, 0x449220, 0x448330)))
 # (CVector::Normalise 0x59C910 no tiene hook RH: la DLL llama al metodo miembro, cuyo cuerpo se parchea con el mismo falso como parche solo de la DLL)
 COLLAB4 = [(0x448EE0, True), (0x535300, True), (0x59C890, True), (0x4487D0, True)]
 STUBBED = {NAMES[0]: COLLAB4,
-           NAMES[1]: COLLAB4 + [(0x59C910, False)],
-           NAMES[2]: [(0x59C910, False)]}
+           NAMES[1]: COLLAB4 + [(0x59C910, True)],
+           NAMES[2]: [(0x59C910, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | set(HOOKS.values())
 COVER_FLOOR = 100
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}

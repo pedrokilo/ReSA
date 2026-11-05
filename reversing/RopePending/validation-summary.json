@@ -16,10 +16,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "67a7d19102ad0eecc93834c7276a44705d4f5eb4b1ba249f1605f2dfdc528ce7",
+  "log_sha256": "e019128f21d090454e23a1a3058cc449e0b7760294372a6a523b2a66fe7c5563",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-rope-pending\\20261007-200726-600449",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-rope-pending\\20261104-212634-623291",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CRope::UpdateWeightInRope": true,
@@ -27,24 +27,25 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "efc48c9ac6662ca3589feeb66a70266a4afb41ef29d0038af8a0dfe7dbc88a04",
-      "pdb": "e5999defc66948a8a741e8cabcffca7e147c0b9da16eed3087ce3bf996b07951"
+      "asi": "53b022d4cc9de4e5a2ccbbe97ebca755eb45a7182a5e09a89371d5f7c418cee7",
+      "pdb": "ac638532190aedea911af6535a2a28d3c1f60b56f8d5bbbebfae67c482481046"
     },
     "sources": {
-      "source/game_sa/Rope.cpp": "0199bc9da2d62f4f1f17d0ce9c57fb12daff12dce2aa328f74a40a45d84f07b8",
+      "source/game_sa/Rope.cpp": "61ad1f372f8efcd78510b36b9f00063f788399162b946d2202513215fe353d96",
       "source/game_sa/Rope.h": "21862741e1609c8457bd7b66c18fd06c85126d600cf1fcc26fac1763c1e21fd1",
       "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac",
-      "source/game_sa/Core/Matrix.cpp": "f5c9d1f294ca4fdd5245eb23ff28148550d78e9a1615d3e1f4de6f814281d69b",
-      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58"
+      "source/game_sa/Core/Matrix.cpp": "eb7e4cb12f35d1842b8d07404d43592b5980c33fe174cdbd2756d5cda666a0c9",
+      "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "1ce0851fdacf875117cb3170f52639060a4f7d8e3bacae80a3aa2e21a466df04",
+      "LiveComparison.hpp": "8c1007df2dd96614c265e8d69d679cc27b093adc8b25b47939fd0dd5abbed543",
       "build_probe.py": "c211a3ba3218d41ec3a07dfea6f911269cf4777b6ea7cf6c2baf1866dc55cc7f",
       "run_local.py": "e169385e7455d803542b056ba1bd9e9dc975574c8902a109fc8286f2fe05fbc2"
     }
   },
   "limitations": [
-    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

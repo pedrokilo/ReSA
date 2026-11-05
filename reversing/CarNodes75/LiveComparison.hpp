@@ -237,9 +237,8 @@ inline void Update() {
     json hooksFound=json::array();
     if(!ready){Run(env,false,registered,bodies,collaborators);return;}
     const Pair pXR=MakeCollab(env,kXRegion,hooksFound),pYR=MakeCollab(env,kYRegion,hooksFound),pXC=MakeCollab(env,kXCoors,hooksFound),pYC=MakeCollab(env,kYCoors,hooksFound),pDist=MakeCollab(env,kDist,hooksFound);
-    // CVector::Normalise: CVector::InjectHooks esta desactivado (sin hook RH); el cuerpo de la DLL es la funcion propia y la entrada del EXE sigue siendo codigo original: se parchean ambos.
-    const Pair pNorm{kNormalise,Body(std::bit_cast<uintptr_t>(&CVector::Normalise)),false};
-    hooksFound.push_back({{"exe",kNormalise},{"class","CVector"},{"name","Normalise"},{"hook",false}});
+    // CVector::Normalise tiene hook RH desde el lote 96A (CVector::InjectHooksExactMath): como los demas colaboradores con hook, la ruta lo apaga y el falso va en la entrada del EXE y en el cuerpo de la DLL.
+    const Pair pNorm=MakeCollab(env,kNormalise,hooksFound);
     fakeStubs={StubSpec{pXR,reinterpret_cast<void*>(&FakeXRegion)},StubSpec{pYR,reinterpret_cast<void*>(&FakeYRegion)},StubSpec{pXC,reinterpret_cast<void*>(&FakeXCoors)},StubSpec{pYC,reinterpret_cast<void*>(&FakeYCoors)},
         StubSpec{pDist,reinterpret_cast<void*>(&FakeDist)},StubSpec{pNorm,reinterpret_cast<void*>(&FakeNormalise)}};
     env.stubs[0]=fakeStubs;

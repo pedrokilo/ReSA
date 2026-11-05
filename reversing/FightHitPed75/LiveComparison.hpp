@@ -310,10 +310,9 @@ inline void Update() {
                   {Pair{0x571A00,cleanBody,true},reinterpret_cast<void*>(&FakeCleanUp)},
                   {Pair{0x821B1E,0,false},reinterpret_cast<void*>(&FakeRand)},
                   {Pair{0x5E0170,aliveBody,true},reinterpret_cast<void*>(&FakeIsAlive)},
-                  {Pair{0x59C910,0,false},reinterpret_cast<void*>(&FakeNormalise)},
+                  {Pair{0x59C910,Addr(&CVector::Normalise),true},reinterpret_cast<void*>(&FakeNormalise)},
                   {Pair{0x49EB00,bloodBody,true},reinterpret_cast<void*>(&FakeBlood)}};
     // Lote 85B: la DLL llama a CVector::Normalise directamente (ya no por la envoltura FightNormaliseExe, que llamaba a la direccion del EXE): se parchea tambien su cuerpo con el mismo falso.
-    env.dllOnly.push_back(StubSpec{Pair{0,Addr(&CVector::Normalise),true},reinterpret_cast<void*>(&FakeNormalise)});
     for(auto& v:fakeVt)v=reinterpret_cast<void*>(&FakeTrap);
     fakeVt[4]=reinterpret_cast<void*>(&FakeTaskType);
     for(unsigned f=0;f<kFunctions;++f) {

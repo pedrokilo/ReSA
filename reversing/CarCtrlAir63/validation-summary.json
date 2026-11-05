@@ -58,26 +58,26 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-1 (HEAD df26d6fe7 + fuente del lote 63 CarCtrlAir63, CCarCtrl parte A). Todos los colaboradores se sustituyen por falsos identicos en ambos lados (no se validan sus cuerpos ni la integracion con el mundo real): CGeneral::GetATanOfXY (0x53CC70), CWorld::FindPlayerVehicle (0x56E0D0), FindPlayerPed (0x56E210), FindPlayerCoors (0x56E010), FindPlayerSpeed (0x56E090), FindPlayerEntity (0x56E120) y ProcessLineOfSight (0x56BA00), CVector::Normalise (0x59C910), la rand() del CRT del EXE (0x821B1E), CVehicle::GetVehicleAppearance (0x6D1080), CPlaceable::AllocateMatrix (0x54F560), CSimpleTransform::UpdateMatrix (0x54F1B0), CTaskManager::GetActiveTask (0x681720) y CTask::GetTaskType (virtual), CPlane::SetGearUp (0x6CAC20), CCarCtrl::PossiblyFireHSMissile (0x429600), CCollision::DistToMathematicalLine (0x412970), CProjectileInfo::AddProjectile (0x737C80), la funcion 0x422F80 del EXE (sondeo de rumbo del avion, sin reconstruir), 0x73DF00 (lancha modelo 430, sin reconstruir) y, cuando una funcion del lote llama a otra (p. ej. GetAIHeliToAttackPlayer -> FlyAIHeliInCertainDirection / TestWhetherToFirePlaneGuns / FireHeliRocketsAtTarget), la otra tambien es un falso en esa prueba. Los vehiculos, matrices, tareas, jugador y CColPoint son imagenes falsas del banco; ningun objeto real del juego se toca. NO hay oraculo independiente en Python: la referencia es el EXE, con 4096 casos deterministas por funcion que cubren umbrales exactos (+-1 ulp), cero con signo, NaN silenciosos, infinitos, subnormales y valores enormes; los NaN son siempre silenciosos (la x87 resuelve distinto un SNaN en memoria que un QNaN en ST(0) y ningun calculo del juego produce un SNaN). Los angulos que entran en bucles de normalizacion (+-2pi) se acotan a valores finitos y moderados porque con valores enormes el original no termina. El EXE lee m_matrix de los vehiculos sin comprobar nulo en varias funciones: esos casos usan siempre matriz. Las funciones con aritmetica x87 usan ayudantes de X87Math.cpp (prefijo CcAir) compilados con /O2 /Oi /arch:IA32 /fp:fast; fsqrt/fpatan/fsin/fcos van en ayudantes separados fuera de las regiones precise (dentro saldrian como llamadas a la CRT). EAX/ECX/EDX de salida solo se registran: ningun llamador del EXE los lee (llamadores: el despachador 0x436A90 y las propias funciones del lote, comprobados con callers.py sobre todo el .text). FlyAIHeliToTarget_FixedOrientation: el EXE recibe un cuarto argumento (true) que no lee; el hook mantiene los tres de la declaracion existente. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlAir63-20261028-133430-741111",
-  "summary_sha256": "60c95fd1aa34f4a8be1f1e8bbe12fb56be0f4ab0fd87b58bc991b17169b6cead",
-  "result_txt_sha256": "dae05a301e467c43a43671d9a0041be54a55cf3488722ebb7651866718dd7f54",
-  "log_sha256": "dca176a933399371125d7715d410ddd068ccef665b8996a249f78db498d4c86c",
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlAir63-20261104-205826-026494",
+  "summary_sha256": "9036583e12b3ca9a596431b56561a4930f71d6ddf3f8ad648f77ab6a8adad486",
+  "result_txt_sha256": "323d546c1002ef56abaff0714c862a5cf606dca8b69821ca200a476a5ba20202",
+  "log_sha256": "21ed298f0974a5fc29e4b3183f475b6932e4ae01638acbd7b1eb5f93288e00ed",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "09b6937897ad0301b5fe4e768217767cb321a668a6c353655902f70af0f3b16b",
+  "executed_probe_sha256": "3dd7e93b6acf7f017eb2ad51afb98cc00c871c986b4a9763e4f267591de65c52",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
       "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-      "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-      "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/CarCtrlAir63/LiveComparison.hpp": "86bd1ab1fddc80eab959549bda762c5c9a44428340526f2237f60ab18199963d",
+      "reversing/CarCtrlAir63/LiveComparison.hpp": "217f57758dc85baf74149d6b59a2fdc640070ccdb66ef5035a794d7f7a0d28f7",
       "reversing/CarCtrlAir63/Core.hpp": "58a7dd1f4b8b5fef47fc7829af4856f32c3973ec75c9f441d3cda5e2bd9dc3d2",
       "reversing/CarCtrlAir63/Fixtures.hpp": "8738fd4b1c95a5d7133430723e38873b0015fc805b691fe4095600814af37483",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -85,10 +85,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarCtrlAir63-20261028-133430-741111/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarCtrlAir63-20261104-205826-026494/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "c217a1369f86535a976a086337b073fa729342c0b7f7d774292f5c1487228a79",
-    "uncompressed_sha256": "dca176a933399371125d7715d410ddd068ccef665b8996a249f78db498d4c86c"
+    "compressed_sha256": "bfa864778301c51db3a81c8312e148add13e5714df35e7c7d901cd92eb5227e3",
+    "uncompressed_sha256": "21ed298f0974a5fc29e4b3183f475b6932e4ae01638acbd7b1eb5f93288e00ed"
   }
 }

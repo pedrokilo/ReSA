@@ -40,22 +40,22 @@
     "CPopulation::TestSafeForRealObject": "Corpus 256; sector lists 0xB992B8 and pool headers backed up and restored; model infos fake (ids 0..319); FindObjectsInRange/ProcessColModels/collision collaborators doubled with trace. "
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PopFinal4-20261104-035616-223797",
-  "summary_sha256": "9ef8fc09e9c8404f89c1ad98ebcb03f9fe19ba0c306f0a1e0a00bbd248930cc7",
-  "result_txt_sha256": "664b560e102b2c77a5062b12804cb9e7bf94beee1439842fc1bbbb5745b86a99",
-  "log_sha256": "f33f75bda4d297bf49e2a870a1c5921263043105a3882c02e985f399fbb2a7d5",
+  "run": "reversing/CppTwelveLevel6Final/runs/PopFinal4-20261104-213542-887763",
+  "summary_sha256": "2694bfd87abc3d363b2e7821911a12e9cd2ce37a942c13cc63c3659e69ee04a6",
+  "result_txt_sha256": "637767f827655b637e97ffb47da88103c5bbc60ab325c82b138452541f4c16df",
+  "log_sha256": "59822d2971399c214b34c36f8017ff3867f6f3ff0c2b46bdf56ad8fbf2b5a9de",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PopFinal4-20261104-035616-223797/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PopFinal4-20261104-213542-887763/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "4bd93e742b304f34d3c131a798c6cc419d196535a6ce6c7fc2eb4e0227e9698e",
-    "uncompressed_sha256": "f33f75bda4d297bf49e2a870a1c5921263043105a3882c02e985f399fbb2a7d5"
+    "compressed_sha256": "b2925a126f7c4b55fbeaf8ebf9ad77d5e36fcbeb454e7405f78f80b7df39e040",
+    "uncompressed_sha256": "59822d2971399c214b34c36f8017ff3867f6f3ff0c2b46bdf56ad8fbf2b5a9de"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "40f67701e1d2816f50821533b5a8bfa4c5b899189828025046a86575d9111b09",
+  "executed_probe_sha256": "a124ebc2c3c0094b1b693fa5bc322d4e91e49678443fb4f591061fb699d59d78",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
