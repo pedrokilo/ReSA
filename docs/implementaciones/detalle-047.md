@@ -12,8 +12,8 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| Car75Word(uint32_t bits) | [source/game_sa/X87Math.cpp:16463](../../source/game_sa/X87Math.cpp#L16463) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & f() const | [source/game_sa/X87Math.cpp:16464](../../source/game_sa/X87Math.cpp#L16464) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Car75Word(uint32_t bits) | [source/game_sa/X87Math.cpp:16469](../../source/game_sa/X87Math.cpp#L16469) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & f() const | [source/game_sa/X87Math.cpp:16470](../../source/game_sa/X87Math.cpp#L16470) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-922"></a>
 

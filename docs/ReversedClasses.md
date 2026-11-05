@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-04 22:25 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-05 04:12 UTC
 
 **Índice:** [1. Objetivo y dimensiones](#objetivo) · [2. Siguientes mediciones](#mediciones) · [3. Siguiente fase](#siguiente-fase) · [4. Vista general](#vista-general) · [5. Cobertura real del EXE](#cobertura-exe) · [6. Lo que falta del código del juego](#que-falta) · [7. Funciones del juego aún no en C++](#no-en-cpp) · [8. Completas](#completas) · [9. Cohorte 17/10/2026](#cohorte-nuevo) · [10. Dependencias directas (grupo A)](#grupo-a) · [11. Parciales](#parciales) · [12. Sin revertir](#sin-revertir) · [13. Cómo leer y actualizar](#metodo)
 
@@ -12,7 +12,7 @@
 
 La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del EXE, seguida de un ejecutable propio. **La meta de este informe es completar todas las funciones del juego** (11,804 funciones y 3.01 MB de código en el EXE: el código propio del juego y su capa de plataforma). RenderWare, Direct3D y el CRT son bibliotecas enlazadas dentro del EXE: no forman parte de la meta, no se cuentan en las tablas y solo aparecen en la [cobertura real del EXE](#cobertura-exe) y en la lista de [bibliotecas fuera del objetivo](#bibliotecas) para aclarar qué queda fuera. Completar el juego es un hito hacia **ReSA — Zero Original Function Dependency**.
 
-Cifras medidas el 04/11/2026. **Cada porcentaje de este informe lleva escrita la dimensión de la que habla**: *funciones* (del EXE), *bytes* (de código del EXE), *clases*, *entradas del catálogo* (filas de `hooks.csv`) o *validación* (cuántas de las ya hechas tienen evidencia aprobada). Dimensiones distintas dan porcentajes distintos y no son comparables entre sí.
+Cifras medidas el 05/11/2026. **Cada porcentaje de este informe lleva escrita la dimensión de la que habla**: *funciones* (del EXE), *bytes* (de código del EXE), *clases*, *entradas del catálogo* (filas de `hooks.csv`) o *validación* (cuántas de las ya hechas tienen evidencia aprobada). Dimensiones distintas dan porcentajes distintos y no son comparables entre sí.
 
 | Tipo | Dimensión | Qué cuenta | Numerador | Denominador | Porcentaje (de qué) | Progreso |
 | --- | --- | --- | ---: | ---: | --- | --- |
@@ -35,7 +35,7 @@ Hay 9,002 entradas catalogadas del juego, 0 bloqueadas y 9,002 sin bloqueo. No c
 
 ## 2. Siguientes mediciones
 
-Estado al 04/11/2026. Lo que ya se midió y lo que todavía no tiene un porcentaje útil:
+Estado al 05/11/2026. Lo que ya se midió y lo que todavía no tiene un porcentaje útil:
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
@@ -44,7 +44,7 @@ Estado al 04/11/2026. Lo que ya se midió y lo que todavía no tiene un porcenta
 | Trabajo real que falta (funciones y bytes) | 2,836 funciones y 293,219 bytes del juego sin reemplazar (24.03% de las funciones y 9.75% de los bytes del juego); grupo A 968 funciones y 124,205 bytes | Reconstruir y validar de menor a mayor coste, empezando por el grupo A ([sección 6](#que-falta)). |
 | Coste por categoría de lote (tiempo de reconstrucción y validación) | Medido para las categorías 1, 2, 3 y 5 en los lotes 90A, 90B, 92A, 92B y 92C (tabla de abajo); sin medir la categoría 4 (funciones con FPU) | Cronometrar un lote piloto con FPU (método x87 a 24 bits) y los siguientes lotes de lógica para convertir la estimación en un coste por función. |
 
-Costes medidos en los lotes cerrados (datos al 04/11/2026, [lotes.csv](JuegoExe/lotes.csv)). Cada lote reconstruye en C++ puro funciones que antes se llamaban al EXE por dirección y las valida dentro del juego (pares EXE/DLL con cero diferencias).
+Costes medidos en los lotes cerrados (datos al 05/11/2026, [lotes.csv](JuegoExe/lotes.csv)). Cada lote reconstruye en C++ puro funciones que antes se llamaban al EXE por dirección y las valida dentro del juego (pares EXE/DLL con cero diferencias).
 
 | Lote | Categoría de coste (del grupo A) | Funciones | Bytes | Pares validados | Coste medido |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -59,26 +59,26 @@ Costes medidos en los lotes cerrados (datos al 04/11/2026, [lotes.csv](JuegoExe/
 
 ## 3. Siguiente fase: después de las envolturas
 
-**¿Quedan envolturas de código del juego en el catálogo?** No. **Envolturas del juego abiertas: 0** (comprobado el 04/11/2026): todas las funciones del juego con hook están reconstruidas en C++.
+**¿Quedan envolturas de código del juego en el catálogo?** No. **Envolturas del juego abiertas: 0** (comprobado el 05/11/2026): todas las funciones del juego con hook están reconstruidas en C++.
 
 Las envolturas de biblioteca no cuentan: 211 funciones con envoltura al EXE (RenderWare SDK 140, Controlador D3D9 de RenderWare 58, CRT / runtime estático 11, QuickTime/QTML 2) son RenderWare, controlador D3D9, CRT y QuickTime, que se sustituyen según la [hoja de ruta](RutaExeIndependiente.md) y no son trabajo del juego ([lista](#bibliotecas)). La clasificación sale de la dirección del destino: dentro de 0x401000–0x74FFFF es juego, fuera es biblioteca.
 
 **Lotes en curso:** ninguno registrado para las envolturas del juego.
 
-Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D, 2,836 funciones al 04/11/2026; [sección 6](#que-falta)). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv), y la lista viva está en la [sección 10](#grupo-a):
+Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D, 2,836 funciones al 05/11/2026; [sección 6](#que-falta)). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv), y la lista viva está en la [sección 10](#grupo-a):
 
 1. **Grupo A, por categorías y de menor a mayor coste:** helpers triviales y thunks muy llamados (hecho en el lote 90A: `CPad::GetPad` 0x53FB70, `CRGBA::Constructor` 0x7170C0...), pequeñas sin FPU (lote 90B), lógica sin FPU (empezando por las más llamadas y por clases enteras), funciones con FPU con el método x87 a 24 bits, y por último las de 0x300 bytes o más, una por lote (92B, 92C).
 2. **Lote piloto de cada categoría** para medir el coste real: ya medidos los de las categorías 1, 2, 3 y 5 (tabla de la sección 2); falta la 4, con FPU.
 3. **Revalidación vigente:** repetir los bancos sobre el árbol actual, priorizando los de fuentes cambiadas por lotes posteriores. Motivo: el banco `CVehD` llevaba roto desde el lote 83C (se cambió `m_fSteerAngle` por `m_GasPedal` en `ProcessDrivingAnims`) y no se vio hasta repetirlo.
 4. **Después del código del juego:** `librw`, pipelines de SA y puentes `RwD3D9*`, QuickTime, DDraw y CRT, según la [hoja de ruta](RutaExeIndependiente.md); el cambio de método de validación sin el exe como oráculo.
 
-**Validación consolidada parcialmente:** 9002 funciones del juego con evidencia aprobada vinculada, 1275 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias (cifras al 04/11/2026). Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 9002 funciones del juego con evidencia aprobada vinculada, 1464 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias (cifras al 05/11/2026). Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
 <a id="vista-general"></a>
 
 ## 4. Vista general
 
-Al 04/11/2026. Cada columna indica la dimensión y el denominador de su porcentaje.
+Al 05/11/2026. Cada columna indica la dimensión y el denominador de su porcentaje.
 
 | Clases validadas (validación) | Clases completas por validar (validación) | Entradas validadas (validación) | Entradas reconstruidas por validar (validación) | Entradas por reconstruir (entradas del catálogo) |
 | :---: | :---: | :---: | :---: | :---: |
@@ -109,7 +109,7 @@ Esta tabla es la única parte del informe que habla de lo que no es código del 
 
 ## 6. Lo que falta del código del juego: 2,836 funciones, 293 KB
 
-Al 04/11/2026: 2,836 funciones (24.03% de las funciones del juego) y 293,219 bytes (9.75% de los bytes del juego) siguen sin reemplazar. Este es el trabajo real que falta del código del juego, lo mida o no el catálogo. Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
+Al 05/11/2026: 2,836 funciones (24.03% de las funciones del juego) y 293,219 bytes (9.75% de los bytes del juego) siguen sin reemplazar. Este es el trabajo real que falta del código del juego, lo mida o no el catálogo. Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
 
 | Grupo (de mayor a menor tamaño) | Funciones | Bytes | Lectura |
 | --- | ---: | ---: | --- |
@@ -127,7 +127,7 @@ Del código del juego ya reemplazado, **807 funciones del juego siguen llamándo
 
 ## 7. Funciones del juego que ya tenemos y aún no están en C++: 0
 
-Al 04/11/2026, el catálogo **no tiene envolturas abiertas de código del juego**: todas las funciones del juego con hook están reconstruidas en C++. Las de biblioteca (abajo) no cuentan.
+Al 05/11/2026, el catálogo **no tiene envolturas abiertas de código del juego**: todas las funciones del juego con hook están reconstruidas en C++. Las de biblioteca (abajo) no cuentan.
 
 <a id="bibliotecas"></a>
 
@@ -161,7 +161,7 @@ Estas envolturas llaman al EXE, pero su destino es una biblioteca enlazada dentr
 <a id="completas"></a>
 ## 8. 🟢 Completas · 826 clases
 
-Al 04/11/2026: 826 de 826 clases o grupos están completas (todas sus entradas reconstruidas y ninguna envoltura del juego abierta). Orden alfabético. El número entre paréntesis indica funciones registradas; ✅ indica entradas con validated=1 y 🔒 indica hooks cuya conmutación sigue bloqueada. Los bloqueos no son pendientes de validación.
+Al 05/11/2026: 826 de 826 clases o grupos están completas (todas sus entradas reconstruidas y ninguna envoltura del juego abierta). Orden alfabético. El número entre paréntesis indica funciones registradas; ✅ indica entradas con validated=1 y 🔒 indica hooks cuya conmutación sigue bloqueada. Los bloqueos no son pendientes de validación.
 
 <details>
 <summary>Mostrar catálogo de clases completas</summary>
@@ -449,10 +449,10 @@ Al 04/11/2026: 826 de 826 clases o grupos están completas (todas sus entradas r
 
 
 <a id="cohorte-nuevo"></a>
-## 9. 📋 Cohorte del 17/10/2026: CERRADO (185 destinos del juego del cohorte: 185 validadas, 0 reconstruidas por validar y 0 sin reconstruir, al 04/11/2026)
+## 9. 📋 Cohorte del 17/10/2026: CERRADO (185 destinos del juego del cohorte: 185 validadas, 0 reconstruidas por validar y 0 sin reconstruir, al 05/11/2026)
 
 > [!NOTE]
-> **Cohorte cerrado.** Al 04/11/2026, los 185 destinos del código del juego del cohorte del 17/10/2026 (funciones del juego que `source/` llamaba por dirección y que no estaban reconstruidas ni validadas) tienen fila `reversed=1` y `validated=1` en [hooks.csv](hooks.csv): quedan **0 pendientes y 0 por validar**. Las 279 entradas restantes del cohorte son de bibliotecas (RenderWare, D3D9, CRT, QuickTime) y quedan fuera del objetivo ([sección 7](#bibliotecas)). La lista de abajo se conserva como histórico; ya no es trabajo pendiente.
+> **Cohorte cerrado.** Al 05/11/2026, los 185 destinos del código del juego del cohorte del 17/10/2026 (funciones del juego que `source/` llamaba por dirección y que no estaban reconstruidas ni validadas) tienen fila `reversed=1` y `validated=1` en [hooks.csv](hooks.csv): quedan **0 pendientes y 0 por validar**. Las 279 entradas restantes del cohorte son de bibliotecas (RenderWare, D3D9, CRT, QuickTime) y quedan fuera del objetivo ([sección 7](#bibliotecas)). La lista de abajo se conserva como histórico; ya no es trabajo pendiente.
 
 Destinos originales explícitos que `source/` seguía referenciando y que no estaban reconstruidos ni validados el 17/10/2026. La lista va ordenada de mayor a menor tamaño en bytes (la columna «Rango» conserva la posición por dificultad, de menor a mayor: 1 es la más fácil; puntuación de tamaño y riesgos —llamadas sin catalogar, indirectas, x87, tablas de saltos y SEH—). Solo se listan funciones del juego. Lista completa y descargable: [lista-por-dificultad.csv](../reversing/OriginalDependencies2026-10-17/lista-por-dificultad.csv) · metodología: [README del cohorte](../reversing/OriginalDependencies2026-10-17/README.md). La columna «Estado» se calcula con el catálogo actual: una dirección con fila reversed=1 en hooks.csv figura como reconstruida o validada.
 
@@ -658,13 +658,13 @@ Destinos originales explícitos que `source/` seguía referenciando y que no est
 
 </details>
 
-**Cohorte inicial de 499 dependencias (comprobado el 04/11/2026).** De sus 255 destinos del juego, 254 tienen fila `reversed=1` y `validated=1` en hooks.csv (131 figuran como aprobadas en su `progress.csv` y el resto se validó después con otros bancos), 0 están reconstruidas por validar y **1 abiertas**: `InteriorGroup_c::SetupHousePeds` `0x0046CED0`. El «124 entradas del juego pendientes» que repite la cabecera de estado de otros documentos sale del `progress.json` de ese cohorte, que no se ha refrescado; no es la medida actual.
+**Cohorte inicial de 499 dependencias (comprobado el 05/11/2026).** De sus 255 destinos del juego, 254 tienen fila `reversed=1` y `validated=1` en hooks.csv (131 figuran como aprobadas en su `progress.csv` y el resto se validó después con otros bancos), 0 están reconstruidas por validar y **1 abiertas**: `InteriorGroup_c::SetupHousePeds` `0x0046CED0`. El «124 entradas del juego pendientes» que repite la cabecera de estado de otros documentos sale del `progress.json` de ese cohorte, que no se ha refrescado; no es la medida actual.
 
 <a id="grupo-a"></a>
 
 ## 10. Dependencias directas de la DLL al EXE (grupo A)
 
-Lista viva del trabajo real. Al 04/11/2026, el grupo A de [JuegoExe](JuegoExe/README.md) tiene **956 funciones del juego** (118,081 bytes) que la DLL ya necesita: 790 se llaman **directamente** desde código ya reemplazado (llamadas detectadas con dirección, bytes y llamador) y 166 solo de forma transitiva, a través de otras funciones aún no reemplazadas. La categoría y los llamadores salen del análisis de [AnalisisGrupoA.md](AnalisisGrupoA.md) ([grupoA.csv](JuegoExe/grupoA.csv), 1,007 funciones en el momento del análisis; 51 ya no son del grupo A: se reconstruyeron desde entonces o pasaron a envoltura abierta). El cierre transitivo de la [sección 6](#que-falta) cuenta 968 funciones: la diferencia (12) son funciones del grupo A que además tienen una envoltura abierta y figuran como envolturas abiertas ([sección 7](#no-en-cpp) y bibliotecas), no en esta lista. Es una cota inferior: las llamadas indirectas sin resolver no entran en el grafo.
+Lista viva del trabajo real. Al 05/11/2026, el grupo A de [JuegoExe](JuegoExe/README.md) tiene **956 funciones del juego** (118,081 bytes) que la DLL ya necesita: 790 se llaman **directamente** desde código ya reemplazado (llamadas detectadas con dirección, bytes y llamador) y 166 solo de forma transitiva, a través de otras funciones aún no reemplazadas. La categoría y los llamadores salen del análisis de [AnalisisGrupoA.md](AnalisisGrupoA.md) ([grupoA.csv](JuegoExe/grupoA.csv), 1,007 funciones en el momento del análisis; 51 ya no son del grupo A: se reconstruyeron desde entonces o pasaron a envoltura abierta). El cierre transitivo de la [sección 6](#que-falta) cuenta 968 funciones: la diferencia (12) son funciones del grupo A que además tienen una envoltura abierta y figuran como envolturas abiertas ([sección 7](#no-en-cpp) y bibliotecas), no en esta lista. Es una cota inferior: las llamadas indirectas sin resolver no entran en el grafo.
 
 ### Composición por categoría de coste
 
@@ -1487,7 +1487,7 @@ Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas 
 
 | Clase | Revertidas / total | Pendientes | Envolturas del juego al EXE (sin bibliotecas) | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
-| *(ninguna clase parcial al 04/11/2026)* | | | | | | | | | |
+| *(ninguna clase parcial al 05/11/2026)* | | | | | | | | | |
 
 <a id="sin-revertir"></a>
 ## 12. 🔴 Sin revertir · 0 clases
