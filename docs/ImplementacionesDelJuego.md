@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 04/11/2026 (Ciudad de México):** 835 grupos / 9081 funciones reconstruidas; 9081 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 05/11/2026 (Ciudad de México):** 835 grupos / 9099 funciones reconstruidas; 9099 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Implementaciones del juego: C++, ensamblador y dependencia del EXE
@@ -8,7 +8,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18825 definiciones en 1512 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18837 definiciones en 1512 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -148,7 +148,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CClumpModelInfo](implementaciones/detalle-006.md#grupo-117) · [source/game_sa/Models/ClumpModelInfo.cpp](../source/game_sa/Models/ClumpModelInfo.cpp), [source/game_sa/Models/ClumpModelInfo.h](../source/game_sa/Models/ClumpModelInfo.h) | 24 | 0 | 2 | 0 | 0 |
 | [CColAccel](implementaciones/detalle-006.md#grupo-118) · [source/game_sa/Collision/ColAccel.cpp](../source/game_sa/Collision/ColAccel.cpp) | 12 | 0 | 1 | 0 | 0 |
 | [CColBox](implementaciones/detalle-006.md#grupo-119) · [source/game_sa/Collision/ColBox.cpp](../source/game_sa/Collision/ColBox.cpp), [source/game_sa/Collision/ColBox.h](../source/game_sa/Collision/ColBox.h) | 0 | 0 | 6 | 0 | 0 |
-| [CColLine](implementaciones/detalle-006.md#grupo-120) · [source/game_sa/Collision/ColLine.cpp](../source/game_sa/Collision/ColLine.cpp), [source/game_sa/Collision/ColLine.h](../source/game_sa/Collision/ColLine.h) | 1 | 0 | 6 | 0 | 0 |
+| [CColLine](implementaciones/detalle-006.md#grupo-120) · [source/game_sa/Collision/ColLine.cpp](../source/game_sa/Collision/ColLine.cpp), [source/game_sa/Collision/ColLine.h](../source/game_sa/Collision/ColLine.h) | 3 | 0 | 5 | 0 | 0 |
 | [CColModel](implementaciones/detalle-007.md#grupo-121) · [source/game_sa/Collision/ColModel.cpp](../source/game_sa/Collision/ColModel.cpp), [source/game_sa/Collision/ColModel.h](../source/game_sa/Collision/ColModel.h) | 11 | 0 | 9 | 0 | 0 |
 | [CColModelPool](implementaciones/detalle-007.md#grupo-122) · [source/game_sa/Pools/ColModelPool.h](../source/game_sa/Pools/ColModelPool.h) | 2 | 0 | 1 | 0 | 0 |
 | [CColSphere](implementaciones/detalle-007.md#grupo-123) · [source/game_sa/Collision/ColSphere.cpp](../source/game_sa/Collision/ColSphere.cpp), [source/game_sa/Collision/ColSphere.h](../source/game_sa/Collision/ColSphere.h) | 5 | 0 | 6 | 0 | 0 |
@@ -359,7 +359,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CLodTimeModelInfo](implementaciones/detalle-017.md#grupo-328) · [source/game_sa/Models/LodTimeModelInfo.cpp](../source/game_sa/Models/LodTimeModelInfo.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CMBlur](implementaciones/detalle-017.md#grupo-329) · [source/game_sa/MBlur.cpp](../source/game_sa/MBlur.cpp) | 0 | 0 | 12 | 0 | 0 |
 | [CMaths](implementaciones/detalle-017.md#grupo-330) · [source/game_sa/Maths.cpp](../source/game_sa/Maths.cpp) | 3 | 0 | 1 | 0 | 0 |
-| [CMatrix](implementaciones/detalle-017.md#grupo-331) · [source/game_sa/Core/Matrix.cpp](../source/game_sa/Core/Matrix.cpp), [source/game_sa/Core/Matrix.h](../source/game_sa/Core/Matrix.h) | 13 | 0 | 49 | 0 | 0 |
+| [CMatrix](implementaciones/detalle-017.md#grupo-331) · [source/game_sa/Core/Matrix.cpp](../source/game_sa/Core/Matrix.cpp), [source/game_sa/Core/Matrix.h](../source/game_sa/Core/Matrix.h) | 19 | 0 | 47 | 0 | 0 |
 | [CMatrixLink](implementaciones/detalle-017.md#grupo-332) · [source/game_sa/Core/MatrixLink.cpp](../source/game_sa/Core/MatrixLink.cpp), [source/game_sa/Core/MatrixLink.h](../source/game_sa/Core/MatrixLink.h) | 2 | 0 | 3 | 0 | 0 |
 | [CMatrixLinkList](implementaciones/detalle-017.md#grupo-333) · [source/game_sa/Core/MatrixLinkList.cpp](../source/game_sa/Core/MatrixLinkList.cpp), [source/game_sa/Core/MatrixLinkList.h](../source/game_sa/Core/MatrixLinkList.h) | 10 | 0 | 4 | 0 | 0 |
 | [CMemoryHeap](implementaciones/detalle-017.md#grupo-334) · [source/game_sa/Memory/MemoryHeap.cpp](../source/game_sa/Memory/MemoryHeap.cpp), [source/game_sa/Memory/MemoryHeap.h](../source/game_sa/Memory/MemoryHeap.h) | 1 | 0 | 25 | 0 | 0 |
@@ -501,7 +501,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CRange3D](implementaciones/detalle-024.md#grupo-470) · [source/game_sa/Range3D.cpp](../source/game_sa/Range3D.cpp) | 0 | 0 | 4 | 0 | 0 |
 | [CRealTimeShadow](implementaciones/detalle-024.md#grupo-471) · [source/game_sa/RealTimeShadow.cpp](../source/game_sa/RealTimeShadow.cpp), [source/game_sa/RealTimeShadow.h](../source/game_sa/RealTimeShadow.h) | 9 | 0 | 5 | 0 | 0 |
 | [CRealTimeShadowManager](implementaciones/detalle-024.md#grupo-472) · [source/game_sa/RealTimeShadowManager.cpp](../source/game_sa/RealTimeShadowManager.cpp) | 7 | 0 | 1 | 0 | 0 |
-| [CRect](implementaciones/detalle-024.md#grupo-473) · [source/game_sa/Core/Rect.cpp](../source/game_sa/Core/Rect.cpp), [source/game_sa/Core/Rect.h](../source/game_sa/Core/Rect.h) | 9 | 0 | 11 | 0 | 0 |
+| [CRect](implementaciones/detalle-024.md#grupo-473) · [source/game_sa/Core/Rect.cpp](../source/game_sa/Core/Rect.cpp), [source/game_sa/Core/Rect.h](../source/game_sa/Core/Rect.h) | 10 | 0 | 11 | 0 | 0 |
 | [CReferences](implementaciones/detalle-024.md#grupo-474) · [source/game_sa/References.cpp](../source/game_sa/References.cpp) | 4 | 0 | 1 | 0 | 0 |
 | [CRegisteredCorona](implementaciones/detalle-024.md#grupo-475) · [source/game_sa/RegisteredCorona.cpp](../source/game_sa/RegisteredCorona.cpp), [source/game_sa/RegisteredCorona.h](../source/game_sa/RegisteredCorona.h) | 1 | 0 | 5 | 0 | 0 |
 | [CRegisteredMotionBlurStreak](implementaciones/detalle-024.md#grupo-476) · [source/game_sa/RegisteredMotionBlurStreak.cpp](../source/game_sa/RegisteredMotionBlurStreak.cpp) | 2 | 0 | 1 | 0 | 0 |
@@ -916,7 +916,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CTxdStore::ScopedTXDSlot](implementaciones/detalle-045.md#grupo-885) · [source/game_sa/TxdStore.h](../source/game_sa/TxdStore.h) | 0 | 0 | 3 | 0 | 0 |
 | [CUpsideDownCarCheck](implementaciones/detalle-045.md#grupo-886) · [source/game_sa/UpsideDownCarCheck.cpp](../source/game_sa/UpsideDownCarCheck.cpp) | 6 | 0 | 3 | 0 | 0 |
 | [CUserDisplay](implementaciones/detalle-045.md#grupo-887) · [source/game_sa/UserDisplay.cpp](../source/game_sa/UserDisplay.cpp) | 2 | 0 | 1 | 0 | 0 |
-| [CVector](implementaciones/detalle-045.md#grupo-888) · [source/game_sa/Core/Vector.cpp](../source/game_sa/Core/Vector.cpp), [source/game_sa/Core/Vector.h](../source/game_sa/Core/Vector.h) | 4 | 0 | 45 | 0 | 0 |
+| [CVector](implementaciones/detalle-045.md#grupo-888) · [source/game_sa/Core/Vector.cpp](../source/game_sa/Core/Vector.cpp), [source/game_sa/Core/Vector.h](../source/game_sa/Core/Vector.h) | 11 | 0 | 43 | 0 | 0 |
 | [CVector2D](implementaciones/detalle-045.md#grupo-889) · [source/game_sa/Core/Vector2D.cpp](../source/game_sa/Core/Vector2D.cpp), [source/game_sa/Core/Vector2D.h](../source/game_sa/Core/Vector2D.h) | 0 | 0 | 39 | 0 | 0 |
 | [CVehicle](implementaciones/detalle-045.md#grupo-890) · [source/game_sa/Entity/Vehicle/Vehicle.cpp](../source/game_sa/Entity/Vehicle/Vehicle.cpp), [source/game_sa/Entity/Vehicle/Vehicle.h](../source/game_sa/Entity/Vehicle/Vehicle.h) | 166 | 0 | 105 | 0 | 0 |
 | [CVehicleAnimGroup](implementaciones/detalle-045.md#grupo-891) · [source/game_sa/VehicleAnimGroupData.cpp](../source/game_sa/VehicleAnimGroupData.cpp), [source/game_sa/VehicleAnimGroupData.h](../source/game_sa/VehicleAnimGroupData.h) | 5 | 0 | 7 | 0 | 0 |
@@ -1081,10 +1081,10 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/BulletTraces.cpp](implementaciones/detalle-053.md#grupo-1050) · [source/game_sa/BulletTraces.cpp](../source/game_sa/BulletTraces.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Buoyancy.cpp](implementaciones/detalle-053.md#grupo-1051) · [source/game_sa/Buoyancy.cpp](../source/game_sa/Buoyancy.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/C_PcSave.cpp](implementaciones/detalle-053.md#grupo-1052) · [source/game_sa/C_PcSave.cpp](../source/game_sa/C_PcSave.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Cam.cpp](implementaciones/detalle-053.md#grupo-1053) · [source/game_sa/Cam.cpp](../source/game_sa/Cam.cpp) | 67 | 0 | 12 | 0 | 0 |
+| [Globales y helpers: source/game_sa/Cam.cpp](implementaciones/detalle-053.md#grupo-1053) · [source/game_sa/Cam.cpp](../source/game_sa/Cam.cpp) | 68 | 0 | 11 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Camera.cpp](implementaciones/detalle-053.md#grupo-1054) · [source/game_sa/Camera.cpp](../source/game_sa/Camera.cpp) | 16 | 0 | 36 | 0 | 0 |
 | [Globales y helpers: source/game_sa/CarAI.cpp](implementaciones/detalle-053.md#grupo-1055) · [source/game_sa/CarAI.cpp](../source/game_sa/CarAI.cpp) | 0 | 0 | 11 | 0 | 0 |
-| [Globales y helpers: source/game_sa/CarCtrl.cpp](implementaciones/detalle-053.md#grupo-1056) · [source/game_sa/CarCtrl.cpp](../source/game_sa/CarCtrl.cpp) | 0 | 0 | 25 | 0 | 0 |
+| [Globales y helpers: source/game_sa/CarCtrl.cpp](implementaciones/detalle-053.md#grupo-1056) · [source/game_sa/CarCtrl.cpp](../source/game_sa/CarCtrl.cpp) | 1 | 0 | 24 | 0 | 0 |
 | [Globales y helpers: source/game_sa/CarEnterExit.cpp](implementaciones/detalle-053.md#grupo-1057) · [source/game_sa/CarEnterExit.cpp](../source/game_sa/CarEnterExit.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/CdStreamInfo.cpp](implementaciones/detalle-053.md#grupo-1058) · [source/game_sa/CdStreamInfo.cpp](../source/game_sa/CdStreamInfo.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/CdStreamInfo.h](implementaciones/detalle-053.md#grupo-1059) · [source/game_sa/CdStreamInfo.h](../source/game_sa/CdStreamInfo.h) | 0 | 0 | 1 | 0 | 0 |
@@ -1094,7 +1094,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/Collision/ColSphere.cpp](implementaciones/detalle-054.md#grupo-1063) · [source/game_sa/Collision/ColSphere.cpp](../source/game_sa/Collision/ColSphere.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Collision/ColStore.cpp](implementaciones/detalle-054.md#grupo-1064) · [source/game_sa/Collision/ColStore.cpp](../source/game_sa/Collision/ColStore.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Collision/Collision.cpp](implementaciones/detalle-054.md#grupo-1065) · [source/game_sa/Collision/Collision.cpp](../source/game_sa/Collision/Collision.cpp) | 0 | 0 | 6 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Collision/CollisionEventScanner.cpp](implementaciones/detalle-054.md#grupo-1066) · [source/game_sa/Collision/CollisionEventScanner.cpp](../source/game_sa/Collision/CollisionEventScanner.cpp) | 1 | 0 | 5 | 0 | 0 |
+| [Globales y helpers: source/game_sa/Collision/CollisionEventScanner.cpp](implementaciones/detalle-054.md#grupo-1066) · [source/game_sa/Collision/CollisionEventScanner.cpp](../source/game_sa/Collision/CollisionEventScanner.cpp) | 2 | 0 | 4 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Collision/ColourSet.cpp](implementaciones/detalle-054.md#grupo-1067) · [source/game_sa/Collision/ColourSet.cpp](../source/game_sa/Collision/ColourSet.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Collision/Sphere.cpp](implementaciones/detalle-054.md#grupo-1068) · [source/game_sa/Collision/Sphere.cpp](../source/game_sa/Collision/Sphere.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/CompressedVector.h](implementaciones/detalle-054.md#grupo-1069) · [source/game_sa/CompressedVector.h](../source/game_sa/CompressedVector.h) | 0 | 0 | 8 | 0 | 0 |
@@ -1102,11 +1102,11 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/Conversations/ConversationForPed.cpp](implementaciones/detalle-054.md#grupo-1071) · [source/game_sa/Conversations/ConversationForPed.cpp](../source/game_sa/Conversations/ConversationForPed.cpp) | 0 | 0 | 3 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/Matrix.cpp](implementaciones/detalle-054.md#grupo-1072) · [source/game_sa/Core/Matrix.cpp](../source/game_sa/Core/Matrix.cpp) | 0 | 0 | 7 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/Quaternion.h](implementaciones/detalle-054.md#grupo-1073) · [source/game_sa/Core/Quaternion.h](../source/game_sa/Core/Quaternion.h) | 0 | 0 | 6 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Core/Vector.cpp](implementaciones/detalle-054.md#grupo-1074) · [source/game_sa/Core/Vector.cpp](../source/game_sa/Core/Vector.cpp) | 0 | 0 | 5 | 0 | 0 |
+| [Globales y helpers: source/game_sa/Core/Vector.cpp](implementaciones/detalle-054.md#grupo-1074) · [source/game_sa/Core/Vector.cpp](../source/game_sa/Core/Vector.cpp) | 5 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/Vector.h](implementaciones/detalle-054.md#grupo-1075) · [source/game_sa/Core/Vector.h](../source/game_sa/Core/Vector.h) | 0 | 0 | 20 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/Vector2D.h](implementaciones/detalle-054.md#grupo-1076) · [source/game_sa/Core/Vector2D.h](../source/game_sa/Core/Vector2D.h) | 0 | 0 | 17 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Coronas.cpp](implementaciones/detalle-054.md#grupo-1077) · [source/game_sa/Coronas.cpp](../source/game_sa/Coronas.cpp) | 0 | 0 | 5 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Cover.cpp](implementaciones/detalle-054.md#grupo-1078) · [source/game_sa/Cover.cpp](../source/game_sa/Cover.cpp) | 2 | 0 | 9 | 0 | 0 |
+| [Globales y helpers: source/game_sa/Cover.cpp](implementaciones/detalle-054.md#grupo-1078) · [source/game_sa/Cover.cpp](../source/game_sa/Cover.cpp) | 4 | 0 | 7 | 0 | 0 |
 | [Globales y helpers: source/game_sa/CullZones.cpp](implementaciones/detalle-054.md#grupo-1079) · [source/game_sa/CullZones.cpp](../source/game_sa/CullZones.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/CustomCarPlateMgr.cpp](implementaciones/detalle-054.md#grupo-1080) · [source/game_sa/CustomCarPlateMgr.cpp](../source/game_sa/CustomCarPlateMgr.cpp) | 0 | 0 | 3 | 0 | 0 |
 | [Globales y helpers: source/game_sa/CustomRoadsignMgr.cpp](implementaciones/detalle-055.md#grupo-1081) · [source/game_sa/CustomRoadsignMgr.cpp](../source/game_sa/CustomRoadsignMgr.cpp) | 0 | 0 | 3 | 0 | 0 |
@@ -1124,7 +1124,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/Entity/Ped/PedStdBonePositions.h](implementaciones/detalle-055.md#grupo-1093) · [source/game_sa/Entity/Ped/PedStdBonePositions.h](../source/game_sa/Entity/Ped/PedStdBonePositions.h) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Entity/Ped/PlayerPed.cpp](implementaciones/detalle-055.md#grupo-1094) · [source/game_sa/Entity/Ped/PlayerPed.cpp](../source/game_sa/Entity/Ped/PlayerPed.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Entity/Physical.cpp](implementaciones/detalle-055.md#grupo-1095) · [source/game_sa/Entity/Physical.cpp](../source/game_sa/Entity/Physical.cpp) | 1 | 0 | 8 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Entity/Vehicle/Automobile.cpp](implementaciones/detalle-055.md#grupo-1096) · [source/game_sa/Entity/Vehicle/Automobile.cpp](../source/game_sa/Entity/Vehicle/Automobile.cpp) | 9 | 0 | 37 | 0 | 0 |
+| [Globales y helpers: source/game_sa/Entity/Vehicle/Automobile.cpp](implementaciones/detalle-055.md#grupo-1096) · [source/game_sa/Entity/Vehicle/Automobile.cpp](../source/game_sa/Entity/Vehicle/Automobile.cpp) | 10 | 0 | 36 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Entity/Vehicle/Bike.cpp](implementaciones/detalle-055.md#grupo-1097) · [source/game_sa/Entity/Vehicle/Bike.cpp](../source/game_sa/Entity/Vehicle/Bike.cpp) | 21 | 0 | 7 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Entity/Vehicle/Bmx.cpp](implementaciones/detalle-055.md#grupo-1098) · [source/game_sa/Entity/Vehicle/Bmx.cpp](../source/game_sa/Entity/Vehicle/Bmx.cpp) | 0 | 0 | 3 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Entity/Vehicle/Boat.cpp](implementaciones/detalle-055.md#grupo-1099) · [source/game_sa/Entity/Vehicle/Boat.cpp](../source/game_sa/Entity/Vehicle/Boat.cpp) | 0 | 0 | 1 | 0 | 0 |
