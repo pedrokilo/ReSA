@@ -281,6 +281,9 @@ inline void Update() {
     const auto fp = CaptureFP(); writeFP = fp; writeFPActive = true; pumpStateOK = true; PumpObserverGuard pumpGuard;
     const auto cameraSaved = ReversingProbe::Bytes(&TheCamera, sizeof(CCamera));
     OriginalDependencies499::HookRoute route("CVehicle", "DoVehicleLights", 0x6E1A60, FunctionToVoidPtr(&CVehicle::DoVehicleLights));
+    // CVector::NormaliseAndMag (0x59C970) esta enganchada en C++ (lote 96A) y su version de la DLL no deja en la pila x87 los mismos valores muertos que el EXE: el lado "original" debe
+    // ejecutar los bytes del EXE tal cual (como dice la cabecera), asi que el hook queda apagado durante todo el banco y se restaura al final. El candidato no lo llama (usa VehHeadTail*).
+    OriginalDependencies499::HookRoute normaliseRoute("CVector", "NormaliseAndMag", 0x59C970, FunctionToVoidPtr(&CVector::NormaliseAndMag));
     const std::vector<uint8> mainOff = ReversingProbe::Bytes(reinterpret_cast<void*>(0x6E1A60), 64);
     auto routeProof = [&](bool candidate) {
         const auto entry = fns[0].address;
@@ -387,7 +390,7 @@ inline void Update() {
     Write({{"event", "function_summary"}, {"function", full}, {"cases", fns[0].cases}, {"failures", failures}});
     std::memcpy(&TheCamera, cameraSaved.data(), sizeof(CCamera));
     bool slotsOk = true; for (uint32 m = 0; m < kModelSlots; ++m) slotsOk &= *ModelSlot(m) == slotsBefore[m];
-    const bool hooks = route.Restore();
+    const bool hooks = route.Restore() && normaliseRoute.Restore();
     const bool state = slotsOk && ReversingProbe::Bytes(&TheCamera, sizeof(CCamera)) == cameraSaved && CaptureFP() == fp;
     RestoreFP(fp);
     Write({{"event", passed && state && hooks ? "complete" : "error"}, {"pairs", total}, {"state_restored", state && hooks}, {"model_slots_restored", slotsOk}, {"floating_state_restored", CaptureFP() == fp}});
