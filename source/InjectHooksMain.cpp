@@ -709,9 +709,11 @@ void InjectHooksMain() {
     /****************************************************/
 
     CVector::InjectHooksExactMath(); // Only Magnitude 0x4082C0, Magnitude2D 0x406D50, Normalise 0x59C910 and NormaliseAndMag 0x59C970.
+    CVector::InjectHooksExactOperators(); // Only DotProduct 0x40FDB0, CrossProduct 0x59C730, Multiply3x3 0x59C790, +/-/scalar products 0x40FE30..0x40FEC0, += 0x411A00 and *= 0x40FEF0.
     CQuaternion::InjectHooks(); // Only the reconstructed Set dependencies.
     CMatrix::InjectHooksMultiplyVector(); // Only operator*(CMatrix, CVector) 0x59C890.
     CMatrix::InjectHooksAttachAssign(); // Only Attach 0x59BD10 and operator= 0x59BBC0.
+    CMatrix::InjectHooksExactOps(); // Only UpdateRW 0x59BBB0, UpdateRwMatrix 0x59AD70, SetTranslate 0x59AF40, SetRotateZOnly 0x59B020, destructor 0x59ACD0 and constructors 0x59BCF0 / 0x59C050.
     CMatrixLink::InjectHooks();
     CMatrixLinkList::InjectHooks();
     CEntryInfoNode::InjectHooks();

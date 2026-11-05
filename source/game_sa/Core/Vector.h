@@ -24,6 +24,7 @@ public:
 public:
     static void InjectHooks();
     static void InjectHooksExactMath(); // Solo Magnitude, Magnitude2D, Normalise y NormaliseAndMag (el resto de CVector::InjectHooks sigue desactivado)
+    static void InjectHooksExactOperators(); // Solo DotProduct, CrossProduct, Multiply3x3Exe, VectorAdd, VectorSubtract, FloatTimesVector, VectorTimesFloat, operator+= y operator*=(float) (lote 97A)
 
     static CVector Random(float min, float max);
     static CVector Random(CVector min, CVector max);
@@ -291,6 +292,13 @@ inline CVector Pow(const CVector& vec, float fPow) {
 
 CVector* CrossProduct(CVector* out, CVector* a, CVector* b);
 float DotProduct(CVector* v1, CVector* v2);
+// Funciones del EXE con su ABI original (cdecl; el resultado se escribe en `out`, que se devuelve): Multiply3x3 matriz * vector (0x59C790), suma (0x40FE30), resta (0x40FE60),
+// escalar * vector (0x40FE90) y vector * escalar (0x40FEC0). Ver Vector.cpp.
+CVector* Multiply3x3Exe(CVector* out, const CMatrix* matrix, const CVector* vector);
+CVector* VectorAdd(CVector* out, const CVector* a, const CVector* b);
+CVector* VectorSubtract(CVector* out, const CVector* a, const CVector* b);
+CVector* FloatTimesVector(CVector* out, float factor, const CVector* vector);
+CVector* VectorTimesFloat(CVector* out, const CVector* vector, float factor);
 CVector CrossProduct(const CVector& a, const CVector& b);
 float DotProduct(const CVector& v1, const CVector& v2);
 float DotProduct2D(const CVector& v1, const CVector& v2);

@@ -29,13 +29,15 @@ void CColLine::InjectHooks() {
     RH_ScopedCategory("Collision");
 
     RH_ScopedInstall(Set, 0x40EF10);
+    RH_ScopedInstall(Constructor, 0x40EF50);
 }
 
 // 0x40EF50
 // Inicializa los extremos geométricos del segmento.
+// Como el original: copia los tres dwords de cada extremo como enteros (un NaN senalizante conserva su carga) y no toca los campos de tamano (+0xC y +0x1C).
 CColLine::CColLine(const CVector& start, const CVector& end) {
-    m_vecStart = start;
-    m_vecEnd = end;
+    std::memcpy(&m_vecStart, &start, sizeof(CVector));
+    std::memcpy(&m_vecEnd, &end, sizeof(CVector));
 }
 
 // 0x40EF10

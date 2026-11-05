@@ -151,3 +151,6 @@ public:
 };
 
 VALIDATE_SIZE(CRect, 0x10);
+
+// 0x404330: minimo de dos floats con la regla del EXE (el primero solo si es estrictamente menor; si no, el segundo, tambien con algun NaN).
+float RectMin(float first, float second);

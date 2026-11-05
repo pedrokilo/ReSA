@@ -46,6 +46,11 @@ public:
 
     ~CMatrix();                                        // destructor detaches matrix if attached
 
+    // Cuerpos de los constructores y del destructor con el ABI y las escrituras exactas del EXE (lote 97A; el hook no puede enganchar un constructor)
+    CMatrix* Destructor();                                              // 0x59ACD0 (cuerpo del destructor del EXE; ~CMatrix de la DLL usa Detach)
+    CMatrix* ConstructCopy(const CMatrix& matrix);                      // 0x59BCF0 (CMatrix(const CMatrix&))
+    CMatrix* ConstructAttached(RwMatrix* matrix, bool temporary);       // 0x59C050 (CMatrix(RwMatrix*, bool))
+
     //! Returns an identity matrix
     static auto Unity() {
         CMatrix mat{};
@@ -87,6 +92,7 @@ public:
 public:
     static void InjectHooks();
     static void InjectHooksAttachAssign();    // Solo Attach 0x59BD10 y operator= 0x59BBC0
+    static void InjectHooksExactOps();        // Solo UpdateRW, UpdateRwMatrix, SetTranslate, SetRotateZOnly, Destructor, ConstructCopy y ConstructAttached (lote 97A)
     static void InjectHooksMultiplyVector(); // Solo operator*(CMatrix, CVector) 0x59C890 (el resto de CMatrix::InjectHooks sigue desactivado)
 
     auto& GetRight(this auto&& self) { return self.m_right; }

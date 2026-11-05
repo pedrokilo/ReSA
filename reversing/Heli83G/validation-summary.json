@@ -12,21 +12,21 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD b2d657293 + cambios del lote 83G; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::ProcessLineOfSight 0x56BA00, CCoronas::RegisterCorona 0x6FC580 y CShadows::StoreShadowToBeRendered 0x707390; RwIm3DTransform 0x7EF450, RwIm3DRenderIndexedPrimitive 0x7EF550 y RwIm3DEnd 0x7EF520 llevan el falso solo en la direccion del EXE (la DLL las llama por esa direccion). Normalise y CrossProduct calculan de verdad con los ayudantes x87 (Veh83CNormalise, Veh83D*); los demas escriben o devuelven los valores del caso. Corren de verdad _ftol2 del EXE (0x821B40), fsin/fcos de la x87, TheCamera (puntero a la matriz y posicion), gpShadowExplosionTex y el bufer temporal de vertices e indices (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos (traza de los 24 primeros y FNV-1a de todos), los contadores, los vertices, los indices y las salidas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), el retorno de RwIm3DTransform distinto de nulo/vertices, la entidad que devuelve ProcessLineOfSight (no se lee), camara con matriz nula y posicion NaN con carga distinta, y salidas de CrossProduct/Normalise reales del EXE (los falsos usan los ayudantes x87; sus cuerpos estan validados en sus propios bancos). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Heli83G-20261104-144412-468071",
-  "summary_sha256": "d0f43af6dceab83e03418f3a860cc4f37bf5c84f2a5b0572278aa96d1a0ac194",
-  "result_txt_sha256": "63dbcdeb9a3e19e7aead5d17f72175e56751e611eb410b19168b1fee3f498930",
-  "log_sha256": "df69e13ce3c2bf372e90877465ce8449cd6b66503eba96efade9222882252a30",
+  "run": "reversing/CppTwelveLevel6Final/runs/Heli83G-20261105-032601-843335",
+  "summary_sha256": "b15c3971438412926416a350267285d484e0193d4c26579e7728f37d00f08e53",
+  "result_txt_sha256": "bd37bd25228edb069acfd87de4c13ad40f234e5f680e1a5441012e1b6b947fd6",
+  "log_sha256": "5d0691c5bc829a3f0ad7cef3aca8f373d10491b054597765ce298612775485df",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "b46e4cde27db3f398c1a934c48071299298d3b5c5356991f245c0270407aaa8f",
+  "executed_probe_sha256": "cbd78b5476101d53d9bd6ae217f1a494e2352017417d14e8e51d2e2a6603ef97",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
+      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
       "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "source/game_sa/Entity/Vehicle/Heli.cpp": "7fb9f40a53cec600f75041a1b3c0b596ac27be17b86c02be28c276f59cc1184d",
       "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Heli83G-20261104-144412-468071/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Heli83G-20261105-032601-843335/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "8606c0f5c2f4ca08d3ff405db8aab1e0130fac4e0cb62aa7ad7166e8612a7dac",
-    "uncompressed_sha256": "df69e13ce3c2bf372e90877465ce8449cd6b66503eba96efade9222882252a30"
+    "compressed_sha256": "fdba056706e25939ec17ff6bd13460679309190998664556420920a106f84aa1",
+    "uncompressed_sha256": "5d0691c5bc829a3f0ad7cef3aca8f373d10491b054597765ce298612775485df"
   }
 }

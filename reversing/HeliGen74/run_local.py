@@ -23,7 +23,7 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x6C6520}
 # (direccion del EXE, hooked) en el orden del banco: hooked=False => la DLL llama por la direccion del EXE o no hay hook
-STUBBED = {NAMES[0]: [(0x821B1E, False), (0x6E2D50, True), (0x6C4190, True), (0x56E210, True), (0x569660, True), (0x59AF40, False), (0x563220, True), (0x6D1A50, True)]}
+STUBBED = {NAMES[0]: [(0x821B1E, False), (0x6E2D50, True), (0x6C4190, True), (0x56E210, True), (0x569660, True), (0x59AF40, True), (0x563220, True), (0x6D1A50, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x6C6520}
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}
 FAMILIES = 21

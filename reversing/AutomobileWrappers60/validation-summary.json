@@ -16,25 +16,25 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261027-200038-792484",
-  "summary_sha256": "1bc9fb45e223db1c27c0ad6d24e2dc06a7aa2ad473a8720418a9ced049ddbd1f",
-  "result_txt_sha256": "5d059162bc4d4ff1cd7bf166568d5e515c852d4664efebf3d65881aa879db344",
-  "log_sha256": "30d3418dd11b2630e614f5e26a86e865ce669251138f2830eb85e82b8c8d1810",
+  "run": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261105-030731-684485",
+  "summary_sha256": "071986bd2440fc11a54f83d4a20bc3ebacd3ac4c5d5ca7a52cfd5d92c827d7aa",
+  "result_txt_sha256": "86f416e10c8c8be048f3f170ed7cbe82782654217ad81314f219a0fb11fe5973",
+  "log_sha256": "12067685fe6349f588293a6699e995025cff2d3f3cb1dcec4b83bd19e56db838",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "d7ad19772291e797a9e154d1bb494699d7e1b8fb3bdf6aa68767dd14efc38917",
+  "executed_probe_sha256": "0e447fd1f18f911d9129cb7fe87ff3ff700e96f767e951d0c0946fc65b7ce5f9",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
       "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
       "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
-      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
-      "source/game_sa/Pathfind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/game_sa/Pathfind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
       "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/AutomobileWrappers60/LiveComparison.hpp": "806dcff1c69e5bfc87467dffbc04018c60e3b0f7cbd5816651742c7f87896db1",
@@ -47,10 +47,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261027-200038-792484/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261105-030731-684485/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "876b11318616a267a3ad52cbfce0625787a1b6c2f50c97abf16236719475d3d5",
-    "uncompressed_sha256": "30d3418dd11b2630e614f5e26a86e865ce669251138f2830eb85e82b8c8d1810"
+    "compressed_sha256": "5014b97cb1e29d1404713a5fc148ae954fdbccb7e738366799e17a91122d2c7b",
+    "uncompressed_sha256": "12067685fe6349f588293a6699e995025cff2d3f3cb1dcec4b83bd19e56db838"
   }
 }

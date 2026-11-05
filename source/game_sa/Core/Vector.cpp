@@ -50,8 +50,7 @@ void CVector::InjectHooks()
     RH_ScopedInstall(Difference, 0x40FE00);
     RH_ScopedInstall(FromMultiply, 0x59C670);
     RH_ScopedInstall(FromMultiply3x3, 0x59C6D0);
-    RH_ScopedGlobalOverloadedInstall(CrossProduct, "out", 0x59C730, CVector*(*)(CVector*, CVector*, CVector*));
-    RH_ScopedGlobalOverloadedInstall(DotProduct, "v3d*v3d*", 0x40FDB0, float(*)(CVector*, CVector*));
+    // CrossProduct (0x59C730), DotProduct (0x40FDB0), operator+= (0x411A00) y operator*=(float) (0x40FEF0) se instalan por separado en InjectHooksExactOperators
 }
 
 // CVector::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); estas son las unicas entradas de CVector que se instalan:
@@ -65,6 +64,24 @@ void CVector::InjectHooksExactMath()
     RH_ScopedInstall(Magnitude2D, 0x406D50);
     RH_ScopedInstall(Normalise, 0x59C910);
     RH_ScopedInstall(NormaliseAndMag, 0x59C970);
+}
+
+// Operadores y productos del EXE con la x87 exacta (lote 97A), validados por el banco Fn97A: DotProduct (0x40FDB0), CrossProduct (0x59C730), Multiply3x3 matriz * vector (0x59C790),
+// la suma (0x40FE30) y la resta (0x40FE60) de vectores, los productos escalar * vector (0x40FE90) y vector * escalar (0x40FEC0), operator+= (0x411A00) y operator*=(float) (0x40FEF0).
+void CVector::InjectHooksExactOperators()
+{
+    RH_ScopedClass(CVector);
+    RH_ScopedCategory("Core");
+
+    RH_ScopedGlobalOverloadedInstall(DotProduct, "v3d*v3d*", 0x40FDB0, float(*)(CVector*, CVector*));
+    RH_ScopedGlobalOverloadedInstall(CrossProduct, "out", 0x59C730, CVector*(*)(CVector*, CVector*, CVector*));
+    RH_ScopedGlobalInstall(Multiply3x3Exe, 0x59C790);
+    RH_ScopedGlobalInstall(VectorAdd, 0x40FE30);
+    RH_ScopedGlobalInstall(VectorSubtract, 0x40FE60);
+    RH_ScopedGlobalInstall(FloatTimesVector, 0x40FE90);
+    RH_ScopedGlobalInstall(VectorTimesFloat, 0x40FEC0);
+    RH_ScopedOverloadedInstall(operator+=, "v3d", 0x411A00, void(CVector::*)(const CVector&));
+    RH_ScopedOverloadedInstall(operator*=, "float", 0x40FEF0, void(CVector::*)(float));
 }
 
 /*!
@@ -179,11 +196,12 @@ void CVector::Difference(const CVector& left, const CVector &right)
 }
 
 // Adds value from the second vector.
+// 0x411A00: como el original, el operando `right` va en el registro (fld) y el componente propio en memoria (fadd): x = right.x + x, luego y y z.
 void CVector::operator+=(const CVector& right)
 {
-    x += right.x;
-    y += right.y;
-    z += right.z;
+    x = right.x + x;
+    y = right.y + y;
+    z = right.z + z;
 }
 
 void CVector::operator-=(const CVector& right)
@@ -201,11 +219,14 @@ void CVector::operator*=(const CVector& right)
 }
 
 // Multiplies vector by a floating point value
+// 0x40FEF0: como el original, el factor va en el registro (fld) y el componente en memoria (fmul), componente a componente. Las lecturas volatiles de las funciones de este archivo
+// fijan que operando va en el registro y cual en memoria: la x87 elige entre dos NaN segun eso (un NaN senalizante de memoria pierde frente a un NaN del registro).
 void CVector::operator *= (float multiplier)
 {
-    x *= multiplier;
-    y *= multiplier;
-    z *= multiplier;
+    const volatile float* factor = &multiplier;
+    const double fx = *factor; x = float(fx * x);
+    const double fy = *factor; y = float(fy * y);
+    const double fz = *factor; z = float(fz * z);
 }
 
 // Divides vector by a floating point value
@@ -235,9 +256,96 @@ float CVector::Heading(bool limitAngle) const {
     return radians;
 }
 
+// 0x59C730: cada componente es la diferencia de dos productos que la x87 deja en registros (24 bits de mantisa, exponente ampliado); solo se guarda como float el resultado.
+// El EXE lee las seis componentes antes de escribir ninguna (`out` puede solaparse con `a` o `b`). Orden de los operandos como el EXE (primer factor en el registro, segundo en memoria):
+// x = b.z*a.y - a.z*b.y, y = a.z*b.x - b.z*a.x, z = a.x*b.y - b.x*a.y.
 CVector* CrossProduct(CVector* out, CVector* a, CVector* b)
 {
-    *out = a->Cross(*b);
+    const volatile CVector* va = a;
+    const volatile CVector* vb = b;
+    const double p1 = vb->z; const double t1 = p1 * a->y;
+    const double q1 = va->z; const double u1 = q1 * b->y;
+    const float x = float(t1 - u1);
+    const double p2 = va->z; const double t2 = p2 * b->x;
+    const double q2 = vb->z; const double u2 = q2 * a->x;
+    const float y = float(t2 - u2);
+    const double p3 = va->x; const double t3 = p3 * b->y;
+    const double q3 = vb->x; const double u3 = q3 * a->y;
+    const float z = float(t3 - u3);
+    out->x = x;
+    out->y = y;
+    out->z = z;
+    return out;
+}
+
+// 0x59C790: matriz (3x3) por vector, con las sumas en el orden del EXE ((z + y) + x para x; (z + x) + y para y y z) y el elemento de la matriz en el registro; lee todo antes de escribir
+// (`out` puede solaparse con `vector`).
+CVector* Multiply3x3Exe(CVector* out, const CMatrix* matrix, const CVector* vector)
+{
+    const volatile float* m = reinterpret_cast<const float*>(matrix);   // right = m[0..2], forward = m[4..6], up = m[8..10]
+    const double a1 = m[8]; const double xz = a1 * vector->z;
+    const double a2 = m[4]; const double xy = a2 * vector->y;
+    const double a3 = m[0]; const double xx = a3 * vector->x;
+    const float x = float((xz + xy) + xx);
+    const double b1 = m[9]; const double yz = b1 * vector->z;
+    const double b2 = m[1]; const double yx = b2 * vector->x;
+    const double b3 = m[5]; const double yy = b3 * vector->y;
+    const float y = float((yz + yx) + yy);
+    const double c1 = m[10]; const double zz = c1 * vector->z;
+    const double c2 = m[2]; const double zx = c2 * vector->x;
+    const double c3 = m[6]; const double zy = c3 * vector->y;
+    const float z = float((zz + zx) + zy);
+    out->x = x;
+    out->y = y;
+    out->z = z;
+    return out;
+}
+
+// 0x40FE30 / 0x40FE60: suma y resta de vectores (cdecl, resultado por puntero oculto que se devuelve en EAX); las seis lecturas van antes de las escrituras.
+CVector* VectorAdd(CVector* out, const CVector* a, const CVector* b)
+{
+    const float z = a->z + b->z;
+    const float y = a->y + b->y;
+    const float x = a->x + b->x;
+    out->x = x;
+    out->y = y;
+    out->z = z;
+    return out;
+}
+
+CVector* VectorSubtract(CVector* out, const CVector* a, const CVector* b)
+{
+    const float z = a->z - b->z;
+    const float y = a->y - b->y;
+    const float x = a->x - b->x;
+    out->x = x;
+    out->y = y;
+    out->z = z;
+    return out;
+}
+
+// 0x40FE90 (escalar * vector) y 0x40FEC0 (vector * escalar): el escalar va en el registro (fld) y cada componente del vector en memoria (fmul), de z a x; se escribe despues de leer todo.
+CVector* FloatTimesVector(CVector* out, float factor, const CVector* vector)
+{
+    const volatile float* f = &factor;
+    const double fz = *f; const double z = fz * vector->z;
+    const double fy = *f; const double y = fy * vector->y;
+    const double fx = *f; const double x = fx * vector->x;
+    out->x = float(x);
+    out->y = float(y);
+    out->z = float(z);
+    return out;
+}
+
+CVector* VectorTimesFloat(CVector* out, const CVector* vector, float factor)
+{
+    const volatile float* f = &factor;
+    const double fz = *f; const double z = fz * vector->z;
+    const double fy = *f; const double y = fy * vector->y;
+    const double fx = *f; const double x = fx * vector->x;
+    out->x = float(x);
+    out->y = float(y);
+    out->z = float(z);
     return out;
 }
 
@@ -246,9 +354,10 @@ CVector CrossProduct(const CVector& a, const CVector& b)
     return a.Cross(b);
 }
 
+// 0x40FDB0: ((z*z + y*y) + x*x) en la x87 sin guardar como float (24 bits de mantisa, exponente ampliado); el valor devuelto sale en ST0 sin redondear a float.
 float DotProduct(CVector* v1, CVector* v2)
 {
-    return v1->z * v2->z + v1->y * v2->y + v1->x * v2->x;
+    return float(((double)v1->z * v2->z + (double)v1->y * v2->y) + (double)v1->x * v2->x);
 }
 
 float DotProduct(const CVector& v1, const CVector& v2)

@@ -12,21 +12,21 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD b90f378d9/abd32cf51 + cambios del lote 84H; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CCarCtrl::StopCarIfNodesAreInvalid 0x422590, PickNextNodeAccordingStrategy 0x432B10, SteerAICarWithPhysicsHeadingForTarget 0x433280, FindAngleToWeaveThroughTraffic 0x4325C0, FindMaxSteerAngle 0x427FE0, FindMaximumSpeedForThisCarInTraffic 0x434400, FindSpeedMultiplier 0x4224E0 (cuerpo Cc63SpeedMultiplierCpp), CTrafficLights::ShouldCarStopForLight 0x49D610 y ShouldCarStopForBridge 0x49D420, CCarAI::CarHasReasonToStop 0x41C050 y FindPlayerCoors 0x56E010 (el banco compara los argumentos y el estado del vehiculo en cada llamada EN ORDEN y escribe los valores del caso). Corren de verdad, con el hook apagado (bytes del EXE frente al C++ de la DLL), CGeneral::GetATanOfXY 0x53CC70 y CCarPathLink::OneWayLaneOffset 0x44DB00, y en el EXE la resta 0x40FE60, el modulo 0x4082C0 y el producto escalar 0x40FDB0 frente a los ayudantes x87 de la DLL; ThePaths (tres areas con ocho tramos) y CTimer son las del banco. El banco compara los eventos, el estado final del vehiculo (tramos, multiplicadores, carriles, estilo, mision, accion temporal y su tiempo, crucero, destino.x, velocidad.x, subtipo, temporizador), la matriz y las cuatro salidas, sin otros cambios en las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Mutaciones del estado tras un evento (15 tipos). Fuera de los fixtures: vehiculo sin matriz, tramos o areas fuera de las tablas del banco (ids >= 8 en areas cargadas), objetivo nulo, rumbo corregido infinito o de mas de 2000 radianes (el bucle de normalizacion no terminaria), NaN con cargas distintas (las fixtures usan un unico patron) y bytes altos de los booleanos de los colaboradores. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Car84H-20261104-152839-412372",
-  "summary_sha256": "d09898878036eead8da4f89113d9ae6f59f7dca75ff4532f11b195d8c4a11344",
-  "result_txt_sha256": "cd839fa42aa20fef34d17da0cce15535d9199352df85d91da8182af4b0be8cb7",
-  "log_sha256": "2387bd25d09776dc90845d00629db8a33388eef34b1409ff62de2148e0cfd237",
+  "run": "reversing/CppTwelveLevel6Final/runs/Car84H-20261105-034019-426396",
+  "summary_sha256": "d25ac7bf7ca2741eee6ebb8aeccf5b6bc6d7bb1902b04028fcaf3d8e41cfb542",
+  "result_txt_sha256": "2aca367594fc172f5599ebec034a905c0eb7da29df18af6dfe312173333324ae",
+  "log_sha256": "4a539af527ddbcd018071eeb781116a7ec9201841a3267695bfecd7f2986450e",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "dbbf4fac0d9e3b3b024322582266796c12348951186d0e82ae3fc586c757da9e",
+  "executed_probe_sha256": "368ab7c3d37bef455aebc5843bf6022aa900d98112636980c39aeda94b42b56d",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
+      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
       "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
       "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Car84H-20261104-152839-412372/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Car84H-20261105-034019-426396/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "45114f32de0d963dea44e281ed5913143c1a4b48fbf0c3dc86514e1d43a78818",
-    "uncompressed_sha256": "2387bd25d09776dc90845d00629db8a33388eef34b1409ff62de2148e0cfd237"
+    "compressed_sha256": "04014b6eda67b0ab6157976a442a6647eafdf189f899fbe8c3336da540ee02fc",
+    "uncompressed_sha256": "4a539af527ddbcd018071eeb781116a7ec9201841a3267695bfecd7f2986450e"
   }
 }

@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "pairs": 98304,
+  "differences": 0,
+  "registered_pairs": 98304,
+  "registered_functions": 6,
+  "functions": {
+    "CMatrix::SetRotateZOnly": 16384,
+    "CMatrix::UpdateRwMatrix": 16384,
+    "CMatrix::UpdateRW": 16384,
+    "CMatrix::Destructor": 16384,
+    "CMatrix::ConstructCopy": 16384,
+    "CMatrix::ConstructAttached": 16384
+  },
+  "covered_functions": {
+    "CMatrix::SetRotateZOnly": true,
+    "CMatrix::UpdateRwMatrix": true,
+    "CMatrix::UpdateRW": true,
+    "CMatrix::Destructor": true,
+    "CMatrix::ConstructCopy": true,
+    "CMatrix::ConstructAttached": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main dca501f0c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en ambos lados: RwMatrixUpdate 0x7F18A0 (UpdateRwMatrix), UpdateRwMatrix 0x59AD70 con hook RH (UpdateRW), RwMatrixDestroy 0x7F2A20 (Destructor) y Attach 0x59BD10 con hook RH (ConstructAttached); registran sus argumentos en orden. SetRotateZOnly y ConstructCopy no tienen colaboradores (fsin/fcos del x87 reales en ambos lados). Ventana de memoria con punteros a la ventana, nulos y crudos, y la bandera de propiedad como dword (el relleno cuenta). Ademas de bytes escritos y eventos se compara EAX de salida (this) en los constructores. Cada lado coincide con el oraculo independiente fixture_oracle.py (seno/coseno exactos con enteros de 400 bits). Fuera de los fixtures: angulos con modulo entre 2^19 y 2^62 (reduccion del x87 con el pi de 66 bits), bits altos de la bandera de Attach (los llamadores del EXE empujan 0 o 1) y excepciones x87 desenmascaradas.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn97B-20261105-004705-410606",
+  "summary_sha256": "fc3b80fa24a6909d3afe0698a1879d3d10678ac837884b0f5636d10a125dc43d",
+  "result_txt_sha256": "f54abc6a604400d184f0a593a1ad2d8c354df056d4442580e8c60e38800b5d33",
+  "log_sha256": "e465ac9d4d3626f78da9f0fd39b248060fb43e1b1942d62e7001265f83ced5d1",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "7400f34a97a62bf355cce286db1a9f86360db9bec9c870db301bb1d5a9bd5fcf",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
+      "source/game_sa/Core/Matrix.cpp": "674945c2e2c810bb050ed184d2a0e1c2056b029eabe93605e999cb55fcd40efb",
+      "source/game_sa/Core/Matrix.h": "49712b9719a98268e6abdc372e67954fd13d2941862198fccb09d66db98e957f",
+      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn97B/LiveComparison.hpp": "981a824d79b7b1bf320d6b69f97441fb63a7dc87a398e5de018468228b0d9351",
+      "reversing/Fn97B/Core.hpp": "b64028d4697c360c804db7bd6bed4c6055649bab9ad1c770c09f255ca8ce62ce",
+      "reversing/Fn97B/Fixtures.hpp": "a5b3c1a27c0e8dd25ae7dce5287bec15b5f9f62476d282c7ebd0725e67335295",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

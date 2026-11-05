@@ -44,17 +44,14 @@ void CMatrix::InjectHooks()
     RH_ScopedInstall(CopyOnlyMatrix, 0x59ADD0);
     RH_ScopedInstall(Update, 0x59BB60);
     RH_ScopedInstall(UpdateMatrix, 0x59AD20);
-    RH_ScopedInstall(UpdateRW, 0x59BBB0);
-    RH_ScopedInstall(UpdateRwMatrix, 0x59AD70);
+    // UpdateRW (0x59BBB0), UpdateRwMatrix (0x59AD70), SetTranslate (0x59AF40) y SetRotateZOnly (0x59B020) se instalan por InjectHooksExactOps.
     RH_ScopedInstall(SetUnity, 0x59AE70);
     RH_ScopedInstall(ResetOrientation, 0x59AEA0);
     RH_ScopedOverloadedInstall(SetScale, "f", 0x59AED0, void(CMatrix::*)(float));
     RH_ScopedOverloadedInstall(SetScale, "fff", 0x59AF00, void(CMatrix::*)(float, float, float));
     RH_ScopedInstall(SetTranslateOnly, 0x59AF80);
-    RH_ScopedInstall(SetTranslate, 0x59AF40);
     RH_ScopedInstall(SetRotateXOnly, 0x59AFA0);
     RH_ScopedInstall(SetRotateYOnly, 0x59AFE0);
-    RH_ScopedInstall(SetRotateZOnly, 0x59B020);
     RH_ScopedOverloadedInstall(SetRotate, "xyz", 0x59B120, void(CMatrix::*)(float, float, float));
     RH_ScopedInstall(SetRotateX, 0x59B060);
     RH_ScopedInstall(SetRotateY, 0x59B0A0);
@@ -102,16 +99,59 @@ void CMatrix::InjectHooksAttachAssign()
     RH_ScopedInstall(operator=, 0x59BBC0);
 }
 
+// CMatrix::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); estas son, junto con InjectHooksMultiplyVector y InjectHooksAttachAssign, las unicas entradas de CMatrix que se instalan
+// (lote 97A, bancos Fn97A y Fn97B): UpdateRW (0x59BBB0), UpdateRwMatrix (0x59AD70), SetTranslate (0x59AF40), SetRotateZOnly (0x59B020), el destructor (0x59ACD0) y los constructores
+// de copia (0x59BCF0) y con RwMatrix (0x59C050).
+void CMatrix::InjectHooksExactOps()
+{
+    RH_ScopedClass(CMatrix);
+    RH_ScopedCategory("Core");
+
+    RH_ScopedInstall(UpdateRW, 0x59BBB0);
+    RH_ScopedInstall(UpdateRwMatrix, 0x59AD70);
+    RH_ScopedInstall(SetTranslate, 0x59AF40);
+    RH_ScopedInstall(SetRotateZOnly, 0x59B020);
+    RH_ScopedInstall(Destructor, 0x59ACD0);
+    RH_ScopedInstall(ConstructCopy, 0x59BCF0);
+    RH_ScopedInstall(ConstructAttached, 0x59C050);
+}
+
 CMatrix::CMatrix(const CMatrix& matrix) {
-    CMatrix::CopyOnlyMatrix(matrix);
+    CMatrix::ConstructCopy(matrix);
 }
 
 // like previous + attach
 CMatrix::CMatrix(RwMatrix* matrix, bool temporary) {
-    CMatrix::Attach(matrix, temporary);
+    CMatrix::ConstructAttached(matrix, temporary);
 }
 
-// destructor detaches matrix if attached 
+// 0x59BCF0 - Como el original: la matriz enlazada (+0x40) y la bandera de propiedad (dword +0x44, con su relleno) se ponen a cero ANTES de copiar los 16 dwords de la RwMatrix.
+CMatrix* CMatrix::ConstructCopy(const CMatrix& matrix)
+{
+    m_pAttachMatrix = nullptr;
+    *reinterpret_cast<uint32*>(&m_bOwnsAttachedMatrix) = 0;
+    CMatrix::CopyOnlyMatrix(matrix);
+    return this;
+}
+
+// 0x59C050 - Como el original: solo se pone a cero la matriz enlazada (+0x40) antes de Attach; la bandera de propiedad (+0x44) la escribe Attach.
+CMatrix* CMatrix::ConstructAttached(RwMatrix* matrix, bool temporary)
+{
+    m_pAttachMatrix = nullptr;
+    CMatrix::Attach(matrix, temporary);
+    return this;
+}
+
+// 0x59ACD0 - Cuerpo del destructor del EXE: la bandera de propiedad se LEE como dword (+0x44; el relleno cuenta) y se comprueba antes que la matriz; no se pone a cero la matriz enlazada.
+// El destructor de la DLL (~CMatrix) sigue usando Detach (bandera de un byte): el relleno de una CMatrix construida por la DLL no esta inicializado y no puede leerse como bandera.
+CMatrix* CMatrix::Destructor()
+{
+    if (*reinterpret_cast<const uint32*>(&m_bOwnsAttachedMatrix) && m_pAttachMatrix)
+        RwMatrixDestroy(m_pAttachMatrix);
+    return this;
+}
+
+// destructor detaches matrix if attached
 CMatrix::~CMatrix()
 {
     CMatrix::Detach();

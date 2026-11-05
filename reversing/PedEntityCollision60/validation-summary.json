@@ -12,23 +12,23 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wd-2 (HEAD d349867fb + reversing/PedEntityCollision60/source.patch: Ped.cpp y bloque Lote 61 de X87Math.cpp/.h; sin otras fuentes tocadas), corrida 20261019-224121-079172. Los colaboradores sustituidos se validan en sus propios bancos; ECX/EDX solo registrados. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PedEntityCollision60-20261104-222052-553584",
-  "summary_sha256": "1a307b7400cd2a3094aa8f1484765a541126d19fc01dd5bbdfe524e70f84936d",
-  "result_txt_sha256": "cba1d54e436d8c7d21fc5373015298ad1fef8824d7f0700055e5c25b610339d8",
-  "log_sha256": "33f4f2cc7fea07e3492507871234a74f9f564dfcec44c4d7c1577f802a48dabd",
+  "run": "reversing/CppTwelveLevel6Final/runs/PedEntityCollision60-20261105-031040-896178",
+  "summary_sha256": "083239a3976658d207c2124b620e0597720d8dcd4c0fd57c821fc933465c31b3",
+  "result_txt_sha256": "cc72942c491a02a38646397adea5f528cc26aaee86f1c80c21fe911ed2baddbb",
+  "log_sha256": "3165d93931777144d12462fa30f6ffe6a948483ecfaeac751c5c8f89b7640cc0",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "6748eb27413697289ec4d632843eba2ae469aa7a16a322760ab6bf9210e9ce4c",
+  "executed_probe_sha256": "a4f38dfd616102b02cd560248c0e1ad6d002f39ba781f9bb5ae4953a53b291fb",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
       "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
       "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
       "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/PedEntityCollision60/LiveComparison.hpp": "af553f7cff3fd85d3cbb910f25c8e701f7662e7c3e0896d114c65057fcbc0690",
@@ -41,10 +41,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PedEntityCollision60-20261104-222052-553584/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PedEntityCollision60-20261105-031040-896178/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "33314d21bd07adcdab69111556a70cbc12cc050830057715755d2404a0771128",
-    "uncompressed_sha256": "33f4f2cc7fea07e3492507871234a74f9f564dfcec44c4d7c1577f802a48dabd"
+    "compressed_sha256": "97a7beb9b98f8629815369b57b10140a278735ccfa5b0f1c5ee42e6c6a68478b",
+    "uncompressed_sha256": "3165d93931777144d12462fa30f6ffe6a948483ecfaeac751c5c8f89b7640cc0"
   }
 }

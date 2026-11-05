@@ -51,10 +51,10 @@ inline void Update() {
     registered[kFn]=env.route->Registered();bodies[kFn]=env.route->Body();
     ready&=env.route->Registered()&&env.route->Body()&&ModuleOf(env.route->Body())==env.asi;
     // Cuerpos de la DLL de los colaboradores sustituidos: se resuelven ANTES de escribir ningun parche (con su hook encendido, la entrada del EXE salta a la DLL; Body() sigue el salto).
-    // Los cuatro primeros estan reconstruidos pero sin hook en HEAD (CMatrix::InjectHooks esta apagado en InjectHooksMain y CSimpleTransform no tiene hooks): la entrada del EXE es codigo original
-    // y la DLL los llama por su propio cuerpo.
-    env.stub[0]={0x59B020,Body(std::bit_cast<uintptr_t>(&CMatrix::SetRotateZOnly)),false};
-    env.stub[1]={0x59AD70,Body(std::bit_cast<uintptr_t>(&CMatrix::UpdateRwMatrix)),false};
+    // CMatrix::SetRotateZOnly (0x59B020) y UpdateRwMatrix (0x59AD70) tienen hook RH desde el lote 97A (CMatrix::InjectHooksExactOps): ahora son colaboradores con hook como 0x54F560 y 0x59C890 (falso en la
+    // direccion del EXE y en el cuerpo de la DLL). Los otros dos (CSimpleTransform) siguen sin hook: la entrada del EXE es codigo original y la DLL los llama por su propio cuerpo.
+    env.stub[0]={0x59B020,Body(std::bit_cast<uintptr_t>(&CMatrix::SetRotateZOnly))};
+    env.stub[1]={0x59AD70,Body(std::bit_cast<uintptr_t>(&CMatrix::UpdateRwMatrix))};
     env.stub[2]={0x54EF40,Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateRwMatrix)),false};
     env.stub[3]={0x54F1B0,Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateMatrix)),false};
     env.stub[4]={0x54F560,Body(std::bit_cast<uintptr_t>(&CPlaceable::AllocateMatrix))};

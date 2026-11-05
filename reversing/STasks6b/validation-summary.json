@@ -64,7 +64,7 @@
   "log_sha256": "a43368e61771db977a22a65e7d4dc94b1124605068ee8b329754bede8c04f442",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks6b\\20261002-192026-515436",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks6b\\20261105-025251-676486",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleGunControl::Clone": true,
@@ -118,38 +118,39 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "4538722f23f69da116e3fc8e237cd180ddb08aeb9d348a6b1b00641aa9be6e08",
-      "pdb": "1a8a551924c41c8ff5c38a7c2ee0afecb6442762825e4aec34ee4b07f353eaca"
+      "asi": "49e7e4aaaa18883222bca3c1008048ac525ed25e8d5c04d125fa5542283e3d09",
+      "pdb": "c188c8406a07e6effedb0c7802d3be40263e5e14d490313b25dcac13eb90d3a2"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp": "af2e8d8f14201492d6b0268fe1e02840b03dccd906ccce56bbfb73341365dbff",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp": "93827439afec6c0b0a8c9d4a58b06c6e12eec2c47bbb21abd9801da900d405f2",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.h": "cde577ea765bc9b65a0e70fff5cf56a47c17a8832d5e7d886a121537b64e5198",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleHurtPedWithCar.cpp": "43bdd6913b987aa58161753ee4f158149e6fdb0337bd07b188bec6c2b6c45597",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHurtPedWithCar.cpp": "e1d604dd486ca684cc16a91f01d7e397e600f85586db1c9d41686c896ec6d171",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleHurtPedWithCar.h": "8d705a63a69fde71fbcd00bd00c9ffdd06bf029f88c26cadffe08f49e9d01081",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleIKPointArm.cpp": "a741d22d0c625e244b852d24af27df60392c6a65fe645c459afae58a156753c3",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleIKPointArm.cpp": "3d594f87db7e09cf51798b02d035916784c745bbb9e80711c91df2062c92fd35",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleIKPointArm.h": "54529402058575da60173d763ef88ec642ecc3380edd039d4fa08edc9265005c",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "9b75abbb9f3d053f14af20361fea456468e27e0818ceb924ae71ad86a2d8d6cc",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "cd346f285d1a9aab1fedb4c2c894a388acba5c1fce431040f9f70a4d97312dd7",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "112c29599ee2f557c1bef067ecd47c041ebb1330749807c86fecf6280a0bcf2d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "1b78cc5efa594f051f119a8001e05a184bb42524cd7fbf0539041fdecd757e75",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.h": "099d68e2b41bd8e9a0de190dd1911fd38f49938ccad2c94588fe428b99fbbdf3",
-      "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFire.cpp": "59b807d42cfbffe2e69530ddc7a4baefb3f9c15e7371c0a8b8cbf1c818b11efd",
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFire.cpp": "01a13ba06f3815e4c9044309b9d939644b9a195555f211df671fe6bb25aeeea1",
       "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFire.h": "5f9cc910f2b7bfeaf54f798e1c6c1e51ce178820be3ed68145aef7699b6ca3fe",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleSay.cpp": "25e4bc998daeb81ca0aed5896d5813367f657e4b868f26d8fa6d8c7919dc7fc8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSay.cpp": "16319a7a7299fb9be8bd6782ad6e2301f4820d2913808d5b519b500d87391910",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleSay.h": "1ce30140e1c099f690616ed515ae11e699204cfab409eb422a8cd38fb8f2f213",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharDecisionMaker.cpp": "3b9d0b3f0ec21a46e079a4d7ab9f5287576331143fa400d5f3db8492c3b893f9",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharDecisionMaker.cpp": "e37e8f9bb6441dd1a68bf880c2ecdd7cadd134e19be050911acc6a567edc4a2a",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharDecisionMaker.h": "1a1353d71be141eb63cf21a2ea6d4bdd825726dcfae70028d8e429c4a5d77525",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "869379f214fb9c56f65d10c8e4cd8072c6fe53e928a06fe7b54f6fb859daa52c",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp": "5324f3d1444be5428d22596664ba11a5cd1f7ef7e9d8bb6838934955c12a3cbf",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.h": "adb0abab26c6e1e6ff7bdcf0f26ee6e60e2be72d84711035235865019506b6a9"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "5d2f744e6dbdcaa231e47cc807049a75cedf30b82087f9311a666ac1befd99b2",
+      "LiveComparison.hpp": "2299b868465937280fa487be9c0438805cbe8b24399bfc88f5efb60ee5542b0e",
       "build_probe.py": "32a53e0d9007ca663ecd92c0b37c0d8c16c393b7ee2fd4d8fb91daf6049af948",
       "run_local.py": "b8059f651ffff02d0385e2ce2c1da302cb15e517d894353530665899569d39d2"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "La tarea CTaskSimpleUseGun creada se compara completa; dependencias de IK y armas simuladas."
+    "La tarea CTaskSimpleUseGun creada se compara completa; dependencias de IK y armas simuladas.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

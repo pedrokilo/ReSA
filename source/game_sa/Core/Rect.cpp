@@ -42,6 +42,15 @@ void CRect::InjectHooks()
     RH_ScopedInstall(SetFromCenter, 0x43E020);
     RH_ScopedOverloadedInstall(GetCenter, "", 0x43E050, void(CRect::*)(float*, float*) const);
     RH_ScopedInstall(StretchToPoint, 0x5327F0);
+    RH_ScopedGlobalInstall(RectMin, 0x404330);
+}
+
+// 0x404330
+// Devuelve el primer valor solo si es estrictamente menor que el segundo; en cualquier otro caso (mayor, igual o comparacion no ordenada con algun NaN) devuelve el segundo, cargado
+// con fld en ST0 (un NaN senalizante sale silenciado). FCOM deja C0, C2 y C3 a 1 con NaN: `test ah,5` da paridad par y el EXE salta a devolver el segundo.
+float RectMin(float first, float second)
+{
+    return first < second ? first : second;
 }
 
 // 0x404200

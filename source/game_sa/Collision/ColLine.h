@@ -21,6 +21,7 @@ public:
 
     CColLine() = default;
     CColLine(const CVector& start, const CVector& end);
+    CColLine* Constructor(const CVector& start, const CVector& end) { this->CColLine::CColLine(start, end); return this; } // 0x40EF50
 
     void Set(const CVector& start, const CVector& end);
 

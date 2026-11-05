@@ -12,20 +12,20 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 2c71b35d2 + cambios del lote 83F; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CAutomobile::ProcessControl 0x6B1880, FxSystem_c::Kill 0x4AA3F0, CPad::HornJustDown 0x53FF30, CCullZones::PlayerNoRain 0x72DDC0 y NoPolice 0x72DD50, FindPlayerVehicle 0x56E0D0, FindPlayerEntity 0x56E120, FindPlayerPed 0x56E210, FindPlayerWanted 0x56E230, CAudioEngine::SayPedless 0x5073C0 y ReportWeaponEvent 0x506F40, CHeli::FindSwatPositionRelativeToHeli 0x6C4760, operator*(CMatrix, CVector) 0x59C890, Multiply3x3 0x59C790 (en la DLL AutoPreMultiply3x3Cpp, parche solo del cuerpo), CWorld::GetIsLineOfSightClear 0x56A490, FireOneInstantHitRound 0x73AF00, CRopes::RegisterRope 0x556B40 y SetSpeedOfTopNode 0x555DF0, CVehicle::UpdateWinch 0x6D3B80 y ProcessWeapons 0x6E3950, CInterestingEvents::Add 0x602590, CHeli::SendDownSwat 0x6C69C0 y CVector::Normalise 0x59C910; los de salida escriben los valores que da cada caso. Corren de verdad CPad::GetPad (0x53FB70), el rand() del CRT del EXE (0x821B1E, con 0x41BD90 del EXE: su hook se apaga), GetUp/GetForward de la matriz (0x50E420/0x41CCB0), CTimer, 0xC0B184, la matriz y los campos del helicoptero y de las entidades (arenas y regiones restauradas). El banco compara el orden y todos los argumentos de los falsos, las palabras escritas en el helicoptero, el estado del rand() y las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), rumbo distinto de +-0 sin matriz (sin y cos exactos), punteros de datos del jugador o CWanted nulos, colaboradores con bytes altos distintos de los del caso en sus salidas booleanas y salidas incoherentes con la entrada (Normalise, operator*, Multiply3x3 y FindSwat devuelven lo que dice el caso, no el calculo real). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Heli83F-20261104-214906-346150",
-  "summary_sha256": "d41328f53d46ada1c7b316881d9f2556a33cfd99a389dfc7094d77820635c626",
-  "result_txt_sha256": "4d611f96c9d42d79dca149ae8138ec161dab8d730ab1919955bf3efa20df8777",
-  "log_sha256": "49a076521e35535307cbf136ffe96d4792fc0a8ab3b42db03c942ce11029b6b6",
+  "run": "reversing/CppTwelveLevel6Final/runs/Heli83F-20261105-031807-982904",
+  "summary_sha256": "b0e48cd41e03a17e253fa09cb2564ca42593debdf6bba4458e95d90e5630b408",
+  "result_txt_sha256": "85ccd304ff911d78941f1f9b1201bee0fabd8ae48b79ddec3470a0cd2f01bd2b",
+  "log_sha256": "af9adb2c7219559afedc5e440964f7291e78cfa9b2ec52e5c5ba485951d6ccc8",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "22606024a74ebe992c1f36fe0f35add468e887c8dac9a24eea7c1ba77801f03d",
+  "executed_probe_sha256": "d5a1dddb661c27903ffb6e00b4865275c574d384bfa9a92bb6e64a4a4db7ebf9",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
       "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
       "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "source/game_sa/Entity/Vehicle/Heli.cpp": "7fb9f40a53cec600f75041a1b3c0b596ac27be17b86c02be28c276f59cc1184d",
@@ -41,10 +41,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Heli83F-20261104-214906-346150/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Heli83F-20261105-031807-982904/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "5751142773e64c238bb3aa590c4a3fddf06fed4fe4883ad8b592d451cf89c6c9",
-    "uncompressed_sha256": "49a076521e35535307cbf136ffe96d4792fc0a8ab3b42db03c942ce11029b6b6"
+    "compressed_sha256": "6d2868e1f8690d27b6796be6efcc00951e69cc1c8beea46521e1b7cecb29e166",
+    "uncompressed_sha256": "af9adb2c7219559afedc5e440964f7291e78cfa9b2ec52e5c5ba485951d6ccc8"
   }
 }

@@ -12,21 +12,21 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree (wf-2) sobre el arbol principal mas la reconstruccion del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los de hook RH, apagado durante el banco): CWorld::ProcessLineOfSight 0x56BA00 (dos llamadas), FindPlayerPed 0x56E210, CWorld::TestSphereAgainstWorld 0x569E20, CPlaceable::GetMatrix 0x411990 y WellBufferMe 0x509AE0; RwCameraSetNearClipPlane 0x7EE1D0 no tiene hook y la DLL lo llama por su direccion (el falso actualiza el plano cercano de la RwCamera real). REALES en ambos lados (hook RH de la DLL apagado): GetATanOfXY 0x53CC70, CVector::Normalise 0x59C910, resta de vectores 0x40FE60 y CrossProduct 0x59C730, fsin/fcos/fptan y _CIpow 0x822130 (la DLL usa los ayudantes de X87Math con std::sin/cos/tan y ExeCompatiblePowCpp: cero diferencias de 1 ulp en los 16384 pares). Globales reales guardados y restaurados (pIgnoreEntity, paso de tiempo, 0xB6EC65, WellBufferMe, proporcion, punto y normal de la esfera y RwCamera.nearPlane). Con mutaciones de una escritura dentro de un falso. El banco compara los eventos de los falsos con todos sus argumentos, los globales y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional a 24 bits; fpatan, fsin, fcos, fptan y pow con Decimal de 120 digitos redondeado a 64 bits). Fuera de los fixtures: fov infinito, NaN o enorme (|angulo| >= 2^63), paso de tiempo NaN o infinito, NaN con otra carga, indices de camara fuera de rango y un objetivo de camara cuyo tipo no se pueda leer. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn89B-20261104-151458-892505",
-  "summary_sha256": "8d0d37d61f5c9e9dad4d1dcdd2f920243e13627395733fc3178db1a86e9d1928",
-  "result_txt_sha256": "e06a020f668324dfcfdb3be161a94c8638a9908a198dcb09120ab69c9e48dc18",
-  "log_sha256": "04d9a37be8242d283ceafabfb8e9c3f4034e7220ddf4f1066076415e43aca5b3",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn89B-20261105-035351-931710",
+  "summary_sha256": "5cf0ee6329a73018d887022258ac9faac0d8574d3890ea339a0ad6d96db6f1bc",
+  "result_txt_sha256": "24b82057882e48a816ac537e90101b7cba1c0214806df512e2bf0d138ccb6788",
+  "log_sha256": "736da47e3e79a9d31ea8bcec172b3571fbc60d2b3b0765728616fb4b8c206530",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "178640d9fb0a7ae543359255bbae31b5f03bdb7bf82cde5e5683c7fe96c9af83",
+  "executed_probe_sha256": "b5a43aa02621d2ef3b4d42455a3b90445e283d966b80028244ceddc6755cf4dd",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
+      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
       "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
       "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
@@ -41,10 +41,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn89B-20261104-151458-892505/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn89B-20261105-035351-931710/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "f4476a77e86bbbfe6a048b25fa1650b029f7dcc89e51e403e62f1c38fd037f3d",
-    "uncompressed_sha256": "04d9a37be8242d283ceafabfb8e9c3f4034e7220ddf4f1066076415e43aca5b3"
+    "compressed_sha256": "ce29c92610bd00574d09a8b41fe70f2c6966befb15c52346c9ea4a0eb94d7dba",
+    "uncompressed_sha256": "736da47e3e79a9d31ea8bcec172b3571fbc60d2b3b0765728616fb4b8c206530"
   }
 }

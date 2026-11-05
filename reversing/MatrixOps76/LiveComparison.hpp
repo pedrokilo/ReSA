@@ -137,6 +137,9 @@ inline void CaseAssign(Env& env,Totals& t,unsigned n) {
     Finish(t,kFn[1],n,input,rows,sides);
 }
 
+// UpdateRW (0x59BBB0) y UpdateRwMatrix (0x59AD70) tienen hook RH desde el lote 97A (Fn97B): se apagan durante el banco para que sigan corriendo codigo del EXE (original) y de la DLL (candidato)
+inline std::vector<std::unique_ptr<HookRoute>> gOffRoutes;
+
 // ================================================================================================ ejecucion
 inline void Run(Env& env,bool ready,const json& registered,const json& bodies,const json& collaborators) {
     for(unsigned f=0;f<kFunctions;++f) {
@@ -169,6 +172,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies,co
     const bool entriesIntact=env.WatchesIntact()&&RegionsIntact();
     bool stateRestored=entriesIntact;
     for(auto& r:env.route)if(r)stateRestored&=r->Restore();
+    for(auto& r:gOffRoutes)if(r)stateRestored&=r->Restore();
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     Write({{"event","global_state_final"},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact}});
     Write({{"event",ready&&totals.passed&&stateRestored?"complete":"error"},{"pairs",totals.pairs},{"state_restored",stateRestored},{"floating_state_restored",FloatingStateRestored()},{"entries_intact",entriesIntact}});
@@ -185,6 +189,8 @@ inline void Update() {
     bool ready=true;json registered=json::object();json bodies=json::object();json collaborators=json::object();
     env.route[0].reset(new HookRoute("CMatrix","Attach",0x59BD10,HookRoute::RegisteredTarget{}));
     env.route[1].reset(new HookRoute("CMatrix","operator=",0x59BBC0,HookRoute::RegisteredTarget{}));
+    gOffRoutes.emplace_back(new HookRoute("CMatrix","UpdateRW",0x59BBB0,HookRoute::RegisteredTarget{}));
+    gOffRoutes.emplace_back(new HookRoute("CMatrix","UpdateRwMatrix",0x59AD70,HookRoute::RegisteredTarget{}));
     for(unsigned f=0;f<kFunctions;++f) {
         registered[kFn[f]]=env.route[f]->Registered();bodies[kFn[f]]=env.route[f]->Body()!=0;
         ready&=env.route[f]->Registered()&&env.route[f]->Body()&&ModuleOf(env.route[f]->Body())==env.asi;

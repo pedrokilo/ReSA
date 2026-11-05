@@ -10,26 +10,26 @@
   "covered_functions": {
     "CHeli::GenerateHeli": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados) salvo que se indique lo contrario; el banco compara el orden y todos los argumentos de los falsos, los bytes cambiados de las arenas y los globales. Colaboradores: rand 0x821B1E (CRT del EXE, sin hook), CVehicle::operator new 0x6E2D50 (DependenciesVehicle12), el constructor de CHeli 0x6C4190 (Helpers66D), CWorld::FindPlayerPed 0x56E210 (WldC), CWorld::FindGroundZForCoord 0x569660 (WldB), CMatrix::SetTranslate 0x59AF40 (sin hook en la tabla y sin banco propio: falso en la direccion del EXE y en el cuerpo de la DLL), CWorld::Add 0x563220 (WldC) y CVehicle::SetUpDriver 0x6D1A50 (CVehB). Las funciones trigonometricas son las de X87Math (TrigCompoundCosMulAdd / TrigCompoundSinMulAdd / TrigSimpleSinCpp / TrigSimpleCosCpp), ya validadas por sus bancos. El bucle de 0x6C6790 sobre pHelis no tiene efecto y no se reproduce (el llamador, 0x6C7ACF, es quien registra el helicoptero). Con el pool agotado el EXE se cae: no se prueba. EAX se compara (puntero al helicoptero); ECX/EDX solo se registran.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados) salvo que se indique lo contrario; el banco compara el orden y todos los argumentos de los falsos, los bytes cambiados de las arenas y los globales. Colaboradores: rand 0x821B1E (CRT del EXE, sin hook), CVehicle::operator new 0x6E2D50 (DependenciesVehicle12), el constructor de CHeli 0x6C4190 (Helpers66D), CWorld::FindPlayerPed 0x56E210 (WldC), CWorld::FindGroundZForCoord 0x569660 (WldB), CMatrix::SetTranslate 0x59AF40 (sin hook en la tabla y sin banco propio: falso en la direccion del EXE y en el cuerpo de la DLL), CWorld::Add 0x563220 (WldC) y CVehicle::SetUpDriver 0x6D1A50 (CVehB). Las funciones trigonometricas son las de X87Math (TrigCompoundCosMulAdd / TrigCompoundSinMulAdd / TrigSimpleSinCpp / TrigSimpleCosCpp), ya validadas por sus bancos. El bucle de 0x6C6790 sobre pHelis no tiene efecto y no se reproduce (el llamador, 0x6C7ACF, es quien registra el helicoptero). Con el pool agotado el EXE se cae: no se prueba. EAX se compara (puntero al helicoptero); ECX/EDX solo se registran. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/HeliGen74-20261027-050852-018542",
-  "summary_sha256": "2e295aef134880c64a64e75ed7473201a3639034c9451b13a92552559548fb2a",
-  "result_txt_sha256": "4804b13e19f2ff9180fcc65cd736028da785fd5df8b9e9dcf743a5a0547e90d4",
-  "log_sha256": "184e2da7d2a0234c46ad343088500d790611f7d2842d5ed4e66b118571560d02",
+  "run": "reversing/CppTwelveLevel6Final/runs/HeliGen74-20261105-025504-406916",
+  "summary_sha256": "66399ed74f0f22dee0cabe20d06e95130441b82e0c500082835f8cd19dd854c7",
+  "result_txt_sha256": "f93d0ba4771ca4ce9508e071045ae9507e9292941c0d2772ffcac9fa8e263fd9",
+  "log_sha256": "a42b7d217a5fc381e47ca568ac35c6c21e5badf6aa1f583b99b4b79187ddaa69",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "e99ea334ab673959ae73b17bd8deab52c76b43052285402dd5b3759c47ebac60",
+  "executed_probe_sha256": "40cba53f5bb6c47e1f21faa47f69b6a486fc6b546e5f766d6e26aca6cc45f716",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
-      "source/game_sa/Entity/Vehicle/Heli.cpp": "4dcca32e5bd5e2e8fc9fb975476f70d053372dd0f686c5814b46f234bbfe0b15",
-      "source/game_sa/Entity/Vehicle/Heli.h": "5a25d6cd5fce0d662d9b31ab5231933710170cd4f4fc17ffbfa28b09be364f12",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
+      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "7fb9f40a53cec600f75041a1b3c0b596ac27be17b86c02be28c276f59cc1184d",
+      "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/HeliGen74/LiveComparison.hpp": "67a87037f6ec61f9c584eea8a22c037c6c4e0432aa594a1bd1b1ad4119d136ab",
       "reversing/HeliGen74/Core.hpp": "bf2b9fb0c1290c432165514ffdeebe494904b847ce59d385865fef0dec22ca78",
@@ -37,5 +37,12 @@
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/HeliGen74-20261105-025504-406916/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "87f37c6f90df18b1b8e276bc03f797df76021d20a16b5752fcba9e44ab5cd8cf",
+    "uncompressed_sha256": "a42b7d217a5fc381e47ca568ac35c6c21e5badf6aa1f583b99b4b79187ddaa69"
   }
 }

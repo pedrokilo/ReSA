@@ -18,21 +18,21 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wu-4 (HEAD 5765c0b5f + source.patch del lote 66D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: RpClumpGetNumAtomics 0x7498E0, RpClumpForAllAtomics 0x749B70 (los callbacks 0x734970 y 0x734ED0 siguen siendo codigo del EXE y no se ejecutan: el falso escribe lo que dicta el caso), RwFrameGetLTM 0x7F0990, RwMatrixInvert 0x7F2070, RwV3dTransformPoints 0x7EDD90; CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::FindGroundZFor3DCoord 0x5696C0; CAutomobile::CAutomobile 0x6B0A90, CDamageManager::SetDoorStatus 0x6C21C0 y el rand() del CRT del EXE 0x821B1E. El pool de objetos (0xB7449C), el byte bUseLTM (0x8D60BC) y el temporizador (0xB7CB84) se fijan por caso y se restauran. Ningun llamador del EXE lee ECX/EDX; EAX = this (constructor), EAX = clump (esfera) y AL (camara) se exigen. createdBy del constructor solo se prueba en 0..255 (eVehicleCreatedBy es uint8: el EXE reenvia el dword completo al constructor base). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Helpers66D-20261104-153713-995921",
-  "summary_sha256": "41319ccad057737bfd8a99340da8da047d0fcd435af21161b01f0e5e8bd876d8",
-  "result_txt_sha256": "ac603b98f2655aa8fe593b9e1a761d4d9e40ec1be79489bea041cf7d7750fffe",
-  "log_sha256": "f7b10ed3bdca1a3126cdf3a97153cf8d002348fc8fb40921bceef2e13c312138",
+  "run": "reversing/CppTwelveLevel6Final/runs/Helpers66D-20261105-033314-113554",
+  "summary_sha256": "a45ad75ccf3839d50908561049566c19247e165fcda7562518ad4010915aa112",
+  "result_txt_sha256": "7c009747063b7161808aa2d3a2f40d9d38f7dd072f27edd7950c00b5186e75bc",
+  "log_sha256": "af79519054b15228f89a3b6bdcac56b800b5dbce3e2e34b69a302bd832b3a642",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "5729d9460a1f815b6df07f0b7da3c1d29946a28881f68695cf213779e144a9c7",
+  "executed_probe_sha256": "23da0bb5c75aa833efab5961ec44655f1b7ed571e4815842768deeb28c040cbb",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
+      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
       "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
       "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
@@ -53,10 +53,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Helpers66D-20261104-153713-995921/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Helpers66D-20261105-033314-113554/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "41fef0ffc0d1d39136f35ba66cd991f7bd2a057b7d00746dc9cceb93bc2aa7f5",
-    "uncompressed_sha256": "f7b10ed3bdca1a3126cdf3a97153cf8d002348fc8fb40921bceef2e13c312138"
+    "compressed_sha256": "637e8e6d69c0bbbc91cf35bc56f336c2f8c8c588306014f20943fa883f4e9f23",
+    "uncompressed_sha256": "af79519054b15228f89a3b6bdcac56b800b5dbce3e2e34b69a302bd832b3a642"
   }
 }
