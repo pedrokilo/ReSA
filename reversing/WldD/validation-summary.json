@@ -31,10 +31,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "bf37319ea8374d447e9d5078c3bbe6fcbf8ad7f731da5e5e48c19f93acd373fa",
+  "log_sha256": "2fb0ba243478f0eb95672dc89d487006b6010d5c92d871726c76b768bd914286",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wldd\\20261007-164414-312957",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wldd\\20261104-220743-463727",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CWorld::CallOffChaseForArea": true,
@@ -57,22 +57,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "f64947f9b7cba2e640404ce0a9ed132ccf0c963da998e8eaebdbe7409f0ffd5d",
-      "pdb": "70009ef3ec91ba1106b3ca482fc7001766848d7230fcf413e89bb8533c546f27"
+      "asi": "584af0e2847c823f27eff200403b819b1a6ebf1aaf7cddc2eb3298a90ff7774a",
+      "pdb": "67c9e2600564b7d30fc89514ff43cc9f474e9997a177be4bfdf0655626e84dc0"
     },
     "sources": {
-      "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+      "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+      "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "ba0287d0fa28505c032bd837a55f1c7a449677c7286d456e90c2b26b7aece75f",
+      "LiveComparison.hpp": "f89c3890ca8e438cc3ebcf3cdaead298b43f4963e2a6ad99f92f1d63615f3685",
       "build_probe.py": "56b302bef3f0fe213441c114e79342c333e3db6388210b43fd705505a3be51ba",
       "run_local.py": "88f1bb4d48d6809493b674adf1490baeca76e39f216441497cdaa9da48771dc3"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

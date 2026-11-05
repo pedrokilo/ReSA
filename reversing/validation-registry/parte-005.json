@@ -17067,7 +17067,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies21D/validation-summary.json",
-        "sha256": "8ea357736c9d7e35082ce3db1d4aa1536b2e0dfaab91ba43d2c382f4d0bec01a",
+        "sha256": "1efa97e35ec76679bc55837737ef31372078b9e7c4f3c9d736db90c82244c7af",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleGangDriveBy::Constructor"
@@ -17076,33 +17076,33 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "031b982d5517d7226ae86ae31d08db9d02a9c964a46f419ed12cb2d60e844f37",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "b27275f07068b88fb1ee981e476177f5762e555e2ae75338947bb82f5f7d5a8f",
-        "source/game_sa/GangWars.cpp": "9afd981a236aaed46846a50b318fbcfd87067c280407bdaba78fbd6f10ac16f2",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "1cfe2b6e0949b4f67efcecfc02b617816098e290febcc5f0e1fa152c664c1e98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "f9d6e381e20f5bace3a3da2ddc520868278f1309c325fd753cd4199bb7812105",
+        "source/game_sa/GangWars.cpp": "1f52d576d1a0aac8e6f74340cc97447927602fefbe72c0b2bdae50ca5b76a926",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
         "source/game_sa/Entity/Placeable.cpp": "0030861304db9f417c8fd8b322a7be006ef4e5a099238c157e5dc0cf0d018e24",
         "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
         "source/game_sa/SimpleTransform.cpp": "91cfe9e3ac4ceb4a2d63bca9a897a4d62b3ff298a32576300771df16a259c8c4",
-        "source/game_sa/Camera.cpp": "69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51",
-        "source/game_sa/Cam.cpp": "6ab1fb927348cf3519da8d4c47023ff04dd0ec7f8d9c0a15db96a9f40bef58d4",
-        "source/game_sa/Cam.h": "2b90b10dd174deb53e54c93e77f5d9447b0904760f180f14960e9c33856deeb2",
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
         "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
         "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
         "source/game_sa/GameLogic.cpp": "0ec6c7cab71b4d52b11c9e54cbd7de10640d757605fb6ecddef95273d946bc11",
         "source/game_sa/GameLogic.h": "e615c702306154b8d0ce8c544c06def27bbff416a8f2ba9278ff7dcc47121af3",
-        "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c",
+        "source/game_sa/PlayerInfo.h": "49e25549e83e1027b0e8568211f90fe5049a7b845ba46771a0cd57caf1c30190",
         "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
         "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd",
         "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
-        "source/game_sa/X87Math.cpp": "ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe",
-        "source/game_sa/X87Math.h": "7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
@@ -17121,7 +17121,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies21D/validation-summary.json",
-        "sha256": "8ea357736c9d7e35082ce3db1d4aa1536b2e0dfaab91ba43d2c382f4d0bec01a",
+        "sha256": "1efa97e35ec76679bc55837737ef31372078b9e7c4f3c9d736db90c82244c7af",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleGangDriveBy::PlayerTarget"
@@ -17130,33 +17130,33 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "031b982d5517d7226ae86ae31d08db9d02a9c964a46f419ed12cb2d60e844f37",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "b27275f07068b88fb1ee981e476177f5762e555e2ae75338947bb82f5f7d5a8f",
-        "source/game_sa/GangWars.cpp": "9afd981a236aaed46846a50b318fbcfd87067c280407bdaba78fbd6f10ac16f2",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "1cfe2b6e0949b4f67efcecfc02b617816098e290febcc5f0e1fa152c664c1e98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "f9d6e381e20f5bace3a3da2ddc520868278f1309c325fd753cd4199bb7812105",
+        "source/game_sa/GangWars.cpp": "1f52d576d1a0aac8e6f74340cc97447927602fefbe72c0b2bdae50ca5b76a926",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
         "source/game_sa/Entity/Placeable.cpp": "0030861304db9f417c8fd8b322a7be006ef4e5a099238c157e5dc0cf0d018e24",
         "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
         "source/game_sa/SimpleTransform.cpp": "91cfe9e3ac4ceb4a2d63bca9a897a4d62b3ff298a32576300771df16a259c8c4",
-        "source/game_sa/Camera.cpp": "69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51",
-        "source/game_sa/Cam.cpp": "6ab1fb927348cf3519da8d4c47023ff04dd0ec7f8d9c0a15db96a9f40bef58d4",
-        "source/game_sa/Cam.h": "2b90b10dd174deb53e54c93e77f5d9447b0904760f180f14960e9c33856deeb2",
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
         "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
         "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
         "source/game_sa/GameLogic.cpp": "0ec6c7cab71b4d52b11c9e54cbd7de10640d757605fb6ecddef95273d946bc11",
         "source/game_sa/GameLogic.h": "e615c702306154b8d0ce8c544c06def27bbff416a8f2ba9278ff7dcc47121af3",
-        "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c",
+        "source/game_sa/PlayerInfo.h": "49e25549e83e1027b0e8568211f90fe5049a7b845ba46771a0cd57caf1c30190",
         "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
         "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd",
         "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
-        "source/game_sa/X87Math.cpp": "ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe",
-        "source/game_sa/X87Math.h": "7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
@@ -17175,7 +17175,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies21D/validation-summary.json",
-        "sha256": "8ea357736c9d7e35082ce3db1d4aa1536b2e0dfaab91ba43d2c382f4d0bec01a",
+        "sha256": "1efa97e35ec76679bc55837737ef31372078b9e7c4f3c9d736db90c82244c7af",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleGangDriveBy::AITarget"
@@ -17184,33 +17184,33 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "031b982d5517d7226ae86ae31d08db9d02a9c964a46f419ed12cb2d60e844f37",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "b27275f07068b88fb1ee981e476177f5762e555e2ae75338947bb82f5f7d5a8f",
-        "source/game_sa/GangWars.cpp": "9afd981a236aaed46846a50b318fbcfd87067c280407bdaba78fbd6f10ac16f2",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "1cfe2b6e0949b4f67efcecfc02b617816098e290febcc5f0e1fa152c664c1e98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "f9d6e381e20f5bace3a3da2ddc520868278f1309c325fd753cd4199bb7812105",
+        "source/game_sa/GangWars.cpp": "1f52d576d1a0aac8e6f74340cc97447927602fefbe72c0b2bdae50ca5b76a926",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
         "source/game_sa/Entity/Placeable.cpp": "0030861304db9f417c8fd8b322a7be006ef4e5a099238c157e5dc0cf0d018e24",
         "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
         "source/game_sa/SimpleTransform.cpp": "91cfe9e3ac4ceb4a2d63bca9a897a4d62b3ff298a32576300771df16a259c8c4",
-        "source/game_sa/Camera.cpp": "69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51",
-        "source/game_sa/Cam.cpp": "6ab1fb927348cf3519da8d4c47023ff04dd0ec7f8d9c0a15db96a9f40bef58d4",
-        "source/game_sa/Cam.h": "2b90b10dd174deb53e54c93e77f5d9447b0904760f180f14960e9c33856deeb2",
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
         "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
         "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
         "source/game_sa/GameLogic.cpp": "0ec6c7cab71b4d52b11c9e54cbd7de10640d757605fb6ecddef95273d946bc11",
         "source/game_sa/GameLogic.h": "e615c702306154b8d0ce8c544c06def27bbff416a8f2ba9278ff7dcc47121af3",
-        "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c",
+        "source/game_sa/PlayerInfo.h": "49e25549e83e1027b0e8568211f90fe5049a7b845ba46771a0cd57caf1c30190",
         "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
         "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd",
         "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
-        "source/game_sa/X87Math.cpp": "ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe",
-        "source/game_sa/X87Math.h": "7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
@@ -17229,7 +17229,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies21D/validation-summary.json",
-        "sha256": "8ea357736c9d7e35082ce3db1d4aa1536b2e0dfaab91ba43d2c382f4d0bec01a",
+        "sha256": "1efa97e35ec76679bc55837737ef31372078b9e7c4f3c9d736db90c82244c7af",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleGangDriveBy::AimGun"
@@ -17238,33 +17238,33 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "031b982d5517d7226ae86ae31d08db9d02a9c964a46f419ed12cb2d60e844f37",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "b27275f07068b88fb1ee981e476177f5762e555e2ae75338947bb82f5f7d5a8f",
-        "source/game_sa/GangWars.cpp": "9afd981a236aaed46846a50b318fbcfd87067c280407bdaba78fbd6f10ac16f2",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "1cfe2b6e0949b4f67efcecfc02b617816098e290febcc5f0e1fa152c664c1e98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "f9d6e381e20f5bace3a3da2ddc520868278f1309c325fd753cd4199bb7812105",
+        "source/game_sa/GangWars.cpp": "1f52d576d1a0aac8e6f74340cc97447927602fefbe72c0b2bdae50ca5b76a926",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
         "source/game_sa/Entity/Placeable.cpp": "0030861304db9f417c8fd8b322a7be006ef4e5a099238c157e5dc0cf0d018e24",
         "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
         "source/game_sa/SimpleTransform.cpp": "91cfe9e3ac4ceb4a2d63bca9a897a4d62b3ff298a32576300771df16a259c8c4",
-        "source/game_sa/Camera.cpp": "69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0",
-        "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51",
-        "source/game_sa/Cam.cpp": "6ab1fb927348cf3519da8d4c47023ff04dd0ec7f8d9c0a15db96a9f40bef58d4",
-        "source/game_sa/Cam.h": "2b90b10dd174deb53e54c93e77f5d9447b0904760f180f14960e9c33856deeb2",
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
         "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
         "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
         "source/game_sa/GameLogic.cpp": "0ec6c7cab71b4d52b11c9e54cbd7de10640d757605fb6ecddef95273d946bc11",
         "source/game_sa/GameLogic.h": "e615c702306154b8d0ce8c544c06def27bbff416a8f2ba9278ff7dcc47121af3",
-        "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c",
+        "source/game_sa/PlayerInfo.h": "49e25549e83e1027b0e8568211f90fe5049a7b845ba46771a0cd57caf1c30190",
         "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
         "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd",
         "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
-        "source/game_sa/X87Math.cpp": "ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe",
-        "source/game_sa/X87Math.h": "7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
@@ -17541,7 +17541,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies22B/validation-summary.json",
-        "sha256": "3f84593dd81919728e61d8da4d764f9dc94d2b174324f11e8d0468ee76dae0f3",
+        "sha256": "1682df700e8e7b19325c52d367ae3f6fc6ad8a3f1c5ef8691eb262701fcc8bc7",
         "passed_path": [
           "covered_functions",
           "CVehicle::DoHeadLightEffect"
@@ -17562,7 +17562,7 @@
         "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
         "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
         "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
-        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
         "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
@@ -17583,7 +17583,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies22B/validation-summary.json",
-        "sha256": "3f84593dd81919728e61d8da4d764f9dc94d2b174324f11e8d0468ee76dae0f3",
+        "sha256": "1682df700e8e7b19325c52d367ae3f6fc6ad8a3f1c5ef8691eb262701fcc8bc7",
         "passed_path": [
           "covered_functions",
           "CVehicle::DoTailLightEffect"
@@ -17604,7 +17604,7 @@
         "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
         "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
         "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
-        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
         "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
@@ -29241,7 +29241,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers65D/validation-summary.json",
-        "sha256": "8106404632dd81dde2fb29bb1072b45d57faf1aa1258ca5d40ad24cd3fcc4515",
+        "sha256": "d71b16469854152d7bca6f0e84018a7126e583f8ff727681090f732f9ea35699",
         "passed_path": [
           "covered_functions",
           "operator*(CMatrix,CVector)"
@@ -29250,16 +29250,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "d80de777ac5a20cbfbe5d0d285a3a601af69365a82ef393939ab13d5d2097a73",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
         "source/game_sa/Core/Matrix.cpp": "eb7e4cb12f35d1842b8d07404d43592b5980c33fe174cdbd2756d5cda666a0c9",
         "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2",
-        "source/game_sa/X87Math.cpp": "0f05c3064e745b369facce14e1d0791454011689498d2dd4f12afcc01d5d9afc",
-        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
-        "source/InjectHooksMain.cpp": "52f079e9863766f588a5177d8ddcbf77cd547c0f8cb408b21f354aeee259c45b",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
         "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
-        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
-        "source/game_sa/RwHelper.cpp": "47af472ec53716527282bfb448ed7964ec442828ab2a550a61b3c9fcde47f046",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "55e132e2294c6cedb8f5c4c4a07c173686d0ca9b9476067750561c44a92c4904",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
+        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "ebeb18343014f98a036b980fd29cbe9f6972ed83978e7fe801e20d5fe42d1eff",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4b58c28c70b3460298f23cf7a80e635bed03f1e5ddd29b6302464bc19e4d51f8",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Helpers65D/LiveComparison.hpp": "fbe53c36aae4b51ebcfb310cf04aface3e54ad527e097303fb205dd44a88080b",
@@ -29283,7 +29283,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers65D/validation-summary.json",
-        "sha256": "8106404632dd81dde2fb29bb1072b45d57faf1aa1258ca5d40ad24cd3fcc4515",
+        "sha256": "d71b16469854152d7bca6f0e84018a7126e583f8ff727681090f732f9ea35699",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundObject::CreateRouteTask"
@@ -29292,16 +29292,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "d80de777ac5a20cbfbe5d0d285a3a601af69365a82ef393939ab13d5d2097a73",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
         "source/game_sa/Core/Matrix.cpp": "eb7e4cb12f35d1842b8d07404d43592b5980c33fe174cdbd2756d5cda666a0c9",
         "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2",
-        "source/game_sa/X87Math.cpp": "0f05c3064e745b369facce14e1d0791454011689498d2dd4f12afcc01d5d9afc",
-        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
-        "source/InjectHooksMain.cpp": "52f079e9863766f588a5177d8ddcbf77cd547c0f8cb408b21f354aeee259c45b",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
         "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
-        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
-        "source/game_sa/RwHelper.cpp": "47af472ec53716527282bfb448ed7964ec442828ab2a550a61b3c9fcde47f046",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "55e132e2294c6cedb8f5c4c4a07c173686d0ca9b9476067750561c44a92c4904",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
+        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "ebeb18343014f98a036b980fd29cbe9f6972ed83978e7fe801e20d5fe42d1eff",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4b58c28c70b3460298f23cf7a80e635bed03f1e5ddd29b6302464bc19e4d51f8",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Helpers65D/LiveComparison.hpp": "fbe53c36aae4b51ebcfb310cf04aface3e54ad527e097303fb205dd44a88080b",
@@ -29325,7 +29325,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers65D/validation-summary.json",
-        "sha256": "8106404632dd81dde2fb29bb1072b45d57faf1aa1258ca5d40ad24cd3fcc4515",
+        "sha256": "d71b16469854152d7bca6f0e84018a7126e583f8ff727681090f732f9ea35699",
         "passed_path": [
           "covered_functions",
           "RwTexDictionaryGtaStreamRead"
@@ -29334,16 +29334,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "d80de777ac5a20cbfbe5d0d285a3a601af69365a82ef393939ab13d5d2097a73",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
         "source/game_sa/Core/Matrix.cpp": "eb7e4cb12f35d1842b8d07404d43592b5980c33fe174cdbd2756d5cda666a0c9",
         "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2",
-        "source/game_sa/X87Math.cpp": "0f05c3064e745b369facce14e1d0791454011689498d2dd4f12afcc01d5d9afc",
-        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
-        "source/InjectHooksMain.cpp": "52f079e9863766f588a5177d8ddcbf77cd547c0f8cb408b21f354aeee259c45b",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
         "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
-        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
-        "source/game_sa/RwHelper.cpp": "47af472ec53716527282bfb448ed7964ec442828ab2a550a61b3c9fcde47f046",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "55e132e2294c6cedb8f5c4c4a07c173686d0ca9b9476067750561c44a92c4904",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
+        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "ebeb18343014f98a036b980fd29cbe9f6972ed83978e7fe801e20d5fe42d1eff",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4b58c28c70b3460298f23cf7a80e635bed03f1e5ddd29b6302464bc19e4d51f8",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Helpers65D/LiveComparison.hpp": "fbe53c36aae4b51ebcfb310cf04aface3e54ad527e097303fb205dd44a88080b",
@@ -29367,7 +29367,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers65D/validation-summary.json",
-        "sha256": "8106404632dd81dde2fb29bb1072b45d57faf1aa1258ca5d40ad24cd3fcc4515",
+        "sha256": "d71b16469854152d7bca6f0e84018a7126e583f8ff727681090f732f9ea35699",
         "passed_path": [
           "covered_functions",
           "FightStrikeDamageExe"
@@ -29376,16 +29376,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "d80de777ac5a20cbfbe5d0d285a3a601af69365a82ef393939ab13d5d2097a73",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
         "source/game_sa/Core/Matrix.cpp": "eb7e4cb12f35d1842b8d07404d43592b5980c33fe174cdbd2756d5cda666a0c9",
         "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2",
-        "source/game_sa/X87Math.cpp": "0f05c3064e745b369facce14e1d0791454011689498d2dd4f12afcc01d5d9afc",
-        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
-        "source/InjectHooksMain.cpp": "52f079e9863766f588a5177d8ddcbf77cd547c0f8cb408b21f354aeee259c45b",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
         "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
-        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
-        "source/game_sa/RwHelper.cpp": "47af472ec53716527282bfb448ed7964ec442828ab2a550a61b3c9fcde47f046",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "55e132e2294c6cedb8f5c4c4a07c173686d0ca9b9476067750561c44a92c4904",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
+        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "ebeb18343014f98a036b980fd29cbe9f6972ed83978e7fe801e20d5fe42d1eff",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4b58c28c70b3460298f23cf7a80e635bed03f1e5ddd29b6302464bc19e4d51f8",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Helpers65D/LiveComparison.hpp": "fbe53c36aae4b51ebcfb310cf04aface3e54ad527e097303fb205dd44a88080b",
@@ -33052,7 +33052,7 @@
       },
       "evidence": {
         "path": "reversing/Heli83F/validation-summary.json",
-        "sha256": "0bb35cb834ef47e3ad1d77a9e78ad3c59c24e9756b8f7bcffaf6a8c5c5d870fc",
+        "sha256": "5b371335d774259b0dda3498996650efd799ddcd45d21037c7ce426640313ede",
         "passed_path": [
           "covered_functions",
           "CHeli::ProcessControl"
@@ -33063,7 +33063,7 @@
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
         "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
         "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "source/game_sa/Entity/Vehicle/Heli.cpp": "7fb9f40a53cec600f75041a1b3c0b596ac27be17b86c02be28c276f59cc1184d",
         "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
@@ -33414,7 +33414,7 @@
       },
       "evidence": {
         "path": "reversing/Car84I/validation-summary.json",
-        "sha256": "f40284e149fdc7abf569d4e41671c80ccc0ed289ef2631aa97c535069af79a0b",
+        "sha256": "d3093858597b8f4d03d52cc032736eb8cbc51dbd42967b81fcd0c91a91a29f4a",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAICarWithPhysics_OnlyMission"
@@ -33425,7 +33425,7 @@
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
         "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
         "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
@@ -33892,7 +33892,7 @@
       },
       "evidence": {
         "path": "reversing/Fn85C/validation-summary.json",
-        "sha256": "f374786ef5f40faafabf6746595b000a667db05a40a09b04bdb432467327fb47",
+        "sha256": "91eb84b89faac64e118eefdc64ac68a3e82f78ec337a665d2464d273033c58bc",
         "passed_path": [
           "covered_functions",
           "CGarage::IsAnyCarBlockingDoor"
@@ -33901,10 +33901,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4b58c28c70b3460298f23cf7a80e635bed03f1e5ddd29b6302464bc19e4d51f8",
@@ -33930,7 +33930,7 @@
       },
       "evidence": {
         "path": "reversing/Fn85C/validation-summary.json",
-        "sha256": "f374786ef5f40faafabf6746595b000a667db05a40a09b04bdb432467327fb47",
+        "sha256": "91eb84b89faac64e118eefdc64ac68a3e82f78ec337a665d2464d273033c58bc",
         "passed_path": [
           "covered_functions",
           "CGarage::StoreAndRemoveCarsForThisImpoundingGarage"
@@ -33939,10 +33939,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4b58c28c70b3460298f23cf7a80e635bed03f1e5ddd29b6302464bc19e4d51f8",
@@ -33968,7 +33968,7 @@
       },
       "evidence": {
         "path": "reversing/Fn85C/validation-summary.json",
-        "sha256": "f374786ef5f40faafabf6746595b000a667db05a40a09b04bdb432467327fb47",
+        "sha256": "91eb84b89faac64e118eefdc64ac68a3e82f78ec337a665d2464d273033c58bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFight::BeHitWhileBlocking"
@@ -33977,10 +33977,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4b58c28c70b3460298f23cf7a80e635bed03f1e5ddd29b6302464bc19e4d51f8",
@@ -34006,7 +34006,7 @@
       },
       "evidence": {
         "path": "reversing/Fn85C/validation-summary.json",
-        "sha256": "f374786ef5f40faafabf6746595b000a667db05a40a09b04bdb432467327fb47",
+        "sha256": "91eb84b89faac64e118eefdc64ac68a3e82f78ec337a665d2464d273033c58bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFight::ChooseAttackAI"
@@ -34015,10 +34015,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4b58c28c70b3460298f23cf7a80e635bed03f1e5ddd29b6302464bc19e4d51f8",

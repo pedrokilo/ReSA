@@ -72,7 +72,7 @@
   "log_sha256": "d50848c8a85ec75f53836a754c229d5d58189c3b7a984c2afcb058f9a7e816c8",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-physical56\\20261005-161449-539643",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-physical56\\20261104-215640-967378",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPhysical::ApplyMoveForce-vec": true,
@@ -134,12 +134,12 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "2fd5fa8f8f469bb875b6df642537fdcdbd7486585f8222bfedc90063ea819265",
-      "pdb": "6cec23018228528637e0bedbadaa16abd54f3c6c6490ecc0f46a5d8460834fdb"
+      "asi": "2c1e29e2640e0a578aaf2442377ac7b8ffa106b25353db1002dc2c002770d399",
+      "pdb": "0bc0710f3e8f1d481773fa6a05a0442e20ac80fe3c64557f96456117c0fa308c"
     },
     "sources": {
-      "source/game_sa/Entity/Physical.cpp": "c6665002607d29aef009c8807ca662a4ff47e3934437212486061ba265f3efed",
-      "source/game_sa/Entity/Physical.h": "3dc44efcc999a3ff8974e1a3da78963d0dfb00f3e9d3ee07d026efc01e275052"
+      "source/game_sa/Entity/Physical.cpp": "5b39a96da8e4e5fd60e1e5c935b5bb2419756af85214c00e41c99d2ed652ed97",
+      "source/game_sa/Entity/Physical.h": "2be1902e933b8704da536c4f89fc7cf541083fb57aa1ca7cdc3c4ae1c719cea3"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
@@ -150,6 +150,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

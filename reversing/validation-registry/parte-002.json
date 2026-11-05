@@ -24947,7 +24947,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::CallOffChaseForArea"
@@ -24956,8 +24956,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -24973,7 +24973,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::CallOffChaseForAreaSectorListPeds"
@@ -24982,8 +24982,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -24999,7 +24999,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::CallOffChaseForAreaSectorListVehicles"
@@ -25008,8 +25008,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25025,7 +25025,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::ClearCarsFromArea"
@@ -25034,8 +25034,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25051,7 +25051,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::ClearExcitingStuffFromArea"
@@ -25060,8 +25060,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25077,7 +25077,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::ClearPedsFromArea"
@@ -25086,8 +25086,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25103,7 +25103,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::ExtinguishAllCarFiresInArea"
@@ -25112,8 +25112,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25129,7 +25129,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::PrintCarChanges"
@@ -25138,8 +25138,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25155,7 +25155,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::Process"
@@ -25164,8 +25164,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25181,7 +25181,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::ProcessAttachedEntities"
@@ -25190,8 +25190,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25207,7 +25207,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::ProcessForAnimViewer"
@@ -25216,8 +25216,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25233,7 +25233,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::ProcessPedsAfterPreRender"
@@ -25242,8 +25242,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25259,7 +25259,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::RemoveEntityInsteadOfProcessingIt"
@@ -25268,8 +25268,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25285,7 +25285,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::RemoveFallenCars"
@@ -25294,8 +25294,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25311,7 +25311,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::RemoveFallenPeds"
@@ -25320,8 +25320,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25337,7 +25337,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::RemoveReferencesToDeletedObject"
@@ -25346,8 +25346,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,
@@ -25363,7 +25363,7 @@
       },
       "evidence": {
         "path": "reversing/WldD/validation-summary.json",
-        "sha256": "b1f35a7564e80dbe2914fe2692f0d410b421d75448e1f0760605ec1e2cf7a596",
+        "sha256": "590938a505e0b42091a8a78ee4e353d0a72468d8c07e9b72251148ba6f5d9de8",
         "passed_path": [
           "covered_functions",
           "CWorld::RemoveStaticObjects"
@@ -25372,8 +25372,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-164414-312957).",
       "dependency_review": null,

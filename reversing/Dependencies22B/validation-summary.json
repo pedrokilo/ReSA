@@ -14,16 +14,16 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies22B-20261104-155142-681295",
-  "summary_sha256": "aa7756c3d697f22f8046ab5f76bde478ab72e23711b94fcac8983001de433845",
-  "result_txt_sha256": "d39d48ff48447b43e736dae17fe03bd77509047e8ebcac719a6c0700ce31b83b",
-  "log_sha256": "eccdb33fe20f452899e57271ef02d36f7f3ad8e7730e837816c791a75dbb0bf3",
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies22B-20261104-212554-992527",
+  "summary_sha256": "d4ddb39c448725c3ad1b67a87b06295cd3d5dd01b26bc972195f5933ce80ca28",
+  "result_txt_sha256": "ecd86533125190f9f9fcb714d5943b6bc4c20efd846199da7a586f8c85f11611",
+  "log_sha256": "088c3018c9ba1cc057df1790174baefd5b0fee9c83a9840390352b41b5980dc0",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "660a5a9d91dd0f9cc4b4e1c0354feb82d42507bdfe6d5b3ab98485748220e8ed",
+  "executed_probe_sha256": "f1ab999474f53dd9287bcd898bdc1351d386aea24eac27f5a0d49f43fd87ec86",
   "manifest": {
     "tested_sources": {
       "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
@@ -38,7 +38,7 @@
       "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
       "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
       "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
-      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
       "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
@@ -47,10 +47,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Dependencies22B-20261104-155142-681295/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Dependencies22B-20261104-212554-992527/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "0241b5639a223203af6d18ca1541f3ed279689af659787ad8342a354e10ed4ee",
-    "uncompressed_sha256": "eccdb33fe20f452899e57271ef02d36f7f3ad8e7730e837816c791a75dbb0bf3"
+    "compressed_sha256": "455f13b7ff1e369c8417be5d82ed5bdb631e07f213aa01dc5db72f9b300f8dfb",
+    "uncompressed_sha256": "088c3018c9ba1cc057df1790174baefd5b0fee9c83a9840390352b41b5980dc0"
   }
 }

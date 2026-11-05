@@ -1,0 +1,3 @@
+APROBADO: Flotabilidad cBuoyancy (lista de 9)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-buoy9\20261104-212704-713613

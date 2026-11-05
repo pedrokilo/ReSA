@@ -25,7 +25,7 @@
   "log_sha256": "79bfdfa1bea46bb09f3b7b01b2e278664b713473cabe78bb147b5ea816c4b32f",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-buoy9\\20261003-224643-761057",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-buoy9\\20261104-212704-713613",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "cBuoyancy::FindWaterLevel": true,
@@ -40,14 +40,14 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "5d2ff5112d8379e685291529f183dae34050e3a8fcd0850f9115ca3bdb70af83",
-      "pdb": "6920f16adc3a7df512c8420dd7de81c6ed5605356646652c81ae6822a3f0638e"
+      "asi": "30102cab3cab80240159a0ba11b079b923b7b49993a2c8c9bc87ca0f803f053d",
+      "pdb": "98595e50db8ee48536c2618860a972f7e4a6b8871c5ec5bdf1912494b443d05b"
     },
     "sources": {
-      "source/game_sa/Buoyancy.cpp": "e16672e49dc9ed274bbf1fdfe634b89c4ae4384c524b95084d0ffe7e4823cfb9",
+      "source/game_sa/Buoyancy.cpp": "0111c513178b150779bf68ecec5d7f2f1c499d5f24af6c30dbe0dc2a7687dcd0",
       "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "a7f07a4734b64ed3392ab82f669a0d2ce976dd570dbdf4b83b84efbffef4224e",
       "build_probe.py": "4106834c497910958b2b39a6606a95d20c4410bacdb21d6e44dbadf233804774",
@@ -56,6 +56,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
