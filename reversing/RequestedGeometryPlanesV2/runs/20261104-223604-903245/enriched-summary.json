@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "c552b2166802179b827eecf5a457ecd360f5128b5718ae4c4d4a9b1a3579c63b",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "f2f76a026e8d58c4436810902e103678b7992c73f5e43db6acaf184b360d7a9a",
+  "native_helper_readonly": true,
+  "manual_helper_restored": true,
+  "helper_callsite_proven": true,
+  "callback_traces_checked": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "23c99c5fbb6cec0fdfced1fcff0bf9f49ec94579",
+    "tested_sources": {
+      "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
+      "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
+      "source/game_sa/Core/Vector.h": "f6164a14020b941f208d38c38cfc44d15ccc77bd32249d70a383fe6ddc23dcea",
+      "source/game_sa/Core/Vector.cpp": "24229e5a8387bd0ea137a67b47be76de9b7c4af253736fb988fb497e82d5fbfd"
+    },
+    "bank_sources": {
+      "reversing/RequestedGeometryPlanesV2/LiveComparison.hpp": "03af6c64320c4eba04defd2634585797f203ca1661819fed650f81e107934f24",
+      "reversing/RequestedGeometryPlanesV2/NativeNormaliseBytes.hpp": "219c6835572030bc0a23741c96635621dd0a356090eabb9f1a4e34ea1e879831",
+      "reversing/RequestedGeometryPlanesV2/build_probe.py": "2948d188cde6d04edee6121ce8895ac23cb9a650f3de03844bfd7556d057dad5",
+      "reversing/RequestedGeometryPlanesV2/run_local.py": "7119b05ca706682d1aa077dbf8e491216e229e13feba1b958e1e9fdf97cecdf8",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d14b05996d8b681fa4da65ba9dd87b0ec98d11fa3e939f2be62a3903736f750a",
+    "fixture_scope": "Pregraphics planes2048 V2: strict current CALLsite/E9-chain proof, manual DLL Normalise entry/body thunk redirects to shared readonlyNative59C910 exactPE96bytes. Source callback trace4 vsoriginal0, full buffers/alias/guards and canonicalFP restored. No global CVector hooks activated or Normalise source/integration credit.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "14d2ec7d788e21e65517fa3252ca795e79fab8a48e0614b2a29209de2d00ee70"
+    },
+    "asi": "c552b2166802179b827eecf5a457ecd360f5128b5718ae4c4d4a9b1a3579c63b",
+    "pdb": "052bf5ca7d440a356f8dd969dec183088cb47330aca9aff5824e529be9971cfb"
+  },
+  "runner_sha256": "7119b05ca706682d1aa077dbf8e491216e229e13feba1b958e1e9fdf97cecdf8"
+}

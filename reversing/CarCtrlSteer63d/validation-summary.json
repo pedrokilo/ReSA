@@ -10,32 +10,39 @@
   "covered_functions": {
     "CCarCtrl::SteerAICarBlockingPlayerForwardAndBack": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-2 (HEAD df26d6fe7 + parche del banco). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): FindPlayerSpeed, FindPlayerEntity, FindPlayerCoors, CPlaceable::AllocateMatrix y CSimpleTransform::UpdateMatrix. CVector::Normalise (0x59C910) NO se sustituye: corre de verdad en el EXE (hook apagado) y en la DLL. El vehiculo, su matriz, la entidad del jugador (con o sin matriz) y su velocidad son objetos del banco. Ningun llamador del EXE lee EAX/ECX/EDX (ver README); solo se registran. Limites: NaN silenciosos; la entidad del jugador existe siempre (el EXE la desreferencia sin comprobar).",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-2 (HEAD df26d6fe7 + parche del banco). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): FindPlayerSpeed, FindPlayerEntity, FindPlayerCoors, CPlaceable::AllocateMatrix y CSimpleTransform::UpdateMatrix. CVector::Normalise (0x59C910) NO se sustituye: corre de verdad en el EXE (hook apagado) y en la DLL. El vehiculo, su matriz, la entidad del jugador (con o sin matriz) y su velocidad son objetos del banco. Ningun llamador del EXE lee EAX/ECX/EDX (ver README); solo se registran. Limites: NaN silenciosos; la entidad del jugador existe siempre (el EXE la desreferencia sin comprobar). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63d-20261020-232248-974597",
-  "summary_sha256": "6a7789e7a5fc46665c7b251d318068be28ec7b4ebbc1a4bd5a277da410a53cdf",
-  "result_txt_sha256": "c6013b8bf77f21a70c98a1223d09a8068b0685de357748b91e597089882321a3",
-  "log_sha256": "0ac308000d295ace35976d79ce81342317bae712481fde5953d265eba58c7218",
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63d-20261104-215334-524454",
+  "summary_sha256": "1205fd22f9093c0adb150a3dec938bb68edb9f02b66ad3718324e30fc6ccd56f",
+  "result_txt_sha256": "e433147201b908105607c1444a6aab2c70535ac526545549e58604f9a2f4ddc7",
+  "log_sha256": "af4937857266f9e7f9cf45623c55b887b7c4c078a892cc9bdd346126713e4eda",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "38500151e70b17b411b32444ae75f4e6a8aecd7ab95beb4536e26cff31d2d326",
+  "executed_probe_sha256": "6dad2923a7288bac3c9c33ee025630109a703f40c7e1fa0a2d4c6e65cb8ebb0c",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-      "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
-      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
-      "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
-      "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/CarCtrlSteer63d/LiveComparison.hpp": "10604d2f7e87cd0866e32e3cb0905da8239171638e5cac45a0a359d4fbc2c7b9",
-      "reversing/CarCtrlSteer63d/Core.hpp": "e0b481a4388323a9cfe618eb64badf9a48a8ff8cdf918c4d748bca3e32a05c0f",
-      "reversing/CarCtrlSteer63d/Fixtures.hpp": "6187f45ded6edfabc0ce2129863f837946bc1aaa6375b020661af3615c23ce51",
+      "reversing/CarCtrlSteer63d/LiveComparison.hpp": "1ab0a708bc9e12616970093f0857076db12a11267d936376854aec7593ebedb4",
+      "reversing/CarCtrlSteer63d/Core.hpp": "7589e3b46995571d0b66a2449811510f5631c97c147922a629d2c4211c6d3a29",
+      "reversing/CarCtrlSteer63d/Fixtures.hpp": "379a3ae44708cfbf7f0a322302b8ae633ffd26c1e6d605b90f675e0d490c826a",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63d-20261104-215334-524454/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "1f583214ddbf95d851c7fc22cc9d6a678589b813e54ae4858bf5ccb183b2ea2a",
+    "uncompressed_sha256": "af4937857266f9e7f9cf45623c55b887b7c4c078a892cc9bdd346126713e4eda"
   }
 }

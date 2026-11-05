@@ -1,0 +1,3 @@
+APROBADO: Fn89C
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn89c\20261104-220836-533559

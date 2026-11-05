@@ -111,6 +111,7 @@ inline void Update(){
  if(!FindPlayerPed()||CCutsceneMgr::IsRunning())return;done=true;
  static_assert(sizeof(CPathFind)==0x3C80&&sizeof(CPathNode)==0x1C&&sizeof(CCarPathLink)==0xE);
  const auto member=&CPathFind::FindNodeOrientationForCarPlacement;const uintptr_t raw=uintptr_t(FunctionToVoidPtr(member)),helperRaw=uintptr_t(&PathOrientation14Normalise),helper=Resolve(helperRaw),normalise=Resolve(uintptr_t(&PathFindNormaliseStatusCpp));
+ OriginalDependencies499::HookRoute normaliseRoute("CVector","Normalise",0x59C910,FunctionToVoidPtr(&CVector::Normalise));   // CVector::Normalise tiene hook RH desde el lote 96A: la ruta lo apaga (la entrada del EXE vuelve a ser codigo original) y lo restaura al salir
  std::vector<std::pair<uintptr_t,std::vector<uint8>>> initialCode;for(auto at:{uintptr_t(0x450320),raw,Resolve(raw),uintptr_t(0x59C910),helperRaw,helper,normalise})initialCode.push_back({at,ReversingProbe::Bytes(reinterpret_cast<void*>(at),16)});
  OriginalDependencies499::HookRoute route("CPathFind","FindNodeOrientationForCarPlacement",0x450320,FunctionToVoidPtr(member));const auto offCode=ReversingProbe::Bytes(reinterpret_cast<void*>(0x450320),16);
  alignas(16)std::array<uint8,0x3CA0> path{};alignas(16)std::array<uint8,3*0x1C+32> sources{};alignas(16)std::array<uint8,16*0x1C+32> targets{};

@@ -19,10 +19,15 @@ inline void __fastcall NativeAdapter(CVector*self,void*){
 inline uintptr_t ResolveJump(uintptr_t address){for(int n=0;n<8;++n){if(*reinterpret_cast<const uint8*>(address)!=0xE9)return address;address=address+5+*reinterpret_cast<const int32*>(address+1);}return 0;}
 inline bool NativeUnchanged(){return !std::memcmp(reinterpret_cast<void*>(0x59C910),GeometryNativeNormaliseBytes.data(),GeometryNativeNormaliseBytes.size());}
 struct Fixture { std::array<uint32,4> prefix; CVector corners[4]; CVector planes[4]; std::array<float,4> dots; std::array<uint32,4> suffix; };
+// CVector::Normalise tiene hook RH desde el lote 96A: el banco exige la entrada del EXE original (prueba de solo lectura y ayudante nativo), asi que se apaga mientras corre y se restaura al salir.
+struct NormaliseHookOff{Simple* h{};bool enabled{},locked{};
+    NormaliseHookOff(){for(const auto&f:SmallPendingSupport::SnapshotHooks())if(f.hook->Type()==Base::HookType::Simple){auto*s=static_cast<Simple*>(f.hook);if(s->GetHookGTAAddress()==reinterpret_cast<void*>(0x59C910)){h=s;enabled=s->Hooked();locked=s->Locked();s->LockState(false);s->State(false);}}}
+    ~NormaliseHookOff(){if(h){h->State(enabled);h->LockState(locked);}}};
 inline void Update(){
     if(done)return;done=true;char executable[MAX_PATH]{};GetModuleFileNameA(nullptr,executable,MAX_PATH);
     const auto dir=std::filesystem::path(executable).parent_path();if(!std::filesystem::exists(dir/"requested-geometry-planes-v2-runtime.start"))return;
     std::ofstream log(dir/"requested-geometry-planes-v2-runtime.jsonl");auto write=[&](const json&r){log<<r.dump()<<'\n';log.flush();};
+    NormaliseHookOff normaliseHookOff;
     const auto flags=SmallPendingSupport::SnapshotHooks();Simple* target{};
     for(const auto&f:flags)if(f.hook->Type()==Base::HookType::Simple){auto*h=static_cast<Simple*>(f.hook);if(h->GetHookGTAAddress()==reinterpret_cast<void*>(0x5F1670)&&h->Name()=="ComputeEntityBoundingBoxPlanesUncached")target=h;}
     if(!target){write({{"event","error"},{"reason","exact target identity missing"}});return;}
@@ -39,6 +44,8 @@ inline void Update(){
     target->State(targetEnabled);target->LockState(targetLocked);
     if(!callProof){write({{"event","error"},{"reason","exact compiled Normalise CALLsite/native readonly proof failed; no helper patch applied"},{"state_restored",SmallPendingSupport::HooksUnchanged(flags)&&targetGtaBefore==ReversingProbe::Bytes(target->GetHookGTAAddress(),52)&&targetDllBefore==ReversingProbe::Bytes(target->GetHookOurAddress(),52)}});return;}
     std::vector<uintptr_t> manualHelpers{normaliseEntry};if(normaliseBody!=normaliseEntry)manualHelpers.push_back(normaliseBody);if(std::find(manualHelpers.begin(),manualHelpers.end(),callTarget)==manualHelpers.end())manualHelpers.push_back(callTarget);
+    // Con el hook de Normalise apagado la entrada de la DLL salta al EXE y su cuerpo resuelto es 0x59C910: el codigo nativo del EXE no se parchea (el adaptador lo llama), solo las entradas de la DLL.
+    manualHelpers.erase(std::remove(manualHelpers.begin(),manualHelpers.end(),uintptr_t(0x59C910)),manualHelpers.end());
     write({{"event","helper_proof"},{"normalise_entry",normaliseEntry},{"normalise_resolved_body",normaliseBody},{"plane_body",planeBody},{"normalise_callsite",normaliseCall},{"normalise_call_target",callTarget},{"callsite_proof",callProof},{"native_readonly",NativeUnchanged()},{"manual_helpers",manualHelpers},{"registered_Vector_hooks_activated",false}});
     struct Range{const void* address;std::vector<uint8> bytes;};std::vector<Range> entries;
     for(auto*address:{target->GetHookGTAAddress(),target->GetHookOurAddress()})entries.push_back({address,ReversingProbe::Bytes(address,52)});

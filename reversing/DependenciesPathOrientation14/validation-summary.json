@@ -10,82 +10,38 @@
   "covered_functions": {
     "CPathFind::FindNodeOrientationForCarPlacement": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia histórica limitada a fixtures, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia histórica limitada a fixtures, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/DependenciesPathOrientation14/runs/20261017-050404-507015",
-  "summary_sha256": "d18efa76e1b834e3e59a61c8604844f1d9d0b18c3382c4d358d8bedb4c902a3f",
-  "result_txt_sha256": "b465d3307bf722485da96828bfcd9dd1b91f2f43d46b03d49dec673c3630949c",
-  "log_sha256": "2255b4002c70d1107811a06279719998a90ea19dbd18df19aff32a93cf6e77fd",
+  "run": "reversing/CppTwelveLevel6Final/runs/DependenciesPathOrientation14-20261104-223404-207926",
+  "summary_sha256": "d67e328cd0d56f4a21327e8591d810c6fea5892b1932a269f47beda1baf0c0b9",
+  "result_txt_sha256": "ad21ceaeec97491878a1e7ce3ecbb94ccc8ff0e741c51d4bd0fe308d0d932e19",
+  "log_sha256": "ecf276c5afb5d3e4a23b7c6c92f08cd8b097a42cab18952b2beaf3f6cefb8ae7",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "001ec3972ded1d35046dfd42c3e2f5144482237e0fffe9e90bc5eb0d05b19745",
+  "executed_probe_sha256": "2b6471e3ed194f3c731533ec7c16430c1fce2585db1a2fdcbbcebfe9bacc143c",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/PathFind.cpp": "10f68895e0166e581cfe17a4b9e5736ebf2c99985aec5cb72ff0c669dbf5b3e9",
-      "source/game_sa/PathFind.h": "1937fc23e3c44aa8e867fa78ca1d0495684f066dd278f1b7d4bd9d62ed0891af",
-      "source/game_sa/NodeAddress.h": "a22f707c909a6cc7786132304de10096a7e9721036e76ced52df9786fe2f8bdd",
-      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+      "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
+      "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
+      "source/game_sa/NodeAddress.h": "ba46c003adbbb5e462af024f49894eeed8dedd94d71f0557ae19b15d30ee678d",
+      "source/game_sa/Core/Vector.h": "f6164a14020b941f208d38c38cfc44d15ccc77bd32249d70a383fe6ddc23dcea",
       "source/extensions/FixedFloat.hpp": "3efc8fbbf3003219d057e79717c122c8d44a2569a3c6f39f4b113b1997b335b9",
       "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
       "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
-      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
-    },
-    "bank_sources": {
-      "LiveComparison.hpp": "4b12a88da12011b185ac547fbd8cb4423151328b9707f839b8e82e0c713f23a2",
-      "build_probe.py": "bba183dc47c388972a64bc3370e2a2a7f51048834c5d52241bed542a1d6edb15",
-      "run_local.py": "69b98030cca5279719757c5a1cd5dc35e1a26ed2dd38e8c603de87ccab9d0b58"
     }
   },
-  "reaudit": {
-    "bank": "DependenciesPathOrientation14",
-    "run": "20261017-050404-507015",
-    "functions": 1,
-    "pairs": 2048,
-    "pairs_per_function": {
-      "CPathFind::FindNodeOrientationForCarPlacement": 2048
-    },
-    "differences": 0,
-    "null_comparison_records": 0,
-    "state_restored": true,
-    "saves_unchanged": true,
-    "configs_restored": true,
-    "hook_routes_verified": true,
-    "log_sha256": "2255b4002c70d1107811a06279719998a90ea19dbd18df19aff32a93cf6e77fd",
-    "tested_sources": {
-      "source/game_sa/PathFind.cpp": "10f68895e0166e581cfe17a4b9e5736ebf2c99985aec5cb72ff0c669dbf5b3e9",
-      "source/game_sa/PathFind.h": "1937fc23e3c44aa8e867fa78ca1d0495684f066dd278f1b7d4bd9d62ed0891af",
-      "source/game_sa/NodeAddress.h": "a22f707c909a6cc7786132304de10096a7e9721036e76ced52df9786fe2f8bdd",
-      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
-      "source/extensions/FixedFloat.hpp": "3efc8fbbf3003219d057e79717c122c8d44a2569a3c6f39f4b113b1997b335b9",
-      "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
-      "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
-      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
-    },
-    "bank_sources": {
-      "LiveComparison.hpp": "4b12a88da12011b185ac547fbd8cb4423151328b9707f839b8e82e0c713f23a2",
-      "build_probe.py": "bba183dc47c388972a64bc3370e2a2a7f51048834c5d52241bed542a1d6edb15",
-      "run_local.py": "69b98030cca5279719757c5a1cd5dc35e1a26ed2dd38e8c603de87ccab9d0b58"
-    },
-    "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-    "executed_probe_sha256": "001ec3972ded1d35046dfd42c3e2f5144482237e0fffe9e90bc5eb0d05b19745",
-    "registered_hook_verified": true
-  },
   "comparison_storage": {
-    "compressed_path": "reversing/DependenciesPathOrientation14/runs/20261017-050404-507015/comparisons.jsonl.gz",
-    "compressed_sha256": "f02927b948b35b9ba4c2eaf0157e68aab905ed4565b1e3ef8699f4d9e08eb3fa",
-    "uncompressed_sha256": "2255b4002c70d1107811a06279719998a90ea19dbd18df19aff32a93cf6e77fd",
-    "uncompressed_bytes": 155304367,
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/DependenciesPathOrientation14-20261104-223404-207926/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "lossless_roundtrip_sha256": "2255b4002c70d1107811a06279719998a90ea19dbd18df19aff32a93cf6e77fd"
+    "compressed_sha256": "3726ea174262a04ae686e6536f9d93890a3e84f35fcd6a26c3982e940bfb0d70",
+    "uncompressed_sha256": "ecf276c5afb5d3e4a23b7c6c92f08cd8b097a42cab18952b2beaf3f6cefb8ae7"
   }
 }

@@ -10,32 +10,39 @@
   "covered_functions": {
     "CPlayerPed::DrawTriangleForMouseRecruitPed": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol principal (HEAD 8fa4b77c1 + PlayerPed.cpp y X87Math.cpp, source.patch). CPlayerPed::DrawTriangleForMouseRecruitPed 0x60BA80 (thiscall, ret; void; 1592 bytes; sin objetivo del raton no hace nada): fija siete estados de render, calcula color (vida/vida maxima), tamano (distancia al jugador) y los tres vertices del triangulo respecto a la camara (matriz o rumbo), los escribe en el bufer temporal Im3D, llama a RwIm3DTransform y, si devuelve distinto de cero, a RwIm3DRenderIndexedPrimitive y RwIm3DEnd, y restablece los estados. Sustituidos por falsos identicos en ambos lados: RwIm3DTransform 0x7EF450, RwIm3DRenderIndexedPrimitive 0x7EF550, RwIm3DEnd 0x7EF520 (parche de entrada del EXE; funciones de la DLL sin hook) y la entrada fpRenderStateSet de RwEngineInstance. CVector::Normalise (0x59C910) corre de verdad en el lado del EXE; la DLL reproduce su comportamiento y la x87 a 24 bits con exponente ampliado en X87Math.cpp. Dominio: NaN canonicalizado (carga util distinta entre x87 y SSE); rumbos de camara sin matriz hasta 1e10 (fsin/fcos con reduccion de 66 bits no se prueban mas alla); sin objetivo nulo de matriz.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol principal (HEAD 8fa4b77c1 + PlayerPed.cpp y X87Math.cpp, source.patch). CPlayerPed::DrawTriangleForMouseRecruitPed 0x60BA80 (thiscall, ret; void; 1592 bytes; sin objetivo del raton no hace nada): fija siete estados de render, calcula color (vida/vida maxima), tamano (distancia al jugador) y los tres vertices del triangulo respecto a la camara (matriz o rumbo), los escribe en el bufer temporal Im3D, llama a RwIm3DTransform y, si devuelve distinto de cero, a RwIm3DRenderIndexedPrimitive y RwIm3DEnd, y restablece los estados. Sustituidos por falsos identicos en ambos lados: RwIm3DTransform 0x7EF450, RwIm3DRenderIndexedPrimitive 0x7EF550, RwIm3DEnd 0x7EF520 (parche de entrada del EXE; funciones de la DLL sin hook) y la entrada fpRenderStateSet de RwEngineInstance. CVector::Normalise (0x59C910) corre de verdad en el lado del EXE; la DLL reproduce su comportamiento y la x87 a 24 bits con exponente ampliado en X87Math.cpp. Dominio: NaN canonicalizado (carga util distinta entre x87 y SSE); rumbos de camara sin matriz hasta 1e10 (fsin/fcos con reduccion de 66 bits no se prueban mas alla); sin objetivo nulo de matriz. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Player82A-20261101-004017-937553",
-  "summary_sha256": "8f37858df10a9221041354e3fde2b11c3d7016e29e691d82033b6534a26557d2",
-  "result_txt_sha256": "a974c36e9e7cf79a7d4f8f80766f79225c45ddc28089187c83fa230dc01cc1a9",
-  "log_sha256": "44e4f4597dcb8bcb11a3544ea6c1928effaba88b25d982b3df6a7f8c74a8c848",
+  "run": "reversing/CppTwelveLevel6Final/runs/Player82A-20261104-222422-838474",
+  "summary_sha256": "6e99bfffef689ab54a6eda352ed0af78a3021209eefa4e2b10ddec0bff1a8857",
+  "result_txt_sha256": "b597191bdc12f44401c084972ff528551630e02cdcc0e772a5acb1696b5ad4ab",
+  "log_sha256": "c74465a97ff46bcccb61fa6b2ee4be654e9c56a6e5597168fd7ee65f96286b1b",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "a42d13d4351ffab877c63468f63a178ab1324e112801ce31c74d66e48cd16316",
+  "executed_probe_sha256": "ef253d9db29e1f1fd86a5f36bdaaebb38fe192fabea31d84614e1b0330ac2878",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/Entity/Ped/PlayerPed.cpp": "d080747a67859f38f462562d5d1b8bb32f9cf0b3161568b5c4fab00597134f3e",
-      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-      "source/game_sa/X87Math.cpp": "1919c46db1c02d3f974f09c8d7a84cb9235d458734a4044c78f7b856fe361001",
-      "source/game_sa/X87Math.h": "bd8114ae68f6a5adac9b1c097cc435e7ba45d21bb1e9dfb1fc23893d96e58706",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/Player82A/LiveComparison.hpp": "e50489b2db63da11e842669379e7442e27cc9ec509c1e5959d8c273ecbe2d3a3",
+      "reversing/Player82A/LiveComparison.hpp": "1a09edefd9b0252c20caca075897a508ab54dcedaf16b7f10c4c71e3d292f0fc",
       "reversing/Player82A/Core.hpp": "0fac976735907e8bd796bc459f93c951bdf6fa8916f56709b3a599f8c4910dcf",
       "reversing/Player82A/Fixtures.hpp": "e966b5e8facaa5ead484f4d244003b436f79f96558a1a26152c25a75da3b6dfa",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Player82A-20261104-222422-838474/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "51df7a508044913bbdaeb20167181f5c7dc53c4a9478007ba6042c68eb0b3800",
+    "uncompressed_sha256": "c74465a97ff46bcccb61fa6b2ee4be654e9c56a6e5597168fd7ee65f96286b1b"
   }
 }

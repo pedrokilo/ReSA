@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "3b952226a6677d81bd5f9095e3559655c5e478f2083d0fb8012b91c4f3f8cce8",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "c79a33ddc945a09129f9455d322a427eac9ff9ab539a38edf526fe93a224532b",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "23c99c5fbb6cec0fdfced1fcff0bf9f49ec94579",
+    "tested_sources": {
+      "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
+      "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
+      "source/game_sa/Core/Vector.h": "f6164a14020b941f208d38c38cfc44d15ccc77bd32249d70a383fe6ddc23dcea",
+      "source/game_sa/Core/Vector.cpp": "24229e5a8387bd0ea137a67b47be76de9b7c4af253736fb988fb497e82d5fbfd"
+    },
+    "bank_sources": {
+      "reversing/RequestedGeometryPlanes/LiveComparison.hpp": "fe5aa724e87b227b44adfb2a14eea2642da51179bb658b544ff8d7e39509bcdf",
+      "reversing/RequestedGeometryPlanes/build_probe.py": "6f8bceddf4c8f0f249b420bd50f81da2182df91a4bbae1ea06d2473aaace4e54",
+      "reversing/RequestedGeometryPlanes/run_local.py": "9856926d34fb7c96d9537c60f3c23c159dc02d7ed951d6c727a74a35fa513b20",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d14b05996d8b681fa4da65ba9dd87b0ec98d11fa3e939f2be62a3903736f750a",
+    "fixture_scope": "Pregraphics pure arithmetic planes2048: finite CVector corners, complete-element alias modes, raw bytes and canonical masked nearest FP; caller FP state restored. Native Normalise59C910 shared collaborator; readonly constants captured, no independent helper or actor integration accreditation.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "1527a6c70d419fe000fe0f4dfc9f598ca4a24e1c34aef9475238e79bfcebfbf3"
+    },
+    "asi": "3b952226a6677d81bd5f9095e3559655c5e478f2083d0fb8012b91c4f3f8cce8",
+    "pdb": "abb3cfb899b868a7d7c7e92bf1baf32b02d0b389ff0f667c29c1c3e4654559cd"
+  },
+  "runner_sha256": "9856926d34fb7c96d9537c60f3c23c159dc02d7ed951d6c727a74a35fa513b20"
+}
