@@ -33,7 +33,7 @@
   "log_sha256": "d465e42df2ddcedee9e3a003387eb5248da1fde089815b0e6f1c6bb52481bde8",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fixcore\\20261003-175619-725397",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fixcore\\20261105-185455-865185",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CMatrix::RotateX": true,
@@ -56,23 +56,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "fe13537fe909def2c29332a20a9ac63b7efa360271d212e816e60c3bf4e30946",
-      "pdb": "d7d100068fe67b8da3ba5df2a3e6968e49c324a2d0289c568fa57de0f6b951d3"
+      "asi": "4fa5c1099d2e3c1c8ef5c9a0b1b299aaf8c9d4d188af116ea913e7c457883fc8",
+      "pdb": "9a58939fc7b945eccd0328280dd49690e5c8fbd937b810f2c22decbd54938d88"
     },
     "sources": {
-      "source/game_sa/Core/Matrix.cpp": "e439e925994ce51ae63294beb9c3c0116cc3913947c466873bc4a9e387b86323",
-      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
-      "source/game_sa/Core/Pool.h": "f83df423fac811bd829b32df13da90b19a64e9504abad36d9133d76a05284cc9",
+      "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+      "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
       "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
       "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
-      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "e685e06c99cf987300b15fef843189e17fe6eac5881a5320b8e27a83620cf7c1",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "8785dbea42b37059bfac5da22133332916cd4c60c578ef2b44f267067deb73f0",
-      "source/game_sa/TxdStore.cpp": "ccc71b3089f1e11a0c53cf2d79da50620e0df12c34afe32ef3f84ad47f2e92fe",
-      "source/game_sa/Entity/Ped/Ped.cpp": "ffbd84d92ddba5020c9836411b69ddab9c5354eaabaa992f996eb46df2a224f3",
-      "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
+      "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+      "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+      "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
       "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "ac11e07119b76085eea6ecb068d4c634782b5f5263798fd0546a773f363a0612",
       "build_probe.py": "08c708d10b8af19a3cdaf9948889f113c9eb4ffdbc9dff643745656d3d5c7ea0",
@@ -81,6 +81,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

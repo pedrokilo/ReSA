@@ -93271,7 +93271,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CPedIK::Constructor"
@@ -93282,10 +93282,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93307,7 +93307,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CPedIK::GetWorldMatrix"
@@ -93318,10 +93318,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93343,7 +93343,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CPedIK::MoveLimb-non-normalized"
@@ -93354,10 +93354,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93379,7 +93379,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CPedIK::MoveLimb-normalized"
@@ -93390,10 +93390,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93415,7 +93415,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CPedIK::PitchForSlope"
@@ -93426,10 +93426,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93451,7 +93451,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CPedIK::PointGunAtPosition"
@@ -93462,10 +93462,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93487,7 +93487,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CPedIK::PointGunInDirection"
@@ -93498,10 +93498,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93523,7 +93523,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CPedIK::RotateTorso"
@@ -93534,10 +93534,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93559,7 +93559,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CPedIK::RotateTorsoForArm"
@@ -93570,10 +93570,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93595,7 +93595,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CWeaponEffects::ClearCrossHair"
@@ -93606,10 +93606,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93631,7 +93631,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CWeaponEffects::ClearCrossHairImmediately"
@@ -93642,10 +93642,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93667,7 +93667,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CWeaponEffects::ClearCrossHairs"
@@ -93678,10 +93678,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93703,7 +93703,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CWeaponEffects::ClearCrossHairsImmediately"
@@ -93714,10 +93714,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93739,7 +93739,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CWeaponEffects::Init"
@@ -93750,10 +93750,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93775,7 +93775,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CWeaponEffects::IsLockedOn"
@@ -93786,10 +93786,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93811,7 +93811,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CWeaponEffects::MarkTarget"
@@ -93822,10 +93822,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93847,7 +93847,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CWeaponEffects::Render"
@@ -93858,10 +93858,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93883,7 +93883,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CWeaponEffects::Shutdown"
@@ -93894,10 +93894,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93919,7 +93919,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleIKChain::BlendOut"
@@ -93930,10 +93930,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93955,7 +93955,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleIKChain::Clone"
@@ -93966,10 +93966,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -93991,7 +93991,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleIKChain::Constructor"
@@ -94002,10 +94002,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94027,7 +94027,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleIKChain::CreateIKChain"
@@ -94038,10 +94038,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94063,7 +94063,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleIKChain::Destructor"
@@ -94074,10 +94074,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94099,7 +94099,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleIKChain::GetIKChain"
@@ -94110,10 +94110,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94135,7 +94135,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleIKChain::GetTaskType"
@@ -94146,10 +94146,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94171,7 +94171,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleIKChain::MakeAbortable"
@@ -94182,10 +94182,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94207,7 +94207,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleIKChain::ProcessPed"
@@ -94218,10 +94218,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94243,7 +94243,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleThrowProjectile::Clone"
@@ -94254,10 +94254,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94279,7 +94279,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleThrowProjectile::Constructor"
@@ -94290,10 +94290,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94315,7 +94315,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleThrowProjectile::ControlThrow"
@@ -94326,10 +94326,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94351,7 +94351,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleThrowProjectile::Destructor"
@@ -94362,10 +94362,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94387,7 +94387,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleThrowProjectile::FinishAnimThrowProjectileCB"
@@ -94398,10 +94398,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94423,7 +94423,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleThrowProjectile::GetTaskType"
@@ -94434,10 +94434,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94459,7 +94459,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleThrowProjectile::MakeAbortable"
@@ -94470,10 +94470,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94495,7 +94495,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleThrowProjectile::ProcessPed"
@@ -94506,10 +94506,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94531,7 +94531,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleThrowProjectile::StartAnim"
@@ -94542,10 +94542,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94567,7 +94567,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePickUpBike::Clone"
@@ -94578,10 +94578,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94603,7 +94603,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePickUpBike::Constructor"
@@ -94614,10 +94614,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94639,7 +94639,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePickUpBike::Destructor"
@@ -94650,10 +94650,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94675,7 +94675,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePickUpBike::FinishAnimPickUpBikeCB"
@@ -94686,10 +94686,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94711,7 +94711,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePickUpBike::GetTaskType"
@@ -94722,10 +94722,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94747,7 +94747,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePickUpBike::MakeAbortable"
@@ -94758,10 +94758,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94783,7 +94783,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePickUpBike::ProcessPed"
@@ -94794,10 +94794,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94819,7 +94819,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePickUpBike::SetPedPosition"
@@ -94830,10 +94830,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -94855,7 +94855,7 @@
       },
       "evidence": {
         "path": "reversing/Ped9/validation-summary.json",
-        "sha256": "60524e392bbd8101518869ccf20089d5e1bacff1dc3be01b16705b2185a95749",
+        "sha256": "a78c078094e8aad8c1b01c81766d330c3a44dda1ee9b1f0bbb47a400bd8ad637",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePickUpBike::StartAnim"
@@ -94866,10 +94866,10 @@
       "tested_sources": {
         "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
         "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-        "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-        "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-        "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-        "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+        "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+        "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -117215,7 +117215,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "f9a7d09d950f089da226e753d63a9e1d4665d17332ce81e92a7e73c86938d24f",
+        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
         "passed_path": [
           "covered_functions",
           "CVehicle::SetComponentRotation"
@@ -117224,16 +117224,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "e439e925994ce51ae63294beb9c3c0116cc3913947c466873bc4a9e387b86323",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
-        "source/game_sa/Core/Pool.h": "f83df423fac811bd829b32df13da90b19a64e9504abad36d9133d76a05284cc9",
+        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
         "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "e685e06c99cf987300b15fef843189e17fe6eac5881a5320b8e27a83620cf7c1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "8785dbea42b37059bfac5da22133332916cd4c60c578ef2b44f267067deb73f0",
-        "source/game_sa/TxdStore.cpp": "ccc71b3089f1e11a0c53cf2d79da50620e0df12c34afe32ef3f84ad47f2e92fe",
-        "source/game_sa/Entity/Ped/Ped.cpp": "ffbd84d92ddba5020c9836411b69ddab9c5354eaabaa992f996eb46df2a224f3",
-        "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175619-725397).",
@@ -117250,7 +117250,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "f9a7d09d950f089da226e753d63a9e1d4665d17332ce81e92a7e73c86938d24f",
+        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::ApplyRollAndPitch"
@@ -117259,16 +117259,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "e439e925994ce51ae63294beb9c3c0116cc3913947c466873bc4a9e387b86323",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
-        "source/game_sa/Core/Pool.h": "f83df423fac811bd829b32df13da90b19a64e9504abad36d9133d76a05284cc9",
+        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
         "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "e685e06c99cf987300b15fef843189e17fe6eac5881a5320b8e27a83620cf7c1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "8785dbea42b37059bfac5da22133332916cd4c60c578ef2b44f267067deb73f0",
-        "source/game_sa/TxdStore.cpp": "ccc71b3089f1e11a0c53cf2d79da50620e0df12c34afe32ef3f84ad47f2e92fe",
-        "source/game_sa/Entity/Ped/Ped.cpp": "ffbd84d92ddba5020c9836411b69ddab9c5354eaabaa992f996eb46df2a224f3",
-        "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175619-725397).",
@@ -117285,7 +117285,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "f9a7d09d950f089da226e753d63a9e1d4665d17332ce81e92a7e73c86938d24f",
+        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
         "passed_path": [
           "covered_functions",
           "CTxdStore::AddTxdSlot"
@@ -117294,16 +117294,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "e439e925994ce51ae63294beb9c3c0116cc3913947c466873bc4a9e387b86323",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
-        "source/game_sa/Core/Pool.h": "f83df423fac811bd829b32df13da90b19a64e9504abad36d9133d76a05284cc9",
+        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
         "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "e685e06c99cf987300b15fef843189e17fe6eac5881a5320b8e27a83620cf7c1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "8785dbea42b37059bfac5da22133332916cd4c60c578ef2b44f267067deb73f0",
-        "source/game_sa/TxdStore.cpp": "ccc71b3089f1e11a0c53cf2d79da50620e0df12c34afe32ef3f84ad47f2e92fe",
-        "source/game_sa/Entity/Ped/Ped.cpp": "ffbd84d92ddba5020c9836411b69ddab9c5354eaabaa992f996eb46df2a224f3",
-        "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175619-725397).",
@@ -117320,7 +117320,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "f9a7d09d950f089da226e753d63a9e1d4665d17332ce81e92a7e73c86938d24f",
+        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
         "passed_path": [
           "covered_functions",
           "CTxdStore::RemoveTxdSlot"
@@ -117329,16 +117329,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "e439e925994ce51ae63294beb9c3c0116cc3913947c466873bc4a9e387b86323",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
-        "source/game_sa/Core/Pool.h": "f83df423fac811bd829b32df13da90b19a64e9504abad36d9133d76a05284cc9",
+        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
         "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "e685e06c99cf987300b15fef843189e17fe6eac5881a5320b8e27a83620cf7c1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "8785dbea42b37059bfac5da22133332916cd4c60c578ef2b44f267067deb73f0",
-        "source/game_sa/TxdStore.cpp": "ccc71b3089f1e11a0c53cf2d79da50620e0df12c34afe32ef3f84ad47f2e92fe",
-        "source/game_sa/Entity/Ped/Ped.cpp": "ffbd84d92ddba5020c9836411b69ddab9c5354eaabaa992f996eb46df2a224f3",
-        "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175619-725397).",
@@ -117355,7 +117355,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "f9a7d09d950f089da226e753d63a9e1d4665d17332ce81e92a7e73c86938d24f",
+        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
         "passed_path": [
           "covered_functions",
           "CPed::operator new-anon"
@@ -117364,16 +117364,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "e439e925994ce51ae63294beb9c3c0116cc3913947c466873bc4a9e387b86323",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
-        "source/game_sa/Core/Pool.h": "f83df423fac811bd829b32df13da90b19a64e9504abad36d9133d76a05284cc9",
+        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
         "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "e685e06c99cf987300b15fef843189e17fe6eac5881a5320b8e27a83620cf7c1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "8785dbea42b37059bfac5da22133332916cd4c60c578ef2b44f267067deb73f0",
-        "source/game_sa/TxdStore.cpp": "ccc71b3089f1e11a0c53cf2d79da50620e0df12c34afe32ef3f84ad47f2e92fe",
-        "source/game_sa/Entity/Ped/Ped.cpp": "ffbd84d92ddba5020c9836411b69ddab9c5354eaabaa992f996eb46df2a224f3",
-        "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175619-725397).",
@@ -117390,7 +117390,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "f9a7d09d950f089da226e753d63a9e1d4665d17332ce81e92a7e73c86938d24f",
+        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
         "passed_path": [
           "covered_functions",
           "CPed::operator new-poolIndexed"
@@ -117399,16 +117399,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "e439e925994ce51ae63294beb9c3c0116cc3913947c466873bc4a9e387b86323",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
-        "source/game_sa/Core/Pool.h": "f83df423fac811bd829b32df13da90b19a64e9504abad36d9133d76a05284cc9",
+        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
         "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "e685e06c99cf987300b15fef843189e17fe6eac5881a5320b8e27a83620cf7c1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "8785dbea42b37059bfac5da22133332916cd4c60c578ef2b44f267067deb73f0",
-        "source/game_sa/TxdStore.cpp": "ccc71b3089f1e11a0c53cf2d79da50620e0df12c34afe32ef3f84ad47f2e92fe",
-        "source/game_sa/Entity/Ped/Ped.cpp": "ffbd84d92ddba5020c9836411b69ddab9c5354eaabaa992f996eb46df2a224f3",
-        "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175619-725397).",
@@ -117425,7 +117425,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "f9a7d09d950f089da226e753d63a9e1d4665d17332ce81e92a7e73c86938d24f",
+        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
         "passed_path": [
           "covered_functions",
           "CPed::operator delete-anon"
@@ -117434,16 +117434,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "e439e925994ce51ae63294beb9c3c0116cc3913947c466873bc4a9e387b86323",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
-        "source/game_sa/Core/Pool.h": "f83df423fac811bd829b32df13da90b19a64e9504abad36d9133d76a05284cc9",
+        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
         "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "e685e06c99cf987300b15fef843189e17fe6eac5881a5320b8e27a83620cf7c1",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "8785dbea42b37059bfac5da22133332916cd4c60c578ef2b44f267067deb73f0",
-        "source/game_sa/TxdStore.cpp": "ccc71b3089f1e11a0c53cf2d79da50620e0df12c34afe32ef3f84ad47f2e92fe",
-        "source/game_sa/Entity/Ped/Ped.cpp": "ffbd84d92ddba5020c9836411b69ddab9c5354eaabaa992f996eb46df2a224f3",
-        "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-175619-725397).",

@@ -61,7 +61,7 @@
   "log_sha256": "42832f444361c8cf03fdb7cce014a049c76c392f7411a40d942631acf65691ee",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ped9\\20261027-053011-669524",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ped9\\20261105-184437-698933",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPedIK::Constructor": true,
@@ -112,16 +112,16 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "4d12a3bd69447f327c87c1fe00282d255818b9411a41092cb5ef0739ca8c831f",
-      "pdb": "cc086617c32d1ab3a44b372997f67aa00e11c62d6157428b0680f6011f8a5390"
+      "asi": "9edbe8b677688732ee82f177b718eb74f0670e7f8c7a1d98c556ca0e87fb39d1",
+      "pdb": "878e51c8a2bc9c5bd3d5c029c83110c2ba1ce846041818c77b6b372e6a02dc7e"
     },
     "sources": {
       "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
       "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-      "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
-      "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
-      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+      "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
+      "source/game_sa/WeaponEffects.h": "564e3b27ba90227a807f0135ac1827de289971630ea78504bda18d774bb22ac9",
+      "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+      "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
@@ -131,7 +131,7 @@
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "2c3fa605204c17431f189a574742e234b838c06eca69d68d81c9b3c52e449510",
+      "LiveComparison.hpp": "0e93be9e5770c506b72707f28dad554d4db05a58c50c8b17aae8c17982b9eba6",
       "build_probe.py": "903d0a9429bf7c5ab23ad5802ef9e1e751625f1f4ca97c4a97014a760601bf33",
       "run_local.py": "bbc3d52810d05b15782926d413d14c12c4a5139fbd1c690ef611f759fac868bc"
     }
