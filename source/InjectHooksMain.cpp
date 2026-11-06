@@ -282,6 +282,7 @@
 #include "TaskComplexClimb.h"
 #include "TaskComplexBeStill.h"
 #include "TaskComplexBeInCouple.h"
+#include "Tasks/TaskCategories.h"
 #include "TaskSimpleDoHandSignal.h"
 #include "TaskSimpleDead.h"
 #include "TaskComplexUsePairedAttractor.h"
@@ -1327,6 +1328,7 @@ void InjectHooksMain() {
         CTaskComplexClimb::InjectHooks();
         CTaskComplexBeStill::InjectHooks();
         CTaskComplexBeInCouple::InjectHooks();
+        CTaskCategories::InjectHooks();
         CTaskComplexUseMobilePhone::InjectHooks();
         CTaskSimpleStandStill::InjectHooks();
         CTaskSimpleCarDrive::InjectHooks();

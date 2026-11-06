@@ -48,6 +48,10 @@ void InjectCommonHooks() {
     RH_ScopedGlobalOverloadedInstall(MakeUpperCase, "in", 0x718710, char* (*)(char*));
     RH_ScopedGlobalInstall(AsciiToGxtChar, 0x718600);
     RH_ScopedGlobalInstall(GxtCharToAscii, 0x69F7E0);
+    RH_ScopedGlobalInstall(GxtCharStrcat, 0x718630);
+    RH_ScopedGlobalInstall(GxtCharStrcpy, 0x718660);
+    RH_ScopedGlobalInstall(GxtCharStrlen, 0x718690);
+    RH_ScopedGlobalInstall(TextCopy, 0x69F910);
     RH_ScopedNamedGlobalInstall(CrtPowThunkCpp, "CrtPowThunk", 0x470000);
     RH_ScopedNamedGlobalInstall(RoundToDecimalsCpp, "RoundToDecimals", 0x50A0A0);
     RH_ScopedNamedGlobalInstall(RoundVectorToDecimalsCpp, "RoundVectorToDecimals", 0x50A120);

@@ -121,6 +121,8 @@ public:
     static eStats GetSkillStatIndex(eWeaponType weaponType);
 
     auto GetCrouchReloadAnimationID() const -> AnimationId;
+    auto GetRLoadA(bool isCrouching) const -> uint16; // 0x73A280
+    auto GetRLoadB(bool isCrouching) const -> uint16; // 0x73A2B0
     auto GetTargetHeadRange() const -> float;
     auto GetWeaponReloadTime() const -> uint32;
     auto GetAnimLoopStart(bool isSet2 = false) const { return isSet2 ? m_fAnimLoop2Start : m_fAnimLoopStart; }

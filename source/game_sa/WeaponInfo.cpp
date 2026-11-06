@@ -39,6 +39,8 @@ void CWeaponInfo::InjectHooks() {
     RH_ScopedInstall(GetSkillStatIndex, 0x743CD0);
     RH_ScopedInstall(FindWeaponType, 0x743D10);
     RH_ScopedInstall(GetCrouchReloadAnimationID, 0x685700);
+    RH_ScopedInstall(GetRLoadA, 0x73A280);
+    RH_ScopedInstall(GetRLoadB, 0x73A2B0);
     RH_ScopedInstall(GetTargetHeadRange, 0x743D50);
     RH_ScopedInstall(GetWeaponReloadTime, 0x743D70);
 }
@@ -476,6 +478,18 @@ eWeaponType CWeaponInfo::FindWeaponType(const char* type) {
         }
     }
     return eWeaponType::WEAPON_UNARMED; // Como el original: 0 si no se encuentra
+}
+
+// 0x73A280: retardo A del sonido de recarga (palabra sin signo) de la tabla de desplazamientos de apuntado del arma; agachado o de pie segun el byte bajo del argumento.
+uint16 CWeaponInfo::GetRLoadA(bool isCrouching) const {
+    const auto& offset = GetAimingOffset();
+    return static_cast<uint16>(isCrouching ? offset.CrouchRLoadA : offset.RLoadA);
+}
+
+// 0x73A2B0: igual que GetRLoadA con el retardo B.
+uint16 CWeaponInfo::GetRLoadB(bool isCrouching) const {
+    const auto& offset = GetAimingOffset();
+    return static_cast<uint16>(isCrouching ? offset.CrouchRLoadB : offset.RLoadB);
 }
 
 // 0x685700

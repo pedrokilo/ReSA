@@ -2268,3 +2268,9 @@ double __cdecl RoundToDecimalsCpp(float value, int digits);
 // Lote 107A (Fn107A).
 // Redondea x, y y z de un vector con RoundToDecimalsCpp (0x50A120); cada resultado se guarda como float.
 void __cdecl RoundVectorToDecimalsCpp(float* v, int digits);
+
+// Lote 111A (Fn111A).
+// CTaskComplexBeInCouple::GetSideOfPartner (0x683840): lado del companero respecto del vector "derecha" de su matriz. Los punteros apuntan a x, y, z consecutivos.
+// Producto escalar del peaton sumado como (y + z) + x, mas el del companero negado, todo sin redondear fuera de la x87; devuelve 2 si el resultado NO es mayor o igual que cero
+// (menor que cero o NaN: la comparacion del EXE es `fcomp` + `test ah,1`) y 1 en otro caso.
+int __cdecl PartnerSideCpp(const float* right, const float* partnerPos, const float* pedPos);

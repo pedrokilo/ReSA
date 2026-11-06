@@ -26,6 +26,8 @@ END GENERATED HOOK STATUS */
 #include "SimpleVariablesSaveStructure.h"
 #include "GxtChar.h"
 
+static char* GxtCharToSafeAscii(const GxtChar* src);
+
 void C_PcSave::InjectHooks() {
     RH_ScopedClass(C_PcSave);
     RH_ScopedCategoryGlobal();
@@ -35,6 +37,7 @@ void C_PcSave::InjectHooks() {
     RH_ScopedInstall(PopulateSlotInfo, 0x619140);
     RH_ScopedInstall(SaveSlot, 0x619060);
     RH_ScopedInstall(DeleteSlot, 0x6190D0);
+    RH_ScopedGlobalInstall(GxtCharToSafeAscii, 0x69F8C0);
 }
 
 // 0x619040

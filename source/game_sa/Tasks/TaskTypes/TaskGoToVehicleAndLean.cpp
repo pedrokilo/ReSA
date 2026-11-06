@@ -31,6 +31,7 @@ void CTaskGoToVehicleAndLean::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x660E60);
     RH_ScopedInstall(Destructor, 0x660EE0);
+    RH_ScopedInstall(DoTidyUp, 0x660F60);
     RH_ScopedVMTInstall(Clone, 0x6621B0);
     RH_ScopedVMTInstall(MakeAbortable, 0x664500);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x664590);

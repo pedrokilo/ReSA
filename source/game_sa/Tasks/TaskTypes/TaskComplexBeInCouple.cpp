@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "TaskComplexBeInCouple.h"
+#include "X87Math.h"
 #include "TaskComplexWanderStandard.h"
 #include "TaskComplexWalkAlongsidePed.h"
 #include "TaskComplexWaitForPed.h"
@@ -32,6 +33,7 @@ void CTaskComplexBeInCouple::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x683780);
 
     RH_ScopedInstall(AbortArmIK, 0x6837F0);
+    RH_ScopedInstall(GetSideOfPartner, 0x683840);
 
     RH_ScopedVMTInstall(Clone, 0x6839C0);
     RH_ScopedVMTInstall(GetTaskType, 0x683770);
@@ -101,14 +103,10 @@ bool CTaskComplexBeInCouple::MakeAbortable(CPed* ped, eAbortPriority priority, c
 
 // 0x683840
 int32 CTaskComplexBeInCouple::GetSideOfPartner(CPed* ped) const {
-    // Como el original: el vector "derecha" de la matriz de la pareja (sin guarda de nulo) y los productos escalares
-    // sumados como (y + z) + x; el segundo se le suma al primero negado
-    const CVector right = m_partner->m_matrix->GetRight();
-    const CVector& partnerPos = m_partner->GetPosition();
-    const float partnerDot = -((right.y * partnerPos.y + right.z * partnerPos.z) + right.x * partnerPos.x);
-    const CVector& pedPos = ped->GetPosition();
-    const float pedDot = (right.y * pedPos.y + right.z * pedPos.z) + right.x * pedPos.x;
-    return (pedDot + partnerDot) < 0.0f ? 2 : 1;
+    // Como el original: el vector "derecha" de la matriz de la pareja (sin guarda de nulo); los productos escalares se suman como (y + z) + x en la x87
+    // (24 bits de mantisa, sin guardar entre medias) y el segundo se le suma al primero negado; un resultado NaN da 2 (`fcomp` + `test ah,1`).
+    const auto& right = m_partner->m_matrix->GetRight();
+    return PartnerSideCpp(&right.x, &m_partner->GetPosition().x, &ped->GetPosition().x);
 }
 
 // 0x684840

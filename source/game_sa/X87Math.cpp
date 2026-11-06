@@ -18633,3 +18633,11 @@ __declspec(noinline) void __cdecl RoundVectorToDecimalsCpp(float* v, int digits)
     }
 }
 #pragma float_control(pop)
+
+// Lote 111A (Fn111A).
+#pragma float_control(precise, on, push)
+__declspec(noinline) int __cdecl PartnerSideCpp(const float* right, const float* partnerPos, const float* pedPos) {
+    const float rx = right[0], ry = right[1], rz = right[2];
+    return !((((ry * pedPos[1] + rz * pedPos[2]) + rx * pedPos[0]) + -((ry * partnerPos[1] + rz * partnerPos[2]) + rx * partnerPos[0])) >= 0.0f) ? 2 : 1;
+}
+#pragma float_control(pop)

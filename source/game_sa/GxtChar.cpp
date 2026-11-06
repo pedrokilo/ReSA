@@ -96,6 +96,7 @@ GxtChar* GxtCharStrcat(GxtChar* dst, const GxtChar* src) {
     return dst;
 }
 
+// 0x718690
 uint32 GxtCharStrlen(const GxtChar* str) {
     uint32 len = 0;
     while (str[len]) {

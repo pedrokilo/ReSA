@@ -54,6 +54,10 @@ END GENERATED HOOK STATUS */
 #include "EventLeaderExitedCarAsDriver.h"
 #include "PedGroups.h"
 
+namespace {
+void IsDoorInUse(const CVehicle* vehicle, int32 door, bool& gettingIn, bool& gettingOut);
+}
+
 void CTaskComplexLeaveCar::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexLeaveCar, 0x86E828, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
@@ -65,6 +69,7 @@ void CTaskComplexLeaveCar::InjectHooks() {
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x641FC0);
     RH_ScopedVMTInstall(ControlSubTask, 0x6421B0);
     RH_ScopedInstall(CreateSubTask, 0x641530);
+    RH_ScopedGlobalInstall(IsDoorInUse, 0x646CF0);
 }
 
 // NOTSA: el EXE no tiene un constructor de tres argumentos de esta clase; 0x62F1A0 es el de CTaskComplexLeaveCarAndDie (vtable 0x86DD00)

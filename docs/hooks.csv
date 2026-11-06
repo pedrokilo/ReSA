@@ -9211,3 +9211,16 @@ CMBlur,SetDrunkBlur,0x0071D730,1,0,1,S
 CMBlur,ClearDrunkBlur,0x0071D780,1,0,1,S
 CRubbish,SetVisibility,0x007204C0,1,0,1,S
 CPlaneBanners,Init,0x00717820,1,0,1,S
+Common,GxtCharStrcat,0x00718630,1,0,1,S
+Common,GxtCharStrcpy,0x00718660,1,0,1,S
+Common,GxtCharStrlen,0x00718690,1,0,1,S
+Common,TextCopy,0x0069F910,1,0,1,S
+C_PcSave,GxtCharToSafeAscii,0x0069F8C0,1,0,1,S
+CTaskCategories,ComputeTaskCategory,0x00698680,1,0,1,S
+CTaskCategories,IsKillPedTask,0x006985E0,1,0,1,S
+CTaskCategories,IsFollowPedTask,0x00698610,1,0,1,S
+CTaskGoToVehicleAndLean,DoTidyUp,0x00660F60,1,0,1,S
+CTaskComplexLeaveCar,IsDoorInUse,0x00646CF0,1,0,1,S
+CTaskComplexBeInCouple,GetSideOfPartner,0x00683840,1,0,1,S
+CWeaponInfo,GetRLoadA,0x0073A280,1,0,1,S
+CWeaponInfo,GetRLoadB,0x0073A2B0,1,0,1,S
