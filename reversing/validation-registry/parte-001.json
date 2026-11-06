@@ -18311,7 +18311,7 @@
       },
       "evidence": {
         "path": "reversing/Misc56/validation-summary.json",
-        "sha256": "28176d24fb6842ef0c177c8d1c4111e7e38a349f634a0e7dc3581404a9caa417",
+        "sha256": "92c797b9628187ec9dd99cd54d8899af0542cb569ee50df369a8d1a357fca211",
         "passed_path": [
           "covered_functions",
           "CEntitySeekPosCalculatorFixedPos::ComputeEntitySeekPos"
@@ -18322,15 +18322,15 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h": "161664f770b336fe2e46a2f5147c6729ce1a8d1bfcf5db0d5fc951d0c169d66f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp": "27e6079e8cbddc7bee3cb6b20dedbdddd6654dae5749d00dcaf80c4ec33f7ffa",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "9e145b7330535ea2e2c4eea4edc95322f8dcffe8305464964b2446a5032a6129",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "316b6de6a29f599e8af99955a98f2f3b9443cfad33dc35f32a08cd9a476c4a4f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp": "3f6ac336b33b83b38e68200850dc3c15118dba77c1929c4eeecabdb517d98999",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "0dac42bfc4ac61cea1dcbbd98cd7cd590063c3c98de37465c69a42e035dac47a",
         "source/game_sa/Attractors/PedAttractorPedPlacer.cpp": "258ea1c4dadc021abbcf7d0c41330d3a3f295d9d992e665998b25e0c2b9674e9",
         "source/game_sa/RegisteredCorona.cpp": "48815a1942ffe707199fba6e3230ba908703eb3955b19b59a14a8ed3841d6546",
-        "source/game_sa/Checkpoint.cpp": "b0a4664bbde0df334ed183d68106ee3db72df6f2785661109511d9ce8a1aa04d",
+        "source/game_sa/Checkpoint.cpp": "1849b0ab02bb993f4b5bed6956ffaf76b645bfe4d04b926b284e64adcaf336f9",
         "source/game_sa/Debug.cpp": "78337ba95092d00ac82d8778572b34a7bcf634a683f84b16a7c9e22ae3ec2a61",
         "source/game_sa/Audio/Loaders/AETrackLoader.cpp": "ef6569bfb6f013399a72114c44851e8d375c037ddfb145f27aae6fffc4c0ea5d",
-        "source/game_sa/RenderWare/rw/rtanim.cpp": "595ee1d2775e6975c5ff88d8125a012f2b8d91f815df3038bc0c16b272ed4fa2"
+        "source/game_sa/RenderWare/rw/rtanim.cpp": "0ab7f490a6f05f40821023eda07961d0c1025d0736e940d453514855d06318be"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-123228-809292).",
       "dependency_review": null,
@@ -18346,7 +18346,7 @@
       },
       "evidence": {
         "path": "reversing/Misc56/validation-summary.json",
-        "sha256": "28176d24fb6842ef0c177c8d1c4111e7e38a349f634a0e7dc3581404a9caa417",
+        "sha256": "92c797b9628187ec9dd99cd54d8899af0542cb569ee50df369a8d1a357fca211",
         "passed_path": [
           "covered_functions",
           "CEntitySeekPosCalculatorRadiusAngleOffset::ComputeEntitySeekPos"
@@ -18357,15 +18357,15 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h": "161664f770b336fe2e46a2f5147c6729ce1a8d1bfcf5db0d5fc951d0c169d66f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp": "27e6079e8cbddc7bee3cb6b20dedbdddd6654dae5749d00dcaf80c4ec33f7ffa",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "9e145b7330535ea2e2c4eea4edc95322f8dcffe8305464964b2446a5032a6129",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "316b6de6a29f599e8af99955a98f2f3b9443cfad33dc35f32a08cd9a476c4a4f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp": "3f6ac336b33b83b38e68200850dc3c15118dba77c1929c4eeecabdb517d98999",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "0dac42bfc4ac61cea1dcbbd98cd7cd590063c3c98de37465c69a42e035dac47a",
         "source/game_sa/Attractors/PedAttractorPedPlacer.cpp": "258ea1c4dadc021abbcf7d0c41330d3a3f295d9d992e665998b25e0c2b9674e9",
         "source/game_sa/RegisteredCorona.cpp": "48815a1942ffe707199fba6e3230ba908703eb3955b19b59a14a8ed3841d6546",
-        "source/game_sa/Checkpoint.cpp": "b0a4664bbde0df334ed183d68106ee3db72df6f2785661109511d9ce8a1aa04d",
+        "source/game_sa/Checkpoint.cpp": "1849b0ab02bb993f4b5bed6956ffaf76b645bfe4d04b926b284e64adcaf336f9",
         "source/game_sa/Debug.cpp": "78337ba95092d00ac82d8778572b34a7bcf634a683f84b16a7c9e22ae3ec2a61",
         "source/game_sa/Audio/Loaders/AETrackLoader.cpp": "ef6569bfb6f013399a72114c44851e8d375c037ddfb145f27aae6fffc4c0ea5d",
-        "source/game_sa/RenderWare/rw/rtanim.cpp": "595ee1d2775e6975c5ff88d8125a012f2b8d91f815df3038bc0c16b272ed4fa2"
+        "source/game_sa/RenderWare/rw/rtanim.cpp": "0ab7f490a6f05f40821023eda07961d0c1025d0736e940d453514855d06318be"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-123228-809292).",
       "dependency_review": null,
@@ -18381,7 +18381,7 @@
       },
       "evidence": {
         "path": "reversing/Misc56/validation-summary.json",
-        "sha256": "28176d24fb6842ef0c177c8d1c4111e7e38a349f634a0e7dc3581404a9caa417",
+        "sha256": "92c797b9628187ec9dd99cd54d8899af0542cb569ee50df369a8d1a357fca211",
         "passed_path": [
           "covered_functions",
           "CEntitySeekPosCalculatorStandard::ComputeEntitySeekPos"
@@ -18392,15 +18392,15 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h": "161664f770b336fe2e46a2f5147c6729ce1a8d1bfcf5db0d5fc951d0c169d66f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp": "27e6079e8cbddc7bee3cb6b20dedbdddd6654dae5749d00dcaf80c4ec33f7ffa",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "9e145b7330535ea2e2c4eea4edc95322f8dcffe8305464964b2446a5032a6129",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "316b6de6a29f599e8af99955a98f2f3b9443cfad33dc35f32a08cd9a476c4a4f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp": "3f6ac336b33b83b38e68200850dc3c15118dba77c1929c4eeecabdb517d98999",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "0dac42bfc4ac61cea1dcbbd98cd7cd590063c3c98de37465c69a42e035dac47a",
         "source/game_sa/Attractors/PedAttractorPedPlacer.cpp": "258ea1c4dadc021abbcf7d0c41330d3a3f295d9d992e665998b25e0c2b9674e9",
         "source/game_sa/RegisteredCorona.cpp": "48815a1942ffe707199fba6e3230ba908703eb3955b19b59a14a8ed3841d6546",
-        "source/game_sa/Checkpoint.cpp": "b0a4664bbde0df334ed183d68106ee3db72df6f2785661109511d9ce8a1aa04d",
+        "source/game_sa/Checkpoint.cpp": "1849b0ab02bb993f4b5bed6956ffaf76b645bfe4d04b926b284e64adcaf336f9",
         "source/game_sa/Debug.cpp": "78337ba95092d00ac82d8778572b34a7bcf634a683f84b16a7c9e22ae3ec2a61",
         "source/game_sa/Audio/Loaders/AETrackLoader.cpp": "ef6569bfb6f013399a72114c44851e8d375c037ddfb145f27aae6fffc4c0ea5d",
-        "source/game_sa/RenderWare/rw/rtanim.cpp": "595ee1d2775e6975c5ff88d8125a012f2b8d91f815df3038bc0c16b272ed4fa2"
+        "source/game_sa/RenderWare/rw/rtanim.cpp": "0ab7f490a6f05f40821023eda07961d0c1025d0736e940d453514855d06318be"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-123228-809292).",
       "dependency_review": null,
@@ -18416,7 +18416,7 @@
       },
       "evidence": {
         "path": "reversing/Misc56/validation-summary.json",
-        "sha256": "28176d24fb6842ef0c177c8d1c4111e7e38a349f634a0e7dc3581404a9caa417",
+        "sha256": "92c797b9628187ec9dd99cd54d8899af0542cb569ee50df369a8d1a357fca211",
         "passed_path": [
           "covered_functions",
           "CEntitySeekPosCalculatorXYOffset::ComputeEntitySeekPos"
@@ -18427,15 +18427,15 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h": "161664f770b336fe2e46a2f5147c6729ce1a8d1bfcf5db0d5fc951d0c169d66f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp": "27e6079e8cbddc7bee3cb6b20dedbdddd6654dae5749d00dcaf80c4ec33f7ffa",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "9e145b7330535ea2e2c4eea4edc95322f8dcffe8305464964b2446a5032a6129",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "316b6de6a29f599e8af99955a98f2f3b9443cfad33dc35f32a08cd9a476c4a4f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp": "3f6ac336b33b83b38e68200850dc3c15118dba77c1929c4eeecabdb517d98999",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "0dac42bfc4ac61cea1dcbbd98cd7cd590063c3c98de37465c69a42e035dac47a",
         "source/game_sa/Attractors/PedAttractorPedPlacer.cpp": "258ea1c4dadc021abbcf7d0c41330d3a3f295d9d992e665998b25e0c2b9674e9",
         "source/game_sa/RegisteredCorona.cpp": "48815a1942ffe707199fba6e3230ba908703eb3955b19b59a14a8ed3841d6546",
-        "source/game_sa/Checkpoint.cpp": "b0a4664bbde0df334ed183d68106ee3db72df6f2785661109511d9ce8a1aa04d",
+        "source/game_sa/Checkpoint.cpp": "1849b0ab02bb993f4b5bed6956ffaf76b645bfe4d04b926b284e64adcaf336f9",
         "source/game_sa/Debug.cpp": "78337ba95092d00ac82d8778572b34a7bcf634a683f84b16a7c9e22ae3ec2a61",
         "source/game_sa/Audio/Loaders/AETrackLoader.cpp": "ef6569bfb6f013399a72114c44851e8d375c037ddfb145f27aae6fffc4c0ea5d",
-        "source/game_sa/RenderWare/rw/rtanim.cpp": "595ee1d2775e6975c5ff88d8125a012f2b8d91f815df3038bc0c16b272ed4fa2"
+        "source/game_sa/RenderWare/rw/rtanim.cpp": "0ab7f490a6f05f40821023eda07961d0c1025d0736e940d453514855d06318be"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-123228-809292).",
       "dependency_review": null,
@@ -18451,7 +18451,7 @@
       },
       "evidence": {
         "path": "reversing/Misc56/validation-summary.json",
-        "sha256": "28176d24fb6842ef0c177c8d1c4111e7e38a349f634a0e7dc3581404a9caa417",
+        "sha256": "92c797b9628187ec9dd99cd54d8899af0542cb569ee50df369a8d1a357fca211",
         "passed_path": [
           "covered_functions",
           "CPedAttractorPedPlacer::PlacePedAtEffect"
@@ -18462,15 +18462,15 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h": "161664f770b336fe2e46a2f5147c6729ce1a8d1bfcf5db0d5fc951d0c169d66f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp": "27e6079e8cbddc7bee3cb6b20dedbdddd6654dae5749d00dcaf80c4ec33f7ffa",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "9e145b7330535ea2e2c4eea4edc95322f8dcffe8305464964b2446a5032a6129",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "316b6de6a29f599e8af99955a98f2f3b9443cfad33dc35f32a08cd9a476c4a4f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp": "3f6ac336b33b83b38e68200850dc3c15118dba77c1929c4eeecabdb517d98999",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "0dac42bfc4ac61cea1dcbbd98cd7cd590063c3c98de37465c69a42e035dac47a",
         "source/game_sa/Attractors/PedAttractorPedPlacer.cpp": "258ea1c4dadc021abbcf7d0c41330d3a3f295d9d992e665998b25e0c2b9674e9",
         "source/game_sa/RegisteredCorona.cpp": "48815a1942ffe707199fba6e3230ba908703eb3955b19b59a14a8ed3841d6546",
-        "source/game_sa/Checkpoint.cpp": "b0a4664bbde0df334ed183d68106ee3db72df6f2785661109511d9ce8a1aa04d",
+        "source/game_sa/Checkpoint.cpp": "1849b0ab02bb993f4b5bed6956ffaf76b645bfe4d04b926b284e64adcaf336f9",
         "source/game_sa/Debug.cpp": "78337ba95092d00ac82d8778572b34a7bcf634a683f84b16a7c9e22ae3ec2a61",
         "source/game_sa/Audio/Loaders/AETrackLoader.cpp": "ef6569bfb6f013399a72114c44851e8d375c037ddfb145f27aae6fffc4c0ea5d",
-        "source/game_sa/RenderWare/rw/rtanim.cpp": "595ee1d2775e6975c5ff88d8125a012f2b8d91f815df3038bc0c16b272ed4fa2"
+        "source/game_sa/RenderWare/rw/rtanim.cpp": "0ab7f490a6f05f40821023eda07961d0c1025d0736e940d453514855d06318be"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-123228-809292).",
       "dependency_review": null,
@@ -18486,7 +18486,7 @@
       },
       "evidence": {
         "path": "reversing/Misc56/validation-summary.json",
-        "sha256": "28176d24fb6842ef0c177c8d1c4111e7e38a349f634a0e7dc3581404a9caa417",
+        "sha256": "92c797b9628187ec9dd99cd54d8899af0542cb569ee50df369a8d1a357fca211",
         "passed_path": [
           "covered_functions",
           "CRegisteredCorona::Update"
@@ -18497,15 +18497,15 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h": "161664f770b336fe2e46a2f5147c6729ce1a8d1bfcf5db0d5fc951d0c169d66f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp": "27e6079e8cbddc7bee3cb6b20dedbdddd6654dae5749d00dcaf80c4ec33f7ffa",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "9e145b7330535ea2e2c4eea4edc95322f8dcffe8305464964b2446a5032a6129",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "316b6de6a29f599e8af99955a98f2f3b9443cfad33dc35f32a08cd9a476c4a4f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp": "3f6ac336b33b83b38e68200850dc3c15118dba77c1929c4eeecabdb517d98999",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "0dac42bfc4ac61cea1dcbbd98cd7cd590063c3c98de37465c69a42e035dac47a",
         "source/game_sa/Attractors/PedAttractorPedPlacer.cpp": "258ea1c4dadc021abbcf7d0c41330d3a3f295d9d992e665998b25e0c2b9674e9",
         "source/game_sa/RegisteredCorona.cpp": "48815a1942ffe707199fba6e3230ba908703eb3955b19b59a14a8ed3841d6546",
-        "source/game_sa/Checkpoint.cpp": "b0a4664bbde0df334ed183d68106ee3db72df6f2785661109511d9ce8a1aa04d",
+        "source/game_sa/Checkpoint.cpp": "1849b0ab02bb993f4b5bed6956ffaf76b645bfe4d04b926b284e64adcaf336f9",
         "source/game_sa/Debug.cpp": "78337ba95092d00ac82d8778572b34a7bcf634a683f84b16a7c9e22ae3ec2a61",
         "source/game_sa/Audio/Loaders/AETrackLoader.cpp": "ef6569bfb6f013399a72114c44851e8d375c037ddfb145f27aae6fffc4c0ea5d",
-        "source/game_sa/RenderWare/rw/rtanim.cpp": "595ee1d2775e6975c5ff88d8125a012f2b8d91f815df3038bc0c16b272ed4fa2"
+        "source/game_sa/RenderWare/rw/rtanim.cpp": "0ab7f490a6f05f40821023eda07961d0c1025d0736e940d453514855d06318be"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-123228-809292).",
       "dependency_review": null,
@@ -18521,7 +18521,7 @@
       },
       "evidence": {
         "path": "reversing/Misc56/validation-summary.json",
-        "sha256": "28176d24fb6842ef0c177c8d1c4111e7e38a349f634a0e7dc3581404a9caa417",
+        "sha256": "92c797b9628187ec9dd99cd54d8899af0542cb569ee50df369a8d1a357fca211",
         "passed_path": [
           "covered_functions",
           "CDebug::DebugDisplayTextBuffer"
@@ -18532,15 +18532,15 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h": "161664f770b336fe2e46a2f5147c6729ce1a8d1bfcf5db0d5fc951d0c169d66f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp": "27e6079e8cbddc7bee3cb6b20dedbdddd6654dae5749d00dcaf80c4ec33f7ffa",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "9e145b7330535ea2e2c4eea4edc95322f8dcffe8305464964b2446a5032a6129",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "316b6de6a29f599e8af99955a98f2f3b9443cfad33dc35f32a08cd9a476c4a4f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp": "3f6ac336b33b83b38e68200850dc3c15118dba77c1929c4eeecabdb517d98999",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "0dac42bfc4ac61cea1dcbbd98cd7cd590063c3c98de37465c69a42e035dac47a",
         "source/game_sa/Attractors/PedAttractorPedPlacer.cpp": "258ea1c4dadc021abbcf7d0c41330d3a3f295d9d992e665998b25e0c2b9674e9",
         "source/game_sa/RegisteredCorona.cpp": "48815a1942ffe707199fba6e3230ba908703eb3955b19b59a14a8ed3841d6546",
-        "source/game_sa/Checkpoint.cpp": "b0a4664bbde0df334ed183d68106ee3db72df6f2785661109511d9ce8a1aa04d",
+        "source/game_sa/Checkpoint.cpp": "1849b0ab02bb993f4b5bed6956ffaf76b645bfe4d04b926b284e64adcaf336f9",
         "source/game_sa/Debug.cpp": "78337ba95092d00ac82d8778572b34a7bcf634a683f84b16a7c9e22ae3ec2a61",
         "source/game_sa/Audio/Loaders/AETrackLoader.cpp": "ef6569bfb6f013399a72114c44851e8d375c037ddfb145f27aae6fffc4c0ea5d",
-        "source/game_sa/RenderWare/rw/rtanim.cpp": "595ee1d2775e6975c5ff88d8125a012f2b8d91f815df3038bc0c16b272ed4fa2"
+        "source/game_sa/RenderWare/rw/rtanim.cpp": "0ab7f490a6f05f40821023eda07961d0c1025d0736e940d453514855d06318be"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-123228-809292).",
       "dependency_review": null,
@@ -18556,7 +18556,7 @@
       },
       "evidence": {
         "path": "reversing/Misc56/validation-summary.json",
-        "sha256": "28176d24fb6842ef0c177c8d1c4111e7e38a349f634a0e7dc3581404a9caa417",
+        "sha256": "92c797b9628187ec9dd99cd54d8899af0542cb569ee50df369a8d1a357fca211",
         "passed_path": [
           "covered_functions",
           "CAETrackLoader::GetDataStream"
@@ -18567,15 +18567,15 @@
       "tested_sources": {
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h": "161664f770b336fe2e46a2f5147c6729ce1a8d1bfcf5db0d5fc951d0c169d66f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp": "27e6079e8cbddc7bee3cb6b20dedbdddd6654dae5749d00dcaf80c4ec33f7ffa",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "9e145b7330535ea2e2c4eea4edc95322f8dcffe8305464964b2446a5032a6129",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "316b6de6a29f599e8af99955a98f2f3b9443cfad33dc35f32a08cd9a476c4a4f",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp": "3f6ac336b33b83b38e68200850dc3c15118dba77c1929c4eeecabdb517d98999",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "0dac42bfc4ac61cea1dcbbd98cd7cd590063c3c98de37465c69a42e035dac47a",
         "source/game_sa/Attractors/PedAttractorPedPlacer.cpp": "258ea1c4dadc021abbcf7d0c41330d3a3f295d9d992e665998b25e0c2b9674e9",
         "source/game_sa/RegisteredCorona.cpp": "48815a1942ffe707199fba6e3230ba908703eb3955b19b59a14a8ed3841d6546",
-        "source/game_sa/Checkpoint.cpp": "b0a4664bbde0df334ed183d68106ee3db72df6f2785661109511d9ce8a1aa04d",
+        "source/game_sa/Checkpoint.cpp": "1849b0ab02bb993f4b5bed6956ffaf76b645bfe4d04b926b284e64adcaf336f9",
         "source/game_sa/Debug.cpp": "78337ba95092d00ac82d8778572b34a7bcf634a683f84b16a7c9e22ae3ec2a61",
         "source/game_sa/Audio/Loaders/AETrackLoader.cpp": "ef6569bfb6f013399a72114c44851e8d375c037ddfb145f27aae6fffc4c0ea5d",
-        "source/game_sa/RenderWare/rw/rtanim.cpp": "595ee1d2775e6975c5ff88d8125a012f2b8d91f815df3038bc0c16b272ed4fa2"
+        "source/game_sa/RenderWare/rw/rtanim.cpp": "0ab7f490a6f05f40821023eda07961d0c1025d0736e940d453514855d06318be"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-123228-809292).",
       "dependency_review": null,

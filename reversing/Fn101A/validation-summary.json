@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "pairs": 163840,
+  "differences": 0,
+  "registered_pairs": 163840,
+  "registered_functions": 10,
+  "functions": {
+    "CMatrix::SetRotateX": 16384,
+    "CMatrix::SetRotateY": 16384,
+    "CMatrix::SetRotateZ": 16384,
+    "CMatrix::RotateX": 16384,
+    "CMatrix::RotateY": 16384,
+    "CMatrix::RotateZ": 16384,
+    "CMatrix::Reorthogonalise": 16384,
+    "CMatrix::CopyToRwMatrix": 16384,
+    "Invert(in)": 16384,
+    "CVector::FromMultiply": 16384
+  },
+  "covered_functions": {
+    "CMatrix::SetRotateX": true,
+    "CMatrix::SetRotateY": true,
+    "CMatrix::SetRotateZ": true,
+    "CMatrix::RotateX": true,
+    "CMatrix::RotateY": true,
+    "CMatrix::RotateZ": true,
+    "CMatrix::Reorthogonalise": true,
+    "CMatrix::CopyToRwMatrix": true,
+    "Invert(in)": true,
+    "CVector::FromMultiply": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Siete funciones sin colaboradores (SetRotateX/Y/Z, RotateX/Y/Z, Reorthogonalise y CVector::FromMultiply) con toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos/fsqrt) corriendo de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto); CopyToRwMatrix e Invert(in) con falsos identicos en ambos lados para RwMatrixUpdate 0x7F18A0, Invert(in, out) 0x59B920 (hook RH) y RwMatrixDestroy 0x7F2A20. Ventana de memoria con solapamientos. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62, excepciones x87 desenmascaradas, y las palabras de relleno que Invert(in, out) real no escribe (el EXE copia basura de la pila).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn101A-20261105-181028-946135",
+  "summary_sha256": "89d848a90bbf57c50ec686c728ce0681342bb9812c5e5265d1094dcef22be583",
+  "result_txt_sha256": "e5d867ec666569b20a44869bc235e8a559a06ecdfb95a66b818bcf68d3526bb3",
+  "log_sha256": "03fa12efc351c9f15deb1f44deff8514560367d3b444c57bd6c3af436cede19a",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "fe76e851756ac4e1d92f4867b32e8212d35d4707b1011bdcb735a2d622ba56ff",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "1de6f1ad815d5c208cdb5338dc5804db032698af06c31e864d5157e5095d6e05",
+      "source/game_sa/Core/Vector.cpp": "c8822392c8a8ac640494bad0922b3d8758788725f042bdc64ca15e4a0921c11c",
+      "source/game_sa/Core/Vector.h": "4f25f638c9464c4dd4ee07c001184a8231393f189efcfcc5a0ba4064844c68fc",
+      "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+      "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+      "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+      "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn101A/LiveComparison.hpp": "c92f98e550ea53ffd576712c6e50f82b066873ba3129fff8230280f15f101408",
+      "reversing/Fn101A/Core.hpp": "bd488c1d0e7baad798b7fc3c894e6b5b49c7606c93de484ad4e7cd70bf31ee23",
+      "reversing/Fn101A/Fixtures.hpp": "de4b980eaff79e8e3e3e83991d68dbcb16eaaef5945533ce81d17a131b9cb50d",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

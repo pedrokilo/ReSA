@@ -2246,3 +2246,9 @@ float* __cdecl MatrixInvertExeCpp(const float* in, float* out);
 float* __cdecl MatrixMultiplyExeCpp(float* out, const float* a, const float* b);
 // CWaterLevel lerp de CRenPar (0x6E5280): (1 - t) * a + t * b por componente con 1 - t sin guardar como float (z, bigWaves, smallWaves consecutivos).
 void __cdecl WaterLerpRenParCpp(const float* a, const float* b, float t, float* out);
+
+// Lote 101A. CMatrix::RotateX/Y/Z (0x59B1E0, 0x59B2C0, 0x59B390) y CMatrix::Reorthogonalise (0x59B6A0) con las secuencias x87 del EXE (operandos de registro y de memoria como el EXE, escrituras al final).
+void __cdecl MatrixRotateX101Cpp(float* m, float angle);
+void __cdecl MatrixRotateY101Cpp(float* m, float angle);
+void __cdecl MatrixRotateZ101Cpp(float* m, float angle);
+void __cdecl MatrixReorthogonalise101Cpp(float* m);

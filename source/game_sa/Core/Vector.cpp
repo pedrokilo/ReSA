@@ -48,7 +48,7 @@ void CVector::InjectHooks()
     RH_ScopedInstall(Cross_OG, 0x70F890);
     RH_ScopedInstall(Sum, 0x40FDD0);
     // Difference (0x40FE00) se instala por separado en InjectHooksExactOperators (lote 99A)
-    RH_ScopedInstall(FromMultiply, 0x59C670);
+    // FromMultiply (0x59C670) se instala por separado en InjectHooksExactOperators (lote 101A)
     RH_ScopedInstall(FromMultiply3x3, 0x59C6D0);
     // CrossProduct (0x59C730), DotProduct (0x40FDB0), operator+= (0x411A00) y operator*=(float) (0x40FEF0) se instalan por separado en InjectHooksExactOperators
 }
@@ -78,6 +78,7 @@ void CVector::InjectHooksExactOperators()
     RH_ScopedGlobalInstall(Multiply3x3Exe, 0x59C790);
     RH_ScopedGlobalInstall(Multiply3x3VMExe, 0x59C810);
     RH_ScopedInstall(Difference, 0x40FE00);
+    RH_ScopedInstall(FromMultiply, 0x59C670);
     RH_ScopedGlobalInstall(VectorAdd, 0x40FE30);
     RH_ScopedGlobalInstall(VectorSubtract, 0x40FE60);
     RH_ScopedGlobalInstall(FloatTimesVector, 0x40FE90);
@@ -242,9 +243,35 @@ void CVector::operator /= (float divisor)
     z /= divisor;
 }
 
+// 0x59C670 (thiscall, ECX = this = destino, `ret 8`): this = matriz * punto con la x87 del EXE (lote 101A). x = ((up.x*z + fwd.x*y) + right.x*x) + pos.x, y = ((up.y*z + right.y*x) + fwd.y*y) + pos.y,
+// z = ((up.z*z + right.z*x) + fwd.z*y) + pos.z; el primer factor de cada producto va en el registro (fld) y el segundo en memoria (fmul) y la posicion se suma desde memoria (fadd). Cada componente
+// se escribe antes de calcular la siguiente, leyendo la memoria viva: con `this` solapado con el vector o con la matriz (v.FromMultiply(m, v)) las lecturas siguientes ven la escritura anterior.
+#pragma float_control(precise, on, push)
 void CVector::FromMultiply(const CMatrix& matrix, const CVector& vector) {
-    *this = matrix.TransformPoint(vector);
+    const volatile float* const mr = reinterpret_cast<const float*>(&matrix);   // operandos de registro (fld); la matriz son 16 floats: right 0..2, forward 4..6, up 8..10, pos 12..14
+    const float* const m = reinterpret_cast<const float*>(&matrix);
+    const float* const v = &vector.x;
+    volatile float* const out = &x;
+    {
+        const double a1 = mr[8]; const double p1 = a1 * v[2];
+        const double a2 = mr[4]; const double p2 = a2 * v[1];
+        const double a3 = mr[0]; const double p3 = a3 * v[0];
+        out[0] = float(((p1 + p2) + p3) + m[12]);
+    }
+    {
+        const double b1 = mr[9]; const double q1 = b1 * v[2];
+        const double b2 = mr[1]; const double q2 = b2 * v[0];
+        const double b3 = mr[5]; const double q3 = b3 * v[1];
+        out[1] = float(((q1 + q2) + q3) + m[13]);
+    }
+    {
+        const double c1 = mr[10]; const double r1 = c1 * v[2];
+        const double c2 = mr[2]; const double r2 = c2 * v[0];
+        const double c3 = mr[6]; const double r3 = c3 * v[1];
+        out[2] = float(((r1 + r2) + r3) + m[14]);
+    }
 }
+#pragma float_control(pop)
 
 void CVector::FromMultiply3x3(const CMatrix& matrix, const CVector& vector) {
     // Como el original (0x59C6D0): orden de sumas del EXE

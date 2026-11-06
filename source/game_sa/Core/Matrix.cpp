@@ -49,15 +49,9 @@ void CMatrix::InjectHooks()
     // de matrices (0x59BE30) se instalan por InjectHooksLote99A.
     RH_ScopedInstall(SetRotateXOnly, 0x59AFA0);
     RH_ScopedInstall(SetRotateYOnly, 0x59AFE0);
-    RH_ScopedInstall(SetRotateX, 0x59B060);
-    RH_ScopedInstall(SetRotateY, 0x59B0A0);
-    RH_ScopedInstall(SetRotateZ, 0x59B0E0);
-    RH_ScopedInstall(RotateX, 0x59B1E0);
-    RH_ScopedInstall(RotateY, 0x59B2C0);
-    RH_ScopedInstall(RotateZ, 0x59B390);
+    // SetRotateX/Y/Z (0x59B060, 0x59B0A0, 0x59B0E0), RotateX/Y/Z (0x59B1E0, 0x59B2C0, 0x59B390), Reorthogonalise (0x59B6A0), CopyToRwMatrix (0x59B8B0) e Invert(in) (0x59BDD0)
+    // se instalan por CMatrixInjectHooksLote101A (lote 101A, banco Fn101A).
     RH_ScopedInstall(Rotate, 0x59B460);
-    RH_ScopedInstall(Reorthogonalise, 0x59B6A0);
-    RH_ScopedInstall(CopyToRwMatrix, 0x59B8B0);
     RH_ScopedOverloadedInstall(SetRotate, "quat", 0x59BBF0, void(CMatrix::*)(const CQuaternion&));
     RH_ScopedInstall(Scale, 0x459350);
     RH_ScopedInstall(ForceUpVector, 0x59B7E0);
@@ -67,7 +61,6 @@ void CMatrix::InjectHooks()
     RH_ScopedInstall(operator*=, 0x411A80);
     //RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&)); // ver InjectHooksMultiplyVector
     RH_ScopedGlobalOverloadedInstall(operator+, "", 0x59BFA0, CMatrix(*)(const CMatrix&, const CMatrix&));
-    RH_ScopedGlobalOverloadedInstall(Invert, "2", 0x59BDD0, CMatrix(*)(const CMatrix&));
 }
 
 // CMatrix::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); esta es la unica entrada de CMatrix que se instala (0x59C890 ya esta reconstruida con la x87 del EXE).
@@ -126,6 +119,24 @@ void CMatrix::InjectHooksLote99A()
     RH_ScopedOverloadedInstall(SetRotate, "xyz", 0x59B120, void(CMatrix::*)(float, float, float));
     RH_ScopedGlobalOverloadedInstall(Invert, "1", 0x59B920, CMatrix&(*)(CMatrix&, CMatrix&));
     RH_ScopedGlobalInstall(MatrixMultiplyExe, 0x59BE30);
+}
+
+// Lote 101A (banco Fn101A): SetRotateX/Y/Z (0x59B060, 0x59B0A0, 0x59B0E0), RotateX/Y/Z (0x59B1E0, 0x59B2C0, 0x59B390), Reorthogonalise (0x59B6A0), CopyToRwMatrix (0x59B8B0)
+// e Invert(in) (0x59BDD0). Funcion libre (no miembro de CMatrix) para no tocar Matrix.h, que incluyen cientos de archivos; se llama desde InjectHooksMain.cpp junto a las demas listas activas.
+void CMatrixInjectHooksLote101A()
+{
+    RH_ScopedClass(CMatrix);
+    RH_ScopedCategory("Core");
+
+    RH_ScopedInstall(SetRotateX, 0x59B060);
+    RH_ScopedInstall(SetRotateY, 0x59B0A0);
+    RH_ScopedInstall(SetRotateZ, 0x59B0E0);
+    RH_ScopedInstall(RotateX, 0x59B1E0);
+    RH_ScopedInstall(RotateY, 0x59B2C0);
+    RH_ScopedInstall(RotateZ, 0x59B390);
+    RH_ScopedInstall(Reorthogonalise, 0x59B6A0);
+    RH_ScopedInstall(CopyToRwMatrix, 0x59B8B0);
+    RH_ScopedGlobalOverloadedInstall(Invert, "2", 0x59BDD0, CMatrix(*)(const CMatrix&));
 }
 
 CMatrix::CMatrix(const CMatrix& matrix) {
@@ -324,27 +335,27 @@ void CMatrix::SetRotate(float x, float y, float z)
 }
 
 // 0x59B1E0
-// Como el original: MatrixRotateXCpp (X87Math). fcos se queda sin redondear a float, fsin se guarda como float (fstp);
-// los productos se redondean a 24 bits como en el EXE y la posición también se rota.
+// Como el original: MatrixRotateX101Cpp (X87Math, lote 101A). fcos se queda sin redondear a float, fsin se guarda como float (fstp); los productos se redondean a 24 bits
+// con el primer factor en el registro y el segundo como operando de memoria (selección de NaN como el EXE) y la posición también se rota.
 void CMatrix::RotateX(float angle)
 {
-    MatrixRotateXCpp(reinterpret_cast<float*>(this), angle);
+    MatrixRotateX101Cpp(reinterpret_cast<float*>(this), angle);
 }
 
 // 0x59B2C0
-// Como el original: MatrixRotateYCpp (X87Math). fcos se queda sin redondear a float, fsin se guarda como float (fst)
+// Como el original: MatrixRotateY101Cpp (X87Math, lote 101A). fcos se queda sin redondear a float, fsin se guarda como float (fst)
 // pero right.x usa el seno sin redondear; los productos se redondean a 24 bits como en el EXE y la posición también se rota.
 void CMatrix::RotateY(float angle)
 {
-    MatrixRotateYCpp(reinterpret_cast<float*>(this), angle);
+    MatrixRotateY101Cpp(reinterpret_cast<float*>(this), angle);
 }
 
 // 0x59B390
-// Como el original: HoldEntityRotateZCpp (X87Math) es la misma rotación en Z del EXE (fcos sin redondear a float,
-// fsin guardado como float; los productos se redondean a 24 bits y la posición también se rota).
+// Como el original: MatrixRotateZ101Cpp (X87Math, lote 101A): fcos sin redondear a float, fsin guardado como float; los productos se redondean a 24 bits
+// (primer factor en el registro, segundo como operando de memoria) y la posición también se rota.
 void CMatrix::RotateZ(float angle)
 {
-    HoldEntityRotateZCpp(reinterpret_cast<float*>(this), angle);
+    MatrixRotateZ101Cpp(reinterpret_cast<float*>(this), angle);
 }
 
 // rotate on 3 axes
@@ -359,17 +370,26 @@ void CMatrix::Rotate(CVector rotation)
 }
 
 // 0x59B6A0
-// Como el original: MatrixReorthogonaliseCpp (X87Math) reproduce el x87 del EXE (productos vectoriales en línea, normalización
-// sin comprobar cero con la suma z² + y² + x² y el recíproco 1/sqrt), para obtener los mismos bits.
+// Como el original: MatrixReorthogonalise101Cpp (X87Math, lote 101A) reproduce el x87 del EXE (productos vectoriales en línea, normalización
+// sin comprobar cero con la suma z² + y² + x² y el recíproco 1/sqrt, operandos de registro y de memoria como el EXE), para obtener los mismos bits.
 void CMatrix::Reorthogonalise()
 {
-    MatrixReorthogonaliseCpp(reinterpret_cast<float*>(this));
+    MatrixReorthogonalise101Cpp(reinterpret_cast<float*>(this));
 }
 
-// similar to UpdateRW(RwMatrixTag *)
+// 0x59B8B0 (thiscall, `ret 4`): similar to UpdateRW(RwMatrixTag *).
+// Como el original: copia los doce dwords de right, forward, up y pos (+0x00..+0x08, +0x10..+0x18, +0x20..+0x28, +0x30..+0x38) como enteros, leyendo y escribiendo de dword en dword en ese
+// orden (la RwMatrix puede solaparse con la matriz) y llama UNA sola vez a RwMatrixUpdate (0x7F18A0, cdecl). No pasa por UpdateRwMatrix (que ya llama a RwMatrixUpdate: se llamaria dos veces).
+// El EXE devuelve la RwMatrix en EAX, pero ninguno de sus nueve llamadores lo lee.
 void CMatrix::CopyToRwMatrix(RwMatrix* matrix) const
 {
-    UpdateRwMatrix(matrix);
+    const volatile uint32* const src = reinterpret_cast<const volatile uint32*>(this);
+    volatile uint32* const dst = reinterpret_cast<volatile uint32*>(matrix);
+    for (unsigned row = 0; row < 16; row += 4) {
+        dst[row] = src[row];
+        dst[row + 1] = src[row + 1];
+        dst[row + 2] = src[row + 2];
+    }
     RwMatrixUpdate(matrix);
 }
 
@@ -510,9 +530,22 @@ CMatrix& Invert(CMatrix& in, CMatrix& out)
     return out;
 }
 
+// 0x59BDD0 (cdecl, puntero de retorno oculto como primer argumento, EAX = destino): invierte `in` con Invert(in, tmp) (0x59B920) sobre un temporal de pila cuya matriz enlazada (+0x40) y bandera
+// de propiedad (dword +0x44) se ponen a cero antes, copia los 16 dwords del temporal al resultado (con el relleno +0x0C, +0x1C, +0x2C y +0x3C que deje Invert), pone a cero +0x40 y +0x44 del
+// resultado y, como el destructor del temporal, llama a RwMatrixDestroy (0x7F2A20) solo si la bandera y la matriz enlazada del temporal son distintas de cero (nunca: Invert no las escribe).
 CMatrix Invert(const CMatrix& in)
 {
-    return in.Inverted();
+    uint32 tmp[18]{};
+    Invert(const_cast<CMatrix&>(in), *reinterpret_cast<CMatrix*>(tmp));
+    CMatrix result;
+    uint32* const out = reinterpret_cast<uint32*>(&result);
+    out[16] = 0;
+    out[17] = 0;
+    for (unsigned i = 0; i < 16; ++i)
+        out[i] = tmp[i];
+    if (tmp[17] != 0 && tmp[16] != 0)
+        RwMatrixDestroy(reinterpret_cast<RwMatrix*>(tmp[16]));
+    return result;
 }
 
 CMatrix Lerp(CMatrix from, CMatrix to, float t) {

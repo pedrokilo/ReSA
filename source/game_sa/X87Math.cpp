@@ -18327,3 +18327,118 @@ __declspec(noinline) void __cdecl WaterLerpRenParCpp(const float* a, const float
     out[2] = sw;
 }
 #pragma float_control(pop)
+
+// --- Lote 101A (Fn101A): CMatrix::RotateX/Y/Z (0x59B1E0, 0x59B2C0, 0x59B390) y CMatrix::Reorthogonalise (0x59B6A0) con la x87 exacta del EXE ---
+// Misma convencion que MatrixInvertExeCpp / MatrixMultiplyExeCpp: `double` = valor que la x87 deja en un registro (24 bits de mantisa por la palabra de control, exponente ampliado);
+// `volatile float` = fst/fstp a la pila del EXE (se relee con fld o como operando de memoria). Cada producto con un operando de memoria se escribe en dos sentencias, `r = <registro>; p = r * <memoria>`,
+// para que el primer factor se cargue con fld y el segundo sea el operando de memoria de fmul (fmul dword ptr), como en el EXE: un NaN senalizante de memoria pierde frente a un NaN del registro y
+// un NaN de memoria no se silencia antes de elegir. El coseno y el seno se releen de `volatile` (fld). Todas las lecturas de la matriz van antes de escribir ninguna.
+#pragma float_control(precise, on, push)
+// 0x59B1E0 (RotateX, thiscall `ret 4`): por fila (y, z) = (1,2), (5,6), (9,10), (13,14): y' = C*y - Sf*z, z' = Sf*y + C*z con C = fcos y Sf = fsin guardado como float.
+__declspec(noinline) void __cdecl MatrixRotateX101Cpp(float* m, float angle) {
+    const volatile float* const mv = m;
+    volatile double cv = MatrixCosDbl(double(angle));
+    volatile float sf = float(MatrixSinDbl(double(angle)));
+    volatile float t[8];
+    double r, p, q;
+    r = cv; p = r * mv[1];  r = sf; q = r * mv[2];  t[0] = float(p - q);
+    r = sf; p = r * mv[1];  r = cv; q = r * mv[2];  t[1] = float(p + q);
+    r = cv; p = r * mv[5];  r = sf; q = r * mv[6];  t[2] = float(p - q);
+    r = sf; p = r * mv[5];  r = cv; q = r * mv[6];  t[3] = float(p + q);
+    r = cv; p = r * mv[9];  r = sf; q = r * mv[10]; t[4] = float(p - q);
+    r = sf; p = r * mv[9];  r = cv; q = r * mv[10]; t[5] = float(p + q);
+    r = cv; p = r * mv[13]; r = sf; q = r * mv[14]; t[6] = float(p - q);
+    r = sf; p = r * mv[13]; r = cv; q = r * mv[14]; t[7] = float(p + q);
+    m[1] = t[0]; m[2] = t[1]; m[5] = t[2]; m[6] = t[3]; m[9] = t[4]; m[10] = t[5]; m[13] = t[6]; m[14] = t[7];
+}
+// 0x59B2C0 (RotateY, thiscall `ret 4`): por fila (x, z) = (0,2), (4,6), (8,10), (12,14): x' = Sf*z + C*x, z' = C*z - Sf*x; en la fila de right x' usa el seno SIN redondear a float (fst lo deja en ST0).
+__declspec(noinline) void __cdecl MatrixRotateY101Cpp(float* m, float angle) {
+    const volatile float* const mv = m;
+    volatile double cv = MatrixCosDbl(double(angle));
+    const double s = MatrixSinDbl(double(angle));
+    volatile float sf = float(s);
+    volatile float t[8];
+    double r, p, q;
+    r = s;  p = r * mv[2];  r = cv; q = r * mv[0];  t[0] = float(p + q);
+    r = cv; p = r * mv[2];  r = sf; q = r * mv[0];  t[1] = float(p - q);
+    r = sf; p = r * mv[6];  r = cv; q = r * mv[4];  t[2] = float(p + q);
+    r = cv; p = r * mv[6];  r = sf; q = r * mv[4];  t[3] = float(p - q);
+    r = sf; p = r * mv[10]; r = cv; q = r * mv[8];  t[4] = float(p + q);
+    r = cv; p = r * mv[10]; r = sf; q = r * mv[8];  t[5] = float(p - q);
+    r = sf; p = r * mv[14]; r = cv; q = r * mv[12]; t[6] = float(p + q);
+    r = cv; p = r * mv[14]; r = sf; q = r * mv[12]; t[7] = float(p - q);
+    m[0] = t[0]; m[2] = t[1]; m[4] = t[2]; m[6] = t[3]; m[8] = t[4]; m[10] = t[5]; m[12] = t[6]; m[14] = t[7];
+}
+// 0x59B390 (RotateZ, thiscall `ret 4`): por fila (x, y) = (0,1), (4,5), (8,9), (12,13): x' = C*x - Sf*y, y' = Sf*x + C*y (en right y' = C*y + Sf*x).
+__declspec(noinline) void __cdecl MatrixRotateZ101Cpp(float* m, float angle) {
+    const volatile float* const mv = m;
+    volatile double cv = MatrixCosDbl(double(angle));
+    volatile float sf = float(MatrixSinDbl(double(angle)));
+    volatile float t[8];
+    double r, p, q;
+    r = cv; p = r * mv[0];  r = sf; q = r * mv[1];  t[0] = float(p - q);
+    r = cv; p = r * mv[1];  r = sf; q = r * mv[0];  t[1] = float(p + q);
+    r = cv; p = r * mv[4];  r = sf; q = r * mv[5];  t[2] = float(p - q);
+    r = sf; p = r * mv[4];  r = cv; q = r * mv[5];  t[3] = float(p + q);
+    r = cv; p = r * mv[8];  r = sf; q = r * mv[9];  t[4] = float(p - q);
+    r = sf; p = r * mv[8];  r = cv; q = r * mv[9];  t[5] = float(p + q);
+    r = cv; p = r * mv[12]; r = sf; q = r * mv[13]; t[6] = float(p - q);
+    r = sf; p = r * mv[12]; r = cv; q = r * mv[13]; t[7] = float(p + q);
+    m[0] = t[0]; m[1] = t[1]; m[4] = t[2]; m[5] = t[3]; m[8] = t[4]; m[9] = t[5]; m[12] = t[6]; m[13] = t[7];
+}
+// 0x59B6A0 (Reorthogonalise, thiscall `ret`). Tres pasadas: X1/Y1/Z1 = right x forward, nx/ny/nz = ese vector por 1/sqrt de su modulo (fsqrt; fdivr 1.0f), Q1/Q2/Q3 = forward x n, T1/T2/T3 = Q por 1/sqrt de su modulo y V1/V2/Y2 = T x n.
+// Escribe m0, m1, m2, m4, m5, m6, m8, m9 y m10 al final. Los fst/fstp a la pila son `volatile float`: yf, zf, invf, nzf (reutiliza el hueco de zf), q2f, q3f, t3f (reutiliza el de q3f), inv2f, v1f, v2f, y2f.
+__declspec(noinline) void __cdecl MatrixReorthogonalise101Cpp(float* m) {
+    const volatile float* const mv = m;
+    double r, p, q;
+    r = mv[1]; p = r * mv[6]; r = mv[5]; q = r * mv[2];
+    const double X1 = p - q;
+    r = mv[4]; p = r * mv[2]; r = mv[0]; q = r * mv[6];
+    const double Y1 = p - q;
+    volatile float yf = float(Y1);
+    r = mv[5]; p = r * mv[0]; r = mv[4]; q = r * mv[1];
+    const double Z1 = p - q;
+    volatile float zf = float(Z1);
+    r = Z1; p = r * zf; r = yf; q = r * yf;
+    const double G = p + q;
+    const double K = G + X1 * X1;
+    const double inv = MatrixInvSqrtDbl(K);
+    volatile float invf = float(inv);
+    const double nx = X1 * inv;
+    r = invf; const double ny = r * yf;
+    r = invf; const double nz = r * zf;
+    volatile float nzf = float(nz);
+    volatile double nxv = nx;   // nx y ny van en el registro como primer factor y el elemento de la matriz es el operando de memoria: se releen con fld (los doubles de 24 bits no pierden nada)
+    volatile double nyv = ny;
+    r = nz; p = r * mv[5]; r = nyv; q = r * mv[6];
+    const double Q1 = p - q;
+    r = nxv; p = r * mv[6]; r = nzf; q = r * mv[4];
+    volatile float q2f = float(p - q);
+    r = nyv; p = r * mv[4]; r = nxv; q = r * mv[5];
+    const double Q3 = p - q;
+    volatile float q3f = float(Q3);
+    r = Q3; p = r * q3f; r = q2f; q = r * q2f;
+    const double S3 = p + q;
+    const double S5 = S3 + Q1 * Q1;
+    const double inv2 = MatrixInvSqrtDbl(S5);
+    volatile float inv2f = float(inv2);
+    r = Q1; const double T1 = r * inv2f;
+    r = q2f; const double T2 = r * inv2f;
+    r = q3f; const double T3 = r * inv2f;
+    volatile float t3f = float(T3);
+    r = T2; q = r * nzf;
+    volatile float v1f = float(T3 * ny - q);
+    r = T1; p = r * nzf;
+    volatile float v2f = float(p - double(t3f) * nx);
+    volatile float y2f = float(T2 * nx - T1 * ny);
+    m[2] = t3f;
+    m[4] = v1f;
+    m[5] = v2f;
+    m[10] = nzf;
+    m[6] = y2f;
+    m[0] = float(T1);
+    m[1] = float(T2);
+    m[8] = float(nx);
+    m[9] = float(ny);
+}
+#pragma float_control(pop)

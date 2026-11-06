@@ -9125,3 +9125,13 @@ CMatrix,SetRotate-xyz,0x0059B120,1,0,1,S
 CMatrix,Invert-1,0x0059B920,1,0,1,S
 CMatrix,MatrixMultiplyExe,0x0059BE30,1,0,1,S
 CVector,Multiply3x3VMExe,0x0059C810,1,0,1,S
+CMatrix,SetRotateX,0x0059B060,1,0,1,S
+CMatrix,SetRotateY,0x0059B0A0,1,0,1,S
+CMatrix,SetRotateZ,0x0059B0E0,1,0,1,S
+CMatrix,RotateX,0x0059B1E0,1,0,1,S
+CMatrix,RotateY,0x0059B2C0,1,0,1,S
+CMatrix,RotateZ,0x0059B390,1,0,1,S
+CMatrix,Reorthogonalise,0x0059B6A0,1,0,1,S
+CMatrix,CopyToRwMatrix,0x0059B8B0,1,0,1,S
+CMatrix,Invert-2,0x0059BDD0,1,0,1,S
+CVector,FromMultiply,0x0059C670,1,0,1,S
