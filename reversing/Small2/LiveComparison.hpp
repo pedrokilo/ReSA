@@ -170,7 +170,7 @@ inline void Update() {
         EntryPatch m1(bit_cast<uintptr_t>(&CBaseModelInfo::Init2dEffects),FakeInit2dEffects), m1e(0x4C4C20,FakeInit2dEffects);
         EntryPatch m2(bit_cast<uintptr_t>(&CBaseModelInfo::SetColModel),FakeSetColModel), m2e(0x4C4BC0,FakeSetColModel);
         EntryPatch m3(bit_cast<uintptr_t>(&CBaseModelInfo::SetTexDictionary),FakeSetTexDictionary), m3e(0x4C4B40,FakeSetTexDictionary);
-        EntryPatch m4(0x7F3820,FakeTextureDestroy), m5(0x74BF20,FakeAtomicSetFrame), m6(0x7F05A0,FakeFrameDestroy), m7(0x749DC0,FakeAtomicDestroy);
+        EntryPatch m4(0x7F3820,FakeTextureDestroy), m5(0x74BF20,FakeAtomicSetFrame), m5d(reinterpret_cast<uintptr_t>(&RpAtomicSetFrame),FakeAtomicSetFrame), m6(0x7F05A0,FakeFrameDestroy), m7(0x749DC0,FakeAtomicDestroy);
         EntryPatch m8(bit_cast<uintptr_t>(&CMemoryMgr::Free),FakeFree), m8e(0x72F430,FakeFree);
         static std::array<void*,64> fakeVt{}; for(auto& v:fakeVt)v=reinterpret_cast<void*>(&FakeTrap); fakeVt[7]=reinterpret_cast<void*>(&FakeShutdown);
         void* const realPlayer=player;

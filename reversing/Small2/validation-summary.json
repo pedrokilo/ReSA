@@ -87,10 +87,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "55b071e526b604bd77890cdb6b23237cacc38c65b87cbccc9fb57917bb498d80",
+  "log_sha256": "0e4dda2ee54a046da537994367f55d65a118e1a6d286a48caa1816fb02753a4c",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-small2\\20261002-110906-688666",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-small2\\20261106-120824-959778",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CMaths::InitMathsTables": true,
@@ -170,34 +170,35 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "38b9c6da2cefd84d58f3d44fa319ca2157c22ab456ed489c6b8cee278a8af739",
-      "pdb": "9af7c302a406b6c12e261d73618d8ce88284af02265ec54944ca180d0ae7b028"
+      "asi": "56f3c4ed239014a98b082976fec7cf18364b5940d7ae206d78919ba7d4af74b2",
+      "pdb": "752cbcdf32b415948070720b8b4cd6128e0e6b823c210a1644e6aeb3a82003ab"
     },
     "sources": {
-      "source/game_sa/Maths.cpp": "4ffaf4a2c384258196aaff7bcf0522f3bd09ca5fe541825ce6eac88114302497",
+      "source/game_sa/Maths.cpp": "1e68175b403253226bfb278ed2658993e344d4619e39f8e402b0976f0ea1f323",
       "source/game_sa/Core/MatrixLink.cpp": "38c7a9a95b2c8c9c4a90063d38f42a1c88182c6a2d518bd98badc81dcee74320",
       "source/game_sa/Core/MatrixLinkList.cpp": "3cd88e9890a2edd57d30aa4c6c2dc95f6c47fd2d5cee86f9085a584a6a9ad6f9",
-      "source/game_sa/Models/LodTimeModelInfo.cpp": "4c4a36e966abded5ccd4cab34a8910b3410fa55355ef513a885c9b96f6c5bcce",
-      "source/game_sa/Text/MissionTextOffsets.cpp": "2a6d899da1e91a10211570c1ad2df8db6a4d5be3e259f448ec6466a367aae655",
-      "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
+      "source/game_sa/Models/LodTimeModelInfo.cpp": "41668fa89fe7f6450d2faf048a9ff51bee69ca55c67304f5b006e79548d2b897",
+      "source/game_sa/Text/MissionTextOffsets.cpp": "16bc96bde23fc0b19560a70e11691f9897787ba9ff440e230f31deb20cd7a149",
+      "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "cce41d98cbf00de29ee39aa72fcd62b03ff9fd8d5402978f00afc761896e112e",
       "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
-      "source/game_sa/Audio/AEAudioUtility.cpp": "64b6dc387de99da3e70c7e8f0e800e8a79ef4649c29d78e92299e59319b0252b",
+      "source/game_sa/Audio/AEAudioUtility.cpp": "040acc4cb40030ee8ef3c038f084c80484cf5758002ba7ba52c48d23c426d2f2",
       "source/game_sa/Audio/AEAudioUtility.h": "ea4d1eb95c63065e11eca92a622fc646a726f87630e5a239c507fd62a1039fdc",
-      "source/game_sa/Audio/AEAudioEnvironment.cpp": "9c6798a9e49e3d80432a4e8c590cd146f74eb4e7e485f13d17e7428d8045a51e",
+      "source/game_sa/Audio/AEAudioEnvironment.cpp": "aacb7069839a75ba875a727eb6de7b090ddb4c2f9e0d17fc0e820a6f2d3e35c4",
       "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "1984eea646f0c98017e764894a660cbdfa5d3204a86108ccea91cb0cd13f20c4",
       "source/game_sa/Audio/Entities/AEExplosionAudioEntity.h": "f3d23a729d8132bfbb765b025e9b95d69adbd4bf6a0997d33a4cc145fcaef73b",
       "source/game_sa/Audio/Entities/AEDoorAudioEntity.cpp": "4b7bbf4297ad7feb82a01a4a4724d586ebcda72ef668873f17dda9b6a8b7c8db",
-      "source/game_sa/Models/ModelInfo.cpp": "99b6390dde6dbb8f6de1673fdc744641844755a7c5a52b5c99ef673d4d652400"
+      "source/game_sa/Models/ModelInfo.cpp": "a3f1ffad0c4d744509d45f82f97a29fa0e5a04b3317f7dc6cb4472f1ff98827a"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "6b63de49108a90e4faa46ce41f1f13aa836d0832f93a41da07c9383a8571b12e",
+      "LiveComparison.hpp": "71786b992fb8c2f3fc62b61e7ebfdb27c15b7d241b6157a2467aa900a9b827d9",
       "build_probe.py": "0d6c09112663e62bf40f1f4c9032e4f9e4cb8b67e2fd352bc341ec2c1682ab2c",
       "run_local.py": "0b90bd5b3332c9e030db4aa57447de749b3e4810499c15cffb523d1d53bf84c3"
     }
   },
   "limitations": [
     "Stores de model infos, tabla de punteros, zonas de audio, tabla de senos, estado temporal de audio, modo de camara y reloj guardados y restaurados por ejecucion.",
-    "rand, QueryPerformanceCounter/Frequency, operator new/delete, CFileMgr::Read, FindPlayerPed/Vehicle, banco y gestor de sonidos, primitivas RW de liberacion, Init2dEffects, SetColModel y SetTexDictionary simulados y trazados."
+    "rand, QueryPerformanceCounter/Frequency, operator new/delete, CFileMgr::Read, FindPlayerPed/Vehicle, banco y gestor de sonidos, primitivas RW de liberacion, Init2dEffects, SetColModel y SetTexDictionary simulados y trazados.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
