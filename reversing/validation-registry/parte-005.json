@@ -38413,6 +38413,40 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH, en su cuerpo del ASI: CMatrix::SetTranslate 0x59AF40 y CMatrix::SetRotateZOnly 0x59B020 (UpdateMatrix), CEntity::CleanUpOldReference 0x571A00 (destructor de CAESound), _rwObjectHasFrameSetFrame 0x804EF0 (RpAtomicSetFrame; el falso deja un byte conocido en +3 del atomico) y RxPipelineExecute 0x805710 (AtomicDefaultRenderCallBack); los callbacks de RpClumpForAllAtomics y RpGeometryForAllMaterials son funciones del banco. Corren de verdad en ambos lados: el recorrido de la lista y del arreglo, las escrituras, fcos/fsin de UpdateRwMatrix (la reduccion de argumentos grandes la hace la propia x87), RwMatrixUpdate 0x7F18A0, la suma de cuadrados x87 de SquaredMagnitudeExe (Vector.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast; ECX y EDX se comprueban intactos) y la lectura de la tuberia por defecto del motor en memoria real. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelo exacto de las listas, racional a 24 bits y mpmath para fsin/fcos). Fuera de los fixtures: rumbos entre 1e6 y 2^63 (la reduccion con pi de 66 bits de la x87 no se modela), NaN con cargas distintas de 0xFFC00000 en SquaredMagnitudeExe, clumps y geometrias con listas corruptas o arreglos de mas de 8 materiales, y la exactitud de los colaboradores sustituidos.",
       "review_reference": "reversing/Fn102A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "SetRandomDamage",
+        "address": "0x006A2530",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn104A/validation-summary.json",
+        "sha256": "9b4557d2bb3ea89c5c7c9f2770005cc597b5c598a0caa666c9458fcceeed03f1",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::SetRandomDamage"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "46a9e9b8556dcaa75b5447d688689adeb8521bf9f5c0e6d4efb29dca7a6df098",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "f47532a187068958a4e1893145f135192342d5059c95d33d04a178016cd11ad4",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn104A/LiveComparison.hpp": "834764f73e279017249bc9723e86f9e83be4ef9dd5db0631692883b013bc0c4f",
+        "reversing/Fn104A/Core.hpp": "1eb29b9506cc5eda118e81b8ccf550aaad76be4a3a5d0e9d102fce58b4e7c533",
+        "reversing/Fn104A/Fixtures.hpp": "02c8893f251c7311cab420f22d3835c856c8f24d3fdd6186033380f65e520a55",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 6b60ef33f con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo del hook de la DLL (todos tienen hook RH, apagado durante el banco): CDamageManager::GetCarNodeIndexFromDoor 0x6C26F0, GetCarNodeIndexFromPanel 0x6C26A0, GetDoorStatus 0x6C2230, GetPanelStatus 0x6C2180, SetDoorStatus 0x6C21C0, SetPanelStatus 0x6C2150 y CVehicle::SetComponentVisibility 0x6D2700; esos hooks de CDamageManager son envoltorios estaticos y la funcion nueva llama a los metodos de la DLL, asi que el mismo falso va ademas en el cuerpo de esos metodos. rand() del CRT del EXE (0x821B1E, sin hook; la DLL la llama por su direccion) es un falso unico que devuelve las tiradas del caso. NO se sustituyen y corren de verdad en ambos lados: la aritmetica de las tiradas (rand & 0xFFFF a float, por 1/32768 y por la constante del uso, truncada), la busqueda del n-esimo elemento sin marcar, la mascara de componentes danables (tabla de modelos 0xA9B0C8: la entrada del modelo del caso se sustituye por un model info propio y se restaura), el arreglo de nodos +0x648 y los marcadores de elegidos. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tiradas con el bit 15 puesto (el EXE saldria de sus marcadores en la pila), indices de modelo fuera de 0..19999, nodos fuera de 0..47, estados con bits altos distintos de cero y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn104A/README.md"
     }
   ]
 }

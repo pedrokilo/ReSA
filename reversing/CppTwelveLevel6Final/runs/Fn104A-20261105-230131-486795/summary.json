@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "f8102a341ed315effaff3a05cbd000d4489fa06e8afecad96119d0e793505120",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CAutomobile::SetRandomDamage": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "7f52f61dee80f561580c30ca557b6e3065817d662a179936ec046fd452f214ad",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CAutomobile::SetRandomDamage": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    }
+  },
+  "branch_coverage": {
+    "CAutomobile::SetRandomDamage": {
+      "doors_4": 1115,
+      "flag_set": 12798,
+      "rands_7": 2324,
+      "door_damaged": 7346,
+      "door_scan": 8211,
+      "panels_1": 6813,
+      "panel_damaged": 8505,
+      "doors_0": 6792,
+      "rands_3": 1455,
+      "panels_from_negative": 3206,
+      "rands_2": 3586,
+      "flag_clear": 3586,
+      "panel_skip_status": 4274,
+      "arg_garbage": 6284,
+      "panel_bumper": 9856,
+      "panels_3": 3889,
+      "rands_8": 1441,
+      "door_skip_status": 4441,
+      "panel_skip_mask": 5113,
+      "door_skip_mask": 4655,
+      "doors_3": 1747,
+      "rand_garbage": 3305,
+      "rands_9": 1043,
+      "rands_5": 2258,
+      "rands_6": 1382,
+      "doors_1": 1381,
+      "doors_5": 3942,
+      "rands_10": 1234,
+      "panels_0": 2673,
+      "rands_4": 1661,
+      "panels_2": 3009,
+      "doors_2": 1407,
+      "node_wrap": 2401
+    }
+  },
+  "independent_oracle": "fixture_oracle.py: cada lado de cada par coincide con el modelo",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

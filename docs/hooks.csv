@@ -4040,6 +4040,7 @@ CAutomobile,SetBusDoorTimer,0x006A3860,1,0,1,S
 CAutomobile,SetDoorDamage,0x006B1600,1,0,1,S
 CAutomobile,SetHeliOrientation,0x006A2450,1,0,1,S
 CAutomobile,SetPanelDamage,0x006B1480,1,0,1,S
+CAutomobile,SetRandomDamage,0x006A2530,1,0,1,S
 CAutomobile,SetTaxiLight,0x006A3740,1,0,1,S
 CAutomobile,SetTotalDamage,0x006A27F0,1,0,1,S
 CAutomobile,SetTowLink,0x00000000,1,0,1,V

@@ -142,6 +142,7 @@ void CAutomobile::InjectHooks()
     RH_ScopedInstall(GetMovingCollisionOffset, 0x6A2150);
     RH_ScopedInstall(TellHeliToGoToCoors, 0x6A2390);
     RH_ScopedInstall(TellPlaneToGoToCoors, 0x6A2470);
+    RH_ScopedInstall(SetRandomDamage, 0x6A2530);
     RH_ScopedInstall(SetTotalDamage, 0x6A27F0);
     RH_ScopedInstall(CustomCarPlate_BeforeRenderingStart, 0x6A2F00);
     RH_ScopedInstall(CustomCarPlate_AfterRenderingStop, 0x6A2F30);
@@ -4383,92 +4384,87 @@ void CAutomobile::ShowAllComps() {
     // NOP
 }
 
-// 0x6A2530
+// 0x6A2530 (thiscall, ECX = this, bRemoveStuff en pila, `ret 4`; void)
+// Como el EXE, con su secuencia exacta de tiradas: cada una es rand() del CRT del EXE (0x821B1E, la que avanza la semilla del juego) con `& 0xFFFF`, convertida a float,
+// por 1/32768 (0x858B14) a float, por la constante de cada uso (6.0 0x858B44, 4.0 0x858B90, -3.0 0x859024, o por el entero que entra por fimul) y truncada (_ftol2 0x821B40).
+// Cada paso se guarda como float (x87 a 24 bits = float de SSE aqui: sin desnormales ni desbordes). Orden de llamadas del EXE: numero de puertas, numero de paneles, y por cada
+// elemento: tirada, GetCarNodeIndexFrom*, Get*Status y, si esta intacto (0) y el bit del nodo esta en la mascara 0x310 de la estructura del modelo (tabla 0xA9B0C8, indice con signo
+// del word +0x22, desplazamiento enmascarado a 5 bits), Set*Status y SetComponentVisibility(nodo +0x648, 2). Puertas: estado 2; paneles: estado 1 (la version anterior ponia 2).
+// Los marcadores de elegidos son bytes (puertas 0..5, paneles 0..6 con 2, 3 y 4 ya marcados: traseros y parabrisas) y la busqueda del n-esimo libre es el bucle del EXE.
+VALIDATE_OFFSET(CVehicleModelInfo, m_pVehicleStruct, 0x5C);
+static_assert(offsetof(CVehicleModelInfo::CVehicleStructure, m_nMaskComponentsDamagable) == 0x310);
 void CAutomobile::SetRandomDamage(bool bRemoveStuff) {
-    //> Bugfix shit
-    const auto FixedRandom = [&](int32 x, int32 y) {
-        // I'm very sure somebody fell into the trap of the shit naming of `GetRandomNumberInRange`
-        // (The int version of it is exclusive, while the float one is inclusive)
-        // Reason being that at `0x6A260B` the possible interval is [0, 1), that is, in integer terms a fat `0` :D
-        // Obviously, they intended it to be `[0, 1]`
-#ifdef FIX_BUGS
-        return (size_t)CGeneral::GetRandomNumberInRange(x, y + 1);
-#else
-        return (size_t)CGeneral::GetRandomNumberInRange(x, y);
-#endif
+    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    constexpr float kReciprocal = 3.0517578125e-05f; // 0x858B14 = 1/32768
+    // (rand() & 0xFFFF) * (1/32768), guardado como float
+    const auto Unit = [&]() -> float {
+        volatile float t = static_cast<float>(exeRand() & 0xFFFF) * kReciprocal;
+        return t;
+    };
+    // Unit() * factor, guardado como float y truncado
+    const auto Scaled = [&](float factor) -> int32 {
+        volatile float t = Unit() * factor;
+        return static_cast<int32>(t);
     };
 
-    //> Processes a group of components (panels/doors)
-    const auto Process = [
-        this,
-        IsCompDamageable = [vs = GetVehicleModelInfo()->GetVehicleStruct()](auto nodeIdx) {
-            return vs->IsComponentDamageable(nodeIdx);
-        }
-    ](
-        size_t pickedbs, 
-        size_t numToDmg,
-        size_t numTotal,
-        auto   GetNodeIdx,
-        auto   IsDamStateOk,
-        auto   SetAsDamaged
-    ) {
-        /**
-        * Get the `n`-th component that wasn't yet picked
-        * @param n 0-based number
-        * @param pickedbs Bitset of components that were picked previously
-        */
-        const auto GetNthUnpicked = [&](size_t n) {
-            if (pickedbs == 0) {
-                return n; // No pickedbs components so we can directly return
-            }
-            for (size_t i = 0; i < numTotal; i++) {
-                if ((pickedbs & (1 << i)) == 0) {
-                    if (n-- == 0) {
-                        return i;
-                    }
+    int32 numDoors, numPanels;
+    if (bRemoveStuff) {
+        numDoors = Scaled(6.0f);
+        numPanels = numDoors != 0 ? Scaled(4.0f) : 1 - Scaled(-3.0f);
+    } else {
+        numDoors = static_cast<int32>(Unit());
+        numPanels = numDoors != 0 ? static_cast<int32>(Unit()) : 1;
+    }
+
+    // Busca el elemento (indice) que ocupa el lugar `pick` entre los que aun no estan marcados (bucle del EXE: ecx cuenta los libres, esi recorre; `limit` = 6 puertas / 7 paneles)
+    const auto FindNthUnpicked = [](int32 pick, const uint8* picked, int32 limit) -> int32 {
+        int32 free = -1, idx = -1;
+        if (pick > -1) {
+            do {
+                if (idx >= limit) {
+                    break;
                 }
-            }
-            NOTSA_UNREACHABLE(); // This is reached if the first `ncomps` bits are all set - Should never happen
-        };
-
-        for (size_t i = 0u; i < numToDmg; i++) {
-            const auto pick = GetNthUnpicked((size_t)CGeneral::GetRandomNumberInRange(0, (int32)(numToDmg - i)));
-            pickedbs |= 1 << pick; // We mark here for simplicity
-            if (!IsDamStateOk(pick)) {
-                continue;
-            }
-            const auto nodeIdx = GetNodeIdx(pick);
-            if (!IsCompDamageable(nodeIdx)) {
-                continue;
-            }
-            SetAsDamaged(pick);
-            SetComponentVisibility(m_aCarNodes[nodeIdx], eAtomicComponentFlag::ATOMIC_DAMAGED);
+                const uint8 mark = picked[idx + 1];
+                ++idx;
+                if (!mark) {
+                    ++free;
+                }
+            } while (free < pick);
         }
+        return idx;
+    };
+    const auto IsDamageable = [this](int32 nodeIdx) {
+        const auto* mi = static_cast<CVehicleModelInfo*>(CModelInfo::ms_modelInfoPtrs[static_cast<int16>(m_nModelIndex)]);
+        return (mi->m_pVehicleStruct->m_nMaskComponentsDamagable & (1u << (static_cast<uint32>(nodeIdx) & 31u))) != 0;
     };
 
-    //> Doors
-    const auto numDoorsToDmg = FixedRandom(0, bRemoveStuff ? MAX_DOORS : 1);
-    Process(
-        0,
-        numDoorsToDmg,
-        MAX_DOORS,
-        [](auto i)     { return CDamageManager::GetCarNodeIndexFromDoor((eDoors)i); },
-        [this](auto i) { return m_damageManager.GetDoorStatus((eDoors)i) == DAMSTATE_OK; },
-        [this](auto i) { return m_damageManager.SetDoorStatus((eDoors)i, DAMSTATE_DAMAGED); }
-    );
+    // Puertas
+    uint8 doorPicked[8]{};
+    for (int32 i = 0; i < numDoors; i++) {
+        const int32 pick = Scaled(static_cast<float>(MAX_DOORS - i));
+        const int32 door = i == 0 ? pick : FindNthUnpicked(pick, doorPicked, 6);
+        const int32 nodeIdx = CDamageManager::GetCarNodeIndexFromDoor(static_cast<eDoors>(door));
+        if (static_cast<uint32>(m_damageManager.GetDoorStatus(static_cast<eDoors>(door))) == 0 && IsDamageable(nodeIdx)) {
+            m_damageManager.SetDoorStatus(static_cast<eDoors>(door), DAMSTATE_DAMAGED);
+            SetComponentVisibility(m_aCarNodes.data()[nodeIdx], eAtomicComponentFlag::ATOMIC_DAMAGED);
+        }
+        doorPicked[door & 7] = 1;
+    }
 
-    //> Panels (With a few exceptions)
-    const auto numPanelsToDmg = numDoorsToDmg == 0
-        ? bRemoveStuff ? FixedRandom(1, 4) : 1 // The 4 here and below comes from MAX_PANELS - 3 (As 3 panels are never damaged, see below)
-        : FixedRandom(0, bRemoveStuff ? 4 : 1);
-    Process(
-        1 << REAR_LEFT_PANEL | 1 << REAR_RIGHT_PANEL | 1 << WINDSCREEN_PANEL, // These are never damaged
-        numPanelsToDmg,
-        MAX_PANELS,
-        [](auto i)     { return CDamageManager::GetCarNodeIndexFromPanel((ePanels)i); },
-        [this](auto i) { return m_damageManager.GetPanelStatus((ePanels)i) == DAMSTATE_OK; },
-        [this](auto i) { return m_damageManager.SetPanelStatus((ePanels)i, DAMSTATE_DAMAGED); }
-    );
+    // Paneles (traseros y parabrisas, 2..4, nunca)
+    uint8 panelPicked[8]{ 0, 0, 1, 1, 1, 0, 0, 0 };
+    int32 multiplier = 4;
+    for (int32 i = 0; i < numPanels; i++, multiplier--) {
+        volatile float t = Unit() * static_cast<float>(multiplier);
+        const int32 pick = static_cast<int32>(t);
+        const int32 panel = FindNthUnpicked(pick, panelPicked, 7);
+        const int32 nodeIdx = CDamageManager::GetCarNodeIndexFromPanel(static_cast<ePanels>(panel));
+        if (static_cast<uint32>(m_damageManager.GetPanelStatus(static_cast<ePanels>(panel))) == 0 && IsDamageable(nodeIdx)) {
+            m_damageManager.SetPanelStatus(static_cast<ePanels>(panel), static_cast<ePanelDamageState>(1));
+            SetComponentVisibility(m_aCarNodes.data()[nodeIdx], eAtomicComponentFlag::ATOMIC_DAMAGED);
+        }
+        panelPicked[panel & 7] = 1;
+    }
 }
 
 // 0x6A27F0
