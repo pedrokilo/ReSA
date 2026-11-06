@@ -346,7 +346,8 @@ inline std::string StubsG2() {
     H(G2_AUDP, 0x4F7580, "CAEVehicleAudioEntity", "AddAudioEvent-1", FnPtr(&S2_AudP));
     H(G2_SPAWN, 0x6A8580, "CAutomobile", "SpawnFlyingComponent", FnPtr(&S2_Spawn));
     AddStub(2, G2_FRALL, 0x7F1200, 0, FnPtr(&S2_FrameForAll));
-    AddStub(2, G2_CLUMPALL, 0x749B70, 0, FnPtr(&S2_ClumpForAll));
+    // 0x749B70 y 0x74BF20 tienen hook desde el lote 102A: el falso tambien va en el cuerpo de la DLL (como Cutscene35 y FileLoader47).
+    AddStub(2, G2_CLUMPALL, 0x749B70, reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics), FnPtr(&S2_ClumpForAll));
     H(G2_FORCE, 0x5429F0, "CPhysical", "ApplyMoveForce-vec", FnPtr(&S2_ApplyMove));
     H(G2_FORCE, 0x542A50, "CPhysical", "ApplyTurnForce", FnPtr(&S2_ApplyTurn));
     H(G2_DOORP, 0x6F4040, "CDoor", "Process", FnPtr(&S2_DoorProcess));
@@ -360,7 +361,7 @@ inline std::string StubsG2() {
     H(G2_OBJFN, 0x533ED0, "CEntity", "AttachToRwObject", FnPtr(&S2_Attach));
     AddStub(2, G2_RWOBJ, 0x7F0410, 0, FnPtr(&S2_FrameCreate));
     AddStub(2, G2_RWOBJ, 0x749E60, 0, FnPtr(&S2_AtomClone));
-    AddStub(2, G2_RWOBJ, 0x74BF20, 0, FnPtr(&S2_AtomSetFrame));
+    AddStub(2, G2_RWOBJ, 0x74BF20, reinterpret_cast<uintptr_t>(&RpAtomicSetFrame), FnPtr(&S2_AtomSetFrame));
     AddStub(2, G2_RWOBJ, 0x7F0990, 0, FnPtr(&S2_FrameGetLTM));
     H(G2_RWOBJ, 0x7328A0, "CVisibilityPlugins", "SetAtomicRenderCallback", FnPtr(&S2_RenderCb));
     H(G2_GETFIRST, 0x7348C0, "RwHelper", "GetFirstObject", FnPtr(&S2_GetFirst));

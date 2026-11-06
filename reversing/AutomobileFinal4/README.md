@@ -125,3 +125,10 @@ Dobles trazados, parcheados en la dirección del EXE y en el símbolo o cuerpo d
 ## Aprobación (10/10/2026)
 
 Corrida `20261010-142611-264011`: passed=true, 24192 pares, 99 funciones registradas con 0 fallos, evento complete (state_restored), saves y configuraciones intactos. Registrada con `register_automobilefinal4.py` (evidencia en `runs/`, `validation-summary.json`). Con este banco CAutomobile queda sin pendientes. Límites declarados en el alcance de cada función y en las secciones anteriores de este README.
+
+## Revalidación del 06/11/2026 (lote 110A)
+
+Con las fuentes de main el banco fallaba por dos dobles que solo parcheaban la dirección del EXE y no el cuerpo de la DLL de colaboradores que ya tienen hook (defecto del banco, no de producción):
+- `RpClumpForAllAtomics` (0x749B70) y `RpAtomicSetFrame` (0x74BF20), con hook desde el lote 102A: `CAutomobile::Fix` llamaba al cuerpo C++ real de la DLL con el clump falso (acceso a 0xCDCDCDCD). Ahora `CasesG2.hpp` registra el símbolo de la DLL (`AddStub(..., reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics), ...)`), como Cutscene35 y FileLoader47.
+- `CCarCtrl::SteerAICarWithPhysics` (0x437C20), con hook desde la fusión de CCarCtrl: en `ProcessAI` (137 de 512 pares) el lado candidato ejecutaba el cuerpo real. `CasesG5_a.hpp` pasa de `E(...)` (solo EXE) a `H("CCarCtrl","SteerAICarWithPhysics",...)`.
+Resultado: corrida `20261106-054246-390800`, APROBADO, 24192 pares, 99 funciones, estado restaurado (evidencia en `reversing/CppTwelveLevel6Final/runs/AutomobileFinal4-20261106-054246-390800`). El código de producción no cambió.
