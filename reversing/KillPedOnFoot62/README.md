@@ -104,3 +104,6 @@ Sin cambios de produccion por estos dos puntos.
 
 `Fixtures.hpp`, `Core.hpp`, `LiveComparison.hpp`, `build_probe.py`, `run_local.py`, `fixture_oracle.py`, `fixture_model.py`, `fixture_mirror.cpp`, `fixture_mirror.py`, `register_hook.py`, `source.patch`, `README.md`.
 La carpeta `artifacts/` (manifiesto y sonda compilada) es salida local, no se versiona; `register_hook.py` lee `artifacts/build-manifest.json`.
+
+## Actualizacion del lote 107A (06/11/2026)
+El destructor de `CEventAreaCodes` (0x4B2210) tiene hook RH desde el lote 107A (banco `Fn107A`), asi que ya no es codigo del EXE: el banco lo pasa de `kRealExe` a `kRealHooked` (salto a la DLL en ambos lados, como los demas reales con hook; `Core.hpp` y `run_local.py`). Repetido con el codigo final: aprobado (`20261106-051123-496666`).

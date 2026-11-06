@@ -86816,7 +86816,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::AddToCollectedPickupsArray"
@@ -86825,10 +86825,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -86885,7 +86885,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::DetonateMinesHitByGunShot"
@@ -86894,10 +86894,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -86913,7 +86913,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::DoCollectableEffects"
@@ -86922,10 +86922,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -86941,7 +86941,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::DoMineEffects"
@@ -86950,10 +86950,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -86969,7 +86969,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::DoMoneyEffects"
@@ -86978,10 +86978,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -86997,7 +86997,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::FindPickUpForThisObject"
@@ -87006,10 +87006,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87066,7 +87066,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::GetActualPickupIndex"
@@ -87075,10 +87075,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87094,7 +87094,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::GetNewUniquePickupIndex"
@@ -87103,10 +87103,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87122,7 +87122,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::GetUniquePickupIndex"
@@ -87131,10 +87131,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87150,7 +87150,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::GivePlayerGoodiesWithPickUpMI"
@@ -87159,10 +87159,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87178,7 +87178,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::Init"
@@ -87187,10 +87187,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87206,7 +87206,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::IsPickUpPickedUp"
@@ -87215,10 +87215,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87234,7 +87234,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::Load"
@@ -87243,10 +87243,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87262,7 +87262,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::ModelForWeapon"
@@ -87271,10 +87271,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87290,7 +87290,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::ModifyStringLabelForControlSetting"
@@ -87299,10 +87299,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87318,7 +87318,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::PassTime"
@@ -87327,10 +87327,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87346,7 +87346,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::PickedUpHorseShoe"
@@ -87355,10 +87355,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87374,7 +87374,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::PickedUpOyster"
@@ -87383,10 +87383,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87402,7 +87402,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::PictureTaken"
@@ -87411,10 +87411,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87430,7 +87430,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::PlayerCanPickUpThisWeaponTypeAtThisMoment"
@@ -87439,10 +87439,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87458,7 +87458,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::ReInit"
@@ -87467,10 +87467,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87486,7 +87486,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::RemoveMissionPickUps"
@@ -87495,10 +87495,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87514,7 +87514,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::RemovePickUp"
@@ -87523,10 +87523,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87542,7 +87542,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::RemovePickUpsInArea"
@@ -87551,10 +87551,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87570,7 +87570,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::RemovePickupObjects"
@@ -87579,10 +87579,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87598,7 +87598,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::RemoveUnnecessaryPickups"
@@ -87607,10 +87607,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87626,7 +87626,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::RenderPickUpText"
@@ -87635,10 +87635,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87654,7 +87654,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::Save"
@@ -87663,10 +87663,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87682,7 +87682,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::TestForPickupsInBubble"
@@ -87691,10 +87691,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87710,7 +87710,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::TryToMerge_WeaponType"
@@ -87719,10 +87719,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87738,7 +87738,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::UpdateMoneyPerDay"
@@ -87747,10 +87747,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87766,7 +87766,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CPickups::WeaponForModel"
@@ -87775,10 +87775,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87794,7 +87794,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::AddGunshell"
@@ -87803,10 +87803,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87822,7 +87822,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::CanBeUsedFor2Player-Method"
@@ -87831,10 +87831,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87850,7 +87850,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::CanBeUsedFor2Player-Static"
@@ -87859,10 +87859,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87878,7 +87878,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::Constructor"
@@ -87887,10 +87887,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87906,7 +87906,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::DoDoomAiming"
@@ -87915,10 +87915,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87934,7 +87934,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::EvaluateTargetForHeatSeekingMissile"
@@ -87943,10 +87943,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87962,7 +87962,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::Fire"
@@ -87971,10 +87971,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -87990,7 +87990,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::FireAreaEffect"
@@ -87999,10 +87999,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88018,7 +88018,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::FireFromCar"
@@ -88027,10 +88027,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88046,7 +88046,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::FireM16_1stPerson"
@@ -88055,10 +88055,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88074,7 +88074,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::HasWeaponAmmoToBeUsed"
@@ -88083,10 +88083,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88102,7 +88102,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::Initialise"
@@ -88111,10 +88111,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88130,7 +88130,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::InitialiseWeapons"
@@ -88139,10 +88139,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88158,7 +88158,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::IsType2Handed"
@@ -88167,10 +88167,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88186,7 +88186,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::IsTypeMelee"
@@ -88195,10 +88195,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88214,7 +88214,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::IsTypeProjectile"
@@ -88223,10 +88223,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88242,7 +88242,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::LaserScopeDot"
@@ -88251,10 +88251,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88270,7 +88270,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::PickTargetForHeatSeekingMissile"
@@ -88279,10 +88279,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88298,7 +88298,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::Reload"
@@ -88307,10 +88307,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88326,7 +88326,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::SetUpPelletCol"
@@ -88335,10 +88335,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88354,7 +88354,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::Shutdown"
@@ -88363,10 +88363,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88382,7 +88382,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::ShutdownWeapons"
@@ -88391,10 +88391,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88410,7 +88410,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::StopWeaponEffect"
@@ -88419,10 +88419,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88438,7 +88438,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::TargetWeaponRangeMultiplier"
@@ -88447,10 +88447,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88466,7 +88466,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::Update"
@@ -88475,10 +88475,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88494,7 +88494,7 @@
       },
       "evidence": {
         "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "sha256": "982437e41c8dc79ef85a07816433b5b2eb0c7254042372cad40a2d3e9234308a",
         "passed_path": [
           "covered_functions",
           "CWeapon::UpdateWeapons"
@@ -88503,10 +88503,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,

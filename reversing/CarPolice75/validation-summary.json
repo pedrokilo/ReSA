@@ -12,24 +12,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-3 (HEAD 98ff78aaa + cambios del lote 75; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (hooks RH apagados); el banco compara el orden y los argumentos de los falsos, los bytes cambiados de las arenas y los globales. Los colaboradores y el banco que valida a cada uno estan en reversing/CarPolice75/README.md; CMatrix::operator= (0x59BBC0) y CCamera::IsSphereVisible (0x420D40) no tienen banco propio. Las aritmeticas de X87Math (bloque Lote 75) corren de verdad. AL se compara; EAX alto/ECX/EDX solo se registran. No probado: pools agotados, ocupantes nulos, areas de nodos o indices de modelo fuera de rango. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CarPolice75-20261027-220828-143535",
-  "summary_sha256": "a11cd95ddaf069b0edf588665f739bc1d32d2dd267fa264deea98244628d0f01",
-  "result_txt_sha256": "eecbb6e00bd3012407ffd5f4037fe6216e6fcbd3cc8be126d14a0cbfe15be02c",
-  "log_sha256": "0f394a369a63a9b84c6bf54163367b924c148248934ca8c8bb38c12f10c15d4e",
+  "run": "reversing/CppTwelveLevel6Final/runs/CarPolice75-20261106-041150-808291",
+  "summary_sha256": "77fe798b11d84ad0e0cd58da1b329d8eafdd9e8af5e9e64170559871e2bbf8c2",
+  "result_txt_sha256": "8749e43b1db5d66933d7c3e083c31d13f4f33b5112875ba0f8ffa9af872f16ea",
+  "log_sha256": "2a2b4266e25881e1c0311f11a0401417d78888c2d192617b13498797026cc816",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "a6bea81b118d06a3884d7d9ead5e13350d66673045da0051084d19f571f27fd7",
+  "executed_probe_sha256": "efaa2a63fb8e4a2162eac43088ef1dc51e1e0e71591246970f3ec06ae1c50e2f",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
-      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
-      "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
-      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "source/CMakeLists.txt": "da5d442de30d6c4888dc60e15a1766a7462cababedda4392600df9739760e955",
+      "source/InjectHooksMain.cpp": "6bc97dfd1834167939c395f743a93ffc37e39187a3216a55901f4f22ae5e9e18",
+      "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+      "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
+      "source/game_sa/CarCtrl.cpp": "cd16deeae97c78a92292553c93315b283293860463357f226d81b54af93edfa3",
+      "source/game_sa/CarCtrl.h": "c551460ac16e87f07dfb0b044b8af5535794ee3c1c6a14f4b7ed8057b07a3f29",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/CarPolice75/LiveComparison.hpp": "4e7e32c44885e4ba3f56141eb2402f79e889d589fc9e65be89d8f6ee116d58d1",
       "reversing/CarPolice75/Core.hpp": "bd1e8d14c60071fa85cebb2e31343df1916d9d3dc1677678db7f146e464f0d47",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarPolice75-20261027-220828-143535/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarPolice75-20261106-041150-808291/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "16b01fcf4f57cdcaa64d866650dae534cf460d088b5d9bd92ebbb6583738c2d5",
-    "uncompressed_sha256": "0f394a369a63a9b84c6bf54163367b924c148248934ca8c8bb38c12f10c15d4e"
+    "compressed_sha256": "d2961f6afb6e7ea47a82853b4b251a55a8cdf05d1911ab4e02d548b6be21786d",
+    "uncompressed_sha256": "2a2b4266e25881e1c0311f11a0401417d78888c2d192617b13498797026cc816"
   }
 }

@@ -1,0 +1,3 @@
+APROBADO: CollisionScan61
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-collisionscan61\20261106-045947-450124

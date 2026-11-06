@@ -13780,7 +13780,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::Constructor"
@@ -13789,9 +13789,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -13807,7 +13807,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::Destructor"
@@ -13816,9 +13816,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -13834,7 +13834,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::Initialise"
@@ -13843,9 +13843,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -13861,7 +13861,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::Update"
@@ -13870,9 +13870,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -13888,7 +13888,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::Save"
@@ -13897,9 +13897,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -13915,7 +13915,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::Load"
@@ -13924,9 +13924,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -13942,7 +13942,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::FlagToDestroyWhenNextProcessed"
@@ -13951,9 +13951,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -13969,7 +13969,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::CanBeArrested"
@@ -13978,9 +13978,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -13996,7 +13996,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::CanBeDeleted"
@@ -14005,9 +14005,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14023,7 +14023,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::CanBeDeletedEvenInVehicle"
@@ -14032,9 +14032,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14050,7 +14050,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::CanPedReturnToState"
@@ -14059,9 +14059,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14077,7 +14077,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::CanSetPedState"
@@ -14086,9 +14086,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14104,7 +14104,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::CanStrafeOrMouseControl"
@@ -14113,9 +14113,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14131,7 +14131,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::IsAlive"
@@ -14140,9 +14140,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14158,7 +14158,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::IsPedInControl"
@@ -14167,9 +14167,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14185,7 +14185,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::IsPedShootable"
@@ -14194,9 +14194,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14212,7 +14212,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::IsPlayer"
@@ -14221,9 +14221,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14239,7 +14239,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::IsPointerValid"
@@ -14248,9 +14248,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14266,7 +14266,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::SetPedState"
@@ -14275,9 +14275,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14293,7 +14293,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::SetPedStats"
@@ -14302,9 +14302,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14320,7 +14320,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::SetPedDefaultDecisionMaker"
@@ -14329,9 +14329,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14347,7 +14347,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::SetStayInSamePlace"
@@ -14356,9 +14356,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14374,7 +14374,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::SetRadioStation"
@@ -14383,9 +14383,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14401,7 +14401,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::GetBikeRidingSkill"
@@ -14410,9 +14410,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14428,7 +14428,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::UpdateStatEnteringVehicle"
@@ -14437,9 +14437,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -14455,7 +14455,7 @@
       },
       "evidence": {
         "path": "reversing/CPedD/validation-summary.json",
-        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "sha256": "e3f2aa593a59202c810b9bf228ddee526e3c3ffa298516d7e102c3fcb708b642",
         "passed_path": [
           "covered_functions",
           "CPed::UpdateStatLeavingVehicle"
@@ -14464,9 +14464,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
       "dependency_review": null,
@@ -52286,7 +52286,7 @@
       },
       "evidence": {
         "path": "reversing/BikeControl355/validation-summary.json",
-        "sha256": "92b5dc50e202af90ccd889a5b2a08889943bfac0d04449d3a35dee877875ac13",
+        "sha256": "26a6faed36e461ac3bad816ca4eca309e7a6196e7c772b0af6c769d00286f5e1",
         "passed_path": [
           "covered_functions",
           "CBike::ProcessControl"
@@ -52296,9 +52296,9 @@
       },
       "tested_sources": {
         "source/game_sa/cTransmission.h": "9f210249131d23cce10edfa130c04453fc812b2924cddf8c2dddf59e4539b5ab",
-        "source/game_sa/Collision/ColModel.h": "279eb38356de8e4d7e2525027243ce667cdd44c2e2bfd41e76d315df059ef205",
+        "source/game_sa/Collision/ColModel.h": "99580eb305e1804ec7478aa135ae6076e8f28a572e159cb056030be498710b52",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Collision/ColLine.h": "d56957b4667955ea8eba2b2ebf12f7367df917e137864dda408843970fe88c39",
+        "source/game_sa/Collision/ColLine.h": "e9c00654d9b4275b091b6c1e503e8c3670a38ebd92e3ed602310a9a8ec7f81c4",
         "source/game_sa/Events/EventVehicleOnFire.h": "5633d0d32955b6ca610ff21cd59cdae78d9cab4f6e4f5bdc141288b25dbe35cb",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
         "source/game_sa/Stats.h": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3",
@@ -52307,53 +52307,53 @@
         "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
         "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00",
         "source/game_sa/Collision/ColSphere.cpp": "5d26de46746cff2bcca5e7e4232e0be8d8a32fdb6a6750f0d558756d12fbb39c",
         "source/game_sa/Collision/ColSphere.h": "bd100cf3052d51eec06d543245887a65817895416354a6dcf2499372956ca499",
         "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
-        "source/game_sa/RenderWare/rw/rwcore.h": "cf1a7a9528e04b876b4f3abf0b80fd5eed5714faf29045b499bbd27f65d3827e",
+        "source/game_sa/RenderWare/rw/rwcore.h": "706baae6c072c28ebf9fb0948c3f5dd187f2dc1e8e032f3e98550afe2ff83930",
         "source/game_sa/SurfaceInfos_c.cpp": "85f034f55ee7d572e78d8684921c306f00850cead2b79e2f6bf2a02b21502786",
         "source/game_sa/SurfaceInfos_c.h": "8cdb13c3fe037873934f042e18dceaa747d2b322495f83aae0f40fbfc8b234cd",
         "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
         "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
-        "source/game_sa/CarCtrl.cpp": "d1f10086cb74b2e8c35fb62bdb83da3d71a2d9fc0dfe0807a1a0f7bf39c2db9d",
-        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+        "source/game_sa/CarCtrl.cpp": "cd16deeae97c78a92292553c93315b283293860463357f226d81b54af93edfa3",
+        "source/game_sa/CarCtrl.h": "c551460ac16e87f07dfb0b044b8af5535794ee3c1c6a14f4b7ed8057b07a3f29",
         "source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp": "494a8f924654c02a123de2b6e0a60dc47eb1ae25e9fcca6d71e84b89a1a6642a",
         "source/game_sa/Audio/Entities/AEVehicleAudioEntity.h": "537ba09ad513febe240e0da6a85d84c9e123e1858a7b353b701f744f0ddc8d76",
         "source/game_sa/Entity/Physical.cpp": "5b39a96da8e4e5fd60e1e5c935b5bb2419756af85214c00e41c99d2ed652ed97",
         "source/game_sa/Entity/Physical.h": "2be1902e933b8704da536c4f89fc7cf541083fb57aa1ca7cdc3c4ae1c719cea3",
-        "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
-        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4",
         "source/game_sa/Collision/ColPoint.h": "cc2bfb8434c6f47ee61c92179823459d8e2d2739b35bf275485f1f305c6b4139",
-        "source/game_sa/Core/Matrix.cpp": "eb7e4cb12f35d1842b8d07404d43592b5980c33fe174cdbd2756d5cda666a0c9",
-        "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2",
-        "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
-        "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
-        "source/game_sa/Camera.cpp": "6df73adb4a017734667c6300a12afa5db9fbc1f7facb9cdd477e58fbd31f7fa8",
-        "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
+        "source/game_sa/Core/Matrix.cpp": "cc8689916b23d7e40c61c7fc25432d630d38ea0aee968515a60d208078571e28",
+        "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+        "source/game_sa/Core/Vector.cpp": "48010e3019a380e233c5eabc3c1a8ac81b05032a24f7debb29d0a921a9cb94ad",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
         "source/game_sa/Explosion.cpp": "c72583551037ef77afdb53e1a705a305dc0a655f7ca513ab0df27c6d5ab6ae68",
         "source/game_sa/Explosion.h": "9ff67a51fb1b722c14d053e14ebcd2bfd82a5196d2d9f69ccc4bf51ec1f529e1",
         "source/game_sa/Darkel.cpp": "3356380dbbe2cf4fa0be9b9fca5c8a55c010fca484ac5c1715d6043da4cfa6cc",
         "source/game_sa/Darkel.h": "96f0a07f178033ced63b9ae92f75ad79a4efc9cfd2059fa81cd45bffa2d79078",
         "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "c1abcc12b1e4d36f0195ab55b747e0b84358514d3c3ef6baa44ea85f12013661",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
-        "source/game_sa/Stats.cpp": "5519aba8edb52315eda102ac98f1cb07f519719c667edcdea5cfabccb1771063",
-        "source/game_sa/Entity/Ped/PlayerPed.cpp": "3f366db39a66cbd8451ecd76107539044fc9889bf2ef7a51a573ed6837110708",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+        "source/game_sa/Stats.cpp": "4b27b8845e82808f315697a7ba086bafb3c3da2e9b2ac9f77f929316594a5548",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
         "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
         "source/game_sa/tHandlingData.h": "91ab5abf070978bff8c2076467a610410196a25038a33bdd9958de88ccadc19d",
-        "source/game_sa/X87Math.cpp": "87e3f62c035b969c59bf7c062382ff696b9c73d05e879c1a084e0f16fec17dbe",
-        "source/game_sa/X87Math.h": "448a81f7318aa36c0a8293731283cd5dd5268400b6991e4600eece40692c9776",
-        "source/game_sa/RwHelper.cpp": "238d404de06b9efc2c98eb1c3312698a3c50e2d755812ce61e78a303a0958c3d",
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
         "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp": "a8a0270ddd28dc1f746eef5ac664e79f0f1ed2dc980dcdc47fbc8e5e0d501d93",
         "source/game_sa/Fx/FxManager.cpp": "8ad17f1c5c416b0caa461b7c789a32a0e872b4607d4e1c0ec79808e4f185a877",
-        "source/game_sa/Fx/FxSystem.cpp": "b9437d929d037cdc9f9b8925d11bb77782eb96e03c3daca3a6bd00df00cb8b9b",
-        "source/game_sa/Events/EventVehicleOnFire.cpp": "44d1ddc2b4cd74eefb11da807bc5ebe44f4144e60674e4b0c40fa90c7568a4a7",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
+        "source/game_sa/Events/EventVehicleOnFire.cpp": "2de4378e9bbc8f437380f4b685d46596feb72450148ddf6f820f1c52080609a0",
         "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
-        "source/game_sa/Pad.cpp": "522ccd4cdcad027c728b7e509f76040dbf6917a50f1efb8af9b69efdf1a663ad",
+        "source/game_sa/Pad.cpp": "24a120033da270f5a414ab9c8f5d7de8b65fdcc6dc5dc406bc50df97e4b2d34a",
         "source/game_sa/CullZones.cpp": "62f6133e3240286ec8ae62e01a343cfd6d5ee7e910c649212c14ba6ce7a82e9e"
       },
       "source_provenance": "Partial current full-manifest replay 20261008-065219-724488",
