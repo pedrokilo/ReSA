@@ -104,6 +104,10 @@ inline void Update(){
  OriginalDependencies499::HookRoute add("CDecisionMakerTypes","AddDecisionMaker",0x607050,FunctionToVoidPtr(&CDecisionMakerTypes::AddDecisionMaker));
  OriginalDependencies499::HookRoute load("CDecisionMakerTypes","LoadEventIndices",0x600840,FunctionToVoidPtr(&CDecisionMakerTypes::LoadEventIndices));
  OriginalDependencies499::HookRoute record("CPlayerRelationshipRecorder","RecordRelationshipWithPlayer",0x61A1D0,FunctionToVoidPtr(&CPlayerRelationshipRecorder::RecordRelationshipWithPlayerRegs));
+ // Lote 111A: 0x6985E0 (CTaskCategories::IsKillPedTask) y 0x698610 (IsFollowPedTask) tienen hook RH desde el lote 111A; la funcion ORIGINAL (EXE) debe llamar a las ayudantes del EXE (el residuo de registros
+ // de las del EXE y de las de la DLL difiere): se mantienen APAGADAS durante todo el banco con HookRoute (el constructor deja el hook apagado; el destructor lo restaura).
+ OriginalDependencies499::HookRoute helperKill("CTaskCategories","IsKillPedTask",0x6985E0,OriginalDependencies499::HookRoute::RegisteredTarget{});
+ OriginalDependencies499::HookRoute helperFollow("CTaskCategories","IsFollowPedTask",0x698610,OriginalDependencies499::HookRoute::RegisteredTarget{});
  OriginalDependencies499::HookRoute* routes[]{&remove,&add,&load,&record};
  std::array<std::vector<uint8>,4> codes;for(int i=0;i<4;++i)codes[i]=ReversingProbe::Bytes(reinterpret_cast<void*>(fns[i].address),5);
  json helpers=json::array();for(uintptr_t a:{0x600B50u,0x5F7340u,0x6006B0u,0x5BB9F0u,0x681720u,0x6985E0u,0x698610u})helpers.push_back({{"address",a},{"jumps_to_dll",ReversingProbe::JumpsToDll(a)},{"bytes",ReversingProbe::Bytes(reinterpret_cast<void*>(a),5)}});
@@ -186,7 +190,7 @@ inline void Update(){
  }
  restore();wchar_t finalDir[32768]{};GetCurrentDirectoryW(32768,finalDir);
  bool restored=globalPool==savedPool&&CTimer::GetTimeInMS()==savedTime&&CReferences::pEmptyList==savedRefs&&wcscmp(savedWindowsDir,finalDir)==0&&FileBytes(filePath)==fileBefore&&savedDir==ReversingProbe::Bytes(CFileMgr::ms_dirName,128)&&savedRootDir==ReversingProbe::Bytes(CFileMgr::ms_rootDirName,128)&&savedActive==ReversingProbe::Bytes(active,20)&&savedGroup==ReversingProbe::Bytes(group,20)&&savedGroups==ReversingProbe::Bytes(groupObjects,8*0x2D4)&&savedGroupActive==ReversingProbe::Bytes(groupFlags,8);
- for(int i=0;i<4;++i)restored&=codes[i]==ReversingProbe::Bytes(reinterpret_cast<void*>(fns[i].address),5);for(auto* route:routes){const bool ok=route->Restore();restored&=ok;}
+ for(int i=0;i<4;++i)restored&=codes[i]==ReversingProbe::Bytes(reinterpret_cast<void*>(fns[i].address),5);for(auto* route:routes){const bool ok=route->Restore();restored&=ok;}{const bool ok=helperKill.Restore()&&helperFollow.Restore();restored&=ok;}
  Write({{"event",passed&&restored?"complete":"error"},{"pairs",pair},{"state_restored",restored}});
 }
 }

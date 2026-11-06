@@ -84,7 +84,7 @@
   "log_sha256": "3e755420a2169210b055b0569f94f1e88e4a6d364e369c13eb0e6472f0277f4e",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61b\\20261005-204334-550890",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61b\\20261106-150058-920745",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexWanderCriminal::Clone": true,
@@ -158,38 +158,39 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "b95a4383837df5e000a69785c3e3da650f6cd26b0cfb635986a3771e7f35b559",
-      "pdb": "50177a3b4798afbbf1e44a05d94f68b186695ad6417dbd66356589456e6805ac"
+      "asi": "92e6ea5521ec34626a21ba72f933436624ad0ae61ea37a4951e7f54acb3c7b8e",
+      "pdb": "a2075b47feb150dfbaa720f084cfde624a06be562f2edb4d56d249450cc3ceb4"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "53a77e69554c06aa49f9a091af7075d4d3e78d5768f784149e435cd961e23e87",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.h": "d4d4b6dbf9e411ce475daf410ed7ea8063b699592114499687b9727255e28c11",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp": "7340980e4544a5a9f0b26321e708c53dd75ff49687517d5aa94e17af9db4dc86",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "e11375c29aaac1ee4af90720146269837e3d9c2de9597acb608f18e7863cdae6",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.h": "f38146f1df86caf78a07b7acd7bcb4b6aed23a3c5be186b1caab79a741e22ae0",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp": "fb8dd2aaca7e2edde69463dbde8aad6ea54e94f96b6b44f4bc00919ec62f2279",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.h": "0a8e75e2cbceab0429b8c23525a249be3930d8b9e5af465cdedd4df47915a25a",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "cfa874f9945f694c0131e75a31c717ecf2a105075f33947348f931c48c84eceb",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "f556580f037263a1d0a3e597cebd87179c377b628bc957e21bf3ce1792db1364",
       "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "5aecac4330d4383baccea4e3370367bc67cc251f59235bb03197e990e484f14e",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "19bc2d9316214830ced76ff2eaa0607d06d2798788b8d2d1976b9b1c645dc294",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "5549b2480dc3dc2821cb71ed9d9e1e004cd1fb31b6094b85a9bcde35c388b6cc",
       "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h": "82bbd730ecb4a26b7207b12330163c4779fa98c542b8a60812245329189c7a2d",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "9ae84348790b749cdc728d3cd947a9115558e3905ab61e89caa774ad8fbf4967",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h": "6d43cee3bd5eb6f50a026b04fff82c3da85fdc24ebe02ea35bbaac46d85efdf8",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "9bcd30d2c4dc9aa21f7b70fe386492561f7e9304a3aa91bbedb9cf5f98202fe0",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "c45dec7025a48f49e2c183684d86dfe96a596a61c2793bd4e585aa95cdfd5b27",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h": "2b11017c74fa8320ad5b41895c9ccf8f54765693fe859164ae42738ae026c6cc",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "844c50f4168a6612fc302d5289f0792b7657a934705da99d7f7ed607eee3431a",
       "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h": "8003882353696c8da5abc6696d0a354b6fdfb5f6638c73ec68bb4ab8e336aaf9",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "a2a9510b4e114919795b942a9f6eca9366183703a70619e2c74dacd2058cebb5",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "86b2fe3dc893df70948b45d71d1f2e0eabbf89d5139a90b04f52d73820dc56da",
       "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h": "46f871e6205cd64012a94fa1a253f9619803196705075cb5a8f739e19a7f04ef",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "47fb740de2b4273593e9c9c8aa7d9e09f2c387b177ed36af2041f3803abb712e",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "5f4b6638f8cba709847134cdc243b65245e41ab3eca3fbafb5ccda27b4b56299",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp": "15ee6ee81a5c15d3bdf914ca0553bf1fb8c7f2137e348c2c804e3a28996ff7bb",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h": "5d783eaff31523d23ab323f72ce764a8c7ff29f8baeb9caf61b8dff9f39855fa"
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "7cc73625640ada03fea36c8283ae0a9c2266574a255824b9f24048e14deef960",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "7be4c19913cbee1270d11f00c453ea684d3e3be2d23e20be0a732ce9e66be520",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp": "e9fbfa255cceec21fbc2e0582a7156d6bf40ff5edf895474461e763d16e86f13",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h": "d42e928aa41d040a093f37849ce18f4d4984cde1f26490519e1a9ca8af378b27"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "544cc4c2e455e26e636d62058219162524440c5a9b880366c8defe30c73fd1ce",
+      "LiveComparison.hpp": "e9ffba28b1c00da1dbb75b04d7dec94e6bc5b80c2ce6371ed083164267f68d4d",
       "build_probe.py": "a7ab522894e4c160309119595dd9a7004e92fe2ae5dea8b60fdbbe748e8dee62",
       "run_local.py": "40538b7079beb9ec83617a7caee6097ef762c69d50cbdbc3e4a1687ede5d89df"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

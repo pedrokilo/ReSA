@@ -1,0 +1,3 @@
+APROBADO: C_PcSave
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pcsavebatch\20261106-144614-465770

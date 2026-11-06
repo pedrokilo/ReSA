@@ -21,7 +21,7 @@
   "log_sha256": "7141bf96b2da97b8be9943c95941ec6f2c4a6139b397915510cb13a338984a9a",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-pcsavebatch\\20261002-045455-614950",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-pcsavebatch\\20261106-144614-465770",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "C_PcSave::SetSaveDirectory": true,
@@ -32,22 +32,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "3003ac156dd0343d5f0fba184ff32bb6216648a81411330698d6d7958897b44e",
-      "pdb": "0886781f864f1b025d624f08a128847b98866b177c8e6a4dcaa6af185aad7af3"
+      "asi": "dd22ad7653e8bdbbba640200bcc46989f2627a7094be69465a75e3e9f2f8494f",
+      "pdb": "4dbd9aa1957e2407ad1972298593b80693775f7820f38599126f0d565d9a4e24"
     },
     "sources": {
-      "source/game_sa/C_PcSave.cpp": "3b199be2588c086819f4ffd6792dfbec92c5e8dd356d7d98bf3d32c310734f9f",
+      "source/game_sa/C_PcSave.cpp": "dc942c3eac3faa2105a03a761f44f355ddaccb9351517f2f282dc799f40b0a08",
       "source/game_sa/C_PcSave.h": "9ce5bfc6d6dcccef1cc786f6feaaedaf9e76671450786ccd543a5ecb3345f920"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "89c4f87a42a0b13807aff863ce36f8f7dd59761b68bae836138fa53dcbf9f1f5",
+      "LiveComparison.hpp": "2013ca5ad1a3b202aaa066538b545658dc26b69ea6d30fbfe49319464985e7ff",
       "build_probe.py": "274930655b3dac16a063042cde06b75464b97b9215c685aadaf33efa5f041413",
       "run_local.py": "a62a68ae8421561b7068b7c269733576be07f52cdf420a8f40bf87ae6ca58eaf"
     }
   },
   "limitations": [
     "Los archivos de partida son falsos y viven en una carpeta temporal del juego; GenericSave, MakeValidSaveName, DoGameSpecificStuffBeforeSave, InitUserDirectories y CheckDataNotCorrupt se simulan y se trazan.",
-    "Los archivos truncados conservan siempre la fecha: leer más allá del final deja pila sin inicializar, distinta en cada lado."
+    "Los archivos truncados conservan siempre la fecha: leer más allá del final deja pila sin inicializar, distinta en cada lado.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
