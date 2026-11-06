@@ -43,3 +43,11 @@ Copias buenas (SHA256): `Matrix.cpp` 66c3735eae9fb07c0c582b18b948df284515c21a0a8
 
 ## Tiempo
 Una corrida de los 114688 pares: unos 10 min (mas la compilacion incremental de la sonda, de 20 s a 2 min, y la espera de los candados).
+
+## Bancos antiguos repetidos
+Citan alguna de las siete direcciones **5 bancos** con sonda (`grep` de las siete direcciones sobre `LiveComparison.hpp`, `Core.hpp`, `Fixtures.hpp`, `run_local.py`, cabeceras y `.cpp` de `reversing/*/`, sin `offline/`, `runs/` ni `_handoff/`; menos de 25: se repiten todos). Todos aprobados con el codigo final (cada corrida compilada de nuevo con las tres fuentes de las copias buenas); la evidencia de cada uno se refresco con `reversing/_handoff/refresh_bank.py` (`CppMatrixExact1` no tiene `validation-summary.json`: solo archiva la corrida en `runs/`).
+- Sin cambios en el banco: `AutomobileWrappers60` (0x59B460 `Rotate`, falso identico en la entrada del EXE y en el cuerpo de la DLL), `CppMatrixExact1` (0x59AFA0 y 0x59AFE0, que ahora tienen hook: el banco ya compara el codigo del EXE con el de la DLL por esas funciones), `FixCore` (0x59AFA0 y 0x59AFE0) y `RopePending` (0x59B7E0 `ForceUpVector`, falso identico en ambos lados).
+- Adaptado (banco, no produccion): `FileLoader47` (cita 0x59BBF0 como colaborador con falso en ambos lados, que funcionaba): la primera repeticion se cayo con un acceso invalido en `_rwObjectHasFrameSetFrame` llamado desde el cuerpo de la DLL de `RpAtomicSetFrame` (0x74BF20, con hook desde el lote 102A), porque el banco parcheaba solo la direccion del EXE de `RpClumpForAllAtomics` (0x749B70) y de `RpAtomicSetFrame` (0x74BF20); ahora los dos colaboradores llevan tambien el cuerpo de la DLL (`B(&RpClumpForAllAtomics)`, `B(&RpAtomicSetFrame)`), como en los bancos adaptados del lote 102A. No era un fallo de las siete direcciones de este lote.
+- Corridas aprobadas: AutomobileWrappers60 `20261105-233920-974466`, CppMatrixExact1 `20261105-234357-632854`, FixCore `20261105-234752-582935`, RopePending `20261105-234840-337126`, FileLoader47 `20261105-235013-739770`.
+- Ninguno queda por repetir.
+

@@ -16,10 +16,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "e019128f21d090454e23a1a3058cc449e0b7760294372a6a523b2a66fe7c5563",
+  "log_sha256": "4bb0400cf876d96acfad081c635f0eefd3dfc079deb4e55aea802413f9917771",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-rope-pending\\20261104-212634-623291",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-rope-pending\\20261105-234840-337126",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CRope::UpdateWeightInRope": true,
@@ -27,15 +27,15 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "53b022d4cc9de4e5a2ccbbe97ebca755eb45a7182a5e09a89371d5f7c418cee7",
-      "pdb": "ac638532190aedea911af6535a2a28d3c1f60b56f8d5bbbebfae67c482481046"
+      "asi": "6da1faae7eb2c90aa847ee12590ec44f3453147ba4670381d8daae0f108380f1",
+      "pdb": "f33837f478c081979378cc8399cb098307dcf0f58cad100b56c31d087ff697df"
     },
     "sources": {
       "source/game_sa/Rope.cpp": "61ad1f372f8efcd78510b36b9f00063f788399162b946d2202513215fe353d96",
       "source/game_sa/Rope.h": "21862741e1609c8457bd7b66c18fd06c85126d600cf1fcc26fac1763c1e21fd1",
       "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac",
-      "source/game_sa/Core/Matrix.cpp": "eb7e4cb12f35d1842b8d07404d43592b5980c33fe174cdbd2756d5cda666a0c9",
-      "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2"
+      "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
+      "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {

@@ -33,7 +33,7 @@
   "log_sha256": "d465e42df2ddcedee9e3a003387eb5248da1fde089815b0e6f1c6bb52481bde8",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fixcore\\20261105-185455-865185",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fixcore\\20261105-234752-582935",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CMatrix::RotateX": true,
@@ -56,11 +56,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "4fa5c1099d2e3c1c8ef5c9a0b1b299aaf8c9d4d188af116ea913e7c457883fc8",
-      "pdb": "9a58939fc7b945eccd0328280dd49690e5c8fbd937b810f2c22decbd54938d88"
+      "asi": "5596c8a661456ce9e268225d3683c65d2b366d24f2391ce677a0c4ccd7f0a4bb",
+      "pdb": "ac5d1c9666aa2e31125680c6f3b350d1dc30f51b898ee77c167b9862982f9cb3"
     },
     "sources": {
-      "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+      "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
       "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
       "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
       "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",

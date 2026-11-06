@@ -117215,7 +117215,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
+        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
         "passed_path": [
           "covered_functions",
           "CVehicle::SetComponentRotation"
@@ -117224,7 +117224,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
@@ -117250,7 +117250,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
+        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::ApplyRollAndPitch"
@@ -117259,7 +117259,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
@@ -117285,7 +117285,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
+        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
         "passed_path": [
           "covered_functions",
           "CTxdStore::AddTxdSlot"
@@ -117294,7 +117294,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
@@ -117320,7 +117320,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
+        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
         "passed_path": [
           "covered_functions",
           "CTxdStore::RemoveTxdSlot"
@@ -117329,7 +117329,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
@@ -117355,7 +117355,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
+        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
         "passed_path": [
           "covered_functions",
           "CPed::operator new-anon"
@@ -117364,7 +117364,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
@@ -117390,7 +117390,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
+        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
         "passed_path": [
           "covered_functions",
           "CPed::operator new-poolIndexed"
@@ -117399,7 +117399,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
@@ -117425,7 +117425,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "a7bf339a03a223400f77e2f8e121c30e2dd4b3fe91f83cffc90000df92bebe41",
+        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
         "passed_path": [
           "covered_functions",
           "CPed::operator delete-anon"
@@ -117434,7 +117434,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "26112022af9227aef0f0d52a1dabc362909f5f2545656bcced6fe19119b77097",
+        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",

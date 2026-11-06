@@ -22080,7 +22080,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileWrappers60/validation-summary.json",
-        "sha256": "5141abe0bf2e9e021a7416a8ec297679fc0041b50f77d085bf89ce0e02611d3a",
+        "sha256": "27cc0d7185e5c3d71a84cc8bc7088aec72ce5d32d94f84c3b0967def22130744",
         "passed_path": [
           "covered_functions",
           "CAutomobile::HasCarStoppedBecauseOfLight"
@@ -22090,11 +22090,11 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/InjectHooksMain.cpp": "ed52935c90500de84acda62494be85acb4bb958bddff16a33ef6b2b85a8ef281",
         "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
-        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
+        "source/game_sa/X87Math.cpp": "9fb7c331ba9cfdcf64a49980fcbc8cfc199849c61590bd62d8ff40fd4256eb9b",
+        "source/game_sa/X87Math.h": "c8770690950e8d458256f493310e103c79d1a4a75b80505561c22f8dd8e40459",
         "source/game_sa/Pathfind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -22158,7 +22158,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileWrappers60/validation-summary.json",
-        "sha256": "5141abe0bf2e9e021a7416a8ec297679fc0041b50f77d085bf89ce0e02611d3a",
+        "sha256": "27cc0d7185e5c3d71a84cc8bc7088aec72ce5d32d94f84c3b0967def22130744",
         "passed_path": [
           "covered_functions",
           "CAutomobile::UpdateWheelMatrix"
@@ -22168,11 +22168,11 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/InjectHooksMain.cpp": "ed52935c90500de84acda62494be85acb4bb958bddff16a33ef6b2b85a8ef281",
         "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
-        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
+        "source/game_sa/X87Math.cpp": "9fb7c331ba9cfdcf64a49980fcbc8cfc199849c61590bd62d8ff40fd4256eb9b",
+        "source/game_sa/X87Math.h": "c8770690950e8d458256f493310e103c79d1a4a75b80505561c22f8dd8e40459",
         "source/game_sa/Pathfind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
