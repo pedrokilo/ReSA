@@ -65,3 +65,6 @@ Todos con el codigo final; evidencia archivada y refrescada con `reversing/_hand
 
 ## Tiempo
 Una corrida de los 278528 pares: unos 12 minutos (mas la compilacion incremental de la sonda, de unos 15 s con el arbol ya compilado; la espera por `gta_lock` compartido con los demas lotes dominó los tiempos totales).
+
+## Comprobacion sobre el arbol integrado
+Tras rebasar el lote sobre main f325d1a0c (lote 105A) se recompilo y se repitio Fn108A: APROBADO de nuevo (278528 pares, cero diferencias; corrida `20261106-114643-679082`, solo comprobacion de integracion, no sustituye a la evidencia registrada). Un primer intento se corto por el cierre de la sesion (el proceso del juego no se cerro a tiempo) y se repitio.
