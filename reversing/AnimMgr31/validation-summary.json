@@ -44,10 +44,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "402744433eaa53e821efcd0bdb678aee5bde10719d0736ccc816d7acf5f058ba",
+  "log_sha256": "74cdf054234c4c78d5b5f0c1dac9732bce478221411bfc0b407e470f28722f7e",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-animmgr31\\20261004-112409-096781",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-animmgr31\\20261106-141859-249942",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAnimManager::AddAnimAssocDefinition": true,
@@ -84,22 +84,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "5c20c7ccd627dc9656ddfcdfa8d6a333d6d20756fc776c96d2ee84927924df73",
-      "pdb": "8d2c93bd172a9361c141581b3986a6a08f8e630a089ffb53cc2d4d97a8e1213c"
+      "asi": "3e06f6cac6403112e16c8c768bd2f3a0d359fe617580c694b697a63fac5fed5a",
+      "pdb": "ae1fbed8406928af188c49c258102fa54937655ac62cd453f0dad38d513a0558"
     },
     "sources": {
-      "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+      "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+      "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "49b83f55d702369748a7c7312ed4920898a38637dfd03c27262039fe531c3d10",
+      "LiveComparison.hpp": "c086279f8a9840b23b4aa60b0a963cd2b3de5e81f38c55d9fd72cb55852309ee",
       "build_probe.py": "c8a488dd2583ffc35c1269fc19c8d538d5569714ea4ae20863212b3690ef9d3d",
       "run_local.py": "331f3e2c47832f8fcb17977bae295399c8b7182510e6ab5a3377edcbedc32666"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

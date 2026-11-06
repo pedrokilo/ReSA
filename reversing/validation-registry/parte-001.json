@@ -149122,7 +149122,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::AddAnimAssocDefinition"
@@ -149131,8 +149131,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149148,7 +149148,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::AddAnimBlockRef"
@@ -149157,8 +149157,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149174,7 +149174,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::AddAnimToAssocDefinition"
@@ -149183,8 +149183,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149200,7 +149200,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::AddAnimation-hier"
@@ -149209,8 +149209,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149226,7 +149226,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::AddAnimation-id"
@@ -149235,8 +149235,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149252,7 +149252,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::AddAnimationAndSync"
@@ -149261,8 +149261,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149278,7 +149278,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::BlendAnimation-hier"
@@ -149287,8 +149287,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149304,7 +149304,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::BlendAnimation-id"
@@ -149313,8 +149313,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149330,7 +149330,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::CreateAnimAssocGroups"
@@ -149339,8 +149339,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149356,7 +149356,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::CreateAnimAssociation"
@@ -149365,8 +149365,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149382,7 +149382,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::GetAnimAssociation-by-id"
@@ -149391,8 +149391,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149408,7 +149408,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::GetAnimAssociation-by-name"
@@ -149417,8 +149417,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149434,7 +149434,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::GetAnimBlockName"
@@ -149443,8 +149443,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149460,7 +149460,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::GetAnimGroupName"
@@ -149469,8 +149469,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149486,7 +149486,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::GetAnimation-0"
@@ -149495,8 +149495,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149512,7 +149512,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::GetAnimation-1"
@@ -149521,8 +149521,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149538,7 +149538,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::GetAnimationBlock-"
@@ -149547,8 +149547,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149564,7 +149564,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::GetAnimationBlockIndex-by-name"
@@ -149573,8 +149573,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149590,7 +149590,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::GetFirstAssocGroup"
@@ -149599,8 +149599,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149616,7 +149616,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::GetNumRefsToAnimBlock"
@@ -149625,8 +149625,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149642,7 +149642,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::Initialise"
@@ -149651,8 +149651,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149668,7 +149668,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::LoadAnimFile"
@@ -149677,8 +149677,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149694,7 +149694,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::LoadAnimFiles"
@@ -149703,8 +149703,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149720,7 +149720,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::ReadAnimAssociationDefinitions"
@@ -149729,8 +149729,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149746,7 +149746,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::RegisterAnimBlock"
@@ -149755,8 +149755,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149772,7 +149772,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::RemoveAnimBlock"
@@ -149781,8 +149781,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149798,7 +149798,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::RemoveAnimBlockRefWithoutDelete"
@@ -149807,8 +149807,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149824,7 +149824,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::RemoveFromUncompressedCache"
@@ -149833,8 +149833,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149850,7 +149850,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::RemoveLastAnimFile"
@@ -149859,8 +149859,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149876,7 +149876,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::Shutdown"
@@ -149885,8 +149885,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,
@@ -149902,7 +149902,7 @@
       },
       "evidence": {
         "path": "reversing/AnimMgr31/validation-summary.json",
-        "sha256": "8e6c1079357603bdc185088fbd1d898b9968256514ebd2ffbb158c8296b49d52",
+        "sha256": "cfb6a175cd70a71925b68a7eaba61badc73ab8961977d873c17e039ff3dd6a93",
         "passed_path": [
           "covered_functions",
           "CAnimManager::UncompressAnimation"
@@ -149911,8 +149911,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
-        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+        "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-112409-096781).",
       "dependency_review": null,

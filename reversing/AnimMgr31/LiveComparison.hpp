@@ -285,7 +285,7 @@ inline void Update() {
         {0x4CEA50,B(bit_cast<uintptr_t>(&CAnimBlendAssociation::ReferenceAnimBlock)),reinterpret_cast<void*>(&FakeRefBlock)},
         {0x4D6720,B(bit_cast<uintptr_t>(&RpAnimBlendClumpInit)),reinterpret_cast<void*>(&FakeClumpInit)},
         {0x734820,B(bit_cast<uintptr_t>(&GetFirstAtomic)),reinterpret_cast<void*>(&FakeFirstAtomic)},
-        {0x7C7550,0,reinterpret_cast<void*>(&FakeSkin)},{0x749B70,0,reinterpret_cast<void*>(&FakeForAll)},{0x74A310,0,reinterpret_cast<void*>(&FakeClumpDestroy)},
+        {0x7C7550,0,reinterpret_cast<void*>(&FakeSkin)},{0x749B70,reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics),reinterpret_cast<void*>(&FakeForAll)},{0x74A310,0,reinterpret_cast<void*>(&FakeClumpDestroy)},
         {0,0,nullptr},{0,0,nullptr},{0,0,nullptr},
     }};
     // UncompressAnimation se simula solo cuando no es la funcion probada.
