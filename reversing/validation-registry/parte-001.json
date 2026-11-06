@@ -70321,7 +70321,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::Initialise"
@@ -70330,17 +70330,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70357,7 +70357,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::StaticInitialise"
@@ -70366,17 +70366,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70393,7 +70393,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::Terminate"
@@ -70402,17 +70402,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70429,7 +70429,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::AddAudioEvent"
@@ -70438,17 +70438,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70465,7 +70465,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::PlayFireSounds"
@@ -70474,17 +70474,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70501,7 +70501,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::PlayWaterSounds"
@@ -70510,17 +70510,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70537,7 +70537,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::UpdateParameters"
@@ -70546,17 +70546,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70573,7 +70573,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::Initialise"
@@ -70582,17 +70582,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70609,7 +70609,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::UpdateTwinLoopSound"
@@ -70618,17 +70618,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70645,7 +70645,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::UpdateParameters"
@@ -70654,17 +70654,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70681,7 +70681,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::SwapSounds"
@@ -70690,17 +70690,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70717,7 +70717,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::StopSoundAndForget"
@@ -70726,17 +70726,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70753,7 +70753,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::DoSoundsSwitchThisFrame"
@@ -70762,17 +70762,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70789,7 +70789,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::PlayTwinLoopSound"
@@ -70798,17 +70798,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70825,7 +70825,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::Constructor"
@@ -70834,17 +70834,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70861,7 +70861,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::Initialise"
@@ -70870,17 +70870,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70897,7 +70897,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::Terminate"
@@ -70906,17 +70906,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70933,7 +70933,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::SetSplashInfo"
@@ -70942,17 +70942,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -70969,7 +70969,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::ClearSplashInfo"
@@ -70978,17 +70978,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71005,7 +71005,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::Service"
@@ -71014,17 +71014,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71041,7 +71041,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::UpdateParameters"
@@ -71050,17 +71050,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71077,7 +71077,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::Constructor"
@@ -71086,17 +71086,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71113,7 +71113,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::Deconstructor"
@@ -71122,17 +71122,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71149,7 +71149,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::Initialise"
@@ -71158,17 +71158,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71185,7 +71185,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::LoadStreamPackTable"
@@ -71194,17 +71194,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71221,7 +71221,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::LoadTrackLookupTable"
@@ -71230,17 +71230,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71257,7 +71257,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::GetTrackInfo"
@@ -71266,17 +71266,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71293,7 +71293,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::IsCurrentAudioStreamAvailable"
@@ -71302,17 +71302,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71329,7 +71329,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CreatePipe"
@@ -71338,17 +71338,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71365,7 +71365,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::DestroyPipe"
@@ -71374,17 +71374,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71401,7 +71401,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CustomPipeAtomicSetup"
@@ -71410,17 +71410,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71437,7 +71437,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CreateCustomObjPipe"
@@ -71446,17 +71446,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71473,7 +71473,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CustomPipeMaterialSetup"
@@ -71482,17 +71482,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71509,7 +71509,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CustomPipeRenderCB"
@@ -71518,17 +71518,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71545,7 +71545,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CustomPipeReinstanceCB"
@@ -71554,17 +71554,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71581,7 +71581,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::ReStart"
@@ -71590,17 +71590,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71617,7 +71617,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::GetPedDMName"
@@ -71626,17 +71626,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71653,7 +71653,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::GetGrpDMName"
@@ -71662,17 +71662,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71689,7 +71689,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::UnloadDecisionMaker"
@@ -71698,17 +71698,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71725,7 +71725,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::LoadDefaultDecisionMaker"
@@ -71734,17 +71734,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71761,7 +71761,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::LoadDecisionMaker-enum"
@@ -71770,17 +71770,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",
@@ -71797,7 +71797,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "3e92c73bbac1867ee2cdc024d4581515640c1e7da283e9c4740b7fa2775552f6",
+        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::LoadDecisionMaker-ptr"
@@ -71806,17 +71806,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+        "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
         "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+        "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+        "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
         "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+        "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
         "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
         "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-234442-502505).",

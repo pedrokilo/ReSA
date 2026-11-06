@@ -58,7 +58,7 @@
   "log_sha256": "e5506493061a850005a96ac6065a0f7531542f54b35c18012fdfeabaecf4b44b",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio7\\20261002-234442-502505",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio7\\20261106-143454-429097",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEFireAudioEntity::Initialise": true,
@@ -106,32 +106,33 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "8a1ef1799161323234a15c53bb52f00df387fdc1f9b8290ad7f2fc1a25b11ba4",
-      "pdb": "8feff8ed8cd2f180a6da51db73d8dd89402fc1b4770eb45ee8bfd76f3c6a4396"
+      "asi": "257e3e743517d5ca92b029819d5b6f58f20d78747edeb2d449f0b301b937fd40",
+      "pdb": "1ff9fb1007af0c99ac2b6d001205c2b656794db52172e9930e704fead07eccfd"
     },
     "sources": {
-      "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "317633dc498b3b3c4892bd30f3d108e3d95268c5b1d93570592e8394a130c704",
+      "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
       "source/game_sa/Audio/Entities/AEFireAudioEntity.h": "2b1727bab488a618107fad1285c687d7dc274fa0eeffcc7078ab333ee1b4fd70",
-      "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "7e9913b36eb29bccf49e831047e303f7b7b931e0100331a184be230785dc02f6",
+      "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "e4bf7745b3befbc5b33a8226209a488f7abfcb25881ec91323831ab667f0be9b",
       "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
-      "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "352079a5c45dc3d79f719af076c77265228bec96c75c962aab54641395468fa2",
+      "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
       "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-      "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "b1726cda068802ebf4fdb271fe5d131275d36c2dd8d36484fa42cec84efe9c45",
+      "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
       "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
-      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "a61f775fec68a1452f36c05e3c2cddee61a8e757052b25421eb8c59e6f9ed4cb",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
       "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
-      "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "ee7c1a35cf39c13f95fe781eaceec822585432402f2b7ebe6129cf0a23a34ea2",
+      "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",
       "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "a19272c4993359048f5e4ae53017a4f2195650e98e1727ad2762be81b53f28c3",
+      "LiveComparison.hpp": "8ac183b2dec29e71b9efdbbf81ef31995ec12d45a57c805f1aebc5b3bfe43d36",
       "build_probe.py": "6c3b84d1a4036ea280aa597520bd742ad87b1b8f0fbfa681cdf88c2d61f164a6",
       "run_local.py": "a7a117ae7617d1751c575b942d1ecd4a1fc98c2f842da5fc17591b430315af0c"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Sin hardware, bancos, flujos ni archivos de audio reales."
+    "Sin hardware, bancos, flujos ni archivos de audio reales.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

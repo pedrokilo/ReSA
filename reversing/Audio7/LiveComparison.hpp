@@ -286,7 +286,7 @@ inline void Update() {
         EntryPatch m2(bit_cast<uintptr_t>(&CMemoryMgr::Free),FakeFree), m2e(0x72F430,FakeFree);
         EntryPatch p1(0x8057B0,FakePipelineCreate), p2(0x7582E0,FakeNodeDef), p3(0x806990,FakePipeLock), p4(0x806BE0,FakeAddFragment), p5(0x805F40,FakeUnlock), p6(0x806B30,FakeFindNode);
         EntryPatch p7(0x757390,FakeGetInstanceCB), p8(0x757380,FakeSetInstanceCB), p9(0x7573A0,FakeSetReinstanceCB), p10(0x7573E0,FakeSetRenderCB), p11(0x805820,FakePipeDestroy);
-        EntryPatch p12(0x74C790,FakeForAllMaterials), p13(0x72FC50,FakeSetPipelineID), p13d(bit_cast<uintptr_t>(static_cast<void(*)(RpAtomic*,RwUInt32)>(&SetPipelineID)),FakeSetPipelineID);
+        EntryPatch p12(0x74C790,FakeForAllMaterials), p12d(reinterpret_cast<uintptr_t>(&RpGeometryForAllMaterials),FakeForAllMaterials), p13(0x72FC50,FakeSetPipelineID), p13d(bit_cast<uintptr_t>(static_cast<void(*)(RpAtomic*,RwUInt32)>(&SetPipelineID)),FakeSetPipelineID);
         EntryPatch p14(0x812140,FakeGetEffects), p15(0x5D9570,FakeSetFxEnvTexture), p15d(bit_cast<uintptr_t>(&CCustomBuildingDNPipeline::SetFxEnvTexture),FakeSetFxEnvTexture);
         EntryPatch d1(0x756D90,FakeClipping), d1d(bit_cast<uintptr_t>(&_rwD3D9EnableClippingIfNeeded),FakeClipping), d2(0x7FC320,FakeGetRenderState), d3(0x7FC2D0,FakeSetRenderState), d4(0x7FC340,FakeSetTSS);
         EntryPatch d5(0x7FDE70,FakeSetTexture), d6(0x7FA090,FakeSetStreams), d7(0x7FC4D0,FakeSurface), d8(0x7FE0A0,FakeVertexAlpha), d9(0x7FC200,FakeFlush);
