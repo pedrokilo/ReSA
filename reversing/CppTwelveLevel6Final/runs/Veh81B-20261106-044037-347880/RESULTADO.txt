@@ -1,0 +1,3 @@
+APROBADO: Veh81B
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-veh81b\20261106-044037-347880

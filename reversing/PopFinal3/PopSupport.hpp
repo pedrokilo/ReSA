@@ -153,7 +153,8 @@ inline int32 __cdecl S_ClumpAlpha(void* clump) { if (!Mine()) return 0; const in
 inline void __cdecl S_RequestModel(int32 m, int32 f) { if (Mine()) T("request_model", m, f); }
 inline int32 __cdecl S_Cab() { if (!Mine()) return 0; const int32 r = NextI(); T("cab_model", r); return r; }
 inline void __cdecl S_SetDelExe(int32 m) { if (Mine()) T("set_model_deletable", m); }
-inline void __cdecl S_SetDelDll(int32 m, bool mission) { if (Mine()) T("set_model_deletable", m); if (Mine() && mission) T("mission_flag_inesperado"); }
+// Adaptacion del lote 105A (banco, no produccion): SetModelIsDeletable de la DLL tiene un solo argumento desde que se refactorizo (el EXE tampoco tiene segundo parametro: leerlo daba basura de la pila y un falso "mission_flag_inesperado").
+inline void __cdecl S_SetDelDll(int32 m) { if (Mine()) T("set_model_deletable", m); }
 inline void __cdecl S_SetTxd(int32 m) { if (Mine()) T("set_txd_deletable", m); }
 inline eModelID __cdecl S_GangModel(eGangID g) { if (!Mine()) return MODEL_INVALID; const int32 r = NextI(); T("gang_model", int32(g), r); return eModelID(r); }
 inline bool __fastcall S_PlaceGroup(void*, void*, int32 type, uint32 n, const CVector* pos, uint32 alloc) { if (Mine()) T("place_group", type, n, pos->x, pos->y, pos->z, alloc); return true; }

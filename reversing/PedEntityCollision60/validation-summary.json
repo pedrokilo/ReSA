@@ -12,24 +12,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wd-2 (HEAD d349867fb + reversing/PedEntityCollision60/source.patch: Ped.cpp y bloque Lote 61 de X87Math.cpp/.h; sin otras fuentes tocadas), corrida 20261019-224121-079172. Los colaboradores sustituidos se validan en sus propios bancos; ECX/EDX solo registrados. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PedEntityCollision60-20261105-104934-842068",
-  "summary_sha256": "424cbce296f4999311f51a67e02374e21cdfba736eb4084f3d16f3c5f5e00add",
-  "result_txt_sha256": "0985a2a3362d2b5ea7b8ea75e8a4f93b4dadc8fee4a0acc70f6e6ee368c562f3",
-  "log_sha256": "a19e48df373fc176e2632534db2f3ea968e86094ff8a2d8738c8934e24803f7d",
+  "run": "reversing/CppTwelveLevel6Final/runs/PedEntityCollision60-20261106-021858-689328",
+  "summary_sha256": "8f558b266dbfb1e4b3e5715e2bc1b6192784e720b3bd317d338a58f586533381",
+  "result_txt_sha256": "eef61d792703aff6125b96d343908b1e7f76a5da18f3582b85440ee5e99bde30",
+  "log_sha256": "09a342f248045f7cfc88be8d4d2ac161d36d2e40cdc218ace40a45890cc23ffd",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "926c7326f9de1b4200f57352836ec0078b30ce6728563624b52b9a5f31005403",
+  "executed_probe_sha256": "ccec1167271136b8958bbab4c3c6d127aa20ca7bb405738a7696556e1f2634bb",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
+      "source/CMakeLists.txt": "c88b4c8f8daea67a012284dc9e5e69d99bfc7ec2ba3e66adacdb33f60f49227c",
+      "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
       "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
       "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-      "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-      "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc",
+      "source/game_sa/X87Math.cpp": "9fb7c331ba9cfdcf64a49980fcbc8cfc199849c61590bd62d8ff40fd4256eb9b",
+      "source/game_sa/X87Math.h": "c8770690950e8d458256f493310e103c79d1a4a75b80505561c22f8dd8e40459",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/PedEntityCollision60/LiveComparison.hpp": "af553f7cff3fd85d3cbb910f25c8e701f7662e7c3e0896d114c65057fcbc0690",
       "reversing/PedEntityCollision60/Core.hpp": "30d870ea658c02627e3a2c79423b1d0642b2e2b153402ff35908c42a75c8e3dc",
@@ -41,10 +41,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PedEntityCollision60-20261105-104934-842068/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PedEntityCollision60-20261106-021858-689328/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "0f00d7612a6d0af9167ff18139b94d02af5f800f1313420115ac5ad979f25c4f",
-    "uncompressed_sha256": "a19e48df373fc176e2632534db2f3ea968e86094ff8a2d8738c8934e24803f7d"
+    "compressed_sha256": "83051ab494ff6446eb3c30e238d26a4c184b4ad339056fae17018fd27d415a87",
+    "uncompressed_sha256": "09a342f248045f7cfc88be8d4d2ac161d36d2e40cdc218ace40a45890cc23ffd"
   }
 }

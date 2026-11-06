@@ -81,3 +81,6 @@ compilar para iterar; su fuente esta corregida (ver informe) y queda pendiente d
 ## Aprobación (09/10/2026)
 
 Corrida `20261009-202521-590640`: passed=true, 13376 pares, 55 funciones registradas con 0 fallos, evento complete (state_restored, layout_ok), saves y configuraciones intactos. Registrada con `register_popfinal3.py` (evidencia en `runs/`, `validation-summary.json`). Limites declarados en el alcance de cada funcion y en las secciones anteriores de este README.
+
+## Actualizacion del lote 105A (06/11/2026)
+Repetido aprobado (`20261106-043858-560672`) tras adaptar el banco (no produccion): `S_SetDelDll` (falso del cuerpo de la DLL de `CStreaming::SetModelIsDeletable`, 0x409C10) declaraba un segundo parametro `mission` que ya no existe (la funcion tiene un solo argumento, como en el EXE) y leia basura de la pila: la primera repeticion dio un "mission_flag_inesperado" en 76 de 128 casos de `RemoveSpecificDriverModelsForCar`. 0x409C70 (`SetModelTxdIsDeletable`) ya figuraba como colaborador con falso en el EXE y en el cuerpo de la DLL.

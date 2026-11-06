@@ -56,3 +56,6 @@ sNaN y NaN con cargas/signos distintos (el orden de operandos que elige el compi
 la lectura (muerta) de las masas cuando `arg1` esta activo (no es observable).
 
 Comandos: `CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1 bash reversing/_handoff/bench_here.sh Veh81B`; `python -B reversing/Veh81B/run_local.py --analyze <carpeta>/comparisons.jsonl`; `register_hook.py <carpeta>` (solo el coordinador).
+
+## Actualizacion del lote 105A (06/11/2026)
+Repetido aprobado (`20261106-044037-347880`) tras adaptar el banco (no produccion): los ayudantes del EXE que el banco ejecutaba "tal cual" (0x59C730 CrossProduct(out), 0x40FE90, 0x59C790, 0x420800 y, desde el lote 105A, 0x4119D0 y 0x406D70) tienen hook RH; la primera repeticion fallo en todos los casos por `collaborators_dll` (el gate de 0x59C730, falso identico en el EXE y en el cuerpo de la DLL, veia el salto del hook). `Update()` crea ahora una `HookRoute` por cada uno de ellos, que apaga el hook para que el lado original ejecute el codigo del EXE.

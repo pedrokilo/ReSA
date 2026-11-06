@@ -156005,7 +156005,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::AddCutsceneHead"
@@ -156014,7 +156014,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156031,7 +156031,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::AppendToNextCutscene"
@@ -156040,7 +156040,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156057,7 +156057,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::AttachObjectToBone"
@@ -156066,7 +156066,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156083,7 +156083,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::AttachObjectToFrame"
@@ -156092,7 +156092,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156109,7 +156109,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::AttachObjectToParent"
@@ -156118,7 +156118,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156135,7 +156135,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::BuildCutscenePlayer"
@@ -156144,7 +156144,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156161,7 +156161,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::CalculateBoundingSphereRadiusCB"
@@ -156170,7 +156170,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156187,7 +156187,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::UpdateCutsceneObjectBoundingBox"
@@ -156196,7 +156196,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156213,7 +156213,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::CreateCutsceneObject"
@@ -156222,7 +156222,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156239,7 +156239,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::DeleteCutsceneData"
@@ -156248,7 +156248,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156265,7 +156265,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::DeleteCutsceneData_overlay"
@@ -156274,7 +156274,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156291,7 +156291,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::FinishCutscene"
@@ -156300,7 +156300,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156317,7 +156317,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::GetCutsceneTimeInMilleseconds"
@@ -156326,7 +156326,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156343,7 +156343,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::HasCutsceneFinished"
@@ -156352,7 +156352,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156369,7 +156369,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::HideRequestedObjects"
@@ -156378,7 +156378,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156395,7 +156395,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::Initialise"
@@ -156404,7 +156404,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156421,7 +156421,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::IsCutsceneSkipButtonBeingPressed"
@@ -156430,7 +156430,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156447,7 +156447,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadAnimationUncompressed"
@@ -156456,7 +156456,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156473,7 +156473,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadCutsceneData"
@@ -156482,7 +156482,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156499,7 +156499,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadCutsceneData_loading"
@@ -156508,7 +156508,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156525,7 +156525,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadCutsceneData_overlay"
@@ -156534,7 +156534,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156551,7 +156551,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadCutsceneData_postload"
@@ -156560,7 +156560,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156577,7 +156577,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadCutsceneData_preload"
@@ -156586,7 +156586,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156603,7 +156603,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadEverythingBecauseCutsceneDeletedAllOfIt"
@@ -156612,7 +156612,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156629,7 +156629,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::RemoveCutscenePlayer"
@@ -156638,7 +156638,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156655,7 +156655,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::RemoveEverythingBecauseCutsceneDoesntFitInMemory"
@@ -156664,7 +156664,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156681,7 +156681,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::SetCutsceneAnim"
@@ -156690,7 +156690,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156707,7 +156707,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::SetCutsceneAnimToLoop"
@@ -156716,7 +156716,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156733,7 +156733,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::SetHeadAnim"
@@ -156742,7 +156742,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156759,7 +156759,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::SetupCutsceneToStart"
@@ -156768,7 +156768,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156785,7 +156785,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::Shutdown"
@@ -156794,7 +156794,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156811,7 +156811,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::SkipCutscene"
@@ -156820,7 +156820,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156837,7 +156837,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::StartCutscene"
@@ -156846,7 +156846,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156863,7 +156863,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::Update"
@@ -156872,7 +156872,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -156889,7 +156889,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "22e8b3e52c19f71dba45bcbdf92cc7955796bb4f54489fbcf061aa225f17ef25",
+        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::Update_overlay"
@@ -156898,7 +156898,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CutsceneMgr.cpp": "753fc01923b705d4a3e10bac91b231bc5426f5c6757125cf18bd805dcc20086c",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
         "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-193604-941113).",
@@ -176862,7 +176862,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyMoveForce-vec"
@@ -176888,7 +176888,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyTurnForce"
@@ -176914,7 +176914,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyForce"
@@ -176940,7 +176940,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::GetSpeed"
@@ -176966,7 +176966,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyMoveSpeed"
@@ -176992,7 +176992,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyTurnSpeed"
@@ -177018,7 +177018,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyGravity"
@@ -177044,7 +177044,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyFrictionMoveForce"
@@ -177070,7 +177070,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyFrictionForce"
@@ -177096,7 +177096,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::SkipPhysics"
@@ -177122,7 +177122,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::AddCollisionRecord"
@@ -177148,7 +177148,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::GetHasCollidedWith"
@@ -177174,7 +177174,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::GetHasCollidedWithAnyObject"
@@ -177200,7 +177200,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplySpringCollision"
@@ -177226,7 +177226,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplySpringCollisionAlt"
@@ -177252,7 +177252,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplySpringDampening"
@@ -177278,7 +177278,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::RemoveRefsToEntity"
@@ -177304,7 +177304,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::GetLightingFromCol"
@@ -177330,7 +177330,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::GetLightingTotal"
@@ -177356,7 +177356,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::CanPhysicalBeDamaged"
@@ -177382,7 +177382,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyAirResistance"
@@ -177408,7 +177408,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::SetDamagedPieceRecord"
@@ -177434,7 +177434,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyCollision-1"
@@ -177460,7 +177460,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplySoftCollision-1"
@@ -177486,7 +177486,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyCollisionAlt"
@@ -177512,7 +177512,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyFriction-self"
@@ -177538,7 +177538,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyFriction-other"
@@ -177564,7 +177564,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyFriction-void"
@@ -177590,7 +177590,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplySpeed"
@@ -177616,7 +177616,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::UnsetIsInSafePosition"
@@ -177642,7 +177642,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ProcessControl"
@@ -177668,7 +177668,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplyCollision-2"
@@ -177694,7 +177694,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ApplySoftCollision-2"
@@ -177720,7 +177720,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::GetBoundRect"
@@ -177746,7 +177746,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::Constructor"
@@ -177772,7 +177772,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::Destructor"
@@ -177798,7 +177798,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::Remove"
@@ -177824,7 +177824,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::AddToMovingList"
@@ -177850,7 +177850,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::RemoveFromMovingList"
@@ -177876,7 +177876,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::DettachEntityFromEntity"
@@ -177902,7 +177902,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::DettachAutoAttachedEntity"
@@ -177928,7 +177928,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::AttachEntityToEntity-vec"
@@ -177954,7 +177954,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::AttachEntityToEntity-quat"
@@ -177980,7 +177980,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::PositionAttachedEntity"
@@ -178006,7 +178006,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::PlacePhysicalRelativeToOtherPhysical"
@@ -178032,7 +178032,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ProcessEntityCollision"
@@ -178058,7 +178058,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::CheckCollision"
@@ -178084,7 +178084,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::CheckCollision_SimpleCar"
@@ -178110,7 +178110,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ProcessCollisionSectorList"
@@ -178136,7 +178136,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ProcessCollisionSectorList_SimpleCar"
@@ -178162,7 +178162,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ProcessShiftSectorList"
@@ -178188,7 +178188,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::TestCollision"
@@ -178214,7 +178214,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ProcessCollision"
@@ -178240,7 +178240,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::ProcessShift"
@@ -178266,7 +178266,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::Add"
@@ -178292,7 +178292,7 @@
       },
       "evidence": {
         "path": "reversing/Physical56/validation-summary.json",
-        "sha256": "210a5bd42a7d09202ace82e42b5ad1818989c612aa7ff459e31b67f6fdc0b1cf",
+        "sha256": "f85cd25f4eb2b2f2a10121e7b00cf7329b4852a638a0d55c40ac226c6936d000",
         "passed_path": [
           "covered_functions",
           "CPhysical::RemoveAndAdd"

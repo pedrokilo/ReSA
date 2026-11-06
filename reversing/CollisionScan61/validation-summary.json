@@ -12,20 +12,20 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wd-3 (HEAD d349867fb + estos cambios; ver source.patch). Colaboradores sustituidos por falsos identicos en ambos lados y comparados en orden y argumentos: CEventGroup::Add, CTaskManager::GetSimplestActiveTask, CTask::IsGoToTask, CPedIntelligence::GetMoveStateFromGoToTask/IncrementAngerAtPlayer, CEntity::GetColModel/RegisterReference/CleanUpOldReference, CPed::IsPlayer/KillPedWithCar/Say/GetLocalDirection, CPlaceable::GetHeading, CGeneral::LimitRadianAngle, CVector::Normalise (por V*0.5), CEventDamage::AffectsPed (volcado del evento), CPedDamageResponseCalculator::ComputeDamageResponse, CPedGeometryAnalyser::ComputePedHitSide, CAcquaintance::GetAcquaintances, CPedType::GetPedFlag, CPedClothesDesc::GetIsWearingBalaclava, CWeapon::GenerateDamageEvent. Reales en ambos lados: constructores/destructores de eventos y del calculador, CEntity::GetIsStatic/GetIsTypePhysical, GetEventGlobalGroup y la aritmetica de vectores (el EXE ejecuta 0x406DA0/0x40FE60/0x40FE90/0x40FDB0/0x4119D0/0x59C890 y la DLL las operaciones equivalentes en C++). No se validan los cuerpos reales de los colaboradores sustituidos. Los fixtures evitan valores cuyos productos salen del rango de float (el x87 conserva exponente extendido) y denormales. EAX/ECX/EDX solo registrados: el unico llamador del EXE (CPedIntelligence::Process, 0x6073D7) no los lee. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CollisionScan61-20261105-111551-305865",
-  "summary_sha256": "2a74018c8d1cd94c95f07fd15c28a6c6e5a06f272a0e8882afa7d29230f94258",
-  "result_txt_sha256": "51cca5aa83949dac87ab00d2ae8268c289e38613271078c3a999fedccff2373d",
-  "log_sha256": "680d7d442ca10f3046ef8665d84026f9f8cd6faa37b0ba6801166292c36ebb7f",
+  "run": "reversing/CppTwelveLevel6Final/runs/CollisionScan61-20261106-021047-157484",
+  "summary_sha256": "b0551150541f62715036cdaf9adb696dcc6ddb875d54fabbb5bb7c540cdabeae",
+  "result_txt_sha256": "4f9f8f75943654b10060ec17918b7edf0c96fc86c869eebc45285b561666e2ba",
+  "log_sha256": "8b7d0b5fd182d71678d01e50945d2ba48e1d495c8715474d7cfdc81c5a93fb9c",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "144a0d03a0820c5b1df8f9008274eef7cba23d6cf0fb379d742c19de1b0ee593",
+  "executed_probe_sha256": "16a3c69d9e686754842a794c588c48dbb84c8ba2bb82861a0705272cb9934f44",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
+      "source/CMakeLists.txt": "c88b4c8f8daea67a012284dc9e5e69d99bfc7ec2ba3e66adacdb33f60f49227c",
+      "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
       "source/game_sa/Collision/CollisionEventScanner.cpp": "724cfa3f6cbc20668a7388f2d88a7243c739a49ec2c517e1ee663d85041513ed",
       "source/game_sa/Collision/CollisionEventScanner.h": "faf1be848806f18188a173620ed9d50aa9ab6a84bee8395bcd8dcfad8cc4fc37",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -38,10 +38,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CollisionScan61-20261105-111551-305865/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CollisionScan61-20261106-021047-157484/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "c617fa8a1906f95de4ebcb1ab344cdfcd6341a2b07df422e88596f4db56219b7",
-    "uncompressed_sha256": "680d7d442ca10f3046ef8665d84026f9f8cd6faa37b0ba6801166292c36ebb7f"
+    "compressed_sha256": "540eaeb4b2ba092827627299ebf33ee0373c2ddf9270557eeb0f0ec6328716c6",
+    "uncompressed_sha256": "8b7d0b5fd182d71678d01e50945d2ba48e1d495c8715474d7cfdc81c5a93fb9c"
   }
 }

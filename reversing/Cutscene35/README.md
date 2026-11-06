@@ -49,3 +49,6 @@ Banco del 04/10/2026: **13.184 pares original/candidato dentro de GTA** para las
   - decimales no exactos en el `.CUT` (CRT del EXE frente a la de la DLL).
 
 Repetir: `python reversing/Cutscene35/build_probe.py` y `python reversing/run.py --case cutscene35`.
+
+## Actualizacion del lote 105A (06/11/2026)
+Repetido aprobado (`20261106-042208-016827`) tras adaptar el banco (no produccion): la primera repeticion se cayo con un acceso invalido en `RpClumpForAllAtomics` llamado desde el cuerpo de la DLL de `CCutsceneMgr::UpdateCutsceneObjectBoundingBox`, porque el banco parcheaba solo la direccion del EXE de 0x749B70 (con hook desde el lote 102A); ahora el falso va tambien en el cuerpo de la DLL (`D(&RpClumpForAllAtomics)`). 0x409C70 (`SetModelTxdIsDeletable`) ya figuraba como colaborador con falso en ambos lados.

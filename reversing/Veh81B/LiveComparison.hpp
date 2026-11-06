@@ -6,6 +6,7 @@
 #include <fstream>
 #include <memory>
 #include <set>
+#include <tuple>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
 #include <reversiblehooks/ReversibleHook/Simple.h>
@@ -295,6 +296,10 @@ inline void Update() {
     const Pair pNorm{kNormalise,env.collab.back()->Registered()?Body(env.collab.back()->Body()):Body(std::bit_cast<uintptr_t>(normalise)),false},pCross{kCross,Body(reinterpret_cast<uintptr_t>(crossOut)),false};
     hooksFound.push_back({{"exe",kNormalise},{"class","CVector"},{"name","Normalise"},{"dll_body",pNorm.dll}});
     hooksFound.push_back({{"exe",kCross},{"class","(global)"},{"name","CrossProduct-out"},{"dll_body",pCross.dll}});
+    // Adaptacion del lote 105A (banco, no produccion): los ayudantes del EXE que el banco dice ejecutar "tal cual" tienen hook RH desde los lotes 97A y 105A (0x59C730 CrossProduct(out), 0x40FE90, 0x59C790,
+    // 0x420800, 0x4119D0 y 0x406D70): sus rutas los apagan para que el lado original ejecute el codigo del EXE (y el gate de 0x59C730, falso identico en el EXE y en el cuerpo de la DLL, vuelva a cumplirse).
+    for(const auto& h:{std::tuple<const char*,const char*,uintptr_t>{"CVector","CrossProduct-out",kCross},{"CVector","FloatTimesVector",0x40FE90},{"CVector","Multiply3x3Exe",0x59C790},{"CCarAI","FloatMax",0x420800},{"CVector","VectorDividedByFloat",0x4119D0},{"CVector","operator-=-v3d",0x406D70}})
+        env.collab.emplace_back(new HookRoute(std::get<0>(h),std::get<1>(h),std::get<2>(h),HookRoute::RegisteredTarget{}));
     auto S=[](const Pair& p,void* fake){return StubSpec{p,fake};};
     env.stubs[0]={S(pSpeed,reinterpret_cast<void*>(&FakeSpeed)),S(pNorm,reinterpret_cast<void*>(&FakeNormalise)),S(pCross,reinterpret_cast<void*>(&FakeCross)),S(pForce,reinterpret_cast<void*>(&FakeForce))};
     for(unsigned f=0;f<kFunctions;++f) {

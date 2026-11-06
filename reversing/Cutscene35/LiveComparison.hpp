@@ -583,7 +583,7 @@ inline void Update() {
         S(0x4C5400,D(&CClumpModelInfo::GetFrameFromName),&S_GetFrameFromName);
         // RW: los símbolos DLL son envoltorios del EXE, basta con la dirección del EXE
         S(0x7C51A0,0,&S_RpHAnimIDGetIndex); S(0x7C7550,0,&S_RpSkinGeometryGetSkin); S(0x7C5120,0,&S_GetMatrixArray); S(0x7F0990,0,&S_RwFrameGetLTM);
-        S(0x749B70,0,&S_ForAllAtomics); S(0x7491F0,0,&S_ResyncSphere);
+        S(0x749B70,D(&RpClumpForAllAtomics),&S_ForAllAtomics); S(0x7491F0,0,&S_ResyncSphere);   // 0x749B70: el cuerpo de la DLL tiene hook desde el lote 102A y tambien se sustituye
         S(0x7ECEF0,0,&S_RwStreamOpen); S(0x7ECD00,0,&S_RwStreamSkip); S(0x7EC9D0,0,&S_RwStreamRead); S(0x7ECE20,0,&S_RwStreamClose);
         S(0x53C810,D(&CGame::DrasticTidyUpMemory),&S_DrasticTidyUpMemory);
         S(0x4045B0,D(&CIplStore::AddIplsNeededAtPosn),&S_AddIplsNeededAtPosn); S(0x4045E0,D(&CIplStore::ClearIplsNeededAtPosn),&S_ClearIplsNeededAtPosn);
