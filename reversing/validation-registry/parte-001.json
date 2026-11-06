@@ -158717,7 +158717,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::AllocEnvMapPipeAtomicData"
@@ -158726,7 +158726,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -158746,7 +158746,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::CreateCustomObjPipe"
@@ -158755,7 +158755,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -158775,7 +158775,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::CreatePipe"
@@ -158784,7 +158784,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -158804,7 +158804,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::CustomPipeAtomicSetup"
@@ -158813,7 +158813,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -158833,7 +158833,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::CustomPipeInstanceCB"
@@ -158842,7 +158842,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -158862,7 +158862,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::CustomPipeMaterialSetup"
@@ -158871,7 +158871,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -158891,7 +158891,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::CustomPipeRenderCB"
@@ -158900,7 +158900,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -158920,7 +158920,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::DestroyPipe"
@@ -158929,7 +158929,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -158949,7 +158949,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::GetFxEnvScaleX"
@@ -158958,7 +158958,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -158978,7 +158978,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::GetFxEnvScaleY"
@@ -158987,7 +158987,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159007,7 +159007,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::GetFxEnvShininess"
@@ -159016,7 +159016,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159036,7 +159036,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::GetFxEnvTransSclX"
@@ -159045,7 +159045,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159065,7 +159065,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::GetFxEnvTransSclY"
@@ -159074,7 +159074,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159094,7 +159094,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::GetFxSpecSpecularity"
@@ -159103,7 +159103,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159123,7 +159123,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::GetFxSpecTexture"
@@ -159132,7 +159132,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159152,7 +159152,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::PreRenderUpdate"
@@ -159161,7 +159161,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159181,7 +159181,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::RegisterPlugin"
@@ -159190,7 +159190,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159210,7 +159210,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::SetCustomEnvMapPipeMaterialDataDefaults"
@@ -159219,7 +159219,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159239,7 +159239,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::SetFxEnvScale"
@@ -159248,7 +159248,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159268,7 +159268,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::SetFxEnvShininess"
@@ -159277,7 +159277,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159297,7 +159297,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::SetFxEnvTexture"
@@ -159306,7 +159306,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159326,7 +159326,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::SetFxEnvTransScl"
@@ -159335,7 +159335,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159355,7 +159355,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginEnvAtmConstructorCB"
@@ -159364,7 +159364,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159384,7 +159384,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginEnvAtmCopyConstructorCB"
@@ -159393,7 +159393,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159413,7 +159413,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginEnvAtmDestructorCB"
@@ -159422,7 +159422,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159442,7 +159442,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginEnvMatConstructorCB"
@@ -159451,7 +159451,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159471,7 +159471,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginEnvMatCopyConstructorCB"
@@ -159480,7 +159480,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159500,7 +159500,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginEnvMatDestructorCB"
@@ -159509,7 +159509,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159529,7 +159529,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginEnvMatStreamGetSizeCB"
@@ -159538,7 +159538,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159558,7 +159558,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginEnvMatStreamReadCB"
@@ -159567,7 +159567,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159587,7 +159587,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginEnvMatStreamWriteCB"
@@ -159596,7 +159596,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159616,7 +159616,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginSpecMatConstructorCB"
@@ -159625,7 +159625,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159645,7 +159645,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginSpecMatCopyConstructorCB"
@@ -159654,7 +159654,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159674,7 +159674,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginSpecMatDestructorCB"
@@ -159683,7 +159683,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159703,7 +159703,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginSpecMatStreamGetSizeCB"
@@ -159712,7 +159712,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159732,7 +159732,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginSpecMatStreamReadCB"
@@ -159741,7 +159741,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
@@ -159761,7 +159761,7 @@
       },
       "evidence": {
         "path": "reversing/EnvMap37/validation-summary.json",
-        "sha256": "834d2333475ad9a944bdc68329e48b9013e730d0943abd115e4567683217d247",
+        "sha256": "d2b40626936be15db1b4b77db5d3fd352d1c8f7788b5e720609fd32189e2feb8",
         "passed_path": [
           "covered_functions",
           "CCustomCarEnvMapPipeline::pluginSpecMatStreamWriteCB"
@@ -159770,7 +159770,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "fb3613f4044b34016020d64e55394e012c4345c3d53673ec96938a1d22bc3cea",
+        "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp": "cd2878ba2ab869a7216b0bd2659339c20dcda66606c502448eece9adf3882244",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp": "fc4ca8dbfc2ab8cff4052163df4b78cfded0e782b6c536da55b035919d577f32",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvAtm.cpp": "a74c698b33dadd12ff5fbe488215add3921e0eca4cfacbeb421ed248a4bd1943",
