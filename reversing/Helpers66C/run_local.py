@@ -24,7 +24,7 @@ STUBBED = {
                (0x818FB0, False), (0x819270, False)],
     NAMES[2]: [],
     NAMES[3]: [(0x7ED2D0, False), (0x561A80, True), (0x561A40, True), (0x748F50, True), (0x748F20, True), (0x748F30, True)],
-    NAMES[4]: [(0x749B70, False), (0x7C7550, False), (0x7C77E0, False), (0x7C7810, False), (0x7F2070, False), (0x7EDD90, False)],
+    NAMES[4]: [(0x749B70, True), (0x7C7550, False), (0x7C77E0, False), (0x7C7810, False), (0x7F2070, False), (0x7EDD90, False)],
 }
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst}
 # Cobertura minima (calibrada con la primera corrida; con margen): [funcion] -> {clave: minimo de casos}

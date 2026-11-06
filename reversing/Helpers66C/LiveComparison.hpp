@@ -59,7 +59,7 @@ inline void Update() {
                   {Pair{0x748F50,DllBody(&RpAnisotTextureGetMaxAnisotropy),true},reinterpret_cast<void*>(&F3AnisoGet)},
                   {Pair{0x748F20,DllBody(&RpAnisotGetMaxSupportedMaxAnisotropy),true},reinterpret_cast<void*>(&F3AnisoMax)},
                   {Pair{0x748F30,DllBody(&RpAnisotTextureSetMaxAnisotropy),true},reinterpret_cast<void*>(&F3AnisoSet)}};
-    env.stubs[4]={{Pair{0x749B70,0,false},reinterpret_cast<void*>(&F4ForAll)},{Pair{0x7C7550,0,false},reinterpret_cast<void*>(&F4GetSkin)},{Pair{0x7C77E0,0,false},reinterpret_cast<void*>(&F4NumBones)},
+    env.stubs[4]={{Pair{0x749B70,DllBody(&RpClumpForAllAtomics),true},reinterpret_cast<void*>(&F4ForAll)},{Pair{0x7C7550,0,false},reinterpret_cast<void*>(&F4GetSkin)},{Pair{0x7C77E0,0,false},reinterpret_cast<void*>(&F4NumBones)},
                   {Pair{0x7C7810,0,false},reinterpret_cast<void*>(&F4Matrices)},{Pair{0x7F2070,0,false},reinterpret_cast<void*>(&F4Invert)},{Pair{0x7EDD90,0,false},reinterpret_cast<void*>(&F4Transform)}};
     // 2: las cuatro APIs de Windows en las ranuras de importacion del EXE (0x858070 LoadLibraryA, 0x85806C GetProcAddress, 0x858110 FreeLibrary, 0x858118 OutputDebugStringA) y en las de la DLL
     // (las que valen lo mismo que la ranura del EXE o la API de kernel32). Se exige al menos una ranura por API en la DLL.

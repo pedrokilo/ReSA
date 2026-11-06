@@ -27954,7 +27954,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers66C/validation-summary.json",
-        "sha256": "3eccd474917980dde8003b45058e5ed75e858ddc4ba842aabf7c68f768eef5f7",
+        "sha256": "cd2cb35e3a125667d1a07ddba474183e3aebba04120041f86286c23e77eee939",
         "passed_path": [
           "covered_functions",
           "AEMFOpenSoundMedia"
@@ -27963,16 +27963,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "011f02f476080375780f765bd13088c7dffd797b9915f16716ea9f5e11b06f9b",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "ea77bd9ed55718885119a59c2f18ccc10b992309a759117d13eb765b8870d522",
         "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9",
-        "source/app/platform/win/WinPs.cpp": "b68117e104c521f9970ac9df7b44371b40b24c2b9b88a1fccda7d033a3eea8aa",
-        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
-        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
-        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
-        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers66C/LiveComparison.hpp": "a9ee9814ca4ddca7c1b51080c144c3ae7bfbd4a36e2c174b2db33ccea960e8f0",
+        "reversing/Helpers66C/LiveComparison.hpp": "ff5ec095706c7b39101420b23c8729e0c620b5d6d58bfdb346c35ff9b1d70cc3",
         "reversing/Helpers66C/Core.hpp": "982898c93b416c1dd898186c784cfa03925cb9a61ee8f08947b3dc02103ab3f5",
         "reversing/Helpers66C/Cases.hpp": "a3109a528de65687e57078792f59325e219cf14f1baf03e0f25f23fc0366e3fc",
         "reversing/Helpers66C/Fixtures.hpp": "733363b0edbbdeb6c469366ff1182ea809911d9b717d355d263769cef1b01199",
@@ -27993,7 +27993,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers66C/validation-summary.json",
-        "sha256": "3eccd474917980dde8003b45058e5ed75e858ddc4ba842aabf7c68f768eef5f7",
+        "sha256": "cd2cb35e3a125667d1a07ddba474183e3aebba04120041f86286c23e77eee939",
         "passed_path": [
           "covered_functions",
           "AEMFGetMediaSoundFormat"
@@ -28002,16 +28002,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "011f02f476080375780f765bd13088c7dffd797b9915f16716ea9f5e11b06f9b",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "ea77bd9ed55718885119a59c2f18ccc10b992309a759117d13eb765b8870d522",
         "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9",
-        "source/app/platform/win/WinPs.cpp": "b68117e104c521f9970ac9df7b44371b40b24c2b9b88a1fccda7d033a3eea8aa",
-        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
-        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
-        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
-        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers66C/LiveComparison.hpp": "a9ee9814ca4ddca7c1b51080c144c3ae7bfbd4a36e2c174b2db33ccea960e8f0",
+        "reversing/Helpers66C/LiveComparison.hpp": "ff5ec095706c7b39101420b23c8729e0c620b5d6d58bfdb346c35ff9b1d70cc3",
         "reversing/Helpers66C/Core.hpp": "982898c93b416c1dd898186c784cfa03925cb9a61ee8f08947b3dc02103ab3f5",
         "reversing/Helpers66C/Cases.hpp": "a3109a528de65687e57078792f59325e219cf14f1baf03e0f25f23fc0366e3fc",
         "reversing/Helpers66C/Fixtures.hpp": "733363b0edbbdeb6c469366ff1182ea809911d9b717d355d263769cef1b01199",
@@ -28032,7 +28032,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers66C/validation-summary.json",
-        "sha256": "3eccd474917980dde8003b45058e5ed75e858ddc4ba842aabf7c68f768eef5f7",
+        "sha256": "cd2cb35e3a125667d1a07ddba474183e3aebba04120041f86286c23e77eee939",
         "passed_path": [
           "covered_functions",
           "GetDXVersion"
@@ -28041,16 +28041,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "011f02f476080375780f765bd13088c7dffd797b9915f16716ea9f5e11b06f9b",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "ea77bd9ed55718885119a59c2f18ccc10b992309a759117d13eb765b8870d522",
         "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9",
-        "source/app/platform/win/WinPs.cpp": "b68117e104c521f9970ac9df7b44371b40b24c2b9b88a1fccda7d033a3eea8aa",
-        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
-        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
-        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
-        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers66C/LiveComparison.hpp": "a9ee9814ca4ddca7c1b51080c144c3ae7bfbd4a36e2c174b2db33ccea960e8f0",
+        "reversing/Helpers66C/LiveComparison.hpp": "ff5ec095706c7b39101420b23c8729e0c620b5d6d58bfdb346c35ff9b1d70cc3",
         "reversing/Helpers66C/Core.hpp": "982898c93b416c1dd898186c784cfa03925cb9a61ee8f08947b3dc02103ab3f5",
         "reversing/Helpers66C/Cases.hpp": "a3109a528de65687e57078792f59325e219cf14f1baf03e0f25f23fc0366e3fc",
         "reversing/Helpers66C/Fixtures.hpp": "733363b0edbbdeb6c469366ff1182ea809911d9b717d355d263769cef1b01199",
@@ -28071,7 +28071,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers66C/validation-summary.json",
-        "sha256": "3eccd474917980dde8003b45058e5ed75e858ddc4ba842aabf7c68f768eef5f7",
+        "sha256": "cd2cb35e3a125667d1a07ddba474183e3aebba04120041f86286c23e77eee939",
         "passed_path": [
           "covered_functions",
           "RwTextureGtaStreamRead"
@@ -28080,16 +28080,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "011f02f476080375780f765bd13088c7dffd797b9915f16716ea9f5e11b06f9b",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "ea77bd9ed55718885119a59c2f18ccc10b992309a759117d13eb765b8870d522",
         "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9",
-        "source/app/platform/win/WinPs.cpp": "b68117e104c521f9970ac9df7b44371b40b24c2b9b88a1fccda7d033a3eea8aa",
-        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
-        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
-        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
-        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers66C/LiveComparison.hpp": "a9ee9814ca4ddca7c1b51080c144c3ae7bfbd4a36e2c174b2db33ccea960e8f0",
+        "reversing/Helpers66C/LiveComparison.hpp": "ff5ec095706c7b39101420b23c8729e0c620b5d6d58bfdb346c35ff9b1d70cc3",
         "reversing/Helpers66C/Core.hpp": "982898c93b416c1dd898186c784cfa03925cb9a61ee8f08947b3dc02103ab3f5",
         "reversing/Helpers66C/Cases.hpp": "a3109a528de65687e57078792f59325e219cf14f1baf03e0f25f23fc0366e3fc",
         "reversing/Helpers66C/Fixtures.hpp": "733363b0edbbdeb6c469366ff1182ea809911d9b717d355d263769cef1b01199",
@@ -28110,7 +28110,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers66C/validation-summary.json",
-        "sha256": "3eccd474917980dde8003b45058e5ed75e858ddc4ba842aabf7c68f768eef5f7",
+        "sha256": "cd2cb35e3a125667d1a07ddba474183e3aebba04120041f86286c23e77eee939",
         "passed_path": [
           "covered_functions",
           "SkinGetBonePositionsToTable"
@@ -28119,16 +28119,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "011f02f476080375780f765bd13088c7dffd797b9915f16716ea9f5e11b06f9b",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "ea77bd9ed55718885119a59c2f18ccc10b992309a759117d13eb765b8870d522",
         "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9",
-        "source/app/platform/win/WinPs.cpp": "b68117e104c521f9970ac9df7b44371b40b24c2b9b88a1fccda7d033a3eea8aa",
-        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
-        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
-        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
-        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers66C/LiveComparison.hpp": "a9ee9814ca4ddca7c1b51080c144c3ae7bfbd4a36e2c174b2db33ccea960e8f0",
+        "reversing/Helpers66C/LiveComparison.hpp": "ff5ec095706c7b39101420b23c8729e0c620b5d6d58bfdb346c35ff9b1d70cc3",
         "reversing/Helpers66C/Core.hpp": "982898c93b416c1dd898186c784cfa03925cb9a61ee8f08947b3dc02103ab3f5",
         "reversing/Helpers66C/Cases.hpp": "a3109a528de65687e57078792f59325e219cf14f1baf03e0f25f23fc0366e3fc",
         "reversing/Helpers66C/Fixtures.hpp": "733363b0edbbdeb6c469366ff1182ea809911d9b717d355d263769cef1b01199",
