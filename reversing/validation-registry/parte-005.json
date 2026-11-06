@@ -33892,7 +33892,7 @@
       },
       "evidence": {
         "path": "reversing/Fn95C/validation-summary.json",
-        "sha256": "40e48c540ea407578c9cd039ea0bb88fe666aa1190c536c8a485ab7e01d5e469",
+        "sha256": "1d93148b9c719752a96f56cca00d67af26f6bdf03d5e2fdeef8eb794386932c0",
         "passed_path": [
           "covered_functions",
           "GetFirstTextureCallback"
@@ -33901,11 +33901,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
-        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
         "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "ccc6ba18178484bea18ea4449224695cb502803b563b99fcdfc6d53f6fe8e3bd",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn95C/LiveComparison.hpp": "07feb16030c31c05121d2324de4bb9594fcf670066b4bc5cd752c27f423c0450",
         "reversing/Fn95C/Core.hpp": "04b1c4afd4548d5f2790bb34eb980c3496b7baaae96f505a8333f4a3c2561b80",
@@ -33927,7 +33927,7 @@
       },
       "evidence": {
         "path": "reversing/Fn95C/validation-summary.json",
-        "sha256": "40e48c540ea407578c9cd039ea0bb88fe666aa1190c536c8a485ab7e01d5e469",
+        "sha256": "1d93148b9c719752a96f56cca00d67af26f6bdf03d5e2fdeef8eb794386932c0",
         "passed_path": [
           "covered_functions",
           "RwTexDictionaryGtaStreamRead1"
@@ -33936,11 +33936,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
-        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
         "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "ccc6ba18178484bea18ea4449224695cb502803b563b99fcdfc6d53f6fe8e3bd",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn95C/LiveComparison.hpp": "07feb16030c31c05121d2324de4bb9594fcf670066b4bc5cd752c27f423c0450",
         "reversing/Fn95C/Core.hpp": "04b1c4afd4548d5f2790bb34eb980c3496b7baaae96f505a8333f4a3c2561b80",
@@ -33962,7 +33962,7 @@
       },
       "evidence": {
         "path": "reversing/Fn95C/validation-summary.json",
-        "sha256": "40e48c540ea407578c9cd039ea0bb88fe666aa1190c536c8a485ab7e01d5e469",
+        "sha256": "1d93148b9c719752a96f56cca00d67af26f6bdf03d5e2fdeef8eb794386932c0",
         "passed_path": [
           "covered_functions",
           "RwTexDictionaryGtaStreamRead2"
@@ -33971,11 +33971,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
-        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
         "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "ccc6ba18178484bea18ea4449224695cb502803b563b99fcdfc6d53f6fe8e3bd",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn95C/LiveComparison.hpp": "07feb16030c31c05121d2324de4bb9594fcf670066b4bc5cd752c27f423c0450",
         "reversing/Fn95C/Core.hpp": "04b1c4afd4548d5f2790bb34eb980c3496b7baaae96f505a8333f4a3c2561b80",
@@ -33997,7 +33997,7 @@
       },
       "evidence": {
         "path": "reversing/Fn95C/validation-summary.json",
-        "sha256": "40e48c540ea407578c9cd039ea0bb88fe666aa1190c536c8a485ab7e01d5e469",
+        "sha256": "1d93148b9c719752a96f56cca00d67af26f6bdf03d5e2fdeef8eb794386932c0",
         "passed_path": [
           "covered_functions",
           "RpClumpGtaStreamRead1"
@@ -34006,11 +34006,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
-        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
         "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "ccc6ba18178484bea18ea4449224695cb502803b563b99fcdfc6d53f6fe8e3bd",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn95C/LiveComparison.hpp": "07feb16030c31c05121d2324de4bb9594fcf670066b4bc5cd752c27f423c0450",
         "reversing/Fn95C/Core.hpp": "04b1c4afd4548d5f2790bb34eb980c3496b7baaae96f505a8333f4a3c2561b80",
@@ -34032,7 +34032,7 @@
       },
       "evidence": {
         "path": "reversing/Fn95C/validation-summary.json",
-        "sha256": "40e48c540ea407578c9cd039ea0bb88fe666aa1190c536c8a485ab7e01d5e469",
+        "sha256": "1d93148b9c719752a96f56cca00d67af26f6bdf03d5e2fdeef8eb794386932c0",
         "passed_path": [
           "covered_functions",
           "RpClumpGtaStreamRead2"
@@ -34041,11 +34041,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
-        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
         "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "ccc6ba18178484bea18ea4449224695cb502803b563b99fcdfc6d53f6fe8e3bd",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn95C/LiveComparison.hpp": "07feb16030c31c05121d2324de4bb9594fcf670066b4bc5cd752c27f423c0450",
         "reversing/Fn95C/Core.hpp": "04b1c4afd4548d5f2790bb34eb980c3496b7baaae96f505a8333f4a3c2561b80",
@@ -34067,7 +34067,7 @@
       },
       "evidence": {
         "path": "reversing/Fn95C/validation-summary.json",
-        "sha256": "40e48c540ea407578c9cd039ea0bb88fe666aa1190c536c8a485ab7e01d5e469",
+        "sha256": "1d93148b9c719752a96f56cca00d67af26f6bdf03d5e2fdeef8eb794386932c0",
         "passed_path": [
           "covered_functions",
           "RpClumpGtaCancelStream"
@@ -34076,11 +34076,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
-        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
         "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "ccc6ba18178484bea18ea4449224695cb502803b563b99fcdfc6d53f6fe8e3bd",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn95C/LiveComparison.hpp": "07feb16030c31c05121d2324de4bb9594fcf670066b4bc5cd752c27f423c0450",
         "reversing/Fn95C/Core.hpp": "04b1c4afd4548d5f2790bb34eb980c3496b7baaae96f505a8333f4a3c2561b80",

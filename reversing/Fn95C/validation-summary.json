@@ -22,23 +22,23 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wt-95 sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), tambien en el cuerpo de la DLL: RwStreamFindChunk 0x7ED2D0, RwStreamRead 0x7EC9D0, RwStreamSkip 0x7ECD00, RwTexDictionaryCreate 0x7F3600, RwTextureGtaStreamRead 0x730E60 (hook), RwTexDictionaryAddTexture 0x7F3980, RwTexDictionaryForAllTextures 0x7F3730, RwTexDictionaryDestroy 0x7F36A0, _rwFrameListStreamRead 0x807970, _rwFrameListDeinitialize 0x807720 (hook), CMemoryMgr::Malloc 0x72F420 (hook), CMemoryMgr::Free 0x72F430, RpGeometryStreamRead 0x74D190, RpGeometryDestroy 0x74CCC0, RpAtomicCreate 0x749C50, RpAtomicSetFrame 0x74BF20, RpAtomicSetGeometry 0x749D40, RpAtomicDestroy 0x749DC0, RpClumpCreate 0x74A290, RpClumpAddAtomic 0x74A490 y RpClumpDestroy 0x74A310. RpClumpGtaStreamRead1/2 y RpClumpGtaCancelStream usan cuatro ayudantes del EXE con convencion de registros propia (0x72E140, 0x72E220, 0x72E270 y 0x72E360) que NO son enganchables: la DLL los lleva como funciones privadas en C++ y su evidencia es la de estas tres funciones (el lado EXE ejecuta los ayudantes reales). Registran sus argumentos en orden; el stream es una arena cuya posicion (+0xC) avanzan los falsos. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: longitudes de chunk de TXD 0 o 1 (el EXE usa bytes viejos de la pila) y mayores de 12 (el EXE desborda su marco), longitudes de atomico distintas de 16, indices de frame o de geometria fuera de las arenas, y la exactitud de los colaboradores falseados (se hereda). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn95C-20261105-122844-671732",
-  "summary_sha256": "5f56b726937d0c0297fe9496610ee8c9c6393acf177f8adcbcc239360c1ad6fc",
-  "result_txt_sha256": "de1fcfd392d970c4f1463480c434bdaf9dfd2d4164553d234b6b9896f62082b4",
-  "log_sha256": "0c2f1ad0841f715becabe16540286d01fcf5a715c06575a5910b46b6ff5eb16a",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn95C-20261106-143813-473783",
+  "summary_sha256": "54dcbd84e6879c68dc31fa83da326ff4e3dc4d7eed4f48f0db734467228f04f7",
+  "result_txt_sha256": "b720933df25902179dd2524d88d58f061a18f4ebec9ecf1414999f34c94108e7",
+  "log_sha256": "cb652ea90d4588ddebcb343616901895d76b800dc773416d2ddb8bd5d0df3738",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "71b4be1d2d8186514615c0ea1c1448f2defa81a39e20f05c5f8d4a6ba5f2d608",
+  "executed_probe_sha256": "bf0f5b71263f29732dba853b24c935179d205a654db9d0c18a6b8f7ec7340dfc",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
-      "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+      "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
       "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
-      "source/game_sa/RenderWare/rw/rpworld.cpp": "ccc6ba18178484bea18ea4449224695cb502803b563b99fcdfc6d53f6fe8e3bd",
+      "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Fn95C/LiveComparison.hpp": "07feb16030c31c05121d2324de4bb9594fcf670066b4bc5cd752c27f423c0450",
       "reversing/Fn95C/Core.hpp": "04b1c4afd4548d5f2790bb34eb980c3496b7baaae96f505a8333f4a3c2561b80",
@@ -48,10 +48,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn95C-20261105-122844-671732/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn95C-20261106-143813-473783/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "d5faf69589afc8d1c22deb8c7ba125b56a7f7c8c850cdd0fd368fcfb8e1446ee",
-    "uncompressed_sha256": "0c2f1ad0841f715becabe16540286d01fcf5a715c06575a5910b46b6ff5eb16a"
+    "compressed_sha256": "24acd8f986b6f4acecaafc050047cab837e8e45d47fe33ffe38e143f1e53f77d",
+    "uncompressed_sha256": "cb652ea90d4588ddebcb343616901895d76b800dc773416d2ddb8bd5d0df3738"
   }
 }
