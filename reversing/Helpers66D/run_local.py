@@ -23,7 +23,7 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'seh_chain_restored', 'direc
 HOOKS = dict(zip(NAMES, oracle.ADDRESS))
 # colaboradores sustituidos por funcion, en orden: (direccion del EXE, tiene cuerpo propio en la DLL)
 STUBBED = {
-    NAMES[0]: [(0x7498E0, True), (0x749B70, False), (0x7F0990, False), (0x7F2070, False), (0x7EDD90, False)],
+    NAMES[0]: [(0x7498E0, True), (0x749B70, True), (0x7F0990, False), (0x7F2070, False), (0x7EDD90, False)],
     NAMES[1]: [],
     NAMES[2]: [(0x59C910, True), (0x59C730, True), (0x5696C0, True)],
     NAMES[3]: [(0x6B0A90, True), (0x6C21C0, True), (0x821B1E, False)],

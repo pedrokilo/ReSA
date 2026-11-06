@@ -46,7 +46,7 @@ inline void Update() {
     // Cuerpos de la DLL de los colaboradores: se resuelven ANTES de escribir ningun parche (PROCESO.md, trampas).
     auto fake=[](auto* f){return reinterpret_cast<void*>(f);};
     env.collabs[kClump]={{{0x7498E0,Body(reinterpret_cast<uintptr_t>(&RpClumpGetNumAtomics))},fake(&FkGetNum),true},
-                         {{0x749B70,0},fake(&FkForAll),false},{{0x7F0990,0},fake(&FkGetLtm),false},{{0x7F2070,0},fake(&FkInvert),false},{{0x7EDD90,0},fake(&FkTransform),false}};
+                         {{0x749B70,Body(reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics))},fake(&FkForAll),true},{{0x7F0990,0},fake(&FkGetLtm),false},{{0x7F2070,0},fake(&FkInvert),false},{{0x7EDD90,0},fake(&FkTransform),false}};
     env.collabs[kGarage]={};
     void (CVector::*normalise)()=&CVector::Normalise;
     CVector* (*crossOut)(CVector*,CVector*,CVector*)=&CrossProduct;

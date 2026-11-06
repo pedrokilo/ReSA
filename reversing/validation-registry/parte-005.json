@@ -28149,7 +28149,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers66D/validation-summary.json",
-        "sha256": "c67f919a51807902c63740e16e4b875101b9ea826aaf0680a1869c704abf9f7c",
+        "sha256": "e9877b48ab46027f7813e9c77c150353106fe1ce3aba278b518e7fba735f4ca1",
         "passed_path": [
           "covered_functions",
           "RwHelper::RpClumpGetBoundingSphere"
@@ -28158,12 +28158,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
-        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
-        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
-        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
-        "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
+        "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
@@ -28173,7 +28173,7 @@
         "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
         "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers66D/LiveComparison.hpp": "25aada7d28eef4aaa4c84db01f449c33ee7f623b7faa60e6819e8695eb87d3fe",
+        "reversing/Helpers66D/LiveComparison.hpp": "3689567fd48fd4fe05291368704ed1b48eaf3fc1dad733053525d6f01cf3d407",
         "reversing/Helpers66D/Core.hpp": "5c8d5b7ba805c1407c69ea24c30975ca9a9108e0dc21c0abe3f83f023f6365e3",
         "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -28193,7 +28193,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers66D/validation-summary.json",
-        "sha256": "c67f919a51807902c63740e16e4b875101b9ea826aaf0680a1869c704abf9f7c",
+        "sha256": "e9877b48ab46027f7813e9c77c150353106fe1ce3aba278b518e7fba735f4ca1",
         "passed_path": [
           "covered_functions",
           "CGarage::FindDoorsWithGarage"
@@ -28202,12 +28202,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
-        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
-        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
-        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
-        "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
+        "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
@@ -28217,7 +28217,7 @@
         "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
         "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers66D/LiveComparison.hpp": "25aada7d28eef4aaa4c84db01f449c33ee7f623b7faa60e6819e8695eb87d3fe",
+        "reversing/Helpers66D/LiveComparison.hpp": "3689567fd48fd4fe05291368704ed1b48eaf3fc1dad733053525d6f01cf3d407",
         "reversing/Helpers66D/Core.hpp": "5c8d5b7ba805c1407c69ea24c30975ca9a9108e0dc21c0abe3f83f023f6365e3",
         "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -28237,7 +28237,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers66D/validation-summary.json",
-        "sha256": "c67f919a51807902c63740e16e4b875101b9ea826aaf0680a1869c704abf9f7c",
+        "sha256": "e9877b48ab46027f7813e9c77c150353106fe1ce3aba278b518e7fba735f4ca1",
         "passed_path": [
           "covered_functions",
           "CCam::GetArrestCamCopSourceSide"
@@ -28246,12 +28246,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
-        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
-        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
-        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
-        "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
+        "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
@@ -28261,7 +28261,7 @@
         "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
         "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers66D/LiveComparison.hpp": "25aada7d28eef4aaa4c84db01f449c33ee7f623b7faa60e6819e8695eb87d3fe",
+        "reversing/Helpers66D/LiveComparison.hpp": "3689567fd48fd4fe05291368704ed1b48eaf3fc1dad733053525d6f01cf3d407",
         "reversing/Helpers66D/Core.hpp": "5c8d5b7ba805c1407c69ea24c30975ca9a9108e0dc21c0abe3f83f023f6365e3",
         "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -28281,7 +28281,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers66D/validation-summary.json",
-        "sha256": "c67f919a51807902c63740e16e4b875101b9ea826aaf0680a1869c704abf9f7c",
+        "sha256": "e9877b48ab46027f7813e9c77c150353106fe1ce3aba278b518e7fba735f4ca1",
         "passed_path": [
           "covered_functions",
           "CHeli::CHeli"
@@ -28290,12 +28290,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
-        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
-        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
-        "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
-        "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
+        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
+        "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
@@ -28305,7 +28305,7 @@
         "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
         "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers66D/LiveComparison.hpp": "25aada7d28eef4aaa4c84db01f449c33ee7f623b7faa60e6819e8695eb87d3fe",
+        "reversing/Helpers66D/LiveComparison.hpp": "3689567fd48fd4fe05291368704ed1b48eaf3fc1dad733053525d6f01cf3d407",
         "reversing/Helpers66D/Core.hpp": "5c8d5b7ba805c1407c69ea24c30975ca9a9108e0dc21c0abe3f83f023f6365e3",
         "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",

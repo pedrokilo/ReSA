@@ -18,24 +18,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wu-4 (HEAD 5765c0b5f + source.patch del lote 66D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: RpClumpGetNumAtomics 0x7498E0, RpClumpForAllAtomics 0x749B70 (los callbacks 0x734970 y 0x734ED0 siguen siendo codigo del EXE y no se ejecutan: el falso escribe lo que dicta el caso), RwFrameGetLTM 0x7F0990, RwMatrixInvert 0x7F2070, RwV3dTransformPoints 0x7EDD90; CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::FindGroundZFor3DCoord 0x5696C0; CAutomobile::CAutomobile 0x6B0A90, CDamageManager::SetDoorStatus 0x6C21C0 y el rand() del CRT del EXE 0x821B1E. El pool de objetos (0xB7449C), el byte bUseLTM (0x8D60BC) y el temporizador (0xB7CB84) se fijan por caso y se restauran. Ningun llamador del EXE lee ECX/EDX; EAX = this (constructor), EAX = clump (esfera) y AL (camara) se exigen. createdBy del constructor solo se prueba en 0..255 (eVehicleCreatedBy es uint8: el EXE reenvia el dword completo al constructor base). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Helpers66D-20261105-033314-113554",
-  "summary_sha256": "a45ad75ccf3839d50908561049566c19247e165fcda7562518ad4010915aa112",
-  "result_txt_sha256": "7c009747063b7161808aa2d3a2f40d9d38f7dd072f27edd7950c00b5186e75bc",
-  "log_sha256": "af79519054b15228f89a3b6bdcac56b800b5dbce3e2e34b69a302bd832b3a642",
+  "run": "reversing/CppTwelveLevel6Final/runs/Helpers66D-20261106-115913-448526",
+  "summary_sha256": "b7bc471b556ddfbe748dfb976fb3c818637ccf936a170d7e9a020e73fd45812b",
+  "result_txt_sha256": "7181af6f5c2f0c9b5a335ed8b424324c456ba6f7d281cd18a9ab94d5ee593053",
+  "log_sha256": "fc420c84fcfa4960efca16d1befac1e80f6cd7210650087ca8ca6781595a44d2",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "23da0bb5c75aa833efab5961ec44655f1b7ed571e4815842768deeb28c040cbb",
+  "executed_probe_sha256": "8f5a0d3cd67f710893ae072e3676a6427281bc7da8b5eb69630d314b8f427785",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
-      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
-      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
-      "source/game_sa/RwHelper.cpp": "0fbb0de00151c809937380c5e37d16ea0b3e1502980b79bbefeadcd27aa1fc32",
-      "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+      "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+      "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
+      "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
+      "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
       "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
       "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
       "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
@@ -45,7 +45,7 @@
       "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
       "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/Helpers66D/LiveComparison.hpp": "25aada7d28eef4aaa4c84db01f449c33ee7f623b7faa60e6819e8695eb87d3fe",
+      "reversing/Helpers66D/LiveComparison.hpp": "3689567fd48fd4fe05291368704ed1b48eaf3fc1dad733053525d6f01cf3d407",
       "reversing/Helpers66D/Core.hpp": "5c8d5b7ba805c1407c69ea24c30975ca9a9108e0dc21c0abe3f83f023f6365e3",
       "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -53,10 +53,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Helpers66D-20261105-033314-113554/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Helpers66D-20261106-115913-448526/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "637e8e6d69c0bbbc91cf35bc56f336c2f8c8c588306014f20943fa883f4e9f23",
-    "uncompressed_sha256": "af79519054b15228f89a3b6bdcac56b800b5dbce3e2e34b69a302bd832b3a642"
+    "compressed_sha256": "79c25f311f0f01a5056ffe34259c56da75d496b36bbc9d5d211a4f32a64e45e5",
+    "uncompressed_sha256": "fc420c84fcfa4960efca16d1befac1e80f6cd7210650087ca8ca6781595a44d2"
   }
 }
