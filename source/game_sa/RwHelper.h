@@ -6,6 +6,8 @@ class CEventGlobalGroup;
 
 void RwHelperInjectHooks();
 
+RwBool RwIm2DRenderPrimitiveThunk(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices); // 0x734E90
+
 CEventGlobalGroup* GetEventGlobalGroup();
 
 void GetNameAndDamage(const char* name, char* objName, bool& bIsDamageModel);

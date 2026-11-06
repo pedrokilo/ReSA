@@ -391,15 +391,15 @@ float CStats::GetPercentageProgress() {
 namespace {
 // --- Lote 60: BuildStatLine (0x559230) y ConstructStatLine (0x55A780) ---
 // Formato de las lineas: el sprintf del CRT estatico del EXE (0x821BB5), igual que el sscanf (0x8220AD) en este archivo: el de la DLL formatea distinto en los limites
-// (%.2f de NaN / inf / empates exactos). GxtCharToAscii (0x69F7E0, buffer estatico 0xC1BDD0, sin reconstruir como funcion de uso general) y la funcion que quita las marcas '~'
-// del texto (0x719240) tambien van por direccion; los colaboradores reconstruidos (CText::Get, GxtCharStrcpy, AsciiToGxtChar, GetStatValue...) se llaman en C++.
+// (%.2f de NaN / inf / empates exactos). GxtCharToAscii (0x69F7E0, buffer estatico 0xC1BDD0, ya reconstruida en GxtChar.cpp) se llama en C++; la funcion que quita las marcas '~'
+// del texto (0x719240) sigue yendo por direccion; los colaboradores reconstruidos (CText::Get, GxtCharStrcpy, AsciiToGxtChar, GetStatValue...) se llaman en C++.
 using ExeSprintfFn = int(__cdecl*)(char*, const char*, ...);
 template<class... Args>
 int StatsExeSprintf(char* dst, const char* format, Args... args) {
     return reinterpret_cast<ExeSprintfFn>(0x821BB5)(dst, format, args...);
 }
 const char* StatsGxtToAscii(const GxtChar* text) {
-    return reinterpret_cast<const char*(__cdecl*)(const GxtChar*, uint8)>(0x69F7E0)(text, 0);
+    return GxtCharToAscii(text, 0);
 }
 void StatsStripTags(GxtChar* text) {
     reinterpret_cast<void(__cdecl*)(GxtChar*)>(0x719240)(text);

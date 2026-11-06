@@ -10,6 +10,37 @@ void AsciiToGxtChar(const char* src, GxtChar* dst) {
     dst[sv.size()] = 0;
 }
 
+// 0x69F7E0 (cdecl): convierte al buffer estático del EXE (0xC1BDD0) con la tabla de acentos de un byte; los códigos >= 0xD0 (salvo 0xCF) pasan a '#'. Como máximo 255 caracteres.
+// Como el original: `start` es el byte bajo del segundo argumento (desplazamiento sobre `src`); con `src` nulo y `start` 0 solo escribe el terminador. Devuelve la dirección del buffer.
+const char* GxtCharToAscii(const GxtChar* src, uint8 start) {
+    auto& buffer = StaticRef<char[256]>(0xC1BDD0);
+    auto* str = reinterpret_cast<const uint8*>(src);
+    if (start) {
+        str += start;
+    }
+    int32 i = 0;
+    if (str) {
+        for (; i < 255 && *str; ++i, ++str) {
+            auto c = *str;
+            if (c < 0x80)       {}
+            else if (c <= 0x83) { c += 0x40; }
+            else if (c <= 0x8D) { c += 0x42; }
+            else if (c <= 0x91) { c += 0x44; }
+            else if (c <= 0x95) { c += 0x47; }
+            else if (c <= 0x9A) { c += 0x49; }
+            else if (c <= 0xA4) { c += 0x4B; }
+            else if (c <= 0xA8) { c += 0x4D; }
+            else if (c <= 0xCC) { c += 0x50; }
+            else if (c == 0xCD) { c = 0xD1; }
+            else if (c == 0xCE) { c = 0xF1; }
+            else                { c = c == 0xCF ? 0xBF : 0x23; }
+            buffer[i] = static_cast<char>(c);
+        }
+    }
+    buffer[i] = '\0';
+    return buffer;
+}
+
 // NOTSA -- Derived from GxtCharToAscii (0x69F7E0)
 // FIX_BUGS (sorta): Make caller provide size instead of creating a static buffer.
 char* GxtCharToUTF8(char* out, const GxtChar* src, size_t size, size_t offset) {

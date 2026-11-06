@@ -24,6 +24,18 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleCarSetPedOut.h"
 #include "X87Math.h"
 
+namespace {
+// 0x4AFE70 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventKnockOffBike que usan los destructores del EXE. Deja la vtable de CEventKnockOffBike del EXE (0x85B2E0),
+// libera la referencia del vehiculo (+0x38) y despues la del peaton (+0x30) con CEntity::CleanUpOldReference (0x571A00) si no son nulas y deja la vtable de CEvent del EXE (0x85AB38).
+// (Lote 106A, banco Fn106A.)
+void __fastcall KnockOffBikeDestructorBody(CEventKnockOffBike* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B2E0;
+    CEntity::SafeCleanUpRef(self->m_vehicle);
+    CEntity::SafeCleanUpRef(self->m_ped);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventKnockOffBike::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventKnockOffBike, 0x85B2E0, 16);
@@ -31,6 +43,7 @@ void CEventKnockOffBike::InjectHooks()
 
     RH_ScopedOverloadedInstall(Constructor, "first", 0x4AFCF0, CEventKnockOffBike*(CEventKnockOffBike::*)(CVehicle*, CVector*, CVector*, float, float, uint8, uint8, int32, CPed*, bool, bool));
     RH_ScopedOverloadedInstall(Constructor, "second", 0x4AFC70, CEventKnockOffBike*(CEventKnockOffBike::*)());
+    RH_ScopedNamedGlobalInstall(KnockOffBikeDestructorBody, "Destructor", 0x4AFE70);
     RH_ScopedVMTInstall(AffectsPed, 0x4AFEE0);
     RH_ScopedVMTInstall(ReportCriminalEvent, 0x4B4E80);
     RH_ScopedInstall(From, 0x4AFDD0);

@@ -27941,7 +27941,7 @@
       },
       "evidence": {
         "path": "reversing/PostEffectsPending/validation-summary.json",
-        "sha256": "6b50c8dbabe9ae07e4d7196d25825460e21a3ccfa001ac1314178703d2807c98",
+        "sha256": "7275467c49a58bcd40f40faaa5f28b747658329a942a460d315fc3fea074a456",
         "passed_path": [
           "covered_functions",
           "CPostEffects::HeatHazeFX"
@@ -27950,8 +27950,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PostEffects.cpp": "9b5f236d32cb2aea050596457a41c70f59553a0910660df69012ebb22de4aad2",
-        "source/game_sa/PostEffects.h": "49e72593a3044800e965673ec52541fd33fcc9cb7e9cfb56044427756e8d1543"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-200758-885598).",
       "dependency_review": null,
@@ -27967,7 +27967,7 @@
       },
       "evidence": {
         "path": "reversing/PostEffectsPending/validation-summary.json",
-        "sha256": "6b50c8dbabe9ae07e4d7196d25825460e21a3ccfa001ac1314178703d2807c98",
+        "sha256": "7275467c49a58bcd40f40faaa5f28b747658329a942a460d315fc3fea074a456",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Radiosity"
@@ -27976,8 +27976,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PostEffects.cpp": "9b5f236d32cb2aea050596457a41c70f59553a0910660df69012ebb22de4aad2",
-        "source/game_sa/PostEffects.h": "49e72593a3044800e965673ec52541fd33fcc9cb7e9cfb56044427756e8d1543"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-200758-885598).",
       "dependency_review": null,
@@ -27993,7 +27993,7 @@
       },
       "evidence": {
         "path": "reversing/PostEffectsPending/validation-summary.json",
-        "sha256": "6b50c8dbabe9ae07e4d7196d25825460e21a3ccfa001ac1314178703d2807c98",
+        "sha256": "7275467c49a58bcd40f40faaa5f28b747658329a942a460d315fc3fea074a456",
         "passed_path": [
           "covered_functions",
           "CPostEffects::SpeedFX"
@@ -28002,8 +28002,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PostEffects.cpp": "9b5f236d32cb2aea050596457a41c70f59553a0910660df69012ebb22de4aad2",
-        "source/game_sa/PostEffects.h": "49e72593a3044800e965673ec52541fd33fcc9cb7e9cfb56044427756e8d1543"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-200758-885598).",
       "dependency_review": null,

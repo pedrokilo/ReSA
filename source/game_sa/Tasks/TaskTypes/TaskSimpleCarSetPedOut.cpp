@@ -25,10 +25,38 @@ END GENERATED HOOK STATUS */
 #include "CarEnterExit.h"
 #include "Garages.h"
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
+namespace {
+// 0x6478B0 (thiscall, vehiculo, puerta y byte en la pila, `ret 0Ch`, devuelve this): cuerpo del constructor que usan las tareas del EXE. Primero el constructor de CTaskSimple
+// (0x61A390: m_Parent = 0 y la vtable de CTaskSimple del EXE), despues la puerta (+0xC), la vtable de CTaskSimpleCarSetPedOut del EXE (0x86EEB8), el vehiculo (+8), el byte (+0x10 tal cual,
+// sin normalizar a 0/1) y los cinco bytes siguientes a cero; si hay vehiculo, registra la referencia en +8. (Lote 106A, banco Fn106A.)
+CTaskSimpleCarSetPedOut* __fastcall CarSetPedOutConstructorBody(CTaskSimpleCarSetPedOut* self, void* /*edx*/, CVehicle* vehicle, int32 door, uint8 switchOffEngine) {
+    CTaskSimpleBody::Constructor(self, nullptr);
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<int32*>(bytes + 0xC) = door;
+    *reinterpret_cast<uint32*>(bytes) = 0x86EEB8;
+    *reinterpret_cast<CVehicle**>(bytes + 8) = vehicle;
+    bytes[0x10] = switchOffEngine;
+    bytes[0x11] = 0;
+    bytes[0x12] = 0;
+    bytes[0x13] = 0;
+    bytes[0x14] = 0;
+    bytes[0x15] = 0;
+    if (vehicle) {
+        vehicle->RegisterReference(reinterpret_cast<CEntity**>(bytes + 8));
+    }
+    return self;
+}
+} // namespace
+
 void CTaskSimpleCarSetPedOut::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarSetPedOut, 0x86EEB8, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(CarSetPedOutConstructorBody, "Constructor", 0x6478B0);
     RH_ScopedInstall(PositionPedOutOfCollision, 0x6479B0);
 
     RH_ScopedVMTInstall(Clone, 0x649F50);

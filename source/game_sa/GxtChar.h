@@ -11,6 +11,14 @@ using GxtChar = uint8_t; // 8-bit GXT character.
 void AsciiToGxtChar(const char* src, GxtChar* dst);
 
 /**
+ * 0x69F7E0: convierte una cadena GXT al ASCII del EXE en su buffer estatico (0xC1BDD0, 256 bytes).
+ * @param   src    cadena GXT terminada en cero
+ * @param   start  desplazamiento (byte) sobre `src`
+ * @return  el buffer estatico del EXE
+ */
+const char* GxtCharToAscii(const GxtChar* src, uint8 start);
+
+/**
  * Convert GXT null terminated string to UTF-8 string.
  * NOTE: encoding bugs can appear!
  * @param   out        buffer to hold encoded UTF-8 string

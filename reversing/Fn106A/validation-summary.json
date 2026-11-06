@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "pairs": 114688,
+  "differences": 0,
+  "registered_pairs": 114688,
+  "registered_functions": 7,
+  "functions": {
+    "Common::CrtPowThunk": 16384,
+    "Common::RoundToDecimals": 16384,
+    "CTaskSimpleCarSetPedOut::Constructor": 16384,
+    "Common::GxtCharToAscii": 16384,
+    "CEventKnockOffBike::Destructor": 16384,
+    "CTaskSimpleStandStill::Destructor": 16384,
+    "RwHelper::RwIm2DRenderPrimitiveThunk": 16384
+  },
+  "covered_functions": {
+    "Common::CrtPowThunk": true,
+    "Common::RoundToDecimals": true,
+    "CTaskSimpleCarSetPedOut::Constructor": true,
+    "Common::GxtCharToAscii": true,
+    "CEventKnockOffBike::Destructor": true,
+    "CTaskSimpleStandStill::Destructor": true,
+    "RwHelper::RwIm2DRenderPrimitiveThunk": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main a72f75d5c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagados durante el banco): 0x61A390 (CTaskSimple, constructor) y 0x571B70 (CEntity::RegisterReference) en el constructor de CTaskSimpleCarSetPedOut; 0x571A00 (CEntity::CleanUpOldReference) en el destructor de CEventKnockOffBike; 0x61A3A0 (CTask::Destructor, con la escritura de la vtable 0x86D48C) en el de CTaskSimpleStandStill. CrtPowThunk, RoundToDecimals y GxtCharToAscii corren enteras en ambos lados (el _CIpow 0x822130 y el modf 0x8232F0 del EXE frente al C++ de la DLL); RwIm2DRenderPrimitiveThunk salta por un RwGlobals falso colocado en 0xC97B24. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (pow a un ulp del valor exacto; aritmetica racional exacta a 24 bits para RoundToDecimals). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, NaN senalizantes, cadenas GXT con desplazamiento sobre puntero nulo, la exactitud de los colaboradores falseados y los registros volatiles (ECX/EDX/EAX) de los destructores y constructores, que no se comparan.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn106A-20261106-014300-038355",
+  "summary_sha256": "c5003c8f418aa88776ca47da77ef4bd05583912c5f03ddcf228e2eb44ea16ded",
+  "result_txt_sha256": "bf24a177c24141bebda5aedd60aeb9bf943fca50a4abe2a2177084e0ca74fdc6",
+  "log_sha256": "1040a98dad9f31729f9540f1663553c33636eae3fc7307e505d9fd0000e09c30",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "77251e2778caa43739696766f2a3527c60fba382b328eade62e5c279b92ae52a",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "6bc97dfd1834167939c395f743a93ffc37e39187a3216a55901f4f22ae5e9e18",
+      "source/game_sa/X87Math.cpp": "23737b509143d99d4ae8843f68d8bab54042b3681a858f3002d5c143d4896b42",
+      "source/game_sa/X87Math.h": "c191de8f199e3f3750c6d02ab2c6e49f6bdf4e7d2a1cb4315667faa2d5457c6c",
+      "source/game_sa/common.cpp": "4f5e22c08301c625fc119f96fc255d63c4928ab0631c5ce4cf3a84d9ff45103c",
+      "source/game_sa/GxtChar.cpp": "09c4028ee40690cb4c043778dd17f3f5ef4cc97ebc60bbdad9e6f1403b80359e",
+      "source/game_sa/GxtChar.h": "50c9468b682c60041d7b1a7af5a37cbd0408106c61eb06a0e9e1ef8597884133",
+      "source/game_sa/Text/Text.cpp": "219dff56bc98df30a280b83ae1cfc97fa28dfd18f8dae4542aec1a865d231c0a",
+      "source/game_sa/Stats.cpp": "4b27b8845e82808f315697a7ba086bafb3c3da2e9b2ac9f77f929316594a5548",
+      "source/game_sa/RwHelper.cpp": "7c714fd95d161f724b030dbca7aeb06046f0cfaef2ca99b91a1852e3982a9acd",
+      "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
+      "source/game_sa/Tasks/Task.cpp": "b8ea4f262b2b5715c22ec4e9ef087c3716d965cbfa80955806e00084d1883ac6",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "ac470d8e0c6bc68afeb1cd91e501f0eba82e18652ace5e433dcc34492856d9d8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "26c2233a8f49aa32d93170bbca243fbda54689c24b06a79f5ed863902ab6179d",
+      "source/game_sa/Events/EventKnockOffBike.cpp": "ee8379038ef244627391fa46d1e02ccdbf9f5a07c37dc8714ef117b2ef2116df",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn106A/LiveComparison.hpp": "3e57a01232faa0bdf2710748d3f40c52557d3a38119807f8229fadefbe6edada",
+      "reversing/Fn106A/Core.hpp": "69e48dba48522f93c2e7de3403b9b1d37f6f7b1f176ff6a8bb9c34332cefa8f1",
+      "reversing/Fn106A/Fixtures.hpp": "2a860973bcb3ccfb7c05733a89922243d1369978b7a0cae903162bb4337a3322",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

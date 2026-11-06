@@ -18584,3 +18584,37 @@ __declspec(noinline) float* __cdecl MatrixAdd103Cpp(float* out, const float* a, 
     return out;
 }
 #pragma float_control(pop)
+
+// Lote 106A (Fn106A): thunk de _CIpow 0x470000 y redondeo a decimales 0x50A0A0.
+// 0x470000 (cdecl, dos floats en la pila, resultado en ST0): `fld [esp+4]; fld [esp+8]; call _CIpow (0x822130); ret`. Devuelve el double de pow en ST0 (sin guardarlo).
+// 0x50A0A0 (cdecl, float y entero en la pila, resultado en ST0): x = (pow(10, n + 1) * v +/- 5) * 0.1f con los tres pasos redondeados a 24 bits por la palabra de control del juego y el
+// exponente ampliado (suma de 5 si v > 0, v == 0 o NaN, resta si v < 0); x se guarda como double (fstp qword), se le quita la parte fraccionaria como el modf del EXE (0x8232F0, rama SSE2: |x| < 1
+// da +-0, hasta 2^52 se borran los bits fraccionarios, mayor o infinito queda igual y el NaN sale de x + x) y se devuelve ip / pow(10, n) sin guardar. `n + 1` se calcula en 32 bits con vuelta.
+#pragma float_control(precise, on, push)
+__declspec(noinline) double __cdecl CrtPowThunkCpp(float base, float exponent) {
+    return ExeCompatiblePowCpp(double(base), double(exponent));
+}
+static double TruncateLikeExeModf(double x) {
+    unsigned long long b;
+    memcpy(&b, &x, 8);
+    const unsigned e = unsigned((b << 1) >> 53);
+    if (e < 0x3FFu) {
+        b &= 0x8000000000000000ull;
+    } else if (e <= 0x432u) {
+        b &= ~((1ull << (0x433u - e)) - 1ull);
+    } else if (e == 0x7FFu) {
+        return x + x;
+    } else {
+        return x;
+    }
+    double r;
+    memcpy(&r, &b, 8);
+    return r;
+}
+__declspec(noinline) double __cdecl RoundToDecimalsCpp(float value, int digits) {
+    const double scale = ExeCompatiblePowCpp(10.0, double(int(unsigned(digits) + 1u)));
+    volatile double scaled = (scale * value + (value < 0.0f ? -5.0f : 5.0f)) * 0.1f;
+    const double ip = TruncateLikeExeModf(scaled);
+    return ip / ExeCompatiblePowCpp(10.0, double(digits));
+}
+#pragma float_control(pop)

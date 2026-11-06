@@ -47,6 +47,9 @@ void InjectCommonHooks() {
     RH_ScopedGlobalOverloadedInstall(MakeUpperCase, "", 0x7186E0, char* (*)(char*, const char*));
     RH_ScopedGlobalOverloadedInstall(MakeUpperCase, "in", 0x718710, char* (*)(char*));
     RH_ScopedGlobalInstall(AsciiToGxtChar, 0x718600);
+    RH_ScopedGlobalInstall(GxtCharToAscii, 0x69F7E0);
+    RH_ScopedNamedGlobalInstall(CrtPowThunkCpp, "CrtPowThunk", 0x470000);
+    RH_ScopedNamedGlobalInstall(RoundToDecimalsCpp, "RoundToDecimals", 0x50A0A0);
     RH_ScopedGlobalInstall(WriteRaster, 0x005A4150);
     RH_ScopedGlobalOverloadedInstall(CalcScreenCoors, "VVff", 0x71DA00, bool(*)(const CVector&, CVector&, float&, float&), { .reversed = true });
     RH_ScopedGlobalOverloadedInstall(CalcScreenCoors, "VV", 0x71DAB0, bool(*)(const CVector&, CVector&), { .reversed = true });

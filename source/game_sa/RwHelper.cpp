@@ -22,11 +22,17 @@ END GENERATED HOOK STATUS */
 
 #include "RwHelper.h"
 
+// 0x734E90 (cdecl, tres argumentos de pila): salto a la funcion de dibujo de primitivas 2D del dispositivo abierto (RwEngineInstance + 0x30), con los mismos argumentos y su retorno en EAX.
+RwBool RwIm2DRenderPrimitiveThunk(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices) {
+    return RwEngineInstance->dOpenDevice.fpIm2DRenderPrimitive(primType, vertices, numVertices);
+}
+
 void RwHelperInjectHooks() {
     RH_ScopedNamespaceName("RwHelper");
     RH_ScopedCategoryGlobal();
 
     RH_ScopedGlobalInstall(GetEventGlobalGroup, 0x4ABA50);
+    RH_ScopedGlobalInstall(RwIm2DRenderPrimitiveThunk, 0x734E90);
     RH_ScopedGlobalInstall(GetNameAndDamage, 0x5370A0);
     RH_ScopedGlobalInstall(GetFirstAtomicCallback, 0x734810);
     RH_ScopedGlobalInstall(GetFirstAtomic, 0x734820);

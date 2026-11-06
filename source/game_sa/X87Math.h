@@ -2258,3 +2258,9 @@ void __cdecl MatrixRotate103Cpp(float* m, float x, float y, float z);
 void __cdecl MatrixForceUpVector103Cpp(float* m, unsigned int uxBits, unsigned int uyBits, unsigned int uzBits);
 void __cdecl MatrixSetRotateQuat103Cpp(float* m, const float* q);
 float* __cdecl MatrixAdd103Cpp(float* out, const float* a, const float* b);
+
+// Lote 106A (Fn106A).
+// _CIpow del EXE con los argumentos float en la pila (0x470000): devuelve pow(base, exponente) en ST0 sin guardarlo.
+double __cdecl CrtPowThunkCpp(float base, float exponent);
+// Redondeo a `digits` decimales (0x50A0A0): ip / 10^digits con ip = parte entera de (10^(digits+1) * value +/- 5) * 0.1f; resultado en ST0 sin guardar.
+double __cdecl RoundToDecimalsCpp(float value, int digits);

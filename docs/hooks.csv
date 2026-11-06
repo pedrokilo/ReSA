@@ -3233,6 +3233,7 @@ CEventKnockOffBike,From,0x004AFDD0,1,0,1,S
 CEventKnockOffBike,ReportCriminalEvent,0x00000000,1,0,1,V
 CEventKnockOffBike,SetPedOutCar,0x004AFF60,1,0,1,S
 CEventKnockOffBike,SetPedSafePosition,0x004B4AC0,1,0,1,S
+CEventKnockOffBike,Destructor,0x004AFE70,1,0,1,S
 CEventInAir,AffectsPed,0x00000000,1,0,1,V
 CEventInAir,Constructor,0x004B0CB0,1,0,1,S
 CEventHitByWaterCannon,AffectsPed,0x00000000,1,0,1,V
@@ -5054,6 +5055,7 @@ CTaskSimpleStandUp,StartAnim,0x00631410,1,0,1,S
 CTaskSimpleStandStill,Constructor,0x0062F310,1,0,1,S
 CTaskSimpleStandStill,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleStandStill,ProcessPed,0x00000000,1,0,1,V
+CTaskSimpleStandStill,Destructor,0x0062F360,1,0,1,S
 CTaskSimpleSitIdle,Clone,0x00000000,1,0,1,V
 CTaskSimpleSitIdle,Constructor,0x00631160,1,0,1,S
 CTaskSimpleSitIdle,Destructor,0x006311B0,1,0,1,S
@@ -8318,6 +8320,7 @@ CTaskSimpleCarSetPedOut,GetTaskType,0x00647930,1,0,1,V
 CTaskSimpleCarSetPedOut,MakeAbortable,0x00647940,1,0,1,V
 CTaskSimpleCarSetPedOut,PositionPedOutOfCollision,0x006479B0,1,0,1,S
 CTaskSimpleCarSetPedOut,ProcessPed,0x00647D10,1,0,1,V
+CTaskSimpleCarSetPedOut,Constructor,0x006478B0,1,0,1,S
 CTaskSimpleDieInCar,Clone,0x00635EF0,1,0,1,V
 CTaskSimpleDieInCar,Constructor,0x0062FC20,1,0,1,S
 CTaskSimpleDieInCar,Destructor,0x0062FC70,1,0,1,S
@@ -8531,6 +8534,9 @@ CTaskSimpleFight,IsHitComboSet,0x004ABDF0,1,0,1,S
 CSprite2d,OffsetTexCoordForBilinearFiltering,0x00728150,1,0,1,S
 Common,TransformPoint,0x0054ECE0,1,0,1,S
 Common,TransformPoints,0x0054EEF0,1,0,1,S
+Common,CrtPowThunk,0x00470000,1,0,1,S
+Common,RoundToDecimals,0x0050A0A0,1,0,1,S
+Common,GxtCharToAscii,0x0069F7E0,1,0,1,S
 CGarage,IsPointInsideGarage-point,0x00448740,1,0,1,S
 CGarage,IsPointInsideGarage-radius,0x004487D0,1,0,1,S
 CGarages,FindSafeHouseIndexForGarageType,0x004489F0,1,0,1,S
@@ -8928,6 +8934,7 @@ RwHelper,RwTexDictionaryGtaStreamRead2,0x00731150,1,0,1,S
 RwHelper,RpClumpGtaStreamRead1,0x0072E570,1,0,1,S
 RwHelper,RpClumpGtaStreamRead2,0x0072E620,1,0,1,S
 RwHelper,RpClumpGtaCancelStream,0x0072E700,1,0,1,S
+RwHelper,RwIm2DRenderPrimitiveThunk,0x00734E90,1,0,1,S
 CGarage,FindDoorsWithGarage,0x00449FF0,1,0,1,S
 CCam,GetArrestCamCopSourceSide,0x00516010,1,0,1,S
 CHeli,Constructor,0x006C4190,1,0,1,S

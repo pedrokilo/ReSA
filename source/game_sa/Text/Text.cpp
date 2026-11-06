@@ -81,38 +81,6 @@ static constexpr uint8 FrenchUpperCaseTable[] = {
     0xF0, 0xF1, 0xF2, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7, 0xF8, 0xF9, 0xFA, 0xFB, 0xFC, 0xFD, 0xFE, 0xFF,
 };
 
-// 0x69F7E0 (GxtCharToAscii)
-// Como el original: convierte al buffer estático del EXE (0xC1BDD0) con la tabla de acentos de un byte;
-// los códigos >= 0xD0 (salvo 0xCF) pasan a '#'. Como máximo 255 caracteres.
-static const char* GxtCharToAsciiOriginal(const GxtChar* src, uint8 start) {
-    auto& buffer = StaticRef<char[256]>(0xC1BDD0);
-    auto* str = reinterpret_cast<const uint8*>(src);
-    if (start) {
-        str += start;
-    }
-    int32 i = 0;
-    if (str) {
-        for (; i < 255 && *str; ++i, ++str) {
-            auto c = *str;
-            if (c < 0x80)       {}
-            else if (c <= 0x83) { c += 0x40; }
-            else if (c <= 0x8D) { c += 0x42; }
-            else if (c <= 0x91) { c += 0x44; }
-            else if (c <= 0x95) { c += 0x47; }
-            else if (c <= 0x9A) { c += 0x49; }
-            else if (c <= 0xA4) { c += 0x4B; }
-            else if (c <= 0xA8) { c += 0x4D; }
-            else if (c <= 0xCC) { c += 0x50; }
-            else if (c == 0xCD) { c = 0xD1; }
-            else if (c == 0xCE) { c = 0xF1; }
-            else                { c = c == 0xCF ? 0xBF : 0x23; }
-            buffer[i] = static_cast<char>(c);
-        }
-    }
-    buffer[i] = '\0';
-    return buffer;
-}
-
 void CText::InjectHooks() {
     RH_ScopedClass(CText);
     RH_ScopedCategory("Text");
@@ -283,7 +251,7 @@ void CText::Load(bool keepMissionPack) {
     CFileMgr::CloseFile(file);
 
     // Como el original: consulta TheText (no `this`) y convierte con GxtCharToAscii (0x69F7E0).
-    strcpy(m_szCdErrorText, GxtCharToAsciiOriginal(TheText.Get("CDERROR"), 0));
+    strcpy(m_szCdErrorText, GxtCharToAscii(TheText.Get("CDERROR"), 0));
     m_bCdErrorLoaded = true;
 
     CFileMgr::SetDir("");

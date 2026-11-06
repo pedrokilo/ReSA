@@ -70,7 +70,7 @@ namespace CTaskSimpleBody {
 // this en EAX; ECX y EDX salen intactos. Los 200 llamadores son constructores de tareas simples del EXE (la vtable de la DLL no vale para ellos).
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
-static void* __fastcall Constructor(void* self, void* /*edx*/) {
+void* __fastcall Constructor(void* self, void* /*edx*/) {
     uint32* const words = static_cast<uint32*>(self);
     words[1] = 0;
     words[0] = 0x86D4A8;
