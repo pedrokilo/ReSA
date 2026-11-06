@@ -58,7 +58,7 @@
   "log_sha256": "7038c2458c57a2a1d15bf48f7f13c417f9bc4fdbbcf9411593d08a6365cd0ec5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-animaudio6\\20261002-193448-417239",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-animaudio6\\20261106-142413-850720",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEBankLoader::CalculateBankSlotsInfosOffsets": true,
@@ -106,34 +106,35 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "a84c53bf9c8d28ee8c9dfcb64b195abb1dd86a89951a2a89fe66ba99782ec2c3",
-      "pdb": "0e25aa72d8ec040552a959f950b811dc5a0aa2decd989c0327bcb85865d384a7"
+      "asi": "9cd0acb404ff22adc0b5cf4e7ba918ff0337f1ae6739f49086246e4abe7d5171",
+      "pdb": "5fe33faa456f82f91ebd664fd688e3387c38ff543e89d14e70e62fada159851d"
     },
     "sources": {
-      "source/game_sa/Door.cpp": "13ca7cec068407bab59773e717300617cace8fc0df4f6f3f3d5909a2aba46711",
+      "source/game_sa/Door.cpp": "9ab19067eca1b52d798327f7b9e82ad83abd276589b5d7e36fae071afffbb607",
       "source/game_sa/Door.h": "a46307d4e181fdea3f87384a687e6aea8393feff0da0dce8257bc9a507d5177e",
-      "source/game_sa/Animation/AnimBlendClumpData.cpp": "593e72b44aefbb5d3288b85710b65347a2ccae97a207528c52a3cc778252ccd1",
+      "source/game_sa/Animation/AnimBlendClumpData.cpp": "35baa74d33aae7ed6f134e8cd8a3d1536d9487c2e16fc9e6d5811701665b49b0",
       "source/game_sa/Animation/AnimBlendClumpData.h": "b36e940e5450f5c51ffbf72cdcaed0df210011ba217b52fb8d8d16b40bead22c",
-      "source/game_sa/Animation/AnimBlendStaticAssociation.cpp": "30755035bfb074eaed519d4a8f97b743ee7786711536c8da0e3c26ac0445c100",
+      "source/game_sa/Animation/AnimBlendStaticAssociation.cpp": "52a8191b392fa4c6052c8f94431c5ab3e7d8879cc3a78d12aa1dee8da3e7f357",
       "source/game_sa/Animation/AnimBlendStaticAssociation.h": "f166f995806cc8ff184dd416ae163f78109e361b000961ac612990e777c897b2",
-      "source/game_sa/Audio/Loaders/AEBankLoader.cpp": "b4c9703c9e2749e82230ddd159593155b4a840e2a8438f06837206bed0e32c2b",
+      "source/game_sa/Audio/Loaders/AEBankLoader.cpp": "6632c8c0e8ac07c58328ffadac80cf03b3630a2520c68c5587646299314dcf99",
       "source/game_sa/Audio/Loaders/AEBankLoader.h": "04bb3a983c388e72359e5ee873dddc39ced6271bee273d52b6e44d4f6ba68fb5",
-      "source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp": "05729e0cc5d8a93db64f445dc6a27f080c20243e0a1938925f4e449bd211d55f",
+      "source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp": "c8cfdd187c76ac5abba51eeeae0241b9873b828c0a17beb3d4977f326da4e2cf",
       "source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.h": "ce56e419835c3fc94841f99734238d987bff95a8c29a557f26f33d91df353aa6",
-      "source/game_sa/Entity/Object/CutsceneObject.cpp": "eabdfb1a1f63b8cdf86a4bfdc4437585b4e815d32002b0defeb59e22243e9eef",
+      "source/game_sa/Entity/Object/CutsceneObject.cpp": "30c16d2385e57dfd61cb368e023601147f433e03a0c6d0c83a1113069d3c616f",
       "source/game_sa/Entity/Object/CutsceneObject.h": "b0e369e0cfa2c6efa6b340e7ce8de4f4cdbf46a1da65136d7d945d92bd5c7328",
-      "source/app/platform/win/VideoPlayer/VideoPlayer.cpp": "4431d92b8b2f3251e79073d6ce4ad043c82188e66d72b14e6a1142f75a39572f",
+      "source/app/platform/win/VideoPlayer/VideoPlayer.cpp": "f643e93a8ac270f304c37cbd994ecf46b501330a23296617d2a6a5b7cededdec",
       "source/app/platform/win/VideoPlayer/VideoPlayer.h": "c21ef326e2735f42cac5cacb5930a1ae9b13b63d6d00c819a793635876aacf98"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "92f9e462dd05ecdfdc9aba9efc501c979ee4dc495dddb11a000f59063220907f",
+      "LiveComparison.hpp": "3d295d5116f4b70b73818fe9110f5f3eaa4e1bc2c677070686b6cd1636cd80f2",
       "build_probe.py": "3e8deb0ac6230c54d4b40f51f7719fdcbd5c9bc8a360047b02e5930fe71420ed",
       "run_local.py": "226a1cbdc156b59a29f18ea456e184fbcf76c7f9f1841231ff19b105446eadb2"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Sin bancos, flujos, archivos ni video reales."
+    "Sin bancos, flujos, archivos ni video reales.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
