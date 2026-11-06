@@ -164,3 +164,6 @@ lo restaura). `BuildStatLine` y `FindLeastFavoriteRadioStation` son a la vez fun
 `Fixtures.hpp` (generadores), `Fakes.hpp` (falsos, traza, regiones de memoria), `Cases.hpp` (entrada/preparacion/observacion de cada funcion), `Gate.hpp` (ABI y x87), `Core.hpp` (rutas, parches, ejecucion),
 `LiveComparison.hpp`, `build_probe.py`, `run_local.py`, `fixture_oracle.py`, `register_hook.py`, `source.patch`, `README.md`; `offline/` (`host.cpp`, `harness.cpp`, `x87.cpp`, `build_offline.bat`, `run_build.sh`,
 `gen_port.py`, `check_rows.py`, `calibrate.py`, `make_fake_log.py`).
+
+## Actualizacion del lote 106A (06/11/2026)
+`GxtCharToAscii` (0x69F7E0) tiene hook RH y cuerpo en la DLL desde el lote 106A (`GxtChar.cpp`; `Stats.cpp` ya la llama en C++): deja de ser colaborador "solo EXE". `Core.hpp`, `LiveComparison.hpp` (`env.c.g2a = { 0x69F7E0, B(&GxtCharToAscii) }`) y `run_local.py` (`EXE_ONLY` sin esa direccion) se adaptaron y el banco se repitio aprobado (`20261106-011815-655283`).

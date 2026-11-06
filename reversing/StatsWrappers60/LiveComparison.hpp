@@ -56,7 +56,7 @@ inline void Update() {
     env.c.secs = { 0x559560, B(&CStats::ConvertToSecs) };
     env.c.build = { 0x559230, B(&CStats::BuildStatLine) };
     env.c.get = { 0x6A0050, B(static_cast<const GxtChar*(CText::*)(const char*)>(&CText::Get)) };
-    env.c.g2a = { 0x69F7E0, 0 };
+    env.c.g2a = { 0x69F7E0, B(&GxtCharToAscii) };   // lote 106A: con hook RH y cuerpo en la DLL
     env.c.strcpy_ = { 0x718660, B(&GxtCharStrcpy) };
     env.c.strip = { 0x719240, 0 };
     env.c.a2g = { 0x718600, B(&AsciiToGxtChar) };

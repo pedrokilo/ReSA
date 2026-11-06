@@ -12,26 +12,26 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-3 (HEAD de main + TaskComplexLeaveCar.cpp, source.patch). CTaskComplexLeaveCar::CreateSubTask(eTaskType, CPed*) 0x641530 (no virtual, thiscall con dos argumentos en la pila, ret 8; EAX = tarea nueva o nulo): segun el tipo pedido reserva con CTask::operator new y construye la subtarea (Pause, GetUpAndStandStill, Die, LeaveBoat, CarDriveTimed, CarCloseDoorFromOutside, CarWaitToSlowDown con CPed::IsPlayer, CarWaitForDoorNotToBeInUse, CarGetOut, CarJumpOut, CarForcePedOut, CarSetPedOut, ComplexCarSlowBeDraggedOut) o devuelve nulo. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CTask::operator new 0x61A5A0, CPed::IsPlayer 0x5DF8F0, CEntity::RegisterReference 0x571B70 y los constructores con hook; el de CTaskSimpleCarForcePedOut 0x647710 (sin clase reconstruida: la DLL lo llama por la direccion del EXE) solo en el EXE; el de CTaskSimpleCarSetPedOut 0x6478B0 (sin hook) corre real en ambos lados y se compara el objeto. La propia validez de los constructores y de los colaboradores no la prueba este banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/LeaveCarSub70-20261026-192407-472837",
-  "summary_sha256": "fbce25a335e0514c6a963321fa711922253620ecfb50a481a423ff1bb6fd91a3",
-  "result_txt_sha256": "4ca3d079a9416abbcbceb2d8c2703aaa8664f50630f1b22ff014482ac83d237c",
-  "log_sha256": "65b68c3945175c5cb650fbb8fa268fb1d7134bdddab513745a254a3b83c4b869",
+  "run": "reversing/CppTwelveLevel6Final/runs/LeaveCarSub70-20261106-015149-970625",
+  "summary_sha256": "ef41e7049c26341e9e525853ea61c5eb6d174632baf9b328e6b85c4b33f145fc",
+  "result_txt_sha256": "8614e2e6596671973fe2c5fc00ebd7ece19f25600eaad7b9aaaf44c652550681",
+  "log_sha256": "692a422de00684455255bd4dc8b656ee8766acdb9f555dfd32e9ca9e00cbecc6",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "c6d1185a6dbc97c371961ca31dd20c6dce56c672c560ec8482b2078ca0cf9992",
+  "executed_probe_sha256": "08e6472d1ebc2ed6cf135ebd35bb35c4ff5b58b2a4ac665c1d5f4bcf46459ed0",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "1461390378eae1618f39c52d71e624020d3d2e7927648098b54bd33e1baa2646",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "6bc97dfd1834167939c395f743a93ffc37e39187a3216a55901f4f22ae5e9e18",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "d7fd870a679a009f1d987d9d1b69a208b275cffb1e50b9346dce734fa248bf31",
       "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "b59c2f42c4d4550ecfb7c5e6cbfc45f7a3756446f670d6022850b09d6277d25d",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "44db6ae8b2343f0d0e6a3b0d9e839edffa6329c8466a2b28c7dd75573f1a46e3",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "d4e93474421aa478b46097bb72e276d6ba7cefbaa997448951676b4f0d25907a",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "2dce4fb1605c3a244f1b2a59c9514a2339d6265dfd6de78d5b5cc788360b316b",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "f22da1781866f3aac7bf3c1309f7de6845a3227569e104e96c125c3e81109371",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/LeaveCarSub70/LiveComparison.hpp": "d18a29f759ae680d778d50a3cefb5b7d00d976ef557a2f451b8a150438dc4ce4",
+      "reversing/LeaveCarSub70/LiveComparison.hpp": "38fe797627d4c9874e7b1337954e7a0aa8cf32ba4edb7940dbffa8ec32551e72",
       "reversing/LeaveCarSub70/Core.hpp": "449f5b48cd91278e94031e836b70afe528b21fce853d5106d383d5cd424d925f",
       "reversing/LeaveCarSub70/Fixtures.hpp": "0edef30a4dff8c52aa74c5da8d0a5b09119365d8432cb50659c5b97f0befab32",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/LeaveCarSub70-20261026-192407-472837/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/LeaveCarSub70-20261106-015149-970625/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "fdfa8659d1a7905f3ba16df33a494dc2ee2cff9a6d4be7cae9d5b0b00e9599ed",
-    "uncompressed_sha256": "65b68c3945175c5cb650fbb8fa268fb1d7134bdddab513745a254a3b83c4b869"
+    "compressed_sha256": "ef95db385601b98a0feb13d9f48cdfd6f9ad88d44f42f370aea7296bf4d8951b",
+    "uncompressed_sha256": "692a422de00684455255bd4dc8b656ee8766acdb9f555dfd32e9ca9e00cbecc6"
   }
 }

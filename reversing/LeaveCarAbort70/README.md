@@ -41,3 +41,6 @@ python -I reversing/LeaveCarAbort70/fixture_selfcheck.py                        
 python -B reversing/LeaveCarAbort70/register_hook.py <carpeta-de-evidencia>      # SOLO el coordinador, tras una corrida aprobada
 ```
 Archivo de arranque en el clon: `leavecarabort70-runtime.start`; salida `leavecarabort70-runtime.jsonl`.
+
+## Actualizacion del lote 106A (06/11/2026)
+0x6478B0 (constructor de CTaskSimpleCarSetPedOut del EXE) tiene hook RH desde el lote 106A: `LiveComparison.hpp` apaga ese hook durante la corrida con una ruta `HookRoute` (`ctorOff`) y la restaura al final; el banco se repitio aprobado (`20261106-014932-591316`).

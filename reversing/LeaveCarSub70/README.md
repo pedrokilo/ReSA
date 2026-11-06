@@ -75,3 +75,6 @@ Reejecutado: **APROBADO**, 16384 pares, cero diferencias, `E:\JUEGOS\GTA San And
 esultados-leavecarsub7061026-182012-187798`.
 La nota «Lo unico que sigue delegando en el EXE» de arriba queda obsoleta para esa rama.
 Reejecutado de nuevo tras reconstruir y enganchar las virtuales de la clase (ForcePedOutVt71; sus instancias ya no llevan codigo sin validar): **APROBADO**, 16384 pares, cero diferencias, `E:\JUEGOS\GTA San Andreas - CVehicle Testesultados-leavecarsub7061026-184659-198106`.
+
+## Actualizacion del lote 106A (06/11/2026)
+0x6478B0 (constructor de CTaskSimpleCarSetPedOut del EXE) tiene hook RH desde el lote 106A: `LiveComparison.hpp` apaga ese hook durante la corrida con una ruta `HookRoute` (`ctorOff`) para que el lado del EXE ejecute su codigo original, y la restaura al final; el banco se repitio aprobado (`20261106-015149-970625`).

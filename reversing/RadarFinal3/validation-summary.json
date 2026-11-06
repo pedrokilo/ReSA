@@ -202,22 +202,22 @@
     "CRadar::TransformRealWorldPointToRadarSpace": "Corpus 256; source reviewed against the EXE and corrected before the run where needed (see git diff). fuente corregida: reciproco y orden x87. Limites del banco: motor RW falso (zBufferFar, estados, Im2D), pools falsos de TXD, EntryExit, vehiculos, peds y objetos; dibujo y TXD doblados con traza (sin credito); colores y alturas enmascarados a 8 bits; FindPlayerPed/Vehicle no se trazan."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/RadarFinal3-20261104-213651-693301",
-  "summary_sha256": "aa0f0a07b4b10671e7c117a5201eef9a494bbd4767ccb4791ed9676bb44b0d2c",
-  "result_txt_sha256": "8aa530fd2ea825cafe8a6aec4fcaa4c2996bacdf43fd6f414180f740aff036cb",
-  "log_sha256": "8707d27ef3824024c2d1658fcc90fa1de6e10fcd32d8c2ae312c2a6704bc3ad4",
+  "run": "reversing/CppTwelveLevel6Final/runs/RadarFinal3-20261106-015608-024203",
+  "summary_sha256": "a725148a2deb768d711342f8a1f38d43d843a5b24cd9dde6d5752d4b336a46bb",
+  "result_txt_sha256": "e9a6e0b5f2246307beb00c90f40ea5c01c65a90e93f2da6f848bfad787c5e86a",
+  "log_sha256": "80d853c5a2e08c802450867989cf2d5d4ede03a07f3c04d8dbb4ddc87185a1e6",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RadarFinal3-20261104-213651-693301/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RadarFinal3-20261106-015608-024203/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "472f0ba4be48aac0f0c56495145b5e72f0a6f62b3e43ac9966b3bb4fb4d0b3df",
-    "uncompressed_sha256": "8707d27ef3824024c2d1658fcc90fa1de6e10fcd32d8c2ae312c2a6704bc3ad4"
+    "compressed_sha256": "bffa249deaff39fc5afa6370ec1e89500d8c1f555668e3c187ed9baff38e3d2e",
+    "uncompressed_sha256": "80d853c5a2e08c802450867989cf2d5d4ede03a07f3c04d8dbb4ddc87185a1e6"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "af07a9d8960aef24e2936b2b1cefc750112499760f3beebde77b98f350f369a7",
+  "executed_probe_sha256": "3772d8064ed708db9e253352f2675b9b1d2c4e51d71d2ecdac679e0c57626291",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
