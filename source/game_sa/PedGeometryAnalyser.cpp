@@ -829,6 +829,15 @@ bool CPedGeometryAnalyser::LiesInsideBoundingBox(const CPed& ped, const CVector&
     return false;
 }
 
+// Lote 109A (banco Fn109A): operator new (0x41B7C0) y operator delete (0x41B7D0) de CPointRoute.
+void CPointRouteInjectHooksLote109A() {
+    RH_ScopedClass(CPointRoute);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(operator new, 0x41B7C0);
+    RH_ScopedInstall(operator delete, 0x41B7D0);
+}
+
 // 0x41B7C0
 void* CPointRoute::operator new(uint32 size) {
     return GetPointRoutePool()->New();

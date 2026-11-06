@@ -38,6 +38,17 @@ END GENERATED HOOK STATUS */
 #include "Hud.h"
 #include "app.h"
 
+// 0x4DC670 (lote 109A, banco Fn109A): igualdad exacta de dos vectores (cdecl, dos punteros, `ret`; sin reinterpretar bits): x, y y z se comparan por ese orden con
+// fcomp y solo si todas son iguales (cero con signo igual a cero; un NaN nunca es igual) devuelve 1. No deja nada en la x87.
+static bool VectorsAreEqualExe(const CVector* a, const CVector* b) {
+    return a->x == b->x && a->y == b->y && a->z == b->z;
+}
+
+// 0x509760 (lote 109A): el contrario exacto de 0x4DC670 (el EXE hace la misma comparacion y devuelve `!iguales`; con un NaN en cualquier componente devuelve 1).
+static bool VectorsDifferExe(const CVector* a, const CVector* b) {
+    return !(a->x == b->x && a->y == b->y && a->z == b->z);
+}
+
 void InjectCommonHooks() {
     RH_ScopedNamespaceName("Common");
     RH_ScopedCategory("Common");
@@ -55,6 +66,8 @@ void InjectCommonHooks() {
     RH_ScopedNamedGlobalInstall(CrtPowThunkCpp, "CrtPowThunk", 0x470000);
     RH_ScopedNamedGlobalInstall(RoundToDecimalsCpp, "RoundToDecimals", 0x50A0A0);
     RH_ScopedNamedGlobalInstall(RoundVectorToDecimalsCpp, "RoundVectorToDecimals", 0x50A120);
+    RH_ScopedNamedGlobalInstall(VectorsAreEqualExe, "VectorsAreEqual", 0x4DC670);
+    RH_ScopedNamedGlobalInstall(VectorsDifferExe, "VectorsDiffer", 0x509760);
     RH_ScopedGlobalInstall(WriteRaster, 0x005A4150);
     RH_ScopedGlobalOverloadedInstall(CalcScreenCoors, "VVff", 0x71DA00, bool(*)(const CVector&, CVector&, float&, float&), { .reversed = true });
     RH_ScopedGlobalOverloadedInstall(CalcScreenCoors, "VV", 0x71DAB0, bool(*)(const CVector&, CVector&), { .reversed = true });

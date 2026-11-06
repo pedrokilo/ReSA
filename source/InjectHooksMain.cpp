@@ -593,6 +593,9 @@ void CColPointInjectHooksLote105A(); // ColPoint.cpp (lote 105A)
 void CompressedVectorInjectHooksLote105A(); // CompressedVector.cpp (lote 105A)
 void TListInjectHooksLote105A(); // List_c.cpp (lote 105A)
 void RuntimeHelpersInjectHooksLote105A(); // RuntimeHelpers.cpp (lote 105A)
+void CPedScannerInjectHooksLote109A(); // PedScanner.cpp (lote 109A)
+void CVehicleScannerInjectHooksLote109A(); // VehicleScanner.cpp (lote 109A)
+void CPointRouteInjectHooksLote109A(); // PedGeometryAnalyser.cpp (lote 109A)
 
 void InjectHooksMain() {
     /**
@@ -734,6 +737,9 @@ void InjectHooksMain() {
     CompressedVectorInjectHooksLote105A(); // Only the CompressedVector to CVector conversion 0x411590.
     TListInjectHooksLote105A(); // Only TList_c AddItem 0x4A8DF0, RemoveAll 0x4A8EB0 and GetNumItems 0x4A8EC0.
     RuntimeHelpersInjectHooksLote105A(); // Only the vector constructor iterator 0x403D60.
+    CPedScannerInjectHooksLote109A(); // Only CPedScanner::GetClosestPedInRange 0x5FFF20.
+    CVehicleScannerInjectHooksLote109A(); // Only CVehicleScanner::GetClosestVehicleInRange 0x5FFEE0.
+    CPointRouteInjectHooksLote109A(); // Only CPointRoute operator new 0x41B7C0 and operator delete 0x41B7D0.
     CMatrixLink::InjectHooks();
     CMatrixLinkList::InjectHooks();
     CEntryInfoNode::InjectHooks();

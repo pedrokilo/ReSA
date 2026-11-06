@@ -19,7 +19,7 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh
 HOOKS = {NAMES[0]: 0x59C890, NAMES[1]: 0x655140, NAMES[2]: 0x730FC0, NAMES[3]: 0x61C740}
 STUBBED = {
     NAMES[0]: [],
-    NAMES[1]: [(0x61A5A0, True), (0x41B7C0, False)],
+    NAMES[1]: [(0x61A5A0, True), (0x41B7C0, True)],
     NAMES[2]: [(0x7ED2D0, False), (0x7EC9D0, False), (0x7F3600, False), (0x730E60, True), (0x7F3980, False), (0x7F3730, False), (0x7F36A0, False)],
     NAMES[3]: [(0x5DF8F0, True), (0x559AF0, True)],
 }

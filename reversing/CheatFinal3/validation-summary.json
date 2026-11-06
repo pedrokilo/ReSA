@@ -233,22 +233,22 @@
     "CCheat::WeaponSkillsCheat": "Corpus 64; source reviewed against the EXE and corrected before the run where needed (see git diff). Limites del banco: 3 jugadores falsos con CPlayerPedData, CWanted y CPedClothesDesc, pools de peds y vehiculos falsos intercambiados solo durante la llamada, lista de referencias falsa; operator new de CVehicle devuelve nulo; denormales/NaN solo en las escalas de tiempo; colaboradores doblados con traza (sin credito); HealthCheat (sin hook) se probo en el banco pero no se registra."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CheatFinal3-20261106-025551-278717",
-  "summary_sha256": "677359a60064dc7e148db449fa0c3f2af8473c84d2c2378115012960694bdfc7",
-  "result_txt_sha256": "813bb4e4331cb01f7e5e231c65f07ada6cfda6eb84aa401990991b329a963069",
-  "log_sha256": "574c380b14f82081cda6f2c433d2411adbdd20112871fd2535819200db94e6e6",
+  "run": "reversing/CppTwelveLevel6Final/runs/CheatFinal3-20261106-143215-463776",
+  "summary_sha256": "cd8e59dd03aa5b5c57e98cb4fb009173fe7e9f7c359dcfdc1c690c6294c7f9f8",
+  "result_txt_sha256": "3c6182639a9b353dc42c921e017298c40c0a28863b72a8ac469f26acfc5c324d",
+  "log_sha256": "537bece056208995f533b390cd2bb89fa63f398e178302f6fc4e8458adbd99bb",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CheatFinal3-20261106-025551-278717/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CheatFinal3-20261106-143215-463776/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "848938a36a9dff143321b91b6dd6d6db886176321312db51f114b6612ba9790e",
-    "uncompressed_sha256": "574c380b14f82081cda6f2c433d2411adbdd20112871fd2535819200db94e6e6"
+    "compressed_sha256": "dd0926a356b90eadb79664787beb595705c80fbe6a1a9aec9245e910ee0b8fd5",
+    "uncompressed_sha256": "537bece056208995f533b390cd2bb89fa63f398e178302f6fc4e8458adbd99bb"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "0f4dc6d8a27237d96712caeb6592cbc58dd3f09293a442ebd5855833973640dc",
+  "executed_probe_sha256": "183bdf52351a0001d884e23a86d57020649cc8fdb7e2a765d300e0e77f0ce123",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {

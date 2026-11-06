@@ -43,7 +43,7 @@
   "log_sha256": "309af879dcabf57d14ee1dcb46d895ea858e51886e118f8d1e543dda47afbd70",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks14a\\20261101-021417-946891",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks14a\\20261106-160132-284983",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexEnterCar::Constructor": true,
@@ -76,14 +76,14 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "ba35ee91d2434bcdea36501ec3f296f0288e11f8f988a2908c5c14992d9adadf",
-      "pdb": "91f016f2140f42b2976c154f874d56feb0c1bfc520063ea764583257ff1f0f8d"
+      "asi": "e950cd77f42a95e6a44169bc6b79e491ba3036d3445f2355ede126ab8f9fa35f",
+      "pdb": "04030f357f8a81388326f7c741f9331de8816cd88eb3c4606b526130910462b1"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "c2f5932f46379831485b362c2b145d01b538e3f9045aff7d14468c0603f081e8",
       "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.h": "72bc1e5a5f3a824396b7c51675c8948eb6858a06779c31ffb0f4f91bada6cb29",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "8ba48e693f9be5164939881cdcbf5f4f7d6d63d0709d43813092d598354736bf",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "40a2db44b471d8168bd9fadb98a85dd876fc5800e09ec784981aaf75f7d02360"
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "44a066a672764618f93fc20abbc8099b1f785180ddb437b4ce49e0f2fd2011dd",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "f649df365a8bb3377e17e3c0f4a73f3685da5d424554f5d8859daa2a094f13d2"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {

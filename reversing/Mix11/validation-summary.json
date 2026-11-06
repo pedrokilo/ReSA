@@ -49,7 +49,7 @@
   "log_sha256": "289a13f38b6576e010a2b70cea4e754bacc73989caa8ba5032dc1fa0efb42887",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\Original\\_e_resultados_movidos\\f85j\\resultados-mix11\\20261102-235937-435088",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mix11\\20261106-144932-161822",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CHeli::AddHeliSearchLight": true,
@@ -88,8 +88,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "95ab912bd69de4ffbe468aba0f1b125ac46eb894d409fd479f8d798452bd5e7b",
-      "pdb": "59fb1c1c6bebaa19737d8ee0b6d54282073e11ec44ad41d6d72ec7c5b686cfcb"
+      "asi": "655bab164b7a677258a0ece5fcb45aa9b07e1d945882f0e6e6037bdb2d418f36",
+      "pdb": "229567d14f594ad8b269153f71b898d60ffcfdeb4dd075b5b1cc124dedc43eff"
     },
     "sources": {
       "source/game_sa/Entity/Vehicle/Heli.cpp": "7fb9f40a53cec600f75041a1b3c0b596ac27be17b86c02be28c276f59cc1184d",

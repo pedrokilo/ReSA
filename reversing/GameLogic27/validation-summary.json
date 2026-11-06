@@ -43,7 +43,7 @@
   "log_sha256": "99a41b13c17e29821238b99cfc856986b9ed3fec1cc350fbe2d9a7778421b5e5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gamelogic27\\20261106-042431-942296",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gamelogic27\\20261106-152338-474032",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CGameLogic::CalcDistanceToForbiddenTrainCrossing": true,
@@ -76,8 +76,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c6a749183f0f794f1adba5b1d680cc11e430e01b91505d8dab362abc72f7b47e",
-      "pdb": "eb38fe7cf3247b0ecc4cb5c376aac31e167468472b2bffd0a605ca188e75f4ce"
+      "asi": "ab27c2728011846612b4a9d316f66ce38f539afc930b2592c5383bb04be03789",
+      "pdb": "3ae97bd7896c31a5a92634eb75517bfa204c565d250b6ec933afe0f5ca20a8af"
     },
     "sources": {
       "source/game_sa/GameLogic.cpp": "0ec6c7cab71b4d52b11c9e54cbd7de10640d757605fb6ecddef95273d946bc11",

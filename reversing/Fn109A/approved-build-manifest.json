@@ -1,0 +1,36 @@
+{
+  "binaries": {
+    "asi": "cc203075dabae3cc15ccd4a4a8dbf39747b691a463efe6767254442061b3179b",
+    "pdb": "f66b42dc9a717e01894690071eb72c17c4eba441a27a15ff582d8e9415857c9a"
+  },
+  "sources": {
+    "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+    "source/InjectHooksMain.cpp": "ecad3fea0985c9eb7f04c5393f218c5aee3ced2c733a24cf5f3ab3382c715dbb",
+    "source/game_sa/common.cpp": "4faa46dc199e0f2104ede26de6604d4c7d6010d27f30e587acb7f5aaa538d6ea",
+    "source/game_sa/SetPiece.cpp": "13a41fa8af71e31322302a07b6eb0a7d9ce621cc09da09afba8437a31b14bda7",
+    "source/game_sa/Cam.cpp": "700f1b152909eca16a9d65a3479ce3d24dabcbd1f3b897f6151ebb36e2ca86ae",
+    "source/game_sa/Events/EventDamage.cpp": "4ee9ba5be4e0fe4a394f619009e63c9593ace1dd77acc6807fd175f1dd35a73c",
+    "source/game_sa/VehicleScanner.cpp": "3f74ef751328598eac7141646cb1498a7629295b4da7d3792af042578c4b8c04",
+    "source/game_sa/PedScanner.cpp": "efe6727dd62dcf11619f644e3d48e29366047a05acba5e9ec9262a4dbcb4eaaf",
+    "source/game_sa/PedGeometryAnalyser.cpp": "d80116c006cc6bcbebe35f17a940dce39a7ee84cb88fdd571ce39e827b7500a7",
+    "source/game_sa/PedClothesDesc.cpp": "7ad72f650ab13c2b3064925d3384352a1b81c3b4e1cea7dfcbaa48d970bd5f44",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+    "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
+    "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
+    "reversing/Fn109A/Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
+    "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+  },
+  "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+  "instrumentation": {
+    "Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
+    "Fixtures.hpp": "8f8a729490097f4c7ed10313baecd8fbf3272e4a33646075b5127544b4653f77",
+    "LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
+    "build_probe.py": "93c34eb9aee786ea70accbc561e39048962c81286857e4c941bf719702b9b527",
+    "callers_scan.py": "737118943bd7e6b965fe727fe17e82fd2d4878dd1e05e3afa5a77d4a3d83fc50",
+    "fixture_oracle.py": "4d1a162e1a7d74a80fa9f1764cd7713d526bf21074f1a402ddcf56273d9ac81f",
+    "fixture_selfcheck.py": "03d8788e4cd580dd289ee448172fabd750375b04c89944885b62c7c443f0a80d",
+    "register_hook.py": "738d383d82e833a813c14b8f009be55a9cfcdc7c3cb971233b53aca92ec3eabf",
+    "run_local.py": "8ddafb39427497e002f9c3c240a4e621201c93953fc5d60651c55816b6b54ae3"
+  }
+}

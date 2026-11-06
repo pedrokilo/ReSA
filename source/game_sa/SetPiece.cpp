@@ -28,6 +28,12 @@ void CSetPiece::InjectHooks() {
     RH_ScopedInstall(TryToGenerateCopPed, 0x499690);
     RH_ScopedInstall(TryToGenerateCopCar, 0x4998A0);
     RH_ScopedInstall(Update, 0x499A80);
+    // Los cuatro accesores en linea de la cabecera (lote 109A, banco Fn109A): thiscall, el CVector2D sale por puntero oculto en la pila (`ret 4`, puntero en EAX);
+    // el EXE lee las dos palabras de 16 bits (x en +0, y en +2 del par), las pasa a float con fild y las multiplica por 0.25 (exacto).
+    RH_ScopedInstall(GetSpawnCoord1, 0x4997A0);
+    RH_ScopedInstall(GetSpawnCoord2, 0x4997E0);
+    RH_ScopedInstall(GetTargetCoord1, 0x499820);
+    RH_ScopedInstall(GetTargetCoord2, 0x499860);
 }
 
 // 0x499690

@@ -12,24 +12,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 1e45e275d + TaskComplexLeaveCar.cpp, source.patch). CTaskComplexLeaveCar::MakeAbortable 0x641100 (virtual, ranura 6 de la vtable 0x86E828, thiscall, ret 0xC; AL = resultado): CVehicle::ClearGettingOutFlags 0x6D3060, CVector::Magnitude 0x4082C0, CPed::IsPlayer 0x5DF8F0, CWorld::ProcessVerticalLine 0x5674E0, CAnimManager::BlendAnimation(id) 0x4D4610, CCarEnterExit::ComputeTargetDoorToExit 0x64F110, y de las dos tareas temporales de la pila los constructores y destructores de CTaskSimpleCarCloseDoorFromOutside (0x6464F0 / 0x646570) y de CTaskSimpleCarSetPedOut (0x6478B0 / 0x647950, sin hook: el de la DLL tiene un 4o argumento) y sus MakeAbortable 0x64B020 / ProcessPed 0x647D10, sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL). GetTaskType y MakeAbortable de la subtarea, GetEventType del evento y GetNumContactWheels del vehiculo (vtable 55) van por vtables falsas de arena; CEventDamage::HasKilledPed (0x4ABCA0) corre real en ambos lados. La funcion no se probo con subtarea nula en las rutas de prioridad 1 y 2 (el EXE la desreferencia). CreateNextSubTask 0x6419F0, CreateFirstSubTask 0x641FC0 y CreateSubTask 0x641530 siguen en el EXE; el constructor, el destructor y ControlSubTask de la clase estan en C++ sin hook ni banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/LeaveCarAbort70-20261106-014932-591316",
-  "summary_sha256": "8e61237eddff095bf8a9c0bace7a8132aa6e1899dcd80b8f9c02126fe0afb6c8",
-  "result_txt_sha256": "fabdaa9e6b9b5f51de8e00efe04ea7800140136d47e4587919a514d0396d706f",
-  "log_sha256": "bb18e1164da12cd9ea58b0de4f5dfd8b25f58c98f0a57a01422fa0c44f957e34",
+  "run": "reversing/CppTwelveLevel6Final/runs/LeaveCarAbort70-20261106-155750-533102",
+  "summary_sha256": "c81586c9e8487e554eb5e7f92c4dcee728734d00bcc26b9a076deae6e7455281",
+  "result_txt_sha256": "4070570a0c146b2f46b8adad321ed375d9dbb13fa98860e1cd9a8a9aa1b7da18",
+  "log_sha256": "5e6aed3fa05f40eea04af405a9c1990ca949ee90943cc1a5b505593274e19945",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "f773990670dc0a1e989275aafc084d63e0e94dcfc0f663604c2e3840b9c7cb6d",
+  "executed_probe_sha256": "2c56d9aef666367833c0af7eb691ec24fb339b26484e5f9e4b6c43503d337239",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "6bc97dfd1834167939c395f743a93ffc37e39187a3216a55901f4f22ae5e9e18",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "ecad3fea0985c9eb7f04c5393f218c5aee3ced2c733a24cf5f3ab3382c715dbb",
       "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "d7fd870a679a009f1d987d9d1b69a208b275cffb1e50b9346dce734fa248bf31",
       "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "b59c2f42c4d4550ecfb7c5e6cbfc45f7a3756446f670d6022850b09d6277d25d",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/LeaveCarAbort70/LiveComparison.hpp": "2a1ce2884bee02d51e0e65dddf55b5a003616c97e21767d5acd64726def7e8c1",
+      "reversing/LeaveCarAbort70/LiveComparison.hpp": "866a3b8d91c73472f81bcd23aeebb8f2e8169ba78c9410ae79d36f0cf31340e6",
       "reversing/LeaveCarAbort70/Core.hpp": "0b2b836f328e30d2e971f4985fe3aad4b1a47f7c409956e56b09f3312d9cbc3c",
       "reversing/LeaveCarAbort70/Fixtures.hpp": "c037c288d53e502dc79032a575c7103fc2ac156b14b967f21dd5331bc4d10ca1",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -37,10 +37,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/LeaveCarAbort70-20261106-014932-591316/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/LeaveCarAbort70-20261106-155750-533102/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "c6ed8d1026bc744c975867c9f59f5ed56b9680fa4b7b57c21d3636ffea612db4",
-    "uncompressed_sha256": "bb18e1164da12cd9ea58b0de4f5dfd8b25f58c98f0a57a01422fa0c44f957e34"
+    "compressed_sha256": "16f1e114abccb19b128bcb6cb4132b2d93cc515023c3d627ebce75123cd2dc1e",
+    "uncompressed_sha256": "5e6aed3fa05f40eea04af405a9c1990ca949ee90943cc1a5b505593274e19945"
   }
 }

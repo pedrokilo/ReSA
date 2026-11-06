@@ -55,11 +55,11 @@ inline void Update() {
     simple(2,"RwHelper","RwTexDictionaryGtaStreamRead",0x730FC0);
     simple(3,"CTaskSimpleFight","FightStrikeDamage",0x61C740);
     // Colaboradores sustituidos: cuerpos de la DLL resueltos ANTES de escribir ningun parche (siguiendo los saltos solo dentro del ASI).
-    // 0: ninguno (aritmetica pura). 1: CTask::operator new (con hook) y CPointRoute::operator new (sin hook; el EXE salta a CPointRoutePool::New 0x41B5B0); el constructor de
+    // 0: ninguno (aritmetica pura). 1: CTask::operator new (con hook) y CPointRoute::operator new (con hook desde el lote 109A; el EXE salta a CPointRoutePool::New 0x41B5B0); el constructor de
     // CTaskComplexFollowPointRoute (0x671510, con hook) corre de verdad en ambos lados. 2: los siete RenderWare, que en la DLL son envolturas que llaman a la direccion del EXE (sin
     // hook ni cuerpo propio). 3: CPed::IsPlayer 0x5DF8F0 y CStats::GetFatAndMuscleModifier 0x559AF0 (ambos con hook).
     env.stubs[1]={{Pair{0x61A5A0,DllBody(static_cast<void*(*)(size_t)>(&CTask::operator new)),true},reinterpret_cast<void*>(&FakeTaskNew)},
-                  {Pair{0x41B7C0,DllBody(static_cast<void*(*)(uint32)>(&CPointRoute::operator new)),false},reinterpret_cast<void*>(&FakeRouteNew)}};
+                  {Pair{0x41B7C0,DllBody(static_cast<void*(*)(uint32)>(&CPointRoute::operator new)),true},reinterpret_cast<void*>(&FakeRouteNew)}};
     env.stubs[2]={{Pair{0x7ED2D0,0,false},reinterpret_cast<void*>(&FakeFindChunk)},
                   {Pair{0x7EC9D0,0,false},reinterpret_cast<void*>(&FakeStreamRead)},
                   {Pair{0x7F3600,0,false},reinterpret_cast<void*>(&FakeCreateDict)},

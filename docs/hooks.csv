@@ -9224,3 +9224,19 @@ CTaskComplexLeaveCar,IsDoorInUse,0x00646CF0,1,0,1,S
 CTaskComplexBeInCouple,GetSideOfPartner,0x00683840,1,0,1,S
 CWeaponInfo,GetRLoadA,0x0073A280,1,0,1,S
 CWeaponInfo,GetRLoadB,0x0073A2B0,1,0,1,S
+CSetPiece,GetSpawnCoord1,0x004997A0,1,0,1,S
+CSetPiece,GetSpawnCoord2,0x004997E0,1,0,1,S
+CSetPiece,GetTargetCoord1,0x00499820,1,0,1,S
+CSetPiece,GetTargetCoord2,0x00499860,1,0,1,S
+CCam,ClipBeta,0x00509C50,1,0,1,S
+CCam,GetWeaponFirstPersonOn,0x00509DC0,1,0,1,S
+CCam,IsLampPost,0x00509A30,1,0,1,S
+Common,VectorsDiffer,0x00509760,1,0,1,S
+Common,VectorsAreEqual,0x004DC670,1,0,1,S
+CEventDamage,HasKilledPed,0x004ABCA0,1,0,1,S
+CVehicleScanner,GetClosestVehicleInRange,0x005FFEE0,1,0,1,S
+CPedScanner,GetClosestPedInRange,0x005FFF20,1,0,1,S
+CPointRoute,operator new,0x0041B7C0,1,0,1,S
+CPointRoute,operator delete,0x0041B7D0,1,0,1,S
+CPedClothesDesc,SetTextureAndModel-hash,0x005A8050,1,0,1,S
+CPedClothesDesc,SetTextureAndModel-name,0x005A8080,1,0,1,S

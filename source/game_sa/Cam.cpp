@@ -271,6 +271,10 @@ void CCam::InjectHooks() {
     RH_ScopedInstall(Get_TwoPlayer_AimVector, 0x513E40);
     RH_ScopedInstall(IsTimeToExitThisDWCineyCamMode, 0x517400);
     RH_ScopedInstall(KeepTrackOfTheSpeed, 0x509DF0);
+    // Lote 109A (banco Fn109A): ClipBeta, GetWeaponFirstPersonOn e IsLampPost (cuerpos ya existentes, ahora enganchados).
+    RH_ScopedInstall(ClipBeta, 0x509C50);
+    RH_ScopedInstall(GetWeaponFirstPersonOn, 0x509DC0);
+    RH_ScopedGlobalInstall(IsLampPost, 0x509A30);
     RH_ScopedInstall(LookBehind, 0x520690);
     RH_ScopedInstall(LookRight, 0x520E40);
     RH_ScopedInstall(RotCamIfInFrontCar, 0x50A4F0);
@@ -754,7 +758,14 @@ bool CCam::Using3rdPersonMouseCam() const {
 
 // 0x509DC0
 bool CCam::GetWeaponFirstPersonOn() {
-    return m_pCamTargetEntity && m_pCamTargetEntity->GetIsTypePed() && m_pCamTargetEntity->AsPed()->GetActiveWeapon().m_IsFirstPersonWeaponModeSelected;
+    // Como el original (0x509DC0): el tipo de entidad es (byte +0x36) & 7 == 3 (ped); la ranura activa se lee con signo (`movsx`) y se indexa sin comprobar
+    // el limite (m_aWeapons de 0x1C bytes por arma); el byte `m_IsFirstPersonWeaponModeSelected` se devuelve tal cual (el llamador solo prueba AL).
+    if (!m_pCamTargetEntity || !m_pCamTargetEntity->GetIsTypePed()) {
+        return false;
+    }
+    CPed* const ped = m_pCamTargetEntity->AsPed();
+    const int32 slot = int8(ped->m_nActiveWeaponSlot);
+    return ped->m_aWeapons.data()[slot].m_IsFirstPersonWeaponModeSelected;
 }
 
 // inlined -- alpha = vertical angle
@@ -4120,28 +4131,20 @@ int32 ConvertPedNode2BoneTag(int32 simpleId) {
 }
 
 // 0x509A30
+// Como el original: el argumento (32 bits con signo) se compara con cada indice de modelo leido como PALABRA SIN SIGNO (`movzx`) de las variables
+// 0x8CD4FC..0x8CD620; con el indice -1 (modelo sin cargar, 0xFFFF) el EXE no coincide con el argumento -1. Se prueban en el orden del EXE y se devuelve 1/0.
 bool IsLampPost(eModelID modelId) {
-    using namespace ModelIndices;
-
-    return notsa::contains<eModelID>(
-        {
-            MI_SINGLESTREETLIGHTS1,
-            MI_SINGLESTREETLIGHTS2,
-            MI_SINGLESTREETLIGHTS3,
-            MI_BOLLARDLIGHT,
-            MI_MLAMPPOST,
-            MI_STREETLAMP1,
-            MI_STREETLAMP2,
-            MI_TELPOLE02,
-            MI_TRAFFICLIGHTS_MIAMI,
-            MI_TRAFFICLIGHTS_TWOVERTICAL,
-            MI_TRAFFICLIGHTS_3,
-            MI_TRAFFICLIGHTS_4,
-            MI_TRAFFICLIGHTS_GAY,
-            MI_TRAFFICLIGHTS_5,
-        },
-        modelId
-    );
+    static constexpr uintptr_t kLampPostModelIndices[] = {
+        0x8CD518, 0x8CD51C, 0x8CD520, 0x8CD5FC, 0x8CD614, 0x8CD528, 0x8CD52C, 0x8CD620,
+        0x8CD4FC, 0x8CD504, 0x8CD508, 0x8CD50C, 0x8CD514, 0x8CD510,
+    };
+    const uint32 id = static_cast<uint32>(static_cast<int32>(modelId));
+    for (const uintptr_t address : kLampPostModelIndices) {
+        if (id == static_cast<uint32>(StaticRef<uint16>(address))) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // 0x5B2090: spline de la ruta de camara. La aritmetica x87 del EXE (incluida la conversion _ftol2 del indice y la pila de

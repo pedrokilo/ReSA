@@ -32,10 +32,10 @@ void CPedClothesDesc::InjectHooks() {
 
     RH_ScopedOverloadedInstall(SetModel, "modelHash", 0x5A7910, void(CPedClothesDesc::*)(uint32, eClothesModelPart));
     RH_ScopedOverloadedInstall(SetModel, "modelName", 0x5A7920, void(CPedClothesDesc::*)(const char*, eClothesModelPart));
-    // TODO: Seems like this function can't be hooked because texturePart doesn't seem to be passed on the stack, but in edx...
-    // TODO: We could make it work, but it's not worth the effort. (by: Pirulax)
-    //RH_ScopedOverloadedInstall(SetTextureAndModel, "hash", 0x5A8050, void(CPedClothesDesc::*)(uint32, uint32, eClothesTexturePart));
-    //RH_ScopedOverloadedInstall(SetTextureAndModel, "name", 0x5A8080, void(CPedClothesDesc::*)(const char*, const char*, eClothesTexturePart));
+    // Lote 109A (banco Fn109A): las dos sobrecargas de SetTextureAndModel (0x5A8050 / 0x5A8080). Ambas toman texturePart de la PILA (el EXE solo lo deja ademas en EDX/ECX porque
+    // CClothes::GetTextureDependency 0x5A7EA0 conserva esos registros); se pueden enganchar como funciones thiscall normales.
+    RH_ScopedOverloadedInstall(SetTextureAndModel, "hash", 0x5A8050, void(CPedClothesDesc::*)(uint32, uint32, eClothesTexturePart));
+    RH_ScopedOverloadedInstall(SetTextureAndModel, "name", 0x5A8080, void(CPedClothesDesc::*)(const char*, const char*, eClothesTexturePart));
 }
 
 CPedClothesDesc::CPedClothesDesc() {
@@ -104,23 +104,25 @@ bool CPedClothesDesc::HasVisibleTattoo() {
 
 // 0x5A8050
 void CPedClothesDesc::SetTextureAndModel(uint32 texture, uint32 model, eClothesTexturePart texturePart) {
-    assert(texturePart < CLOTHES_TEXTURE_TOTAL);
-
-    m_anTextureKeys[texturePart] = texture;
-
-    if (const auto modelPart = CClothes::GetTextureDependency(texturePart); modelPart != CLOTHES_MODEL_UNAVAILABLE) {
-        m_anModelKeys[modelPart] = model;
+    // Como el original: sin comprobar el rango de texturePart (la escritura de la textura es m_anTextureKeys + texturePart sin limite) y con la dependencia
+    // consultada ANTES de escribir la textura; el modelo solo se escribe si hay dependencia (distinta de CLOTHES_MODEL_UNAVAILABLE).
+    const auto modelPart = CClothes::GetTextureDependency(texturePart);
+    m_anTextureKeys.data()[texturePart] = texture;
+    if (modelPart != CLOTHES_MODEL_UNAVAILABLE) {
+        m_anModelKeys.data()[modelPart] = model;
     }
 }
 
 // 0x5A8080
 void CPedClothesDesc::SetTextureAndModel(const char* textureName, const char* modelName, eClothesTexturePart texturePart) {
-    assert(texturePart < CLOTHES_TEXTURE_TOTAL);
-
-    m_anTextureKeys[texturePart] = CKeyGen::GetUppercaseKey(textureName);
-
-    if (const auto modelPart = CClothes::GetTextureDependency(texturePart); modelPart != CLOTHES_MODEL_UNAVAILABLE) {
-        m_anModelKeys[modelPart] = CKeyGen::GetUppercaseKey(modelName);
+    // Como el original: ambos hashes se calculan primero (cada uno solo si su nombre no es nulo; si lo es, 0), el texture primero; despues la dependencia, la textura y,
+    // si hay dependencia, el modelo (aunque la dependencia no exista el hash del modelo ya se calculo). Sin comprobar el rango de texturePart.
+    const uint32 textureKey = textureName ? CKeyGen::GetUppercaseKey(textureName) : 0u;
+    const uint32 modelKey   = modelName ? CKeyGen::GetUppercaseKey(modelName) : 0u;
+    const auto modelPart    = CClothes::GetTextureDependency(texturePart);
+    m_anTextureKeys.data()[texturePart] = textureKey;
+    if (modelPart != CLOTHES_MODEL_UNAVAILABLE) {
+        m_anModelKeys.data()[modelPart] = modelKey;
     }
 }
 
