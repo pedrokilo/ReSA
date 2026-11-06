@@ -140,8 +140,8 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CRubbish::InjectHooks() | [source/game_sa/Rubbish.cpp:4](../../source/game_sa/Rubbish.cpp#L4) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CRubbish::SetVisibility(bool unk) | [source/game_sa/Rubbish.cpp:12](../../source/game_sa/Rubbish.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CRubbish::SetVisibility 0x007204C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CRubbish::InjectHooks() | [source/game_sa/Rubbish.cpp:22](../../source/game_sa/Rubbish.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CRubbish::SetVisibility(bool unk) | [source/game_sa/Rubbish.cpp:30](../../source/game_sa/Rubbish.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CRubbish::SetVisibility 0x007204C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-491"></a>
 

@@ -302,11 +302,11 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CPlaneBanners::InjectHooks() | [source/game_sa/PlaneBanners.cpp:4](../../source/game_sa/PlaneBanners.cpp#L4) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPlaneBanners::Init() | [source/game_sa/PlaneBanners.cpp:12](../../source/game_sa/PlaneBanners.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPlaneBanners::Init 0x00717820 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPlaneBanners::RegisterPoint(CVector point, uint32 bannerIndex) | [source/game_sa/PlaneBanners.cpp:17](../../source/game_sa/PlaneBanners.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPlaneBanners::Render() | [source/game_sa/PlaneBanners.cpp:22](../../source/game_sa/PlaneBanners.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPlaneBanners::Update() | [source/game_sa/PlaneBanners.cpp:27](../../source/game_sa/PlaneBanners.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPlaneBanners::InjectHooks() | [source/game_sa/PlaneBanners.cpp:22](../../source/game_sa/PlaneBanners.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPlaneBanners::Init() | [source/game_sa/PlaneBanners.cpp:30](../../source/game_sa/PlaneBanners.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPlaneBanners::Init 0x00717820 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPlaneBanners::RegisterPoint(CVector point, uint32 bannerIndex) | [source/game_sa/PlaneBanners.cpp:35](../../source/game_sa/PlaneBanners.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPlaneBanners::Render() | [source/game_sa/PlaneBanners.cpp:40](../../source/game_sa/PlaneBanners.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPlaneBanners::Update() | [source/game_sa/PlaneBanners.cpp:45](../../source/game_sa/PlaneBanners.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-431"></a>
 
