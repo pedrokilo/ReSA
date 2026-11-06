@@ -48,6 +48,7 @@ public:
 
 
     static void DeleteAnimCB(CAnimBlendAssociation* anim, void* data);
+    void ApplyRollAndPitch(CPed* ped); // 0x678E80: vacia en el EXE
 
     static void InjectHooks();
     CTaskSimpleInAir* Constructor(bool bUsingJumpGlide, bool bUsingFallGlide, bool bUsingClimbJump);

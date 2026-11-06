@@ -5236,6 +5236,7 @@ CTaskSimpleInAir,Constructor,0x00678CD0,1,0,1,S
 CTaskSimpleInAir,DeleteAnimCB,0x00678E60,1,0,1,S
 CTaskSimpleInAir,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleInAir,ProcessPed,0x00000000,1,0,1,V
+CTaskSimpleInAir,ApplyRollAndPitch,0x00678E80,1,0,1,S
 CTaskSimpleIKPointArm,Clone,0x00000000,1,0,1,V
 CTaskSimpleIKPointArm,Constructor,0x00634150,1,0,1,S
 CTaskSimpleIKPointArm,CreateIKChain,0x00000000,1,0,1,V
@@ -5339,6 +5340,7 @@ CTaskSimpleGoToPointFine,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleGoToPointFine,ProcessPed,0x00000000,1,0,1,V
 CTaskSimpleGoToPointFine,SetBlendedMoveAnim,0x0065EF80,1,0,1,S
 CTaskSimpleGoToPointFine,SetTargetPos,0x0065F330,1,0,1,S
+CTaskSimpleGoToPointFine,SetMoveRatio,0x0065F3A0,1,0,1,S
 CTaskSimpleGoToPoint,Clone,0x00000000,1,0,1,V
 CTaskSimpleGoToPoint,Constructor,0x00667CD0,1,0,1,S
 CTaskSimpleGoToPoint,GetTaskType,0x00000000,1,0,1,V
@@ -5401,6 +5403,8 @@ CTaskSimpleDuck,RestartTask,0x00692390,1,0,1,S
 CTaskSimpleDuck,SetControlType,0x006924F0,1,0,1,S
 CTaskSimpleDuck,SetDuckTimer,0x00692530,1,0,1,S
 CTaskSimpleDuck,SetMoveAnim,0x006939F0,1,0,1,S
+CTaskSimpleDuck,StopFireGun,0x0061C420,1,0,1,S
+CTaskSimpleDuck,AbortBecauseOfOtherDuck,0x00692340,1,0,1,S
 CTaskSimpleDrownInCar,ProcessPed,0x00000000,1,0,1,V
 CTaskSimpleDrown,ProcessPed,0x00000000,1,0,1,V
 CTaskSimpleDie,Constructor-1,0x0062FA00,1,0,1,S
@@ -6674,6 +6678,8 @@ CTaskManager,SetNextSubTask,0x00681920,1,0,1,S
 CTaskManager,SetTask,0x00681AF0,1,0,1,S
 CTaskManager,SetTaskSecondary,0x00681B60,1,0,1,S
 CTaskManager,StopTimers,0x006819A0,1,0,1,S
+CTaskManager,GetLastTaskOf-of-task,0x00681970,1,0,1,S
+CTaskManager,GetLastTaskOf-at-index,0x00681A00,1,0,1,S
 CTaskComplexSequence,AddTask-0,0x00632D10,1,0,1,S
 CTaskComplexSequence,AddTask-1,0x00632D50,1,0,1,S
 CTaskComplexSequence,Clone,0x00000000,1,0,1,V
@@ -8783,6 +8789,8 @@ CTaskComplexPartner,RemoveStreamedAnims,0x00000000,1,0,1,V
 CTaskComplexPartner,StreamRequiredAnims,0x00000000,1,0,1,V
 CAutomobile,PreRender,0x00000000,1,0,1,V
 CPed,ProcessEntityCollision,0x00000000,1,0,1,V
+CPed,SayJacked,0x006497A0,1,0,1,S
+CPed,SayJacking,0x006497F0,1,0,1,S
 CMentalState,Process,0x006008A0,1,0,1,S
 CVehiclePotentialCollisionScanner,ScanForVehiclePotentialCollisionEvents,0x00603720,1,0,1,S
 CEventScanner,ScanForEvents,0x00607E30,1,0,1,S
@@ -9030,6 +9038,7 @@ Fx_c,AddSparks,0x0049F040,1,0,1,S
 Fx_c,AddBulletImpact,0x0049F3D0,1,0,1,S
 CPlayerPed,ProcessGroupBehaviour,0x0060D350,1,0,1,S
 CHeli,UpdateHelis,0x006C79A0,1,0,1,S
+CHeli,SpecialHeliPreRender,0x006C4750,1,0,1,S
 Fx_c,AddBlood,0x0049EB00,1,0,1,S
 CPlayerPed,SetInitialState,0x0060CD20,1,0,1,S
 CPlayerPed,FindWeaponLockOnTarget,0x0060DC50,1,0,1,S
@@ -9143,6 +9152,7 @@ CMatrix,ConstructAttached,0x0059C050,1,0,1,S
 CCarAI,FloatMax,0x00420800,1,0,1,S
 CCarPathLink,GetNodeCoors-vector,0x00420A60,1,0,1,S
 CVehicleModelInfo,IncrementTimesUsed,0x00421120,1,0,1,S
+CVehicleModelInfo,GetWheelSize,0x006A06F0,1,0,1,S
 CPlaceable,GetForwardVector,0x0041CCB0,1,0,1,S
 CScriptsForBrains,StartOrRequestNewStreamedScriptBrainWithThisName,0x0046CED0,1,0,1,S
 CTheScripts,IsPointWithinSearchLight,0x00493280,1,0,1,S
@@ -9194,3 +9204,10 @@ CColPoint,ColPointAssignExe,0x0040FC80,1,0,1,S
 VectorConstructorIterator,VectorConstructorIteratorExe,0x00403D60,1,0,1,S
 CVector,operator-=-v3d,0x00406D70,1,0,1,S
 CStreaming,SetModelTxdIsDeletable,0x00409C70,1,0,1,S
+CMBlur,MotionBlurRender,0x0071D700,1,0,1,S
+CMBlur,MotionBlurOpen,0x0071D710,1,0,1,S
+CMBlur,MotionBlurClose,0x0071D720,1,0,1,S
+CMBlur,SetDrunkBlur,0x0071D730,1,0,1,S
+CMBlur,ClearDrunkBlur,0x0071D780,1,0,1,S
+CRubbish,SetVisibility,0x007204C0,1,0,1,S
+CPlaneBanners,Init,0x00717820,1,0,1,S

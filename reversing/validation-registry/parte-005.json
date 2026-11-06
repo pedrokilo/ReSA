@@ -40903,6 +40903,839 @@
       "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main e154848ab (lote 92B) con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: CTaskManager::GetActiveTask 0x681720, CEventGroup::Add 0x4AB420 (devuelve un valor del caso), CEntity::RegisterReference 0x571B70 y CleanUpOldReference 0x571A00; sin hook (la DLL los llama por su direccion del EXE): 0x6034B0 (explorador de la lista de un sector), 0x5FFFD0 (explorador de un efecto), 0x5FE960 (la lista de usuarios admite el tipo de ped), 0x600180 (mejor candidato) y 0x603570 (usuario del efecto). Registran sus argumentos en orden y, en Add, los campos definidos del evento (tipo por GetEventType virtual). NO se sustituyen y corren de verdad en ambos lados: el temporizador en linea, CAttractorScanner::Clear 0x5FFF90 (hook activo), CTask::GetTaskType sobre una arena con vtabla propia, los constructores y destructores de CEventAttractor (0x4AF350, hook activo) y CEventScriptedAttractor frente al destructor del EXE 0x4AF400, y toda la aritmetica x87 del EXE frente al C++ de la DLL, con CTimer::m_snTimeInMilliseconds (0xB7CB84), CScripted2dEffects::ms_activated (0xC3A1A0) y ms_userLists (0xC3A200) como memoria real del juego restaurada tras cada lado. AttractorScanner.cpp se compila completo con /O2 /Oi /arch:IA32 /fp:fast (por Clear); el banco comprueba la funcion nueva compilada asi. El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de todas las arenas y los punteros +0x10/+0x14 del escaner como etiquetas de arena; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: ped sin matriz y sin placement valido, mas de 16 efectos activados a la vez, bucles de sectores mayores de 256 eventos, NaN con cargas distintas de 0xFFC00000, NaN senalizantes, tareas con GetTaskType que escriben y valores de retorno de los falsos.",
       "review_reference": "reversing/Fn92C/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMBlur",
+        "fn_name": "MotionBlurRender",
+        "address": "0x0071D700",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CMBlur::MotionBlurRender"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMBlur",
+        "fn_name": "MotionBlurOpen",
+        "address": "0x0071D710",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CMBlur::MotionBlurOpen"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMBlur",
+        "fn_name": "MotionBlurClose",
+        "address": "0x0071D720",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CMBlur::MotionBlurClose"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMBlur",
+        "fn_name": "SetDrunkBlur",
+        "address": "0x0071D730",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CMBlur::SetDrunkBlur"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMBlur",
+        "fn_name": "ClearDrunkBlur",
+        "address": "0x0071D780",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CMBlur::ClearDrunkBlur"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CRubbish",
+        "fn_name": "SetVisibility",
+        "address": "0x007204C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CRubbish::SetVisibility"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CHeli",
+        "fn_name": "SpecialHeliPreRender",
+        "address": "0x006C4750",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CHeli::SpecialHeliPreRender"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlaneBanners",
+        "fn_name": "Init",
+        "address": "0x00717820",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CPlaneBanners::Init"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleInAir",
+        "fn_name": "ApplyRollAndPitch",
+        "address": "0x00678E80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleInAir::ApplyRollAndPitch"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleGoToPointFine",
+        "fn_name": "SetMoveRatio",
+        "address": "0x0065F3A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleGoToPointFine::SetMoveRatio"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicleModelInfo",
+        "fn_name": "GetWheelSize",
+        "address": "0x006A06F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CVehicleModelInfo::GetWheelSize"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskManager",
+        "fn_name": "GetLastTaskOf-of-task",
+        "address": "0x00681970",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CTaskManager::GetLastTaskOf-of-task"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskManager",
+        "fn_name": "GetLastTaskOf-at-index",
+        "address": "0x00681A00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CTaskManager::GetLastTaskOf-at-index"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleDuck",
+        "fn_name": "StopFireGun",
+        "address": "0x0061C420",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleDuck::StopFireGun"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleDuck",
+        "fn_name": "AbortBecauseOfOtherDuck",
+        "address": "0x00692340",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleDuck::AbortBecauseOfOtherDuck"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SayJacked",
+        "address": "0x006497A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SayJacked"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SayJacking",
+        "address": "0x006497F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn108A/validation-summary.json",
+        "sha256": "6160d7ac37ebd489c23758b08e968cca838943bc7b2a70ac65d515042b98333d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SayJacking"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/MBlur.cpp": "6d092da7ffb513088fbfa58a1d69750d43fee0473f9582044c9ad503af965547",
+        "source/game_sa/MBlur.h": "da616cca1e476b2c3715871413f61c59b53ea1cc8b0fc68cdf57e679e6f010a6",
+        "source/game_sa/Rubbish.cpp": "d91ceae15e0773429ea0ce63498012c475d7423bd15b2f29633f6f918983beae",
+        "source/game_sa/Rubbish.h": "c81e473c3ce4bdac60617e854f99dbb9183bcc2033b8e762547d86ad5e1e57b4",
+        "source/game_sa/PlaneBanners.cpp": "be969b7eb6edbafbddbe1905b503be909e00787ffd85b298ef6bfacb7f9d0d74",
+        "source/game_sa/PlaneBanners.h": "5cae9ac4f2f7a49dd31f4c3b88d3b729cb2029ffa974a01045a51b6db40a8060",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "867d83f3b8f0ea73772bb77040365392cc7bbec8e7eefab0d6f9558f8b485165",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "2e80bf463672e4a87979fa04cd42cb92b0d9f0a450803f18cb739db17f9e3673",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h": "214df8981d018ef8790f01d28ccca029189562c3d039c645dfb8b443d15b41fa",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "adea0ccb064c4a62923dd0b393b57c8de9ebbcd8bd26309fec46a078fcb82484",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "036c68d5d7d5c11f07f41d89d5eaf2fc7b3cd38a1429642142cfdb999149e29d",
+        "source/game_sa/Models/VehicleModelInfo.cpp": "8df6b4c4d0244183bec2233c19fd60f615040647fdf17d48c06bbf9f64770544",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
+        "source/game_sa/Tasks/TaskManager.cpp": "a46fc3523fb5f995439dfacd29382e2ccf315d0a63f279539c994535b8059fd5",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+        "source/game_sa/Entity/Ped/Ped.cpp": "937c2aadf3cebe5f7a3fa43d5bb17670b367672ad96b3abce6aa874e3cc791df",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn108A/LiveComparison.hpp": "1e1d3d4490d28f752f1da9a03df3f6eeb13b81f9e37b440b4796ea3c1b2b3e4f",
+        "reversing/Fn108A/Core.hpp": "202d06e0cfdc5a991cb35431a40b02daebf7aeb1f4d270517e252e7d25f78f37",
+        "reversing/Fn108A/Fixtures.hpp": "72fbbd0508105f2a3cd90e4fdcf948263d5a1360093d7c59c65afa70cfb325cb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 498690aa5 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CAnimBlendAssociation::SetFinishCallback 0x4CEBE0 (AbortBecauseOfOtherDuck; el falso normaliza el callback DefaultAnimCB / 0x4D1390), CAEVehicleAudioEntity::GetVehicleTypeForAudio 0x4F4F00 y CPed::Say 0x5EFFE0 (SayJacked y SayJacking). CTask::GetSubTask (ranura 2) en GetLastTaskOf y CAEPedSpeechAudioEntity::IsPedFemaleForAudio (ranura 7, ped+0x294) en SayJacking van por vtablas propias de las arenas (falsos identicos). NO se sustituyen y corren de verdad en ambos lados: las comparaciones de float de SetDrunkBlur y StopFireGun (x87 del EXE frente al C++ de la DLL), el retorno en ST0 de GetWheelSize y las escrituras de memoria (CMBlur::Drunkness 0xC73C58 y CTimer::ms_fTimeScale 0xB7CB64 son memoria real restaurada tras cada lado). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros nulos o invalidos en GetLastTaskOf y StopFireGun/AbortBecauseOfOtherDuck (animaciones distintas de nula), indices fuera de 0..4 en GetLastTaskOf(ePrimaryTasks), tipos de audio cuyos 16 bits bajos no son 0..2 con bits altos distintos de cero en SayJacked/SayJacking, NaN con cargas no incluidas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn108A/README.md"
     }
   ]
 }

@@ -139,7 +139,7 @@ public:
     * @addr 0x681A00
     * @brief Last task in the task-chain
     */
-    CTask* GetLastTaskOf(ePrimaryTasks taskIndex) const { return GetLastTaskOf(GetTaskPrimary(taskIndex)); }
+    CTask* GetLastTaskOf(ePrimaryTasks taskIndex) const;
 
     /*!
     * @addr 0x681970

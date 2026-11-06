@@ -33,6 +33,12 @@ void CTaskSimpleGoToPointFine::InjectHooks() {
     RH_ScopedInstall(Finish, 0x65EF00);
     RH_ScopedNamedInstall(SetTargetPos_Reversed, "SetTargetPos", 0x65F330);
     RH_ScopedInstall(BaseRatio, 0x65EF30);
+    RH_ScopedInstall(SetMoveRatio, 0x65F3A0);
+}
+
+// 0x65F3A0
+void CTaskSimpleGoToPointFine::SetMoveRatio(float value) {
+    m_fMoveRatio = value;
 }
 
 // 0x65EEB0

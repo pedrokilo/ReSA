@@ -1,6 +1,13 @@
 #include "StdInc.h"
 #include "PlaneBanners.h"
 
+void CPlaneBanners::InjectHooks() {
+    RH_ScopedClass(CPlaneBanners);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(Init, 0x717820);
+}
+
 // 0x717820
 void CPlaneBanners::Init() {
     // NOP

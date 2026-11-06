@@ -71,6 +71,7 @@ void CVehicleModelInfo::InjectHooks()
     RH_ScopedVMTInstall(GetAnimFileIndex, 0x4C7660);
     RH_ScopedVMTInstall(SetClump, 0x4C95C0);
     RH_ScopedInstall(SetAtomicRenderCallbacks, 0x4C7B10);
+    RH_ScopedInstall(GetWheelSize, 0x6A06F0);
     RH_ScopedInstall(SetVehicleComponentFlags, 0x4C7C10);
     RH_ScopedInstall(GetWheelPosn, 0x4C7D20);
     RH_ScopedInstall(GetOriginalCompPosition, 0x4C7DD0);
@@ -155,6 +156,11 @@ CVehicleModelInfo::CVehicleModelInfo() : CClumpModelInfo()
     m_nAnimBlockIndex = -1;
     std::ranges::fill(m_anUpgrades, -1);
     std::ranges::fill(m_anRemapTxds, -1);
+}
+
+// 0x6A06F0: bool `front` leido como byte (cualquier valor distinto de cero cuenta como delantera), devuelto en ST0
+float CVehicleModelInfo::GetWheelSize(bool front) {
+    return front ? m_fWheelSizeFront : m_fWheelSizeRear;
 }
 
 // 0x4C7650

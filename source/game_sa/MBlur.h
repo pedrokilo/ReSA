@@ -14,6 +14,8 @@ public:
     static int32 pBufVertCount;
 
 public:
+    static void InjectHooks();
+
     CMBlur();
 
     static bool MotionBlurOpen(RwCamera* cam);

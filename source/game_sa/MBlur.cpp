@@ -9,6 +9,17 @@ bool CMBlur::BlurOn;
 
 int32 CMBlur::pBufVertCount;
 
+void CMBlur::InjectHooks() {
+    RH_ScopedClass(CMBlur);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(MotionBlurRender, 0x71D700);
+    RH_ScopedInstall(MotionBlurOpen, 0x71D710);
+    RH_ScopedInstall(MotionBlurClose, 0x71D720);
+    RH_ScopedInstall(SetDrunkBlur, 0x71D730);
+    RH_ScopedInstall(ClearDrunkBlur, 0x71D780);
+}
+
 // 0x71D6B0
 CMBlur::CMBlur() {
     pFrontBuffer = nullptr;
@@ -42,8 +53,16 @@ void CMBlur::OverlayRender(RwCamera* cam, RwRaster* raster, RwRGBA color, int32 
 }
 
 // 0x71D730
+// Como el original: NaN y todo valor que no sea menor que 1 dan 1.0; los menores o iguales a cero (tambien -0.0) dan +0.0; el resto se guarda tal cual
+// (std::clamp dejaria pasar NaN y -0.0)
 void CMBlur::SetDrunkBlur(float drunkness) {
-    Drunkness = std::clamp(drunkness, 0.0f, 1.0f);
+    if (!(drunkness < 1.0f)) {
+        Drunkness = 1.0f;
+    } else if (!(drunkness > 0.0f)) {
+        Drunkness = 0.0f;
+    } else {
+        Drunkness = drunkness;
+    }
 }
 
 // 0x71D780

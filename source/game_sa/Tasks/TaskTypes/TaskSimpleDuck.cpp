@@ -31,6 +31,8 @@ void CTaskSimpleDuck::InjectHooks() {
     RH_ScopedInstall(DeleteDuckAnimCB, 0x692550);
     RH_ScopedInstall(CanPedDuck, 0x692610);
     RH_ScopedInstall(IsTaskInUseByOtherTasks, 0x61C3D0);
+    RH_ScopedInstall(AbortBecauseOfOtherDuck, 0x692340);
+    RH_ScopedInstall(StopFireGun, 0x61C420);
     RH_ScopedInstall(RestartTask, 0x692390);
     RH_ScopedInstall(ControlDuckMove, 0x6923F0);
     RH_ScopedInstall(SetMoveAnim, 0x6939F0);
@@ -273,8 +275,9 @@ void CTaskSimpleDuck::ForceStopMove() {
 }
 
 // 0x61C420
+// Como el original: lee la mezcla (+0x18) directamente (sin multiplicar por el peso) y `x != 0` es cierto tambien con NaN; el byte +0x19 se prueba entero
 bool CTaskSimpleDuck::StopFireGun() const {
-    return m_MoveCmd.x != 0.f || !m_DuckAnim || m_DuckAnim->GetBlendAmount() < 1.f || m_bIsAborting || m_ShotWhizzingCounter > 0;
+    return m_MoveCmd.x != 0.f || !m_DuckAnim || m_DuckAnim->m_BlendAmount < 1.f || reinterpret_cast<const uint8&>(m_bIsAborting) != 0 || m_ShotWhizzingCounter > 0;
 }
 
 // 0x692530

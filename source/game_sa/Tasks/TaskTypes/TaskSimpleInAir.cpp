@@ -30,6 +30,7 @@ void CTaskSimpleInAir::InjectHooks()
 
     RH_ScopedInstall(Constructor, 0x678CD0);
     RH_ScopedInstall(DeleteAnimCB, 0x678E60);
+    RH_ScopedInstall(ApplyRollAndPitch, 0x678E80);
     RH_ScopedVMTInstall(ProcessPed, 0x680600);
     RH_ScopedVMTInstall(MakeAbortable, 0x678DC0);
 }
@@ -63,6 +64,10 @@ CTaskSimpleInAir::~CTaskSimpleInAir()
         m_pAnim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
 
     CEntity::SafeCleanUpRef(m_pClimbEntity);
+}
+
+// 0x678E80: `ret 4`, no hace nada
+void CTaskSimpleInAir::ApplyRollAndPitch(CPed* ped) {
 }
 
 // 0x680600

@@ -43,8 +43,8 @@ void CTaskManager::InjectHooks() {
     RH_ScopedInstall(Flush, 0x681850);
     RH_ScopedInstall(FlushImmediately, 0x6818A0);
     RH_ScopedInstall(SetNextSubTask, 0x681920);
-    //RH_ScopedOverloadedInstall(GetLastTaskOf, "of-task", 0x681970, CTask*(*)(CTask*));
-    //RH_ScopedOverloadedInstall(GetLastTaskOf, "at-index", 0x681A00, CTask*(CTaskManager::*)(ePrimaryTasks));
+    RH_ScopedOverloadedInstall(GetLastTaskOf, "of-task", 0x681970, CTask*(*)(CTask*));
+    RH_ScopedOverloadedInstall(GetLastTaskOf, "at-index", 0x681A00, CTask*(CTaskManager::*)(ePrimaryTasks) const);
     RH_ScopedInstall(StopTimers, 0x6819A0);
     RH_ScopedInstall(GetSimplestActiveTask, 0x6819D0);
     RH_ScopedInstall(AddSubTasks, 0x681A30);
@@ -197,6 +197,11 @@ CTask* CTaskManager::GetLastTaskOf(CTask* task) {
     for (; task; task = task->GetSubTask())
         last = task;
     return last;
+}
+
+// 0x681A00: ultima tarea de la cadena del hueco primario `taskIndex` (sin comprobar el indice, como el original)
+CTask* CTaskManager::GetLastTaskOf(ePrimaryTasks taskIndex) const {
+    return GetLastTaskOf(m_aPrimaryTasks.data()[taskIndex]);
 }
 
 // 0x6819A0

@@ -89,6 +89,7 @@ void CHeli::InjectHooks() {
     RH_ScopedInstall(GenerateHeli, 0x6C6520);
     RH_ScopedInstall(UpdateHelis, 0x6C79A0);
     RH_ScopedInstall(SendDownSwat, 0x6C69C0);
+    RH_ScopedInstall(SpecialHeliPreRender, 0x6C4750);
     RH_ScopedNamedGlobalInstall(FindSwatPositionRelativeToHeliExeAbi, "FindSwatPositionRelativeToHeli", 0x6C4760);
     RH_ScopedVMTInstall(Render, 0x6C4400);
     RH_ScopedVMTInstall(BlowUpCar, 0x6C6D30);

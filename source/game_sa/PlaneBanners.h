@@ -4,6 +4,8 @@
 
 class CPlaneBanners {
 public:
+    static void InjectHooks();
+
     static void Init();
     static void RegisterPoint(CVector point, uint32 bannerIndex);
     static void Render();

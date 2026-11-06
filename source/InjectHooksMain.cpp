@@ -4,6 +4,9 @@
 #include "RenderWare/D3DResourceSystem.h"
 #include "PedSaveStructure.h"
 #include "Interior/TaskInteriorSitInChair.h"
+#include "MBlur.h"
+#include "Rubbish.h"
+#include "PlaneBanners.h"
 
 #include <extensions/CommandLine.h>
 
@@ -953,6 +956,9 @@ void InjectHooksMain() {
     CSprite::InjectHooks();
     CPlaneTrail::InjectHooks();
     CPlaneTrails::InjectHooks();
+    CMBlur::InjectHooks();
+    CRubbish::InjectHooks();
+    CPlaneBanners::InjectHooks();
     CPickup::InjectHooks();
     CPickups::InjectHooks();
     CPedIK::InjectHooks();

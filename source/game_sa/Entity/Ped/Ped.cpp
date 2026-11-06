@@ -61,6 +61,7 @@ END GENERATED HOOK STATUS */
 #include "Camera.h"
 #include "Collision.h"
 #include "SurfaceInfos_c.h"
+#include "Tasks/TaskTypes/TaskSimpleInAir.h"
 
 void CPed::InjectHooks() {
     RH_ScopedVirtualClass(CPed, 0x86C358, 26);
@@ -218,6 +219,8 @@ void CPed::InjectHooks() {
     RH_ScopedVMTInstall(Load, 0x5D4640);
 
     RH_ScopedGlobalInstall(SetPedAtomicVisibilityCB, 0x5F0060);
+    RH_ScopedGlobalInstall(SayJacked, 0x6497A0);
+    RH_ScopedGlobalInstall(SayJacking, 0x6497F0);
 }
 
 // 0x5E8030
@@ -3222,7 +3225,7 @@ void CPed::PreRenderAfterTest()
 
     if (intel->GetTaskInAir()) {
         // Como el original: CTaskSimpleInAir::ApplyRollAndPitch (0x678E80) es un 'ret 4' vacío
-        intel->GetTaskInAir();
+        intel->GetTaskInAir()->ApplyRollAndPitch(this);
         m_pedIK.bSlopePitch = false;
     } else if (m_pedIK.bSlopePitch || !IsPlayer() && m_pedIK.m_fSlopePitch != 0.0f) {
         m_pedIK.PitchForSlope();
@@ -5619,32 +5622,26 @@ bool CPed::IsPedStandingInPlace() const {
 }
 
 // 0x6497A0
+// Como el original: un solo tipo de audio; coche (0) dice JACKED_CAR y cualquier otro (moto, generico) JACKED_GENERIC
 bool SayJacked(CPed* jacked, CVehicle* vehicle, uint32 timeDelay) {
-    switch (vehicle->m_vehicleAudio.GetVehicleTypeForAudio()) {
-    case eAEVehicleAudioType::CAR:
+    if (vehicle->m_vehicleAudio.GetVehicleTypeForAudio() == eAEVehicleAudioType::CAR) {
         return jacked->Say(CTX_GLOBAL_JACKED_CAR, timeDelay) != -1;
-    case eAEVehicleAudioType::BIKE:
-    case eAEVehicleAudioType::GENERIC:
-        return jacked->Say(CTX_GLOBAL_JACKED_GENERIC, timeDelay) != -1;
-    default:
-        NOTSA_UNREACHABLE();
     }
+    return jacked->Say(CTX_GLOBAL_JACKED_GENERIC, timeDelay) != -1;
 }
 
 // 0x6497F0
+// Como el original: el tipo de audio se consulta una vez para la moto y otra (si no es moto) para el coche; cualquier otro es generico
 bool SayJacking(CPed* jacker, CPed* jacked, CVehicle* vehicle, uint32 timeDelay) {
-    switch (vehicle->m_vehicleAudio.GetVehicleTypeForAudio()) {
-    case eAEVehicleAudioType::BIKE:
+    if (vehicle->m_vehicleAudio.GetVehicleTypeForAudio() == eAEVehicleAudioType::BIKE) {
         return jacker->Say(CTX_GLOBAL_JACKING_BIKE, timeDelay) != -1;
-    case eAEVehicleAudioType::CAR:
+    }
+    if (vehicle->m_vehicleAudio.GetVehicleTypeForAudio() == eAEVehicleAudioType::CAR) {
         return jacked->GetSpeechAE().IsPedFemaleForAudio()
             ? jacker->Say(CTX_GLOBAL_JACKING_CAR_FEM, timeDelay) != -1
             : jacker->Say(CTX_GLOBAL_JACKING_CAR_MALE, timeDelay) != -1;
-    case eAEVehicleAudioType::GENERIC:
-        return jacker->Say(CTX_GLOBAL_JACKING_GENERIC, timeDelay) != -1;
-    default:
-        NOTSA_UNREACHABLE();
     }
+    return jacker->Say(CTX_GLOBAL_JACKING_GENERIC, timeDelay) != -1;
 }
 
 // NOTSA
