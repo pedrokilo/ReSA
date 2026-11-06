@@ -2773,7 +2773,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004CEB80,17,reemplazada,CAnimBlendAssociation,exacta,CAnimBlendAssociation::SetBlendTo,0,0,,
 0x004CEBA0,17,reemplazada,CAnimBlendAssociation,exacta,CAnimBlendAssociation::SetBlend,2,2,,
 0x004CEBC0,24,reemplazada,CAnimBlendAssociation,exacta,CAnimBlendAssociation::SetDeleteCallback,67,55,,
-0x004CEBE0,24,reemplazada,CAnimBlendAssociation,exacta,CAnimBlendAssociation::SetFinishCallback,146,116,,
+0x004CEBE0,24,reemplazada,CAnimBlendAssociation,exacta,CAnimBlendAssociation::SetFinishCallback,146,118,,
 0x004CEC00,20,A,CAnimBlendAssociation,baja,,1,1,,
 0x004CEC20,206,reemplazada,CAnimBlendStaticAssociation,exacta,CAnimBlendStaticAssociation::Init,5,5,,
 0x004CECF0,94,C,CAnimBlendStaticAssociation,baja,,1,0,,
@@ -3504,7 +3504,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004F4ED0,6,reemplazada,CAEVehicleAudioEntity,exacta,CAEVehicleAudioEntity::StaticGetPlayerVehicleAudioSettingsForRadio,9,9,,
 0x004F4EE0,8,reemplazada,CAEVehicleAudioEntity,exacta,CAEVehicleAudioEntity::DisableHelicoptors,1,1,,
 0x004F4EF0,8,reemplazada,CAEVehicleAudioEntity,exacta,CAEVehicleAudioEntity::EnableHelicoptors,1,1,,
-0x004F4F00,57,reemplazada,CAEVehicleAudioEntity,exacta,CAEVehicleAudioEntity::GetVehicleTypeForAudio,4,1,,
+0x004F4F00,57,reemplazada,CAEVehicleAudioEntity,exacta,CAEVehicleAudioEntity::GetVehicleTypeForAudio,4,4,,
 0x004F4F70,77,reemplazada,CAEVehicleAudioEntity,exacta,CAEVehicleAudioEntity::IsAccInhibited,5,5,,
 0x004F4FC0,37,reemplazada,CAEVehicleAudioEntity,exacta,CAEVehicleAudioEntity::IsAccInhibitedBackwards,0,0,,
 0x004F4FF0,40,reemplazada,CAEVehicleAudioEntity,exacta,CAEVehicleAudioEntity::IsAccInhibitedForLowSpeed,10,10,,
@@ -6428,7 +6428,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005EFF90,11,reemplazada,CPed,exacta,CPed::EnablePedSpeechForScriptSpeech,2,1,,
 0x005EFFA0,11,reemplazada,CPed,exacta,CPed::CanPedHoldConversation,2,2,,
 0x005EFFB0,40,reemplazada,CPed,exacta,CPed::SayScript,1,0,,
-0x005EFFE0,58,reemplazada,CPed,exacta,CPed::Say,187,176,,
+0x005EFFE0,58,reemplazada,CPed,exacta,CPed::Say,187,182,,
 0x005F0060,17,reemplazada,CPed,exacta,CPed::SetPedAtomicVisibilityCB,0,0,,
 0x005F0140,70,reemplazada,CPed,exacta,CPed::RemoveBodyPart,1,1,,
 0x005F0190,3,reemplazada,CPed,exacta,CPed::SpawnFlyingComponent,0,0,,
@@ -7225,7 +7225,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061C330,96,reemplazada,CEventVehicleDamageWeapon,exacta,CEventVehicleDamageWeapon::CloneEditable,0,0,,sí
 0x0061C390,30,B,CEventVehicleDamageWeapon,baja,,0,0,,sí
 0x0061C3D0,78,reemplazada,CTaskSimpleDuck,exacta,CTaskSimpleDuck::IsTaskInUseByOtherTasks,4,4,,
-0x0061C420,62,A,CTaskSimpleDuck,baja,,2,2,,
+0x0061C420,62,reemplazada,CTaskSimpleDuck,baja,,2,2,,
 0x0061C470,161,reemplazada,CTaskSimpleFight,exacta,CTaskSimpleFight::Constructor,5,4,,
 0x0061C520,6,B,CTaskSimpleFight,alta,,0,0,,sí
 0x0061C530,176,reemplazada,CTaskSimpleFight,exacta,CTaskSimpleFight::Destructor,5,2,,
@@ -8431,8 +8431,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00649690,5,reemplazada,CTaskSimpleWaitUntilPedIsInCar,exacta,CTaskSimpleWaitUntilPedIsInCar::MakeAbortable,0,0,,sí
 0x006496A0,90,reemplazada,CTaskSimpleWaitUntilPedIsInCar,exacta,CTaskSimpleWaitUntilPedIsInCar::Destructor,1,0,,
 0x00649700,147,reemplazada,CTaskSimpleWaitUntilPedIsInCar,exacta,CTaskSimpleWaitUntilPedIsInCar::ProcessPed,0,0,,sí
-0x006497A0,79,A,CTaskSimpleWaitUntilPedIsInCar,baja,,4,4,,
-0x006497F0,192,A,CTaskSimpleWaitUntilPedIsInCar,baja,,4,4,,
+0x006497A0,79,reemplazada,CTaskSimpleWaitUntilPedIsInCar,baja,,4,4,,
+0x006497F0,192,reemplazada,CTaskSimpleWaitUntilPedIsInCar,baja,,4,4,,
 0x006498B0,126,reemplazada,CTaskComplexGoToCarDoorAndStandStill,exacta,CTaskComplexGoToCarDoorAndStandStill::Clone,0,0,,sí
 0x00649930,108,reemplazada,CTaskSimpleCarAlign,exacta,CTaskSimpleCarAlign::Clone,0,0,,sí
 0x006499A0,110,reemplazada,CTaskSimpleCarOpenDoorFromOutside,exacta,CTaskSimpleCarOpenDoorFromOutside::Clone,0,0,,sí
@@ -8943,7 +8943,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0065EF30,44,reemplazada,CTaskSimpleGoToPointFine,exacta,CTaskSimpleGoToPointFine::BaseRatio,10,10,,
 0x0065EF80,939,reemplazada,CTaskSimpleGoToPointFine,exacta,CTaskSimpleGoToPointFine::SetBlendedMoveAnim,1,1,,
 0x0065F330,108,reemplazada,CTaskSimpleGoToPointFine,exacta,CTaskSimpleGoToPointFine::SetTargetPos,1,1,,
-0x0065F3A0,10,A,CTaskSimpleGoToPointFine,baja,,8,8,,
+0x0065F3A0,10,reemplazada,CTaskSimpleGoToPointFine,baja,,8,8,,
 0x0065F3B0,160,reemplazada,CTaskComplexTrackEntity,exacta,CTaskComplexTrackEntity::Constructor,2,2,,
 0x0065F450,6,reemplazada,CTaskComplexTrackEntity,exacta,CTaskComplexTrackEntity::GetTaskType,0,0,,sí
 0x0065F460,90,reemplazada,CTaskComplexTrackEntity,exacta,CTaskComplexTrackEntity::Destructor,1,0,,
@@ -9453,7 +9453,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00678D50,109,C,CTaskSimpleInAir,alta,,1,0,,
 0x00678DC0,155,reemplazada,CTaskSimpleInAir,exacta,CTaskSimpleInAir::MakeAbortable,0,0,,sí
 0x00678E60,29,reemplazada,CTaskSimpleInAir,exacta,CTaskSimpleInAir::DeleteAnimCB,0,0,,
-0x00678E80,3,A,CTaskSimpleInAir,baja,,1,1,,
+0x00678E80,3,reemplazada,CTaskSimpleInAir,baja,,1,1,,
 0x00678E90,57,reemplazada,CTaskSimpleLand,exacta,CTaskSimpleLand::Constructor,0,0,,
 0x00678ED0,6,B,CTaskSimpleLand,alta,,0,0,,sí
 0x00678EE0,93,C,CTaskSimpleLand,alta,,1,0,,
@@ -9572,10 +9572,10 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00681850,67,reemplazada,CTaskManager,exacta,CTaskManager::Flush,1,1,,
 0x006818A0,116,reemplazada,CTaskManager,exacta,CTaskManager::FlushImmediately,1,1,,
 0x00681920,74,reemplazada,CTaskManager,exacta,CTaskManager::SetNextSubTask,4,4,,
-0x00681970,30,A,CTaskManager,alta,,1,1,,
+0x00681970,30,reemplazada,CTaskManager,alta,,1,1,,
 0x006819A0,38,reemplazada,CTaskManager,exacta,CTaskManager::StopTimers,1,1,,
 0x006819D0,45,reemplazada,CTaskManager,exacta,CTaskManager::GetSimplestActiveTask,70,64,,
-0x00681A00,35,A,CTaskManager,alta,,1,1,,
+0x00681A00,35,reemplazada,CTaskManager,alta,,1,1,,
 0x00681A30,77,reemplazada,CTaskManager,exacta,CTaskManager::AddSubTasks,4,4,,
 0x00681A80,111,reemplazada,CTaskManager,exacta,CTaskManager::ParentsControlChildren,2,2,,
 0x00681AF0,105,reemplazada,CTaskManager,exacta,CTaskManager::SetTask,85,77,,
@@ -9789,7 +9789,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00692020,6,reemplazada,CTaskSimpleDuck,exacta,CTaskSimpleDuck::GetTaskType,0,0,,sí
 0x00692030,206,reemplazada,CTaskSimpleDuck,exacta,CTaskSimpleDuck::Destructor,2,0,,
 0x00692100,571,reemplazada,CTaskSimpleDuck,exacta,CTaskSimpleDuck::MakeAbortable,2,0,,sí
-0x00692340,77,A,CTaskSimpleDuck,alta,,3,3,,
+0x00692340,77,reemplazada,CTaskSimpleDuck,alta,,3,3,,
 0x00692390,95,reemplazada,CTaskSimpleDuck,exacta,CTaskSimpleDuck::RestartTask,1,1,,
 0x006923F0,185,reemplazada,CTaskSimpleDuck,exacta,CTaskSimpleDuck::ControlDuckMove,9,9,,
 0x006924B0,12,reemplazada,CTaskSimpleDuck,exacta,CTaskSimpleDuck::ForceStopMove,3,3,,
@@ -10062,7 +10062,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006A0660,6,B,CEventVehicleDamageCollision,alta,,0,0,,sí
 0x006A0670,96,reemplazada,CEventVehicleDamageCollision,exacta,CEventVehicleDamageCollision::CloneEditable,0,0,,sí
 0x006A06D0,30,B,CEventVehicleDamageCollision,baja,,0,0,,sí
-0x006A06F0,20,A,CEventVehicleDamageCollision,baja,,1,1,,
+0x006A06F0,20,reemplazada,CEventVehicleDamageCollision,baja,,1,1,,
 0x006A0770,37,reemplazada,CAutomobile,exacta,CAutomobile::SetupModelNodes,0,0,,
 0x006A07A0,3249,reemplazada,CAutomobile,exacta,CAutomobile::HydraulicControl,1,1,,
 0x006A1460,2663,reemplazada,CAutomobile,exacta,CAutomobile::UpdateMovingCollision,2,1,,
@@ -10297,7 +10297,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006C45B0,129,reemplazada,CHeli,exacta,CHeli::AddHeliSearchLight,1,1,,
 0x006C4650,133,reemplazada,CHeli,exacta,CHeli::Pre_SearchLightCone,1,1,,
 0x006C46E0,105,reemplazada,CHeli,exacta,CHeli::Post_SearchLightCone,1,1,,
-0x006C4750,1,A,CHeli,alta,,1,1,,
+0x006C4750,1,reemplazada,CHeli,alta,,1,1,,
 0x006C4760,141,reemplazada,CHeli,alta,,3,1,,
 0x006C4800,10,reemplazada,CHeli,exacta,CHeli::SwitchPoliceHelis,1,0,,
 0x006C4810,30,B,CHeli,alta,,0,0,,sí
@@ -11024,7 +11024,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x007173A0,281,reemplazada,CPlaneTrails,exacta,CPlaneTrails::Render,0,0,,
 0x007174C0,44,reemplazada,CPlaneTrails,exacta,CPlaneTrails::RegisterPoint,0,0,,
 0x007174F0,747,reemplazada,CPlaneTrails,exacta,CPlaneTrails::Update,1,1,,
-0x00717820,1,A,CPlaneTrails,baja,,1,1,,
+0x00717820,1,reemplazada,CPlaneTrails,baja,,1,1,,
 0x00717860,130,reemplazada,CEscalator,exacta,CEscalator::SwitchOff,6,6,,
 0x007178F0,5,reemplazada,CMovingThings,exacta,CMovingThings::Render_BeforeClouds,1,1,sí,
 0x00717900,56,reemplazada,CEntity,exacta,CEntity::RemoveEscalatorsForEntity,1,1,,
@@ -11108,11 +11108,11 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0071D5E0,109,reemplazada,CGridRef,exacta,CGridRef::GetGridRefPositions-,0,0,,
 0x0071D650,25,reemplazada,CGridRef,exacta,CGridRef::GetArtistBugstarID,0,0,,
 0x0071D670,51,reemplazada,CGridRef,exacta,CGridRef::GetAreaName,0,0,,
-0x0071D700,1,A,CGridRef,baja,,1,1,,
-0x0071D710,6,A,CGridRef,baja,,1,1,,
-0x0071D720,6,A,CGridRef,baja,,1,1,,
-0x0071D730,66,A,CGridRef,baja,,1,1,,
-0x0071D780,21,A,CGridRef,baja,,4,3,,
+0x0071D700,1,reemplazada,CGridRef,baja,,1,1,,
+0x0071D710,6,reemplazada,CGridRef,baja,,1,1,,
+0x0071D720,6,reemplazada,CGridRef,baja,,1,1,,
+0x0071D730,66,reemplazada,CGridRef,baja,,1,1,,
+0x0071D780,21,reemplazada,CGridRef,baja,,4,3,,
 0x0071DA00,175,reemplazada,Common,exacta,Common::CalcScreenCoors-VVff,7,7,,
 0x0071DAB0,115,reemplazada,Common,exacta,Common::CalcScreenCoors-VV,6,6,,
 0x0071DB30,76,A,Common,alta,,2,2,,
@@ -11129,7 +11129,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0071FAE0,1475,reemplazada,CEntity,exacta,CEntity::IsEntityOccluded,6,6,,
 0x007200B0,263,reemplazada,COcclusion,exacta,COcclusion::IsPositionOccluded,1,1,,
 0x007201C0,768,reemplazada,COcclusion,exacta,COcclusion::ProcessBeforeRendering,1,1,,
-0x007204C0,1,A,COcclusion,baja,,5,3,,
+0x007204C0,1,reemplazada,COcclusion,baja,,5,3,,
 0x007204E0,129,reemplazada,CSkidmarks,exacta,CSkidmarks::Init,1,1,,
 0x00720570,25,reemplazada,CSkidmarks,exacta,CSkidmarks::Shutdown,1,1,,
 0x00720590,27,reemplazada,CSkidmarks,exacta,CSkidmarks::Clear,2,2,,
