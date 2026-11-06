@@ -10012,7 +10012,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarker::AddMarker"
@@ -10023,7 +10023,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10040,7 +10040,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarker::DeleteMarkerObject"
@@ -10051,7 +10051,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10068,7 +10068,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarker::IsZCoordinateUpToDate"
@@ -10079,7 +10079,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10096,7 +10096,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarker::SetZCoordinateIfNotUpToDate"
@@ -10107,7 +10107,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10124,7 +10124,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarker::UpdateZCoordinate"
@@ -10135,7 +10135,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10152,7 +10152,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::DirectionArrowFindFirstFreeSlot"
@@ -10163,7 +10163,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10180,7 +10180,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::DirectionArrowSet"
@@ -10191,7 +10191,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10208,7 +10208,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::DirectionArrowsInit"
@@ -10219,7 +10219,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10236,7 +10236,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::ForceRender"
@@ -10247,7 +10247,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10264,7 +10264,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::User3dMarkerDelete"
@@ -10275,7 +10275,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10292,7 +10292,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::User3dMarkerDeleteAll"
@@ -10303,7 +10303,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10320,7 +10320,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::User3dMarkerFindFirstFreeSlot"
@@ -10331,7 +10331,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10348,7 +10348,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::User3dMarkerSet"
@@ -10359,7 +10359,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10376,7 +10376,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::LoadUser3dMarkers"
@@ -10387,7 +10387,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10404,7 +10404,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::SaveUser3dMarkers"
@@ -10415,7 +10415,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10432,7 +10432,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::User3dMarkerAtomicCB"
@@ -10443,7 +10443,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10460,7 +10460,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::Update"
@@ -10471,7 +10471,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10488,7 +10488,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::PlaceMarkerSet"
@@ -10499,7 +10499,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10516,7 +10516,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::PlaceMarkerCone"
@@ -10527,7 +10527,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10544,7 +10544,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::PlaceMarker"
@@ -10555,7 +10555,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10572,7 +10572,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarker::Render"
@@ -10583,7 +10583,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10600,7 +10600,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::User3dMarkersDraw"
@@ -10611,7 +10611,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10628,7 +10628,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::DirectionArrowsDraw"
@@ -10639,7 +10639,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10656,7 +10656,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::Render"
@@ -10667,7 +10667,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10684,7 +10684,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::Init"
@@ -10695,7 +10695,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",
@@ -10712,7 +10712,7 @@
       },
       "evidence": {
         "path": "reversing/Markers/validation-summary.json",
-        "sha256": "8d2b2c19293ec34a9776969013eb8654f7d423d8609ec67ceeb3642822d17488",
+        "sha256": "a8909996bf9b9de3d23cea0f786b00eba2898dcf00ca53f5df8fe7c1f653382a",
         "passed_path": [
           "covered_functions",
           "C3dMarkers::Shutdown"
@@ -10723,7 +10723,7 @@
       "tested_sources": {
         "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
         "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
-        "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+        "source/game_sa/3dMarkers.cpp": "f5f235308d9bf7c7ce7bca14f5e0cfb193979a0d9415d822a7ad6ddbf00472fb",
         "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-092610-940197).",

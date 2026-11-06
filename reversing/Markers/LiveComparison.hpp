@@ -143,7 +143,7 @@ inline void Update() {
     bool passed=true; int pair=0;
     {
         using ReversingProbe::EntryPatch; using std::bit_cast;
-        EntryPatch d1(0x749B70,ForAllAtomics), d2(0x749E60,AtomicClone), d3(0x7F0410,FrameCreate), d4(0x74BF20,AtomicSetFrame), d5(0x749DC0,AtomicDestroy), d6(0x7F05A0,FrameDestroy), d7(0x7F0910,FrameUpdate);
+        EntryPatch d1(0x749B70,ForAllAtomics), d1d(reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics),ForAllAtomics), d2(0x749E60,AtomicClone), d3(0x7F0410,FrameCreate), d4(0x74BF20,AtomicSetFrame), d4d(reinterpret_cast<uintptr_t>(&RpAtomicSetFrame),AtomicSetFrame), d5(0x749DC0,AtomicDestroy), d6(0x7F05A0,FrameDestroy), d7(0x7F0910,FrameUpdate);
         EntryPatch d8(bit_cast<uintptr_t>(&CVisibilityPlugins::SetAtomicRenderCallback),SetRenderCB), d8e(0x7328A0,SetRenderCB);
         EntryPatch d9(bit_cast<uintptr_t>(&FindPlayerCentreOfWorld),Centre), d9e(0x56E250,Centre);
         EntryPatch d10(bit_cast<uintptr_t>(&CWorld::ProcessLineOfSight),LineOfSight), d10e(0x56BA00,LineOfSight);
