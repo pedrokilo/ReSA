@@ -471,7 +471,7 @@ inline void Update() {
                     for(int k=0;k<3;++k)AtA<float>(0x8D3458+4*k)=r.pct(60)?(k==2?1.f:0.995f):r.uni(0.8f,1.f);
                     AtA<float>(0x8D3454)=r.pct(60)?-0.4f:r.uni(-1.f,1.f);
                     if(nm=="Fix") {
-                        P.Add(0x749B70,S_ForAllAtomics); atomCount=0; At<void*>(Q,0x18)=clump.data();
+                        P.Add(0x749B70,S_ForAllAtomics); P.Add(reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics),S_ForAllAtomics); atomCount=0; At<void*>(Q,0x18)=clump.data();
                         reinterpret_cast<void(__thiscall*)(void*)>(a)(Q);
                         out["obj"]=Obj(quad);
                     }
@@ -672,7 +672,7 @@ inline void Update() {
                         ret=json(Name(uintptr_t(reinterpret_cast<void*(__cdecl*)(void*,void*)>(a)(atomsB[r.below(3)].data(),nullptr))));
                     }
                     else if(nm=="CustomCarPipeClumpSetup") {
-                        P.Add(0x5DA610,S_PipeAtomic); P.Add(Addr(&CCustomCarEnvMapPipeline::CustomPipeAtomicSetup),S_PipeAtomic); P.Add(0x749B70,S_ForAllAtomics);
+                        P.Add(0x5DA610,S_PipeAtomic); P.Add(Addr(&CCustomCarEnvMapPipeline::CustomPipeAtomicSetup),S_PipeAtomic); P.Add(0x749B70,S_ForAllAtomics); P.Add(reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics),S_ForAllAtomics);
                         ret=json(Name(uintptr_t(reinterpret_cast<void*(__cdecl*)(void*)>(a)(clumpB.data()))));
                     }
                     else if(nm=="IsCCPCPipelineAttached") {

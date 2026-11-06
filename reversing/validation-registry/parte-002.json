@@ -8920,7 +8920,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CQuadBike::Fix"
@@ -8939,8 +8939,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -8956,7 +8956,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CQuadBike::GetRideAnimData"
@@ -8975,8 +8975,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -8992,7 +8992,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CQuadBike::PreRender"
@@ -9011,8 +9011,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9028,7 +9028,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ProcessAI"
@@ -9047,8 +9047,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9064,7 +9064,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ProcessControl"
@@ -9083,8 +9083,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9100,7 +9100,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ProcessControlInputs"
@@ -9119,8 +9119,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9136,7 +9136,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ProcessDrivingAnims"
@@ -9155,8 +9155,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9172,7 +9172,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ProcessSuspension"
@@ -9191,8 +9191,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9208,7 +9208,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ResetSuspension"
@@ -9227,8 +9227,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9244,7 +9244,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CQuadBike::SetupDamageAfterLoad"
@@ -9263,8 +9263,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9280,7 +9280,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CQuadBike::SetupSuspensionLines"
@@ -9299,8 +9299,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9316,7 +9316,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CBmx::BurstTyre"
@@ -9335,8 +9335,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9352,7 +9352,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CBmx::FindWheelWidth"
@@ -9371,8 +9371,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9388,7 +9388,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CBmx::LaunchBunnyHopCB"
@@ -9407,8 +9407,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9424,7 +9424,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CBmx::PreRender"
@@ -9443,8 +9443,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9460,7 +9460,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CBmx::ProcessAI"
@@ -9479,8 +9479,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9496,7 +9496,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CBmx::ProcessBunnyHop"
@@ -9515,8 +9515,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9532,7 +9532,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CBmx::ProcessControl"
@@ -9551,8 +9551,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9568,7 +9568,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CBmx::ProcessDrivingAnims"
@@ -9587,8 +9587,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9604,7 +9604,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CBmx::SetUpWheelColModel"
@@ -9623,8 +9623,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9640,7 +9640,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::CustomCarPipeAtomicSetup"
@@ -9659,8 +9659,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9676,7 +9676,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::CustomCarPipeClumpSetup"
@@ -9695,8 +9695,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9712,7 +9712,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::Initialise"
@@ -9731,8 +9731,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9748,7 +9748,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::InitialiseDirtTexture"
@@ -9767,8 +9767,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9784,7 +9784,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::IsCCPCPipelineAttached"
@@ -9803,8 +9803,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9820,7 +9820,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::PreRenderUpdate"
@@ -9839,8 +9839,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9856,7 +9856,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::RegisterPlugins"
@@ -9875,8 +9875,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9892,7 +9892,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::SetCustomFXAtomicRenderPipelinesVMICB"
@@ -9911,8 +9911,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9928,7 +9928,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::SetFxEnvMapLightMult"
@@ -9947,8 +9947,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -9964,7 +9964,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::Shutdown"
@@ -9983,8 +9983,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10000,7 +10000,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::GraphicsHighQuality"
@@ -10019,8 +10019,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10036,7 +10036,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::Init"
@@ -10055,8 +10055,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10072,7 +10072,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::Process"
@@ -10091,8 +10091,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10108,7 +10108,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::Render"
@@ -10127,8 +10127,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10144,7 +10144,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::RenderBuffer"
@@ -10163,8 +10163,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10180,7 +10180,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::RenderForObject"
@@ -10199,8 +10199,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10216,7 +10216,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::RenderForVehicle"
@@ -10235,8 +10235,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10252,7 +10252,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::RenderStencilShadows"
@@ -10271,8 +10271,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10288,7 +10288,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::Shutdown"
@@ -10307,8 +10307,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10324,7 +10324,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::SunSetPositionFromEntity"
@@ -10343,8 +10343,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10360,7 +10360,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::UpdateHierarchy"
@@ -10379,8 +10379,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -10396,7 +10396,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
+        "sha256": "03969e1642b90c0f6f8719ff59ab22d7e2042387b548d28c7c1f41df4e2301a5",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::sub_710CC0"
@@ -10415,8 +10415,8 @@
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,

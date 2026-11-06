@@ -55,10 +55,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "3bf008356a0d851bcc4b3ca5037ac6f5d4f41d3a4c9662224939f0d659f45f05",
+  "log_sha256": "00c119e8ffb1f8f157999ff1f57ea4da715e8c8667e0a52da9f3c21f0810f000",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc61b\\20261103-131322-571820",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc61b\\20261106-135408-744195",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CQuadBike::Fix": true,
@@ -106,8 +106,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "82b3ac8d47434529db6dc41cacc67625f7f89cf95e4bde192d0941595f391659",
-      "pdb": "ff8ccbd2e4657f2cf25fde8434a435b8c90e9b36992b67b819b76abc1d40a3f9"
+      "asi": "069ccefca492fbc28753b718468ca281f69c17d483b61e828d78cf7eb2a16052",
+      "pdb": "346405e647b39d8e328d4f50bd4d96a977b1f4deed5c065de93f7ec7377a3e22"
     },
     "sources": {
       "source/game_sa/Entity/Vehicle/Bmx.cpp": "fa7b05e3c5874c015c845b63ab417e58fd88c92735f5fa5f48a54013ef38914c",
@@ -120,12 +120,12 @@
       "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
       "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
       "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-      "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+      "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
+      "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "dd07ccdef5e572494d846364c8c3aa1d0a38ebfd24768caf0c7e866147be4878",
+      "LiveComparison.hpp": "b345116f2e267fdd6fad5dbf5273aafbfb4cf5eb31d60e2e13ac36f94d45c043",
       "build_probe.py": "095210495c136a64202d13affc20035afbe6f612dae994a050dafa00aacbb182",
       "run_local.py": "33b62735bc8f63b6e6d2a092ba0e6b060b5124d378c2f9d4575d4788cf085cbb"
     }
