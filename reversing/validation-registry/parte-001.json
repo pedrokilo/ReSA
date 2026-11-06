@@ -106611,7 +106611,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::Add-"
@@ -106620,11 +106620,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106641,7 +106641,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::Constructor"
@@ -106650,11 +106650,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106671,7 +106671,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::Flush"
@@ -106680,11 +106680,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106701,7 +106701,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::GetEventOfType"
@@ -106710,11 +106710,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106731,7 +106731,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::GetHighestPriorityEvent"
@@ -106740,11 +106740,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106761,7 +106761,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::HasEvent"
@@ -106770,11 +106770,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106791,7 +106791,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::HasEventOfType"
@@ -106800,11 +106800,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106821,7 +106821,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::HasScriptCommandOfTaskType"
@@ -106830,11 +106830,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106851,7 +106851,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::Remove"
@@ -106860,11 +106860,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106881,7 +106881,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::RemoveInvalidEvents"
@@ -106890,11 +106890,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106911,7 +106911,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::Reorganise"
@@ -106920,11 +106920,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106941,7 +106941,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CEventGroup::TickEvents"
@@ -106950,11 +106950,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -106971,7 +106971,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::Clone"
@@ -106980,11 +106980,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107001,7 +107001,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::ComputeCrapRoute"
@@ -107010,11 +107010,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107031,7 +107031,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::ComputeMoveDir"
@@ -107040,11 +107040,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107061,7 +107061,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::ComputeRoute"
@@ -107070,11 +107070,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107091,7 +107091,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::Constructor"
@@ -107100,11 +107100,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107121,7 +107121,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::ControlSubTask"
@@ -107130,11 +107130,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107151,7 +107151,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::CreateFirstSubTask"
@@ -107160,11 +107160,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107181,7 +107181,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::CreateNextSubTask"
@@ -107190,11 +107190,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107211,7 +107211,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::CreateSubTask"
@@ -107220,11 +107220,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107241,7 +107241,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::Destructor"
@@ -107250,11 +107250,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107271,7 +107271,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::GetTaskType"
@@ -107280,11 +107280,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107301,7 +107301,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWalkRoundBuildingAttempt::MakeAbortable"
@@ -107310,11 +107310,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107331,7 +107331,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::AddTriPlant"
@@ -107340,11 +107340,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107361,7 +107361,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::DrawTriPlants"
@@ -107370,11 +107370,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107391,7 +107391,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::FlushTriPlantBuffer"
@@ -107400,11 +107400,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107421,7 +107421,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::GenPointInTriangle"
@@ -107430,11 +107430,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107451,7 +107451,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::GetPlantModelsTab"
@@ -107460,11 +107460,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107481,7 +107481,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::Initialise"
@@ -107490,11 +107490,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107511,7 +107511,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::SetCloseFarAlphaDist"
@@ -107520,11 +107520,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107541,7 +107541,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::SetCurrentScanCode"
@@ -107550,11 +107550,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107571,7 +107571,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::SetGlobalCameraPos"
@@ -107580,11 +107580,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107601,7 +107601,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::SetGlobalWindBending"
@@ -107610,11 +107610,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107631,7 +107631,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::SetPlantModelsTab"
@@ -107640,11 +107640,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",
@@ -107661,7 +107661,7 @@
       },
       "evidence": {
         "path": "reversing/Mix12/validation-summary.json",
-        "sha256": "04cbfa43d561ebcaefb339e68f85bee2b834fc3de53f33a54e2f2c790795f03d",
+        "sha256": "a51565080ecced5c9f923b879030099b04d89aad2bcd6b294cc64a92e78cfe33",
         "passed_path": [
           "covered_functions",
           "CGrassRenderer::Shutdown"
@@ -107670,11 +107670,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
         "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-        "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+        "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
         "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-085307-456046).",

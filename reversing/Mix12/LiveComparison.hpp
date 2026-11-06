@@ -289,7 +289,7 @@ inline void Update() {
         EntryPatch w6(bit_cast<uintptr_t>(&CGeneral::LimitRadianAngle),FakeLimitRadian), w6e(0x53CB50,FakeLimitRadian);
         // hierba
         EntryPatch g1(bit_cast<uintptr_t>(&CPPTriPlantBuffer::Flush),FakeFlush), g1e(0x5DB0C0,FakeFlush);
-        EntryPatch g2(0x7F0E30,FakeFrameTranslate), g3(0x7F18A0,FakeMatrixUpdate), g4(0x74C790,FakeForAllMaterials); // la DLL los reenvia al EXE
+        EntryPatch g2(0x7F0E30,FakeFrameTranslate), g3(0x7F18A0,FakeMatrixUpdate), g4(0x74C790,FakeForAllMaterials), g4d(reinterpret_cast<uintptr_t>(&RpGeometryForAllMaterials),FakeForAllMaterials); // la DLL los reenvia al EXE
 
         for(size_t f=0;f<fns.size();++f) {
             const auto& fn=fns[f]; int failures=0; const std::string cls=fn.cls, nm=fn.name, full=cls+"::"+nm;

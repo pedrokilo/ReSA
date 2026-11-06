@@ -52,7 +52,7 @@
   "log_sha256": "f5251dbc1a419976ef9e890a83ca73b56de5377149d7dd7401ce818bdde34511",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mix12\\20261003-085307-456046",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mix12\\20261106-141512-436056",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CEventGroup::Add-": true,
@@ -94,26 +94,27 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "68ab650e536570ee2fdfe15c52e9ca2c3b7d53011e972b9f72b2f6a9d8ddbed7",
-      "pdb": "4fc3e218136f1c1c747ba3a19e5db02ac6950157f900dd72590592fc6c4e7368"
+      "asi": "9691161a21e9aad18f51926e072e0d227c937a031ead20c8436d4955828dc4ce",
+      "pdb": "d6a057665654ce934ccc3c2e02dd4c5d4539c2fe5f0aa1d929e51c2e0baaf06e"
     },
     "sources": {
-      "source/game_sa/Events/EventGroup.cpp": "958f6dcf7b043e05583b629371b3309c591578261908c4cae17913a9640da253",
+      "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
       "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "f84fde07198f467352590d29197bf72e0762cb8357ada65d8c1f2b60dbd60021",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp": "b1f4bde43f127344f7031ed40864d70b89ee8fea985610d37b8a49693c5d80e8",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h": "3490c040875d017647ef87be3dad8fe2caaea101de8fd77cc9a64102c2ad7bc9",
-      "source/game_sa/GrassRenderer.cpp": "89ad016f134b7bcb944eb5a634c6cf49bdc635f033130620c554ac7983153b66",
+      "source/game_sa/GrassRenderer.cpp": "a6ed479f46df6a87fb4fbd02248d6b7e0d82556fcd632483a7c17239a5475776",
       "source/game_sa/GrassRenderer.h": "18856e6b7366554ccc5456b07f39dc7484bdc5f942f7a1b613152620c05fe0cd"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "d6bddfe1d2f9b3790fa97a7b45767d56c651eb918c0d50cfceddad706d565794",
+      "LiveComparison.hpp": "f30057b944231d61b4b208f469d56cc07f06cece4c41e2ad8b750e43ec82b251",
       "build_probe.py": "7fed59e37d1882aa31e10c50053bd0669c3fc3634db76dc870ebcc672e8dc166",
       "run_local.py": "383dd1fb29fcf3625455220058ef7a64a31c4108777e3eeeb8458f31996d3cfa"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
