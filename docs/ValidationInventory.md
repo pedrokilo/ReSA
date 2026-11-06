@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,225 entradas reversed=1**, de 9,225 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,241 entradas reversed=1**, de 9,241 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9225 |
+| `validated=1` · evidencia aprobada vinculada | 9241 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9225 |
+| Evidencia histórica vinculada; revisión pendiente | 9241 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1262,6 +1262,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCam | `CacheLastSettingsDWCineyCam` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CCam | `CameraPathInterpolateScalar` | [Resumen](../reversing/DependenciesWorldWaterPath6/validation-summary.json) |
 | CCam | `CameraPathInterpolateVector` | [Resumen](../reversing/DependenciesWorldWaterPath6/validation-summary.json) |
+| CCam | `ClipBeta` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CCam | `Constructor` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CCam | `DoCamBump` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CCam | `Finalise_DW_CineyCams` | [Resumen](../reversing/CamHud1/validation-summary.json) |
@@ -1271,8 +1272,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCam | `GetCoreDataForDWCineyCamMode` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CCam | `GetLookFromLampPostPos` | [Resumen](../reversing/CamLamp355/validation-summary.json) |
 | CCam | `GetVectorsReadyForRW` | [Resumen](../reversing/CamHud1/validation-summary.json) |
+| CCam | `GetWeaponFirstPersonOn` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CCam | `Get_TwoPlayer_AimVector` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CCam | `Init` | [Resumen](../reversing/CamHud1/validation-summary.json) |
+| CCam | `IsLampPost` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CCam | `IsTimeToExitThisDWCineyCamMode` | [Resumen](../reversing/CamCineExit355/validation-summary.json) |
 | CCam | `KeepTrackOfTheSpeed` | [Resumen](../reversing/CamCore355/validation-summary.json) |
 | CCam | `LookBehind` | [Resumen](../reversing/CamLookBehind355/validation-summary.json) |
@@ -2482,6 +2485,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventDamage | `GetLifeTime` | [Resumen](../reversing/Event20/validation-summary.json) |
 | CEventDamage | `GetLocalSoundLevel` | [Resumen](../reversing/Event20/validation-summary.json) |
 | CEventDamage | `GetSourceEntity` | [Resumen](../reversing/Event20/validation-summary.json) |
+| CEventDamage | `HasKilledPed` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CEventDamage | `IsCriminalEvent` | [Resumen](../reversing/Event20/validation-summary.json) |
 | CEventDamage | `ProcessDamage` | [Resumen](../reversing/Event20/validation-summary.json) |
 | CEventDamage | `ReportCriminalEvent` | [Resumen](../reversing/Event20/validation-summary.json) |
@@ -4005,6 +4009,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedClothesDesc | `Initialise` | [Resumen](../reversing/Data7/validation-summary.json) |
 | CPedClothesDesc | `SetModel-modelHash` | [Resumen](../reversing/Data7/validation-summary.json) |
 | CPedClothesDesc | `SetModel-modelName` | [Resumen](../reversing/Data7/validation-summary.json) |
+| CPedClothesDesc | `SetTextureAndModel-hash` | [Resumen](../reversing/Fn109A/validation-summary.json) |
+| CPedClothesDesc | `SetTextureAndModel-name` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CPedDamageResponseCalculator | `AccountForPedArmour` | [Resumen](../reversing/PedDamagePending/validation-summary.json) |
 | CPedDamageResponseCalculator | `AccountForPedDamageStats` | [Resumen](../reversing/PedDamagePending/validation-summary.json) |
 | CPedDamageResponseCalculator | `ComputeDamageResponse` | [Resumen](../reversing/PedDamagePending/validation-summary.json) |
@@ -4224,6 +4230,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedPool | `New` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CPedSaveStructure | `Construct` | [Resumen](../reversing/DependenciesTaskLeaf3/validation-summary.json) |
 | CPedSaveStructure | `Extract` | [Resumen](../reversing/PedSaveExtract28/validation-summary.json) |
+| CPedScanner | `GetClosestPedInRange` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CPedScriptedTaskRecord | `GetRecordAssociatedWithEvent` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CPedScriptedTaskRecord | `GetStatus-` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CPedScriptedTaskRecord | `GetStatus-opcode` | [Resumen](../reversing/Events43/validation-summary.json) |
@@ -4562,6 +4569,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPointLights | `ProcessVerticalLineUsingCache` | [Resumen](../reversing/Dependencies22A/validation-summary.json) |
 | CPointLights | `RemoveLightsAffectingObject` | [Resumen](../reversing/DependenciesPointLights2/validation-summary.json) |
 | CPointLights | `RenderFogEffect` | [Resumen](../reversing/Dependencies22A/validation-summary.json) |
+| CPointRoute | `operator delete` | [Resumen](../reversing/Fn109A/validation-summary.json) |
+| CPointRoute | `operator new` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CPointRoutePool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CPools | `CheckBuildingAtomics` | [Resumen](../reversing/RequestedPoolsAtomicCheck/validation-summary.json) |
 | CPools | `CheckPoolsEmpty` | [Resumen](../reversing/WorldWave2/validation-summary.json) |
@@ -5041,6 +5050,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CScriptsForBrains | `StartOrRequestNewStreamedScriptBrain` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CScriptsForBrains | `StartOrRequestNewStreamedScriptBrainWithThisName` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CSearchLight | `IsSpottedEntity` | [Resumen](../reversing/Misc61/validation-summary.json) |
+| CSetPiece | `GetSpawnCoord1` | [Resumen](../reversing/Fn109A/validation-summary.json) |
+| CSetPiece | `GetSpawnCoord2` | [Resumen](../reversing/Fn109A/validation-summary.json) |
+| CSetPiece | `GetTargetCoord1` | [Resumen](../reversing/Fn109A/validation-summary.json) |
+| CSetPiece | `GetTargetCoord2` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CSetPiece | `TryToGenerateCopCar` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CSetPiece | `TryToGenerateCopPed` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CSetPiece | `Update` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
@@ -8155,6 +8168,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicleRecording | `UnpausePlaybackRecordedCar` | [Resumen](../reversing/VehRec29/validation-summary.json) |
 | CVehicleSaveStructure | `Construct` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CVehicleSaveStructure | `Extract` | [Resumen](../reversing/Core70/validation-summary.json) |
+| CVehicleScanner | `GetClosestVehicleInRange` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CVisibilityPlugins | `AddWeaponPedForPC` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
 | CVisibilityPlugins | `AtomicCopyConstructor` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
 | CVisibilityPlugins | `AtomicDestructor` | [Resumen](../reversing/VisPluginsFinal4/validation-summary.json) |
@@ -8540,6 +8554,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Common | `TextCopy` | [Resumen](../reversing/Fn111A/validation-summary.json) |
 | Common | `TransformPoint` | [Resumen](../reversing/DependenciesMathSprite2/validation-summary.json) |
 | Common | `TransformPoints` | [Resumen](../reversing/DependenciesMathSprite2/validation-summary.json) |
+| Common | `VectorsAreEqual` | [Resumen](../reversing/Fn109A/validation-summary.json) |
+| Common | `VectorsDiffer` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | Common | `WriteRaster` | [Resumen](../reversing/Core9/validation-summary.json) |
 | CompressedVector | `UncompressVectorExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | D3DIndexDataBuffer | `GetTotalDataSize` | [Resumen](../reversing/Fn95A/validation-summary.json) |
@@ -9335,7 +9351,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBuildingPool` | 1 | 0 | 1 | 0 |
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
-| `CCam` | 53 | 0 | 53 | 0 |
+| `CCam` | 56 | 0 | 56 | 0 |
 | `CCamera` | 122 | 0 | 122 | 0 |
 | `CCarAI` | 26 | 0 | 26 | 0 |
 | `CCarCtrl` | 112 | 0 | 112 | 0 |
@@ -9427,7 +9443,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventBuildingCollision` | 5 | 0 | 5 | 0 |
 | `CEventCarUpsideDown` | 3 | 0 | 3 | 0 |
 | `CEventCopCarBeingStolen` | 3 | 0 | 3 | 0 |
-| `CEventDamage` | 21 | 0 | 21 | 0 |
+| `CEventDamage` | 22 | 0 | 22 | 0 |
 | `CEventDanger` | 5 | 0 | 5 | 0 |
 | `CEventDeath` | 1 | 0 | 1 | 0 |
 | `CEventDontJoinPlayerGroup` | 1 | 0 | 1 | 0 |
@@ -9565,7 +9581,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedAttractorManager` | 14 | 0 | 14 | 0 |
 | `CPedAttractorPedPlacer` | 1 | 0 | 1 | 0 |
 | `CPedAttractorPool` | 1 | 0 | 1 | 0 |
-| `CPedClothesDesc` | 7 | 0 | 7 | 0 |
+| `CPedClothesDesc` | 9 | 0 | 9 | 0 |
 | `CPedDamageResponseCalculator` | 7 | 0 | 7 | 0 |
 | `CPedGeometryAnalyser` | 38 | 0 | 38 | 0 |
 | `CPedGroup` | 12 | 0 | 12 | 0 |
@@ -9587,6 +9603,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedPlacement` | 3 | 0 | 3 | 0 |
 | `CPedPool` | 3 | 0 | 3 | 0 |
 | `CPedSaveStructure` | 2 | 0 | 2 | 0 |
+| `CPedScanner` | 1 | 0 | 1 | 0 |
 | `CPedScriptedTaskRecord` | 5 | 0 | 5 | 0 |
 | `CPedScriptedTaskRecordData` | 8 | 0 | 8 | 0 |
 | `CPedShelterAttractor` | 4 | 0 | 4 | 0 |
@@ -9614,6 +9631,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlayerRelationshipRecorder` | 1 | 0 | 1 | 0 |
 | `CPlayerSkin` | 4 | 0 | 4 | 0 |
 | `CPointLights` | 7 | 0 | 7 | 0 |
+| `CPointRoute` | 2 | 0 | 2 | 0 |
 | `CPointRoutePool` | 1 | 0 | 1 | 0 |
 | `CPools` | 19 | 0 | 19 | 0 |
 | `CPopCycle` | 15 | 0 | 15 | 0 |
@@ -9650,7 +9668,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CScriptedBrainTaskStore` | 4 | 0 | 4 | 0 |
 | `CScriptsForBrains` | 11 | 0 | 11 | 0 |
 | `CSearchLight` | 1 | 0 | 1 | 0 |
-| `CSetPiece` | 3 | 0 | 3 | 0 |
+| `CSetPiece` | 7 | 0 | 7 | 0 |
 | `CSetPieces` | 5 | 0 | 5 | 0 |
 | `CSexyPedScanner` | 1 | 0 | 1 | 0 |
 | `CShadowCamera` | 19 | 0 | 19 | 0 |
@@ -10015,6 +10033,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CVehiclePotentialCollisionScanner` | 1 | 0 | 1 | 0 |
 | `CVehicleRecording` | 29 | 0 | 29 | 0 |
 | `CVehicleSaveStructure` | 2 | 0 | 2 | 0 |
+| `CVehicleScanner` | 1 | 0 | 1 | 0 |
 | `CVisibilityPlugins` | 84 | 0 | 84 | 0 |
 | `CWanted` | 33 | 0 | 33 | 0 |
 | `CWaterCannon` | 5 | 0 | 5 | 0 |
@@ -10031,7 +10050,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CZoneDef` | 1 | 0 | 1 | 0 |
 | `C_PcSave` | 6 | 0 | 6 | 0 |
 | `CdStream` | 9 | 0 | 9 | 0 |
-| `Common` | 19 | 0 | 19 | 0 |
+| `Common` | 21 | 0 | 21 | 0 |
 | `CompressedVector` | 1 | 0 | 1 | 0 |
 | `D3DIndexDataBuffer` | 3 | 0 | 3 | 0 |
 | `D3DResourceSystem` | 12 | 0 | 12 | 0 |
