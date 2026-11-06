@@ -66,7 +66,7 @@
   "log_sha256": "2cb436526ae8857df951e1bfc7e579c7770c0c3a97f11d04d5a42d915d033b5d",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks10\\20261003-050225-594981",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks10\\20261106-051953-176763",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleCarCloseDoorFromOutside::Clone": true,
@@ -122,30 +122,31 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "988d5d169cf58e547e98b5d86fa56ad7d91a32129d6b981731cd2863869e45a9",
-      "pdb": "ef290bf6c61a14bcb86454f0a9ea8448f5a5b205db3e4080cb6f9dd6031512d0"
+      "asi": "5cbaaad002fe27bc2bb05c8a07e33338f4de34baf04419a1fa6adf9fb6aa53e1",
+      "pdb": "b9780adeb8d8f002f280c5f14db16299bd9ffa2244f3fe49efe431dcc103273d"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromOutside.cpp": "6f7f61c0ab8c7b935df55ed020161248a8b8bab9c57d6e68b4ef24b4687f87c5",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromOutside.cpp": "a68be15f08962c8b1074014051f051eb250bdb377f390ab5996fa81152684178",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromOutside.h": "604cd38546f3b4d9fb25251d54f8c820eecc495bbaeef37462f81556fb2fc544",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetOut.cpp": "f33a7e82eac5791924fd934be3db7697a9f0082a742d6bf73804829cf84cd9c9",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetOut.cpp": "72235153669f2091b9def4abb8ac088988b1a6eb6ed19a5bd0b7ba03e9ddf4cb",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetOut.h": "3a1782865f512e1495a7b96cbd86fc80600dc6bcf4ef9fedd958f323e3e6f126",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarJumpOut.cpp": "ff6171be1d495ba197ffdf064d2f4bd04cac3b155a7280dd5c232622a43e8acc",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarJumpOut.cpp": "0d00e702fb16804527c2c37b6a65bd0927b2130b9c25e30f540ad27368c76c32",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarJumpOut.h": "c0150fafb2edb121a6d6970c7d358e007b73718ecffadf21fefd5ce269de47a6",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarOpenDoorFromOutside.cpp": "c498d196a9a46a2a0f4a0ef5ad2c6afb17dc27218c28b337bcb227cebbc231d5",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarOpenDoorFromOutside.cpp": "02880ca1b569256f5ededaa74c9d0db7d3a815f3d71d6b9ed2c1eb74539ff1f7",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarOpenDoorFromOutside.h": "37eee3112708d35bf861ca02da62e5c962f61a0ad9ca0952598a6589b52a111a",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowDragPedOut.cpp": "47a02a5a8677d4a58a73cb1a07f2b7d99d9b41342f2cc0d140f2f95a1ff3528f",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowDragPedOut.cpp": "f9d64df2d3d4801f1d3199e945b9487fae0727f300ef94502a15e75a08080aa3",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowDragPedOut.h": "7569ae8f19d34b97b69a9f926805e3a2d59ee3f7b822a3ab57b7c49344e78cda"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "6e12908e8906e1fb693e8309581b761b9c75874da563ae5ad3400a73b11fae3d",
+      "LiveComparison.hpp": "12aaa147815cead170c8086f5585f2c2eb9d8a7e69c4502a9a8e9eb9a78c6681",
       "build_probe.py": "7524dc6a63958037b55ecf546094baaf1b5de661ba750b60031c57c3d8548c82",
       "run_local.py": "662bf840e46e82696ec9876ed2eb3b3c619e9278c613ec3ce18eca1ce3d362f1"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

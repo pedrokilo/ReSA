@@ -16,24 +16,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261105-233920-974466",
-  "summary_sha256": "8241dda76c66e24c63df66bcf50d4c297ca4dec70d48523ee1996105ea969ddf",
-  "result_txt_sha256": "335d8af3edd0a6c4cceff6f2686a13ecd3f709db3239feef84312c9c1db8372a",
-  "log_sha256": "31b6dac4acb8d3a3d00e8fb84d0042bce76512b5ba750778ceaccab462b5929b",
+  "run": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261106-050455-097547",
+  "summary_sha256": "9842db15b7f50abc46a5a4b4e25cd8bc4b2f24ed55e1ac29493a2806a8524f87",
+  "result_txt_sha256": "9ccb6bae40bded6e97baca02e3781a1c6477f7e41044ce267b49664300e73d8f",
+  "log_sha256": "517816556d1848b3ae6be9bd993019e14438226f274202e182d02348fd1d09b1",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "9887f33527113250623720ccad3444223f64443e8439f31ba75929f97b5877e0",
+  "executed_probe_sha256": "fd7efb9da30bcab52eab736c0773064e5e283a4ca7e4bcbf9cf449f09915aa1a",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "ed52935c90500de84acda62494be85acb4bb958bddff16a33ef6b2b85a8ef281",
-      "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+      "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+      "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
       "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-      "source/game_sa/X87Math.cpp": "9fb7c331ba9cfdcf64a49980fcbc8cfc199849c61590bd62d8ff40fd4256eb9b",
-      "source/game_sa/X87Math.h": "c8770690950e8d458256f493310e103c79d1a4a75b80505561c22f8dd8e40459",
+      "source/game_sa/X87Math.cpp": "23737b509143d99d4ae8843f68d8bab54042b3681a858f3002d5c143d4896b42",
+      "source/game_sa/X87Math.h": "c191de8f199e3f3750c6d02ab2c6e49f6bdf4e7d2a1cb4315667faa2d5457c6c",
       "source/game_sa/Pathfind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
       "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -47,10 +47,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261105-233920-974466/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/AutomobileWrappers60-20261106-050455-097547/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "b5cd68629fb5ce6d081f1c987612520e789e923cb9efec212e0161a619f25cc6",
-    "uncompressed_sha256": "31b6dac4acb8d3a3d00e8fb84d0042bce76512b5ba750778ceaccab462b5929b"
+    "compressed_sha256": "43128a08788cca4df12cb7a7fdbc632c2d3ca95c463a322a56cd47e89345b268",
+    "uncompressed_sha256": "517816556d1848b3ae6be9bd993019e14438226f274202e182d02348fd1d09b1"
   }
 }

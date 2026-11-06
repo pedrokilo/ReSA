@@ -49,7 +49,7 @@
   "log_sha256": "12abd6d2f3599b779eb7ee4c059c344cbb4d5dd0a38b7973e302d8ed32ccc5d7",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-renderer33\\20261104-102204-181011",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-renderer33\\20261106-045836-575955",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CRenderer::RenderFadingInEntities": true,
@@ -88,8 +88,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "ed71d28b34fec40d4a8c236937411c77bdb900bf68a063115388eefb078fb2c2",
-      "pdb": "405e334079c630cde1b360b4997feae3c716ae35061e89139d4b42f8284ccd45"
+      "asi": "e20fa11dd55a59a4ad562db281fb62af25405956dacf3223c9c4ed2562069c05",
+      "pdb": "4cda76753b66b1d32a7f4803f91d0a9ce1bca3de08e5f192a0ccb41ab76f766d"
     },
     "sources": {
       "source/game_sa/Renderer.cpp": "5988d89b4f231cd20816ea1a262b02d514cf4a8fce3201caa43bc60d0f691e05",

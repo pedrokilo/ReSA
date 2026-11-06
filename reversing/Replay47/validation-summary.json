@@ -63,7 +63,7 @@
   "log_sha256": "aa3e053c4eaf5b3fc0aae3668634a8c689b28ee6371ea5e25ae92379cc8926f2",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-replay47\\20261005-092407-455448",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-replay47\\20261106-050104-339028",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CReplay::CanWeFindPoolIndexForPed": true,
@@ -116,25 +116,26 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "2467e0ecf5b2d65014bcd3c2f3202ed5248eed52b223844803194fc9d2022ed8",
-      "pdb": "cef1b68e56f28db477386ac95593a80edba24267c872b0ea2acd7a5bd4ad8ec4"
+      "asi": "437f3d390a30f0a7646f0b6d51e96dfe3b2cbad0c6943696c4730a44b8e408cf",
+      "pdb": "f6833912a208aafa9cb346152fe520b2de8a7e697707fa72fec8c20138e00f9d"
     },
     "sources": {
-      "source/game_sa/Replay.cpp": "1b315f97285d70e5b344d1ecfa7d03a5c6f597dda3a37f98cc01eb7f2a5a6d77",
+      "source/game_sa/Replay.cpp": "e8eab1443f86a11639d93d2cec1590d191e253e791cc79495635d5e6ab99c43b",
       "source/game_sa/Replay.h": "604f7f7bcdd0f6268dc59df5cb63f875c0f359dac675dea05c0c82d39f91591d",
       "source/game_sa/ReplayBlockType.h": "1638b5687e98d5afc27ae61805e8a1873443451e7a10e8d0b04e79aca2110557",
       "source/game_sa/ReplayBlockType.cpp": "05391419fe6afdf8feac0653deb3bdedb3ac32bb0c9621ea0d4fc49a79860c52",
-      "source/game_sa/PlayerInfo.cpp": "37ac0439d6e185b455f05180386d6472a2784c8671bba1e7fe232497eda25752"
+      "source/game_sa/PlayerInfo.cpp": "40ec669bed4ead1462276c425ac8aaebf4af2ca2b042c6d4b12bcf2119c2300f"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "e7c1b0e015661953c2454579ef3a03937927c2bca3c9d1e63c5ac12353643142",
+      "LiveComparison.hpp": "92d3024d1a4055ec88b6df98c80b6d65258aecc02f739ca201bc6d4d7ce4f578",
       "build_probe.py": "cc02e584b33897f4bfbbe726838b1f078806553f806c19a5b57f9212a20a6687",
       "run_local.py": "d82c9e43fc984b2db5e171f6776b896ccf58335304d2e80cb3b160936e5ad8f7"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

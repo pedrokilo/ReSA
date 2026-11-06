@@ -34,7 +34,7 @@
   "log_sha256": "dafccf4a6eec30c9db01bbda4ba5a2f2739e1e4a742a91ca3010329a65d6e33d",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gun19\\20261003-205249-726256",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gun19\\20261106-050931-529441",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleUseGun::AbortIK": true,
@@ -58,14 +58,14 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "61416df0cfbf48bbbf81a4cb3966df82f7e99cbb68707eb926f4df7bd8749553",
-      "pdb": "53f69b645663b58598a35edb62c4729fa29e0683c6bb51e9849786f82ea9742c"
+      "asi": "e4d579780dfd5f6934efa48875d9fd7fdde6a1be0e55a8fc1363a9b62cd048cd",
+      "pdb": "8e064f634129015f07c7cb3f177a5bf33a88e6c59027e632d18e54dd5779b8f2"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp": "11e8a75b6e432f98eae22826a26a99bbfea051465ad7e55319d2ce979e8c8cef",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp": "a79a33ef432c49892523b9117e87aea916daf04cd1d73cc3baebfaa472609448",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "8df569230d27e89180cc186e2a2684397e678068d68193ddca07aba5349e8527",
       "build_probe.py": "f5bfb9cb680a860ce70ebf70b2c1dafa7ef1c128e83b7efdfbc7d2139342b265",
@@ -74,6 +74,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

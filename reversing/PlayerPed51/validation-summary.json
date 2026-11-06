@@ -63,10 +63,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "0abcae5ee6ed583ed4302d3b43d5c6a161099fc9881a4bde21be91037382e2d5",
+  "log_sha256": "6cb15cc0f4e4d5e82be1ec3b686ed186d4fca720aa602fb783948242e0a0195f",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-playerped51\\20261103-133343-877349",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-playerped51\\20261106-042014-879711",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPlayerPed::AnnoyPlayerPed": true,
@@ -122,12 +122,12 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "f346e3868c823b62a6c02ff621d432e6d4ace88d12f27026682c476416466331",
-      "pdb": "991f424a83733dad6fb0881592fc6b2b151f18dc9680b679c4d0658fbad532e0"
+      "asi": "00dcb2129c3423185430d3888d56a92d5efa44d32052da0d9c75653285a96a99",
+      "pdb": "7471109a9fd2092b6249c1cd55d4332962a2edd4ed8434153b828b33286ea53a"
     },
     "sources": {
-      "source/game_sa/Entity/Ped/PlayerPed.cpp": "8dceb4bbfeff2ecbc005bbd55841e41d318374b745643eaf5ed693ccc2d1ea3f",
-      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015"
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {

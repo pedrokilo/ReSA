@@ -40,10 +40,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "0229f147ceb9ed26e076167302107bdb1e05ec10a7c258968e6ae805914b6466",
+  "log_sha256": "99a41b13c17e29821238b99cfc856986b9ed3fec1cc350fbe2d9a7778421b5e5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gamelogic27\\20261004-104108-272335",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gamelogic27\\20261106-042431-942296",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CGameLogic::CalcDistanceToForbiddenTrainCrossing": true,
@@ -76,11 +76,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "ab60c346f9de68c598b3bd9343506aef43c77249fe18ecf871bc9bd900fb7daf",
-      "pdb": "9a5cbd08c9c1ff749f1c9f2e6fccdad170cdbff1d9d66249666584327ba0cbe1"
+      "asi": "c6a749183f0f794f1adba5b1d680cc11e430e01b91505d8dab362abc72f7b47e",
+      "pdb": "eb38fe7cf3247b0ecc4cb5c376aac31e167468472b2bffd0a605ca188e75f4ce"
     },
     "sources": {
-      "source/game_sa/GameLogic.cpp": "b5e4957c6308b5b885ed911796fd773f4f48132b74da72302ffcf1b6c82b3d2a",
+      "source/game_sa/GameLogic.cpp": "0ec6c7cab71b4d52b11c9e54cbd7de10640d757605fb6ecddef95273d946bc11",
       "source/game_sa/GameLogic.h": "e615c702306154b8d0ce8c544c06def27bbff416a8f2ba9278ff7dcc47121af3"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
@@ -92,6 +92,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

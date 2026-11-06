@@ -101562,7 +101562,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::AddShakeSimple"
@@ -101588,7 +101588,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::AllowShootingWith2PlayersInCar"
@@ -101614,7 +101614,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::ApplyVehicleCameraTweaks"
@@ -101640,7 +101640,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::CalculateGroundHeight"
@@ -101666,7 +101666,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::CalculateMirroredMatrix"
@@ -101692,7 +101692,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::CamShake"
@@ -101718,7 +101718,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::CamShakeNoPos"
@@ -101744,7 +101744,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::CameraGenericModeSpecialCases"
@@ -101770,7 +101770,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::CameraPedAimModeSpecialCases"
@@ -101796,7 +101796,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::CameraPedModeSpecialCases"
@@ -101822,7 +101822,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::CameraVehicleModeSpecialCases"
@@ -101848,7 +101848,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::ClearPlayerWeaponMode"
@@ -101874,7 +101874,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::ConeCastCollisionResolve"
@@ -101900,7 +101900,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::ConsiderPedAsDucking"
@@ -101926,7 +101926,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::Constructor"
@@ -101952,7 +101952,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::DealWithMirrorBeforeConstructRenderList"
@@ -101978,7 +101978,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::DeleteCutSceneCamDataMemory"
@@ -102004,7 +102004,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::DontProcessObbeCinemaCamera"
@@ -102030,7 +102030,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::DrawBordersForWideScreen"
@@ -102056,7 +102056,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::Enable1rstPersonCamCntrlsScript"
@@ -102082,7 +102082,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::Enable1rstPersonWeaponsCamera"
@@ -102108,7 +102108,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::Fade"
@@ -102134,7 +102134,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::Find3rdPersonCamTargetVector"
@@ -102160,7 +102160,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::Find3rdPersonQuickAimPitch"
@@ -102186,7 +102186,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::FindCamFOV"
@@ -102212,7 +102212,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::FinishCutscene"
@@ -102238,7 +102238,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetArrPosForVehicleType"
@@ -102264,7 +102264,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetCutSceneFinishTime"
@@ -102290,7 +102290,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetFading"
@@ -102316,7 +102316,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetFadingDirection"
@@ -102342,7 +102342,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetGameCamPosition"
@@ -102368,7 +102368,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetLookDirection"
@@ -102394,7 +102394,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetLookingForwardFirstPerson"
@@ -102420,7 +102420,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetLookingLRBFirstPerson"
@@ -102446,7 +102446,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetPositionAlongSpline"
@@ -102472,7 +102472,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetRoughDistanceToGround"
@@ -102498,7 +102498,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetScreenFadeStatus"
@@ -102524,7 +102524,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::GetScreenRect"
@@ -102550,7 +102550,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::Get_Just_Switched_Status"
@@ -102576,7 +102576,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::Init"
@@ -102602,7 +102602,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::InitCameraVehicleTweaks"
@@ -102628,7 +102628,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::InitialiseCameraForDebugMode"
@@ -102654,7 +102654,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::InitialiseScriptableComponents"
@@ -102680,7 +102680,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::IsExtraEntityToIgnore"
@@ -102706,7 +102706,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::LerpFOV"
@@ -102732,7 +102732,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessFOVLerp-1"
@@ -102758,7 +102758,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessFade"
@@ -102784,7 +102784,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessMusicFade"
@@ -102810,7 +102810,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessObbeCinemaCameraPed"
@@ -102836,7 +102836,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessScriptedCommands"
@@ -102862,7 +102862,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::ProcessWideScreenOn"
@@ -102888,7 +102888,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::RenderMotionBlur"
@@ -102914,7 +102914,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::ResetDuckingSystem"
@@ -102940,7 +102940,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::Restore"
@@ -102966,7 +102966,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::RestoreCameraAfterMirror"
@@ -102992,7 +102992,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::RestoreWithJumpCut"

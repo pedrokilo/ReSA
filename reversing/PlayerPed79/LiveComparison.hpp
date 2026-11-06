@@ -42,7 +42,7 @@
 
 // Banco par a par PlayerPed79 dentro del juego: Update() se llama desde CGame::Process (probe_build.py). Todo el nucleo esta en Core.hpp.
 // Funcion 0: CPlayerPed::SetInitialState (0x60CD20, hook S). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en la direccion del EXE y, si tienen hook, en el cuerpo
-// de la DLL): CMBlur::ClearDrunkBlur 0x71D780 (sin hook), CPed::ClearAimFlag 0x5DEF20, ClearLookFlag 0x5E1950, CFire::Extinguish 0x5393F0, CPed::SetPedState 0x5E4500, SetMoveState 0x5DEC00,
+// de la DLL): CMBlur::ClearDrunkBlur 0x71D780 (con hook RH desde el lote 108A), CPed::ClearAimFlag 0x5DEF20, ClearLookFlag 0x5E1950, CFire::Extinguish 0x5393F0, CPed::SetPedState 0x5E4500, SetMoveState 0x5DEC00,
 // CPedIntelligence::FlushIntelligence 0x601DA0, RpAnimBlendClumpRemoveAllAssociations 0x4D6C00, CTask::operator new 0x61A5A0, CTaskManager::SetTask 0x681AF0 y SetTaskSecondary 0x681B60,
 // CPlayerPed::SetRealMoveAnim 0x60A9C0 (sin hook), CPedGroupIntelligence::SetDefaultTaskAllocatorType 0x5FBB70, CEventEditableResponse::ComputeResponseTaskType(grupo) 0x4B57A0 y WillRespond 0x4AC490,
 // CEvent::operator new/delete 0x4B5620 / 0x4B5630 (sin hook), CPedGroupIntelligence::AddEvent 0x5F7470, CPlayerPedData::SetInitialState 0x56F210, CEntity::RegisterReference 0x571B70 y
@@ -271,7 +271,7 @@ inline void Update() {
     ready&=env.route[0]->Registered()&&env.route[0]->Body()&&ModuleOf(env.route[0]->Body())==env.asi;
     ready&=drunkBody&&aimBody&&lookBody&&fireBody&&stateBody&&moveBody&&flushBody&&assocBody&&taskNewBody&&setTaskBody&&realMoveBody&&setTask2Body&&allocBody&&computeBody&&willBody&&eventNewBody
          &&eventDeleteBody&&addEventBody&&playerDataBody&&registerBody&&cleanBody&&randBody;
-    env.stubs[0]={{Pair{0x71D780,drunkBody,false},reinterpret_cast<void*>(&FakeDrunk)},
+    env.stubs[0]={{Pair{0x71D780,drunkBody,true},reinterpret_cast<void*>(&FakeDrunk)},
                   {Pair{0x5DEF20,aimBody,true},reinterpret_cast<void*>(&FakeClearAim)},
                   {Pair{0x5E1950,lookBody,true},reinterpret_cast<void*>(&FakeClearLook)},
                   {Pair{0x5393F0,fireBody,true},reinterpret_cast<void*>(&FakeExtinguish)},

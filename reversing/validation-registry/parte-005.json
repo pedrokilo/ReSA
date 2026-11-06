@@ -10,7 +10,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCamCollisionVarDataSet"
@@ -36,7 +36,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCamCutSceneOffSet"
@@ -62,7 +62,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCamPositionForFixedMode"
@@ -88,7 +88,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyBehindForFollowPed_CamOnAString"
@@ -114,7 +114,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyBehindForFollowPed_ForAPed_CamOnAString"
@@ -140,7 +140,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyInFrontForFollowPed_CamOnAString"
@@ -166,7 +166,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyInFrontForFollowPed_ForAPed_CamOnAString"
@@ -192,7 +192,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraUpForMirror"
@@ -218,7 +218,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetColVarsAimWeapon"
@@ -244,7 +244,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetColVarsPed"
@@ -270,7 +270,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetColVarsVehicle"
@@ -296,7 +296,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetFadeColour"
@@ -322,7 +322,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetMotionBlur"
@@ -348,7 +348,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetMotionBlurAlpha"
@@ -374,7 +374,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetNearClipScript"
@@ -400,7 +400,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetNewPlayerWeaponMode"
@@ -426,7 +426,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetParametersForScriptInterpolation"
@@ -452,7 +452,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetPercentAlongCutScene"
@@ -478,7 +478,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetRwCamera"
@@ -504,7 +504,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetWideScreenOff"
@@ -530,7 +530,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetWideScreenOn"
@@ -556,7 +556,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetZoomValueCamStringScript"
@@ -582,7 +582,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetZoomValueFollowPedScript"
@@ -608,7 +608,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::StartCooperativeCamMode"
@@ -634,7 +634,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::StartTransition"
@@ -660,7 +660,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::StartTransitionWhenNotFinishedInter"
@@ -686,7 +686,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::StopCooperativeCamMode"
@@ -712,7 +712,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::StoreValuesDuringInterPol"
@@ -738,7 +738,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControl"
@@ -764,7 +764,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControlAttachToEntity"
@@ -790,7 +790,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControlNoEntity"
@@ -816,7 +816,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControlWithSpline"
@@ -842,7 +842,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::UpdateAimingCoors"
@@ -868,7 +868,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::UpdateTargetEntity"
@@ -894,7 +894,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::Using1stPersonWeaponMode"
@@ -21984,7 +21984,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileWrappers60/validation-summary.json",
-        "sha256": "27cc0d7185e5c3d71a84cc8bc7088aec72ce5d32d94f84c3b0967def22130744",
+        "sha256": "90a3531259a4d8aa61dbdfe6b2ab364740fdce2bf0463aaa23c1e6acda00b263",
         "passed_path": [
           "covered_functions",
           "CAutomobile::HasCarStoppedBecauseOfLight"
@@ -21994,11 +21994,11 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "ed52935c90500de84acda62494be85acb4bb958bddff16a33ef6b2b85a8ef281",
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-        "source/game_sa/X87Math.cpp": "9fb7c331ba9cfdcf64a49980fcbc8cfc199849c61590bd62d8ff40fd4256eb9b",
-        "source/game_sa/X87Math.h": "c8770690950e8d458256f493310e103c79d1a4a75b80505561c22f8dd8e40459",
+        "source/game_sa/X87Math.cpp": "23737b509143d99d4ae8843f68d8bab54042b3681a858f3002d5c143d4896b42",
+        "source/game_sa/X87Math.h": "c191de8f199e3f3750c6d02ab2c6e49f6bdf4e7d2a1cb4315667faa2d5457c6c",
         "source/game_sa/Pathfind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -22062,7 +22062,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileWrappers60/validation-summary.json",
-        "sha256": "27cc0d7185e5c3d71a84cc8bc7088aec72ce5d32d94f84c3b0967def22130744",
+        "sha256": "90a3531259a4d8aa61dbdfe6b2ab364740fdce2bf0463aaa23c1e6acda00b263",
         "passed_path": [
           "covered_functions",
           "CAutomobile::UpdateWheelMatrix"
@@ -22072,11 +22072,11 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "ed52935c90500de84acda62494be85acb4bb958bddff16a33ef6b2b85a8ef281",
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-        "source/game_sa/X87Math.cpp": "9fb7c331ba9cfdcf64a49980fcbc8cfc199849c61590bd62d8ff40fd4256eb9b",
-        "source/game_sa/X87Math.h": "c8770690950e8d458256f493310e103c79d1a4a75b80505561c22f8dd8e40459",
+        "source/game_sa/X87Math.cpp": "23737b509143d99d4ae8843f68d8bab54042b3681a858f3002d5c143d4896b42",
+        "source/game_sa/X87Math.h": "c191de8f199e3f3750c6d02ab2c6e49f6bdf4e7d2a1cb4315667faa2d5457c6c",
         "source/game_sa/Pathfind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -30557,7 +30557,7 @@
       },
       "evidence": {
         "path": "reversing/PlayerPed79/validation-summary.json",
-        "sha256": "4b4cb199e39bbbc9e4e32ac9f0a27c11336b5370ccc52dddf0d641bddaad5b33",
+        "sha256": "40d33d6052fccf3b47f93e01e08ad896ee79cc32215ba410cb086e198a91e5b4",
         "passed_path": [
           "covered_functions",
           "CPlayerPed::SetInitialState"
@@ -30568,13 +30568,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
         "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
         "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc",
+        "source/game_sa/X87Math.cpp": "23737b509143d99d4ae8843f68d8bab54042b3681a858f3002d5c143d4896b42",
+        "source/game_sa/X87Math.h": "c191de8f199e3f3750c6d02ab2c6e49f6bdf4e7d2a1cb4315667faa2d5457c6c",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/PlayerPed79/LiveComparison.hpp": "8efdd265c2a8016fd88e51a3af5f7cb454601c87d71571c856fe52cfc593ff17",
+        "reversing/PlayerPed79/LiveComparison.hpp": "bdc10b37274173b55169b790336f4987e31f1c1e005c07846bab63a0ebb9e74f",
         "reversing/PlayerPed79/Core.hpp": "549a4820ba402d6db51cfe84b71ce33ea3ea27a27cf03aefdd8fe04c143c1a2e",
         "reversing/PlayerPed79/Fixtures.hpp": "a9343506eb92ce9f2143159e2cb2292c462971d958aa6894759a367ba887a8b9",
         "reversing/PlayerPed79/Fixtures1.hpp": "bd6d038c9f252a59d5d38e6bd6cc247220b09892eae449bf20091f41898d9be4",
@@ -30596,7 +30596,7 @@
       },
       "evidence": {
         "path": "reversing/PlayerPed79/validation-summary.json",
-        "sha256": "4b4cb199e39bbbc9e4e32ac9f0a27c11336b5370ccc52dddf0d641bddaad5b33",
+        "sha256": "40d33d6052fccf3b47f93e01e08ad896ee79cc32215ba410cb086e198a91e5b4",
         "passed_path": [
           "covered_functions",
           "CPlayerPed::FindWeaponLockOnTarget"
@@ -30607,13 +30607,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
+        "source/InjectHooksMain.cpp": "1114f379e25031e6f271f7e55c2d7edd4c778d1d0c238911cb12b84089fdc3e5",
         "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
         "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc",
+        "source/game_sa/X87Math.cpp": "23737b509143d99d4ae8843f68d8bab54042b3681a858f3002d5c143d4896b42",
+        "source/game_sa/X87Math.h": "c191de8f199e3f3750c6d02ab2c6e49f6bdf4e7d2a1cb4315667faa2d5457c6c",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/PlayerPed79/LiveComparison.hpp": "8efdd265c2a8016fd88e51a3af5f7cb454601c87d71571c856fe52cfc593ff17",
+        "reversing/PlayerPed79/LiveComparison.hpp": "bdc10b37274173b55169b790336f4987e31f1c1e005c07846bab63a0ebb9e74f",
         "reversing/PlayerPed79/Core.hpp": "549a4820ba402d6db51cfe84b71ce33ea3ea27a27cf03aefdd8fe04c143c1a2e",
         "reversing/PlayerPed79/Fixtures.hpp": "a9343506eb92ce9f2143159e2cb2292c462971d958aa6894759a367ba887a8b9",
         "reversing/PlayerPed79/Fixtures1.hpp": "bd6d038c9f252a59d5d38e6bd6cc247220b09892eae449bf20091f41898d9be4",

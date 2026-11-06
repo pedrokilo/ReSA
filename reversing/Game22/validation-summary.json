@@ -38,7 +38,7 @@
   "log_sha256": "2bfd5dad4b318aa6d1a3496c9636fd12432f0aa56f08bfd83b6f8cac5d6eaffc",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-game22\\20261003-233052-658390",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-game22\\20261106-041825-799314",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CGame::CanSeeOutSideFromCurrArea": true,
@@ -66,15 +66,15 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "57b2e245b8c0d771a79f0134fb49cab2637d4a3d82d2daacb5ae0e2e3239f69e",
-      "pdb": "eb11c9698f24e4db2d5f5c0843fa1d5b5800b22fac0b83658b1f448b238a1a19"
+      "asi": "c1df3980efbd9b07db39fc75ad1c418dd3d6735b7a406b2bb3b6504e8a33aa76",
+      "pdb": "0e836b818e458560a02073770a19376998b1696d84dcfc5fb1c978c8db4ae5bf"
     },
     "sources": {
-      "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+      "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
       "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
       "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
     },
-    "game_cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "cf09321b518818da823fed99ecabbe2d7dccf79df09c25db29fe0dadbe91e841",
       "build_probe.py": "f0a36a1ae590717851684338f228cd674f09c943a14d9af5976e77f899c8cd28",
@@ -83,6 +83,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
