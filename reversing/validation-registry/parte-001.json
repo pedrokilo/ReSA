@@ -6782,7 +6782,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::Roadsign_GetNumLinesFromFlags"
@@ -6809,7 +6809,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::Roadsign_GetNumLettersFromFlags"
@@ -6836,7 +6836,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::Roadsign_GetPaletteIDFromFlags"
@@ -6863,7 +6863,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::Shutdown"
@@ -6890,7 +6890,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::DestroyAtomic"
@@ -6917,7 +6917,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::PluginAttach"
@@ -6944,7 +6944,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::RpGeometryGet2dFxCount"
@@ -6971,7 +6971,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::RpGeometryGet2dFxAtIndex"
@@ -6998,7 +6998,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::t2dEffectPluginConstructor"
@@ -7025,7 +7025,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::t2dEffectPluginDestructor"
@@ -7052,7 +7052,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::t2dEffectPluginCopyConstructor"
@@ -7079,7 +7079,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::Rwt2dEffectPluginDataChunkReadCallBack"
@@ -7106,7 +7106,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::Rwt2dEffectPluginDataChunkWriteCallBack"
@@ -7133,7 +7133,7 @@
       },
       "evidence": {
         "path": "reversing/TwoDEffect/validation-summary.json",
-        "sha256": "e49824277d5c3c8a57cda217762e1deaa6a8e64a7398dcb77458561f1cfc16fb",
+        "sha256": "627fd6fefb33b67084b6e4e8dabe7b5492d236de5a2e3132590037acb5427ca2",
         "passed_path": [
           "covered_functions",
           "C2dEffect::Rwt2dEffectPluginDataChunkGetSizeCallBack"

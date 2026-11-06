@@ -75,7 +75,7 @@ inline void Update() {
         using namespace ReversingProbe;
         EntryPatch a1(0x74CD70,RegPlugin), a2(0x74CDA0,RegStream), a3(0x7F3AC0,TexRead), a4(0x7F3820,TexDestroy);
         EntryPatch a5(std::bit_cast<uintptr_t>(static_cast<void*(*)(uint32,uint32)>(&CMemoryMgr::Malloc)),Malloc), a5e(0x72F420,Malloc), a6(std::bit_cast<uintptr_t>(&CMemoryMgr::Free),Free), a6e(0x72F430,Free);
-        EntryPatch a7(0x74BF20,AtomicSetFrame), a8(0x749DC0,AtomicDestroy), a9(0x7F05A0,FrameDestroy);
+        EntryPatch a7(0x74BF20,AtomicSetFrame), a7d(reinterpret_cast<uintptr_t>(&RpAtomicSetFrame),AtomicSetFrame), a8(0x749DC0,AtomicDestroy), a9(0x7F05A0,FrameDestroy);
         for(size_t f=0;f<fns.size();++f) {
             const auto& fn=fns[f]; int failures=0;
             for(int i=0;i<fn.cases;++i) {

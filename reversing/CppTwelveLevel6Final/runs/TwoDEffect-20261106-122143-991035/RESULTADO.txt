@@ -1,0 +1,3 @@
+APROBADO: C2dEffect
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-twod\20261106-122143-991035
