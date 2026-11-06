@@ -48,10 +48,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "61fe1595c355d04bac992ef573f0e73f144649b4657b3faa30fc86ecfc0f6062",
+  "log_sha256": "2e42a250ebb36453c7668488f1bd74e12398450e839ff8695ad566ec18176634",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cutscene35\\20261106-042208-016827",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cutscene35\\20261106-053110-995610",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CCutsceneMgr::AddCutsceneHead": true,
@@ -92,8 +92,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "104e9a79ee6e45d84a892780747376f5eab03b05496b6df9335409f75db26c0c",
-      "pdb": "21885e1b707f8ad819b238d1356c6bafd261ef40b43f4f7e218b21134bc59b4e"
+      "asi": "192dafa60142de8023846df0d3da73a96d0f7fa483900799f03a18b242e840c7",
+      "pdb": "f23210d890f2083973ebb9cefb40617cf116987d9a163b528ca33eadb78043f1"
     },
     "sources": {
       "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
@@ -101,7 +101,7 @@
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "5a2ea30d63cffe0584d8474e0b18a7bdea56d5901f5dcd57a9206f8b9acc66f4",
+      "LiveComparison.hpp": "69955e66c77e0c8cdab9577cfd496af9639e2e2763bbd8ccedaecfd1233e664c",
       "build_probe.py": "bab1b5dcb9f9df31ee7b743756236c538e43034be4b3d1190699652e189a6fb0",
       "run_local.py": "61520c8be4f8bc163ecce96659aaf16c8489aaba48e2eb64c48cccb050316659"
     }

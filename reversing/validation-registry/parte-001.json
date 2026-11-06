@@ -156005,7 +156005,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::AddCutsceneHead"
@@ -156031,7 +156031,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::AppendToNextCutscene"
@@ -156057,7 +156057,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::AttachObjectToBone"
@@ -156083,7 +156083,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::AttachObjectToFrame"
@@ -156109,7 +156109,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::AttachObjectToParent"
@@ -156135,7 +156135,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::BuildCutscenePlayer"
@@ -156161,7 +156161,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::CalculateBoundingSphereRadiusCB"
@@ -156187,7 +156187,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::UpdateCutsceneObjectBoundingBox"
@@ -156213,7 +156213,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::CreateCutsceneObject"
@@ -156239,7 +156239,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::DeleteCutsceneData"
@@ -156265,7 +156265,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::DeleteCutsceneData_overlay"
@@ -156291,7 +156291,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::FinishCutscene"
@@ -156317,7 +156317,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::GetCutsceneTimeInMilleseconds"
@@ -156343,7 +156343,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::HasCutsceneFinished"
@@ -156369,7 +156369,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::HideRequestedObjects"
@@ -156395,7 +156395,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::Initialise"
@@ -156421,7 +156421,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::IsCutsceneSkipButtonBeingPressed"
@@ -156447,7 +156447,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadAnimationUncompressed"
@@ -156473,7 +156473,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadCutsceneData"
@@ -156499,7 +156499,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadCutsceneData_loading"
@@ -156525,7 +156525,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadCutsceneData_overlay"
@@ -156551,7 +156551,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadCutsceneData_postload"
@@ -156577,7 +156577,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadCutsceneData_preload"
@@ -156603,7 +156603,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::LoadEverythingBecauseCutsceneDeletedAllOfIt"
@@ -156629,7 +156629,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::RemoveCutscenePlayer"
@@ -156655,7 +156655,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::RemoveEverythingBecauseCutsceneDoesntFitInMemory"
@@ -156681,7 +156681,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::SetCutsceneAnim"
@@ -156707,7 +156707,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::SetCutsceneAnimToLoop"
@@ -156733,7 +156733,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::SetHeadAnim"
@@ -156759,7 +156759,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::SetupCutsceneToStart"
@@ -156785,7 +156785,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::Shutdown"
@@ -156811,7 +156811,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::SkipCutscene"
@@ -156837,7 +156837,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::StartCutscene"
@@ -156863,7 +156863,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::Update"
@@ -156889,7 +156889,7 @@
       },
       "evidence": {
         "path": "reversing/Cutscene35/validation-summary.json",
-        "sha256": "94bbc035ddd7ada283731faedc58ff2a60840e27fdf965561e7acb25d32f8aaa",
+        "sha256": "156d339ecf6ae2198a10d59e71ee7c341987f6f5165ceb9ba696adddd6e6961f",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::Update_overlay"
