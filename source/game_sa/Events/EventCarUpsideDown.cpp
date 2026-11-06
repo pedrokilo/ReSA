@@ -20,9 +20,20 @@ END GENERATED HOOK STATUS */
 #include "EventCarUpsideDown.h"
 
 
+namespace {
+// 0x4B1D50 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventCarUpsideDown que usan los destructores del EXE. Deja la vtable de CEventCarUpsideDown del EXE (0x85B660), registra (no libera: asi lo hace el original) la referencia de m_vehicle (+0xC) con CEntity::RegisterReference (0x571B70) si no es nula
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall CarUpsideDownDestructorBody(CEventCarUpsideDown* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B660;
+    CEntity::SafeRegisterRef(self->m_vehicle);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventCarUpsideDown::InjectHooks() {
     RH_ScopedVirtualClass(CEventCarUpsideDown, 0x85B660, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(CarUpsideDownDestructorBody, "Destructor", 0x4B1D50);
 
     RH_ScopedInstall(Constructor, 0x4B1CC0);
     RH_ScopedVMTInstall(AffectsPed, 0x4B1DB0);

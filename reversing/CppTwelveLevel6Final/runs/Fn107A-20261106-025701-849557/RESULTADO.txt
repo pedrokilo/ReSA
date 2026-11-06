@@ -1,0 +1,3 @@
+APROBADO: Fn107A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn107a\20261106-025701-849557

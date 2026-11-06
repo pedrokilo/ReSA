@@ -20,10 +20,21 @@ END GENERATED HOOK STATUS */
 
 #include "EventVehicleOnFire.h"
 
+namespace {
+// 0x4B1170 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventVehicleOnFire que usan los destructores del EXE. Deja la vtable de CEventVehicleOnFire del EXE (0x85B440), libera la referencia de m_vehicle (+0x14) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall VehicleOnFireDestructorBody(CEventVehicleOnFire* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B440;
+    CEntity::SafeCleanUpRef(self->m_vehicle);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventVehicleOnFire::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventVehicleOnFire, 0x85B440, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(VehicleOnFireDestructorBody, "Destructor", 0x4B1170);
 
     RH_ScopedInstall(Constructor, 0x4B10C0);
     RH_ScopedVMTInstall(AffectsPed, 0x4B4FD0);

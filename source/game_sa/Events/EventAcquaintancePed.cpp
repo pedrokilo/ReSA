@@ -20,10 +20,21 @@ END GENERATED HOOK STATUS */
 #include "EventAcquaintancePed.h"
 
 
+namespace {
+// 0x4AF890 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventAcquaintancePed que usan los destructores del EXE. Deja la vtable de CEventAcquaintancePed del EXE (0x85B250), libera la referencia de m_AcquaintancePed (+0x14) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall AcquaintancePedDestructorBody(CEventAcquaintancePed* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B250;
+    CEntity::SafeCleanUpRef(self->m_AcquaintancePed);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventAcquaintancePed::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventAcquaintancePed, 0x85B250, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(AcquaintancePedDestructorBody, "Destructor", 0x4AF890);
 
     RH_ScopedInstall(Constructor, 0x4AF820);
     RH_ScopedVMTInstall(AffectsPed, 0x4AFA30);

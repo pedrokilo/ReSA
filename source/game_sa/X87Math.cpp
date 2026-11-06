@@ -18618,3 +18618,18 @@ __declspec(noinline) double __cdecl RoundToDecimalsCpp(float value, int digits) 
     return ip / ExeCompatiblePowCpp(10.0, double(digits));
 }
 #pragma float_control(pop)
+
+// Lote 107A (Fn107A).
+#pragma float_control(precise, on, push)
+// 0x50A120 (cdecl, `float*` y digitos en la pila, `ret`): pasa x, y y z del vector, por ese orden, a RoundToDecimals (0x50A0A0) con los mismos digitos y guarda cada resultado como float (`fstp dword`) antes de
+// leer el siguiente. Los valores viajan al colaborador como bits enteros (el EXE los empuja con `push` desde la memoria, sin pasar por la x87: un NaN senalizante no se vuelve silencioso).
+__declspec(noinline) void __cdecl RoundVectorToDecimalsCpp(float* v, int digits) {
+    using RoundByBits = double(__cdecl*)(unsigned int bits, int digits);
+    const RoundByBits round = reinterpret_cast<RoundByBits>(&RoundToDecimalsCpp);
+    for (int i = 0; i < 3; ++i) {
+        unsigned int bits;
+        memcpy(&bits, &v[i], sizeof(bits));
+        v[i] = static_cast<float>(round(bits, digits));
+    }
+}
+#pragma float_control(pop)

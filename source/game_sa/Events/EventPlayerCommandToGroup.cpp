@@ -20,10 +20,21 @@ END GENERATED HOOK STATUS */
 #include "EventPlayerCommandToGroup.h"
 
 
+namespace {
+// 0x4B2470 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventPlayerCommandToGroup que usan los destructores del EXE. Deja la vtable de CEventPlayerCommandToGroup del EXE (0x85B800), libera la referencia de m_target (+0x18) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall PlayerCommandToGroupDestructorBody(CEventPlayerCommandToGroup* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B800;
+    CEntity::SafeCleanUpRef(self->m_target);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventPlayerCommandToGroup::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventPlayerCommandToGroup, 0x85B800, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(PlayerCommandToGroupDestructorBody, "Destructor", 0x4B2470);
 
     RH_ScopedInstall(Constructor, 0x4B23D0);
     RH_ScopedVMTInstall(AffectsPedGroup, 0x4B24D0);

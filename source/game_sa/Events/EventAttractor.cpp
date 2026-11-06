@@ -22,10 +22,21 @@ END GENERATED HOOK STATUS */
 
 #include "Ragdoll/IKChainManager.h"
 
+namespace {
+// 0x4AF400 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventAttractor que usan los destructores del EXE. Deja la vtable de CEventAttractor del EXE (0x85B1B8), libera la referencia de m_entity (+0x18) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall AttractorDestructorBody(CEventAttractor* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B1B8;
+    CEntity::SafeCleanUpRef(self->m_entity);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventAttractor::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventAttractor, 0x85B1B8, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(AttractorDestructorBody, "Destructor", 0x4AF400);
 
     RH_ScopedInstall(Constructor, 0x4AF350);
     RH_ScopedVMTInstall(AffectsPed, 0x4AF4B0);

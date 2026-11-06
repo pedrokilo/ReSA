@@ -20,10 +20,21 @@ END GENERATED HOOK STATUS */
 #include "EventStuckInAir.h"
 
 
+namespace {
+// 0x4B1520 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventStuckInAir que usan los destructores del EXE. Deja la vtable de CEventStuckInAir del EXE (0x85B508), libera la referencia de m_ped (+0xC) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall StuckInAirDestructorBody(CEventStuckInAir* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B508;
+    CEntity::SafeCleanUpRef(self->m_ped);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventStuckInAir::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventStuckInAir, 0x85B508, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(StuckInAirDestructorBody, "Destructor", 0x4B1520);
 
     RH_ScopedInstall(Constructor, 0x4B1490);
     RH_ScopedVMTInstall(GetEventPriority, 0x4B1600);

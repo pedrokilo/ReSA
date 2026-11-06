@@ -20,9 +20,20 @@ END GENERATED HOOK STATUS */
 
 #include "EventDanger.h"
 
+namespace {
+// 0x4B26A0 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventDanger que usan los destructores del EXE. Deja la vtable de CEventDanger del EXE (0x85B848), libera la referencia de m_dangerFrom (+0x14) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall DangerDestructorBody(CEventDanger* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B848;
+    CEntity::SafeCleanUpRef(self->m_dangerFrom);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventDanger::InjectHooks() {
     RH_ScopedVirtualClass(CEventDanger, 0x85B848, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(DangerDestructorBody, "Destructor", 0x4B26A0);
 
     RH_ScopedInstall(Constructor, 0x4B2600);
     RH_ScopedVMTInstall(AffectsPed, 0x4B5470);

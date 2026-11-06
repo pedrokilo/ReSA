@@ -20,10 +20,21 @@ END GENERATED HOOK STATUS */
 #include "EventObjectCollision.h"
 
 
+namespace {
+// 0x4ACDD0 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventObjectCollision que usan los destructores del EXE. Deja la vtable de CEventObjectCollision del EXE (0x85ACA8), libera la referencia de m_object (+0x14) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall ObjectCollisionDestructorBody(CEventObjectCollision* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85ACA8;
+    CEntity::SafeCleanUpRef(self->m_object);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventObjectCollision::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventObjectCollision, 0x85ACA8, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(ObjectCollisionDestructorBody, "Destructor", 0x4ACDD0);
 
     RH_ScopedInstall(Constructor, 0x4ACCF0);
     RH_ScopedVMTInstall(AffectsPed, 0x4ACE30);

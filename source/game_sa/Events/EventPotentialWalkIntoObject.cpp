@@ -20,10 +20,21 @@ END GENERATED HOOK STATUS */
 #include "EventPotentialWalkIntoObject.h"
 
 
+namespace {
+// 0x4AE670 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventPotentialWalkIntoObject que usan los destructores del EXE. Deja la vtable de CEventPotentialWalkIntoObject del EXE (0x85AF18), libera la referencia de m_object (+0x14) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall PotentialWalkIntoObjectDestructorBody(CEventPotentialWalkIntoObject* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85AF18;
+    CEntity::SafeCleanUpRef(self->m_object);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventPotentialWalkIntoObject::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventPotentialWalkIntoObject, 0x85AF18, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(PotentialWalkIntoObjectDestructorBody, "Destructor", 0x4AE670);
 
     RH_ScopedInstall(Constructor, 0x4AE5D0);
     RH_ScopedVMTInstall(AffectsPed, 0x4B4950);

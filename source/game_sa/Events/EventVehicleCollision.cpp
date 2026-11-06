@@ -24,10 +24,21 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexWalkRoundCar.h"
 #include "TaskComplexHitPedWithCar.h"
 
+namespace {
+// 0x4AC920 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventVehicleCollision que usan los destructores del EXE. Deja la vtable de CEventVehicleCollision del EXE (0x85AC28), libera la referencia de m_vehicle (+0x14) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall VehicleCollisionDestructorBody(CEventVehicleCollision* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85AC28;
+    CEntity::SafeCleanUpRef(self->m_vehicle);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventVehicleCollision::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventVehicleCollision, 0x85AC28, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(VehicleCollisionDestructorBody, "Destructor", 0x4AC920);
 
     RH_ScopedInstall(Constructor, 0x4AC840);
     RH_ScopedVMTInstall(Clone, 0x4B6BC0);

@@ -2264,3 +2264,7 @@ float* __cdecl MatrixAdd103Cpp(float* out, const float* a, const float* b);
 double __cdecl CrtPowThunkCpp(float base, float exponent);
 // Redondeo a `digits` decimales (0x50A0A0): ip / 10^digits con ip = parte entera de (10^(digits+1) * value +/- 5) * 0.1f; resultado en ST0 sin guardar.
 double __cdecl RoundToDecimalsCpp(float value, int digits);
+
+// Lote 107A (Fn107A).
+// Redondea x, y y z de un vector con RoundToDecimalsCpp (0x50A120); cada resultado se guarda como float.
+void __cdecl RoundVectorToDecimalsCpp(float* v, int digits);

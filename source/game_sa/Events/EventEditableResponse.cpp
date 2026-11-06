@@ -16,16 +16,33 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+// Sin PCH (CMakeLists.txt): StdInc.h redefine NOMINMAX y el aviso C4005 es error; mismo recurso que Task.cpp.
+#pragma warning(push, 0)
 #include "StdInc.h"
+#pragma warning(pop)
 
 #include "EventEditableResponse.h"
 
 #include "PedType.h"
 #include "Ragdoll/IKChainManager.h"
 
+namespace {
+// 0x4AC480 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventEditableResponse que usan los destructores del EXE (57 llamadores, muchos con `jmp` final desde los destructores de los eventos).
+// Es `mov dword ptr [ecx], 0x85AB38; ret`: deja la vtable de CEvent del EXE y conserva EAX, ECX y EDX (algun llamador, p. ej. el destructor con borrado, sigue usando ECX tras la llamada), asi que el codigo no puede
+// llevar marco ni comprobaciones: se optimiza por pragma (CMakeLists.txt: /Zi y BasicRuntimeChecks=Default para este archivo). __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos. (Lote 107A, banco Fn107A.)
+#pragma runtime_checks("", off)
+#pragma optimize("gty", on)
+void __fastcall EditableResponseDestructorBody(CEventEditableResponse* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
+} // namespace
+
 void CEventEditableResponse::InjectHooks() {
     RH_ScopedVirtualClass(CEventEditableResponse, 0x85AB80, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(EditableResponseDestructorBody, "Destructor", 0x4AC480);
 
     RH_ScopedInstall(Constructor, 0x4AC450);
     RH_ScopedVMTInstall(Clone, 0x420ED0);

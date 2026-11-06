@@ -20,9 +20,20 @@ END GENERATED HOOK STATUS */
 
 #include "EventGunShot.h"
 
+namespace {
+// 0x4AC720 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventGunShot que usan los destructores del EXE. Deja la vtable de CEventGunShot del EXE (0x85ABE0), libera la referencia de m_firedBy (+0x14) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall GunShotDestructorBody(CEventGunShot* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85ABE0;
+    CEntity::SafeCleanUpRef(self->m_firedBy);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventGunShot::InjectHooks() {
     RH_ScopedVirtualClass(CEventGunShot, 0x85ABE0, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(GunShotDestructorBody, "Destructor", 0x4AC720);
 
     RH_ScopedInstall(Constructor, 0x4AC610);
     RH_ScopedVMTInstall(AffectsPed, 0x4B2CD0);

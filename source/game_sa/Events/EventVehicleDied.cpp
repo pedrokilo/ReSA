@@ -20,10 +20,21 @@ END GENERATED HOOK STATUS */
 
 #include "EventVehicleDied.h"
 
+namespace {
+// 0x4B0DA0 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventVehicleDied que usan los destructores del EXE. Deja la vtable de CEventVehicleDied del EXE (0x85B400), libera la referencia de m_vehicle (+0xC) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall VehicleDiedDestructorBody(CEventVehicleDied* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B400;
+    CEntity::SafeCleanUpRef(self->m_vehicle);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventVehicleDied::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventVehicleDied, 0x85B400, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(VehicleDiedDestructorBody, "Destructor", 0x4B0DA0);
 
     RH_ScopedInstall(Constructor, 0x4B0D10);
     RH_ScopedVMTInstall(Clone, 0x4B76D0);

@@ -21,10 +21,21 @@ END GENERATED HOOK STATUS */
 #include "EventPotentialWalkIntoPed.h"
 #include "TaskComplexFollowPedFootsteps.h"
 
+namespace {
+// 0x4AE7A0 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventPotentialWalkIntoPed que usan los destructores del EXE. Deja la vtable de CEventPotentialWalkIntoPed del EXE (0x85AF60), libera la referencia de m_ped (+0x20) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
+// y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
+void __fastcall PotentialWalkIntoPedDestructorBody(CEventPotentialWalkIntoPed* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85AF60;
+    CEntity::SafeCleanUpRef(self->m_ped);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 void CEventPotentialWalkIntoPed::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventPotentialWalkIntoPed, 0x85AF60, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(PotentialWalkIntoPedDestructorBody, "Destructor", 0x4AE7A0);
 
     RH_ScopedInstall(Constructor, 0x4AE6E0);
     RH_ScopedVMTInstall(AffectsPed, 0x4AE800);

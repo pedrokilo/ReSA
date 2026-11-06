@@ -16,14 +16,31 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+// Sin PCH (CMakeLists.txt): StdInc.h redefine NOMINMAX y el aviso C4005 es error; mismo recurso que Task.cpp.
+#pragma warning(push, 0)
 #include "StdInc.h"
+#pragma warning(pop)
 #include "X87Math.h"
 #include "Event.h"
 
 
+namespace {
+// 0x4AC010 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEvent que usan los destructores del EXE (58 llamadores, muchos con `jmp` final desde los destructores de los eventos).
+// Es `mov dword ptr [ecx], 0x85AB38; ret`: deja la vtable de CEvent del EXE y conserva EAX, ECX y EDX (algun llamador, p. ej. el destructor con borrado, sigue usando ECX tras la llamada), asi que el codigo no puede
+// llevar marco ni comprobaciones: se optimiza por pragma (CMakeLists.txt: /Zi y BasicRuntimeChecks=Default para este archivo). __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos. (Lote 107A, banco Fn107A.)
+#pragma runtime_checks("", off)
+#pragma optimize("gty", on)
+void __fastcall EventDestructorBody(CEvent* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
+} // namespace
+
 void CEvent::InjectHooks() {
     RH_ScopedVirtualClass(CEvent, 0x85AB38, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(EventDestructorBody, "Destructor", 0x4AC010);
 
     RH_ScopedInstall(operator new, 0x4B5620);
     RH_ScopedInstall(Constructor, 0x4ABFC0);
