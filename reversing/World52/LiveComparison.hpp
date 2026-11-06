@@ -264,7 +264,7 @@ inline void Update() {
         EntryPatch st(0x74DBC0,FakeSetTexture);
         EntryPatch orr(dllObjRender,FakeObjectRender), ore(0x59F180,FakeObjectRender);
         EntryPatch ci(dllClumpInit,FakeClumpInit), cie(0x4C4E40,FakeClumpInit), cs(dllClumpSetClump,FakeClumpSetClump), cse(0x4C4F70,FakeClumpSetClump);
-        EntryPatch faa(0x749B70,FakeForAllAtomics);
+        EntryPatch faa(0x749B70,FakeForAllAtomics), faad(reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics),FakeForAllAtomics);
         EntryPatch ff(bit_cast<uintptr_t>(&CClumpModelInfo::GetFrameFromName),FakeFrameFromName), ffe(0x4C5400,FakeFrameFromName);
         EntryPatch fo(bit_cast<uintptr_t>(&GetFirstObject),FakeFirstObject), foe(0x7348C0,FakeFirstObject);
         EntryPatch aa(bit_cast<uintptr_t>(&CVehicle::SetComponentAtomicAlpha),FakeAtomicAlpha), aae(0x6D2960,FakeAtomicAlpha);

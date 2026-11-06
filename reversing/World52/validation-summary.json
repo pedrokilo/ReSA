@@ -58,7 +58,7 @@
   "log_sha256": "9ff328fb322b407abbb66520c0b452cff7b81fe2a90238b0cff2f9c7f1864473",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-world52\\20261105-112933-220960",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-world52\\20261106-133906-143300",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAnimatedBuilding::ProcessControl": true,
@@ -106,8 +106,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "ba02d951bf7c5001c6e7917358a592c503bc2104ae68e48b142d86c52a2d84e9",
-      "pdb": "b7d84a2728db4bb85a4b614169e1119c383ee1972c88e473ccb072f7e8da58bf"
+      "asi": "de1b55b4e1e53ce3152e2b4295331abf880407d1025eed4b0b1c75aab9fb790b",
+      "pdb": "18e1055c608083d57d8b5c429e2a7caee63f931b66fe698837c4608f51c14b11"
     },
     "sources": {
       "source/game_sa/Entity/AnimatedBuilding.cpp": "c9457c5b022946bb34abf6d89c3028b722032a793cef20852195ff91214e223e",
@@ -141,7 +141,7 @@
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "6b1aa64ac9dbb998f13dd1c6bdf89b5eea84e53ca0f83a576e02b02a4cf3b4ca",
+      "LiveComparison.hpp": "5665810d8369adc5449320d0ae45df02718c25b68202479a75f2ad448a54c231",
       "build_probe.py": "299e9763ceab107011878e19ada385f3a5d4f00e365078a64da1141a6fe52240",
       "run_local.py": "3cdf0732203573d5799e4ca6011835129ec30c6ba945174a7d3ebe05ac46cec7"
     }

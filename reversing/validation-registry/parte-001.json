@@ -34178,7 +34178,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CAnimatedBuilding::ProcessControl"
@@ -34230,7 +34230,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CAnimatedBuilding::ProcessCollision"
@@ -34282,7 +34282,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CAnimatedBuilding::PreRender"
@@ -34334,7 +34334,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CBouncingPanel::ResetPanel"
@@ -34386,7 +34386,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CBouncingPanel::SetPanel"
@@ -34438,7 +34438,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CBouncingPanel::ProcessPanel"
@@ -34490,7 +34490,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CCreepingFire::SetReadyToBurn"
@@ -34542,7 +34542,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CCreepingFire::Update"
@@ -34594,7 +34594,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CCreepingFire::TryToStartFireAtCoors"
@@ -34646,7 +34646,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CHandObject::ProcessControl"
@@ -34698,7 +34698,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CHandObject::PreRender"
@@ -34750,7 +34750,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CHandObject::Render"
@@ -34802,7 +34802,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CHandShaker::SetDefaults"
@@ -34854,7 +34854,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CHandShaker::Reset"
@@ -34906,7 +34906,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CHandShaker::Process"
@@ -34958,7 +34958,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CMouseControllerState::Constructor"
@@ -35010,7 +35010,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CMouseControllerState::Clear"
@@ -35062,7 +35062,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CMouseControllerState::CheckForInput"
@@ -35114,7 +35114,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "COccluder::NearCamera"
@@ -35166,7 +35166,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "COccluder::ProcessLineSegment"
@@ -35218,7 +35218,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "COccluder::ProcessOneOccluder"
@@ -35270,7 +35270,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CPlaneTrail::Init"
@@ -35322,7 +35322,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CPlaneTrail::RegisterPoint"
@@ -35374,7 +35374,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CPlaneTrail::Render"
@@ -35426,7 +35426,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CPlantLocTri::Add"
@@ -35478,7 +35478,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CPlantLocTri::GetPlantDensity"
@@ -35530,7 +35530,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CPlantLocTri::Release"
@@ -35582,7 +35582,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CStencilShadowObject::Constructor"
@@ -35634,7 +35634,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CStencilShadowObject::Destroy"
@@ -35686,7 +35686,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CStencilShadowObject::Destructor"
@@ -35738,7 +35738,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CWeaponModelInfo::GetModelType"
@@ -35790,7 +35790,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CWeaponModelInfo::Init"
@@ -35842,7 +35842,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "CWeaponModelInfo::SetClump"
@@ -35894,7 +35894,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "NodeNamePlugin::GetFrameNodeName"
@@ -35946,7 +35946,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "NodeNamePlugin::NodeNamePluginAttach"
@@ -35998,7 +35998,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "NodeNamePlugin::SetFrameNodeName"
@@ -36050,7 +36050,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "PipelinePlugin::GetPipelineID"
@@ -36102,7 +36102,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "PipelinePlugin::PipelinePluginAttach"
@@ -36154,7 +36154,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "PipelinePlugin::SetPipelineID"
@@ -36206,7 +36206,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "WaterCreature_c::Exit"
@@ -36258,7 +36258,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "WaterCreature_c::Init"
@@ -36310,7 +36310,7 @@
       },
       "evidence": {
         "path": "reversing/World52/validation-summary.json",
-        "sha256": "c1446d4bd6269994029ab8853177b0eb16628c1088681420f78bb8614f95af3f",
+        "sha256": "c78276a315a49884d7316a1822b889090d4b07a2d5cb77df9a7e0a480ff8e2a2",
         "passed_path": [
           "covered_functions",
           "WaterCreature_c::Update"
