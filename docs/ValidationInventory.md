@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,136 entradas reversed=1**, de 9,136 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,145 entradas reversed=1**, de 9,145 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9136 |
+| `validated=1` · evidencia aprobada vinculada | 9145 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9136 |
+| Evidencia histórica vinculada; revisión pendiente | 9145 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -502,6 +502,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAESmoothFadeThread | `WaitForExit` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CAESound | `CalculateFrequency` | [Resumen](../reversing/Audio18/validation-summary.json) |
 | CAESound | `CalculateVolume` | [Resumen](../reversing/Audio18/validation-summary.json) |
+| CAESound | `Destructor` | [Resumen](../reversing/Fn102A/validation-summary.json) |
 | CAESound | `GetRelativePlaybackFrequencyWithDoppler` | [Resumen](../reversing/Audio18/validation-summary.json) |
 | CAESound | `GetRelativePosition-orginal` | [Resumen](../reversing/Audio18/validation-summary.json) |
 | CAESound | `GetSlowMoFrequencyScalingFactor` | [Resumen](../reversing/Audio18/validation-summary.json) |
@@ -5093,6 +5094,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CShotInfo | `Initialise` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CShotInfo | `Shutdown` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CShotInfo | `Update` | [Resumen](../reversing/Fx43/validation-summary.json) |
+| CSimpleTransform | `UpdateMatrix` | [Resumen](../reversing/Fn102A/validation-summary.json) |
+| CSimpleTransform | `UpdateRwMatrix` | [Resumen](../reversing/Fn102A/validation-summary.json) |
 | CSimpleVariablesSaveStructure | `Construct` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CSimpleVariablesSaveStructure | `Extract` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CSkidmarks | `Clear` | [Resumen](../reversing/Data7/validation-summary.json) |
@@ -7794,6 +7797,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVector | `Multiply3x3VMExe` | [Resumen](../reversing/Fn99A/validation-summary.json) |
 | CVector | `Normalise` | [Resumen](../reversing/Fn96A/validation-summary.json) |
 | CVector | `NormaliseAndMag` | [Resumen](../reversing/Fn96A/validation-summary.json) |
+| CVector | `SquaredMagnitudeExe` | [Resumen](../reversing/Fn102A/validation-summary.json) |
 | CVector | `VectorAdd` | [Resumen](../reversing/Fn97A/validation-summary.json) |
 | CVector | `VectorSubtract` | [Resumen](../reversing/Fn97A/validation-summary.json) |
 | CVector | `VectorTimesFloat` | [Resumen](../reversing/Fn97A/validation-summary.json) |
@@ -8557,6 +8561,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxPrimBP_c | `GetRWMatrix` | [Resumen](../reversing/Core70/validation-summary.json) |
 | FxPrimBP_c | `Load` | [Resumen](../reversing/Core70/validation-summary.json) |
 | FxPrtMult_c | `Constructor` | [Resumen](../reversing/Fn90A/validation-summary.json) |
+| FxPrtMult_c | `Constructor7f` | [Resumen](../reversing/Fn102A/validation-summary.json) |
 | FxSphere_c | `GetDistToPlane` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxSphere_c | `IsCollision` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxSphere_c | `operator delete-` | [Resumen](../reversing/Misc8/validation-summary.json) |
@@ -8917,15 +8922,19 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RpSkin | `_rpSkinDeinitialize` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
 | RpUVAnim | `RpUVAnimKeyFrameStreamGetSize` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
 | RpUVAnim | `_rpUVAnimCustomDataStreamGetSize` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
+| RpWorld | `AtomicDefaultRenderCallBack` | [Resumen](../reversing/Fn102A/validation-summary.json) |
 | RpWorld | `RpAtomicGetPluginOffset` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpAtomicGetWorld` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
+| RpWorld | `RpAtomicSetFrame` | [Resumen](../reversing/Fn102A/validation-summary.json) |
 | RpWorld | `RpAtomicSetStreamAlwaysCallBack` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpAtomicSetStreamRightsCallBack` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpBuildMeshGenerateDefaultTriStrip` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
+| RpWorld | `RpClumpForAllAtomics` | [Resumen](../reversing/Fn102A/validation-summary.json) |
 | RpWorld | `RpClumpGetNumAtomics` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpD3D9GeometryGetUsageFlags` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpD3D9WorldSectorGetUsageFlags` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpD3D9WorldSectorSetUsageFlags` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
+| RpWorld | `RpGeometryForAllMaterials` | [Resumen](../reversing/Fn102A/validation-summary.json) |
 | RpWorld | `RpGeometryTriangleGetMaterial` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpLightRegisterPlugin` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpWorldRegisterPlugin` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
@@ -9198,7 +9207,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAERadioTrackManager` | 43 | 0 | 43 | 0 |
 | `CAEScriptAudioEntity` | 19 | 0 | 19 | 0 |
 | `CAESmoothFadeThread` | 10 | 0 | 10 | 0 |
-| `CAESound` | 18 | 0 | 18 | 0 |
+| `CAESound` | 19 | 0 | 19 | 0 |
 | `CAESoundManager` | 14 | 0 | 14 | 0 |
 | `CAEStaticChannel` | 8 | 0 | 8 | 0 |
 | `CAEStreamThread` | 14 | 0 | 14 | 0 |
@@ -9565,6 +9574,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CShinyTexts` | 4 | 0 | 4 | 0 |
 | `CShopping` | 30 | 0 | 30 | 0 |
 | `CShotInfo` | 5 | 0 | 5 | 0 |
+| `CSimpleTransform` | 2 | 0 | 2 | 0 |
 | `CSimpleVariablesSaveStructure` | 2 | 0 | 2 | 0 |
 | `CSkidmarks` | 7 | 0 | 7 | 0 |
 | `CSpecialFX` | 7 | 0 | 7 | 0 |
@@ -9911,7 +9921,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVector` | 16 | 0 | 16 | 0 |
+| `CVector` | 17 | 0 | 17 | 0 |
 | `CVehicle` | 169 | 0 | 169 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
@@ -9955,7 +9965,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxManager_c` | 25 | 0 | 25 | 0 |
 | `FxMemoryPool_c` | 5 | 0 | 5 | 0 |
 | `FxPrimBP_c` | 2 | 0 | 2 | 0 |
-| `FxPrtMult_c` | 1 | 0 | 1 | 0 |
+| `FxPrtMult_c` | 2 | 0 | 2 | 0 |
 | `FxSphere_c` | 4 | 0 | 4 | 0 |
 | `FxSystemBP_c` | 10 | 0 | 10 | 0 |
 | `FxSystem_c` | 35 | 0 | 35 | 0 |
@@ -9981,7 +9991,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RpHAnim` | 1 | 0 | 1 | 0 |
 | `RpSkin` | 1 | 0 | 1 | 0 |
 | `RpUVAnim` | 2 | 0 | 2 | 0 |
-| `RpWorld` | 21 | 0 | 21 | 0 |
+| `RpWorld` | 25 | 0 | 25 | 0 |
 | `Rs` | 30 | 0 | 30 | 0 |
 | `RtAnim` | 3 | 0 | 3 | 0 |
 | `RtDict` | 2 | 0 | 2 | 0 |

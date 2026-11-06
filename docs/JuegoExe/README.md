@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 05/11/2026 (Ciudad de México):** 836 grupos / 9136 funciones reconstruidas; 9136 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 05/11/2026 (Ciudad de México):** 837 grupos / 9145 funciones reconstruidas; 9145 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Código del juego en el EXE: mapa de las 11,804 funciones
@@ -14,10 +14,10 @@ Región **0x401000–0x74FFFF**: 11,804 funciones, 3,007,877 bytes. Es el códig
 | --- | ---: | ---: | ---: | ---: |
 | D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 422 | 3.6% | 59,507 | 2.0% |
 | C · Falta: solo la llaman funciones aún no reemplazadas | 529 | 4.5% | 67,680 | 2.3% |
-| A · Falta: llamada desde código ya reemplazado | 901 | 7.6% | 113,243 | 3.8% |
+| A · Falta: llamada desde código ya reemplazado | 892 | 7.6% | 112,819 | 3.8% |
 | B · Falta: método virtual | 907 | 7.7% | 40,839 | 1.4% |
 | Envoltura pendiente (la DLL aún llama al EXE) | 22 | 0.2% | 7,112 | 0.2% |
-| Reemplazada por C++ | 9,023 | 76.4% | 2,719,496 | 90.4% |
+| Reemplazada por C++ | 9,032 | 76.5% | 2,719,920 | 90.4% |
 
 Las funciones de A–D son **lo que falta**. El grupo A es el piso para la independencia (la DLL ya depende de ellas); es una cota inferior porque hay 6,004 llamadas indirectas sin resolver. Las envolturas pendientes (que ya tienen hook pero llaman al EXE) se cuentan aparte, por eso A–D suman menos que en la tabla de cobertura de ReversedClasses. Listas: [A](pendientes-A.md) · [B](pendientes-B.md) · [C](pendientes-C.md) · [D](pendientes-D.md).
 
@@ -32,7 +32,7 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x520000 | 62 | 100% | 0 | 0 | — |
 | 0x580000 | 129 | 99% | 1 | 67 | CRadar (1) |
 | 0x560000 | 212 | 98% | 5 | 191 | CPlayerPedData (1) |
-| 0x4E0000 | 246 | 96% | 11 | 307 | CAEMFDecoder (2), CAEMP3BankLoader (1), CAEPedlessSpeechAudioEntity (1) |
+| 0x4E0000 | 246 | 96% | 10 | 283 | CAEMFDecoder (2), CAEMP3BankLoader (1), CAEPedlessSpeechAudioEntity (1) |
 | 0x700000 | 138 | 94% | 8 | 1,145 | CShadowCamera (1), CRealTimeShadow (1), CRealTimeShadowManager (1) |
 | 0x510000 | 61 | 92% | 5 | 794 | CCam (2) |
 | 0x500000 | 305 | 91% | 26 | 2,324 | CCam (3), CAEWMADecoder (2), CAudioEngine (2) |
@@ -58,17 +58,17 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x5D0000 | 335 | 81% | 62 | 6,323 | CCustomCarEnvMapPipeline (5), JPegPlugin (1), CGenericGameStorage (1) |
 | 0x640000 | 425 | 81% | 80 | 3,716 | CTaskSimpleCarWaitToSlowDown (1), CTaskSimpleCarSetPedOut (1), CTaskSimpleCarSlowBeDraggedOut (1) |
 | 0x4F0000 | 203 | 80% | 41 | 3,100 | CAEUserRadioTrackManager (28), CAETwinLoopSoundEntity (2), CAEVehicleAudioEntity (2) |
+| 0x540000 | 176 | 80% | 36 | 1,935 | CPad (3), Common (3), CPlaceable (3) |
 | 0x600000 | 237 | 79% | 50 | 6,738 | CPlayerPed (2), CPedIntelligence (1), CDecisionMakerTypesFileLoader (1) |
 | 0x460000 | 164 | 79% | 35 | 7,737 | CScriptsForBrains (4), CTaskComplexClimb (1), CTheScripts (1) |
-| 0x540000 | 176 | 78% | 38 | 2,054 | CPad (3), Common (3), CPlaceable (3) |
 | 0x690000 | 310 | 78% | 68 | 4,732 | CTaskComplexSeekEntityAiming (5), CTaskSimpleHoldEntity (2), CTaskSimpleFacial (1) |
 | 0x470000 | 46 | 76% | 11 | 770 | — |
 | 0x630000 | 585 | 75% | 144 | 7,740 | CTaskComplexDie (2), CTaskComplexObserveTrafficLightsAndAchieveHeading (2), CTaskComplexUseGoggles (2) |
 | 0x490000 | 153 | 75% | 39 | 11,521 | CSetPiece (4), CStuntJumpManager (4), Fx_c (4) |
 | 0x620000 | 282 | 74% | 72 | 4,169 | CTaskSimpleStandStill (2), CTaskSimpleDie (2), CTaskSimpleStealthKill (1) |
 | 0x680000 | 184 | 74% | 47 | 3,024 | CTaskManager (2), CTaskSimpleSwim (2), CTaskComplexArrestPed (1) |
+| 0x400000 | 281 | 74% | 73 | 10,736 | CStreaming (15), CColSphere (2), CdStream (1) |
 | 0x480000 | 111 | 74% | 29 | 15,397 | CTheScripts (2), CTaskSimpleCower (1), CTaskSimpleSay (1) |
-| 0x400000 | 281 | 74% | 74 | 10,767 | CStreaming (15), CColSphere (2), CdStream (1) |
 | 0x5A0000 | 116 | 73% | 31 | 2,856 | CClothesBuilder (3), CObject (1) |
 | 0x650000 | 387 | 73% | 106 | 5,461 | CTaskSimpleHitHead (2), CTaskSimpleGiveCPR (2), CTaskComplexTreatAccident (2) |
 | 0x550000 | 257 | 72% | 73 | 7,383 | CPools (51), CQuadTreeNode<T> (6), SurfaceInfos_c (2) |
@@ -79,8 +79,8 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x670000 | 290 | 65% | 101 | 11,150 | CTaskComplexWanderProstitute (2), CTaskSimpleGetUp (2), CTaskComplexGetUpAndStandStill (2) |
 | 0x5E0000 | 254 | 53% | 120 | 11,637 | CPedAttractor (13), CPed (5) |
 | 0x4B0000 | 360 | 49% | 183 | 9,782 | CEventHitByWaterCannon (5), CEventVehicleDied (4), CEventStuckInAir (4) |
-| 0x740000 | 195 | 45% | 88 | 16,900 | Ps (4), Input (2) |
-| 0x4A0000 | 470 | 43% | 270 | 12,436 | FxInfoManager_c (96), FxEmitterBP_c (9), CEventGunShot (7) |
+| 0x740000 | 195 | 47% | 84 | 16,703 | Ps (4), Input (2) |
+| 0x4A0000 | 470 | 43% | 269 | 12,383 | FxInfoManager_c (96), FxEmitterBP_c (9), CEventGunShot (7) |
 | 0x5C0000 | 139 | 9% | 127 | 27,874 | — |
 
 ## Por módulo (estimado)
@@ -326,6 +326,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CTaskSimpleUseGun | 21 | 19 | 2 | 139 | 1 |
 | CBox | 4 | 2 | 2 | 144 | 0 |
 | VideoPlayer | 9 | 7 | 2 | 145 | 0 |
+| CMatrixLinkList | 13 | 11 | 2 | 166 | 0 |
 | CAETwinLoopSoundEntity | 9 | 7 | 2 | 174 | 2 |
 | CColModel | 13 | 11 | 2 | 193 | 0 |
 | FxMemoryPool_c | 7 | 5 | 2 | 194 | 0 |
@@ -350,6 +351,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CTaskComplexDie | 8 | 5 | 3 | 23 | 2 |
 | CAEStaticChannel | 11 | 8 | 3 | 41 | 1 |
 | C2dEffect | 17 | 14 | 3 | 46 | 0 |
+| CdStream | 16 | 13 | 3 | 46 | 1 |
 | CEventVehicleDamageWeapon | 5 | 2 | 3 | 47 | 2 |
 | CTaskComplexTreatAccident | 10 | 7 | 3 | 47 | 2 |
 | CTaskComplexWanderStandard | 12 | 9 | 3 | 51 | 0 |
@@ -391,7 +393,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CTaskComplexFollowPedFootsteps | 8 | 5 | 3 | 185 | 0 |
 | D3DResourceSystem | 11 | 8 | 3 | 188 | 0 |
 | CCutsceneMgr | 38 | 35 | 3 | 204 | 0 |
-| CMatrixLinkList | 13 | 10 | 3 | 208 | 0 |
+| CAESoundManager | 18 | 15 | 3 | 220 | 0 |
 | CTaskComplexWanderProstitute | 8 | 5 | 3 | 223 | 2 |
 | CAnimBlendHierarchy | 19 | 16 | 3 | 244 | 0 |
 | CFont | 41 | 38 | 3 | 251 | 3 |
@@ -419,11 +421,11 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CMemoryMgr | 10 | 6 | 4 | 26 | 3 |
 | RwHelper | 35 | 31 | 4 | 53 | 0 |
 | CTaskComplexSequence | 16 | 12 | 4 | 65 | 1 |
+| FxSystem_c | 41 | 37 | 4 | 66 | 0 |
 | CEventVehicleDamageCollision | 6 | 2 | 4 | 67 | 2 |
 | CTaskSimpleCower | 9 | 5 | 4 | 70 | 1 |
 | CTaskComplexInAirAndLand | 8 | 4 | 4 | 77 | 0 |
 | CTaskSimplePause | 8 | 4 | 4 | 77 | 1 |
-| CdStream | 16 | 12 | 4 | 77 | 1 |
 | CEventCarUpsideDown | 6 | 2 | 4 | 96 | 4 |
 | CEventPedCollisionWithPed | 7 | 3 | 4 | 96 | 4 |
 | CEventVehicleToSteal | 6 | 2 | 4 | 96 | 4 |
@@ -446,7 +448,6 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CSetPiece | 7 | 3 | 4 | 200 | 4 |
 | CAECutsceneTrackManager | 12 | 8 | 4 | 219 | 3 |
 | CAEDataStream | 23 | 19 | 4 | 224 | 3 |
-| CAESoundManager | 18 | 14 | 4 | 244 | 0 |
 | CTaskComplexGoToBoatSteeringWheel | 10 | 6 | 4 | 249 | 1 |
 | CTaskComplexCopInCar | 13 | 9 | 4 | 252 | 0 |
 | CClumpModelInfo | 26 | 22 | 4 | 255 | 2 |
@@ -481,7 +482,6 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CGridRef | 10 | 5 | 5 | 100 | 0 |
 | CEventPotentialWalkIntoVehicle | 7 | 2 | 5 | 101 | 4 |
 | CEventVehicleDied | 8 | 3 | 5 | 101 | 4 |
-| FxSystem_c | 41 | 36 | 5 | 119 | 0 |
 | CAEVehicleAudioEntity | 111 | 106 | 5 | 121 | 2 |
 | CEventDanger | 9 | 4 | 5 | 124 | 4 |
 | CTaskGangHasslePed | 10 | 5 | 5 | 126 | 1 |
@@ -553,6 +553,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CCopPed | 15 | 7 | 8 | 335 | 0 |
 | CEventAcquaintancePedHateBadlyLit | 10 | 2 | 8 | 342 | 0 |
 | CEventPlayerCommandToGroupGather | 10 | 2 | 8 | 372 | 0 |
+| Common | 20 | 12 | 8 | 526 | 7 |
 | CTaskSimpleBeHit | 16 | 8 | 8 | 1,022 | 0 |
 | CMaths | 30 | 22 | 8 | 1,092 | 0 |
 | CEventLeaderEntryExit | 10 | 1 | 9 | 153 | 0 |
@@ -569,7 +570,6 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CTaskComplexPartnerGreet | 17 | 8 | 9 | 458 | 0 |
 | CEventAttractor | 13 | 4 | 9 | 571 | 4 |
 | CTaskComplexRoadRage | 18 | 9 | 9 | 585 | 0 |
-| Common | 20 | 11 | 9 | 603 | 7 |
 | CTaskComplexGoToPointAndStandStill | 17 | 8 | 9 | 991 | 3 |
 | CTaskComplexInvestigateDisturbance | 17 | 8 | 9 | 1,125 | 0 |
 | CPed | 158 | 149 | 9 | 1,279 | 5 |
@@ -624,7 +624,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CWeaponModelInfo | 45 | 4 | 39 | 12,299 | 0 |
 | CEntity | 113 | 69 | 44 | 10,348 | 6 |
 | CPools | 71 | 19 | 52 | 3,733 | 51 |
-| Win | 109 | 20 | 69 | 14,247 | 0 |
+| Win | 109 | 24 | 65 | 14,050 | 0 |
 | CPedAttractorManager | 85 | 14 | 71 | 8,097 | 0 |
 | FxInfoManager_c | 124 | 5 | 119 | 6,656 | 96 |
 | FxEmitterBP_c | 155 | 14 | 141 | 28,395 | 9 |
