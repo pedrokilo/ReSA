@@ -178,7 +178,7 @@ inline void Update() {
         EntryPatch m4(0x72F500,FakeMove), m4d(bit_cast<uintptr_t>(static_cast<void*(*)(void*)>(&CMemoryMgr::MoveMemory)),FakeMove);
         // primitivas RW (las de la DLL son envoltorios del EXE)
         EntryPatch s1(0x7EC9D0,FakeStreamRead), s2(0x7ECB30,FakeStreamWrite), g1(0x74CD70,FakeRegPlugin), g2(0x74CDA0,FakeRegStream);
-        EntryPatch g3(0x74C7D0,FakeGeoLock), g4(0x74C800,FakeGeoUnlock), g5(0x74C790,FakeForAllMaterials), g6(0x7588B0,FakeSetUsage), g7(0x749B70,FakeClumpForAllAtomics);
+        EntryPatch g3(0x74C7D0,FakeGeoLock), g4(0x74C800,FakeGeoUnlock), g5(0x74C790,FakeForAllMaterials), g6(0x7588B0,FakeSetUsage), g7(0x749B70,FakeClumpForAllAtomics), g5d(reinterpret_cast<uintptr_t>(&RpGeometryForAllMaterials),FakeForAllMaterials), g7d(reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics),FakeClumpForAllAtomics); /* lote 102A: las dos tienen cuerpo y hook en la DLL */
         EntryPatch p0(0x72FC50,FakeSetPipelineID), p0d(bit_cast<uintptr_t>(&SetPipelineID),FakeSetPipelineID);
         EntryPatch p1(0x8057B0,FakePipeCreate), p2(0x7582E0,FakeNodeDef), p3(0x806990,FakePipeLock), p4(0x806BE0,FakeAddFragment), p5(0x805F40,FakePipeUnlock);
         EntryPatch p6(0x806B30,FakeFindNode), p7(0x805820,FakePipeDestroy), p8(0x757390,FakeGetInstance), p9(0x7573B0,FakeGetReinstance);

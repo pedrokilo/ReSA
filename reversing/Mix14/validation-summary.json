@@ -44,7 +44,7 @@
   "log_sha256": "32fcf4db413ef7611c025402fa4d3b77c51db68c7707189d368f050c9680c385",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mix14\\20261003-104300-823451",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mix14\\20261105-200335-096253",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPedAttractorManager::BroadcastArrival-": true,
@@ -78,26 +78,27 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "d4951a46e84f6956e260e2ac8d7b82e7bd2c80ab2df184f0e8f242748b767c68",
-      "pdb": "763a8d14499d11067591a60884f4359e52bdc4eb403258dcab24a8a56bcc8d3b"
+      "asi": "ce4ea7e0cc884baba7f098f1e59f30b78688035d687b4919cff242b32de9db9c",
+      "pdb": "d9c97d5afdf5b080433aceabe7c2d020fc8c18bebfce8fa25a957d4830ee6c0c"
     },
     "sources": {
-      "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+      "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
       "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
       "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-      "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+      "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
       "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
       "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "c3c717f03ffc4ce22bc0a1bce7a843ed0883d7d365ed83d0ff7845aebf5682df",
+      "LiveComparison.hpp": "3651cdb513e18b47851a9aaf09dddaecd1afbd6ef0cfe0c3f66874e6263a59a8",
       "build_probe.py": "b268b0f7eb8d2bce74ac8b871c292fb29dcdf241c821fdd1425fe30dae0a59f7",
       "run_local.py": "e1303461e63392ae33b1d58898e5c7dd26fb680eaaed1ac003d1e8281bf19b06"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

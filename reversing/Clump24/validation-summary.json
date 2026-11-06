@@ -40,7 +40,7 @@
   "log_sha256": "6fa79e7cf865598e62a9e46711bada75d9a08d8040c54dc5945fcb306740acce",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clump24\\20261003-233409-020037",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clump24\\20261105-201027-295844",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CClumpModelInfo::GetModelType": true,
@@ -70,22 +70,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "ddf74979f20f29538e49aa8b0b36a7e943d60f64a689a95048c21e556d5c8ff3",
-      "pdb": "1246eb3bea40feaafe7d6162d051374b837162d7328728718f3e4469b90d751e"
+      "asi": "066c006e478ddb77b6b555d2e9cecfdba8e6f814658ebdb1a42397c64db95cc1",
+      "pdb": "1c1d6978b0edd0074ed6b7b08e13381598c2a2633b79be7c7cac79f9d05c28d7"
     },
     "sources": {
-      "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+      "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
       "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
     },
-    "game_cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "96fa4a683b412287a6ff377524033ee1f79f66260c0467d4d96e4ea4ab04b430",
+      "LiveComparison.hpp": "05ed457e94446084728382decea6cfcde012daf47d6010d90f007847b28087bf",
       "build_probe.py": "b2671d4223cb9e7deab894ff3afa992f2c63e0c7ee62ee3b73269088d29038c8",
       "run_local.py": "1e3f39ed613c2ece58dac979d2e0104ffee052193f96cf6540bbfa5964cd081d"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

@@ -42426,7 +42426,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "cTransmission::InitGearRatios"
@@ -42456,7 +42456,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "cTransmission::CalculateGearForSimpleCar"
@@ -42486,7 +42486,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "cTransmission::DisplayGearRatios"
@@ -42516,7 +42516,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "cTransmission::CalculateDriveAcceleration"
@@ -42546,7 +42546,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "CWaterCannons::Init"
@@ -42576,7 +42576,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "CWaterCannons::UpdateOne"
@@ -42606,7 +42606,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "CWaterCannons::Update"
@@ -42636,7 +42636,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "CWaterCannons::Render"
@@ -42666,7 +42666,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "FxInfoManager_c::AddFxInfo"
@@ -42696,7 +42696,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "FxInfoManager_c::ProcessEmissionInfo"
@@ -42726,7 +42726,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "FxInfoManager_c::ProcessMovementInfo"
@@ -42756,7 +42756,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "FxInfoManager_c::ProcessRenderInfo"
@@ -42786,7 +42786,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "FxSphere_c::operator new"
@@ -42816,7 +42816,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "FxSphere_c::operator delete-"
@@ -42846,7 +42846,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "FxSphere_c::IsCollision"
@@ -42876,7 +42876,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "FxSphere_c::GetDistToPlane"
@@ -42906,7 +42906,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "ProcSurfaceInfo_c::Init"
@@ -42936,7 +42936,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "ProcSurfaceInfo_c::Exit"
@@ -42966,7 +42966,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "ProcSurfaceInfo_c::AddObject"
@@ -42996,7 +42996,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "c939a07714f8c4d787f29e39a5b4781d178be74a21e2625f03f1b6ab4ea5d00d",
+        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
         "passed_path": [
           "covered_functions",
           "ProcSurfaceInfo_c::AddObjects"
@@ -94891,7 +94891,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CAtomicModelInfo::AsAtomicModelInfoPtr"
@@ -94923,7 +94923,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CAtomicModelInfo::GetModelType"
@@ -94955,7 +94955,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CAtomicModelInfo::Init"
@@ -94987,7 +94987,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CAtomicModelInfo::DeleteRwObject"
@@ -95019,7 +95019,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CAtomicModelInfo::GetRwModelType"
@@ -95051,7 +95051,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CAtomicModelInfo::SetAtomic"
@@ -95083,7 +95083,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CAtomicModelInfo::GetAtomicFromDistance"
@@ -95115,7 +95115,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CAtomicModelInfo::SetupVehicleUpgradeFlags"
@@ -95147,7 +95147,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CAtomicModelInfo::SetAtomicModelInfoFlags"
@@ -95179,7 +95179,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CColModel::operator new"
@@ -95211,7 +95211,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CColModel::operator delete"
@@ -95243,7 +95243,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CColModel::operator="
@@ -95275,7 +95275,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CColModel::MakeMultipleAlloc"
@@ -95307,7 +95307,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CColModel::AllocateData-void"
@@ -95339,7 +95339,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CColModel::AllocateData-params"
@@ -95371,7 +95371,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CColModel::RemoveCollisionVolumes"
@@ -95403,7 +95403,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CColModel::CalculateTrianglePlanes"
@@ -95435,7 +95435,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CColModel::RemoveTrianglePlanes"
@@ -95467,7 +95467,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CCustomRoadsignMgr::Initialise"
@@ -95499,7 +95499,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CCustomRoadsignMgr::Shutdown"
@@ -95531,7 +95531,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CCustomRoadsignMgr::RoadsignGenerateTextRaster"
@@ -95563,7 +95563,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CCustomRoadsignMgr::CreateRoadsignTexture"
@@ -95595,7 +95595,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CCustomRoadsignMgr::SetupRoadsignAtomic"
@@ -95627,7 +95627,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CCustomRoadsignMgr::SetAtomicAlpha"
@@ -95659,7 +95659,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CCustomRoadsignMgr::CreateRoadsignAtomicA"
@@ -95691,7 +95691,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CCustomRoadsignMgr::CreateRoadsignAtomic"
@@ -95723,7 +95723,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CCustomRoadsignMgr::RenderRoadsignAtomic"
@@ -95755,7 +95755,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CPedModelInfo::GetModelType"
@@ -95787,7 +95787,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CPedModelInfo::DeleteRwObject"
@@ -95819,7 +95819,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CPedModelInfo::SetClump"
@@ -95851,7 +95851,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CPedModelInfo::AddXtraAtomics"
@@ -95883,7 +95883,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CPedModelInfo::SetFaceTexture"
@@ -95915,7 +95915,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CPedModelInfo::CreateHitColModelSkinned"
@@ -95947,7 +95947,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CPedModelInfo::AnimatePedColModelSkinned"
@@ -95979,7 +95979,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CPedModelInfo::AnimatePedColModelSkinnedWorld"
@@ -96011,7 +96011,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CPedModelInfo::IncrementVoice"
@@ -96043,7 +96043,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CText::Constructor"
@@ -96075,7 +96075,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CText::Destructor"
@@ -96107,7 +96107,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CText::Unload"
@@ -96139,7 +96139,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CText::Get"
@@ -96171,7 +96171,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CText::GetNameOfLoadedMissionText"
@@ -96203,7 +96203,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CText::ReadChunkHeader"
@@ -96235,7 +96235,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CText::Load"
@@ -96267,7 +96267,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CText::LoadMissionText"
@@ -96299,7 +96299,7 @@
       },
       "evidence": {
         "path": "reversing/Models9/validation-summary.json",
-        "sha256": "fcb1be84256b28dd70670510bb1c1b7d0925b85baab40339f0862fd0d839faff",
+        "sha256": "5009f9e9ae00212240b35ba8dbffd0385661e14158164ae0e4e1b5546b780d1b",
         "passed_path": [
           "covered_functions",
           "CText::LoadMissionPackText"
@@ -108771,7 +108771,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::Constructor"
@@ -108780,9 +108780,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -108799,7 +108799,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::Destructor"
@@ -108808,9 +108808,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -108827,7 +108827,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::SetName"
@@ -108836,9 +108836,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -108855,7 +108855,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::SetBoneTag"
@@ -108864,9 +108864,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -108883,7 +108883,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::GetDataSize"
@@ -108892,9 +108892,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -108911,7 +108911,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::SetNumFrames"
@@ -108920,9 +108920,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -108939,7 +108939,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::Uncompress"
@@ -108948,9 +108948,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -108967,7 +108967,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::CompressKeyframes"
@@ -108976,9 +108976,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -108995,7 +108995,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::MoveMemory"
@@ -109004,9 +109004,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109023,7 +109023,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::Print"
@@ -109032,9 +109032,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109051,7 +109051,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::RemoveQuaternionFlips"
@@ -109060,9 +109060,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109079,7 +109079,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::RemoveUncompressedData"
@@ -109088,9 +109088,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109107,7 +109107,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::GetUKeyFrame"
@@ -109116,9 +109116,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109135,7 +109135,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CAnimBlendSequence::GetCKeyFrame"
@@ -109144,9 +109144,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109163,7 +109163,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::ExtraVertColourPluginAttach"
@@ -109172,9 +109172,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109191,7 +109191,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::pluginExtraVertColourConstructorCB"
@@ -109200,9 +109200,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109219,7 +109219,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::pluginExtraVertColourDestructorCB"
@@ -109228,9 +109228,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109247,7 +109247,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::pluginExtraVertColourStreamReadCB"
@@ -109256,9 +109256,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109275,7 +109275,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::pluginExtraVertColourStreamWriteCB"
@@ -109284,9 +109284,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109303,7 +109303,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::pluginExtraVertColourStreamGetSizeCB"
@@ -109312,9 +109312,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109331,7 +109331,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::PreRenderUpdate-Atomic"
@@ -109340,9 +109340,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109359,7 +109359,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::PreRenderUpdate-Clump"
@@ -109368,9 +109368,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109387,7 +109387,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::NVCPipelineProcess"
@@ -109396,9 +109396,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109415,7 +109415,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::CreatePipe"
@@ -109424,9 +109424,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109443,7 +109443,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::DestroyPipe"
@@ -109452,9 +109452,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109471,7 +109471,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::CreateCustomObjPipe"
@@ -109480,9 +109480,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109499,7 +109499,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::CustomPipeAtomicSetup"
@@ -109508,9 +109508,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -109527,7 +109527,7 @@
       },
       "evidence": {
         "path": "reversing/Render14/validation-summary.json",
-        "sha256": "ad4f82e217f9561769021f700848cfb85655abfa8291a39e3b075eca0703b065",
+        "sha256": "41c6f93545a3080f756e5664902f90e4122d646754aedab3c8ab7852a1d6a422",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::SetFxEnvTexture"
@@ -109536,9 +109536,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
-        "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+        "source/game_sa/Animation/AnimBlendSequence.cpp": "5b3b22b03f270a75f44324fb965127039f62347307dee5afc698771a8203ad2f",
+        "source/game_sa/Animation/AnimBlendSequence.h": "abd83cdb34862d98340199611e8f1de3eef93a1b7fbe75d1eb2d1a79a696e8b5",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "be93b50561f0d9a27411eef8f9e86d24b99536a1e0cd275ffadf44af2094bd64",
         "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-102415-377577).",
@@ -110339,7 +110339,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::BroadcastArrival-"
@@ -110348,10 +110348,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110369,7 +110369,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::BroadcastDeparture-"
@@ -110378,10 +110378,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110399,7 +110399,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::DeRegisterPed-"
@@ -110408,10 +110408,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110429,7 +110429,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::GetPedAttractorManager"
@@ -110438,10 +110438,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110459,7 +110459,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::GetPedUsingEffect-"
@@ -110468,10 +110468,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110489,7 +110489,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::GetRelevantAttractor-"
@@ -110498,10 +110498,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110519,7 +110519,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::HasEmptySlot"
@@ -110528,10 +110528,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110549,7 +110549,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::HasQueueTailArrivedAtSlot"
@@ -110558,10 +110558,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110579,7 +110579,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::IsApproachable"
@@ -110588,10 +110588,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110609,7 +110609,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::IsPedRegisteredWithEffect-Effect"
@@ -110618,10 +110618,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110639,7 +110639,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::IsPedRegisteredWithEffect-Ped"
@@ -110648,10 +110648,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110669,7 +110669,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::RegisterPedWithAttractor"
@@ -110678,10 +110678,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110699,7 +110699,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::RemoveEffect-"
@@ -110708,10 +110708,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110729,7 +110729,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CPedAttractorManager::RestoreStuffFromMem"
@@ -110738,10 +110738,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110759,7 +110759,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::AtomicSetCarplateTextureCB"
@@ -110768,10 +110768,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110789,7 +110789,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::AtomicUpgradeSetCarplateTextureCB"
@@ -110798,10 +110798,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110819,7 +110819,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::CreatePlateTexture"
@@ -110828,10 +110828,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110849,7 +110849,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::GeneratePlateText"
@@ -110858,10 +110858,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110879,7 +110879,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::GetMapRegionPlateDesign"
@@ -110888,10 +110888,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110909,7 +110909,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::Initialise"
@@ -110918,10 +110918,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110939,7 +110939,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::MaterialSetCarplateTextureCB"
@@ -110948,10 +110948,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110969,7 +110969,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::MaterialUpgradeSetCarplateTextureCB"
@@ -110978,10 +110978,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -110999,7 +110999,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::RenderLicenseplateTextToRaster"
@@ -111008,10 +111008,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -111029,7 +111029,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::SetupClump"
@@ -111038,10 +111038,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -111059,7 +111059,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::SetupClumpAfterVehicleUpgrade"
@@ -111068,10 +111068,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -111089,7 +111089,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::SetupMaterialPlateTexture"
@@ -111098,10 +111098,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -111119,7 +111119,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::SetupMaterialPlatebackTexture"
@@ -111128,10 +111128,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -111149,7 +111149,7 @@
       },
       "evidence": {
         "path": "reversing/Mix14/validation-summary.json",
-        "sha256": "2944d668090dd4cf2505584753504c2b915c88fdc50688a95323aaa8b58dceb5",
+        "sha256": "4ca442fec7e953940376018eec77eae7605303b693e874c8b259ccbad62b6a0d",
         "passed_path": [
           "covered_functions",
           "CCustomCarPlateMgr::Shutdown"
@@ -111158,10 +111158,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+        "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
         "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
         "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
-        "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+        "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
         "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
         "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
       },
@@ -122245,7 +122245,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::Constructor"
@@ -122254,9 +122254,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122273,7 +122273,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::Create"
@@ -122282,9 +122282,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122301,7 +122301,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::Destroy"
@@ -122310,9 +122310,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122329,7 +122329,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::Destructor"
@@ -122338,9 +122338,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122357,7 +122357,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::DrawBlurryRaster2"
@@ -122366,9 +122366,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122385,7 +122385,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::DrawOutlineBorder"
@@ -122394,9 +122394,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122413,7 +122413,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::GetRwRenderRaster"
@@ -122422,9 +122422,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122441,7 +122441,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::GetRwRenderTexture"
@@ -122450,9 +122450,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122469,7 +122469,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::Im2DRenderQuad"
@@ -122478,9 +122478,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122497,7 +122497,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::InvertRaster"
@@ -122506,9 +122506,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122525,7 +122525,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::MakeGradientRaster"
@@ -122534,9 +122534,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122553,7 +122553,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::RasterBlur"
@@ -122562,9 +122562,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122581,7 +122581,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::RasterResample"
@@ -122590,9 +122590,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122609,7 +122609,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::SetCenter"
@@ -122618,9 +122618,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122637,7 +122637,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::SetFrustum"
@@ -122646,9 +122646,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122665,7 +122665,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::SetLight"
@@ -122674,9 +122674,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122693,7 +122693,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::Update-Atomic"
@@ -122702,9 +122702,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122721,7 +122721,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::Update-Clump"
@@ -122730,9 +122730,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122749,7 +122749,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CShadowCamera::atomicQuickRender"
@@ -122758,9 +122758,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122777,7 +122777,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::AskForObjectToBeRenderedInGlass"
@@ -122786,9 +122786,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122805,7 +122805,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::BreakGlassPhysically"
@@ -122814,9 +122814,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122833,7 +122833,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::CarWindscreenShatters"
@@ -122842,9 +122842,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122861,7 +122861,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::FindFreePane"
@@ -122870,9 +122870,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122889,7 +122889,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::FindWindowSectorList<CPtrListSingleLink<CPhysical*>>"
@@ -122898,9 +122898,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122917,7 +122917,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::GeneratePanesForWindow"
@@ -122926,9 +122926,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122945,7 +122945,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::HasGlassBeenShatteredAtCoors"
@@ -122954,9 +122954,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -122973,7 +122973,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::Init"
@@ -122982,9 +122982,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -123001,7 +123001,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::IsObjectGlass"
@@ -123010,9 +123010,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -123029,7 +123029,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::Render"
@@ -123038,9 +123038,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -123057,7 +123057,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::RenderHiLightPolys"
@@ -123066,9 +123066,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -123085,7 +123085,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::RenderReflectionPolys"
@@ -123094,9 +123094,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -123113,7 +123113,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::RenderShatteredPolys"
@@ -123122,9 +123122,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -123141,7 +123141,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::Update"
@@ -123150,9 +123150,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -123169,7 +123169,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::WasGlassHitByBullet"
@@ -123178,9 +123178,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -123197,7 +123197,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::WindowRespondsToCollision"
@@ -123206,9 +123206,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -123225,7 +123225,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::WindowRespondsToExplosion"
@@ -123234,9 +123234,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -123253,7 +123253,7 @@
       },
       "evidence": {
         "path": "reversing/Render19/validation-summary.json",
-        "sha256": "7ad2e9aaf8698ac164580f9e2074049a5b5718287e134346ceae6a668c23f100",
+        "sha256": "d2b5318d6c35fa1a5945bfa8e0e723911a2c254f0e90593b193510ffc15d121e",
         "passed_path": [
           "covered_functions",
           "CGlass::WindowRespondsToSoftCollision"
@@ -123262,9 +123262,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+        "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
         "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-        "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+        "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
         "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-205940-621428).",
@@ -130813,7 +130813,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::GetModelType"
@@ -130822,7 +130822,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -130839,7 +130839,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::Init"
@@ -130848,7 +130848,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -130865,7 +130865,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::Shutdown"
@@ -130874,7 +130874,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -130891,7 +130891,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::DeleteRwObject"
@@ -130900,7 +130900,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -130917,7 +130917,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::GetRwModelType"
@@ -130926,7 +130926,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -130943,7 +130943,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::CreateInstance-mat"
@@ -130952,7 +130952,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -130969,7 +130969,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::CreateInstance-void"
@@ -130978,7 +130978,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -130995,7 +130995,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::SetAnimFile"
@@ -131004,7 +131004,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131021,7 +131021,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::ConvertAnimFileIndex"
@@ -131030,7 +131030,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131047,7 +131047,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::GetAnimFileIndex"
@@ -131056,7 +131056,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131073,7 +131073,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::GetBoundingBox"
@@ -131082,7 +131082,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131099,7 +131099,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::SetClump"
@@ -131108,7 +131108,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131125,7 +131125,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::SetFrameIds"
@@ -131134,7 +131134,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131151,7 +131151,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::SetHierarchyForSkinAtomic"
@@ -131160,7 +131160,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131177,7 +131177,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::AtomicSetupLightingCB"
@@ -131186,7 +131186,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131203,7 +131203,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::SetAtomicRendererCB"
@@ -131212,7 +131212,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131229,7 +131229,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::FindFrameFromNameCB"
@@ -131238,7 +131238,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131255,7 +131255,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::FindFrameFromNameWithoutIdCB"
@@ -131264,7 +131264,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131281,7 +131281,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::FindFrameFromIdCB"
@@ -131290,7 +131290,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131307,7 +131307,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::FillFrameArrayCB"
@@ -131316,7 +131316,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131333,7 +131333,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::GetFrameFromId"
@@ -131342,7 +131342,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131359,7 +131359,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::GetFrameFromName"
@@ -131368,7 +131368,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131385,7 +131385,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::FillFrameArray"
@@ -131394,7 +131394,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -131411,7 +131411,7 @@
       },
       "evidence": {
         "path": "reversing/Clump24/validation-summary.json",
-        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "sha256": "7e3ef88b5f2d23fef6e2fc811611387d631e4f81a7a87dc21dcca002b2ca5d9a",
         "passed_path": [
           "covered_functions",
           "CClumpModelInfo::SetClumpModelInfoFlags"
@@ -131420,7 +131420,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.cpp": "af2b9ff6ecb60e14b6eb8554d94befe62d1d52fad80dc168942eecc4fb5d405c",
         "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
@@ -134413,7 +134413,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::AddWakePoint"
@@ -134439,7 +134439,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::BlowUpCar"
@@ -134465,7 +134465,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::CheckForSkippingCalculations"
@@ -134491,7 +134491,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::Constructor"
@@ -134517,7 +134517,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::DebugCode"
@@ -134543,7 +134543,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::Destructor"
@@ -134569,7 +134569,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::DisplayHandlingData"
@@ -134595,7 +134595,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::FillBoatList"
@@ -134621,7 +134621,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::GetBoatAtomicObjectCB"
@@ -134647,7 +134647,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::GetComponentWorldPosition"
@@ -134673,7 +134673,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::IsComponentPresent"
@@ -134699,7 +134699,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::IsSectorAffectedByWake"
@@ -134725,7 +134725,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::IsVertexAffectedByWake"
@@ -134751,7 +134751,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::ModifyHandlingValue"
@@ -134777,7 +134777,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::PreRender"
@@ -134803,7 +134803,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::ProcessControl"
@@ -134829,7 +134829,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::ProcessControlInputs"
@@ -134855,7 +134855,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::ProcessOpenDoor"
@@ -134881,7 +134881,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::PruneWakeTrail"
@@ -134907,7 +134907,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::Render"
@@ -134933,7 +134933,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::SetModelIndex"
@@ -134959,7 +134959,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::SetupModelNodes"
@@ -134985,7 +134985,7 @@
       },
       "evidence": {
         "path": "reversing/Boat23/validation-summary.json",
-        "sha256": "0f3bbb80a8d22cd64a94be450d06cd151102108e4dbac5a76e40627a94cfbbcd",
+        "sha256": "3fedea70207a46d2869f2e8a5c3366dcd748ed43e0595e3b3b419a51c919a4c9",
         "passed_path": [
           "covered_functions",
           "CBoat::Teleport"

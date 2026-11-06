@@ -53,7 +53,7 @@
   "log_sha256": "236ceba3a236a394f9ee4ba9bbe230506b2f4e22e0677e3ac0910d81f922daae",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-render19\\20261003-205940-621428",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-render19\\20261105-192750-306378",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CShadowCamera::Constructor": true,
@@ -96,24 +96,25 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "cb454d6ffd3dc5e36b173c2c40baa5712325ac769cc514fd00dc01b44c845e2f",
-      "pdb": "9d644b0fb99d73f3b97d7ba27c3affdb5f0db9236f9c08c9e819a98d14fd7080"
+      "asi": "f920c8fa1624f15bed36963b45182641d680c696a8c8ec6743f79245316b715b",
+      "pdb": "8b20485adb953e838fade40d7c09a2e93e046a2f0a61b8d0d87ce0a966b0eb05"
     },
     "sources": {
-      "source/game_sa/ShadowCamera.cpp": "ab0f2228200a758fc45bd5b1567feca825363d33adf46201e717d802ba1cac7b",
+      "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
       "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
-      "source/game_sa/Glass.cpp": "0568a444d5d1eca6c9492150caa39e0e34b276c8dedcaf3dc5da116898ab4166",
+      "source/game_sa/Glass.cpp": "bf53dca2659b74c3811cbb728763f85cabfe3a9008ebaba1f085ff9d6410dd78",
       "source/game_sa/Glass.h": "97fe22c4be50c16c78e1c42c5fb88689e2a8315544654e0b12e89ef1c795502a"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "0ed5380de2eb5ffe6c1c36e206e6a037b3889fb387d1884e8c5277d05ee67152",
+      "LiveComparison.hpp": "8eea011c05c0baf5839621ef347cfdc437b9e48adb3abb95e038f73ef029e4fc",
       "build_probe.py": "0a1ac7d643e0b732c0e15c83d286b200967b10ff92ddf3733e3a4a9b39ebc9a2",
       "run_local.py": "0352e6c806367197ddf51c84d8e9fdc47e8f9d52156b90de30cb27817b1f0829"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

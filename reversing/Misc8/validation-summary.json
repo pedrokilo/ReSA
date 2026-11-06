@@ -36,7 +36,7 @@
   "log_sha256": "7e6abdd8774094e6dfd0c91eedbecdc04ee7162aacc336929ad987d9b8c559e3",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc8\\20261105-114848-824779",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc8\\20261105-185935-671445",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "cTransmission::InitGearRatios": true,
@@ -62,8 +62,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "d041408c979d5698a91dc43be914d70f04dbafbbe59a6528817d5a4afdda7b42",
-      "pdb": "07afbff8c8e7595a0c2c6a27271fc5adc7978879bea1c520d07828d014aa4625"
+      "asi": "0c05b7d94dd4839b19c7e1a55c51caeceb43fcdbffd4bf0819e020c6192268c3",
+      "pdb": "6acca18c50a85f8c90713c097201d486dbfbc7ad2a5c69ee8e190bd6a166b8eb"
     },
     "sources": {
       "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",

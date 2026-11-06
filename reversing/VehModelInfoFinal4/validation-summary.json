@@ -238,27 +238,27 @@
     "CVehicleModelInfo::UseCommonVehicleTexDicationary": "Corpus 64; fake world and traced stubs (no credit). "
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/VehModelInfoFinal4-20261104-040123-451629",
-  "summary_sha256": "384ac456bc53ca19630e84560380f9ab771fd146c4537672220000ba116e727e",
-  "result_txt_sha256": "b69c0dd28f4d5e055157ca2ed3eafb2365ab9c023904c65b2dee85260d8ef914",
-  "log_sha256": "1f5374dd31c0d18c708bfd2d284a93eab5a13f8cfa00a7217cb1e0b393a21405",
+  "run": "reversing/CppTwelveLevel6Final/runs/VehModelInfoFinal4-20261105-195628-389221",
+  "summary_sha256": "52dee4eaa0ca0919ddc001940e52f167e945b72722280dd9afb71965b25df0f0",
+  "result_txt_sha256": "652ca3990ef0729bf0f4da220d5293906b01337b6931e3b7f204af7ad400953b",
+  "log_sha256": "8d208d3b8125d067a697e5d850f1162f62764c8276946e7661b8387773ca3850",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/VehModelInfoFinal4-20261104-040123-451629/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/VehModelInfoFinal4-20261105-195628-389221/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "9a3cffbda80ee8298503f02e9d433e8ab9f342228f6ae0e2733f6309796c38e1",
-    "uncompressed_sha256": "1f5374dd31c0d18c708bfd2d284a93eab5a13f8cfa00a7217cb1e0b393a21405"
+    "compressed_sha256": "4f6e739bf37d1f957dde46c03549af21418544f35a5c44a103a4c80a0f41a0f2",
+    "uncompressed_sha256": "8d208d3b8125d067a697e5d850f1162f62764c8276946e7661b8387773ca3850"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "a8cd010e77a5bb26f74b859be6b42a81475880f549cb28d9ce8d71a9649270bf",
+  "executed_probe_sha256": "8249c5d828671ee0621ca0295f109079b9245ccfef0238b19095316e086d1cc1",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-      "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+      "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+      "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
     }
   },
   "source_corrections": {

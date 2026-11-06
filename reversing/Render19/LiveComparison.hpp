@@ -206,6 +206,7 @@ inline void Update() {
         EntryPatch w6(0x804EF0,FSetFrame), w7(0x7FB020,FRasterDestroy), w8(0x7FB230,FRasterCreate), w9(0x7F35D0,FTexSetRaster), w10(0x7F3820,FTexDestroy);
         EntryPatch w11(0x7F37C0,FTexCreate), w12(0x7EE4B0,FCamDestroy), w13(0x7EE4F0,FCamCreate), w14(0x7EE3A0,FCamProjection), w15(0x7EE2A0,FCamFar);
         EntryPatch w16(0x7EE1D0,FCamNear), w17(0x7EE410,FCamWindow), w18(0x749B70,FForAllAtomics), w19(0x7491C0,FDefaultRender);
+        EntryPatch w18d(reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics),FForAllAtomics), w19d(reinterpret_cast<uintptr_t>(&AtomicDefaultRenderCallBack),FDefaultRender); // lote 102A: las dos tienen cuerpo y hook en la DLL
         // cristales
         EntryPatch g1(0x506EE0,FGlassAudio), g1d(bit_cast<uintptr_t>(&CAudioEngine::ReportGlassCollisionEvent),FGlassAudio);
         EntryPatch g2(0x5696C0,FGround), g2d(bit_cast<uintptr_t>(&CWorld::FindGroundZFor3DCoord),FGround);

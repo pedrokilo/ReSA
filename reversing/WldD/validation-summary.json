@@ -31,10 +31,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "053754d6c446d4ce19cede9713f054924b971826f2b9db32f2a03fdbc60ef3d6",
+  "log_sha256": "f3ed2c58c31da16640f7bd2949b900c5933cc1a585047f7de42dfabcb48368a1",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wldd\\20261105-021444-190067",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wldd\\20261105-185254-267149",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CWorld::CallOffChaseForArea": true,
@@ -57,8 +57,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "d5a2d2fe2d6f36517250d9b43d5240a527370a86b459f591f191c06c8fe06c2a",
-      "pdb": "8722f72648aca6d15ab682b49c2f671da38a248f21167fc73e072bc44d275202"
+      "asi": "b66da528b7b7f42facd92eff1854378c03d98c5997524bfa20446147668e6072",
+      "pdb": "84165c801c0073a0341b772a6d3efb2fa5df3b5803b3b0ea38c93d3274a92908"
     },
     "sources": {
       "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",

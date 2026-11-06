@@ -88522,7 +88522,7 @@
       },
       "evidence": {
         "path": "reversing/HudCamFinal2/validation-summary.json",
-        "sha256": "e7551fe2d9eade99016995a4f37e0540dda585fdc2e2778c753eb7897827cd0b",
+        "sha256": "92fb8a97fd4e3d7423ad9aa270cc18a3131ff91bba7384378188a73a8f352e65",
         "passed_path": [
           "covered_functions",
           "CCam::Process_1stPerson"
@@ -88531,12 +88531,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Hud.cpp": "491e581daa3fee488356e5faf7dcb46582eb7625d06b10f164ff35f4cc0601c2",
+        "source/game_sa/Hud.cpp": "4c02b81839711df740e092c1ddfb0e6942f2cabbedf7ea9bd2b730614b8a8e4a",
         "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
-        "source/game_sa/Cam.cpp": "7c848a5ebe2c3838b302a5ca736709af00693fae2a8ef682ea7476fd4483af16",
-        "source/game_sa/Cam.h": "6a8c49d34a61a6cb6dc3fd9576bf5532992605c96059e371eadbcb08660cfd06",
-        "source/game_sa/Pickups.cpp": "5329a87e54253342d35c0a088e0fe19711c7c0d79e5d1c332dae790013ff859c",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0"
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
       },
       "source_provenance": "Exact compiled HudCamFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 6528-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88552,7 +88552,7 @@
       },
       "evidence": {
         "path": "reversing/HudCamFinal2/validation-summary.json",
-        "sha256": "e7551fe2d9eade99016995a4f37e0540dda585fdc2e2778c753eb7897827cd0b",
+        "sha256": "92fb8a97fd4e3d7423ad9aa270cc18a3131ff91bba7384378188a73a8f352e65",
         "passed_path": [
           "covered_functions",
           "CCam::Process_Rocket"
@@ -88561,12 +88561,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Hud.cpp": "491e581daa3fee488356e5faf7dcb46582eb7625d06b10f164ff35f4cc0601c2",
+        "source/game_sa/Hud.cpp": "4c02b81839711df740e092c1ddfb0e6942f2cabbedf7ea9bd2b730614b8a8e4a",
         "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
-        "source/game_sa/Cam.cpp": "7c848a5ebe2c3838b302a5ca736709af00693fae2a8ef682ea7476fd4483af16",
-        "source/game_sa/Cam.h": "6a8c49d34a61a6cb6dc3fd9576bf5532992605c96059e371eadbcb08660cfd06",
-        "source/game_sa/Pickups.cpp": "5329a87e54253342d35c0a088e0fe19711c7c0d79e5d1c332dae790013ff859c",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0"
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
       },
       "source_provenance": "Exact compiled HudCamFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 6528-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88582,7 +88582,7 @@
       },
       "evidence": {
         "path": "reversing/HudCamFinal2/validation-summary.json",
-        "sha256": "e7551fe2d9eade99016995a4f37e0540dda585fdc2e2778c753eb7897827cd0b",
+        "sha256": "92fb8a97fd4e3d7423ad9aa270cc18a3131ff91bba7384378188a73a8f352e65",
         "passed_path": [
           "covered_functions",
           "CHud::Draw"
@@ -88591,12 +88591,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Hud.cpp": "491e581daa3fee488356e5faf7dcb46582eb7625d06b10f164ff35f4cc0601c2",
+        "source/game_sa/Hud.cpp": "4c02b81839711df740e092c1ddfb0e6942f2cabbedf7ea9bd2b730614b8a8e4a",
         "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
-        "source/game_sa/Cam.cpp": "7c848a5ebe2c3838b302a5ca736709af00693fae2a8ef682ea7476fd4483af16",
-        "source/game_sa/Cam.h": "6a8c49d34a61a6cb6dc3fd9576bf5532992605c96059e371eadbcb08660cfd06",
-        "source/game_sa/Pickups.cpp": "5329a87e54253342d35c0a088e0fe19711c7c0d79e5d1c332dae790013ff859c",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0"
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
       },
       "source_provenance": "Exact compiled HudCamFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 6528-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88612,7 +88612,7 @@
       },
       "evidence": {
         "path": "reversing/HudCamFinal2/validation-summary.json",
-        "sha256": "e7551fe2d9eade99016995a4f37e0540dda585fdc2e2778c753eb7897827cd0b",
+        "sha256": "92fb8a97fd4e3d7423ad9aa270cc18a3131ff91bba7384378188a73a8f352e65",
         "passed_path": [
           "covered_functions",
           "CHud::DrawAfterFade"
@@ -88621,12 +88621,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Hud.cpp": "491e581daa3fee488356e5faf7dcb46582eb7625d06b10f164ff35f4cc0601c2",
+        "source/game_sa/Hud.cpp": "4c02b81839711df740e092c1ddfb0e6942f2cabbedf7ea9bd2b730614b8a8e4a",
         "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
-        "source/game_sa/Cam.cpp": "7c848a5ebe2c3838b302a5ca736709af00693fae2a8ef682ea7476fd4483af16",
-        "source/game_sa/Cam.h": "6a8c49d34a61a6cb6dc3fd9576bf5532992605c96059e371eadbcb08660cfd06",
-        "source/game_sa/Pickups.cpp": "5329a87e54253342d35c0a088e0fe19711c7c0d79e5d1c332dae790013ff859c",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0"
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
       },
       "source_provenance": "Exact compiled HudCamFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 6528-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88642,7 +88642,7 @@
       },
       "evidence": {
         "path": "reversing/HudCamFinal2/validation-summary.json",
-        "sha256": "e7551fe2d9eade99016995a4f37e0540dda585fdc2e2778c753eb7897827cd0b",
+        "sha256": "92fb8a97fd4e3d7423ad9aa270cc18a3131ff91bba7384378188a73a8f352e65",
         "passed_path": [
           "covered_functions",
           "CHud::DrawRadar"
@@ -88651,12 +88651,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Hud.cpp": "491e581daa3fee488356e5faf7dcb46582eb7625d06b10f164ff35f4cc0601c2",
+        "source/game_sa/Hud.cpp": "4c02b81839711df740e092c1ddfb0e6942f2cabbedf7ea9bd2b730614b8a8e4a",
         "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
-        "source/game_sa/Cam.cpp": "7c848a5ebe2c3838b302a5ca736709af00693fae2a8ef682ea7476fd4483af16",
-        "source/game_sa/Cam.h": "6a8c49d34a61a6cb6dc3fd9576bf5532992605c96059e371eadbcb08660cfd06",
-        "source/game_sa/Pickups.cpp": "5329a87e54253342d35c0a088e0fe19711c7c0d79e5d1c332dae790013ff859c",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0"
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
       },
       "source_provenance": "Exact compiled HudCamFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 6528-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88672,7 +88672,7 @@
       },
       "evidence": {
         "path": "reversing/HudCamFinal2/validation-summary.json",
-        "sha256": "e7551fe2d9eade99016995a4f37e0540dda585fdc2e2778c753eb7897827cd0b",
+        "sha256": "92fb8a97fd4e3d7423ad9aa270cc18a3131ff91bba7384378188a73a8f352e65",
         "passed_path": [
           "covered_functions",
           "CHud::DrawWeaponIcon"
@@ -88681,12 +88681,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Hud.cpp": "491e581daa3fee488356e5faf7dcb46582eb7625d06b10f164ff35f4cc0601c2",
+        "source/game_sa/Hud.cpp": "4c02b81839711df740e092c1ddfb0e6942f2cabbedf7ea9bd2b730614b8a8e4a",
         "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
-        "source/game_sa/Cam.cpp": "7c848a5ebe2c3838b302a5ca736709af00693fae2a8ef682ea7476fd4483af16",
-        "source/game_sa/Cam.h": "6a8c49d34a61a6cb6dc3fd9576bf5532992605c96059e371eadbcb08660cfd06",
-        "source/game_sa/Pickups.cpp": "5329a87e54253342d35c0a088e0fe19711c7c0d79e5d1c332dae790013ff859c",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0"
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
       },
       "source_provenance": "Exact compiled HudCamFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 6528-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88702,7 +88702,7 @@
       },
       "evidence": {
         "path": "reversing/HudCamFinal2/validation-summary.json",
-        "sha256": "e7551fe2d9eade99016995a4f37e0540dda585fdc2e2778c753eb7897827cd0b",
+        "sha256": "92fb8a97fd4e3d7423ad9aa270cc18a3131ff91bba7384378188a73a8f352e65",
         "passed_path": [
           "covered_functions",
           "CHud::Initialise"
@@ -88711,12 +88711,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Hud.cpp": "491e581daa3fee488356e5faf7dcb46582eb7625d06b10f164ff35f4cc0601c2",
+        "source/game_sa/Hud.cpp": "4c02b81839711df740e092c1ddfb0e6942f2cabbedf7ea9bd2b730614b8a8e4a",
         "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
-        "source/game_sa/Cam.cpp": "7c848a5ebe2c3838b302a5ca736709af00693fae2a8ef682ea7476fd4483af16",
-        "source/game_sa/Cam.h": "6a8c49d34a61a6cb6dc3fd9576bf5532992605c96059e371eadbcb08660cfd06",
-        "source/game_sa/Pickups.cpp": "5329a87e54253342d35c0a088e0fe19711c7c0d79e5d1c332dae790013ff859c",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0"
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
       },
       "source_provenance": "Exact compiled HudCamFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 6528-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88732,7 +88732,7 @@
       },
       "evidence": {
         "path": "reversing/HudCamFinal2/validation-summary.json",
-        "sha256": "e7551fe2d9eade99016995a4f37e0540dda585fdc2e2778c753eb7897827cd0b",
+        "sha256": "92fb8a97fd4e3d7423ad9aa270cc18a3131ff91bba7384378188a73a8f352e65",
         "passed_path": [
           "covered_functions",
           "CHud::Shutdown"
@@ -88741,12 +88741,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Hud.cpp": "491e581daa3fee488356e5faf7dcb46582eb7625d06b10f164ff35f4cc0601c2",
+        "source/game_sa/Hud.cpp": "4c02b81839711df740e092c1ddfb0e6942f2cabbedf7ea9bd2b730614b8a8e4a",
         "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
-        "source/game_sa/Cam.cpp": "7c848a5ebe2c3838b302a5ca736709af00693fae2a8ef682ea7476fd4483af16",
-        "source/game_sa/Cam.h": "6a8c49d34a61a6cb6dc3fd9576bf5532992605c96059e371eadbcb08660cfd06",
-        "source/game_sa/Pickups.cpp": "5329a87e54253342d35c0a088e0fe19711c7c0d79e5d1c332dae790013ff859c",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0"
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
       },
       "source_provenance": "Exact compiled HudCamFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 6528-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -88762,7 +88762,7 @@
       },
       "evidence": {
         "path": "reversing/HudCamFinal2/validation-summary.json",
-        "sha256": "e7551fe2d9eade99016995a4f37e0540dda585fdc2e2778c753eb7897827cd0b",
+        "sha256": "92fb8a97fd4e3d7423ad9aa270cc18a3131ff91bba7384378188a73a8f352e65",
         "passed_path": [
           "covered_functions",
           "CPickups::Update"
@@ -88771,12 +88771,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Hud.cpp": "491e581daa3fee488356e5faf7dcb46582eb7625d06b10f164ff35f4cc0601c2",
+        "source/game_sa/Hud.cpp": "4c02b81839711df740e092c1ddfb0e6942f2cabbedf7ea9bd2b730614b8a8e4a",
         "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
-        "source/game_sa/Cam.cpp": "7c848a5ebe2c3838b302a5ca736709af00693fae2a8ef682ea7476fd4483af16",
-        "source/game_sa/Cam.h": "6a8c49d34a61a6cb6dc3fd9576bf5532992605c96059e371eadbcb08660cfd06",
-        "source/game_sa/Pickups.cpp": "5329a87e54253342d35c0a088e0fe19711c7c0d79e5d1c332dae790013ff859c",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0"
+        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
       },
       "source_provenance": "Exact compiled HudCamFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 6528-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97164,7 +97164,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "c7938c92f21f47aa25ad8d4b38d088f87fd122258cce26ff37960e6cd010efba",
+        "sha256": "9f940a9215656347521595c55f7de203d9fdf6b6e2e5677496586ed51ae1b7b5",
         "passed_path": [
           "covered_functions",
           "CPopulation::AddDeadPedInFrontOfCar"
@@ -97190,7 +97190,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "c7938c92f21f47aa25ad8d4b38d088f87fd122258cce26ff37960e6cd010efba",
+        "sha256": "9f940a9215656347521595c55f7de203d9fdf6b6e2e5677496586ed51ae1b7b5",
         "passed_path": [
           "covered_functions",
           "CPopulation::AddPed"
@@ -97216,7 +97216,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "c7938c92f21f47aa25ad8d4b38d088f87fd122258cce26ff37960e6cd010efba",
+        "sha256": "9f940a9215656347521595c55f7de203d9fdf6b6e2e5677496586ed51ae1b7b5",
         "passed_path": [
           "covered_functions",
           "CPopulation::AddPedAtAttractor"
@@ -97242,7 +97242,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "c7938c92f21f47aa25ad8d4b38d088f87fd122258cce26ff37960e6cd010efba",
+        "sha256": "9f940a9215656347521595c55f7de203d9fdf6b6e2e5677496586ed51ae1b7b5",
         "passed_path": [
           "covered_functions",
           "CPopulation::AddPedInCar"
@@ -97268,7 +97268,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "c7938c92f21f47aa25ad8d4b38d088f87fd122258cce26ff37960e6cd010efba",
+        "sha256": "9f940a9215656347521595c55f7de203d9fdf6b6e2e5677496586ed51ae1b7b5",
         "passed_path": [
           "covered_functions",
           "CPopulation::CreateWaitingCoppers"
@@ -97294,7 +97294,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "c7938c92f21f47aa25ad8d4b38d088f87fd122258cce26ff37960e6cd010efba",
+        "sha256": "9f940a9215656347521595c55f7de203d9fdf6b6e2e5677496586ed51ae1b7b5",
         "passed_path": [
           "covered_functions",
           "CPopulation::GeneratePedsAtAttractors"
@@ -97320,7 +97320,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "c7938c92f21f47aa25ad8d4b38d088f87fd122258cce26ff37960e6cd010efba",
+        "sha256": "9f940a9215656347521595c55f7de203d9fdf6b6e2e5677496586ed51ae1b7b5",
         "passed_path": [
           "covered_functions",
           "CPopulation::PlaceCouple"
@@ -97346,7 +97346,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "c7938c92f21f47aa25ad8d4b38d088f87fd122258cce26ff37960e6cd010efba",
+        "sha256": "9f940a9215656347521595c55f7de203d9fdf6b6e2e5677496586ed51ae1b7b5",
         "passed_path": [
           "covered_functions",
           "CPopulation::PopulateInterior"
@@ -97372,7 +97372,7 @@
       },
       "evidence": {
         "path": "reversing/PopFinal4/validation-summary.json",
-        "sha256": "c7938c92f21f47aa25ad8d4b38d088f87fd122258cce26ff37960e6cd010efba",
+        "sha256": "9f940a9215656347521595c55f7de203d9fdf6b6e2e5677496586ed51ae1b7b5",
         "passed_path": [
           "covered_functions",
           "CPopulation::TestSafeForRealObject"
@@ -97398,7 +97398,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::AddRemap"
@@ -97407,8 +97407,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97424,7 +97424,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::AddWheelUpgrade"
@@ -97433,8 +97433,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97450,7 +97450,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::AssignRemapTxd"
@@ -97459,8 +97459,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97476,7 +97476,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::ChooseComponent"
@@ -97485,8 +97485,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97502,7 +97502,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::ChooseComponent-Global"
@@ -97511,8 +97511,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97528,7 +97528,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::ChooseSecondComponent"
@@ -97537,8 +97537,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97554,7 +97554,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::ChooseVehicleColour"
@@ -97563,8 +97563,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97580,7 +97580,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::ClearAtomicFlagCB"
@@ -97589,8 +97589,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97606,7 +97606,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::CollapseFramesCB"
@@ -97615,8 +97615,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97632,7 +97632,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::ConvertAnimFileIndex"
@@ -97641,8 +97641,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97658,7 +97658,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::CountCompsInRule"
@@ -97667,8 +97667,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97684,7 +97684,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::CreateInstance"
@@ -97693,8 +97693,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97710,7 +97710,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::DeleteRwObject"
@@ -97719,8 +97719,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97736,7 +97736,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::DeleteVehicleColourTextures"
@@ -97745,8 +97745,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97762,7 +97762,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::DisableEnvMap"
@@ -97771,8 +97771,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97788,7 +97788,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::FindTextureCB"
@@ -97797,8 +97797,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97814,7 +97814,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetAnimFileIndex"
@@ -97823,8 +97823,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97840,7 +97840,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetCustomCarPlateText"
@@ -97849,8 +97849,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97866,7 +97866,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetListOfComponentsNotUsedByRules"
@@ -97875,8 +97875,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97892,7 +97892,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetMatFXEffectMaterialCB"
@@ -97901,8 +97901,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97918,7 +97918,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetMaximumNumberOfPassengersFromNumberOfDoors"
@@ -97927,8 +97927,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97944,7 +97944,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetModelType"
@@ -97953,8 +97953,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97970,7 +97970,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetNumDoors"
@@ -97979,8 +97979,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -97996,7 +97996,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetNumRemaps"
@@ -98005,8 +98005,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98022,7 +98022,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetNumWheelUpgrades"
@@ -98031,8 +98031,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98048,7 +98048,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetOkAndDamagedAtomicCB"
@@ -98057,8 +98057,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98074,7 +98074,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetOriginalCompPosition"
@@ -98083,8 +98083,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98100,7 +98100,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetWheelPosn"
@@ -98109,8 +98109,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98126,7 +98126,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::GetWheelUpgrade"
@@ -98135,8 +98135,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98152,7 +98152,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::HasAlphaMaterialCB"
@@ -98161,8 +98161,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98178,7 +98178,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::HideAllComponentsAtomicCB"
@@ -98187,8 +98187,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98204,7 +98204,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::HideDamagedAtomicCB"
@@ -98213,8 +98213,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98230,7 +98230,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::Init"
@@ -98239,8 +98239,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98256,7 +98256,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::IsUpgradeAvailable"
@@ -98265,8 +98265,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98282,7 +98282,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::IsValidCompRule"
@@ -98291,8 +98291,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98308,7 +98308,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::LoadEnvironmentMaps"
@@ -98317,8 +98317,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98334,7 +98334,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::LoadVehicleColours"
@@ -98343,8 +98343,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98360,7 +98360,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::LoadVehicleUpgrades"
@@ -98369,8 +98369,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98386,7 +98386,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::MoveObjectsCB"
@@ -98395,8 +98395,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98412,7 +98412,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::PreprocessHierarchy"
@@ -98421,8 +98421,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98438,7 +98438,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::ReduceMaterialsInVehicle"
@@ -98447,8 +98447,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98464,7 +98464,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::RemoveWindowAlphaCB"
@@ -98473,8 +98473,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98490,7 +98490,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::ResetEditableMaterials"
@@ -98499,8 +98499,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98516,7 +98516,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetAnimFile"
@@ -98525,8 +98525,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98542,7 +98542,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetAtomicFlagCB"
@@ -98551,8 +98551,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98568,7 +98568,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetAtomicRenderCallbacks"
@@ -98577,8 +98577,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98594,7 +98594,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetAtomicRendererCB"
@@ -98603,8 +98603,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98620,7 +98620,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetAtomicRendererCB_Boat"
@@ -98629,8 +98629,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98646,7 +98646,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetAtomicRendererCB_Heli"
@@ -98655,8 +98655,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98672,7 +98672,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetAtomicRendererCB_Plane"
@@ -98681,8 +98681,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98698,7 +98698,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetAtomicRendererCB_RealHeli"
@@ -98707,8 +98707,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98724,7 +98724,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetAtomicRendererCB_Train"
@@ -98733,8 +98733,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98750,7 +98750,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetCarCustomPlate"
@@ -98759,8 +98759,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98776,7 +98776,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetClump"
@@ -98785,8 +98785,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98802,7 +98802,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetCustomCarPlateText"
@@ -98811,8 +98811,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98828,7 +98828,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetDirtTextures"
@@ -98837,8 +98837,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98854,7 +98854,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetEditableMaterials"
@@ -98863,8 +98863,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98880,7 +98880,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetEditableMaterialsCB-RpAtomic"
@@ -98889,8 +98889,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98906,7 +98906,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetEditableMaterialsCB-RpMaterial"
@@ -98915,8 +98915,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98932,7 +98932,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetEnvMapCoeff"
@@ -98941,8 +98941,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98958,7 +98958,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetEnvMapCoeffAtomicCB"
@@ -98967,8 +98967,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -98984,7 +98984,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetEnvMapCoeffCB"
@@ -98993,8 +98993,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99010,7 +99010,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetEnvironmentMapAtomicCB"
@@ -99019,8 +99019,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99036,7 +99036,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetEnvironmentMapCB"
@@ -99045,8 +99045,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99062,7 +99062,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetRenderPipelines"
@@ -99071,8 +99071,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99088,7 +99088,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetRenderPipelinesCB"
@@ -99097,8 +99097,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99114,7 +99114,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetVehicleColour"
@@ -99123,8 +99123,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99140,7 +99140,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetVehicleComponentFlags"
@@ -99149,8 +99149,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99166,7 +99166,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetupCommonData"
@@ -99175,8 +99175,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99192,7 +99192,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::SetupLightFlags"
@@ -99201,8 +99201,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99218,7 +99218,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::ShutdownEnvironmentMaps"
@@ -99227,8 +99227,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99244,7 +99244,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::ShutdownLightTexture"
@@ -99253,8 +99253,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99270,7 +99270,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::StopUsingCommonVehicleTexDicationary"
@@ -99279,8 +99279,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99296,7 +99296,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::StoreAtomicUsedMaterialsCB"
@@ -99305,8 +99305,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -99322,7 +99322,7 @@
       },
       "evidence": {
         "path": "reversing/VehModelInfoFinal4/validation-summary.json",
-        "sha256": "d0eb2dd65314002250c8b83e752128b86205583977fb1dc6a7b34b3e892f2cf8",
+        "sha256": "108fbb6d614b3ebfbd4831f35d760d132cb91725ee955971d325f78e49517c65",
         "passed_path": [
           "covered_functions",
           "CVehicleModelInfo::UseCommonVehicleTexDicationary"
@@ -99331,8 +99331,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Models/VehicleModelInfo.cpp": "fc844d3ad50953361f8b8ff40a536e1f4f525d49c21e8bb472b035d4d97899c1",
-        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4"
+        "source/game_sa/Models/VehicleModelInfo.cpp": "a013693257ff3ee92a1f48df51f6717c8f8be2e1bddf0b8ed043a50f09ae0860",
+        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00"
       },
       "source_provenance": "Exact compiled VehModelInfoFinal4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,

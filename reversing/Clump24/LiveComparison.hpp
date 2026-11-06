@@ -290,7 +290,7 @@ inline void Update() {
                     EntryPatch r7(bit_cast<uintptr_t>(&CAnimManager::RemoveAnimBlockRef),FakeRemoveAnimRef), r7e(0x4D3FD0,FakeRemoveAnimRef);
                     EntryPatch r8(bit_cast<uintptr_t>(&Get2DEffectAtomic),FakeGet2dfxAtomic), r8e(0x734880,FakeGet2dfxAtomic);
                     EntryPatch r9(bit_cast<uintptr_t>(&GetFirstAtomic),FakeGetFirstAtomic), r9e(0x734820,FakeGetFirstAtomic);
-                    EntryPatch r10(0x74A310,FakeClumpDestroy), r11(0x749F70,FakeClumpClone), r12(0x749B70,FakeForAllAtomics), r13(0x7C7550,FakeSkinGetSkin);
+                    EntryPatch r10(0x74A310,FakeClumpDestroy), r11(0x749F70,FakeClumpClone), r12(0x749B70,FakeForAllAtomics), r13(0x7C7550,FakeSkinGetSkin), r12d(reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics),FakeForAllAtomics); /* lote 102A: cuerpo y hook en la DLL */
                     EntryPatch r14(0x7C7520,FakeSkinSetHier), r15(0x7C77F0,FakeSkinWeights);
                     EntryPatch r16(bit_cast<uintptr_t>(&GetAnimHierarchyFromFrame),FakeHierFromFrame), r16e(0x734AB0,FakeHierFromFrame);
                     EntryPatch r17(bit_cast<uintptr_t>(&GetAnimHierarchyFromClump),FakeHierFromClump), r17e(0x734B10,FakeHierFromClump);

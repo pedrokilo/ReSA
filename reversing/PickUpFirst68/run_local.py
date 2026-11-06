@@ -1,8 +1,8 @@
 """Compuertas independientes del banco PickUpFirst68 (CTaskComplexGoPickUpEntity::CreateFirstSubTask 0x693610), 16384 pares.
 
 Ademas de la igualdad EXE/DLL fila a fila (probe_case.analyzer), exige: hook virtual registrado y cuerpo en el ASI, todas las compuertas de ABI/ruta/DF/SEH/restauracion en AMBOS
-lados (route_ok incluye que la entrada 0x693610 salte a la DLL solo en el candidato; collaborators_dll exige que los colaboradores sustituidos con hook (0x54F560, 0x59C890, 0x61A5A0) y el
-constructor real 0x668120 sean saltos a la DLL en ambos lados y que los dos sin hook (0x54EF40, 0x54F1B0) sigan siendo codigo del EXE (0x59B020 y 0x59AD70 tienen hook desde el lote 97A), antes de instalar los falsos, y que
+lados (route_ok incluye que la entrada 0x693610 salte a la DLL solo en el candidato; collaborators_dll exige que los colaboradores sustituidos con hook (0x54F560, 0x59C890, 0x61A5A0; 0x59B020 y 0x59AD70 desde el lote 97A; 0x54EF40 y 0x54F1B0 desde el lote 102A) y el
+constructor real 0x668120 sean saltos a la DLL en ambos lados, antes de instalar los falsos, y que
 sus cuerpos de la DLL esten en el ASI), fp_difference vacio, la salida de CADA lado (eventos de los falsos EN ORDEN con sus argumentos, bytes cambiados de la tarea y de la entidad,
 palabras del objeto construido) igual a la que modela fixture_oracle.py desde el desensamblado, la cobertura de ramas (coverage.json = minimos calibrados) y la restauracion final.
 `python -B run_local.py --analyze <comparisons.jsonl>` solo analiza (devuelve None si el registro aun no existe o no esta completo).
@@ -24,7 +24,7 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh
 FN = oracle.NAME
 HOOKS = {FN: 0x693610}
 # (direccion del EXE, hooked): SetRotateZOnly, CMatrix::UpdateRwMatrix, CSimpleTransform::UpdateRwMatrix, UpdateMatrix (sin hook); AllocateMatrix, CMatrix * CVector, CTask::operator new (con hook)
-STUBBED = [(0x59B020, True), (0x59AD70, True), (0x54EF40, False), (0x54F1B0, False), (0x54F560, True), (0x59C890, True), (0x61A5A0, True)]
+STUBBED = [(0x59B020, True), (0x59AD70, True), (0x54EF40, True), (0x54F1B0, True), (0x54F560, True), (0x59C890, True), (0x61A5A0, True)]
 REAL = (0x668120,)          # constructor de CTaskComplexGoToPointAndStandStill: salto a la DLL en ambos lados
 WATCHED = {a for a, _ in STUBBED} | set(REAL)
 FAMILIES = 16

@@ -10,26 +10,26 @@
   "covered_functions": {
     "Fx_c::AddWheelSpray": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 87b80ac15 + Fx.cpp y X87Math.cpp, source.patch). Fx_c::AddWheelSpray 0x49FB30 (thiscall `ret 1Ch`, `this` no se usa; 1008 bytes): FindPlayerVehicle, distancia a la camara (625/400/64), cadencia por modelo+contador, velocidad, multiplicador (alfa segun agua), n particulas y por particula velocidad y posicion con la x87 a 24 bits (X87Math.cpp Fx83Spray*); sistema g_fx.m_BoatSplash (0xA9AE04). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 y FindPlayerVehicle 0x56E0D0 (hook RH apagado durante el banco). El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c corren de verdad en cada lado. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN, infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void). Fuera de los fixtures: velocidades que den mas de ~20000 particulas (el bucle es el mismo `for`).",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 87b80ac15 + Fx.cpp y X87Math.cpp, source.patch). Fx_c::AddWheelSpray 0x49FB30 (thiscall `ret 1Ch`, `this` no se usa; 1008 bytes): FindPlayerVehicle, distancia a la camara (625/400/64), cadencia por modelo+contador, velocidad, multiplicador (alfa segun agua), n particulas y por particula velocidad y posicion con la x87 a 24 bits (X87Math.cpp Fx83Spray*); sistema g_fx.m_BoatSplash (0xA9AE04). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 y FindPlayerVehicle 0x56E0D0 (hook RH apagado durante el banco). El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c corren de verdad en cada lado. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN, infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void). Fuera de los fixtures: velocidades que den mas de ~20000 particulas (el bucle es el mismo `for`). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fx83A-20261101-032620-582625",
-  "summary_sha256": "0f70b4becb9b3c202b953e00acfadd909a03f2dddd271c63911c4ae88b64fe9b",
-  "result_txt_sha256": "27f6ae8a5fa80c312fbb1ae7803f8081c23f1f41387948db35bfad7b9d57aa2a",
-  "log_sha256": "89e5bb79fb3dff815e6070cc969f5ad45e73c36d225ebbd520caefaa5eac68bd",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fx83A-20261105-192320-921824",
+  "summary_sha256": "f5f1efa257cb560afe6131f006c736a60b9b6e014bc90c81de5500f91fe081d6",
+  "result_txt_sha256": "1700eeeab7dcc1bbf44d1e82f4007b878ce33333554c20a7ef5d1a9e23a5ec0d",
+  "log_sha256": "e63879a7324872c13bc198c1f7c2d6a0ce12dfbadd1e0e0e8d10ec6a733a5fa6",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "8dc9c30e03ffd97b62268525e317f2703d989d9d46c03dab30550508df0afd15",
+  "executed_probe_sha256": "078490a83fb7c6f836a41fe60a9515086db7bd22091187922945a31ba1aab447",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/Fx/Fx.cpp": "800193bc8b903d67270c055efb0e20de70d467bcf1cadd37122d092e55f8fe1e",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+      "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
       "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-      "source/game_sa/X87Math.cpp": "82af00d7381e4b8bec0cc34f27929b15a6080d0d2632bb22873d8578d240a569",
-      "source/game_sa/X87Math.h": "b2473cff8e7ea2f6ab11a0ae5e175e61192510e597920900882c912d0dd6e146",
+      "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+      "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Fx83A/LiveComparison.hpp": "73782cb39bdeb3b112bbf17594369c0d822a154ace24cc05bbd50c0f4bd2253e",
       "reversing/Fx83A/Core.hpp": "6504e829429ca709c752b89ec3b7380252339711066f0adc848b6fd7722ee7f0",
@@ -37,5 +37,12 @@
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fx83A-20261105-192320-921824/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "2d1ebd4a744b5a9165ba190fc58285b55fdec1c16b424d8b89dafc7896c3878f",
+    "uncompressed_sha256": "e63879a7324872c13bc198c1f7c2d6a0ce12dfbadd1e0e0e8d10ec6a733a5fa6"
   }
 }

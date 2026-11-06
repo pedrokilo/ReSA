@@ -345,9 +345,8 @@ inline void Update() {
     env.stubs[kGrass]={sAdd,sPed,sVeh};
     env.stubs[kGravel]={sAdd,sPed,sVeh};
     env.stubs[kMud]={sAdd,sPed,sVeh};
-    {   // TriggerGunshot: AllocateMatrix, UpdateMatrix (sin hook RH: se parchea el cuerpo de la DLL por su direccion), FxRwMatrixCreate/Destroy, CreateMatFromVec, CreateFxSystem, CopyParentMatrix, PlayAndKill
-        const Pair pUpdate{0x54F1B0,Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateMatrix)),false};
-        env.stubs[kGunshot]={S(MakeCollab(env,0x54F560,hooksFound),reinterpret_cast<void*>(&FakeAllocMatrix)),S(pUpdate,reinterpret_cast<void*>(&FakeUpdateMatrix)),
+    {   // TriggerGunshot: AllocateMatrix, UpdateMatrix (con hook RH desde el lote 102A: MakeCollab), FxRwMatrixCreate/Destroy, CreateMatFromVec, CreateFxSystem, CopyParentMatrix, PlayAndKill
+        env.stubs[kGunshot]={S(MakeCollab(env,0x54F560,hooksFound),reinterpret_cast<void*>(&FakeAllocMatrix)),S(MakeCollab(env,0x54F1B0,hooksFound),reinterpret_cast<void*>(&FakeUpdateMatrix)),
                              S(MakeCollab(env,0x4A9440,hooksFound),reinterpret_cast<void*>(&FakeRwCreate)),S(MakeCollab(env,0x4A9460,hooksFound),reinterpret_cast<void*>(&FakeRwDestroy)),
                              S(MakeCollab(env,0x49E950,hooksFound),reinterpret_cast<void*>(&FakeCreateMat)),S(MakeCollab(env,0x4A9BE0,hooksFound),reinterpret_cast<void*>(&FakeCreateFx)),
                              S(MakeCollab(env,0x4AA890,hooksFound),reinterpret_cast<void*>(&FakeCopyParent)),S(MakeCollab(env,0x4AA3D0,hooksFound),reinterpret_cast<void*>(&FakePlayAndKill))};

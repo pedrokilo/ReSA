@@ -26,26 +26,26 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD cae5191ba + source.patch del lote 77; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 y FxSystem_c::EnablePrim 0x4AA610 (hook RH apagado durante el banco; AddParticle lo valida reversing/FxSystemPending), FindPlayerPed 0x56E210 y FindPlayerVehicle 0x56E0D0 (hook global), y para TriggerGunshot CPlaceable::AllocateMatrix 0x54F560, CSimpleTransform::UpdateMatrix 0x54F1B0 (sin hook RH: se parchea el cuerpo de la DLL por su direccion), FxManager_c::FxRwMatrixCreate 0x4A9440 / FxRwMatrixDestroy 0x4A9460 / CreateFxSystem 0x4A9BE0, Fx_c::CreateMatFromVec 0x49E950, FxSystem_c::CopyParentMatrix 0x4AA890 y PlayAndKill 0x4AA3D0. El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c 0x4AB270/0x4AB290 corren de verdad en cada lado. En TriggerGunshot el EXE llama a Multiply3x3 (0x59C810) pero descarta el resultado: no se reproduce ni se sustituye (sin efecto observable). La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FxWheel77-20261105-110503-356238",
-  "summary_sha256": "c22c0c9cda8a638b0fe998414e70c1a96b1d640a8126e0ddd038816bc509daa3",
-  "result_txt_sha256": "0e5373cc83ad4113dc077b37cec76a3553cacd466f2cc98c582a7d9e34782e98",
-  "log_sha256": "abd21af969688cfd107fbec8449491b561630e8ea4c7981e20db4e4b2193bd13",
+  "run": "reversing/CppTwelveLevel6Final/runs/FxWheel77-20261105-191319-928501",
+  "summary_sha256": "c2bb36872efe82d3974cb46ea11d99a42cf5a93cc305d23a36329ab82dabfdf2",
+  "result_txt_sha256": "13bc1e68804924d705a1592d4131c2c20d83ebe8860d0616c6f47c29b3eadca6",
+  "log_sha256": "d14b68f594782f40b8e54fb4672c7b5e25cdb16ce2728dd1877ece2428a69ead",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "208a854ed666fa246168433fb369718827ba553e1e89aecda06378ce7b20b837",
+  "executed_probe_sha256": "25e7b2c3b5614cc89f8d7ff8c679e284fb338aeeaedba71415be565617d4cf30",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+      "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
       "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
       "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-      "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
-      "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+      "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+      "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
+      "reversing/FxWheel77/LiveComparison.hpp": "9ea17e08781e843100bb91a97f9b48bff5db7a1b4c63ddd2aa73eb750b6f63ef",
       "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
       "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -53,10 +53,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FxWheel77-20261105-110503-356238/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FxWheel77-20261105-191319-928501/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "3ff613f36a2b598bdd60b248b483239b6ff5c4d45b2bc5bbd7e56d58b12d38b8",
-    "uncompressed_sha256": "abd21af969688cfd107fbec8449491b561630e8ea4c7981e20db4e4b2193bd13"
+    "compressed_sha256": "bfa6ea92066bd2c1dfb83bea490bc13a75928006d0059a70e3216298d9b99fe1",
+    "uncompressed_sha256": "d14b68f594782f40b8e54fb4672c7b5e25cdb16ce2728dd1877ece2428a69ead"
   }
 }

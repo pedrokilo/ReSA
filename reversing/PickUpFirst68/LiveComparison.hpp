@@ -55,8 +55,9 @@ inline void Update() {
     // direccion del EXE y en el cuerpo de la DLL). Los otros dos (CSimpleTransform) siguen sin hook: la entrada del EXE es codigo original y la DLL los llama por su propio cuerpo.
     env.stub[0]={0x59B020,Body(std::bit_cast<uintptr_t>(&CMatrix::SetRotateZOnly))};
     env.stub[1]={0x59AD70,Body(std::bit_cast<uintptr_t>(&CMatrix::UpdateRwMatrix))};
-    env.stub[2]={0x54EF40,Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateRwMatrix)),false};
-    env.stub[3]={0x54F1B0,Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateMatrix)),false};
+    // Lote 102A: CSimpleTransform::UpdateRwMatrix (0x54EF40) y UpdateMatrix (0x54F1B0) tienen hook RH: colaboradores con hook como los demas (falso en el EXE y en el cuerpo de la DLL).
+    env.stub[2]={0x54EF40,Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateRwMatrix))};
+    env.stub[3]={0x54F1B0,Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateMatrix))};
     env.stub[4]={0x54F560,Body(std::bit_cast<uintptr_t>(&CPlaceable::AllocateMatrix))};
     env.stub[5]={0x59C890,Body(std::bit_cast<uintptr_t>(static_cast<CVector(*)(const CMatrix&,const CVector&)>(&operator*)))};
     env.stub[6]={0x61A5A0,Body(std::bit_cast<uintptr_t>(static_cast<void*(*)(size_t)>(&CTask::operator new)))};

@@ -920,7 +920,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::AddWeaponPedForPC"
@@ -929,7 +929,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -946,7 +946,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::AtomicCopyConstructor"
@@ -955,7 +955,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -972,7 +972,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::AtomicDestructor"
@@ -981,7 +981,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -998,7 +998,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::CalculateFadingAtomicAlpha"
@@ -1007,7 +1007,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1024,7 +1024,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::ClearAtomicFlag"
@@ -1033,7 +1033,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1050,7 +1050,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::ClearClumpForAllAtomicsFlag"
@@ -1059,7 +1059,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1076,7 +1076,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::ClumpConstructor"
@@ -1085,7 +1085,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1102,7 +1102,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::ClumpCopyConstructor"
@@ -1111,7 +1111,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1128,7 +1128,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::ClumpDestructor"
@@ -1137,7 +1137,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1154,7 +1154,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::DefaultVisibilityCB"
@@ -1163,7 +1163,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1180,7 +1180,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::FrameConstructor"
@@ -1189,7 +1189,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1206,7 +1206,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::FrameCopyConstructor"
@@ -1215,7 +1215,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1232,7 +1232,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::FrameDestructor"
@@ -1241,7 +1241,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1258,7 +1258,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::FrustumSphereCB"
@@ -1267,7 +1267,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1284,7 +1284,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::GetAtomicId"
@@ -1293,7 +1293,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1310,7 +1310,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::GetClumpAlpha"
@@ -1319,7 +1319,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1336,7 +1336,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::GetClumpModelInfo"
@@ -1345,7 +1345,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1362,7 +1362,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::GetDistanceSquaredFromCamera-Frame"
@@ -1371,7 +1371,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1388,7 +1388,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::GetDistanceSquaredFromCamera-RwV3d"
@@ -1397,7 +1397,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1414,7 +1414,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::GetDotProductWithCameraVector"
@@ -1423,7 +1423,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1440,7 +1440,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::GetFrameHierarchyId"
@@ -1449,7 +1449,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1466,7 +1466,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::GetModelInfo"
@@ -1475,7 +1475,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1492,7 +1492,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::GetModelInfoIndex"
@@ -1501,7 +1501,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1518,7 +1518,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::GetUserValue"
@@ -1527,7 +1527,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1544,7 +1544,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::InitAlphaAtomicList"
@@ -1553,7 +1553,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1570,7 +1570,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::InitAlphaEntityList"
@@ -1579,7 +1579,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1596,7 +1596,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::Initialise"
@@ -1605,7 +1605,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1622,7 +1622,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::InsertAtomicIntoReallyDrawLastList"
@@ -1631,7 +1631,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1648,7 +1648,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::InsertEntityIntoReallyDrawLastList"
@@ -1657,7 +1657,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1674,7 +1674,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::InsertEntityIntoSortedList"
@@ -1683,7 +1683,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1700,7 +1700,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::InsertEntityIntoUnderwaterList"
@@ -1709,7 +1709,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1726,7 +1726,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::InsertObjectIntoSortedList"
@@ -1735,7 +1735,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1752,7 +1752,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::IsAtomicVisible"
@@ -1761,7 +1761,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1778,7 +1778,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::IsClumpVisible"
@@ -1787,7 +1787,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1804,7 +1804,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::PluginAttach"
@@ -1813,7 +1813,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1830,7 +1830,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderAlphaAtomics"
@@ -1839,7 +1839,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1856,7 +1856,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderAtomicWithAlpha"
@@ -1865,7 +1865,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1882,7 +1882,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderAtomicWithAlphaCB"
@@ -1891,7 +1891,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1908,7 +1908,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderBoatAlphaAtomics"
@@ -1917,7 +1917,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1934,7 +1934,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderEntity"
@@ -1943,7 +1943,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1960,7 +1960,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderFadingAtomic"
@@ -1969,7 +1969,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -1986,7 +1986,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderFadingClump"
@@ -1995,7 +1995,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2012,7 +2012,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderFadingClumpCB"
@@ -2021,7 +2021,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2038,7 +2038,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderFadingEntities"
@@ -2047,7 +2047,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2064,7 +2064,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderFadingUnderwaterEntities"
@@ -2073,7 +2073,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2090,7 +2090,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderHeliRotorAlphaCB"
@@ -2099,7 +2099,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2116,7 +2116,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderHeliTailRotorAlphaCB"
@@ -2125,7 +2125,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2142,7 +2142,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderObjNormalAtomic"
@@ -2151,7 +2151,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2168,7 +2168,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderOrderedList"
@@ -2177,7 +2177,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2194,7 +2194,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderPedCB"
@@ -2203,7 +2203,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2220,7 +2220,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderPlayerCB"
@@ -2229,7 +2229,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2246,7 +2246,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderReallyDrawLastObjects"
@@ -2255,7 +2255,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2272,7 +2272,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderTrainHiDetailAlphaCB"
@@ -2281,7 +2281,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2298,7 +2298,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderTrainHiDetailCB"
@@ -2307,7 +2307,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2324,7 +2324,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderVehicleHiDetailAlphaCB"
@@ -2333,7 +2333,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2350,7 +2350,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderVehicleHiDetailAlphaCB_BigVehicle"
@@ -2359,7 +2359,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2376,7 +2376,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderVehicleHiDetailAlphaCB_Boat"
@@ -2385,7 +2385,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2402,7 +2402,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderVehicleHiDetailCB"
@@ -2411,7 +2411,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2428,7 +2428,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderVehicleHiDetailCB_BigVehicle"
@@ -2437,7 +2437,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2454,7 +2454,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderVehicleHiDetailCB_Boat"
@@ -2463,7 +2463,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2480,7 +2480,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderVehicleLoDetailCB_Boat"
@@ -2489,7 +2489,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2506,7 +2506,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderVehicleReallyLowDetailCB"
@@ -2515,7 +2515,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2532,7 +2532,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderVehicleReallyLowDetailCB_BigVehicle"
@@ -2541,7 +2541,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2558,7 +2558,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderWeaponCB"
@@ -2567,7 +2567,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2584,7 +2584,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderWeaponPedsForPC"
@@ -2593,7 +2593,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2610,7 +2610,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::RenderWheelAtomicCB"
@@ -2619,7 +2619,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2636,7 +2636,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetAlphaCB"
@@ -2645,7 +2645,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2662,7 +2662,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetAtomicFlag"
@@ -2671,7 +2671,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2688,7 +2688,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetAtomicId"
@@ -2697,7 +2697,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2714,7 +2714,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetAtomicRenderCallback"
@@ -2723,7 +2723,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2740,7 +2740,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetClumpAlpha"
@@ -2749,7 +2749,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2766,7 +2766,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetClumpForAllAtomicsFlag"
@@ -2775,7 +2775,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2792,7 +2792,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetClumpModelInfo"
@@ -2801,7 +2801,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2818,7 +2818,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetFrameHierarchyId"
@@ -2827,7 +2827,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2844,7 +2844,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetModelInfoIndex"
@@ -2853,7 +2853,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2870,7 +2870,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetRenderWareCamera"
@@ -2879,7 +2879,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2896,7 +2896,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetTextureCB"
@@ -2905,7 +2905,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2922,7 +2922,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetUserValue"
@@ -2931,7 +2931,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2948,7 +2948,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::SetupVehicleVariables"
@@ -2957,7 +2957,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -2974,7 +2974,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::Shutdown"
@@ -2983,7 +2983,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -3000,7 +3000,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::VehicleVisibilityCB"
@@ -3009,7 +3009,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -3026,7 +3026,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::VehicleVisibilityCB_BigVehicle"
@@ -3035,7 +3035,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -3052,7 +3052,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::clearClumpForAllAtomicsFlagCB"
@@ -3061,7 +3061,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -3078,7 +3078,7 @@
       },
       "evidence": {
         "path": "reversing/VisPluginsFinal4/validation-summary.json",
-        "sha256": "35c5f409a7971a874f893f73c52e0eaf297e7f6aaefed7a67add351fd026414b",
+        "sha256": "30e2a99991c931d89fa0cea2b0252f6a637c1295455d6617d943d7a47f56d0c5",
         "passed_path": [
           "covered_functions",
           "CVisibilityPlugins::setClumpForAllAtomicsFlagCB"
@@ -3087,7 +3087,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/VisibilityPlugins.cpp": "aa19f6a6ffbeaf6287bf25bbe0b4cc146940160aebf2d854ca6dd062560244bc",
+        "source/game_sa/VisibilityPlugins.cpp": "0207a9fae8c77cc4acf666c28630b6831c5fa7c0f98720735892f044a3e97fe3",
         "source/game_sa/VisibilityPlugins.h": "4ff0b70d301d4b5ca21dffca91e5b968bedd9224236a82530bffe78246e839cb"
       },
       "source_provenance": "Probe VisPluginsFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 18176 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -22080,7 +22080,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileWrappers60/validation-summary.json",
-        "sha256": "7b1bb6dc9509a345a9cd65fa206e0d6054ef65e84f445af2e47430f759277af2",
+        "sha256": "5141abe0bf2e9e021a7416a8ec297679fc0041b50f77d085bf89ce0e02611d3a",
         "passed_path": [
           "covered_functions",
           "CAutomobile::HasCarStoppedBecauseOfLight"
@@ -22090,11 +22090,11 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "1de6f1ad815d5c208cdb5338dc5804db032698af06c31e864d5157e5095d6e05",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
         "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
-        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "source/game_sa/Pathfind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -22158,7 +22158,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileWrappers60/validation-summary.json",
-        "sha256": "7b1bb6dc9509a345a9cd65fa206e0d6054ef65e84f445af2e47430f759277af2",
+        "sha256": "5141abe0bf2e9e021a7416a8ec297679fc0041b50f77d085bf89ce0e02611d3a",
         "passed_path": [
           "covered_functions",
           "CAutomobile::UpdateWheelMatrix"
@@ -22168,11 +22168,11 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "1de6f1ad815d5c208cdb5338dc5804db032698af06c31e864d5157e5095d6e05",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
         "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
-        "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
-        "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "source/game_sa/Pathfind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -29168,7 +29168,7 @@
       },
       "evidence": {
         "path": "reversing/PickUpFirst68/validation-summary.json",
-        "sha256": "750dbde7aaf634b501bf3a57d48068ab3ccfe2b1d97dba3cee1ba4d8dd93b9ac",
+        "sha256": "ceb3e27b1e468e858b28822307573e338d5be70476805c9bdfcadc5abcf9775e",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoPickUpEntity::CreateFirstSubTask"
@@ -29179,19 +29179,19 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "8b415a2f6d904790f490b9e842d91ae40d1d50cc7e5ce08cc96864c1ff659634",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "8e4693fdaaf1eb547e4186661a960f0c7dae81263e35467b4f77e79d08a0482b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
-        "source/game_sa/Entity/Placeable.cpp": "0030861304db9f417c8fd8b322a7be006ef4e5a099238c157e5dc0cf0d018e24",
-        "source/game_sa/SimpleTransform.cpp": "91cfe9e3ac4ceb4a2d63bca9a897a4d62b3ff298a32576300771df16a259c8c4",
-        "source/game_sa/Core/Matrix.cpp": "674945c2e2c810bb050ed184d2a0e1c2056b029eabe93605e999cb55fcd40efb",
+        "source/game_sa/Entity/Placeable.cpp": "17e8ab6afa41cf7633488c179094a63c1e9d61b83f959f00a891de2f57758945",
+        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/Core/Matrix.cpp": "645a1038a5e0f0d74e658b08184ee2425a8e585cf4bdd05423c8d6f1982c43bb",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Tasks/Task.cpp": "23b303826ad108736f38102ebf5180adaa7264f765f9f6e26a89a863bf595ae0",
-        "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
-        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/game_sa/Tasks/Task.cpp": "30eae0570cb3bdba5c69deb07fac0463dc07f7a51a4420cecd47a35a42aaa0a0",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/PickUpFirst68/LiveComparison.hpp": "10cbe47d3be554b4c8cb3a6553d8719a4cf224f2389eccbdfa6243269c9142cd",
+        "reversing/PickUpFirst68/LiveComparison.hpp": "0c86b1288caea8df74c4cfc3a91b4f0c0ca17b6c8ff44cdd94b8948f2edbbcf1",
         "reversing/PickUpFirst68/Core.hpp": "fc0ae1700443d7c4b3afc74704c4b3b6bae7e37d43055863feec1f66ec1f7b81",
         "reversing/PickUpFirst68/Fixtures.hpp": "ef93cc05d7fe36e88d51fb7a11cef5d67725a961406e457714bcbad6ef8ed552",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -30788,7 +30788,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
+        "sha256": "7a80b8489e65950a1cb76de4cefa921ccb55aa9172ed6572a7522c80ac5018fc",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWheelDust"
@@ -30798,13 +30798,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
         "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
-        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
+        "reversing/FxWheel77/LiveComparison.hpp": "9ea17e08781e843100bb91a97f9b48bff5db7a1b4c63ddd2aa73eb750b6f63ef",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -30824,7 +30824,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
+        "sha256": "7a80b8489e65950a1cb76de4cefa921ccb55aa9172ed6572a7522c80ac5018fc",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWheelSand"
@@ -30834,13 +30834,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
         "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
-        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
+        "reversing/FxWheel77/LiveComparison.hpp": "9ea17e08781e843100bb91a97f9b48bff5db7a1b4c63ddd2aa73eb750b6f63ef",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -30860,7 +30860,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
+        "sha256": "7a80b8489e65950a1cb76de4cefa921ccb55aa9172ed6572a7522c80ac5018fc",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddGlass"
@@ -30870,13 +30870,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
         "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
-        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
+        "reversing/FxWheel77/LiveComparison.hpp": "9ea17e08781e843100bb91a97f9b48bff5db7a1b4c63ddd2aa73eb750b6f63ef",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -30896,7 +30896,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
+        "sha256": "7a80b8489e65950a1cb76de4cefa921ccb55aa9172ed6572a7522c80ac5018fc",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddDebris"
@@ -30906,13 +30906,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
         "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
-        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
+        "reversing/FxWheel77/LiveComparison.hpp": "9ea17e08781e843100bb91a97f9b48bff5db7a1b4c63ddd2aa73eb750b6f63ef",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -30932,7 +30932,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
+        "sha256": "7a80b8489e65950a1cb76de4cefa921ccb55aa9172ed6572a7522c80ac5018fc",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWheelGrass"
@@ -30942,13 +30942,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
         "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
-        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
+        "reversing/FxWheel77/LiveComparison.hpp": "9ea17e08781e843100bb91a97f9b48bff5db7a1b4c63ddd2aa73eb750b6f63ef",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -30968,7 +30968,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
+        "sha256": "7a80b8489e65950a1cb76de4cefa921ccb55aa9172ed6572a7522c80ac5018fc",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWheelGravel"
@@ -30978,13 +30978,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
         "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
-        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
+        "reversing/FxWheel77/LiveComparison.hpp": "9ea17e08781e843100bb91a97f9b48bff5db7a1b4c63ddd2aa73eb750b6f63ef",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -31004,7 +31004,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
+        "sha256": "7a80b8489e65950a1cb76de4cefa921ccb55aa9172ed6572a7522c80ac5018fc",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWheelMud"
@@ -31014,13 +31014,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
         "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
-        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
+        "reversing/FxWheel77/LiveComparison.hpp": "9ea17e08781e843100bb91a97f9b48bff5db7a1b4c63ddd2aa73eb750b6f63ef",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -31040,7 +31040,7 @@
       },
       "evidence": {
         "path": "reversing/FxWheel77/validation-summary.json",
-        "sha256": "14ce9cd972fd7586bce11ac991d184ac5fa33f42d52a874bdf833a7225a068de",
+        "sha256": "7a80b8489e65950a1cb76de4cefa921ccb55aa9172ed6572a7522c80ac5018fc",
         "passed_path": [
           "covered_functions",
           "Fx_c::TriggerGunshot"
@@ -31050,13 +31050,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "a14d3d3564bc0d0b5ff5fce00f25903509fb11540e94ff1283e4347f24851630",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
         "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "7ab60d164217b8bddd24d95563a5e467dcf92c59560dd64f98d5a49ebe11910f",
-        "source/game_sa/X87Math.h": "7cd77c44249715af23c0132ed9cff77aa15e518bccccde9ad0c83446c5229205",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWheel77/LiveComparison.hpp": "ced94f09d411f8f0c644646579e6843750bad2192bba443823b55aee216cd23d",
+        "reversing/FxWheel77/LiveComparison.hpp": "9ea17e08781e843100bb91a97f9b48bff5db7a1b4c63ddd2aa73eb750b6f63ef",
         "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
         "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -31479,7 +31479,7 @@
       },
       "evidence": {
         "path": "reversing/Veh81A/validation-summary.json",
-        "sha256": "574a922e9669edc19bc59bc08b68503da254d9133d9dec82b339226f23074e32",
+        "sha256": "cab07bce407eabb2058a205a95e0810dd3be946ca29e2d65ff8f8f8c217df1ec",
         "passed_path": [
           "covered_functions",
           "CVehicle::UpdateTrailerLink"
@@ -31489,10 +31489,10 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-        "source/game_sa/X87Math.cpp": "9bc388015fff074e1f2b15d065415d26acbe54d29127cb1d28134f747c471fcf",
-        "source/game_sa/X87Math.h": "6e842a1d07f38fd525e638e9e15a8bfe61c2991d09b1dd6662376e02d3d7a83e",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Veh81A/LiveComparison.hpp": "bfee7c680c456f284b3f333210b8f28d474eb0d4fd68f2aba0d5b77c8c1fec3f",
@@ -31551,7 +31551,7 @@
       },
       "evidence": {
         "path": "reversing/Car81C/validation-summary.json",
-        "sha256": "ba779ec71a3e3f372b93c0e8977b2697ab19174dfb76259cb865a1e13fd7c9ce",
+        "sha256": "1ec2e99b42ecaeb0505f53fb3eaf5b13de82e28bbfd3ecf43dce5fb2aacf18a4",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::PossiblyRemoveVehicle"
@@ -31561,10 +31561,10 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-        "source/game_sa/X87Math.cpp": "9bc388015fff074e1f2b15d065415d26acbe54d29127cb1d28134f747c471fcf",
-        "source/game_sa/X87Math.h": "6e842a1d07f38fd525e638e9e15a8bfe61c2991d09b1dd6662376e02d3d7a83e",
-        "source/game_sa/CarCtrl.cpp": "79a42ac7d20761586a4bc9ba7166bc5f9eeed15589e29382f8d7292e7c05fa01",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
+        "source/game_sa/CarCtrl.cpp": "cd16deeae97c78a92292553c93315b283293860463357f226d81b54af93edfa3",
         "source/game_sa/CarCtrl.h": "c551460ac16e87f07dfb0b044b8af5535794ee3c1c6a14f4b7ed8057b07a3f29",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Car81C/LiveComparison.hpp": "c289a10cfaa315087007547c1b8ddab777e726e09f68dd1e8ff67744d252ad1b",
@@ -31698,7 +31698,7 @@
       },
       "evidence": {
         "path": "reversing/Fx83A/validation-summary.json",
-        "sha256": "c5a9fa31b53df4d14daf56ceba8fdab4433d868398decc632daeb74827d54a2b",
+        "sha256": "831c0b0ff04d141cd735f7e288962975239ec253818fb75597d4474dff2e81b7",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWheelSpray"
@@ -31707,12 +31707,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Fx/Fx.cpp": "800193bc8b903d67270c055efb0e20de70d467bcf1cadd37122d092e55f8fe1e",
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/Fx/Fx.cpp": "3fbde3416fc4a9344d329d269bf75445db719a6b667962d3160f80c5da076754",
         "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
-        "source/game_sa/X87Math.cpp": "82af00d7381e4b8bec0cc34f27929b15a6080d0d2632bb22873d8578d240a569",
-        "source/game_sa/X87Math.h": "b2473cff8e7ea2f6ab11a0ae5e175e61192510e597920900882c912d0dd6e146",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fx83A/LiveComparison.hpp": "73782cb39bdeb3b112bbf17594369c0d822a154ace24cc05bbd50c0f4bd2253e",
         "reversing/Fx83A/Core.hpp": "6504e829429ca709c752b89ec3b7380252339711066f0adc848b6fd7722ee7f0",
@@ -31770,7 +31770,7 @@
       },
       "evidence": {
         "path": "reversing/Veh83C/validation-summary.json",
-        "sha256": "369037eddbbe9e77b76683a5255efe4b061b675e04ebb7735ed65690c5a30098",
+        "sha256": "0aaa33d567b101ebf412f142ae4e143d9fbefb3051ec6d37bc4f01623ddd0203",
         "passed_path": [
           "covered_functions",
           "CVehicle::AddSingleWheelParticles"
@@ -31780,10 +31780,10 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
-        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
+        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Veh83C/LiveComparison.hpp": "5176bb1cc6bd92327a90e0b4ca920e896f4f3890a9074d4c0161dca29b2e65db",
@@ -38044,6 +38044,375 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Siete funciones sin colaboradores (SetRotateX/Y/Z, RotateX/Y/Z, Reorthogonalise y CVector::FromMultiply) con toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos/fsqrt) corriendo de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto); CopyToRwMatrix e Invert(in) con falsos identicos en ambos lados para RwMatrixUpdate 0x7F18A0, Invert(in, out) 0x59B920 (hook RH) y RwMatrixDestroy 0x7F2A20. Ventana de memoria con solapamientos. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits; seno y coseno con enteros de 400 bits). Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62, excepciones x87 desenmascaradas, y las palabras de relleno que Invert(in, out) real no escribe (el EXE copia basura de la pila).",
       "review_reference": "reversing/Fn101A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxPrtMult_c",
+        "fn_name": "Constructor7f",
+        "address": "0x004AB290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn102A/validation-summary.json",
+        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "passed_path": [
+          "covered_functions",
+          "FxPrtMult_c::Constructor7f"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
+        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
+        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
+        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
+        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
+        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH, en su cuerpo del ASI: CMatrix::SetTranslate 0x59AF40 y CMatrix::SetRotateZOnly 0x59B020 (UpdateMatrix), CEntity::CleanUpOldReference 0x571A00 (destructor de CAESound), _rwObjectHasFrameSetFrame 0x804EF0 (RpAtomicSetFrame; el falso deja un byte conocido en +3 del atomico) y RxPipelineExecute 0x805710 (AtomicDefaultRenderCallBack); los callbacks de RpClumpForAllAtomics y RpGeometryForAllMaterials son funciones del banco. Corren de verdad en ambos lados: el recorrido de la lista y del arreglo, las escrituras, fcos/fsin de UpdateRwMatrix (la reduccion de argumentos grandes la hace la propia x87), RwMatrixUpdate 0x7F18A0, la suma de cuadrados x87 de SquaredMagnitudeExe (Vector.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast; ECX y EDX se comprueban intactos) y la lectura de la tuberia por defecto del motor en memoria real. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelo exacto de las listas, racional a 24 bits y mpmath para fsin/fcos). Fuera de los fixtures: rumbos entre 1e6 y 2^63 (la reduccion con pi de 66 bits de la x87 no se modela), NaN con cargas distintas de 0xFFC00000 en SquaredMagnitudeExe, clumps y geometrias con listas corruptas o arreglos de mas de 8 materiales, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn102A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CSimpleTransform",
+        "fn_name": "UpdateMatrix",
+        "address": "0x0054F1B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn102A/validation-summary.json",
+        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "passed_path": [
+          "covered_functions",
+          "CSimpleTransform::UpdateMatrix"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
+        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
+        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
+        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
+        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
+        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH, en su cuerpo del ASI: CMatrix::SetTranslate 0x59AF40 y CMatrix::SetRotateZOnly 0x59B020 (UpdateMatrix), CEntity::CleanUpOldReference 0x571A00 (destructor de CAESound), _rwObjectHasFrameSetFrame 0x804EF0 (RpAtomicSetFrame; el falso deja un byte conocido en +3 del atomico) y RxPipelineExecute 0x805710 (AtomicDefaultRenderCallBack); los callbacks de RpClumpForAllAtomics y RpGeometryForAllMaterials son funciones del banco. Corren de verdad en ambos lados: el recorrido de la lista y del arreglo, las escrituras, fcos/fsin de UpdateRwMatrix (la reduccion de argumentos grandes la hace la propia x87), RwMatrixUpdate 0x7F18A0, la suma de cuadrados x87 de SquaredMagnitudeExe (Vector.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast; ECX y EDX se comprueban intactos) y la lectura de la tuberia por defecto del motor en memoria real. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelo exacto de las listas, racional a 24 bits y mpmath para fsin/fcos). Fuera de los fixtures: rumbos entre 1e6 y 2^63 (la reduccion con pi de 66 bits de la x87 no se modela), NaN con cargas distintas de 0xFFC00000 en SquaredMagnitudeExe, clumps y geometrias con listas corruptas o arreglos de mas de 8 materiales, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn102A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CSimpleTransform",
+        "fn_name": "UpdateRwMatrix",
+        "address": "0x0054EF40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn102A/validation-summary.json",
+        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "passed_path": [
+          "covered_functions",
+          "CSimpleTransform::UpdateRwMatrix"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
+        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
+        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
+        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
+        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
+        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH, en su cuerpo del ASI: CMatrix::SetTranslate 0x59AF40 y CMatrix::SetRotateZOnly 0x59B020 (UpdateMatrix), CEntity::CleanUpOldReference 0x571A00 (destructor de CAESound), _rwObjectHasFrameSetFrame 0x804EF0 (RpAtomicSetFrame; el falso deja un byte conocido en +3 del atomico) y RxPipelineExecute 0x805710 (AtomicDefaultRenderCallBack); los callbacks de RpClumpForAllAtomics y RpGeometryForAllMaterials son funciones del banco. Corren de verdad en ambos lados: el recorrido de la lista y del arreglo, las escrituras, fcos/fsin de UpdateRwMatrix (la reduccion de argumentos grandes la hace la propia x87), RwMatrixUpdate 0x7F18A0, la suma de cuadrados x87 de SquaredMagnitudeExe (Vector.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast; ECX y EDX se comprueban intactos) y la lectura de la tuberia por defecto del motor en memoria real. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelo exacto de las listas, racional a 24 bits y mpmath para fsin/fcos). Fuera de los fixtures: rumbos entre 1e6 y 2^63 (la reduccion con pi de 66 bits de la x87 no se modela), NaN con cargas distintas de 0xFFC00000 en SquaredMagnitudeExe, clumps y geometrias con listas corruptas o arreglos de mas de 8 materiales, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn102A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVector",
+        "fn_name": "SquaredMagnitudeExe",
+        "address": "0x00406DA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn102A/validation-summary.json",
+        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "passed_path": [
+          "covered_functions",
+          "CVector::SquaredMagnitudeExe"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
+        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
+        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
+        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
+        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
+        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH, en su cuerpo del ASI: CMatrix::SetTranslate 0x59AF40 y CMatrix::SetRotateZOnly 0x59B020 (UpdateMatrix), CEntity::CleanUpOldReference 0x571A00 (destructor de CAESound), _rwObjectHasFrameSetFrame 0x804EF0 (RpAtomicSetFrame; el falso deja un byte conocido en +3 del atomico) y RxPipelineExecute 0x805710 (AtomicDefaultRenderCallBack); los callbacks de RpClumpForAllAtomics y RpGeometryForAllMaterials son funciones del banco. Corren de verdad en ambos lados: el recorrido de la lista y del arreglo, las escrituras, fcos/fsin de UpdateRwMatrix (la reduccion de argumentos grandes la hace la propia x87), RwMatrixUpdate 0x7F18A0, la suma de cuadrados x87 de SquaredMagnitudeExe (Vector.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast; ECX y EDX se comprueban intactos) y la lectura de la tuberia por defecto del motor en memoria real. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelo exacto de las listas, racional a 24 bits y mpmath para fsin/fcos). Fuera de los fixtures: rumbos entre 1e6 y 2^63 (la reduccion con pi de 66 bits de la x87 no se modela), NaN con cargas distintas de 0xFFC00000 en SquaredMagnitudeExe, clumps y geometrias con listas corruptas o arreglos de mas de 8 materiales, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn102A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAESound",
+        "fn_name": "Destructor",
+        "address": "0x004EF660",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn102A/validation-summary.json",
+        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "passed_path": [
+          "covered_functions",
+          "CAESound::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
+        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
+        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
+        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
+        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
+        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH, en su cuerpo del ASI: CMatrix::SetTranslate 0x59AF40 y CMatrix::SetRotateZOnly 0x59B020 (UpdateMatrix), CEntity::CleanUpOldReference 0x571A00 (destructor de CAESound), _rwObjectHasFrameSetFrame 0x804EF0 (RpAtomicSetFrame; el falso deja un byte conocido en +3 del atomico) y RxPipelineExecute 0x805710 (AtomicDefaultRenderCallBack); los callbacks de RpClumpForAllAtomics y RpGeometryForAllMaterials son funciones del banco. Corren de verdad en ambos lados: el recorrido de la lista y del arreglo, las escrituras, fcos/fsin de UpdateRwMatrix (la reduccion de argumentos grandes la hace la propia x87), RwMatrixUpdate 0x7F18A0, la suma de cuadrados x87 de SquaredMagnitudeExe (Vector.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast; ECX y EDX se comprueban intactos) y la lectura de la tuberia por defecto del motor en memoria real. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelo exacto de las listas, racional a 24 bits y mpmath para fsin/fcos). Fuera de los fixtures: rumbos entre 1e6 y 2^63 (la reduccion con pi de 66 bits de la x87 no se modela), NaN con cargas distintas de 0xFFC00000 en SquaredMagnitudeExe, clumps y geometrias con listas corruptas o arreglos de mas de 8 materiales, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn102A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpClumpForAllAtomics",
+        "address": "0x00749B70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn102A/validation-summary.json",
+        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpClumpForAllAtomics"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
+        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
+        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
+        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
+        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
+        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH, en su cuerpo del ASI: CMatrix::SetTranslate 0x59AF40 y CMatrix::SetRotateZOnly 0x59B020 (UpdateMatrix), CEntity::CleanUpOldReference 0x571A00 (destructor de CAESound), _rwObjectHasFrameSetFrame 0x804EF0 (RpAtomicSetFrame; el falso deja un byte conocido en +3 del atomico) y RxPipelineExecute 0x805710 (AtomicDefaultRenderCallBack); los callbacks de RpClumpForAllAtomics y RpGeometryForAllMaterials son funciones del banco. Corren de verdad en ambos lados: el recorrido de la lista y del arreglo, las escrituras, fcos/fsin de UpdateRwMatrix (la reduccion de argumentos grandes la hace la propia x87), RwMatrixUpdate 0x7F18A0, la suma de cuadrados x87 de SquaredMagnitudeExe (Vector.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast; ECX y EDX se comprueban intactos) y la lectura de la tuberia por defecto del motor en memoria real. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelo exacto de las listas, racional a 24 bits y mpmath para fsin/fcos). Fuera de los fixtures: rumbos entre 1e6 y 2^63 (la reduccion con pi de 66 bits de la x87 no se modela), NaN con cargas distintas de 0xFFC00000 en SquaredMagnitudeExe, clumps y geometrias con listas corruptas o arreglos de mas de 8 materiales, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn102A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryForAllMaterials",
+        "address": "0x0074C790",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn102A/validation-summary.json",
+        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryForAllMaterials"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
+        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
+        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
+        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
+        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
+        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH, en su cuerpo del ASI: CMatrix::SetTranslate 0x59AF40 y CMatrix::SetRotateZOnly 0x59B020 (UpdateMatrix), CEntity::CleanUpOldReference 0x571A00 (destructor de CAESound), _rwObjectHasFrameSetFrame 0x804EF0 (RpAtomicSetFrame; el falso deja un byte conocido en +3 del atomico) y RxPipelineExecute 0x805710 (AtomicDefaultRenderCallBack); los callbacks de RpClumpForAllAtomics y RpGeometryForAllMaterials son funciones del banco. Corren de verdad en ambos lados: el recorrido de la lista y del arreglo, las escrituras, fcos/fsin de UpdateRwMatrix (la reduccion de argumentos grandes la hace la propia x87), RwMatrixUpdate 0x7F18A0, la suma de cuadrados x87 de SquaredMagnitudeExe (Vector.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast; ECX y EDX se comprueban intactos) y la lectura de la tuberia por defecto del motor en memoria real. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelo exacto de las listas, racional a 24 bits y mpmath para fsin/fcos). Fuera de los fixtures: rumbos entre 1e6 y 2^63 (la reduccion con pi de 66 bits de la x87 no se modela), NaN con cargas distintas de 0xFFC00000 en SquaredMagnitudeExe, clumps y geometrias con listas corruptas o arreglos de mas de 8 materiales, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn102A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpAtomicSetFrame",
+        "address": "0x0074BF20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn102A/validation-summary.json",
+        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpAtomicSetFrame"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
+        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
+        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
+        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
+        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
+        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH, en su cuerpo del ASI: CMatrix::SetTranslate 0x59AF40 y CMatrix::SetRotateZOnly 0x59B020 (UpdateMatrix), CEntity::CleanUpOldReference 0x571A00 (destructor de CAESound), _rwObjectHasFrameSetFrame 0x804EF0 (RpAtomicSetFrame; el falso deja un byte conocido en +3 del atomico) y RxPipelineExecute 0x805710 (AtomicDefaultRenderCallBack); los callbacks de RpClumpForAllAtomics y RpGeometryForAllMaterials son funciones del banco. Corren de verdad en ambos lados: el recorrido de la lista y del arreglo, las escrituras, fcos/fsin de UpdateRwMatrix (la reduccion de argumentos grandes la hace la propia x87), RwMatrixUpdate 0x7F18A0, la suma de cuadrados x87 de SquaredMagnitudeExe (Vector.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast; ECX y EDX se comprueban intactos) y la lectura de la tuberia por defecto del motor en memoria real. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelo exacto de las listas, racional a 24 bits y mpmath para fsin/fcos). Fuera de los fixtures: rumbos entre 1e6 y 2^63 (la reduccion con pi de 66 bits de la x87 no se modela), NaN con cargas distintas de 0xFFC00000 en SquaredMagnitudeExe, clumps y geometrias con listas corruptas o arreglos de mas de 8 materiales, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn102A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "AtomicDefaultRenderCallBack",
+        "address": "0x007491C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn102A/validation-summary.json",
+        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::AtomicDefaultRenderCallBack"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
+        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
+        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
+        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
+        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
+        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH, en su cuerpo del ASI: CMatrix::SetTranslate 0x59AF40 y CMatrix::SetRotateZOnly 0x59B020 (UpdateMatrix), CEntity::CleanUpOldReference 0x571A00 (destructor de CAESound), _rwObjectHasFrameSetFrame 0x804EF0 (RpAtomicSetFrame; el falso deja un byte conocido en +3 del atomico) y RxPipelineExecute 0x805710 (AtomicDefaultRenderCallBack); los callbacks de RpClumpForAllAtomics y RpGeometryForAllMaterials son funciones del banco. Corren de verdad en ambos lados: el recorrido de la lista y del arreglo, las escrituras, fcos/fsin de UpdateRwMatrix (la reduccion de argumentos grandes la hace la propia x87), RwMatrixUpdate 0x7F18A0, la suma de cuadrados x87 de SquaredMagnitudeExe (Vector.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast; ECX y EDX se comprueban intactos) y la lectura de la tuberia por defecto del motor en memoria real. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelo exacto de las listas, racional a 24 bits y mpmath para fsin/fcos). Fuera de los fixtures: rumbos entre 1e6 y 2^63 (la reduccion con pi de 66 bits de la x87 no se modela), NaN con cargas distintas de 0xFFC00000 en SquaredMagnitudeExe, clumps y geometrias con listas corruptas o arreglos de mas de 8 materiales, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn102A/README.md"
     }
   ]
 }

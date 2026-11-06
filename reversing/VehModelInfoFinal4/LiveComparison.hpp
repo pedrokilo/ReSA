@@ -46,8 +46,8 @@ inline std::string RegisterStubs(){
     std::string miss;
     auto chk=[&](const std::string& s){ if(!s.empty())miss+=s+" "; };
     // arbol RW
-    AddStub(G_TREE,0x749B70,0,FnPtr(&S_ClumpForAllAtomics)); AddStub(G_TREE,0x7F0DC0,0,FnPtr(&S_FrameForAllChildren));
-    AddStub(G_TREE,0x7F1200,0,FnPtr(&S_FrameForAllObjects)); AddStub(G_TREE,0x74C790,0,FnPtr(&S_GeometryForAllMaterials));
+    AddStub(G_TREE,0x749B70,bit_cast<uintptr_t>(&RpClumpForAllAtomics),FnPtr(&S_ClumpForAllAtomics)); /* lote 102A: cuerpo y hook en la DLL */ AddStub(G_TREE,0x7F0DC0,0,FnPtr(&S_FrameForAllChildren));
+    AddStub(G_TREE,0x7F1200,0,FnPtr(&S_FrameForAllObjects)); AddStub(G_TREE,0x74C790,bit_cast<uintptr_t>(&RpGeometryForAllMaterials),FnPtr(&S_GeometryForAllMaterials)); /* lote 102A: cuerpo y hook en la DLL */
     AddStub(G_TREE,0x7348C0,bit_cast<uintptr_t>(&GetFirstObject),FnPtr(&S_GetFirstObject)); AddStub(G_TREE,0x734900,bit_cast<uintptr_t>(&GetFirstChild),FnPtr(&S_GetFirstChild));
     // objetos RW
     AddStub(G_RWOBJ,0x7F0410,0,FnPtr(&S_FrameCreate)); AddStub(G_RWOBJ,0x7F05A0,0,FnPtr(&S_FrameDestroy)); AddStub(G_RWOBJ,0x7F0B00,0,FnPtr(&S_FrameAddChild));
@@ -55,7 +55,7 @@ inline std::string RegisterStubs(){
     AddStub(G_RWOBJ,0x7F0990,0,FnPtr(&S_FrameGetLTM)); AddStub(G_RWOBJ,0x7F2A50,0,FnPtr(&S_MatrixCreate)); AddStub(G_RWOBJ,0x7F2A20,0,FnPtr(&S_MatrixDestroy));
     AddStub(G_RWOBJ,0x7F25A0,0,FnPtr(&S_MatrixTransform)); AddStub(G_RWOBJ,0x7F1FD0,0,FnPtr(&S_MatrixRotate)); AddStub(G_RWOBJ,0x7EDD90,0,FnPtr(&S_V3dTransformPoints));
     AddStub(G_RWOBJ,0x74A4C0,0,FnPtr(&S_ClumpRemoveAtomic)); AddStub(G_RWOBJ,0x74A490,0,FnPtr(&S_ClumpAddAtomic)); AddStub(G_RWOBJ,0x749E60,0,FnPtr(&S_AtomicClone));
-    AddStub(G_RWOBJ,0x749DC0,0,FnPtr(&S_AtomicDestroy)); AddStub(G_RWOBJ,0x74BF20,0,FnPtr(&S_AtomicSetFrame)); AddStub(G_RWOBJ,0x59C3E0,bit_cast<uintptr_t>(static_cast<void(CQuaternion::*)(const RwMatrix&)>(&CQuaternion::Set)),FnPtr(&S_QuatSet));
+    AddStub(G_RWOBJ,0x749DC0,0,FnPtr(&S_AtomicDestroy)); AddStub(G_RWOBJ,0x74BF20,bit_cast<uintptr_t>(&RpAtomicSetFrame),FnPtr(&S_AtomicSetFrame)); /* lote 102A: cuerpo y hook en la DLL */ AddStub(G_RWOBJ,0x59C3E0,bit_cast<uintptr_t>(static_cast<void(CQuaternion::*)(const RwMatrix&)>(&CQuaternion::Set)),FnPtr(&S_QuatSet));
     // materiales / MatFX
     AddStub(G_MATFX,0x812140,0,FnPtr(&S_MatFXGetEffects)); AddStub(G_MATFX,0x811C80,0,FnPtr(&S_MatFXSetEffects)); AddStub(G_MATFX,0x8125B0,0,FnPtr(&S_MatFXSetEnvMapFrame));
     AddStub(G_MATFX,0x812680,0,FnPtr(&S_MatFXSetEnvMapCoeff)); AddStub(G_MATFX,0x74DBC0,0,FnPtr(&S_MaterialSetTexture)); AddStub(G_MATFX,0x74E350,0,FnPtr(&S_MatListAppend));

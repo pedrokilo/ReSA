@@ -392,7 +392,7 @@ inline void Update() {
                     EntryPatch q1(clumpDeleteOur,FakeClumpDelete), q1e(0x4C4E70,FakeClumpDelete);
                     EntryPatch q2(clumpSetOur,FakeClumpSetClump), q2e(0x4C4F70,FakeClumpSetClump);
                     EntryPatch q3(bit_cast<uintptr_t>(&CClumpModelInfo::SetFrameIds),FakeSetFrameIds), q3e(0x4C5460,FakeSetFrameIds);
-                    EntryPatch q4(0x749B70,FakeForAllAtomics);
+                    EntryPatch q4(0x749B70,FakeForAllAtomics), q4d(reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics),FakeForAllAtomics); // lote 102A: cuerpo y hook en la DLL
                     EntryPatch q5(bit_cast<uintptr_t>(&GetAnimHierarchyFromClump),FakeHierFromClump), q5e(0x734B10,FakeHierFromClump);
                     EntryPatch q6(bit_cast<uintptr_t>(&GetAnimHierarchyFromSkinClump),FakeHierFromSkin), q6e(0x734A40,FakeHierFromSkin);
                     fill(obj.data(),obj.size()); At<uintptr_t>(obj.data(),0)=0x85BDC0;
@@ -438,10 +438,10 @@ inline void Update() {
                     EntryPatch r4(bit_cast<uintptr_t>(&CTxdStore::SetCurrentTxd),FakeSetTxd), r4e(0x7319C0,FakeSetTxd);
                     EntryPatch r5(0x7F3AC0,FakeTextureRead), r6(0x7FB2D0,FakeRasterLock), r7(0x7FAEC0,FakeRasterUnlock), r8(0x7FAFF0,FakeRasterUnlockPalette), r9(0x7F3820,FakeTextureDestroy);
                     EntryPatch r10(0x7FB230,FakeRasterCreate), r11(0x7FB020,FakeRasterDestroy), r12(0x7F37C0,FakeTextureCreate), r13(0x7F38A0,FakeTextureSetName);
-                    EntryPatch r14(0x74C790,FakeForAllMaterials), r15(0x74DBC0,FakeMatSetTexture), r16(0x74D990,FakeMatCreate), r17(0x74DA20,FakeMatDestroy), r18(0x74CA90,FakeGeomCreate);
+                    EntryPatch r14(0x74C790,FakeForAllMaterials), r14d(reinterpret_cast<uintptr_t>(&RpGeometryForAllMaterials),FakeForAllMaterials), r15(0x74DBC0,FakeMatSetTexture), r16(0x74D990,FakeMatCreate), r17(0x74DA20,FakeMatDestroy), r18(0x74CA90,FakeGeomCreate);
                     EntryPatch r19(0x74C690,FakeTriSetVerts), r20(0x74C6C0,FakeTriSetMat), r21(0x74C200,FakeCalcSphere), r22(0x74C800,FakeGeomUnlock), r23(0x749C50,FakeAtomicCreate);
                     EntryPatch r24(0x749D40,FakeAtomicSetGeom), r25(0x74CCC0,FakeGeomDestroy), r26(0x749DC0,FakeAtomicDestroy), r27(0x7F0410,FakeFrameCreate), r28(0x7F10B0,FakeFrameSetIdentity);
-                    EntryPatch r29(0x74BF20,FakeAtomicSetFrame);
+                    EntryPatch r29(0x74BF20,FakeAtomicSetFrame), r29d(reinterpret_cast<uintptr_t>(&RpAtomicSetFrame),FakeAtomicSetFrame); // lote 102A: cuerpo y hook en la DLL
                     auto** gl=reinterpret_cast<void**>(RS_GLOBALS);
                     for(auto& t:textures)fill(t.data(),t.size()); for(auto& r:rasters)fill(r.data(),r.size()); for(auto& m:mats)fill(m.data(),m.size());
                     for(auto& p:pixels)fill(p.data(),p.size()); fill(charset.data(),charset.size());

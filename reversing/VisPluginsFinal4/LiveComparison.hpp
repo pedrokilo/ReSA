@@ -60,12 +60,12 @@ inline std::string RegisterStubs(){
     auto hk=[&](uint32 g,uintptr_t exe,const char* cls,const char* name,void* fn)->std::string{ return AddHookStub(g,exe,cls,name,fn) ? std::string() : std::string(cls)+"::"+name; };
     std::string miss;
     auto chk=[&](const std::string& s){ if(!s.empty())miss+=s+" "; };
-    AddStub(G_RW,0x749B70,0,FnPtr(&S_ClumpForAllAtomics)); AddStub(G_RW,0x74C790,0,FnPtr(&S_GeometryForAllMaterials));
+    AddStub(G_RW,0x749B70,bit_cast<uintptr_t>(&RpClumpForAllAtomics),FnPtr(&S_ClumpForAllAtomics)); AddStub(G_RW,0x74C790,bit_cast<uintptr_t>(&RpGeometryForAllMaterials),FnPtr(&S_GeometryForAllMaterials)); /* lote 102A: las dos tienen cuerpo y hook en la DLL */
     AddStub(G_RW,0x7F0990,0,FnPtr(&S_FrameGetLTM)); AddStub(G_RW,0x7F0910,0,FnPtr(&S_FrameUpdateObjects));
     AddStub(G_RW,0x7F2450,0,FnPtr(&S_MatrixTranslate)); AddStub(G_RW,0x7F1FD0,0,FnPtr(&S_MatrixRotate));
     AddStub(G_RW,0x749B20,0,FnPtr(&S_ClumpRender)); AddStub(G_RW,0x7C51A0,0,FnPtr(&S_HAnimIndex)); AddStub(G_RW,0x7C5120,0,FnPtr(&S_HAnimMatrices));
     AddStub(G_RW,0x734A40,bit_cast<uintptr_t>(&GetAnimHierarchyFromSkinClump),FnPtr(&S_AnimHierarchy));
-    AddStub(G_RW,0x7491C0,0,FnPtr(&S_AtomicDefaultRender)); AddStub(G_RW,0x7491F0,0,FnPtr(&S_Resync));
+    AddStub(G_RW,0x7491C0,bit_cast<uintptr_t>(&AtomicDefaultRenderCallBack),FnPtr(&S_AtomicDefaultRender)); /* lote 102A: cuerpo y hook en la DLL */ AddStub(G_RW,0x7491F0,0,FnPtr(&S_Resync));
     AddStub(G_RW,0x7EDD90,0,FnPtr(&S_V3dTransformPoints)); AddStub(G_RW,0x7EE2D0,0,FnPtr(&S_FrustumTest)); AddStub(G_RW,0x74DBC0,0,FnPtr(&S_MaterialSetTexture));
     AddStub(G_PLUG,0x74BDA0,0,FnPtr(&S_RegAtomic)); AddStub(G_PLUG,0x7F1260,0,FnPtr(&S_RegFrame)); AddStub(G_PLUG,0x74BDD0,0,FnPtr(&S_RegClump));
     AddStub(G_RW,0x735D30,bit_cast<uintptr_t>(static_cast<void(*)()>(&SetAmbientColours)),FnPtr(&S_AmbientColours));

@@ -61,7 +61,7 @@
   "log_sha256": "fe52e7a879fc5ca4a87c5167cb0666c8df2fbd5e29abf5cb302ca0e33f7fff39",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-models9\\20261105-114700-338212",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-models9\\20261105-195956-055994",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAtomicModelInfo::AsAtomicModelInfoPtr": true,
@@ -112,8 +112,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "593d02bdb1b4cbf4a4aa67324f9259c6ecca04ac8259a23b45f89bc27f1371d6",
-      "pdb": "b38adf7747e16387afd6ba8e60b0d8f8af68f62b6a21c1b952509193cb17de66"
+      "asi": "b4c6695e98bc888117dfb9b19cc44c436d17189b44e6be7d531f646fa544997a",
+      "pdb": "f1f39dc6c4d771b66b6eef1435cf87326a2252a8bc2c31635205c9a048d77acd"
     },
     "sources": {
       "source/game_sa/Models/AtomicModelInfo.cpp": "2174939350973d9bce7315c02043d2952bb74c1c88f9ada3c323cd6534444c01",
@@ -127,7 +127,7 @@
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "9b1f3c25ff7d37a50b7574731949683dffb67c47d9e1eaea4270cb155c77a4d8",
+      "LiveComparison.hpp": "20bcbf74b4fffa4cbff715b43bdadf0c54cf0d4129529de66aa5d79dc4e2d163",
       "build_probe.py": "2b472519fd41a69748d75bcd720fef3c9a2b1a02e3583c14dfe4ac05522cb5f6",
       "run_local.py": "be6c83d42369cca737e5ceaa918a0212c46f8071644faed098a9133f781e91cb"
     }
