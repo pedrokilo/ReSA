@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,126 entradas reversed=1**, de 9,126 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,136 entradas reversed=1**, de 9,136 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9126 |
+| `validated=1` · evidencia aprobada vinculada | 9136 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9126 |
+| Evidencia histórica vinculada; revisión pendiente | 9136 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -3312,11 +3312,20 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMatrix | `Attach` | [Resumen](../reversing/MatrixOps76/validation-summary.json) |
 | CMatrix | `ConstructAttached` | [Resumen](../reversing/Fn97B/validation-summary.json) |
 | CMatrix | `ConstructCopy` | [Resumen](../reversing/Fn97B/validation-summary.json) |
+| CMatrix | `CopyToRwMatrix` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CMatrix | `Destructor` | [Resumen](../reversing/Fn97B/validation-summary.json) |
 | CMatrix | `Invert-1` | [Resumen](../reversing/Fn99A/validation-summary.json) |
+| CMatrix | `Invert-2` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CMatrix | `MatrixMultiplyExe` | [Resumen](../reversing/Fn99A/validation-summary.json) |
+| CMatrix | `Reorthogonalise` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CMatrix | `ResetOrientation` | [Resumen](../reversing/Fn99A/validation-summary.json) |
+| CMatrix | `RotateX` | [Resumen](../reversing/Fn101A/validation-summary.json) |
+| CMatrix | `RotateY` | [Resumen](../reversing/Fn101A/validation-summary.json) |
+| CMatrix | `RotateZ` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CMatrix | `SetRotate-xyz` | [Resumen](../reversing/Fn99A/validation-summary.json) |
+| CMatrix | `SetRotateX` | [Resumen](../reversing/Fn101A/validation-summary.json) |
+| CMatrix | `SetRotateY` | [Resumen](../reversing/Fn101A/validation-summary.json) |
+| CMatrix | `SetRotateZ` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CMatrix | `SetRotateZOnly` | [Resumen](../reversing/Fn97B/validation-summary.json) |
 | CMatrix | `SetScale-f` | [Resumen](../reversing/Fn99A/validation-summary.json) |
 | CMatrix | `SetScale-fff` | [Resumen](../reversing/Fn99A/validation-summary.json) |
@@ -7778,6 +7787,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVector | `Difference` | [Resumen](../reversing/Fn99A/validation-summary.json) |
 | CVector | `DotProduct-v3d*v3d*` | [Resumen](../reversing/Fn97A/validation-summary.json) |
 | CVector | `FloatTimesVector` | [Resumen](../reversing/Fn97A/validation-summary.json) |
+| CVector | `FromMultiply` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CVector | `Magnitude` | [Resumen](../reversing/Fn96A/validation-summary.json) |
 | CVector | `Magnitude2D` | [Resumen](../reversing/Fn96A/validation-summary.json) |
 | CVector | `Multiply3x3Exe` | [Resumen](../reversing/Fn97A/validation-summary.json) |
@@ -9424,7 +9434,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CLodAtomicModelInfo` | 3 | 0 | 3 | 0 |
 | `CLodTimeModelInfo` | 2 | 0 | 2 | 0 |
 | `CMaths` | 3 | 0 | 3 | 0 |
-| `CMatrix` | 18 | 0 | 18 | 0 |
+| `CMatrix` | 27 | 0 | 27 | 0 |
 | `CMatrixLink` | 2 | 0 | 2 | 0 |
 | `CMatrixLinkList` | 10 | 0 | 10 | 0 |
 | `CMemoryHeap` | 1 | 0 | 1 | 0 |
@@ -9901,7 +9911,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVector` | 15 | 0 | 15 | 0 |
+| `CVector` | 16 | 0 | 16 | 0 |
 | `CVehicle` | 169 | 0 | 169 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
