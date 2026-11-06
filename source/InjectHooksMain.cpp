@@ -714,6 +714,7 @@ void InjectHooksMain() {
     CQuaternion::InjectHooks(); // Only the reconstructed Set dependencies.
     CMatrix::InjectHooksMultiplyVector(); // Only operator*(CMatrix, CVector) 0x59C890.
     CMatrix::InjectHooksAttachAssign(); // Only Attach 0x59BD10 and operator= 0x59BBC0.
+    CSimpleTransform::InjectHooks(); // Only UpdateRwMatrix 0x54EF40 and UpdateMatrix 0x54F1B0.
     CMatrix::InjectHooksExactOps(); // Only UpdateRW 0x59BBB0, UpdateRwMatrix 0x59AD70, SetTranslate 0x59AF40, SetRotateZOnly 0x59B020, destructor 0x59ACD0 and constructors 0x59BCF0 / 0x59C050.
     CMatrix::InjectHooksLote99A(); // Only SetUnity 0x59AE70, ResetOrientation 0x59AEA0, SetScale 0x59AED0 / 0x59AF00, SetTranslateOnly 0x59AF80, SetRotate xyz 0x59B120, Invert 0x59B920 and operator*(matrix, matrix) 0x59BE30.
     CMatrixInjectHooksLote101A(); // Only SetRotateX/Y/Z 0x59B060/0x59B0A0/0x59B0E0, RotateX/Y/Z 0x59B1E0/0x59B2C0/0x59B390, Reorthogonalise 0x59B6A0, CopyToRwMatrix 0x59B8B0 and Invert(in) 0x59BDD0.

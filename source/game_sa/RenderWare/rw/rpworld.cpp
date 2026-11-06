@@ -241,7 +241,11 @@ void RpWorldInjectHooks25b() {
     RH_ScopedCategory("Plugins");
     RH_ScopedNamespaceName("RpWorld");
 
+    RH_ScopedGlobalInstall(AtomicDefaultRenderCallBack, 0x7491C0);
     RH_ScopedGlobalInstall(RpClumpGetNumAtomics, 0x7498E0);
+    RH_ScopedGlobalInstall(RpClumpForAllAtomics, 0x749B70);
+    RH_ScopedGlobalInstall(RpAtomicSetFrame, 0x74BF20);
+    RH_ScopedGlobalInstall(RpGeometryForAllMaterials, 0x74C790);
     RH_ScopedGlobalInstall(RpAtomicSetStreamAlwaysCallBack, 0x74BE30);
     RH_ScopedGlobalInstall(RpAtomicSetStreamRightsCallBack, 0x74BE50);
     RH_ScopedGlobalInstall(RpAtomicGetPluginOffset, 0x74BEC0);
@@ -487,8 +491,17 @@ RpMaterial* RpGeometryTriangleGetMaterial(const RpGeometry* geometry, const RpTr
     return geometry->matList.materials[matIndex];
 }
 
+// 0x74C790
+// Como el original: el numero de materiales se lee una vez; el arreglo de punteros se relee en cada vuelta (el callback puede cambiarlo); un callback que devuelve nulo corta el recorrido.
 RpGeometry* RpGeometryForAllMaterials(RpGeometry* geometry, RpMaterialCallBack fpCallBack, void* data) {
-    return ((RpGeometry*(__cdecl *)(RpGeometry*, RpMaterialCallBack, void*))0x74C790)(geometry, fpCallBack, data);
+    static_assert(offsetof(RpGeometry, matList) + offsetof(RpMaterialList, materials) == 0x20 && offsetof(RpGeometry, matList) + offsetof(RpMaterialList, numMaterials) == 0x24);
+    const RwInt32 numMaterials = geometry->matList.numMaterials;
+    for (RwInt32 i = 0; i < numMaterials; ++i) {
+        if (!fpCallBack(geometry->matList.materials[i], data)) {
+            break;
+        }
+    }
+    return geometry;
 }
 
 RpGeometry* RpGeometryLock(RpGeometry* geometry, RwInt32 lockMode) {
@@ -682,8 +695,15 @@ void RpClumpSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPreall
     ((void(__cdecl *)(RwInt32, RwInt32))0x749740)(blockSize, numBlocksToPrealloc);
 }
 
+// 0x7491C0
+// Como el original: sin tuberia propia usa la por defecto del motor (campo +0x3C del bloque de plugin, `[0xC9BC60] + [0xC97B24] + 0x3C`) y ejecuta RxPipelineExecute (0x805710) con (tuberia, atomico, 1); devuelve el atomico si el resultado no es nulo.
 RpAtomic* AtomicDefaultRenderCallBack(RpAtomic* atomic) {
-    return ((RpAtomic * (__cdecl *)(RpAtomic*))0x7491C0)(atomic);
+    static_assert(offsetof(RpAtomic, pipeline) == 0x6C);
+    RxPipeline* pipeline = atomic->pipeline;
+    if (!pipeline) {
+        pipeline = *reinterpret_cast<RxPipeline**>(StaticRef<uint8*>(0xC9BC60) + StaticRef<int32>(0xC97B24) + 0x3C);
+    }
+    return RxPipelineExecute(pipeline, atomic, TRUE) ? atomic : nullptr;
 }
 
 void _rpAtomicResyncInterpolatedSphere(RpAtomic* atomic) {
@@ -696,8 +716,20 @@ const RwSphere* RpAtomicGetWorldBoundingSphere(RpAtomic* atomic) {
 
 // RpClumpGtaCancelStream (0x72E700) vive en rwtexdict.cpp junto con el resto de la lectura de clumps de GTA.
 
+// 0x749B70
+// Como el original: el enlace siguiente se lee ANTES del callback (puede quitar el atomico actual); un callback que devuelve nulo corta; devuelve el clump.
 RpClump* RpClumpForAllAtomics(RpClump* clump, RpAtomicCallBack callback, void* data) {
-    return ((RpClump*(__cdecl *)(RpClump*, RpAtomicCallBack, void*))0x749B70)(clump, callback, data);
+    static_assert(offsetof(RpAtomic, inClumpLink) == 0x40);
+    const RwLLLink* const end = rwLinkListGetTerminator(&clump->atomicList);
+    RwLLLink* link = rwLinkListGetFirstLLLink(&clump->atomicList);
+    while (link != end) {
+        RwLLLink* const next = rwLLLinkGetNext(link);
+        if (!callback(rwLLLinkGetData(link, RpAtomic, inClumpLink), data)) {
+            break;
+        }
+        link = next;
+    }
+    return clump;
 }
 
 RpClump* RpClumpForAllLights(RpClump* clump, RpLightCallBack callback, void* data) {
@@ -708,8 +740,12 @@ RpClump* RpClumpForAllCameras(RpClump* clump, RwCameraCallBack callback, void* d
     return ((RpClump*(__cdecl *)(RpClump*, RwCameraCallBack, void*))0x749BB0)(clump, callback, data);
 }
 
+// 0x74BF20
+// Como el original: _rwObjectHasFrameSetFrame (0x804EF0) y luego se marca la esfera envolvente del mundo como sucia (byte privateFlags |= 1, releido tras la llamada).
 RpAtomic* RpAtomicSetFrame(RpAtomic* atomic, RwFrame* frame) {
-    return ((RpAtomic*(__cdecl *)(RpAtomic*, RwFrame*))0x74BF20)(atomic, frame);
+    _rwObjectHasFrameSetFrame(atomic, frame);
+    atomic->object.object.privateFlags |= rpATOMICPRIVATEWORLDBOUNDDIRTY;
+    return atomic;
 }
 
 RpClump* RpClumpCreateSpace(const RwV3d* position, RwReal radius) {

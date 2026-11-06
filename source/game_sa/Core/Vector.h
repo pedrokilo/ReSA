@@ -35,6 +35,9 @@ public:
     // Returns length of 2d vector
     float Magnitude2D() const;
 
+    // 0x406DA0: suma de cuadrados (x*x + y*y) + z*z como el EXE (x87, sin redondear a float al devolver). Solo para el hook; el resto del codigo usa SquaredMagnitude() (lote 102A)
+    float SquaredMagnitudeExe() const;
+
     // Normalises a vector in-place
     void Normalise();
 

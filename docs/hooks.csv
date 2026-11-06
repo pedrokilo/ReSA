@@ -9135,3 +9135,12 @@ CMatrix,Reorthogonalise,0x0059B6A0,1,0,1,S
 CMatrix,CopyToRwMatrix,0x0059B8B0,1,0,1,S
 CMatrix,Invert-2,0x0059BDD0,1,0,1,S
 CVector,FromMultiply,0x0059C670,1,0,1,S
+FxPrtMult_c,Constructor7f,0x004AB290,1,0,1,S
+CSimpleTransform,UpdateMatrix,0x0054F1B0,1,0,1,S
+CSimpleTransform,UpdateRwMatrix,0x0054EF40,1,0,1,S
+CVector,SquaredMagnitudeExe,0x00406DA0,1,0,1,S
+CAESound,Destructor,0x004EF660,1,0,1,S
+RpWorld,RpClumpForAllAtomics,0x00749B70,1,0,1,S
+RpWorld,RpGeometryForAllMaterials,0x0074C790,1,0,1,S
+RpWorld,RpAtomicSetFrame,0x0074BF20,1,0,1,S
+RpWorld,AtomicDefaultRenderCallBack,0x007491C0,1,0,1,S

@@ -25,6 +25,7 @@ void FxPrtMult_c::InjectHooks() {
     RH_ScopedCategory("Fx");
 
     RH_ScopedInstall(Constructor, 0x4AB270);
+    RH_ScopedInstall(Constructor7f, 0x4AB290);
 }
 
 // 0x4AB270
@@ -39,6 +40,12 @@ FxPrtMult_c::FxPrtMult_c() {
     m_fSize = 1.0f;
     m_Rot = 1.0f;
     m_fLife = 1.0f;
+}
+
+// 0x4AB290 (hook: Constructor7f)
+FxPrtMult_c* FxPrtMult_c::Constructor7f(float red, float green, float blue, float alpha, float size, float rot, float life) {
+    this->FxPrtMult_c::FxPrtMult_c(red, green, blue, alpha, size, rot, life);
+    return this;
 }
 
 // 0x4AB290

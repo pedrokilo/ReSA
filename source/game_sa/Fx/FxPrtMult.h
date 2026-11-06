@@ -19,6 +19,7 @@ public:
     void SetUp(float red, float green, float blue, float alpha, float size, float rot, float life);
 
     FxPrtMult_c* Constructor();   // 0x4AB270 (hook): construye en el sitio
+    FxPrtMult_c* Constructor7f(float red, float green, float blue, float alpha, float size, float rot, float life); // 0x4AB290 (hook)
 
     inline void SetColor(float red, float green, float blue, float alpha = 1.0f) {
         m_Color.red   = red;

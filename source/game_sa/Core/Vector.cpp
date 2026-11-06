@@ -54,7 +54,7 @@ void CVector::InjectHooks()
 }
 
 // CVector::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); estas son las unicas entradas de CVector que se instalan:
-// Magnitude (0x4082C0), Magnitude2D (0x406D50), Normalise (0x59C910) y NormaliseAndMag (0x59C970), reconstruidas con la x87 del EXE (ver abajo) y validadas por el banco Fn96A.
+// Magnitude (0x4082C0), Magnitude2D (0x406D50), SquaredMagnitudeExe (0x406DA0, lote 102A), Normalise (0x59C910) y NormaliseAndMag (0x59C970), reconstruidas con la x87 del EXE (ver abajo) y validadas por el banco Fn96A.
 void CVector::InjectHooksExactMath()
 {
     RH_ScopedClass(CVector);
@@ -62,6 +62,7 @@ void CVector::InjectHooksExactMath()
 
     RH_ScopedInstall(Magnitude, 0x4082C0);
     RH_ScopedInstall(Magnitude2D, 0x406D50);
+    RH_ScopedInstall(SquaredMagnitudeExe, 0x406DA0);
     RH_ScopedInstall(Normalise, 0x59C910);
     RH_ScopedInstall(NormaliseAndMag, 0x59C970);
 }
@@ -117,6 +118,12 @@ CVector CVector::Random(float min, float max) {
 float CVector::Magnitude() const
 {
     return float(sqrt(((double)x * x + (double)y * y) + (double)z * z));
+}
+
+// 0x406DA0: (x*x + y*y) + z*z en la x87 sin guardar como float (ECX y EDX no se tocan; el valor sale en ST0)
+float CVector::SquaredMagnitudeExe() const
+{
+    return float(((double)x * x + (double)y * y) + (double)z * z);
 }
 
 // 0x406D50

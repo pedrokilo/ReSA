@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "pairs": 147456,
+  "differences": 0,
+  "registered_pairs": 147456,
+  "registered_functions": 9,
+  "functions": {
+    "FxPrtMult_c::Constructor7f": 16384,
+    "CSimpleTransform::UpdateMatrix": 16384,
+    "CSimpleTransform::UpdateRwMatrix": 16384,
+    "CVector::SquaredMagnitudeExe": 16384,
+    "CAESound::Destructor": 16384,
+    "RpWorld::RpClumpForAllAtomics": 16384,
+    "RpWorld::RpGeometryForAllMaterials": 16384,
+    "RpWorld::RpAtomicSetFrame": 16384,
+    "RpWorld::AtomicDefaultRenderCallBack": 16384
+  },
+  "covered_functions": {
+    "FxPrtMult_c::Constructor7f": true,
+    "CSimpleTransform::UpdateMatrix": true,
+    "CSimpleTransform::UpdateRwMatrix": true,
+    "CVector::SquaredMagnitudeExe": true,
+    "CAESound::Destructor": true,
+    "RpWorld::RpClumpForAllAtomics": true,
+    "RpWorld::RpGeometryForAllMaterials": true,
+    "RpWorld::RpAtomicSetFrame": true,
+    "RpWorld::AtomicDefaultRenderCallBack": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main e9a8cb895 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH, en su cuerpo del ASI: CMatrix::SetTranslate 0x59AF40 y CMatrix::SetRotateZOnly 0x59B020 (UpdateMatrix), CEntity::CleanUpOldReference 0x571A00 (destructor de CAESound), _rwObjectHasFrameSetFrame 0x804EF0 (RpAtomicSetFrame; el falso deja un byte conocido en +3 del atomico) y RxPipelineExecute 0x805710 (AtomicDefaultRenderCallBack); los callbacks de RpClumpForAllAtomics y RpGeometryForAllMaterials son funciones del banco. Corren de verdad en ambos lados: el recorrido de la lista y del arreglo, las escrituras, fcos/fsin de UpdateRwMatrix (la reduccion de argumentos grandes la hace la propia x87), RwMatrixUpdate 0x7F18A0, la suma de cuadrados x87 de SquaredMagnitudeExe (Vector.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast; ECX y EDX se comprueban intactos) y la lectura de la tuberia por defecto del motor en memoria real. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelo exacto de las listas, racional a 24 bits y mpmath para fsin/fcos). Fuera de los fixtures: rumbos entre 1e6 y 2^63 (la reduccion con pi de 66 bits de la x87 no se modela), NaN con cargas distintas de 0xFFC00000 en SquaredMagnitudeExe, clumps y geometrias con listas corruptas o arreglos de mas de 8 materiales, y la exactitud de los colaboradores sustituidos.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn102A-20261105-170047-904870",
+  "summary_sha256": "4addb81894339c21d39c17447376512f7c9802896d12a22735529b192a2307a2",
+  "result_txt_sha256": "84cdfa2aa992fa50e60dacf77856efc7338a817fa70d42c1b85d07f707d7cc42",
+  "log_sha256": "55701c69e9632b00f24c440ea5fc28cc2752a58d941c1127fca12f1bfadcd099",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "61f569cc85b17910ca6ac07ab0efaab03da71daf6b3f75b7f58122f05850d66a",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+      "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+      "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
+      "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+      "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
+      "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+      "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+      "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
+      "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
+      "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
+      "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
+      "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

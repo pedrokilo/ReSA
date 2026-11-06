@@ -59,6 +59,7 @@ public:
         float           speedVariance
     );
     ~CAESound();
+    CAESound* Destructor() { this->CAESound::~CAESound(); return this; } // 0x4EF660 (hook, lote 102A)
     CAESound& operator=(const CAESound& other);
 
     void Initialise(

@@ -10,6 +10,16 @@
 
 #include "SimpleTransform.h"
 
+// Solo UpdateRwMatrix y UpdateMatrix se instalan (Invert, 0x54EF90, queda sin hook): lote 102A, banco Fn102A.
+void CSimpleTransform::InjectHooks()
+{
+    RH_ScopedClass(CSimpleTransform);
+    RH_ScopedCategory("Core");
+
+    RH_ScopedInstall(UpdateRwMatrix, 0x54EF40);
+    RH_ScopedInstall(UpdateMatrix, 0x54F1B0);
+}
+
 // 0x54EF40
 void CSimpleTransform::UpdateRwMatrix(RwMatrix* out)
 {

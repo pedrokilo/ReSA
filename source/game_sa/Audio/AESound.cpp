@@ -38,6 +38,7 @@ void CAESound::InjectHooks() {
     RH_ScopedClass(CAESound);
     RH_ScopedCategory("Audio");
 
+    RH_ScopedInstall(Destructor, 0x4EF660);
     RH_ScopedInstall(operator=, 0x4EF680);
     RH_ScopedInstall(UnregisterWithPhysicalEntity, 0x4EF1A0);
     RH_ScopedInstall(StopSound, 0x4EF1C0);

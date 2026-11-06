@@ -14,6 +14,8 @@ public:
     CSimpleTransform() : m_vPosn(), m_fHeading(0.0F) {}
 
 public:
+    static void InjectHooks(); // Solo UpdateRwMatrix (0x54EF40) y UpdateMatrix (0x54F1B0) (lote 102A)
+
     CVector m_vPosn;
     float m_fHeading;
 
