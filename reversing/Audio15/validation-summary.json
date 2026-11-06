@@ -43,10 +43,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "76f9925c9c361ce0b51778d1a3434929b38b8e43214f2fc29d0d1242039fba67",
+  "log_sha256": "7011a61c8c6566ae203f2bd5a31fdcd8fbc50bdc3679902ed9452d1172348fd8",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio15\\20261004-115837-094714",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio15\\20261106-143330-595650",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEUserRadioTrackManager::DeleteUserTracksInfo": true,
@@ -82,25 +82,26 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "bb2a331e8233e83a8dbfe69cbb895812c3969e82fdd7e7123209d21a50e5682d",
-      "pdb": "a2b637a24fdf91ac9d2c98513eb6069a6196bbf13f71806df0e37121f4d61cfc"
+      "asi": "977b322272df77d5956d9fa55a71be0853cc68f40bfa6c1f88636d2b7b22e9e8",
+      "pdb": "0c27d141103038a31b4ae4f9e42a1ee670f00307f3dd88ae184de5b0e727ef60"
     },
     "sources": {
-      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
       "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
       "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
       "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "dc6874ec8f4233e7e58ff0b3ecc42c089686e3c7bccece268f5780212b8dc647",
+      "LiveComparison.hpp": "25274cd9dfb675dc8225c1d8208ecfac7d84192749f425ade37c30e03f26007f",
       "build_probe.py": "66c08d4bf5f554c87d5e056cb8bf2cf5914055ce83f6789830b3ea3666f06b11",
       "run_local.py": "6ec6a78bb888bdc3ed87766e4059b1efdcdccc5a468e303fe2816f742e102169"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

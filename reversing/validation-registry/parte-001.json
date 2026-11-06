@@ -153241,7 +153241,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::DeleteUserTracksInfo"
@@ -153250,8 +153250,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153270,7 +153270,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::GetAudioFileType"
@@ -153279,8 +153279,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153299,7 +153299,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::GetTrackPath"
@@ -153308,8 +153308,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153328,7 +153328,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::GetUserTrackPlayMode"
@@ -153337,8 +153337,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153357,7 +153357,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::Initialise"
@@ -153366,8 +153366,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153386,7 +153386,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::IsShortcut"
@@ -153395,8 +153395,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153415,7 +153415,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::LoadUserTrack"
@@ -153424,8 +153424,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153444,7 +153444,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::ReadUserTracks"
@@ -153453,8 +153453,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153473,7 +153473,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::ResolveShortcut-"
@@ -153482,8 +153482,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153502,7 +153502,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::ScanUserTracks"
@@ -153511,8 +153511,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153531,7 +153531,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::SelectUserTrackIndex"
@@ -153540,8 +153540,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153560,7 +153560,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::SetUserTrackIndex"
@@ -153569,8 +153569,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153589,7 +153589,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::Shutdown"
@@ -153598,8 +153598,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153618,7 +153618,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::WriteUserTracksFile-"
@@ -153627,8 +153627,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153647,7 +153647,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::WriteUserTracksThread"
@@ -153656,8 +153656,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153676,7 +153676,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::Constructor"
@@ -153685,8 +153685,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153705,7 +153705,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CopyAnimation-AnimationId"
@@ -153714,8 +153714,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153734,7 +153734,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CopyAnimation-Name"
@@ -153743,8 +153743,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153763,7 +153763,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CreateAssociations-1"
@@ -153772,8 +153772,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153792,7 +153792,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CreateAssociations-2"
@@ -153801,8 +153801,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153821,7 +153821,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CreateAssociations-3"
@@ -153830,8 +153830,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153850,7 +153850,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::DestroyAssociations"
@@ -153859,8 +153859,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153879,7 +153879,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::Destructor"
@@ -153888,8 +153888,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153908,7 +153908,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimBlock"
@@ -153917,8 +153917,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153937,7 +153937,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimation-AnimationId"
@@ -153946,8 +153946,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153966,7 +153966,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimation-Name"
@@ -153975,8 +153975,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -153995,7 +153995,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimationId"
@@ -154004,8 +154004,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -154024,7 +154024,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetNumAnimations"
@@ -154033,8 +154033,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -154053,7 +154053,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::InitEmptyAssociations"
@@ -154062,8 +154062,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
@@ -154082,7 +154082,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "6da38c07dc7fd45f06181774f6b0d0f5e4814209b516153f81da8e2e0574410d",
+        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::IsCreated"
@@ -154091,8 +154091,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "cc4458b664e927cee8cc42463d72f731b10217ab7f1fe1846c1068c9df980c18",
-        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",
+        "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
         "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "50ce8467f56f2c6bb18f6b6e65148a3d5e0d5d2c0ac65bede8f4d21567207933",
         "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
         "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"

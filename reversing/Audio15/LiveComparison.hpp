@@ -157,7 +157,8 @@ inline void __cdecl FakeFree(void* p){
 inline void ResetArena(){ arena.fill(0xCD); arenaTop=0; newCount=0; }
 struct NewScope {
     ReversingProbe::EntryPatch n1{0x82119A,FakeNew}, n2{0x821195,FakeNew}, d1{0x8214BD,FakeDelete}, d2{0x8213AE,FakeDelete},
-                               m1{0x72F420,FakeMalloc}, f1{0x72F430,FakeFree};
+                               m1{0x72F420,FakeMalloc}, f1{0x72F430,FakeFree},
+                               m2{reinterpret_cast<uintptr_t>(static_cast<void*(*)(uint32,uint32)>(&CMemoryMgr::Malloc)),FakeMalloc}, f2{reinterpret_cast<uintptr_t>(&CMemoryMgr::Free),FakeFree};   // lote 110A: CMemoryMgr::Malloc/Free tienen hook desde el lote 100A: el falso tambien va en el cuerpo de la DLL
 };
 
 // --- copia de regiones globales ---
@@ -543,7 +544,7 @@ inline void Update() {
                     both(0x4C5940,bit_cast<uintptr_t>(static_cast<CBaseModelInfo*(*)(const char*,int32*)>(&CModelInfo::GetModelInfo)),FakeMiByName);
                     both(0x4D6720,bit_cast<uintptr_t>(&RpAnimBlendClumpInit),FakeClumpInit);
                     both(0x734820,bit_cast<uintptr_t>(&GetFirstAtomic),FakeFirstAtomic);
-                    pt.Add(0x7C7550,FakeGetSkin); pt.Add(0x749B70,FakeForAll); pt.Add(0x74A310,FakeClumpDestroy); // la DLL los llama en el EXE
+                    pt.Add(0x7C7550,FakeGetSkin); pt.Add(0x749B70,FakeForAll); pt.Add(reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics),FakeForAll); pt.Add(0x74A310,FakeClumpDestroy); // la DLL los llama en el EXE
                 }
                 if(nm=="CreateAssociations-2")
                     both(0x4D42F0,bit_cast<uintptr_t>(static_cast<CAnimBlendHierarchy*(*)(const char*,const CAnimBlock*)>(&CAnimManager::GetAnimation)),FakeGetAnim);
