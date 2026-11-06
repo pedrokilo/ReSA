@@ -87777,7 +87777,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCamCollisionVarDataSet"
@@ -87803,7 +87803,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCamCutSceneOffSet"
@@ -87829,7 +87829,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCamPositionForFixedMode"
@@ -87855,7 +87855,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyBehindForFollowPed_CamOnAString"
@@ -87881,7 +87881,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyBehindForFollowPed_ForAPed_CamOnAString"
@@ -87907,7 +87907,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyInFrontForFollowPed_CamOnAString"
@@ -87933,7 +87933,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraDirectlyInFrontForFollowPed_ForAPed_CamOnAString"
@@ -87959,7 +87959,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetCameraUpForMirror"
@@ -87985,7 +87985,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetColVarsAimWeapon"
@@ -88011,7 +88011,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetColVarsPed"
@@ -88037,7 +88037,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetColVarsVehicle"
@@ -88063,7 +88063,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetFadeColour"
@@ -88089,7 +88089,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetMotionBlur"
@@ -88115,7 +88115,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetMotionBlurAlpha"
@@ -88141,7 +88141,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetNearClipScript"
@@ -88167,7 +88167,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetNewPlayerWeaponMode"
@@ -88193,7 +88193,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetParametersForScriptInterpolation"
@@ -88219,7 +88219,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetPercentAlongCutScene"
@@ -88245,7 +88245,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetRwCamera"
@@ -88271,7 +88271,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetWideScreenOff"
@@ -88297,7 +88297,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetWideScreenOn"
@@ -88323,7 +88323,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetZoomValueCamStringScript"
@@ -88349,7 +88349,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::SetZoomValueFollowPedScript"
@@ -88375,7 +88375,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::StartCooperativeCamMode"
@@ -88401,7 +88401,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::StartTransition"
@@ -88427,7 +88427,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::StartTransitionWhenNotFinishedInter"
@@ -88453,7 +88453,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::StopCooperativeCamMode"
@@ -88479,7 +88479,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::StoreValuesDuringInterPol"
@@ -88505,7 +88505,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControl"
@@ -88531,7 +88531,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControlAttachToEntity"
@@ -88557,7 +88557,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControlNoEntity"
@@ -88583,7 +88583,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::TakeControlWithSpline"
@@ -88609,7 +88609,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::UpdateAimingCoors"
@@ -88635,7 +88635,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::UpdateTargetEntity"
@@ -88661,7 +88661,7 @@
       },
       "evidence": {
         "path": "reversing/CameraFinal4/validation-summary.json",
-        "sha256": "17f7b1959f39edb52ea57ae34c9e580d7dad7639925900086d637e9b2524fc41",
+        "sha256": "33f7b9ee26952d6572f9ebf6ff35d7ba081f245dccb21256e37430facaeeeb81",
         "passed_path": [
           "covered_functions",
           "CCamera::Using1stPersonWeaponMode"
@@ -90871,7 +90871,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::AddMovingCollisionSpeed"
@@ -90880,7 +90880,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -90897,7 +90897,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::BlowUpCar"
@@ -90906,7 +90906,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -90923,7 +90923,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::BlowUpCarCutSceneNoExtras"
@@ -90932,7 +90932,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -90949,7 +90949,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::BlowUpCarsInPath"
@@ -90958,7 +90958,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -90975,7 +90975,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::BoostJumpControl"
@@ -90984,7 +90984,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91001,7 +91001,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::BreakTowLink"
@@ -91010,7 +91010,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91027,7 +91027,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ClearHeliOrientation"
@@ -91036,7 +91036,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91053,7 +91053,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::CloseAllDoors"
@@ -91062,7 +91062,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91079,7 +91079,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::CloseBoot"
@@ -91088,7 +91088,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91105,7 +91105,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Constructor"
@@ -91114,7 +91114,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91131,7 +91131,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::CustomCarPlate_AfterRenderingStop"
@@ -91140,7 +91140,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91157,7 +91157,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::CustomCarPlate_BeforeRenderingStart"
@@ -91166,7 +91166,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91183,7 +91183,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Destructor"
@@ -91192,7 +91192,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91209,7 +91209,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::DoBurstAndSoftGroundRatios"
@@ -91218,7 +91218,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91235,7 +91235,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::DoHoverSuspensionRatios"
@@ -91244,7 +91244,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91261,7 +91261,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::DoSoftGroundResistance"
@@ -91270,7 +91270,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91287,7 +91287,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::FindWheelWidth"
@@ -91296,7 +91296,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91313,7 +91313,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::FireTruckControl"
@@ -91322,7 +91322,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91339,7 +91339,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Fix"
@@ -91348,7 +91348,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91365,7 +91365,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::FixDoor"
@@ -91374,7 +91374,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91391,7 +91391,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::FixPanel"
@@ -91400,7 +91400,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91417,7 +91417,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::FixTyre"
@@ -91426,7 +91426,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91443,7 +91443,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetAllWheelsOffGround"
@@ -91452,7 +91452,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91469,7 +91469,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetCarPitch"
@@ -91478,7 +91478,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91495,7 +91495,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetCarRoll"
@@ -91504,7 +91504,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91521,7 +91521,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetComponentWorldPosition"
@@ -91530,7 +91530,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91547,7 +91547,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetDooorAngleOpenRatio"
@@ -91556,7 +91556,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91573,7 +91573,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetDooorAngleOpenRatioU32"
@@ -91582,7 +91582,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91599,7 +91599,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetHeightAboveRoad"
@@ -91608,7 +91608,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91625,7 +91625,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetMovingCollisionOffset"
@@ -91634,7 +91634,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91651,7 +91651,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetNumContactWheels"
@@ -91660,7 +91660,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91677,7 +91677,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetTowBarPos"
@@ -91686,7 +91686,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91703,7 +91703,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetTowHitchPos"
@@ -91712,7 +91712,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91729,7 +91729,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::HydraulicControl"
@@ -91738,7 +91738,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91755,7 +91755,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsComponentPresent"
@@ -91764,7 +91764,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91781,7 +91781,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorClosed"
@@ -91790,7 +91790,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91807,7 +91807,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorClosedU32"
@@ -91816,7 +91816,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91833,7 +91833,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorFullyOpen"
@@ -91842,7 +91842,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91859,7 +91859,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorFullyOpenU32"
@@ -91868,7 +91868,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91885,7 +91885,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorMissing"
@@ -91894,7 +91894,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91911,7 +91911,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorMissingU32"
@@ -91920,7 +91920,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91937,7 +91937,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorReady"
@@ -91946,7 +91946,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91963,7 +91963,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorReadyU32"
@@ -91972,7 +91972,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -91989,7 +91989,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsInAir"
@@ -91998,7 +91998,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92015,7 +92015,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsOpenTopCar"
@@ -92024,7 +92024,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92041,7 +92041,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsRoomForPedToLeaveCar"
@@ -92050,7 +92050,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92067,7 +92067,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::KnockPedOutCar"
@@ -92076,7 +92076,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92093,7 +92093,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Load"
@@ -92102,7 +92102,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92119,7 +92119,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::NitrousControl"
@@ -92128,7 +92128,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92145,7 +92145,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::OpenDoor"
@@ -92154,7 +92154,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92171,7 +92171,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PlaceOnRoadProperly"
@@ -92180,7 +92180,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92197,7 +92197,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PlayCarHorn"
@@ -92206,7 +92206,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92223,7 +92223,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PlayHornIfNecessary"
@@ -92232,7 +92232,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92249,7 +92249,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PopBoot"
@@ -92258,7 +92258,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92275,7 +92275,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PopBootUsingPhysics"
@@ -92284,7 +92284,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92301,7 +92301,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PopDoor"
@@ -92310,7 +92310,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92327,7 +92327,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PopPanel"
@@ -92336,7 +92336,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92353,7 +92353,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessAI"
@@ -92362,7 +92362,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92379,7 +92379,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessAutoBusDoors"
@@ -92388,7 +92388,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92405,7 +92405,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessBuoyancy"
@@ -92414,7 +92414,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92431,7 +92431,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessCarOnFireAndExplode"
@@ -92440,7 +92440,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92457,7 +92457,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessCarWheelPair"
@@ -92466,7 +92466,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92483,7 +92483,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessControl"
@@ -92492,7 +92492,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92509,7 +92509,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessControlCollisionCheck"
@@ -92518,7 +92518,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92535,7 +92535,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessControlInputs"
@@ -92544,7 +92544,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92561,7 +92561,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessEntityCollision"
@@ -92570,7 +92570,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92587,7 +92587,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessFlyingCarStuff"
@@ -92596,7 +92596,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92613,7 +92613,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessHarvester"
@@ -92622,7 +92622,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92639,7 +92639,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessSuspension"
@@ -92648,7 +92648,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92665,7 +92665,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessSwingingDoor"
@@ -92674,7 +92674,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92691,7 +92691,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::RcbanditCheck1CarWheels"
@@ -92700,7 +92700,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92717,7 +92717,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::RcbanditCheckHitWheels"
@@ -92726,7 +92726,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92743,7 +92743,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ReduceHornCounter"
@@ -92752,7 +92752,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92769,7 +92769,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::RemoveBonnetInPedCollision"
@@ -92778,7 +92778,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92795,7 +92795,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ResetSuspension"
@@ -92804,7 +92804,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92821,7 +92821,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Save"
@@ -92830,7 +92830,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92847,7 +92847,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ScanForCrimes"
@@ -92856,7 +92856,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92873,7 +92873,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetAllTaxiLights"
@@ -92882,7 +92882,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92899,7 +92899,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetBumperDamage"
@@ -92908,7 +92908,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92925,7 +92925,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetBusDoorTimer"
@@ -92934,7 +92934,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92951,7 +92951,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetDoorDamage"
@@ -92960,7 +92960,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -92977,7 +92977,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetHeliOrientation"
@@ -92986,7 +92986,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93003,7 +93003,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetPanelDamage"
@@ -93012,7 +93012,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93029,7 +93029,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetTaxiLight"
@@ -93038,7 +93038,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93055,7 +93055,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetTotalDamage"
@@ -93064,7 +93064,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93081,7 +93081,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetTowLink"
@@ -93090,7 +93090,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93107,7 +93107,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetupDamageAfterLoad"
@@ -93116,7 +93116,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93133,7 +93133,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetupModelNodes"
@@ -93142,7 +93142,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93159,7 +93159,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetupSuspensionLines"
@@ -93168,7 +93168,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93185,7 +93185,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SpawnFlyingComponent"
@@ -93194,7 +93194,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93211,7 +93211,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::StopNitroEffect"
@@ -93220,7 +93220,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93237,7 +93237,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::TankControl"
@@ -93246,7 +93246,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93263,7 +93263,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Teleport"
@@ -93272,7 +93272,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93289,7 +93289,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::TellHeliToGoToCoors"
@@ -93298,7 +93298,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93315,7 +93315,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::TellPlaneToGoToCoors"
@@ -93324,7 +93324,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93341,7 +93341,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::TowTruckControl"
@@ -93350,7 +93350,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93367,7 +93367,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::UpdateMovingCollision"
@@ -93376,7 +93376,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93393,7 +93393,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::VehicleDamage"
@@ -93402,7 +93402,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -93419,7 +93419,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
+        "sha256": "63cd4de9dcc651df036edf09cef694b7e365710a1b3c6581a2c39d812f276d1d",
         "passed_path": [
           "covered_functions",
           "CAutomobile::dmgDrawCarCollidingParticles"
@@ -93428,7 +93428,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739"
       },
       "source_provenance": "Probe AutomobileFinal4 compilado exacto (hashes de ASI/PDB en build-manifest.json); fuentes de la clase (Automobile.cpp y Automobile.h) con hash del manifest de compilaci\u00f3n e iguales al \u00e1rbol de trabajo en el registro; log completo de 24192 filas reauditado offline en streaming y conservado comprimido con gzip con el hash original.",
@@ -100260,7 +100260,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesDecisionRelationship6/validation-summary.json",
-        "sha256": "6f3692764b030ef9051b9b2dc8ed276fd11947d4d7f729a2629da514ebba7d72",
+        "sha256": "7aa2f2a01395e8a0222021ae069f04e094720537f36ae5cd24641812ff2fb578",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypes::RemoveDecisionMaker"
@@ -100269,51 +100269,51 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "16e7937abf18ade23dd295ae76589cd5c0a94d0424dd3bc2e33753bfc2ec7242",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
-        "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
-        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/PlayerRelationshipRecorder.cpp": "9a2d6bef55731ae45275795dce8f4d28a72bb62d2edbab752d02f4f8ebabd88c",
-        "source/game_sa/PlayerRelationshipRecorder.h": "f3b33ce9a64fb2b6b2e87961b79578dca3b5fc79932692a65962b35d309f0b20",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "95fd6f0cd755c9e771fd48a3675b01de90b54b752452d74a239d10e917cf71ae",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
+        "source/game_sa/DecisionMakers/Decision.cpp": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5",
+        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "7f55771da2e21b887e08853b9c6981b65d49434cda9409220d14146480511d98",
+        "source/game_sa/PlayerRelationshipRecorder.h": "5943909f7ca6295c20223c94831b78f4a67e7f21e78fe9c6bd2c9726c5667c19",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "b4fa56c3f3bf80d3b7532befd0f427bb9120089f29864389a140a53129b32e39",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp": "5764f34c10625d604f502b9d993899faaecf8ed97be82eb83a6334c03c54f2e5",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp": "93827439afec6c0b0a8c9d4a58b06c6e12eec2c47bbb21abd9801da900d405f2",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.h": "cde577ea765bc9b65a0e70fff5cf56a47c17a8832d5e7d886a121537b64e5198",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "d5fd78cb50707f0a9c6dbf1bce33144f9da916b97a93246ce521677757cf5175",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "0081100116f1467fd3c6fdd22152960e6559eb509ff6eef7f191fcd3822dab3b",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.h": "122fabde06fcd9649f3cca9933a6a33e3bb48ac5d03ccb9090318a47936d97f0",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
-        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/TaskCategories.cpp": "c5654a31f6ac45d97ff841b9f6350d44d871bf9c176dbdebd31fc6d756ddcd5c",
-        "source/game_sa/Tasks/TaskCategories.h": "3f266940008742392e084bc24e8dd833172bc692a180ad2a520576ae8feb5a3c",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskCategories.cpp": "da4b18fc93fbed4fbab88e64bab0e9185ab11effdafa629ce799967757c556a4",
+        "source/game_sa/Tasks/TaskCategories.h": "3c32cc695e24534fcb26307882ac0e52141234bc2dbabbf1eaa2bd7e7ef17334",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
         "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
-        "source/game_sa/PedIntelligence.cpp": "d4c28f40a0670cca99f1bbfb280f30d7e0bdda072fbb78a08820419f37528ff7",
-        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
-        "source/game_sa/PedGroupIntelligence.cpp": "237ad4d03244f44672bb677db568be9f49963c71d24feee95c80f634c3ee19df",
-        "source/game_sa/PedGroupIntelligence.h": "2b5f205418513d4ebbe9ca3b50b70b7536ecba530d812c81533b824f7a6caab8",
-        "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
+        "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
+        "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+        "source/game_sa/PedGroupIntelligence.cpp": "dde0e3115588fc24d0374f0d955f9a26919ee86ca5ba6ccf851a442ab2ac8f54",
+        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
         "source/game_sa/PedGroups.h": "7d8028e72a95d1bada25d646618971afcac2ec09b6f1aa4096905a1fe8c27550",
-        "source/game_sa/Pools.cpp": "a7dc9fd73df1bb14b3cd864bdf83543ebb0f3be7e3ef8b43cbfc838a18691bcd",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
-        "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/FileMgr.cpp": "a7a192213bcc8f9c445f080ea27e957fc58c27e8345fedd35be93bca37c51f68",
+        "source/game_sa/FileMgr.cpp": "d3d1e045e5fe41895ee4bc624ba91d46134b57affa59ef79b1260f75a8ee55ea",
         "source/game_sa/FileMgr.h": "5ee4a8305e446d6d3ef391530d1a4226b59940d2a781bf97a096a2d268ee514f",
-        "source/game_sa/Timer.cpp": "b78d6cc3da32af05334e109f01853c5c29b9be5774e552f832d6213f9d518e3c",
+        "source/game_sa/Timer.cpp": "f3cfbec0010eef16f722974547e7578df896015544b01246098a29a2038fafba",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-        "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
-        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
-        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+        "source/game_sa/Tasks/Task.cpp": "b8ea4f262b2b5715c22ec4e9ef087c3716d965cbfa80955806e00084d1883ac6",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
         "source/game_sa/Tasks/TaskTimer.cpp": "7085edb0e98b7a5235875a3631f9b10dfd218bd2c0d325170cba3f9e1a5dbc25",
         "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -100329,7 +100329,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesDecisionRelationship6/validation-summary.json",
-        "sha256": "6f3692764b030ef9051b9b2dc8ed276fd11947d4d7f729a2629da514ebba7d72",
+        "sha256": "7aa2f2a01395e8a0222021ae069f04e094720537f36ae5cd24641812ff2fb578",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypes::AddDecisionMaker"
@@ -100338,51 +100338,51 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "16e7937abf18ade23dd295ae76589cd5c0a94d0424dd3bc2e33753bfc2ec7242",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
-        "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
-        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/PlayerRelationshipRecorder.cpp": "9a2d6bef55731ae45275795dce8f4d28a72bb62d2edbab752d02f4f8ebabd88c",
-        "source/game_sa/PlayerRelationshipRecorder.h": "f3b33ce9a64fb2b6b2e87961b79578dca3b5fc79932692a65962b35d309f0b20",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "95fd6f0cd755c9e771fd48a3675b01de90b54b752452d74a239d10e917cf71ae",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
+        "source/game_sa/DecisionMakers/Decision.cpp": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5",
+        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "7f55771da2e21b887e08853b9c6981b65d49434cda9409220d14146480511d98",
+        "source/game_sa/PlayerRelationshipRecorder.h": "5943909f7ca6295c20223c94831b78f4a67e7f21e78fe9c6bd2c9726c5667c19",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "b4fa56c3f3bf80d3b7532befd0f427bb9120089f29864389a140a53129b32e39",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp": "5764f34c10625d604f502b9d993899faaecf8ed97be82eb83a6334c03c54f2e5",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp": "93827439afec6c0b0a8c9d4a58b06c6e12eec2c47bbb21abd9801da900d405f2",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.h": "cde577ea765bc9b65a0e70fff5cf56a47c17a8832d5e7d886a121537b64e5198",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "d5fd78cb50707f0a9c6dbf1bce33144f9da916b97a93246ce521677757cf5175",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "0081100116f1467fd3c6fdd22152960e6559eb509ff6eef7f191fcd3822dab3b",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.h": "122fabde06fcd9649f3cca9933a6a33e3bb48ac5d03ccb9090318a47936d97f0",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
-        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/TaskCategories.cpp": "c5654a31f6ac45d97ff841b9f6350d44d871bf9c176dbdebd31fc6d756ddcd5c",
-        "source/game_sa/Tasks/TaskCategories.h": "3f266940008742392e084bc24e8dd833172bc692a180ad2a520576ae8feb5a3c",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskCategories.cpp": "da4b18fc93fbed4fbab88e64bab0e9185ab11effdafa629ce799967757c556a4",
+        "source/game_sa/Tasks/TaskCategories.h": "3c32cc695e24534fcb26307882ac0e52141234bc2dbabbf1eaa2bd7e7ef17334",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
         "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
-        "source/game_sa/PedIntelligence.cpp": "d4c28f40a0670cca99f1bbfb280f30d7e0bdda072fbb78a08820419f37528ff7",
-        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
-        "source/game_sa/PedGroupIntelligence.cpp": "237ad4d03244f44672bb677db568be9f49963c71d24feee95c80f634c3ee19df",
-        "source/game_sa/PedGroupIntelligence.h": "2b5f205418513d4ebbe9ca3b50b70b7536ecba530d812c81533b824f7a6caab8",
-        "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
+        "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
+        "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+        "source/game_sa/PedGroupIntelligence.cpp": "dde0e3115588fc24d0374f0d955f9a26919ee86ca5ba6ccf851a442ab2ac8f54",
+        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
         "source/game_sa/PedGroups.h": "7d8028e72a95d1bada25d646618971afcac2ec09b6f1aa4096905a1fe8c27550",
-        "source/game_sa/Pools.cpp": "a7dc9fd73df1bb14b3cd864bdf83543ebb0f3be7e3ef8b43cbfc838a18691bcd",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
-        "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/FileMgr.cpp": "a7a192213bcc8f9c445f080ea27e957fc58c27e8345fedd35be93bca37c51f68",
+        "source/game_sa/FileMgr.cpp": "d3d1e045e5fe41895ee4bc624ba91d46134b57affa59ef79b1260f75a8ee55ea",
         "source/game_sa/FileMgr.h": "5ee4a8305e446d6d3ef391530d1a4226b59940d2a781bf97a096a2d268ee514f",
-        "source/game_sa/Timer.cpp": "b78d6cc3da32af05334e109f01853c5c29b9be5774e552f832d6213f9d518e3c",
+        "source/game_sa/Timer.cpp": "f3cfbec0010eef16f722974547e7578df896015544b01246098a29a2038fafba",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-        "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
-        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
-        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+        "source/game_sa/Tasks/Task.cpp": "b8ea4f262b2b5715c22ec4e9ef087c3716d965cbfa80955806e00084d1883ac6",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
         "source/game_sa/Tasks/TaskTimer.cpp": "7085edb0e98b7a5235875a3631f9b10dfd218bd2c0d325170cba3f9e1a5dbc25",
         "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -100398,7 +100398,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesDecisionRelationship6/validation-summary.json",
-        "sha256": "6f3692764b030ef9051b9b2dc8ed276fd11947d4d7f729a2629da514ebba7d72",
+        "sha256": "7aa2f2a01395e8a0222021ae069f04e094720537f36ae5cd24641812ff2fb578",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypes::LoadEventIndices"
@@ -100407,51 +100407,51 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "16e7937abf18ade23dd295ae76589cd5c0a94d0424dd3bc2e33753bfc2ec7242",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
-        "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
-        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/PlayerRelationshipRecorder.cpp": "9a2d6bef55731ae45275795dce8f4d28a72bb62d2edbab752d02f4f8ebabd88c",
-        "source/game_sa/PlayerRelationshipRecorder.h": "f3b33ce9a64fb2b6b2e87961b79578dca3b5fc79932692a65962b35d309f0b20",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "95fd6f0cd755c9e771fd48a3675b01de90b54b752452d74a239d10e917cf71ae",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
+        "source/game_sa/DecisionMakers/Decision.cpp": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5",
+        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "7f55771da2e21b887e08853b9c6981b65d49434cda9409220d14146480511d98",
+        "source/game_sa/PlayerRelationshipRecorder.h": "5943909f7ca6295c20223c94831b78f4a67e7f21e78fe9c6bd2c9726c5667c19",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "b4fa56c3f3bf80d3b7532befd0f427bb9120089f29864389a140a53129b32e39",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp": "5764f34c10625d604f502b9d993899faaecf8ed97be82eb83a6334c03c54f2e5",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp": "93827439afec6c0b0a8c9d4a58b06c6e12eec2c47bbb21abd9801da900d405f2",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.h": "cde577ea765bc9b65a0e70fff5cf56a47c17a8832d5e7d886a121537b64e5198",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "d5fd78cb50707f0a9c6dbf1bce33144f9da916b97a93246ce521677757cf5175",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "0081100116f1467fd3c6fdd22152960e6559eb509ff6eef7f191fcd3822dab3b",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.h": "122fabde06fcd9649f3cca9933a6a33e3bb48ac5d03ccb9090318a47936d97f0",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
-        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/TaskCategories.cpp": "c5654a31f6ac45d97ff841b9f6350d44d871bf9c176dbdebd31fc6d756ddcd5c",
-        "source/game_sa/Tasks/TaskCategories.h": "3f266940008742392e084bc24e8dd833172bc692a180ad2a520576ae8feb5a3c",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskCategories.cpp": "da4b18fc93fbed4fbab88e64bab0e9185ab11effdafa629ce799967757c556a4",
+        "source/game_sa/Tasks/TaskCategories.h": "3c32cc695e24534fcb26307882ac0e52141234bc2dbabbf1eaa2bd7e7ef17334",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
         "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
-        "source/game_sa/PedIntelligence.cpp": "d4c28f40a0670cca99f1bbfb280f30d7e0bdda072fbb78a08820419f37528ff7",
-        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
-        "source/game_sa/PedGroupIntelligence.cpp": "237ad4d03244f44672bb677db568be9f49963c71d24feee95c80f634c3ee19df",
-        "source/game_sa/PedGroupIntelligence.h": "2b5f205418513d4ebbe9ca3b50b70b7536ecba530d812c81533b824f7a6caab8",
-        "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
+        "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
+        "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+        "source/game_sa/PedGroupIntelligence.cpp": "dde0e3115588fc24d0374f0d955f9a26919ee86ca5ba6ccf851a442ab2ac8f54",
+        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
         "source/game_sa/PedGroups.h": "7d8028e72a95d1bada25d646618971afcac2ec09b6f1aa4096905a1fe8c27550",
-        "source/game_sa/Pools.cpp": "a7dc9fd73df1bb14b3cd864bdf83543ebb0f3be7e3ef8b43cbfc838a18691bcd",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
-        "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/FileMgr.cpp": "a7a192213bcc8f9c445f080ea27e957fc58c27e8345fedd35be93bca37c51f68",
+        "source/game_sa/FileMgr.cpp": "d3d1e045e5fe41895ee4bc624ba91d46134b57affa59ef79b1260f75a8ee55ea",
         "source/game_sa/FileMgr.h": "5ee4a8305e446d6d3ef391530d1a4226b59940d2a781bf97a096a2d268ee514f",
-        "source/game_sa/Timer.cpp": "b78d6cc3da32af05334e109f01853c5c29b9be5774e552f832d6213f9d518e3c",
+        "source/game_sa/Timer.cpp": "f3cfbec0010eef16f722974547e7578df896015544b01246098a29a2038fafba",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-        "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
-        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
-        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+        "source/game_sa/Tasks/Task.cpp": "b8ea4f262b2b5715c22ec4e9ef087c3716d965cbfa80955806e00084d1883ac6",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
         "source/game_sa/Tasks/TaskTimer.cpp": "7085edb0e98b7a5235875a3631f9b10dfd218bd2c0d325170cba3f9e1a5dbc25",
         "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -100467,7 +100467,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesDecisionRelationship6/validation-summary.json",
-        "sha256": "6f3692764b030ef9051b9b2dc8ed276fd11947d4d7f729a2629da514ebba7d72",
+        "sha256": "7aa2f2a01395e8a0222021ae069f04e094720537f36ae5cd24641812ff2fb578",
         "passed_path": [
           "covered_functions",
           "CPlayerRelationshipRecorder::RecordRelationshipWithPlayer"
@@ -100476,51 +100476,51 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "16e7937abf18ade23dd295ae76589cd5c0a94d0424dd3bc2e33753bfc2ec7242",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
-        "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
-        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/PlayerRelationshipRecorder.cpp": "9a2d6bef55731ae45275795dce8f4d28a72bb62d2edbab752d02f4f8ebabd88c",
-        "source/game_sa/PlayerRelationshipRecorder.h": "f3b33ce9a64fb2b6b2e87961b79578dca3b5fc79932692a65962b35d309f0b20",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "95fd6f0cd755c9e771fd48a3675b01de90b54b752452d74a239d10e917cf71ae",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
+        "source/game_sa/DecisionMakers/Decision.cpp": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5",
+        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "7f55771da2e21b887e08853b9c6981b65d49434cda9409220d14146480511d98",
+        "source/game_sa/PlayerRelationshipRecorder.h": "5943909f7ca6295c20223c94831b78f4a67e7f21e78fe9c6bd2c9726c5667c19",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "b4fa56c3f3bf80d3b7532befd0f427bb9120089f29864389a140a53129b32e39",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp": "5764f34c10625d604f502b9d993899faaecf8ed97be82eb83a6334c03c54f2e5",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp": "93827439afec6c0b0a8c9d4a58b06c6e12eec2c47bbb21abd9801da900d405f2",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.h": "cde577ea765bc9b65a0e70fff5cf56a47c17a8832d5e7d886a121537b64e5198",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "d5fd78cb50707f0a9c6dbf1bce33144f9da916b97a93246ce521677757cf5175",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "0081100116f1467fd3c6fdd22152960e6559eb509ff6eef7f191fcd3822dab3b",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.h": "122fabde06fcd9649f3cca9933a6a33e3bb48ac5d03ccb9090318a47936d97f0",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
-        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/TaskCategories.cpp": "c5654a31f6ac45d97ff841b9f6350d44d871bf9c176dbdebd31fc6d756ddcd5c",
-        "source/game_sa/Tasks/TaskCategories.h": "3f266940008742392e084bc24e8dd833172bc692a180ad2a520576ae8feb5a3c",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/TaskCategories.cpp": "da4b18fc93fbed4fbab88e64bab0e9185ab11effdafa629ce799967757c556a4",
+        "source/game_sa/Tasks/TaskCategories.h": "3c32cc695e24534fcb26307882ac0e52141234bc2dbabbf1eaa2bd7e7ef17334",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
         "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
-        "source/game_sa/PedIntelligence.cpp": "d4c28f40a0670cca99f1bbfb280f30d7e0bdda072fbb78a08820419f37528ff7",
-        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
-        "source/game_sa/PedGroupIntelligence.cpp": "237ad4d03244f44672bb677db568be9f49963c71d24feee95c80f634c3ee19df",
-        "source/game_sa/PedGroupIntelligence.h": "2b5f205418513d4ebbe9ca3b50b70b7536ecba530d812c81533b824f7a6caab8",
-        "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
+        "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
+        "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+        "source/game_sa/PedGroupIntelligence.cpp": "dde0e3115588fc24d0374f0d955f9a26919ee86ca5ba6ccf851a442ab2ac8f54",
+        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
         "source/game_sa/PedGroups.h": "7d8028e72a95d1bada25d646618971afcac2ec09b6f1aa4096905a1fe8c27550",
-        "source/game_sa/Pools.cpp": "a7dc9fd73df1bb14b3cd864bdf83543ebb0f3be7e3ef8b43cbfc838a18691bcd",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
-        "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/FileMgr.cpp": "a7a192213bcc8f9c445f080ea27e957fc58c27e8345fedd35be93bca37c51f68",
+        "source/game_sa/FileMgr.cpp": "d3d1e045e5fe41895ee4bc624ba91d46134b57affa59ef79b1260f75a8ee55ea",
         "source/game_sa/FileMgr.h": "5ee4a8305e446d6d3ef391530d1a4226b59940d2a781bf97a096a2d268ee514f",
-        "source/game_sa/Timer.cpp": "b78d6cc3da32af05334e109f01853c5c29b9be5774e552f832d6213f9d518e3c",
+        "source/game_sa/Timer.cpp": "f3cfbec0010eef16f722974547e7578df896015544b01246098a29a2038fafba",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
         "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-        "source/game_sa/Entity/Entity.h": "a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed",
-        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
-        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+        "source/game_sa/Tasks/Task.cpp": "b8ea4f262b2b5715c22ec4e9ef087c3716d965cbfa80955806e00084d1883ac6",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
         "source/game_sa/Tasks/TaskTimer.cpp": "7085edb0e98b7a5235875a3631f9b10dfd218bd2c0d325170cba3f9e1a5dbc25",
         "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
