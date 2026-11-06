@@ -120789,7 +120789,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::CalculateWindBending"
@@ -120798,7 +120798,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -120815,7 +120815,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::Initialise"
@@ -120824,7 +120824,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -120841,7 +120841,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::MoveColEntToList"
@@ -120850,7 +120850,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -120867,7 +120867,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::MoveLocTriToList"
@@ -120876,7 +120876,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -120893,7 +120893,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::PreUpdateOnceForNewCameraPos"
@@ -120902,7 +120902,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -120919,7 +120919,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::ReloadConfig"
@@ -120928,7 +120928,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -120945,7 +120945,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::Render"
@@ -120954,7 +120954,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -120971,7 +120971,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::SetPlantFriendlyFlagInAtomicMI"
@@ -120980,7 +120980,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -120997,7 +120997,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::Shutdown"
@@ -121006,7 +121006,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -121023,7 +121023,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::Update"
@@ -121032,7 +121032,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -121049,7 +121049,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::UpdateAmbientColor"
@@ -121058,7 +121058,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -121075,7 +121075,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ColEntityCache_Add"
@@ -121084,7 +121084,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -121101,7 +121101,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ColEntityCache_FindInCache"
@@ -121110,7 +121110,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -121127,7 +121127,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ColEntityCache_Remove"
@@ -121136,7 +121136,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -121153,7 +121153,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ColEntityCache_Update"
@@ -121162,7 +121162,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -121179,7 +121179,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ProcessEntryCollisionDataSections"
@@ -121188,7 +121188,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -121205,7 +121205,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ProcessEntryCollisionDataSections_AddLocTris"
@@ -121214,7 +121214,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -121231,7 +121231,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_ProcessEntryCollisionDataSections_RemoveLocTris"
@@ -121240,7 +121240,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",
@@ -121257,7 +121257,7 @@
       },
       "evidence": {
         "path": "reversing/Plant19/validation-summary.json",
-        "sha256": "ea90b244531221d8752184cc82e0f0e0a3a841f97eee94446d3777de3b54af37",
+        "sha256": "5b0b527ede6fc741143b86933ccb8c62db9e0315532cc91b92a5fee71b695314",
         "passed_path": [
           "covered_functions",
           "CPlantMgr::_UpdateLocTris"
@@ -121266,7 +121266,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PlantMgr.cpp": "d83d391a8b0c3d71799a60446b144ab7e525e6512b0bc4377fe5812a4891c3c1",
+        "source/game_sa/PlantMgr.cpp": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2",
         "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-204630-290876).",

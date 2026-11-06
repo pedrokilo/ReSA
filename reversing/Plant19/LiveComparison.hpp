@@ -230,7 +230,7 @@ inline void Update() {
         EntryPatch cs(bit_cast<uintptr_t>(&CWorld::ClearScanCodes),FakeClearScanCodes), cse(0x563470,FakeClearScanCodes);
         // El candidato es C++ y llama a CCamera::IsSphereVisible de la DLL (naked), no a 0x420C40: se intercepta también ese punto de entrada.
         EntryPatch sv(0x420C40,FakeSphereVisible), svd(bit_cast<uintptr_t>(static_cast<bool(CCamera::*)(const CVector&,float,RwMatrix*)>(&CCamera::IsSphereVisible)),FakeSphereVisible);
-        EntryPatch w1(0x74BF20,FakeAtomicSetFrame), w2(0x7F05A0,FakeFrameDestroy), w3(0x749DC0,FakeAtomicDestroy), w4(0x7F3820,FakeTexDestroy), w5(0x7F3AC0,FakeTexRead);
+        EntryPatch w1(0x74BF20,FakeAtomicSetFrame), w1d(reinterpret_cast<uintptr_t>(&RpAtomicSetFrame),FakeAtomicSetFrame), w2(0x7F05A0,FakeFrameDestroy), w3(0x749DC0,FakeAtomicDestroy), w4(0x7F3820,FakeTexDestroy), w5(0x7F3AC0,FakeTexRead);
         EntryPatch x1(bit_cast<uintptr_t>(static_cast<int32(*)(const char*)>(&CTxdStore::FindTxdSlot)),FakeFindTxd), x1e(0x731850,FakeFindTxd);
         EntryPatch x2(bit_cast<uintptr_t>(&CTxdStore::AddTxdSlot),FakeAddTxd), x2e(0x731C80,FakeAddTxd);
         EntryPatch x3(bit_cast<uintptr_t>(static_cast<bool(*)(int32,const char*)>(&CTxdStore::LoadTxd)),FakeLoadTxd), x3e(0x7320B0,FakeLoadTxd);
