@@ -55,7 +55,7 @@ void CMatrix::InjectHooks()
     RH_ScopedInstall(ConvertToEulerAngles, 0x59A840);
     RH_ScopedInstall(ConvertFromEulerAngles, 0x59AA40);
     RH_ScopedInstall(operator+=, 0x59ADF0);
-    RH_ScopedInstall(operator*=, 0x411A80);
+    // operator*= (0x411A80) se instala por CMatrixInjectHooksLote105A (lote 105A, banco Fn105A).
     //RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&)); // ver InjectHooksMultiplyVector
 }
 
@@ -148,6 +148,15 @@ void CMatrixInjectHooksLote103A()
     RH_ScopedInstall(ForceUpVector, 0x59B7E0);
     RH_ScopedOverloadedInstall(SetRotate, "quat", 0x59BBF0, void(CMatrix::*)(const CQuaternion&));
     RH_ScopedGlobalOverloadedInstall(operator+, "", 0x59BFA0, CMatrix(*)(const CMatrix&, const CMatrix&));
+}
+
+// Lote 105A (banco Fn105A): operator*= (0x411A80). Funcion libre para no tocar Matrix.h; se llama desde InjectHooksMain.cpp junto a las demas listas activas.
+void CMatrixInjectHooksLote105A()
+{
+    RH_ScopedClass(CMatrix);
+    RH_ScopedCategory("Core");
+
+    RH_ScopedInstall(operator*=, 0x411A80);
 }
 
 CMatrix::CMatrix(const CMatrix& matrix) {
@@ -468,9 +477,15 @@ void CMatrix::operator+=(const CMatrix& rvalue)
     m_pos += rvalue.m_pos;
 }
 
+// 0x411A80 (thiscall, `ret 4`): como el EXE, la matriz temporal vive en la pila SIN constructor: 0x59BE30 (producto, con la salida explicita) la rellena con this * rvalue, 0x59BBC0 (operator=) la copia
+// en this y 0x59ACD0 (cuerpo del destructor del EXE) la destruye. El EXE devuelve EAX = this, que ningun llamador lee.
 void CMatrix::operator*=(const CMatrix& rvalue)
 {
-    *this = (*this * rvalue);
+    alignas(CMatrix) unsigned char raw[sizeof(CMatrix)];
+    CMatrix* const tmp = reinterpret_cast<CMatrix*>(raw);
+    MatrixMultiplyExe(tmp, this, &rvalue);
+    *this = *tmp;
+    tmp->Destructor();
 }
 
 CMatrix CMatrix::GetIdentity() {

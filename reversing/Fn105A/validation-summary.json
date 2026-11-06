@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "pairs": 163840,
+  "differences": 0,
+  "registered_pairs": 163840,
+  "registered_functions": 10,
+  "functions": {
+    "TList_c::AddItem": 16384,
+    "TList_c::RemoveAll": 16384,
+    "TList_c::GetNumItems": 16384,
+    "CMatrix::operator*=": 16384,
+    "CVector / float": 16384,
+    "CompressedVector to CVector": 16384,
+    "CColPoint::operator=": 16384,
+    "vector constructor iterator": 16384,
+    "CVector::operator-=": 16384,
+    "CStreaming::SetModelTxdIsDeletable": 16384
+  },
+  "covered_functions": {
+    "TList_c::AddItem": true,
+    "TList_c::RemoveAll": true,
+    "TList_c::GetNumItems": true,
+    "CMatrix::operator*=": true,
+    "CVector / float": true,
+    "CompressedVector to CVector": true,
+    "CColPoint::operator=": true,
+    "vector constructor iterator": true,
+    "CVector::operator-=": true,
+    "CStreaming::SetModelTxdIsDeletable": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main a72f75d5c con los cambios del lote (ver artifacts/build-manifest.json). Ocho funciones sin colaboradores (movimientos de memoria en el orden del EXE y aritmetica x87 de 24 bits con exponente ampliado y seleccion de NaN por operando de registro o de memoria, corriendo de verdad en ambos lados; Vector.cpp se compila completo con /O2 /Oi /arch:IA32 /fp:fast) y dos con colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH (apagado durante el banco): CMatrix::operator*= (0x59BE30, 0x59BBC0, 0x59ACD0) y CStreaming::SetModelTxdIsDeletable (0x409C10). La tabla real de modelos 0xA9B0C8 se guarda entera y se restaura tras cada lado. El iterador de constructores recibe como constructor una funcion falsa propia del banco. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: ventanas distintas de 96 dwords, direcciones sin alinear, NaN con el mismo significando y signo distinto, recuentos del iterador mayores de 64 o INT_MIN, ids de modelo sin objeto, la exactitud de los colaboradores falseados y el contenido de EAX donde ningun llamador lo lee (descomprimir, operator*=, operator-=, iterador, SetModelTxdIsDeletable).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn105A-20261106-012027-220334",
+  "summary_sha256": "3b19aeed52ab3b4bb47c02d8d6bbb9e826f5c2ae3f5fb5851bdd079b8c157b74",
+  "result_txt_sha256": "06e9ccfe2510210dbedde29e2c8fd9e69ac2486fb06cdb96699259c65c6e1646",
+  "log_sha256": "a61e2f6fc885f5afb9c512e4417fbaa783cca2e35867b373442d5e2b1f2f1e5f",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "af8b2c9658cea338c4c981c8ecf261e6bd90735568e38e7d6b42ae878a64c797",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "c88b4c8f8daea67a012284dc9e5e69d99bfc7ec2ba3e66adacdb33f60f49227c",
+      "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
+      "source/game_sa/Core/Vector.cpp": "02f2d7f77ffa319932ffebdf144ae2f0865c97f0590b58c49500e8ebeaa7eb4e",
+      "source/game_sa/Core/Matrix.cpp": "e99fcd620769bf918704bcdcaf69ce1406434051b204207517e19a64a186d02f",
+      "source/game_sa/Core/List_c.cpp": "e647107bc2618fe08d54da11e82a7675afe9908ee6cf239d00f83279c7229394",
+      "source/game_sa/Collision/ColPoint.cpp": "5db6a3e230f0cca59d2b8608a8e260bc6f7f46006a0fab80211d02fefd945324",
+      "source/game_sa/CompressedVector.cpp": "870aec0ef616bab98dd135edcacad16f467cb78a88ff0038c84429c2b7b56654",
+      "source/game_sa/RuntimeHelpers.cpp": "acac680483aaa4435851536b3000c2c3768b43082b922557bf27a4b416f0fb82",
+      "source/game_sa/RuntimeHelpers.h": "1ffb8058370a9fed652a065875c3687818738be4be14610b7e0e27cffb19de07",
+      "source/game_sa/Streaming.cpp": "e6b3aa97fc3d5275807a540f4265e453d17f9350a8d9ef22bd0e9b9fdd1a8d39",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn105A/LiveComparison.hpp": "b8d4f5c584fa30487277e4ca611aee8ec3cacc265cb1e7cbb42610a7ef5ff491",
+      "reversing/Fn105A/Core.hpp": "4021f6923cb031cfacd87c35729092f2024a43d7fc70991b036fb03918e1d7cc",
+      "reversing/Fn105A/Fixtures.hpp": "f0c22f8773b9bf8ff009ea45d87f3678de4fde728c564b4810c27c595ea5ffd7",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

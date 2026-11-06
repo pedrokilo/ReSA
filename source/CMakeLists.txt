@@ -112,6 +112,7 @@ if(MSVC)
     )
     # CVector::Magnitude (0x4082C0), Magnitude2D (0x406D50), Normalise (0x59C910) and NormaliseAndMag (0x59C970) keep the original x87 sequence (no spills,
     # ECX/EDX untouched, ST0 return unrounded); the whole class file is compiled this way. Lote 96A.
+    # Lote 105A: also VectorDividedByFloat (0x4119D0, reciprocal kept in a register for z) and operator-= (0x406D70).
     set_source_files_properties(game_sa/Core/Vector.cpp PROPERTIES
         COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
         VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"

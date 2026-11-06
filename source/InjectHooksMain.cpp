@@ -584,6 +584,11 @@ void RpWorldInjectHooks25b();
 void RpAnisotInjectHooks();
 void CMatrixInjectHooksLote101A(); // Matrix.cpp (lote 101A)
 void CMatrixInjectHooksLote103A(); // Matrix.cpp (lote 103A)
+void CMatrixInjectHooksLote105A(); // Matrix.cpp (lote 105A)
+void CColPointInjectHooksLote105A(); // ColPoint.cpp (lote 105A)
+void CompressedVectorInjectHooksLote105A(); // CompressedVector.cpp (lote 105A)
+void TListInjectHooksLote105A(); // List_c.cpp (lote 105A)
+void RuntimeHelpersInjectHooksLote105A(); // RuntimeHelpers.cpp (lote 105A)
 
 void InjectHooksMain() {
     /**
@@ -720,6 +725,11 @@ void InjectHooksMain() {
     CMatrix::InjectHooksLote99A(); // Only SetUnity 0x59AE70, ResetOrientation 0x59AEA0, SetScale 0x59AED0 / 0x59AF00, SetTranslateOnly 0x59AF80, SetRotate xyz 0x59B120, Invert 0x59B920 and operator*(matrix, matrix) 0x59BE30.
     CMatrixInjectHooksLote101A(); // Only SetRotateX/Y/Z 0x59B060/0x59B0A0/0x59B0E0, RotateX/Y/Z 0x59B1E0/0x59B2C0/0x59B390, Reorthogonalise 0x59B6A0, CopyToRwMatrix 0x59B8B0 and Invert(in) 0x59BDD0.
     CMatrixInjectHooksLote103A(); // Only SetRotateXOnly 0x59AFA0, SetRotateYOnly 0x59AFE0, Rotate 0x59B460, ForceUpVector 0x59B7E0, SetRotate(quat) 0x59BBF0 and operator+ 0x59BFA0.
+    CMatrixInjectHooksLote105A(); // Only operator*= 0x411A80.
+    CColPointInjectHooksLote105A(); // Only CColPoint::operator= 0x40FC80.
+    CompressedVectorInjectHooksLote105A(); // Only the CompressedVector to CVector conversion 0x411590.
+    TListInjectHooksLote105A(); // Only TList_c AddItem 0x4A8DF0, RemoveAll 0x4A8EB0 and GetNumItems 0x4A8EC0.
+    RuntimeHelpersInjectHooksLote105A(); // Only the vector constructor iterator 0x403D60.
     CMatrixLink::InjectHooks();
     CMatrixLinkList::InjectHooks();
     CEntryInfoNode::InjectHooks();

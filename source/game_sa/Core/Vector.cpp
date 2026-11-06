@@ -67,6 +67,8 @@ void CVector::InjectHooksExactMath()
     RH_ScopedInstall(NormaliseAndMag, 0x59C970);
 }
 
+CVector* VectorDividedByFloat(CVector* out, const CVector* vector, float divisor); // 0x4119D0 (lote 105A), definida mas abajo
+
 // Operadores y productos del EXE con la x87 exacta (lote 97A), validados por el banco Fn97A: DotProduct (0x40FDB0), CrossProduct (0x59C730), Multiply3x3 matriz * vector (0x59C790),
 // la suma (0x40FE30) y la resta (0x40FE60) de vectores, los productos escalar * vector (0x40FE90) y vector * escalar (0x40FEC0), operator+= (0x411A00) y operator*=(float) (0x40FEF0).
 void CVector::InjectHooksExactOperators()
@@ -85,6 +87,8 @@ void CVector::InjectHooksExactOperators()
     RH_ScopedGlobalInstall(VectorSubtract, 0x40FE60);
     RH_ScopedGlobalInstall(FloatTimesVector, 0x40FE90);
     RH_ScopedGlobalInstall(VectorTimesFloat, 0x40FEC0);
+    RH_ScopedGlobalInstall(VectorDividedByFloat, 0x4119D0);
+    RH_ScopedOverloadedInstall(operator-=, "v3d", 0x406D70, void(CVector::*)(const CVector&));
     RH_ScopedOverloadedInstall(operator+=, "v3d", 0x411A00, void(CVector::*)(const CVector&));
     RH_ScopedOverloadedInstall(operator*=, "float", 0x40FEF0, void(CVector::*)(float));
 }
@@ -218,11 +222,15 @@ void CVector::operator+=(const CVector& right)
     z = right.z + z;
 }
 
+// 0x406D70 (lote 105A): como el original, cada componente es un fld de la propia (registro) + fsub de la del otro (memoria) + fstp, de x a z, leyendo la memoria viva (si `right` solapa
+// con este vector, las escrituras anteriores se ven). El EXE devuelve EAX = this, que ningun llamador lee.
 void CVector::operator-=(const CVector& right)
 {
-    x -= right.x;
-    y -= right.y;
-    z -= right.z;
+    volatile float* me = &x;
+    const volatile float* other = &right.x;
+    const double mx = me[0]; me[0] = float(mx - other[0]);
+    const double my = me[1]; me[1] = float(my - other[1]);
+    const double mz = me[2]; me[2] = float(mz - other[2]);
 }
 
 void CVector::operator*=(const CVector& right)
@@ -408,6 +416,23 @@ CVector* VectorSubtract(CVector* out, const CVector* a, const CVector* b)
     out->x = x;
     out->y = y;
     out->z = z;
+    return out;
+}
+
+// 0x4119D0 (lote 105A; cdecl, puntero de retorno oculto como primer argumento, EAX = destino): vector / escalar como el EXE, que multiplica por el inverso: r = 1.0 / divisor (fdiv de la x87, 24 bits de
+// mantisa y exponente ampliado), `fst` de r a la pila (float redondeado) y z = r * v.z con r SIN redondear a float (el registro), y = float(r) * v.y y x = float(r) * v.x con el reciproco guardado;
+// se lee todo antes de escribir (la salida puede solapar el vector). Un divisor diminuto o enorme da un reciproco fuera del rango de float que solo usa la z.
+CVector* VectorDividedByFloat(CVector* out, const CVector* vector, float divisor)
+{
+    const volatile float* d = &divisor;
+    const double r = 1.0 / double(*d);
+    volatile float stored = float(r);
+    const double z = r * vector->z;
+    const double sy = stored; const double y = sy * vector->y;
+    const double sx = stored; const double x = sx * vector->x;
+    out->x = float(x);
+    out->y = float(y);
+    out->z = float(z);
     return out;
 }
 

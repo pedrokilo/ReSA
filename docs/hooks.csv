@@ -9159,3 +9159,13 @@ CMatrix,ForceUpVector,0x0059B7E0,1,0,1,S
 CMatrix,SetRotate-quat,0x0059BBF0,1,0,1,S
 CMatrix,operator+-,0x0059BFA0,1,0,1,S
 CVector,FromMultiply3x3,0x0059C6D0,1,0,1,S
+TList_c,ListAddItemExe,0x004A8DF0,1,0,1,S
+TList_c,ListRemoveAllExe,0x004A8EB0,1,0,1,S
+TList_c,ListGetNumItemsExe,0x004A8EC0,1,0,1,S
+CMatrix,operator*=,0x00411A80,1,0,1,S
+CVector,VectorDividedByFloat,0x004119D0,1,0,1,S
+CompressedVector,UncompressVectorExe,0x00411590,1,0,1,S
+CColPoint,ColPointAssignExe,0x0040FC80,1,0,1,S
+VectorConstructorIterator,VectorConstructorIteratorExe,0x00403D60,1,0,1,S
+CVector,operator-=-v3d,0x00406D70,1,0,1,S
+CStreaming,SetModelTxdIsDeletable,0x00409C70,1,0,1,S

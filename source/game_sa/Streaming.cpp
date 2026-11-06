@@ -129,6 +129,7 @@ void CStreaming::InjectHooks() {
     RH_ScopedInstall(IsCarModelNeededInCurrentZone, 0x407DD0);
     RH_ScopedInstall(SetMissionDoesntRequireModel, 0x409C90);
     RH_ScopedInstall(SetModelIsDeletable, 0x409C10);
+    RH_ScopedInstall(SetModelTxdIsDeletable, 0x409C70);
     RH_ScopedInstall(Shutdown, 0x4084B0);
     RH_ScopedInstall(StreamAmbulanceAndMedic, 0x40A2A0);
     RH_ScopedInstall(StreamCopModels, 0x40A150);
