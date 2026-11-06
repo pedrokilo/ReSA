@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 06/11/2026 (Ciudad de México):** 837 grupos / 9160 funciones reconstruidas; 9160 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 06/11/2026 (Ciudad de México):** 841 grupos / 9170 funciones reconstruidas; 9170 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,33 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-161"></a>
+
+## CDarkel
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CDarkel::InjectHooks() | [source/game_sa/Darkel.cpp:30](../../source/game_sa/Darkel.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CDarkel::Init() | [source/game_sa/Darkel.cpp:58](../../source/game_sa/Darkel.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::Init 0x0043CEB0 | 0 / 0 | Posible dato fijo Status: source/game_sa/Darkel.h:34 (0x0096A704) |
+| CDarkel::FrenzyOnGoing() | [source/game_sa/Darkel.cpp:63](../../source/game_sa/Darkel.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::FrenzyOnGoing 0x0043D1F0 | 0 / 0 | Posible dato fijo Status: source/game_sa/Darkel.h:34 (0x0096A704) |
+| CDarkel::DrawMessages() | [source/game_sa/Darkel.cpp:74](../../source/game_sa/Darkel.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::DrawMessages 0x0043CEC0 | 0 / 0 | Posible dato fijo Status: source/game_sa/Darkel.h:34 (0x0096A704); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo TimeOfFrenzyStart: source/game_sa/Darkel.h:28 (0x0096A6E0); Posible dato fijo bStandardSoundAndMessages: source/game_sa/Darkel.h:37 (0x00969A4A) |
+| CDarkel::ReadStatus() | [source/game_sa/Darkel.cpp:146](../../source/game_sa/Darkel.cpp#L146) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::ReadStatus 0x0043D1E0 | 0 / 0 | Posible dato fijo Status: source/game_sa/Darkel.h:34 (0x0096A704) |
+| CDarkel::RegisterKillNotByPlayer(const CPed* killedPed) | [source/game_sa/Darkel.cpp:151](../../source/game_sa/Darkel.cpp#L151) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::RegisterKillNotByPlayer 0x0043D210 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CDarkel::ThisPedShouldBeKilledForFrenzy(const CPed& ped) | [source/game_sa/Darkel.cpp:168](../../source/game_sa/Darkel.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::ThisPedShouldBeKilledForFrenzy 0x0043D2F0 | 0 / 0 | Posible dato fijo ModelToKill: source/game_sa/Darkel.h:32 (0x0096A6F0) |
+| CDarkel::ThisVehicleShouldBeKilledForFrenzy(const CVehicle& vehicle) | [source/game_sa/Darkel.cpp:181](../../source/game_sa/Darkel.cpp#L181) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::ThisVehicleShouldBeKilledForFrenzy 0x0043D350 | 0 / 0 | Posible dato fijo ModelToKill: source/game_sa/Darkel.h:32 (0x0096A6F0) |
+| CDarkel::StartFrenzy(eWeaponType weaponType, int32 timeLimit, uint16 killsNeeded, int32 modelToKill, const GxtChar* startMessage, int32 modelToKill2, int32 modelToKill3, int32 modelToKill4, bool standardSoundAndMessages, bool needHeadShot) | [source/game_sa/Darkel.cpp:197](../../source/game_sa/Darkel.cpp#L197) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::StartFrenzy 0x0043D3B0 | 0 / 0 | Posible dato fijo AmmoInterruptedWeapon: source/game_sa/Darkel.h:25 (0x0096A6D4); Posible dato fijo InterruptedWeaponType: source/game_sa/Darkel.h:26 (0x0096A6D8); Posible dato fijo InterruptedWeaponTypeSelected: source/game_sa/Darkel.h:27 (0x0096A6DC); Posible dato fijo KillsNeeded: source/game_sa/Darkel.h:31 (0x0096A6EC); Posible dato fijo ModelToKill: source/game_sa/Darkel.h:32 (0x0096A6F0); Posible dato fijo PreviousTime: source/game_sa/Darkel.h:29 (0x0096A6E4); Posible dato fijo Status: source/game_sa/Darkel.h:34 (0x0096A704); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo TimeLimit: source/game_sa/Darkel.h:30 (0x0096A6E8); Posible dato fijo TimeOfFrenzyStart: source/game_sa/Darkel.h:28 (0x0096A6E0); Posible dato fijo WeaponType: source/game_sa/Darkel.h:33 (0x0096A700); Posible dato fijo bHeadShotRequired: source/game_sa/Darkel.h:36 (0x00969A49); Posible dato fijo bProperKillFrenzy: source/game_sa/Darkel.h:38 (0x00969A48); Posible dato fijo bStandardSoundAndMessages: source/game_sa/Darkel.h:37 (0x00969A4A); Posible dato fijo pStartMessage: source/game_sa/Darkel.h:24 (0x0096A6D0) |
+| CDarkel::ResetModelsKilledByPlayer(int32 playerId) | [source/game_sa/Darkel.cpp:269](../../source/game_sa/Darkel.cpp#L269) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::ResetModelsKilledByPlayer 0x0043D6A0 | 0 / 0 | Posible dato fijo RegisteredKills: source/game_sa/Darkel.h:23 (0x00969A50) |
+| CDarkel::QueryModelsKilledByPlayer(eModelID modelId, int32 playerId) | [source/game_sa/Darkel.cpp:276](../../source/game_sa/Darkel.cpp#L276) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::QueryModelsKilledByPlayer 0x0043D6C0 | 0 / 0 | Posible dato fijo RegisteredKills: source/game_sa/Darkel.h:23 (0x00969A50) |
+| CDarkel::FindTotalPedsKilledByPlayer(int32 playerId) | [source/game_sa/Darkel.cpp:281](../../source/game_sa/Darkel.cpp#L281) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::FindTotalPedsKilledByPlayer 0x0043D6E0 | 0 / 0 | Posible dato fijo RegisteredKills: source/game_sa/Darkel.h:23 (0x00969A50) |
+| CDarkel::DealWithWeaponChangeAtEndOfFrenzy() | [source/game_sa/Darkel.cpp:291](../../source/game_sa/Darkel.cpp#L291) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::DealWithWeaponChangeAtEndOfFrenzy 0x0043D7A0 | 0 / 0 | Posible dato fijo AmmoInterruptedWeapon: source/game_sa/Darkel.h:25 (0x0096A6D4); Posible dato fijo InterruptedWeaponType: source/game_sa/Darkel.h:26 (0x0096A6D8); Posible dato fijo InterruptedWeaponTypeSelected: source/game_sa/Darkel.h:27 (0x0096A6DC); Posible dato fijo WeaponType: source/game_sa/Darkel.h:33 (0x0096A700); Posible dato fijo m_State: source/game_sa/Conversations/PedToPlayerConversations.h:25 (0x00969A20) |
+| CDarkel::CheckDamagedWeaponType(eWeaponType damageWeaponId, eWeaponType expectedDamageWeaponId) | [source/game_sa/Darkel.cpp:340](../../source/game_sa/Darkel.cpp#L340) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::CheckDamagedWeaponType 0x0043D9E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CDarkel::Update() | [source/game_sa/Darkel.cpp:428](../../source/game_sa/Darkel.cpp#L428) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::Update 0x0043DAC0 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo KillsNeeded: source/game_sa/Darkel.h:31 (0x0096A6EC); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo PreviousTime: source/game_sa/Darkel.h:29 (0x0096A6E4); Posible dato fijo Status: source/game_sa/Darkel.h:34 (0x0096A704); Posible dato fijo TimeLimit: source/game_sa/Darkel.h:30 (0x0096A6E8); Posible dato fijo TimeOfFrenzyStart: source/game_sa/Darkel.h:28 (0x0096A6E0); Posible dato fijo bProperKillFrenzy: source/game_sa/Darkel.h:38 (0x00969A48); Posible dato fijo m_AllRandomPedsThisType: source/game_sa/Population.h:36 (0x008D2534); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CDarkel::ResetOnPlayerDeath() | [source/game_sa/Darkel.cpp:475](../../source/game_sa/Darkel.cpp#L475) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::ResetOnPlayerDeath 0x0043DC10 | 0 / 0 | Posible dato fijo Status: source/game_sa/Darkel.h:34 (0x0096A704); Posible dato fijo TimeOfFrenzyStart: source/game_sa/Darkel.h:28 (0x0096A6E0); Posible dato fijo m_AllRandomPedsThisType: source/game_sa/Population.h:36 (0x008D2534) |
+| CDarkel::FailKillFrenzy() | [source/game_sa/Darkel.cpp:486](../../source/game_sa/Darkel.cpp#L486) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::FailKillFrenzy 0x0043DC60 | 0 / 0 | Posible dato fijo Status: source/game_sa/Darkel.h:34 (0x0096A704) |
+| CDarkel::RegisterKillByPlayer(const CPed& killedPed, eWeaponType damageWeaponId, bool headShotted, int32 playerId) | [source/game_sa/Darkel.cpp:494](../../source/game_sa/Darkel.cpp#L494) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::RegisterKillByPlayer 0x0043DCD0 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo KillsNeeded: source/game_sa/Darkel.h:31 (0x0096A6EC); Posible dato fijo PedsKilledOfThisType: source/game_sa/Stats.h:49 (0x00B78E90); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo RegisteredKills: source/game_sa/Darkel.h:23 (0x00969A50); Posible dato fijo WeaponType: source/game_sa/Darkel.h:33 (0x0096A700); Posible dato fijo bHeadShotRequired: source/game_sa/Darkel.h:36 (0x00969A49); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CDarkel::RegisterCarBlownUpByPlayer(CVehicle& vehicle, int32 playerId) | [source/game_sa/Darkel.cpp:563](../../source/game_sa/Darkel.cpp#L563) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::RegisterCarBlownUpByPlayer 0x0043DF20 | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo KillsNeeded: source/game_sa/Darkel.h:31 (0x0096A6EC); Posible dato fijo RegisteredKills: source/game_sa/Darkel.h:23 (0x00969A50) |
+| CDarkel::CalcFade(uint32 t, uint32 begin, uint32 end) | [source/game_sa/Darkel.cpp:599](../../source/game_sa/Darkel.cpp#L599) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDarkel::CalcFade 0x0043D740 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-162"></a>
 
 ## CData
 
@@ -17,7 +44,7 @@
 | CData::Unload() | [source/game_sa/Text/Data.cpp:16](../../source/game_sa/Text/Data.cpp#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CData::Unload 0x0069F640 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CData::Load(uint32 length, FILESTREAM file, uint32* offset, uint8 unknown) | [source/game_sa/Text/Data.cpp:27](../../source/game_sa/Text/Data.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CData::Load 0x0069F5D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-162"></a>
+<a id="grupo-163"></a>
 
 ## CDate
 
@@ -26,7 +53,7 @@
 | CDate::operator&lt;=&gt;(const CDate& o) | [source/game_sa/Date.cpp:5](../../source/game_sa/Date.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDate::PopulateDateFields(const uint8& sec, const uint8& min, const uint8& hour, const uint8& _day, const uint8& mnt, int16 _year) | [source/game_sa/Date.cpp:10](../../source/game_sa/Date.cpp#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-163"></a>
+<a id="grupo-164"></a>
 
 ## CDebug
 
@@ -38,7 +65,7 @@
 | CDebug::DebugAddText(const char* str, float x, float y) | [source/game_sa/Debug.cpp:50](../../source/game_sa/Debug.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDebug::DebugDisplayTextBuffer() | [source/game_sa/Debug.cpp:56](../../source/game_sa/Debug.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDebug::DebugDisplayTextBuffer 0x00532260 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-164"></a>
+<a id="grupo-165"></a>
 
 ## CDecision
 
@@ -52,7 +79,7 @@
 | CDecision::MakeDecision(int32 eventSourceType, bool bIsPedInVehicle, int32 taskIdToAvoid1, int32 taskIdToAvoid2, int32 taskIdToAvoid3, int32 taskIdToSeek, int16& taskSlot, int16& facialSlot) | [source/game_sa/DecisionMakers/Decision.cpp:109](../../source/game_sa/DecisionMakers/Decision.cpp#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecision::MakeDecision 0x006040D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDecision::Add(eTaskType taskId, const float* chances, const int32* flags) | [source/game_sa/DecisionMakers/Decision.cpp:158](../../source/game_sa/DecisionMakers/Decision.cpp#L158) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecision::Add 0x00600600 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-165"></a>
+<a id="grupo-166"></a>
 
 ## CDecisionMaker
 
@@ -62,7 +89,7 @@
 | CDecisionMaker::CDecisionMaker() | [source/game_sa/DecisionMakers/DecisionMaker.cpp:31](../../source/game_sa/DecisionMakers/DecisionMaker.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDecisionMaker::MakeDecision(int32 eventIndex, int32 eventSourceType, bool bIsPedInVehicle, int32 taskTypeToAvoid1, int32 taskTypeToAvoid2, int32 taskTypeToAvoid3, int32 taskTypeToSeek, int16& taskType, int16& facialTaskType) | [source/game_sa/DecisionMakers/DecisionMaker.cpp:40](../../source/game_sa/DecisionMakers/DecisionMaker.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecisionMaker::MakeDecision 0x00606060 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-166"></a>
+<a id="grupo-167"></a>
 
 ## CDecisionMakerTypes
 
@@ -81,7 +108,7 @@
 | CDecisionMakerTypes::LoadEventIndices() | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:344](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L344) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecisionMakerTypes::LoadEventIndices 0x00600840 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDecisionMakerTypes::ReadEventIndices(int32* indices, const char* fileName) | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:352](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L352) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecisionMakerTypes::ReadEventIndices 0x005BB9F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-167"></a>
+<a id="grupo-168"></a>
 
 ## CDecisionMakerTypesFileLoader
 
@@ -96,7 +123,7 @@
 | CDecisionMakerTypesFileLoader::LoadDecisionMaker(const char* filepath, CDecisionMaker* decisionMaker) | [source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp:113](../../source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp#L113) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CDecisionMakerTypesFileLoader::LoadDecisionMaker-ptr 0x006076B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDecisionMakerTypesFileLoader::UnloadDecisionMaker(eDecisionTypes dm) | [source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp:167](../../source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp#L167) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDecisionMakerTypesFileLoader::UnloadDecisionMaker 0x00607A70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-168"></a>
+<a id="grupo-169"></a>
 
 ## CDefaultAnimCallback
 
@@ -104,7 +131,7 @@
 | --- | --- | --- | --- | --- | --- |
 | DefaultAnimCB(class CAnimBlendAssociation* animAssoc, void* something) | [source/game_sa/Animation/AnimBlendAssociation.h:45](../../source/game_sa/Animation/AnimBlendAssociation.h#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-169"></a>
+<a id="grupo-170"></a>
 
 ## CDirectory
 
@@ -128,7 +155,7 @@
 | HasLoaded() const | [source/game_sa/Directory.h:43](../../source/game_sa/Directory.h#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Clear() | [source/game_sa/Directory.h:44](../../source/game_sa/Directory.h#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-170"></a>
+<a id="grupo-171"></a>
 
 ## CDoor
 
@@ -155,7 +182,7 @@
 | OpenFully() | [source/game_sa/Door.h:105](../../source/game_sa/Door.h#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CloseFully() | [source/game_sa/Door.h:106](../../source/game_sa/Door.h#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-171"></a>
+<a id="grupo-172"></a>
 
 ## CDraw
 
@@ -173,7 +200,7 @@
 | SetAspectRatio(float ratio) | [source/game_sa/Draw.h:38](../../source/game_sa/Draw.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fAspectRatio: source/game_sa/Draw.h:18 (0x00C3EFA4) |
 | IsFading() | [source/game_sa/Draw.h:43](../../source/game_sa/Draw.h#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FadeValue: source/game_sa/Draw.h:23 (0x00C3EFAB) |
 
-<a id="grupo-172"></a>
+<a id="grupo-173"></a>
 
 ## CDummy
 
@@ -185,7 +212,7 @@
 | CDummy::CDummy() | [source/game_sa/Entity/Dummy/Dummy.cpp:45](../../source/game_sa/Entity/Dummy/Dummy.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsDummyPointerValid(CDummy* dummy) | [source/game_sa/Entity/Dummy/Dummy.cpp:52](../../source/game_sa/Entity/Dummy/Dummy.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDummy::IsDummyPointerValid 0x00532730 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-173"></a>
+<a id="grupo-174"></a>
 
 ## CDummyObject
 
@@ -197,7 +224,7 @@
 | * CDummyObject::CreateObject() | [source/game_sa/Entity/Dummy/DummyObject.cpp:61](../../source/game_sa/Entity/Dummy/DummyObject.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDummyObject::CreateObject 0x0059EAC0 | 0 / 0 | Posible dato fijo ScriptsForBrains: source/game_sa/Scripts/TheScripts.h:468 (0x00A90CF0) |
 | CDummyObject::UpdateFromObject(CObject* obj) | [source/game_sa/Entity/Dummy/DummyObject.cpp:83](../../source/game_sa/Entity/Dummy/DummyObject.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDummyObject::UpdateFromObject 0x0059EB70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-174"></a>
+<a id="grupo-175"></a>
 
 ## CDummyPool
 
@@ -206,7 +233,7 @@
 | InjectHooks() | [source/game_sa/Pools/DummyPool.h:35](../../source/game_sa/Pools/DummyPool.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * New() | [source/game_sa/Pools/DummyPool.h:49](../../source/game_sa/Pools/DummyPool.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDummyPool::New 0x00532630 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-175"></a>
+<a id="grupo-176"></a>
 
 ## CEmergencyPed
 
@@ -218,7 +245,7 @@
 | CEmergencyPed::ProcessControl() | [source/game_sa/Entity/Ped/EmergencyPed.cpp:20](../../source/game_sa/Entity/Ped/EmergencyPed.cpp#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CEmergencyPed::InRange(CPed* ped) | [source/game_sa/Entity/Ped/EmergencyPed.cpp:36](../../source/game_sa/Entity/Ped/EmergencyPed.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-176"></a>
+<a id="grupo-177"></a>
 
 ## CEntity
 
@@ -398,7 +425,7 @@
 | CEntity::IsInArea(int32 area) | [source/game_sa/Entity/Entity.h:442](../../source/game_sa/Entity/Entity.h#L442) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CEntity::GetRwMatrix() | [source/game_sa/Entity/Entity.h:446](../../source/game_sa/Entity/Entity.h#L446) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-177"></a>
+<a id="grupo-178"></a>
 
 ## CEntityScanner
 
@@ -415,7 +442,7 @@
 | * Destructor() | [source/game_sa/EntityScanner.h:63](../../source/game_sa/EntityScanner.h#L63) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CEntityScanner::Destructor 0x00603480 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetEntities() const | [source/game_sa/EntityScanner.h:71](../../source/game_sa/EntityScanner.h#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-178"></a>
+<a id="grupo-179"></a>
 
 ## CEntitySeekPosCalculator
 
@@ -423,7 +450,7 @@
 | --- | --- | --- | --- | --- | --- |
 | InjectHooks() | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h:11](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-179"></a>
+<a id="grupo-180"></a>
 
 ## CEntitySeekPosCalculatorFixedPos
 
@@ -432,13 +459,3 @@
 | CEntitySeekPosCalculatorFixedPos::InjectHooks() | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp:24](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CEntitySeekPosCalculatorFixedPos::CEntitySeekPosCalculatorFixedPos(const CVector& pos) | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp:31](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CEntitySeekPosCalculatorFixedPos::ComputeEntitySeekPos(const CPed& seeker, const CEntity& target, CVector& outPos) | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp:37](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEntitySeekPosCalculatorFixedPos::ComputeEntitySeekPos 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-180"></a>
-
-## CEntitySeekPosCalculatorRadiusAngleOffset
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CEntitySeekPosCalculatorRadiusAngleOffset::InjectHooks() | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp:25](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEntitySeekPosCalculatorRadiusAngleOffset::CEntitySeekPosCalculatorRadiusAngleOffset(float radius, float angle) | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp:32](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEntitySeekPosCalculatorRadiusAngleOffset::ComputeEntitySeekPos(const CPed& seeker, const CEntity& target, CVector& outPos) | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp:39](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEntitySeekPosCalculatorRadiusAngleOffset::ComputeEntitySeekPos 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

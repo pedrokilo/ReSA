@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,160 entradas reversed=1**, de 9,160 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,170 entradas reversed=1**, de 9,170 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9160 |
+| `validated=1` · evidencia aprobada vinculada | 9170 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9160 |
+| Evidencia histórica vinculada; revisión pendiente | 9170 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1820,6 +1820,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CColModel | `operator new` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CColModel | `operator=` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CColModelPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CColPoint | `ColPointAssignExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | CColSphere | `IntersectEdge` | [Resumen](../reversing/World43/validation-summary.json) |
 | CColSphere | `IntersectPoint` | [Resumen](../reversing/World43/validation-summary.json) |
 | CColSphere | `IntersectRay` | [Resumen](../reversing/World43/validation-summary.json) |
@@ -3343,6 +3344,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMatrix | `UpdateRW` | [Resumen](../reversing/Fn97B/validation-summary.json) |
 | CMatrix | `UpdateRwMatrix` | [Resumen](../reversing/Fn97B/validation-summary.json) |
 | CMatrix | `operator*-Vec` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
+| CMatrix | `operator*=` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | CMatrix | `operator+-` | [Resumen](../reversing/Fn103A/validation-summary.json) |
 | CMatrix | `operator=` | [Resumen](../reversing/MatrixOps76/validation-summary.json) |
 | CMatrixLink | `Insert` | [Resumen](../reversing/Small2/validation-summary.json) |
@@ -5338,6 +5340,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CStreaming | `Save` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
 | CStreaming | `SetMissionDoesntRequireModel` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
 | CStreaming | `SetModelIsDeletable` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
+| CStreaming | `SetModelTxdIsDeletable` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | CStreaming | `Shutdown` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
 | CStreaming | `StreamAmbulanceAndMedic` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
 | CStreaming | `StreamCopModels` | [Resumen](../reversing/StreamingFinal4/validation-summary.json) |
@@ -7810,10 +7813,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVector | `NormaliseAndMag` | [Resumen](../reversing/Fn96A/validation-summary.json) |
 | CVector | `SquaredMagnitudeExe` | [Resumen](../reversing/Fn102A/validation-summary.json) |
 | CVector | `VectorAdd` | [Resumen](../reversing/Fn97A/validation-summary.json) |
+| CVector | `VectorDividedByFloat` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | CVector | `VectorSubtract` | [Resumen](../reversing/Fn97A/validation-summary.json) |
 | CVector | `VectorTimesFloat` | [Resumen](../reversing/Fn97A/validation-summary.json) |
 | CVector | `operator*=-float` | [Resumen](../reversing/Fn97A/validation-summary.json) |
 | CVector | `operator+=-v3d` | [Resumen](../reversing/Fn97A/validation-summary.json) |
+| CVector | `operator-=-v3d` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | CVehicle | `ActivateBomb` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `ActivateBombWhenEntered` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `AddDamagedVehicleParticles` | [Resumen](../reversing/CVehD/validation-summary.json) |
@@ -8481,6 +8486,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Common | `TransformPoint` | [Resumen](../reversing/DependenciesMathSprite2/validation-summary.json) |
 | Common | `TransformPoints` | [Resumen](../reversing/DependenciesMathSprite2/validation-summary.json) |
 | Common | `WriteRaster` | [Resumen](../reversing/Core9/validation-summary.json) |
+| CompressedVector | `UncompressVectorExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | D3DIndexDataBuffer | `GetTotalDataSize` | [Resumen](../reversing/Fn95A/validation-summary.json) |
 | D3DIndexDataBuffer | `Pop-Size` | [Resumen](../reversing/Fn95A/validation-summary.json) |
 | D3DIndexDataBuffer | `Resize` | [Resumen](../reversing/Fn95A/validation-summary.json) |
@@ -9128,7 +9134,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | SurfaceInfos_c | `MakesCarClean` | [Resumen](../reversing/Surface47/validation-summary.json) |
 | SurfaceInfos_c | `MakesCarDirty` | [Resumen](../reversing/Surface47/validation-summary.json) |
 | SurfaceInfos_c | `ProducesFootDust` | [Resumen](../reversing/Surface47/validation-summary.json) |
+| TList_c | `ListAddItemExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
+| TList_c | `ListGetNumItemsExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
+| TList_c | `ListRemoveAllExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | UserTracksLegacyVector | `PushBack` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
+| VectorConstructorIterator | `VectorConstructorIteratorExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | VideoMode | `FreeVideoModeList` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
 | VideoMode | `GetVideoModeList` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
 | VideoMode | `IsVideoModeExclusive` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
@@ -9291,6 +9301,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CColLine` | 2 | 0 | 2 | 0 |
 | `CColModel` | 10 | 0 | 10 | 0 |
 | `CColModelPool` | 1 | 0 | 1 | 0 |
+| `CColPoint` | 1 | 0 | 1 | 0 |
 | `CColSphere` | 5 | 0 | 5 | 0 |
 | `CColStore` | 23 | 0 | 23 | 0 |
 | `CColTrianglePlane` | 2 | 0 | 2 | 0 |
@@ -9458,7 +9469,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CLodAtomicModelInfo` | 3 | 0 | 3 | 0 |
 | `CLodTimeModelInfo` | 2 | 0 | 2 | 0 |
 | `CMaths` | 3 | 0 | 3 | 0 |
-| `CMatrix` | 33 | 0 | 33 | 0 |
+| `CMatrix` | 34 | 0 | 34 | 0 |
 | `CMatrixLink` | 2 | 0 | 2 | 0 |
 | `CMatrixLinkList` | 10 | 0 | 10 | 0 |
 | `CMemoryHeap` | 1 | 0 | 1 | 0 |
@@ -9603,7 +9614,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CStencilShadows` | 13 | 0 | 13 | 0 |
 | `CStoredCar` | 2 | 0 | 2 | 0 |
 | `CStreamedScripts` | 12 | 0 | 12 | 0 |
-| `CStreaming` | 94 | 0 | 94 | 0 |
+| `CStreaming` | 95 | 0 | 95 | 0 |
 | `CStreamingInfo` | 7 | 0 | 7 | 0 |
 | `CStuckCarCheck` | 8 | 0 | 8 | 0 |
 | `CStuntJumpManager` | 7 | 0 | 7 | 0 |
@@ -9936,7 +9947,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVector` | 18 | 0 | 18 | 0 |
+| `CVector` | 20 | 0 | 20 | 0 |
 | `CVehicle` | 169 | 0 | 169 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
@@ -9962,6 +9973,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `C_PcSave` | 5 | 0 | 5 | 0 |
 | `CdStream` | 9 | 0 | 9 | 0 |
 | `Common` | 14 | 0 | 14 | 0 |
+| `CompressedVector` | 1 | 0 | 1 | 0 |
 | `D3DIndexDataBuffer` | 3 | 0 | 3 | 0 |
 | `D3DResourceSystem` | 12 | 0 | 12 | 0 |
 | `D3DTextureBuffer` | 6 | 0 | 6 | 0 |
@@ -10015,7 +10027,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RwPlCore` | 14 | 0 | 14 | 0 |
 | `Securom` | 2 | 0 | 2 | 0 |
 | `SurfaceInfos_c` | 47 | 0 | 47 | 0 |
+| `TList_c` | 3 | 0 | 3 | 0 |
 | `UserTracksLegacyVector` | 1 | 0 | 1 | 0 |
+| `VectorConstructorIterator` | 1 | 0 | 1 | 0 |
 | `VideoMode` | 4 | 0 | 4 | 0 |
 | `VideoPlayer` | 6 | 0 | 6 | 0 |
 | `WaterCreatureManager_c` | 7 | 0 | 7 | 0 |
