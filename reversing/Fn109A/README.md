@@ -43,3 +43,8 @@ Ninguna supera 1200 bytes ni depende de mas de una funcion sin hook. Se saltaron
 - Ronda 3 (funciones 9..15: `HasKilledPed` ligada a `GetAnimAdded`, escaneres y `new` devuelven nulo, `delete` no hace nada, claves intercambiadas): 8147 / 15360 / 15360 / 15781 / 16384 / 16324 / 14926 (`20261106-122233-366392`).
 - Ronda 4 (escaneres y `new` con +4: 16384 / 16384 / 16384 sobre `20261106-124627-499955`; el cambio de `delete` hizo caer el juego) y ronda 5 (`delete` reserva antes de borrar, modelo con la clave de la textura, hash del modelo con el nombre de la textura): 14818 / 7512 / 10143 (`20261106-131407-155239`).
 - Las 16 funciones fallan en al menos dos rondas.
+
+## Bancos repetidos con el codigo final (citan las direcciones del lote)
+Aprobados sin cambios en el banco: CamAim355, CamFirstPerson355, CamFollowCar355, CamFollowPed355, CamM16355, CamMouse355, CamControl355, CamBirdy355, CamLamp355, CamMan355, CppIntegerWorld10, EvHA, Veh83B, LeaveCarAbort70, CTasks14a, CheatFinal3, CppTrigCompound6Swim, CppTrigSwim, Mix11, ClothesRules355, GameLogic27, Shop30 (algunos hubo que relanzarlos tras quedarse E: sin espacio: WinError 112).
+Adaptado y aprobado: `Helpers65D` (daba por sin hook `CPointRoute::operator new` 0x41B7C0; ahora el falso se declara con hook, `hooked=True` en `LiveComparison.hpp` y `run_local.py`).
+No aprobados / no repetidos: `Mix12` (falla `CGrassRenderer::DrawTriPlants`, 839/1024: el EXE llama a un `geometry_for_all_materials` que la DLL no emite; no cita ninguna direccion del lote, ajeno) y `RequestedGeometryWrappersFive` (su `build_probe.py` esta congelado por SHA256 y la construccion aborta; pendiente de reabrir el banco).
