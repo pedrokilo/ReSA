@@ -18442,3 +18442,145 @@ __declspec(noinline) void __cdecl MatrixReorthogonalise101Cpp(float* m) {
     m[9] = float(ny);
 }
 #pragma float_control(pop)
+
+// --- Lote 103A (Fn103A): CMatrix::Rotate (0x59B460), ForceUpVector (0x59B7E0), SetRotate(CQuaternion) (0x59BBF0), operator+ (0x59BFA0) con la x87 exacta del EXE ---
+// Misma convencion que el lote 101A: `double` = registro de la x87 (24 bits de mantisa, exponente ampliado); `volatile float` = fst/fstp a la pila del EXE (se relee con fld o como operando
+// de memoria). Cada producto con operando de memoria va en dos sentencias, `r = <registro>; p = r * <memoria>`, para que el primer factor sea fld y el segundo el operando de fmul/fadd (un NaN
+// senalizante de memoria pierde frente a un NaN del registro). Todas las lecturas de la matriz van antes de escribir ninguna.
+#pragma float_control(precise, on, push)
+// 0x59B460 (Rotate(CVector), thiscall `ret 0Ch`): rota right, forward, up y pos con la matriz de rotacion (x, y, z) del propio EXE. Las diez magnitudes f1, f4..f10 (y cos x * cos y, que no se guarda)
+// salen de PhysicalRotTermsCpp (las mismas del CPhysical que la lleva en linea); cada fila es (f9*m2 + f7*m1) + f4*m0 y analogas, primer factor en el registro (fld de la pila) y la matriz en memoria.
+__declspec(noinline) void __cdecl MatrixRotate103Cpp(float* m, float x, float y, float z) {
+    PhysicalRotTerms t;
+    PhysicalRotTermsCpp(&t, x, y, z);
+    const volatile float* const mv = m;
+    volatile float f1 = t.f1, f4 = t.f4, f5 = t.f5, f6 = t.f6, f7 = t.f7, f8 = t.f8, f9 = t.f9, f10 = t.f10;
+    volatile double cc = t.cc;
+    volatile float o[12];
+    double r, p, q, s;
+    // right (m0, m1, m2)
+    r = f9;  p = r * mv[2]; r = f7; q = r * mv[1]; s = p + q; r = f4; q = r * mv[0]; o[0] = float(s + q);
+    r = f10; p = r * mv[2]; r = f8; q = r * mv[1]; s = p + q; r = f5; q = r * mv[0]; o[1] = float(s + q);
+    r = cc;  p = r * mv[2]; r = f1; q = r * mv[1]; s = p + q; r = f6; q = r * mv[0]; o[2] = float(s + q);
+    // forward (m4, m5, m6)
+    r = f4;  p = r * mv[4]; r = f9; q = r * mv[6]; s = p + q; r = f7; q = r * mv[5]; o[3] = float(s + q);
+    r = f5;  p = r * mv[4]; r = f10; q = r * mv[6]; s = p + q; r = f8; q = r * mv[5]; o[4] = float(s + q);
+    r = f6;  p = r * mv[4]; r = cc; q = r * mv[6]; s = p + q; r = f1; q = r * mv[5]; o[5] = float(s + q);
+    // up (m8, m9, m10)
+    r = f4;  p = r * mv[8]; r = f9; q = r * mv[10]; s = p + q; r = f7; q = r * mv[9]; o[6] = float(s + q);
+    r = f5;  p = r * mv[8]; r = f10; q = r * mv[10]; s = p + q; r = f8; q = r * mv[9]; o[7] = float(s + q);
+    r = f6;  p = r * mv[8]; r = cc; q = r * mv[10]; s = p + q; r = f1; q = r * mv[9]; o[8] = float(s + q);
+    // pos (m12, m13, m14)
+    r = f4;  p = r * mv[12]; r = f9; q = r * mv[14]; s = p + q; r = f7; q = r * mv[13]; o[9] = float(s + q);
+    r = f5;  p = r * mv[12]; r = f10; q = r * mv[14]; s = p + q; r = f8; q = r * mv[13]; o[10] = float(s + q);
+    r = f6;  p = r * mv[12]; r = cc; q = r * mv[14]; s = p + q; r = f1; q = r * mv[13]; o[11] = float(s + q);
+    m[2] = o[2];  m[4] = o[3];  m[5] = o[4];  m[6] = o[5];
+    m[8] = o[6];  m[9] = o[7];  m[10] = o[8];
+    m[12] = o[9]; m[13] = o[10]; m[14] = o[11];
+    m[0] = o[0];  m[1] = o[1];
+}
+
+// 0x59B7E0 (ForceUpVector, thiscall `ret 0Ch`, el vector por valor en la pila): right = forward x up (A = up.z*fwd.y - up.y*fwd.z, B = up.x*fwd.z - up.z*fwd.x, C = up.y*fwd.x - up.x*fwd.y; C se guarda como float en m2),
+// forward = up x right con C sin redondear en el primer producto (C*up.y - B*up.z) y cf (C como float) en el segundo (A*up.z - cf*up.x), up = vecUp (tres dwords copiados tal cual: un NaN senalizante no se silencia).
+// El vector llega como tres dwords (ub): los operandos de memoria del EXE ([esp+1Ch], [esp+20h], [esp+24h]) son `volatile float` sobre esa copia.
+__declspec(noinline) void __cdecl MatrixForceUpVector103Cpp(float* m, unsigned int uxBits, unsigned int uyBits, unsigned int uzBits) {
+    volatile unsigned int ub[3] = {uxBits, uyBits, uzBits};
+    const volatile float* const u = reinterpret_cast<const volatile float*>(ub);
+    const volatile float* const mv = m;
+    double r, p, q;
+    r = u[2]; p = r * mv[5]; r = u[1]; q = r * mv[6];
+    const double A = p - q;
+    r = u[0]; p = r * mv[6]; r = u[2]; q = r * mv[4];
+    const double B = p - q;
+    r = u[1]; p = r * mv[4]; r = u[0]; q = r * mv[5];
+    const double C = p - q;
+    volatile float cf = float(C);                       // fst dword [esp+14h]
+    r = C; p = r * u[1]; r = B; q = r * u[2];
+    volatile float df = float(p - q);                   // forward.x
+    r = A; p = r * u[2]; r = cf; q = r * u[0];
+    volatile float ef = float(p - q);                   // forward.y
+    r = u[0]; const double F = r * B;                   // fld [esp+1Ch]; fmul st,st(1): registro por registro
+    r = A; q = r * u[1];
+    volatile float gf = float(F - q);                   // forward.z
+    volatile float af = float(A);
+    volatile float bf = float(B);
+    float* const o = m;
+    o[2] = cf;
+    o[4] = df;
+    o[5] = ef;
+    reinterpret_cast<volatile unsigned int*>(o)[8] = uxBits;
+    reinterpret_cast<volatile unsigned int*>(o)[10] = uzBits;
+    o[0] = af;
+    o[6] = gf;
+    reinterpret_cast<volatile unsigned int*>(o)[9] = uyBits;
+    o[1] = bf;
+}
+
+// 0x59BBF0 (SetRotate(const CQuaternion&), thiscall `ret 4`): q = {x, y, z, real} (cuatro floats). qx y qy quedan en la pila x87 (fld los silencia); qz y real se copian como dwords a la pila y se usan como operandos de memoria.
+// v2x = float(2 qx), v2y = float(2 qy), v2z = float(2 qz); x2x, y2x, z2x, y2y (guardados como float), z2y, z2z, y2r y z2r (en registros), x2r (float). m0 = 1 - (z2z + y2y), m1 = y2x + z2r, m2 = z2x - y2r,
+// m4 = y2x - z2r, m5 = 1 - (z2z + x2x), m6 = x2r + z2y, m8 = y2r + z2x, m9 = z2y - x2r, m10 = 1 - (y2y + x2x). Solo escribe esos nueve elementos (no toca flags, relleno ni posicion).
+__declspec(noinline) void __cdecl MatrixSetRotateQuat103Cpp(float* m, const float* q) {
+    const volatile float* const qv = q;
+    const double qx = qv[0];
+    const double qy = qv[1];
+    volatile unsigned int qzBits = reinterpret_cast<const volatile unsigned int*>(q)[2];
+    volatile unsigned int qrBits = reinterpret_cast<const volatile unsigned int*>(q)[3];
+    const volatile float* const qzf = reinterpret_cast<const volatile float*>(&qzBits);
+    const volatile float* const qrf = reinterpret_cast<const volatile float*>(&qrBits);
+    double r, p;
+    volatile float v2x = float(qx + qx);
+    volatile float v2y = float(qy + qy);
+    r = *qzf; volatile float v2z = float(r + r);
+    r = v2x; volatile float x2x = float(r * qx);
+    r = v2y; volatile float y2x = float(r * qx);
+    r = v2z; volatile float z2x = float(r * qx);
+    r = v2y; volatile float y2y = float(r * qy);
+    r = v2z; const double z2y = r * qy;
+    r = v2z; p = r * *qzf; const double z2z = p;
+    r = v2x; p = r * *qrf; volatile float x2r = float(p);
+    r = v2y; p = r * *qrf; const double y2r = p;
+    r = v2z; p = r * *qrf; const double z2r = p;
+    const double one = 1.0;
+    volatile float t[9];
+    t[0] = float(one - (z2z + y2y));
+    r = y2x; t[1] = float(r + z2r);
+    r = z2x; t[2] = float(r - y2r);
+    r = y2x; t[3] = float(r - z2r);
+    t[4] = float(one - (z2z + x2x));
+    r = x2r; t[5] = float(r + z2y);
+    t[6] = float(y2r + z2x);
+    t[7] = float(z2y - x2r);
+    r = y2y; t[8] = float(one - (r + x2x));
+    m[0] = t[0]; m[1] = t[1]; m[2] = t[2];
+    m[4] = t[3]; m[5] = t[4]; m[6] = t[5];
+    m[8] = t[6]; m[9] = t[7]; m[10] = t[8];
+}
+
+// 0x59BFA0 (operator+(const CMatrix&, const CMatrix&), cdecl, resultado por puntero oculto): cada una de las doce componentes (right, forward, up, pos) es float(a + b) con a en el registro (fld) y b como operando de memoria
+// (fadd dword ptr). El EXE lee las doce antes de escribir; las palabras de relleno (+0x0C, +0x1C, +0x2C, +0x3C) las copia de basura de la pila: aqui no se escriben. Pone a cero +0x40 y +0x44.
+__declspec(noinline) float* __cdecl MatrixAdd103Cpp(float* out, const float* a, const float* b) {
+    const volatile float* const av = a;
+    const volatile float* const bv = b;
+    volatile float t[12];
+    double r;
+    r = av[0];  t[0] = float(r + bv[0]);
+    r = av[1];  t[1] = float(r + bv[1]);
+    r = av[2];  t[2] = float(r + bv[2]);
+    r = av[4];  t[3] = float(r + bv[4]);
+    r = av[5];  t[4] = float(r + bv[5]);
+    r = av[6];  t[5] = float(r + bv[6]);
+    r = av[8];  t[6] = float(r + bv[8]);
+    r = av[9];  t[7] = float(r + bv[9]);
+    r = av[10]; t[8] = float(r + bv[10]);
+    r = av[12]; t[9] = float(r + bv[12]);
+    r = av[13]; t[10] = float(r + bv[13]);
+    r = av[14]; t[11] = float(r + bv[14]);
+    reinterpret_cast<volatile unsigned int*>(out)[16] = 0;
+    out[0] = t[0];  out[1] = t[1];  out[2] = t[2];
+    out[4] = t[3];  out[5] = t[4];  out[6] = t[5];
+    out[8] = t[6];  out[9] = t[7];  out[10] = t[8];
+    out[12] = t[9]; out[13] = t[10]; out[14] = t[11];
+    reinterpret_cast<volatile unsigned int*>(out)[17] = 0;
+    return out;
+}
+#pragma float_control(pop)

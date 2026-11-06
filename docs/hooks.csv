@@ -9145,3 +9145,10 @@ RpWorld,RpClumpForAllAtomics,0x00749B70,1,0,1,S
 RpWorld,RpGeometryForAllMaterials,0x0074C790,1,0,1,S
 RpWorld,RpAtomicSetFrame,0x0074BF20,1,0,1,S
 RpWorld,AtomicDefaultRenderCallBack,0x007491C0,1,0,1,S
+CMatrix,SetRotateXOnly,0x0059AFA0,1,0,1,S
+CMatrix,SetRotateYOnly,0x0059AFE0,1,0,1,S
+CMatrix,Rotate,0x0059B460,1,0,1,S
+CMatrix,ForceUpVector,0x0059B7E0,1,0,1,S
+CMatrix,SetRotate-quat,0x0059BBF0,1,0,1,S
+CMatrix,operator+-,0x0059BFA0,1,0,1,S
+CVector,FromMultiply3x3,0x0059C6D0,1,0,1,S

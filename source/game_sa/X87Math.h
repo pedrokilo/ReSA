@@ -2252,3 +2252,9 @@ void __cdecl MatrixRotateX101Cpp(float* m, float angle);
 void __cdecl MatrixRotateY101Cpp(float* m, float angle);
 void __cdecl MatrixRotateZ101Cpp(float* m, float angle);
 void __cdecl MatrixReorthogonalise101Cpp(float* m);
+
+// Lote 103A. CMatrix::Rotate(CVector) (0x59B460), ForceUpVector (0x59B7E0), SetRotate(CQuaternion) (0x59BBF0) y operator+ (0x59BFA0) con las secuencias x87 del EXE (operandos de registro y de memoria como el EXE).
+void __cdecl MatrixRotate103Cpp(float* m, float x, float y, float z);
+void __cdecl MatrixForceUpVector103Cpp(float* m, unsigned int uxBits, unsigned int uyBits, unsigned int uzBits);
+void __cdecl MatrixSetRotateQuat103Cpp(float* m, const float* q);
+float* __cdecl MatrixAdd103Cpp(float* out, const float* a, const float* b);

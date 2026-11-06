@@ -583,6 +583,7 @@ void RwCoreInjectHooks25b();
 void RpWorldInjectHooks25b();
 void RpAnisotInjectHooks();
 void CMatrixInjectHooksLote101A(); // Matrix.cpp (lote 101A)
+void CMatrixInjectHooksLote103A(); // Matrix.cpp (lote 103A)
 
 void InjectHooksMain() {
     /**
@@ -718,6 +719,7 @@ void InjectHooksMain() {
     CMatrix::InjectHooksExactOps(); // Only UpdateRW 0x59BBB0, UpdateRwMatrix 0x59AD70, SetTranslate 0x59AF40, SetRotateZOnly 0x59B020, destructor 0x59ACD0 and constructors 0x59BCF0 / 0x59C050.
     CMatrix::InjectHooksLote99A(); // Only SetUnity 0x59AE70, ResetOrientation 0x59AEA0, SetScale 0x59AED0 / 0x59AF00, SetTranslateOnly 0x59AF80, SetRotate xyz 0x59B120, Invert 0x59B920 and operator*(matrix, matrix) 0x59BE30.
     CMatrixInjectHooksLote101A(); // Only SetRotateX/Y/Z 0x59B060/0x59B0A0/0x59B0E0, RotateX/Y/Z 0x59B1E0/0x59B2C0/0x59B390, Reorthogonalise 0x59B6A0, CopyToRwMatrix 0x59B8B0 and Invert(in) 0x59BDD0.
+    CMatrixInjectHooksLote103A(); // Only SetRotateXOnly 0x59AFA0, SetRotateYOnly 0x59AFE0, Rotate 0x59B460, ForceUpVector 0x59B7E0, SetRotate(quat) 0x59BBF0 and operator+ 0x59BFA0.
     CMatrixLink::InjectHooks();
     CMatrixLinkList::InjectHooks();
     CEntryInfoNode::InjectHooks();

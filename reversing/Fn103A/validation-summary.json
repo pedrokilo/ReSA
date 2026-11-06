@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "pairs": 114688,
+  "differences": 0,
+  "registered_pairs": 114688,
+  "registered_functions": 7,
+  "functions": {
+    "CMatrix::SetRotateXOnly": 16384,
+    "CMatrix::SetRotateYOnly": 16384,
+    "CMatrix::Rotate": 16384,
+    "CMatrix::ForceUpVector": 16384,
+    "CMatrix::SetRotate(quat)": 16384,
+    "operator+(CMatrix)": 16384,
+    "CVector::FromMultiply3x3": 16384
+  },
+  "covered_functions": {
+    "CMatrix::SetRotateXOnly": true,
+    "CMatrix::SetRotateYOnly": true,
+    "CMatrix::Rotate": true,
+    "CMatrix::ForceUpVector": true,
+    "CMatrix::SetRotate(quat)": true,
+    "operator+(CMatrix)": true,
+    "CVector::FromMultiply3x3": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main 6b60ef33f con los cambios del lote (ver artifacts/build-manifest.json). Siete funciones sin colaboradores, con toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga util y seleccion de NaN segun operando de registro o de memoria, fsin/fcos) corriendo de verdad en ambos lados frente al C++ de la DLL (Vector.cpp y X87Math.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast; Matrix.cpp con las opciones por defecto). Ventana de memoria con solapamientos. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con el mismo significando y signo distinto, angulos con modulo entre 2^19 y 2^62, excepciones x87 desenmascaradas, y las palabras de relleno del resultado de operator+ (el EXE copia basura de la pila; el banco las restaura a su valor inicial en ambos lados).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn103A-20261105-232424-842895",
+  "summary_sha256": "c672502b0c2b810362bd16937efa795bfea60a2ef2f0c4b8008a9d73c2086237",
+  "result_txt_sha256": "6fda51c54415eee73eae348fe1d01464694e4afaa4600b2deaa632e326388cdd",
+  "log_sha256": "91ae709331cc561a1af6ec910aa69e670f3b136a1769dec3b6132a3edb3b3e00",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9e1527f58c9ad40cdea11bfc7344d5c0b5ae7c1cad383ff876dd9b30b880bc5f",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "ed52935c90500de84acda62494be85acb4bb958bddff16a33ef6b2b85a8ef281",
+      "source/game_sa/Core/Vector.cpp": "739959957e4f20dc4f48027c246f61179af4462df5326f28a4d1ace18a0e06d6",
+      "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+      "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
+      "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+      "source/game_sa/X87Math.cpp": "9fb7c331ba9cfdcf64a49980fcbc8cfc199849c61590bd62d8ff40fd4256eb9b",
+      "source/game_sa/X87Math.h": "c8770690950e8d458256f493310e103c79d1a4a75b80505561c22f8dd8e40459",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn103A/LiveComparison.hpp": "4c5cffa34a2b237489094b0d266610ef34f89e3f730333149e3b50b1348e3cec",
+      "reversing/Fn103A/Core.hpp": "967a0d66c94bbbfb1da7939f60a574bb9a163a0a20925edd6bdb036f9ef819c9",
+      "reversing/Fn103A/Fixtures.hpp": "b8327a13a805a7e86f6029040aa8b43f4824cdb24e4c014505a5d8f67e9bf504",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

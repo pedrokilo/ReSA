@@ -47,20 +47,16 @@ void CMatrix::InjectHooks()
     // UpdateRW (0x59BBB0), UpdateRwMatrix (0x59AD70), SetTranslate (0x59AF40) y SetRotateZOnly (0x59B020) se instalan por InjectHooksExactOps.
     // SetUnity (0x59AE70), ResetOrientation (0x59AEA0), SetScale (0x59AED0, 0x59AF00), SetTranslateOnly (0x59AF80), SetRotate xyz (0x59B120), Invert (0x59B920) y la multiplicacion
     // de matrices (0x59BE30) se instalan por InjectHooksLote99A.
-    RH_ScopedInstall(SetRotateXOnly, 0x59AFA0);
-    RH_ScopedInstall(SetRotateYOnly, 0x59AFE0);
+    // SetRotateXOnly (0x59AFA0), SetRotateYOnly (0x59AFE0), Rotate (0x59B460), SetRotate(quat) (0x59BBF0), ForceUpVector (0x59B7E0) y operator+ (0x59BFA0)
+    // se instalan por CMatrixInjectHooksLote103A (lote 103A, banco Fn103A).
     // SetRotateX/Y/Z (0x59B060, 0x59B0A0, 0x59B0E0), RotateX/Y/Z (0x59B1E0, 0x59B2C0, 0x59B390), Reorthogonalise (0x59B6A0), CopyToRwMatrix (0x59B8B0) e Invert(in) (0x59BDD0)
     // se instalan por CMatrixInjectHooksLote101A (lote 101A, banco Fn101A).
-    RH_ScopedInstall(Rotate, 0x59B460);
-    RH_ScopedOverloadedInstall(SetRotate, "quat", 0x59BBF0, void(CMatrix::*)(const CQuaternion&));
     RH_ScopedInstall(Scale, 0x459350);
-    RH_ScopedInstall(ForceUpVector, 0x59B7E0);
     RH_ScopedInstall(ConvertToEulerAngles, 0x59A840);
     RH_ScopedInstall(ConvertFromEulerAngles, 0x59AA40);
     RH_ScopedInstall(operator+=, 0x59ADF0);
     RH_ScopedInstall(operator*=, 0x411A80);
     //RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&)); // ver InjectHooksMultiplyVector
-    RH_ScopedGlobalOverloadedInstall(operator+, "", 0x59BFA0, CMatrix(*)(const CMatrix&, const CMatrix&));
 }
 
 // CMatrix::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); esta es la unica entrada de CMatrix que se instala (0x59C890 ya esta reconstruida con la x87 del EXE).
@@ -137,6 +133,21 @@ void CMatrixInjectHooksLote101A()
     RH_ScopedInstall(Reorthogonalise, 0x59B6A0);
     RH_ScopedInstall(CopyToRwMatrix, 0x59B8B0);
     RH_ScopedGlobalOverloadedInstall(Invert, "2", 0x59BDD0, CMatrix(*)(const CMatrix&));
+}
+
+// Lote 103A (banco Fn103A): SetRotateXOnly (0x59AFA0), SetRotateYOnly (0x59AFE0), Rotate (0x59B460), ForceUpVector (0x59B7E0), SetRotate(CQuaternion) (0x59BBF0) y operator+ (0x59BFA0).
+// Funcion libre (no miembro de CMatrix) para no tocar Matrix.h; se llama desde InjectHooksMain.cpp junto a las demas listas activas.
+void CMatrixInjectHooksLote103A()
+{
+    RH_ScopedClass(CMatrix);
+    RH_ScopedCategory("Core");
+
+    RH_ScopedInstall(SetRotateXOnly, 0x59AFA0);
+    RH_ScopedInstall(SetRotateYOnly, 0x59AFE0);
+    RH_ScopedInstall(Rotate, 0x59B460);
+    RH_ScopedInstall(ForceUpVector, 0x59B7E0);
+    RH_ScopedOverloadedInstall(SetRotate, "quat", 0x59BBF0, void(CMatrix::*)(const CQuaternion&));
+    RH_ScopedGlobalOverloadedInstall(operator+, "", 0x59BFA0, CMatrix(*)(const CMatrix&, const CMatrix&));
 }
 
 CMatrix::CMatrix(const CMatrix& matrix) {
@@ -358,15 +369,12 @@ void CMatrix::RotateZ(float angle)
     MatrixRotateZ101Cpp(reinterpret_cast<float*>(this), angle);
 }
 
-// rotate on 3 axes
+// 0x59B460 (thiscall, `ret 0Ch`; el vector por valor en la pila): rotate on 3 axes.
+// Como el original: SetRotate(x, y, z) y las cuatro transformaciones van en linea con la x87 del EXE (MatrixRotate103Cpp, X87Math, lote 103A): fsin/fcos sin redondear, las diez magnitudes
+// guardadas como float, una fila por (f9*m2 + f7*m1) + f4*m0 con el primer factor en el registro y la matriz como operando de memoria; las doce lecturas van antes de las escrituras.
 void CMatrix::Rotate(CVector rotation)
 {
-    auto rotMat = CMatrix();
-    rotMat.SetRotate(rotation.x, rotation.y, rotation.z);
-    m_right =   rotMat.TransformVector(m_right);
-    m_forward = rotMat.TransformVector(m_forward);
-    m_up =      rotMat.TransformVector(m_up);
-    m_pos =     rotMat.TransformVector(m_pos);
+    MatrixRotate103Cpp(reinterpret_cast<float*>(this), rotation.x, rotation.y, rotation.z);
 }
 
 // 0x59B6A0
@@ -393,24 +401,11 @@ void CMatrix::CopyToRwMatrix(RwMatrix* matrix) const
     RwMatrixUpdate(matrix);
 }
 
+// 0x59BBF0 (thiscall, `ret 4`): matriz de rotacion de un cuaternion. Como el original: MatrixSetRotateQuat103Cpp (X87Math, lote 103A) reproduce la x87 del EXE (productos de 2q por q y por la parte real,
+// guardados como float o dejados en el registro, 1 - (a + b) con la constante 0x858624); escribe solo m0, m1, m2, m4, m5, m6, m8, m9 y m10.
 void CMatrix::SetRotate(const CQuaternion& quat)
 {
-    auto vecImag2 = quat.imag + quat.imag;
-    auto x2x = vecImag2.x * quat.imag.x;
-    auto y2x = vecImag2.y * quat.imag.x;
-    auto z2x = vecImag2.z * quat.imag.x;
-
-    auto y2y = vecImag2.y * quat.imag.y;
-    auto z2y = vecImag2.z * quat.imag.y;
-    auto z2z = vecImag2.z * quat.imag.z;
-
-    auto x2r = vecImag2.x * quat.real;
-    auto y2r = vecImag2.y * quat.real;
-    auto z2r = vecImag2.z * quat.real;
-
-    m_right.Set  (1.0F-(z2z+y2y),   z2r+y2x,        z2x-y2r);
-    m_forward.Set(y2x-z2r,          1.0F-(z2z+x2x), x2r+z2y);
-    m_up.Set     (y2r+z2x,          z2y-x2r,        1.0F-(y2y+x2x));
+    MatrixSetRotateQuat103Cpp(reinterpret_cast<float*>(this), reinterpret_cast<const float*>(&quat));
 }
 
 void CMatrix::Scale(float scale) {
@@ -423,10 +418,11 @@ void CMatrix::ScaleXYZ(float x, float y, float z) {
     m_up      *= z;
 }
 
+// 0x59B7E0 (thiscall, `ret 0Ch`; el vector por valor en la pila): right = forward x up, forward = up x right, up = vecUp, con la x87 del EXE (MatrixForceUpVector103Cpp, X87Math, lote 103A):
+// los tres dwords de vecUp pasan como enteros (un NaN senalizante se copia tal cual a la fila up).
 void CMatrix::ForceUpVector(CVector vecUp) {
-    m_right   = CrossProduct(m_forward, vecUp);
-    m_forward = CrossProduct(vecUp, m_right);
-    m_up      = vecUp;
+    const uint32* const u = reinterpret_cast<const uint32*>(&vecUp);
+    MatrixForceUpVector103Cpp(reinterpret_cast<float*>(this), u[0], u[1], u[2]);
 }
 
 // Como el original: tablas de indices del EXE (0x866D9C y 0x866D94) y epsilon 0x866D90 (1,9073486e-6)
@@ -512,13 +508,21 @@ CVector operator*(const CMatrix& a, const CVector& b) {
     return result;
 }
 
+// 0x59BFA0 (cdecl, puntero de retorno oculto como primer argumento, EAX = destino): suma componente a componente con la x87 del EXE (MatrixAdd103Cpp, X87Math, lote 103A). El EXE suma las doce
+// componentes en un temporal de pila antes de escribir (por eso se leen aqui a un temporal local antes de construir el resultado: la salida oculta puede solaparse con a o b), copia los 16 dwords
+// (las palabras de relleno +0x0C, +0x1C, +0x2C y +0x3C son basura de la pila: aqui no se escriben) y pone a cero +0x40 y +0x44.
 CMatrix operator+(const CMatrix& a, const CMatrix& b)
 {
+    uint32 tmp[18]{};
+    MatrixAdd103Cpp(reinterpret_cast<float*>(tmp), reinterpret_cast<const float*>(&a), reinterpret_cast<const float*>(&b));
     CMatrix result;
-    result.m_right =   a.m_right + b.m_right;
-    result.m_forward = a.m_forward + b.m_forward;
-    result.m_up =      a.m_up + b.m_up;
-    result.m_pos =     a.m_pos + b.m_pos;
+    uint32* const out = reinterpret_cast<uint32*>(&result);
+    out[16] = 0;
+    for (unsigned i = 0; i < 16; ++i) {
+        if ((i & 3) != 3)
+            out[i] = tmp[i];
+    }
+    out[17] = 0;
     return result;
 }
 
