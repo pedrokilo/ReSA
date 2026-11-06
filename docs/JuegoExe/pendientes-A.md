@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 06/11/2026 (Ciudad de México):** 844 grupos / 9212 funciones reconstruidas; 9212 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 06/11/2026 (Ciudad de México):** 845 grupos / 9225 funciones reconstruidas; 9225 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-827 funciones, 107,301 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+814 funciones, 106,566 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -51,7 +51,6 @@
 | `0x005EF980` | 659 | CPedAttractorManager | baja | 8 (8) |  |
 | `0x004DC670` | 54 | CAEDataStream | baja | 8 (8) |  |
 | `0x0074C7D0` | 44 | Win | baja | 13 (8) |  |
-| `0x00718660` | 35 | Common | alta | 8 (8) |  |
 | `0x006962A0` | 981 | CTaskComplexSeekEntityAnyMeansXYOffset | baja | 7 (7) |  |
 | `0x00749E60` | 258 | Win | baja | 17 (7) |  |
 | `0x00552400` | 99 | CPtrNodeDoubleLinkPool | baja | 9 (7) |  |
@@ -170,8 +169,6 @@
 | `0x005335E0` | 47 | CEntity | alta | 5 (3) |  |
 | `0x00509DC0` | 42 | CCam | alta | 3 (3) |  |
 | `0x0064E4B0` | 41 | CTaskComplexGoToBoatSteeringWheel | baja | 3 (3) |  |
-| `0x0073A280` | 40 | CShotInfo | baja | 3 (3) |  |
-| `0x0073A2B0` | 40 | CShotInfo | baja | 3 (3) |  |
 | `0x0074BDA0` | 39 | Win | baja | 7 (3) |  |
 | `0x0074BDD0` | 39 | Win | baja | 4 (3) |  |
 | `0x0074CD70` | 39 | Win | baja | 7 (3) |  |
@@ -272,10 +269,7 @@
 | `0x005404F0` | 45 | CPad | alta | 2 (2) |  |
 | `0x004637E0` | 44 | CTaskSimpleFinishBrain | baja | 31 (2) |  |
 | `0x004E3350` | 43 | CAEPedAudioEntity | baja | 2 (2) |  |
-| `0x006985E0` | 43 | CTaskComplexReactToGunAimedAt | baja | 2 (2) |  |
 | `0x0074DBF0` | 39 | Win | baja | 5 (2) |  |
-| `0x00660F60` | 38 | CTaskGoToVehicleAndLean | baja | 2 (2) |  |
-| `0x0069F910` | 37 | CMissionTextOffsets | baja | 2 (2) |  |
 | `0x004F4CE0` | 36 | CAEUserRadioTrackManager | baja | 2 (2) |  |
 | `0x005A1EF0` | 36 | CObjectPool | baja | 2 (2) |  |
 | `0x00533020` | 35 | CEntity | alta | 2 (2) | sí |
@@ -290,7 +284,6 @@
 | `0x00454920` | 28 | CPathFind | baja | 2 (2) |  |
 | `0x004B1370` | 26 | CEventHitByWaterCannon | baja | 2 (2) |  |
 | `0x0054F1E0` | 26 | CMatrixLinkList | baja | 2 (2) |  |
-| `0x00718690` | 26 | Common | alta | 2 (2) |  |
 | `0x006D0B10` | 25 | CAEVehicleAudioEntity | baja | 2 (2) |  |
 | `0x0057C400` | 24 | CMenuManager | alta | 2 (2) |  |
 | `0x0057C420` | 24 | CMenuManager | alta | 2 (2) |  |
@@ -392,7 +385,6 @@
 | `0x005D3020` | 149 | CTheZones | baja | 1 (1) |  |
 | `0x005EDF10` | 148 | CPedAttractorManager | baja | 1 (1) |  |
 | `0x00746ED0` | 148 | CPad | baja | 1 (1) |  |
-| `0x00683840` | 146 | CTaskComplexBeInCouple | baja | 1 (1) |  |
 | `0x005C87E0` | 143 | FxEmitterBP_c | baja | 1 (1) |  |
 | `0x00683A40` | 142 | CTaskComplexBeInCouple | baja | 6 (1) |  |
 | `0x004F2B80` | 139 | CAETwinLoopSoundEntity | alta | 8 (1) |  |
@@ -454,7 +446,6 @@
 | `0x004A67D0` | 101 | FxInfoManager_c | alta | 1 (1) |  |
 | `0x004A68E0` | 101 | FxInfoManager_c | alta | 1 (1) |  |
 | `0x004A6A00` | 101 | FxInfoManager_c | alta | 1 (1) |  |
-| `0x00646CF0` | 101 | CTaskSimpleCarWaitForDoorNotToBeInUse | baja | 1 (1) |  |
 | `0x004D1570` | 100 | CAnimBlendAssociation | baja | 1 (1) |  |
 | `0x004D6DF0` | 97 | CAEAmbienceTrackManager | alta | 1 (1) |  |
 | `0x0054EE30` | 97 | Common | alta | 1 (1) |  |
@@ -491,7 +482,6 @@
 | `0x00609140` | 90 | CEventDontJoinPlayerGroup | baja | 3 (1) |  |
 | `0x0044CBC0` | 88 | COnscreenCounterEntry | baja | 1 (1) |  |
 | `0x00642700` | 88 | CTaskComplexScreamInCarThenLeave | baja | 1 (1) |  |
-| `0x00698680` | 88 | CTaskComplexReactToGunAimedAt | baja | 1 (1) |  |
 | `0x00460D80` | 87 | CTaskComplexWanderCop | baja | 2 (1) |  |
 | `0x00448660` | 86 | CGarage | alta | 1 (1) |  |
 | `0x004AF010` | 86 | CEventVehicleHitAndRun | baja | 2 (1) |  |
@@ -516,7 +506,6 @@
 | `0x004A6760` | 79 | FxInfoManager_c | alta | 1 (1) |  |
 | `0x0072E220` | 79 | CCullZones | baja | 1 (1) |  |
 | `0x00448990` | 78 | CGarages | alta | 1 (1) |  |
-| `0x0069F8C0` | 78 | CMissionTextOffsets | baja | 1 (1) |  |
 | `0x005D8980` | 77 | CCustomCarEnvMapPipeline | alta | 1 (1) |  |
 | `0x0061AE50` | 76 | CTaskSimpleRunTimedAnim | baja | 2 (1) |  |
 | `0x005E0540` | 74 | CPed | baja | 1 (1) |  |
@@ -557,7 +546,6 @@
 | `0x0049C9A0` | 48 | CStuntJumpManager | alta | 1 (1) |  |
 | `0x004E0380` | 48 | CAEMP3BankLoader | alta | 1 (1) |  |
 | `0x005D9180` | 48 | CCustomCarEnvMapPipeline | baja | 1 (1) |  |
-| `0x00718630` | 48 | Common | alta | 1 (1) |  |
 | `0x0061A6C0` | 47 | CTask | baja | 2 (1) |  |
 | `0x00731650` | 46 | D3DResourceSystem | baja | 1 (1) |  |
 | `0x006955D0` | 44 | CTaskComplexFollowPedFootsteps | baja | 1 (1) |  |
@@ -631,7 +619,6 @@
 | `0x005F7E30` | 16 | CPedGroup | baja | 1 (1) |  |
 | `0x00406360` | 15 | CIplStore | baja | 1 (1) |  |
 | `0x004DC2A0` | 15 | CAEDataStream | alta | 1 (1) |  |
-| `0x00698610` | 15 | CTaskComplexReactToGunAimedAt | baja | 1 (1) |  |
 | `0x004AB980` | 14 | CEventGlobalGroup | alta | 2 (1) |  |
 | `0x00507400` | 14 | CAudioEngine | alta | 1 (1) |  |
 | `0x00407D30` | 13 | CStreaming | alta | 1 (1) |  |

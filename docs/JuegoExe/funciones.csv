@@ -8323,7 +8323,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00646C00,90,reemplazada,CTaskSimpleCarWaitForDoorNotToBeInUse,exacta,CTaskSimpleCarWaitForDoorNotToBeInUse::Destructor,1,0,,
 0x00646C90,38,reemplazada,CTaskSimpleCarWaitForDoorNotToBeInUse,exacta,CTaskSimpleCarWaitForDoorNotToBeInUse::ProcessPed,0,0,,sí
 0x00646CC0,40,reemplazada,CTaskSimpleCarWaitForDoorNotToBeInUse,exacta,CTaskSimpleCarWaitForDoorNotToBeInUse::SetPedPosition,0,0,,sí
-0x00646CF0,101,A,CTaskSimpleCarWaitForDoorNotToBeInUse,baja,,1,1,,
+0x00646CF0,101,reemplazada,CTaskSimpleCarWaitForDoorNotToBeInUse,baja,,1,1,,
 0x00646D70,182,reemplazada,CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse,exacta,CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::Constructor,2,2,,
 0x00646E30,6,reemplazada,CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse,exacta,CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::GetTaskType,0,0,,sí
 0x00646E40,5,reemplazada,CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse,exacta,CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::MakeAbortable,0,0,,sí
@@ -8986,7 +8986,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00660E60,97,reemplazada,CTaskGoToVehicleAndLean,exacta,CTaskGoToVehicleAndLean::Constructor,2,2,,
 0x00660ED0,6,B,CTaskGoToVehicleAndLean,alta,,0,0,,sí
 0x00660EE0,120,reemplazada,CTaskGoToVehicleAndLean,exacta,CTaskGoToVehicleAndLean::Destructor,3,1,,
-0x00660F60,38,A,CTaskGoToVehicleAndLean,baja,,2,2,,
+0x00660F60,38,reemplazada,CTaskGoToVehicleAndLean,baja,,2,2,,
 0x00660F90,134,reemplazada,CTaskLeanOnVehicle,exacta,CTaskLeanOnVehicle::Constructor,2,1,,
 0x00661020,6,B,CTaskLeanOnVehicle,alta,,0,0,,sí
 0x00661030,109,reemplazada,CTaskLeanOnVehicle,exacta,CTaskLeanOnVehicle::Destructor,1,0,,
@@ -9624,7 +9624,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00683780,90,reemplazada,CTaskComplexBeInCouple,exacta,CTaskComplexBeInCouple::Destructor,1,0,,
 0x006837E0,5,reemplazada,CTaskComplexBeInCouple,exacta,CTaskComplexBeInCouple::CreateFirstSubTask,0,0,,sí
 0x006837F0,79,reemplazada,CTaskComplexBeInCouple,exacta,CTaskComplexBeInCouple::AbortArmIK,8,8,,
-0x00683840,146,A,CTaskComplexBeInCouple,baja,,1,1,,
+0x00683840,146,reemplazada,CTaskComplexBeInCouple,baja,,1,1,,
 0x006838E0,100,reemplazada,CTaskComplexWalkAlongsidePed,exacta,CTaskComplexWalkAlongsidePed::Clone,0,0,,sí
 0x00683950,110,D,CTaskComplexWalkAlongsidePed,baja,,0,0,,
 0x006839C0,118,reemplazada,CTaskComplexBeInCouple,exacta,CTaskComplexBeInCouple::Clone,0,0,,sí
@@ -9924,9 +9924,9 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006983C0,355,reemplazada,CTaskComplexReactToGunAimedAt,exacta,CTaskComplexReactToGunAimedAt::CreateNextSubTask,0,0,,sí
 0x00698530,18,reemplazada,CTaskComplexReactToGunAimedAt,exacta,CTaskComplexReactToGunAimedAt::CreateFirstSubTask,0,0,,sí
 0x00698550,126,reemplazada,CTaskComplexReactToGunAimedAt,exacta,CTaskComplexReactToGunAimedAt::ControlSubTask,0,0,,sí
-0x006985E0,43,A,CTaskComplexReactToGunAimedAt,baja,,2,2,,
-0x00698610,15,A,CTaskComplexReactToGunAimedAt,baja,,1,1,,
-0x00698680,88,A,CTaskComplexReactToGunAimedAt,baja,,1,1,,
+0x006985E0,43,reemplazada,CTaskComplexReactToGunAimedAt,baja,,2,2,,
+0x00698610,15,reemplazada,CTaskComplexReactToGunAimedAt,baja,,1,1,,
+0x00698680,88,reemplazada,CTaskComplexReactToGunAimedAt,baja,,1,1,,
 0x006986E0,12,D,CTaskComplexReactToGunAimedAt,baja,,0,0,,
 0x00698710,46,reemplazada,CCover,exacta,CCover::Init,2,2,,
 0x00698740,71,reemplazada,CCover,exacta,CCover::RemoveCoverPointsForThisEntity,1,1,,
@@ -10039,8 +10039,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0069F640,24,reemplazada,CData,exacta,CData::Unload,0,0,,
 0x0069F670,202,reemplazada,CMissionTextOffsets,exacta,CMissionTextOffsets::Load,1,1,,
 0x0069F7E0,220,reemplazada,CMissionTextOffsets,baja,,17,17,,
-0x0069F8C0,78,A,CMissionTextOffsets,baja,,1,1,,
-0x0069F910,37,A,CMissionTextOffsets,baja,,2,2,,
+0x0069F8C0,78,reemplazada,CMissionTextOffsets,baja,,1,1,,
+0x0069F910,37,reemplazada,CMissionTextOffsets,baja,,2,2,,
 0x0069F940,91,reemplazada,CText,exacta,CText::ReadChunkHeader,1,1,,
 0x0069F9A0,536,reemplazada,CText,exacta,CText::LoadMissionPackText,1,1,,
 0x0069FBD0,29,reemplazada,CText,exacta,CText::GetNameOfLoadedMissionText,1,1,,
@@ -11038,9 +11038,9 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00718580,46,reemplazada,CEscalators,exacta,CEscalators::Update,1,1,,
 0x007185B0,10,reemplazada,CMovingThings,exacta,CMovingThings::Update,1,1,,
 0x00718600,38,reemplazada,Common,exacta,Common::AsciiToGxtChar,90,90,,
-0x00718630,48,A,Common,alta,,1,1,,
-0x00718660,35,A,Common,alta,,8,8,,
-0x00718690,26,A,Common,alta,,2,2,,
+0x00718630,48,reemplazada,Common,alta,,1,1,,
+0x00718660,35,reemplazada,Common,alta,,8,8,,
+0x00718690,26,reemplazada,Common,alta,,2,2,,
 0x007186E0,47,reemplazada,Common,exacta,Common::MakeUpperCase-,0,0,,
 0x00718710,39,reemplazada,Common,exacta,Common::MakeUpperCase-in,5,4,,
 0x00718770,74,reemplazada,CFont,exacta,CFont::GetLetterIdPropValue,1,1,,
@@ -11566,8 +11566,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00739C30,431,reemplazada,CShotInfo,exacta,CShotInfo::AddShot,1,1,,
 0x00739DE0,114,reemplazada,CShotInfo,exacta,CShotInfo::GetFlameThrowerShotPosn,1,1,,
 0x00739E60,1017,reemplazada,CShotInfo,exacta,CShotInfo::Update,1,1,,
-0x0073A280,40,A,CShotInfo,baja,,3,3,,
-0x0073A2B0,40,A,CShotInfo,baja,,3,3,,
+0x0073A280,40,reemplazada,CShotInfo,baja,,3,3,,
+0x0073A2B0,40,reemplazada,CShotInfo,baja,,3,3,,
 0x0073A300,38,reemplazada,CWeapon,exacta,CWeapon::InitialiseWeapons,2,2,,
 0x0073A330,35,reemplazada,CWeapon,exacta,CWeapon::ShutdownWeapons,1,1,,
 0x0073A360,20,reemplazada,CWeapon,exacta,CWeapon::UpdateWeapons,1,1,,
