@@ -19,8 +19,8 @@
 
 // Banco par a par PresetLoad74 dentro del juego: Update() se llama desde CGame::Process (probe_build.py). Todo el nucleo esta en Core.hpp.
 // Una funcion: RsLoadPresetViews (0x619D60, cdecl sin argumentos, devuelve NumPresetViews != 0). Colaboradores sustituidos por falsos identicos (entrada del EXE y cuerpo de la DLL):
-//   con hook RH (apagado durante el banco): psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0, RsErrorMessage 0x619B00, CMemoryMgr::Malloc 0x72F420;
-//   sin hook (DLL = funcion reconstruida): RsDestroyPresetViews 0x6198C0, CMemoryMgr::Free 0x72F430;
+//   con hook RH (apagado durante el banco): psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0, RsErrorMessage 0x619B00, CMemoryMgr::Malloc 0x72F420, CMemoryMgr::Free 0x72F430 (hook desde el lote 104A);
+//   sin hook (DLL = funcion reconstruida): RsDestroyPresetViews 0x6198C0;
 //   sin cuerpo propio en la DLL (la DLL llama a la direccion del EXE): isprint del CRT 0x8228B5.
 // Ademas se sustituyen durante la llamada las entradas de la tabla de RenderWare (RwEngineInstance + 0xC4 / + 0xF0): fopen, fclose, fgets, sprintf, strcpy, strlen y sscanf. RwOsGetFileInterface 0x804130 corre de verdad en el EXE.
 
@@ -218,8 +218,8 @@ inline void Update() {
     }
     json hooksFound=json::array();
     if(!ready){Run(env,false,registered,bodies,collaborators);return;}
-    const Pair pCreate=MakeCollab(env,kPathCreate,hooksFound),pDestroyPath=MakeCollab(env,kPathDestroy,hooksFound),pErr=MakeCollab(env,kErr,hooksFound),pMalloc=MakeCollab(env,kMalloc,hooksFound);
-    const Pair pRsDestroy{kDestroy,DllBody(&RsDestroyPresetViews),false},pFree{kFree,DllBody(&CMemoryMgr::Free),false},pIsPrint{kIsPrint,0,false};
+    const Pair pCreate=MakeCollab(env,kPathCreate,hooksFound),pDestroyPath=MakeCollab(env,kPathDestroy,hooksFound),pErr=MakeCollab(env,kErr,hooksFound),pMalloc=MakeCollab(env,kMalloc,hooksFound),pFree=MakeCollab(env,kFree,hooksFound);   // CMemoryMgr::Free 0x72F430 tiene hook RH desde el lote 10x: ruta apagada y falso en la entrada del EXE y en el cuerpo del hook
+    const Pair pRsDestroy{kDestroy,DllBody(&RsDestroyPresetViews),false},pIsPrint{kIsPrint,0,false};
     auto S=[](const Pair& p,void* fake){return StubSpec{p,fake};};
     env.stubs[0]={S(pRsDestroy,reinterpret_cast<void*>(&FakeDestroy)),S(pCreate,reinterpret_cast<void*>(&FakePathCreate)),S(pDestroyPath,reinterpret_cast<void*>(&FakePathDestroy)),
                   S(pIsPrint,reinterpret_cast<void*>(&FakeIsPrint)),S(pMalloc,reinterpret_cast<void*>(&FakeMalloc)),S(pFree,reinterpret_cast<void*>(&FakeFree)),S(pErr,reinterpret_cast<void*>(&FakeErr))};

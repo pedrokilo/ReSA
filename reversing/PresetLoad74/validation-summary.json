@@ -10,33 +10,40 @@
   "covered_functions": {
     "RsLoadPresetViews": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). RsLoadPresetViews es cdecl sin argumentos. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0, RsErrorMessage 0x619B00 y CMemoryMgr::Malloc 0x72F420 (con hook RH apagado), RsDestroyPresetViews 0x6198C0 y CMemoryMgr::Free 0x72F430 (reconstruidas sin hook) e isprint del CRT 0x8228B5 (la DLL lo llama por la direccion del EXE); y, durante la llamada, las entradas fopen, fclose, fgets, sprintf, strcpy, strlen y sscanf de la tabla de RenderWare (RwEngineInstance + 0xC4 / + 0xF0). El banco alimenta el contenido de views.txt desde un buffer controlado. NO prueba: la E/S real de ficheros (fopen/fgets/fclose reales), el formato real de sscanf (el falso devuelve los valores configurados), el isprint real del CRT ni la liberacion/asignacion real de memoria; tampoco el desbordamiento del buffer de nombre de 0x40 bytes del EXE (nombres de mas de 63 caracteres) ni RwOsGetFileInterface nulo. Valida el filtrado por isprint (hash de las llamadas), el orden de las llamadas, la lista enlazada (nodos y descripciones byte a byte, floats con NaN no canonicos), los caminos de memoria insuficiente (sin cerrar el fichero) y el valor de retorno. EAX completo solo se registra: el unico llamador, RsSavePresetView, lo lee como bool.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). RsLoadPresetViews es cdecl sin argumentos. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0, RsErrorMessage 0x619B00 y CMemoryMgr::Malloc 0x72F420 (con hook RH apagado), RsDestroyPresetViews 0x6198C0 y CMemoryMgr::Free 0x72F430 (reconstruidas sin hook) e isprint del CRT 0x8228B5 (la DLL lo llama por la direccion del EXE); y, durante la llamada, las entradas fopen, fclose, fgets, sprintf, strcpy, strlen y sscanf de la tabla de RenderWare (RwEngineInstance + 0xC4 / + 0xF0). El banco alimenta el contenido de views.txt desde un buffer controlado. NO prueba: la E/S real de ficheros (fopen/fgets/fclose reales), el formato real de sscanf (el falso devuelve los valores configurados), el isprint real del CRT ni la liberacion/asignacion real de memoria; tampoco el desbordamiento del buffer de nombre de 0x40 bytes del EXE (nombres de mas de 63 caracteres) ni RwOsGetFileInterface nulo. Valida el filtrado por isprint (hash de las llamadas), el orden de las llamadas, la lista enlazada (nodos y descripciones byte a byte, floats con NaN no canonicos), los caminos de memoria insuficiente (sin cerrar el fichero) y el valor de retorno. EAX completo solo se registra: el unico llamador, RsSavePresetView, lo lee como bool. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PresetLoad74-20261027-052301-310721",
-  "summary_sha256": "4d0909c1901e979ff643c0ff9883a9c603630b95c10ff6387819ad9d0e7ba8cc",
-  "result_txt_sha256": "2dece8fba24af1ed9999c81c20a5b404907ae775c0624a8b5721423563de71bb",
-  "log_sha256": "756941400f75f0608821811e86589eb5916d98dc0bf3c583d99c1522dc28894c",
+  "run": "reversing/CppTwelveLevel6Final/runs/PresetLoad74-20261105-231955-459996",
+  "summary_sha256": "10fe9f359b7772664123d61f91856bb2aa9c1bc14ad659a415f59ca8980889b2",
+  "result_txt_sha256": "42366dc2308aa249ff13c38592515ef1a2469c17d9bbdaeba6a4c299dfe7a229",
+  "log_sha256": "ed1a925c184226b0929f9e0d635784eb3ee1f349dd3ce7a037867bd27784d29a",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "9781aa719c1c9958a7a4fcdaabd7f3ab260c31b04a950f977d4f6ecf44a35f9d",
+  "executed_probe_sha256": "fff52a4576ce5d1cf018c5ebc090ddfa2dc7a63934f19c6d1891770a20f03dc4",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
-      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "46a9e9b8556dcaa75b5447d688689adeb8521bf9f5c0e6d4efb29dca7a6df098",
+      "source/game_sa/X87Math.cpp": "0d9cc39937dd405a2db156ae7f024faa2069bd2027dcf35977c07e978fb83f00",
+      "source/game_sa/X87Math.h": "79dcf83e33878dae84e749b805e8ef0565e10c4af6294082bc32f8c4a35c00f9",
       "source/app/platform/preset_view.cpp": "2c270a583ef619401943d6ed0d4a6d31cb946fe6a3d45f36ed53276be2cd5631",
-      "source/app/platform/platform.cpp": "df1d4cebe575e87968d92176714725de3784961886fd2ea9001559ebf82387e1",
+      "source/app/platform/platform.cpp": "db1cbbc5b2e9a36e4ae1b0ce9ce48d238c14524f8dc0c8b82b7bbab61e0ac4a8",
       "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/PresetLoad74/LiveComparison.hpp": "c9ab210a2ccc9cd2a7c7b4e5b1b2db95cb329cdb388f358dd8694399ad535e0e",
-      "reversing/PresetLoad74/Core.hpp": "9d0def2a6de0f47113f66aba9a37d53b460b979c08ca2c359ed3a3541dbe5921",
+      "reversing/PresetLoad74/LiveComparison.hpp": "a8d50b9749b90101e0a8f6442d5603a94235f4961a306f6acf313f30fa20fea5",
+      "reversing/PresetLoad74/Core.hpp": "29fb7db478bdda94393cbccef399e1b1d207de3e7e97a86e6635624f36bd587f",
       "reversing/PresetLoad74/Fixtures.hpp": "ffc2b43677a03cf7d283ccb0c2eda0469395a6f939241ff2c855c78c64bab983",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PresetLoad74-20261105-231955-459996/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "a88d446768bac05fbe83bb11acf6983226a0d0cd921c348f5bba351ea711b9de",
+    "uncompressed_sha256": "ed1a925c184226b0929f9e0d635784eb3ee1f349dd3ce7a037867bd27784d29a"
   }
 }

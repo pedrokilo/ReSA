@@ -21,7 +21,7 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x619D60}
 # (direccion del EXE, hooked, cuerpo en la DLL): RsDestroyPresetViews 0x6198C0 (reconstruida sin hook), psPathnameCreate, psPathnameDestroy, isprint del CRT 0x8228B5 (sin cuerpo en la DLL: la DLL llama a la direccion del EXE),
-# CMemoryMgr::Malloc, CMemoryMgr::Free 0x72F430 (reconstruida sin hook), RsErrorMessage. hooked=False: el hook queda apagado, la entrada del EXE es codigo original.
+# CMemoryMgr::Malloc, CMemoryMgr::Free 0x72F430 (con hook RH desde el lote 104A), RsErrorMessage. hooked=False: el hook queda apagado, la entrada del EXE es codigo original.
 STUBBED = {NAMES[0]: [(0x6198C0, False, True), (0x745470, False, True), (0x7454E0, False, True), (0x8228B5, False, False), (0x72F420, False, True), (0x72F430, False, True), (0x619B00, False, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _, _ in lst} | {0x619D60}
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}

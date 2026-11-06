@@ -31,3 +31,6 @@ El oráculo original del banco sumaba la posición del garaje a sus límites. Se
 ## Validación aprobada
 
 Corrida 20261010-225324-239331: 2.048 pares, cero diferencias y ningún registro nulo; estado completo, binarios, partidas y configuraciones restaurados. Incluye 1.536 casos de geometría privada válida y 512 de geometría cargada real, ambas representaciones de matriz y límites de radio. El analizador racional independiente confirmó transformaciones y resultado. Evidencia en runs/20261010-225324-239331/approval-audit.json.
+
+## Actualizacion del lote 104A (05/11/2026)
+`CMatrix::operator*(CVector)` (0x59C890, hook `CMatrix`/`operator*-Vec`) y `CSimpleTransform::UpdateMatrix` (0x54F1B0) tienen hook RH desde lotes posteriores: el banco exige sus bytes nativos del EXE (`native_helpers_ok`). Se crean sus `HookRoute` (hooks apagados durante el banco, los dos lados llaman al codigo del EXE) antes de registrar los helpers y se restauran al final, tras comprobar `helper_route_ok` (el estado de los helpers se vigila con los hooks apagados). Repetido y aprobado (`runs/DependenciesGarageSphere15-20261105-234438-490522`).

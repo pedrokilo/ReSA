@@ -32,3 +32,8 @@ Copia buena (SHA256): `Automobile.cpp` f47532a1... Cada mutacion se compilo, se 
 
 ## Tiempo
 Una corrida de los 16384 pares: unos 1,5 min (mas la compilacion incremental de la sonda, unos 10 s, y la espera del candado del juego).
+
+## Bancos repetidos y adaptados (lote 104A)
+- `Car84L` (cita 0x6A2530 como falso; unico banco que lo cita): repetido sin cambios y aprobado (`runs/Car84L-20261105-230729-397024`).
+- `PresetLoad74` (declaraba 0x72F430 sin hook): adaptado con `MakeCollab` y aprobado (`runs/PresetLoad74-20261105-231955-459996`).
+- `DependenciesGarageSphere15` (necesitaba `HookRoute` para 0x54F1B0 y 0x59C890): adaptado y aprobado (`runs/DependenciesGarageSphere15-20261105-234438-490522`).

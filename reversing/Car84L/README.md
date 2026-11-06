@@ -45,3 +45,6 @@ Nodos con cuenta de enlaces 0 (el EXE divide por cero en `0x430AE2`); nodos cuyo
 ## Herramientas (`tools/`)
 
 `lift.py` / `lift_emit.py` (elevador), `mutate.py` (prueba negativa), `firstdiff.py` (primer caso con diferencias de un registro), `sites.py` (cobertura por sitio), `dump_cases.cpp` + `dump.bat` (vuelca las fixtures como JSON), `chk.bat` y `prelude_test.cpp` (compilación de comprobación de la función elevada fuera del juego), `ins.txt` (desensamblado limpio).
+
+## Actualizacion del lote 104A (05/11/2026)
+`CAutomobile::SetRandomDamage` (0x6A2530), que este banco sustituye por un falso, tiene hook RH desde el lote 104A (`reversing/Fn104A`). `MakeCollab` detecta el hook: ruta apagada y el mismo falso en la entrada del EXE y en el cuerpo del hook de la DLL. Repetido sin cambios en el banco y aprobado con el codigo final (`runs/Car84L-20261105-230729-397024`).

@@ -66,3 +66,6 @@ Mutacion de produccion `if (count < 7) {` -> `if (count < 8) {` (las lineas con 
 ## Evidencia final
 
 `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-presetload74\20261027-044311-743203`: 20480 pares, cero diferencias, todas las compuertas de ABI/ruta/restauracion en ambos lados, `fp_difference` vacio, cobertura por familia (20 x 1024) y de ramas (`coverage.json`) y el oraculo (`fixture_oracle.py`) coincide con los dos lados de los 20480 pares. 
+
+## Actualizacion del lote 104A (05/11/2026)
+`CMemoryMgr::Free` (0x72F430) tiene hook RH: el banco lo daba por reconstruida sin hook (falso en la entrada del EXE y en el cuerpo de la DLL, pero el hook seguia encendido y fallaba `collaborators_dll`). Ahora se obtiene con `MakeCollab` como los demas colaboradores con hook (ruta apagada durante el banco, falso identico en ambos cuerpos). Repetido y aprobado (`runs/PresetLoad74-20261105-231955-459996`).
