@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,153 entradas reversed=1**, de 9,153 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,160 entradas reversed=1**, de 9,160 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9153 |
+| `validated=1` · evidencia aprobada vinculada | 9160 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9153 |
+| Evidencia histórica vinculada; revisión pendiente | 9160 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2610,6 +2610,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventKnockOffBike | `CalcForcesAndAnims` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CEventKnockOffBike | `Constructor-first` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CEventKnockOffBike | `Constructor-second` | [Resumen](../reversing/Data8b/validation-summary.json) |
+| CEventKnockOffBike | `Destructor` | [Resumen](../reversing/Fn106A/validation-summary.json) |
 | CEventKnockOffBike | `From` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CEventKnockOffBike | `ReportCriminalEvent` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CEventKnockOffBike | `SetPedOutCar` | [Resumen](../reversing/Data8b/validation-summary.json) |
@@ -6919,6 +6920,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleCarSetPedInAsPassenger | `MakeAbortable` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskSimpleCarSetPedInAsPassenger | `ProcessPed` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskSimpleCarSetPedOut | `Clone` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
+| CTaskSimpleCarSetPedOut | `Constructor` | [Resumen](../reversing/Fn106A/validation-summary.json) |
 | CTaskSimpleCarSetPedOut | `GetTaskType` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskSimpleCarSetPedOut | `MakeAbortable` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskSimpleCarSetPedOut | `PositionPedOutOfCollision` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
@@ -7427,6 +7429,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleSitIdle | `StartAnim` | [Resumen](../reversing/STasks7/validation-summary.json) |
 | CTaskSimpleSlideToCoord | `ProcessPed` | [Resumen](../reversing/Misc61/validation-summary.json) |
 | CTaskSimpleStandStill | `Constructor` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
+| CTaskSimpleStandStill | `Destructor` | [Resumen](../reversing/Fn106A/validation-summary.json) |
 | CTaskSimpleStandStill | `MakeAbortable` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleStandStill | `ProcessPed` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleStandUp | `Clone` | [Resumen](../reversing/STasks8b/validation-summary.json) |
@@ -8467,11 +8470,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Common | `AsciiToGxtChar` | [Resumen](../reversing/Core9/validation-summary.json) |
 | Common | `CalcScreenCoors-VV` | [Resumen](../reversing/Core9/validation-summary.json) |
 | Common | `CalcScreenCoors-VVff` | [Resumen](../reversing/Core9/validation-summary.json) |
+| Common | `CrtPowThunk` | [Resumen](../reversing/Fn106A/validation-summary.json) |
 | Common | `DoesInfiniteLineTouchScreen` | [Resumen](../reversing/Core9/validation-summary.json) |
+| Common | `GxtCharToAscii` | [Resumen](../reversing/Fn106A/validation-summary.json) |
 | Common | `IsPointInsideLine` | [Resumen](../reversing/Core9/validation-summary.json) |
 | Common | `LittleTest` | [Resumen](../reversing/Core9/validation-summary.json) |
 | Common | `MakeUpperCase-` | [Resumen](../reversing/Core9/validation-summary.json) |
 | Common | `MakeUpperCase-in` | [Resumen](../reversing/Core9/validation-summary.json) |
+| Common | `RoundToDecimals` | [Resumen](../reversing/Fn106A/validation-summary.json) |
 | Common | `TransformPoint` | [Resumen](../reversing/DependenciesMathSprite2/validation-summary.json) |
 | Common | `TransformPoints` | [Resumen](../reversing/DependenciesMathSprite2/validation-summary.json) |
 | Common | `WriteRaster` | [Resumen](../reversing/Core9/validation-summary.json) |
@@ -9045,6 +9051,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RwHelper | `RpClumpGtaStreamRead1` | [Resumen](../reversing/Fn95C/validation-summary.json) |
 | RwHelper | `RpClumpGtaStreamRead2` | [Resumen](../reversing/Fn95C/validation-summary.json) |
 | RwHelper | `RpGeometryReplaceOldMaterialWithNewMaterial` | [Resumen](../reversing/Dependencies21G/validation-summary.json) |
+| RwHelper | `RwIm2DRenderPrimitiveThunk` | [Resumen](../reversing/Fn106A/validation-summary.json) |
 | RwHelper | `RwTexDictionaryFindHashNamedTexture` | [Resumen](../reversing/DependenciesWorld11/validation-summary.json) |
 | RwHelper | `RwTexDictionaryGtaStreamRead` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
 | RwHelper | `RwTexDictionaryGtaStreamRead1` | [Resumen](../reversing/Fn95C/validation-summary.json) |
@@ -9369,7 +9376,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventHandlerHistory` | 10 | 0 | 10 | 0 |
 | `CEventHitByWaterCannon` | 2 | 0 | 2 | 0 |
 | `CEventInAir` | 2 | 0 | 2 | 0 |
-| `CEventKnockOffBike` | 8 | 0 | 8 | 0 |
+| `CEventKnockOffBike` | 9 | 0 | 9 | 0 |
 | `CEventLeaderEnteredCarAsDriver` | 2 | 0 | 2 | 0 |
 | `CEventLeaderEntryExit` | 1 | 0 | 1 | 0 |
 | `CEventLeaderExitedCarAsDriver` | 2 | 0 | 2 | 0 |
@@ -9811,7 +9818,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleCarOpenLockedDoorFromOutside` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleCarSetPedInAsDriver` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleCarSetPedInAsPassenger` | 5 | 0 | 5 | 0 |
-| `CTaskSimpleCarSetPedOut` | 5 | 0 | 5 | 0 |
+| `CTaskSimpleCarSetPedOut` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleCarSetPedSlowDraggedOut` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleCarSetTempAction` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleCarShuffle` | 9 | 0 | 9 | 0 |
@@ -9894,7 +9901,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleSitDown` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleSitIdle` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleSlideToCoord` | 1 | 0 | 1 | 0 |
-| `CTaskSimpleStandStill` | 3 | 0 | 3 | 0 |
+| `CTaskSimpleStandStill` | 4 | 0 | 4 | 0 |
 | `CTaskSimpleStandUp` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleStealthKill` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleSwim` | 11 | 0 | 11 | 0 |
@@ -9954,7 +9961,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CZoneDef` | 1 | 0 | 1 | 0 |
 | `C_PcSave` | 5 | 0 | 5 | 0 |
 | `CdStream` | 9 | 0 | 9 | 0 |
-| `Common` | 11 | 0 | 11 | 0 |
+| `Common` | 14 | 0 | 14 | 0 |
 | `D3DIndexDataBuffer` | 3 | 0 | 3 | 0 |
 | `D3DResourceSystem` | 12 | 0 | 12 | 0 |
 | `D3DTextureBuffer` | 6 | 0 | 6 | 0 |
@@ -10004,7 +10011,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RtAnim` | 3 | 0 | 3 | 0 |
 | `RtDict` | 2 | 0 | 2 | 0 |
 | `RwCore` | 29 | 0 | 29 | 0 |
-| `RwHelper` | 39 | 0 | 39 | 0 |
+| `RwHelper` | 40 | 0 | 40 | 0 |
 | `RwPlCore` | 14 | 0 | 14 | 0 |
 | `Securom` | 2 | 0 | 2 | 0 |
 | `SurfaceInfos_c` | 47 | 0 | 47 | 0 |

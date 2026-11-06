@@ -1307,7 +1307,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0046FE60,122,reemplazada,CTaskComplexGoToPointAndStandStill,exacta,CTaskComplexGoToPointAndStandStill::GoToPoint,12,11,,
 0x0046FEE0,61,A,CTaskComplexGoToPointAndStandStill,baja,,2,2,,
 0x0046FF20,201,reemplazada,CTaskComplexGoToPointAndStandStill,baja,,3,3,,
-0x00470000,14,A,CTaskComplexGoToPointAndStandStill,baja,,19,19,,
+0x00470000,14,reemplazada,CTaskComplexGoToPointAndStandStill,baja,,19,19,,
 0x00470070,32,C,CTaskComplexGoToPointAndStandStill,baja,,2,0,,
 0x004700E0,18,C,CTaskComplexGoToPointAndStandStill,baja,,1,0,,
 0x00470100,48,C,CTaskComplexGoToPointAndStandStill,baja,,2,0,,
@@ -2084,7 +2084,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004AFCE0,6,B,CEventKnockOffBike,alta,,0,0,,sí
 0x004AFCF0,223,reemplazada,CEventKnockOffBike,exacta,CEventKnockOffBike::Constructor-first,17,16,,
 0x004AFDD0,157,reemplazada,CEventKnockOffBike,exacta,CEventKnockOffBike::From,2,0,,
-0x004AFE70,97,A,CEventKnockOffBike,alta,,34,16,,
+0x004AFE70,97,reemplazada,CEventKnockOffBike,alta,,34,16,,
 0x004AFEE0,122,reemplazada,CEventKnockOffBike,exacta,CEventKnockOffBike::AffectsPed,0,0,,sí
 0x004AFF60,187,reemplazada,CEventKnockOffBike,exacta,CEventKnockOffBike::SetPedOutCar,1,1,,
 0x004B0020,1619,reemplazada,CEventKnockOffBike,exacta,CEventKnockOffBike::CalcForcesAndAnims,1,1,,
@@ -3779,7 +3779,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00509CE0,209,reemplazada,CCam,exacta,CCam::GetVectorsReadyForRW,20,20,,
 0x00509DC0,42,A,CCam,alta,,3,3,,
 0x00509DF0,673,reemplazada,CCam,exacta,CCam::KeepTrackOfTheSpeed,2,2,,
-0x0050A0A0,119,A,CCam,baja,,21,18,,
+0x0050A0A0,119,reemplazada,CCam,baja,,21,18,,
 0x0050A120,53,A,CCam,baja,,1,1,,
 0x0050A160,152,reemplazada,CIdleCam,exacta,CIdleCam::Reset,3,3,,
 0x0050A200,94,reemplazada,CIdleCam,exacta,CIdleCam::ProcessIdleCamTicker,1,1,,
@@ -4942,11 +4942,11 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00571980,5,C,CPlayerInfo,baja,,1,0,,
 0x005719B0,44,reemplazada,CReferences,exacta,CReferences::Init,1,1,,
 0x005719E0,24,reemplazada,CReferences,exacta,CReferences::ListSize,0,0,,
-0x00571A00,59,reemplazada,CEntity,exacta,CEntity::CleanUpOldReference-,407,312,,
+0x00571A00,59,reemplazada,CEntity,exacta,CEntity::CleanUpOldReference-,407,314,,
 0x00571A40,78,reemplazada,CEntity,exacta,CEntity::ResolveReferences,4,4,,
 0x00571A90,62,reemplazada,CEntity,exacta,CEntity::PruneReferences,12,12,,
 0x00571AD0,151,reemplazada,CReferences,exacta,CReferences::RemoveReferencesToPlayer,5,5,,
-0x00571B70,315,reemplazada,CEntity,exacta,CEntity::RegisterReference-,423,375,,
+0x00571B70,315,reemplazada,CEntity,exacta,CEntity::RegisterReference-,423,376,,
 0x00571CC0,171,reemplazada,CReferences,exacta,CReferences::PruneAllReferencesInWorld,1,1,,
 0x00571D90,176,reemplazada,CPlaceName,exacta,CPlaceName::GetForMap,1,1,,
 0x00571EA0,50,reemplazada,CCurrentVehicle,exacta,CCurrentVehicle::Display,0,0,,
@@ -7158,8 +7158,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061A2E0,64,A,CPlayerRelationshipRecorder,baja,,2,2,,
 0x0061A350,7,C,CPlayerRelationshipRecorder,baja,,1,0,,
 0x0061A360,41,reemplazada,CPlayerRelationshipRecorder,baja,,29,27,,
-0x0061A390,16,reemplazada,CPlayerRelationshipRecorder,baja,,234,199,,
-0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,97,,
+0x0061A390,16,reemplazada,CPlayerRelationshipRecorder,baja,,234,200,,
+0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,98,,
 0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,200,,
 0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,108,,
 0x0061A430,40,B,CPlayerRelationshipRecorder,baja,,0,0,,sí
@@ -7522,7 +7522,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0062F2D0,49,A,CTaskComplexLeaveCarAndDie,baja,,1,1,,
 0x0062F310,62,reemplazada,CTaskSimpleStandStill,exacta,CTaskSimpleStandStill::Constructor,128,107,,
 0x0062F350,6,B,CTaskSimpleStandStill,alta,,0,0,,sí
-0x0062F360,11,A,CTaskSimpleStandStill,alta,,38,16,,
+0x0062F360,11,reemplazada,CTaskSimpleStandStill,alta,,38,16,,
 0x0062F370,420,reemplazada,CTaskSimpleStandStill,exacta,CTaskSimpleStandStill::ProcessPed,20,17,,sí
 0x0062F520,99,B,CTaskSimpleStandStill,baja,,0,0,,sí
 0x0062F590,27,reemplazada,CTaskSimpleSetStayInSamePlace,exacta,CTaskSimpleSetStayInSamePlace::Constructor,2,0,,
@@ -8356,7 +8356,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00647780,5,reemplazada,CTaskSimpleCarJumpOut,baja,,0,0,,sí
 0x00647790,90,reemplazada,CTaskSimpleCarJumpOut,baja,,1,0,,
 0x006477F0,184,reemplazada,CTaskSimpleCarJumpOut,baja,,0,0,,sí
-0x006478B0,118,A,CTaskSimpleCarJumpOut,baja,,19,18,,
+0x006478B0,118,reemplazada,CTaskSimpleCarJumpOut,baja,,19,18,,
 0x00647930,6,reemplazada,CTaskSimpleCarSetPedOut,exacta,CTaskSimpleCarSetPedOut::GetTaskType,0,0,,sí
 0x00647940,5,reemplazada,CTaskSimpleCarSetPedOut,exacta,CTaskSimpleCarSetPedOut::MakeAbortable,0,0,,sí
 0x00647950,90,A,CTaskSimpleCarSetPedOut,alta,,25,11,,
@@ -10038,7 +10038,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0069F5D0,108,reemplazada,CData,exacta,CData::Load,3,3,,
 0x0069F640,24,reemplazada,CData,exacta,CData::Unload,0,0,,
 0x0069F670,202,reemplazada,CMissionTextOffsets,exacta,CMissionTextOffsets::Load,1,1,,
-0x0069F7E0,220,A,CMissionTextOffsets,baja,,17,17,,
+0x0069F7E0,220,reemplazada,CMissionTextOffsets,baja,,17,17,,
 0x0069F8C0,78,A,CMissionTextOffsets,baja,,1,1,,
 0x0069F910,37,A,CMissionTextOffsets,baja,,2,2,,
 0x0069F940,91,reemplazada,CText,exacta,CText::ReadChunkHeader,1,1,,
@@ -11503,7 +11503,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00734DC0,26,reemplazada,RwHelper,exacta,RwHelper::SetFilterModeOnClumpsTextures,0,0,,
 0x00734DE0,101,reemplazada,RwHelper,alta,,1,1,,
 0x00734E50,64,reemplazada,RwHelper,exacta,RwHelper::RwTexDictionaryFindHashNamedTexture,3,2,,
-0x00734E90,8,A,RwHelper,baja,,26,26,,
+0x00734E90,8,reemplazada,RwHelper,baja,,26,26,,
 0x00734EA0,9,A,RwHelper,baja,,6,6,,
 0x00734EC0,9,A,RwHelper,baja,,2,2,,
 0x00734FC0,384,reemplazada,RwHelper,baja,,1,1,,
