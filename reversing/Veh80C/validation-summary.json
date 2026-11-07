@@ -10,25 +10,25 @@
   "covered_functions": {
     "CVehicle::FireFixedMachineGuns": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wz-3 (HEAD e4f077aea + cambios del lote 80C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): operator*(CMatrix, CVector) 0x59C890 (cdecl con puntero de resultado oculto), CWeapon::DoTankDoomAiming 0x73D1E0, FireOneInstantHitRound 0x73AF00, CAudioEngine::ReportWeaponEvent 0x506F40 y rand() 0x821B1E (en la DLL CGeneral::GetRandomNumber, sin hook). El banco compara el orden y todos los argumentos de los falsos (contenido de los vectores de pila, etiquetas de arena, hora del arma en cada evento), la mutacion del vehiculo (matriz +0x14, conductor +0x460, cargador +0x4AB, hora del arma +0x4D4) y del reloj global por un falso tras cada uno de los 13 eventos (relectura de campos), la escritura de la hora y del cargador, la recarga con la hora releida y los vectores que reescribe DoTankDoomAiming; la x87 a 24 bits (direccion normalizada, extremo y ruido) incluidos NaN (un solo patron, el indefinido), infinitos, desnormales y ceros con signo. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. El EXE lee la matriz +0x10 sin comprobar nulo: la matriz nula solo se prueba sin disparo. EAX/ECX/EDX de salida solo se registran: el unico llamador, CVehicle::DoFixedMachineGuns (0x73F459, jmp), no los lee. NaN con cargas distintas (sNaN, signos y cargas variadas) no cubiertos: las fixtures usan un unico patron de NaN para que el orden de operandos que elige el compilador no cambie la carga.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wz-3 (HEAD e4f077aea + cambios del lote 80C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): operator*(CMatrix, CVector) 0x59C890 (cdecl con puntero de resultado oculto), CWeapon::DoTankDoomAiming 0x73D1E0, FireOneInstantHitRound 0x73AF00, CAudioEngine::ReportWeaponEvent 0x506F40 y rand() 0x821B1E (en la DLL CGeneral::GetRandomNumber, sin hook). El banco compara el orden y todos los argumentos de los falsos (contenido de los vectores de pila, etiquetas de arena, hora del arma en cada evento), la mutacion del vehiculo (matriz +0x14, conductor +0x460, cargador +0x4AB, hora del arma +0x4D4) y del reloj global por un falso tras cada uno de los 13 eventos (relectura de campos), la escritura de la hora y del cargador, la recarga con la hora releida y los vectores que reescribe DoTankDoomAiming; la x87 a 24 bits (direccion normalizada, extremo y ruido) incluidos NaN (un solo patron, el indefinido), infinitos, desnormales y ceros con signo. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. El EXE lee la matriz +0x10 sin comprobar nulo: la matriz nula solo se prueba sin disparo. EAX/ECX/EDX de salida solo se registran: el unico llamador, CVehicle::DoFixedMachineGuns (0x73F459, jmp), no los lee. NaN con cargas distintas (sNaN, signos y cargas variadas) no cubiertos: las fixtures usan un unico patron de NaN para que el orden de operandos que elige el compilador no cambie la carga. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Veh80C-20261028-132828-174795",
-  "summary_sha256": "ee0fdbe6f747f3dc12ae78d8a78f7df10086a8c5d1ef4a973170ee7d6465f961",
-  "result_txt_sha256": "cafeab548e27ca24495a8b7f298c39813cbeb7e754cd88d02728e752b3d4bd6f",
-  "log_sha256": "04fa5a597968507da9c57a06042a51aee416cf77e23bd18875f7c1845ae395e8",
+  "run": "reversing/CppTwelveLevel6Final/runs/Veh80C-20261107-143900-062906",
+  "summary_sha256": "f24518b18459f1f4be782404a9d847e9a3ae3d8a8461c2706c8f19e459a84977",
+  "result_txt_sha256": "b848003bcfad22341b823a917c1698827454a62dd294c9ddb06fa9df25fbad0b",
+  "log_sha256": "6f2e1422963d910acf961026fd13218ad2b195d1aea27d501a6d4df9c47fe67d",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "d0326c5033e2ce293fb7db99bd1faf41841a87924021d144051486c4786af038",
+  "executed_probe_sha256": "4a33f83b4e7f22a7cf15759c0b8cf684a658c3d7be90d85daa8efc8e2bb21590",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-      "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
-      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "c9464f59794f55348d99c11a91b103e76f602a30db01afdc59d554f7c6e19727",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
       "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Veh80C/LiveComparison.hpp": "12f25b759aa74fa8e4c3d9d63004ca85ef93c3c481638c1d9def9ec2ed3e3a05",
@@ -37,5 +37,12 @@
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Veh80C-20261107-143900-062906/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "8ad698d87ac0fc154215a98d5bc370460d9c2a693b9068b6ce1b81efd0fc7f6b",
+    "uncompressed_sha256": "6f2e1422963d910acf961026fd13218ad2b195d1aea27d501a6d4df9c47fe67d"
   }
 }

@@ -12706,7 +12706,7 @@
       },
       "evidence": {
         "path": "reversing/Veh80C/validation-summary.json",
-        "sha256": "8b4f31b2f7d1d73686e448d09233f7e7b5af9987442e4d26cd358edac40d26d6",
+        "sha256": "6e278055dfc79d6a66340c44024d65bb9585c05e18b37e52743a2298e0e1d5bd",
         "passed_path": [
           "covered_functions",
           "CVehicle::FireFixedMachineGuns"
@@ -12715,11 +12715,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "c9464f59794f55348d99c11a91b103e76f602a30db01afdc59d554f7c6e19727",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Veh80C/LiveComparison.hpp": "12f25b759aa74fa8e4c3d9d63004ca85ef93c3c481638c1d9def9ec2ed3e3a05",

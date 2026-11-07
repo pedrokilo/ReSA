@@ -1,0 +1,3 @@
+APROBADO: Veh80C
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-veh80c\20261107-143900-062906
