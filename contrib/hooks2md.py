@@ -8,6 +8,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 import exe_coverage
+import pendientes_por_clase
 import registry_store
 import group_a_section
 from validation_registry import evaluate
@@ -402,7 +403,7 @@ def generate(input_path, output_path, update_source_status=False):
     lines += ["", "</details>", ""]
     lines += difficulty_section(root, input_path, '9. ', fecha)
     lines += [''] + group_a_section.group_a_section(root, '10. ', fecha, _d['game_remaining']['A']['functions'] if _d else None)
-    lines += ['<a id="parciales"></a>', f"## 11. 🟡 Parciales · {len(partial)} clases", "",
+    lines += ['<a id="parciales"></a>', f"## 11. 🟡 Parciales · {len(partial)} clases del catálogo + {len(pendientes_por_clase.build(root, fecha))} clases/módulos con funciones del EXE pendientes", "",
               "Orden de mayor a menor tamaño de las envolturas al EXE pendientes (suma de bytes de sus cuerpos; a igualdad, alfabético). «Función más grande» y «Tamaño» (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B) indican cuánto pesa la función más difícil de la clase. Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).", "",
               "Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas pero conservan funciones del juego que siguen delegando en el EXE (columna «Envolturas del juego al EXE», que cuenta solo código del juego; las de biblioteca no entran): no cuentan como completas hasta reconstruirlas. Detalle por función en [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).", "",
               "| Clase | Revertidas / total | Pendientes | Envolturas del juego al EXE (sin bibliotecas) | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |"]
@@ -410,6 +411,13 @@ def generate(input_path, output_path, update_source_status=False):
         lines.append(f"| *(ninguna clase parcial al {fecha})* | | | | | | | | | |")
     for c in sorted(partial, key=lambda c: (-wrap_bytes.get(c.name, 0), c.name.casefold())):
         lines.append(f"| {class_link(c.name)} | {c.reversed}/{c.total} | **{c.pending}** | **{wrap_count.get(c.name, 0)}** | {_size_cells(c.name)} | {c.reversed/c.total:.2%} | {c.validated} | {c.locked} |")
+    _pend = pendientes_por_clase.build(root, fecha)
+    if _pend:
+        lines += ["", f"### Clases con funciones del EXE aún sin reemplazar · {len(_pend)} clases / módulos", "",
+                  f"Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x401000–0x74FFFF sin reemplazar por C++ (grupos A–D del mapa del EXE y envolturas; {sum(p[1] for p in _pend):,} funciones). La clase se atribuye por cercanía de direcciones y puede ser errónea cuando su confianza es baja. Lista completa por función: [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md).", "",
+                  "| Clase o módulo | Funciones pendientes | Bytes pendientes | Función más grande (B) | Tamaño |", "| --- | ---: | ---: | ---: | --- |"]
+        for m, n, bts, big in _pend:
+            lines.append(f"| {m.replace('|', chr(92) + '|')} | **{n}** | {bts:,} | {big:,} | {exe_coverage.size_label(big)} |")
     lines += ["", '<a id="sin-revertir"></a>', f"## 12. 🔴 Sin revertir · {len(empty) + len(uncatalogued)} clases", "",
               "Orden de mayor a menor tamaño de las envolturas pendientes. Clases o grupos sin ninguna entrada reconstruida en el catálogo. Las que figuran con envolturas al EXE no están en [hooks.csv](hooks.csv): sus funciones del juego se conocen por el código fuente o por las cohortes de dependencias y siguen delegando en el original.", "",
               "| Clase | Revertidas / total | Pendientes | Envolturas del juego al EXE (sin bibliotecas) | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |"]

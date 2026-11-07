@@ -1,10 +1,10 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (07/11/2026). Total: **2631** funciones en 521 clases/módulos (rango 0x401000–0x74FFFF): 2609 sin reemplazar (A–D) + 22 envolturas pendientes.
+Generado de `docs/JuegoExe/funciones.csv` (07/11/2026). Total: **2,631** funciones en 521 clases/módulos (rango 0x401000–0x74FFFF): 2,609 sin reemplazar (A–D) + 22 envolturas pendientes. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
-Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica y puede ser errónea cuando es baja. Si una función tiene nombre en el catálogo, ese nombre es fiable.
+Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cuando la confianza es baja; un nombre de catálogo sí es fiable.
 
 ## Índice
 
@@ -106,11 +106,12 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | CEventPotentialWalkIntoObject | 6 | 116 |
 | CEventVehicleDamage | 6 | 206 |
 | CFileLoader | 6 | 158 |
+| cHandlingDataMgr | 6 | 299 |
 | CHeli | 6 | 4141 |
 | CPedIntelligencePool | 6 | 1552 |
 | CTaskComplexEnterCar | 6 | 177 |
-| CTaskComplexGoToPointAnyMeans | 6 | 2633 |
 | CTaskComplexGotoDoorAndOpen | 6 | 388 |
+| CTaskComplexGoToPointAnyMeans | 6 | 2633 |
 | CTaskComplexSeekEntityAiming | 6 | 451 |
 | CTaskComplexSunbathe | 6 | 935 |
 | CTaskComplexWaitForPed | 6 | 772 |
@@ -123,7 +124,6 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | CTrain | 6 | 1076 |
 | CTxdStore | 6 | 388 |
 | Ps | 6 | 876 |
-| cHandlingDataMgr | 6 | 299 |
 | CAEAmbienceTrackManager | 5 | 386 |
 | CAEVehicleAudioEntity | 5 | 121 |
 | CColStore | 5 | 373 |
@@ -226,6 +226,7 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | CEventVehicleToSteal | 3 | 15 |
 | CFont | 3 | 251 |
 | CIplStore | 3 | 160 |
+| Common | 3 | 260 |
 | COnscreenCounterEntry | 3 | 450 |
 | CPedDamageResponseCalculator | 3 | 319 |
 | CPlane | 3 | 346 |
@@ -266,7 +267,6 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | CTheCarGenerators | 3 | 55 |
 | CVehicleRecording | 3 | 417 |
 | CWaterLevel | 3 | 253 |
-| Common | 3 | 260 |
 | D3DResourceSystem | 3 | 188 |
 | FurnitureManager_c | 3 | 306 |
 | Game | 3 | 460 |
@@ -277,10 +277,10 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | CAEPedAudioEntity | 2 | 57 |
 | CAEStreamingChannel | 2 | 88 |
 | CAETwinLoopSoundEntity | 2 | 174 |
-| CAEWMADecoder | 2 | 59 |
 | CAEWaterCannonAudioEntity | 2 | 309 |
-| CAnimBlendStaticAssociation | 2 | 121 |
+| CAEWMADecoder | 2 | 59 |
 | CAnimatedBuilding | 2 | 35 |
+| CAnimBlendStaticAssociation | 2 | 121 |
 | CBuilding | 2 | 83 |
 | CBuildingPool | 2 | 62 |
 | CCheat | 2 | 246 |
@@ -289,6 +289,7 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | CCustomBuildingDNPipeline | 2 | 39 |
 | CDecisionMakerTypes | 2 | 278 |
 | CDirectory | 2 | 39 |
+| CdStream | 2 | 13 |
 | CDummyPool | 2 | 62 |
 | CEventHandler | 2 | 130 |
 | CEventPool | 2 | 126 |
@@ -369,7 +370,6 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | CTrailer | 2 | 33 |
 | CVehicleAnimGroup | 2 | 58 |
 | CWeather | 2 | 352 |
-| CdStream | 2 | 13 |
 | FxMemoryPool_c | 2 | 194 |
 | IKChain_c | 2 | 205 |
 | Input | 2 | 302 |
@@ -390,12 +390,13 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | CAEVorbisDecoder | 1 | 27 |
 | CAEWaveDecoder | 1 | 27 |
 | CBoat | 1 | 30 |
+| cBuoyancy | 1 | 54 |
 | CCamera | 1 | 527 |
 | CCarAI | 1 | 22 |
 | CCivilianPed | 1 | 11 |
 | CColLine | 1 | 58 |
-| CColModel | 1 | 96 |
 | CCollisionData | 1 | 52 |
+| CColModel | 1 | 96 |
 | CConversations | 1 | 55 |
 | CCoronas | 1 | 117 |
 | CCrime | 1 | 10 |
@@ -530,7 +531,6 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | CWorld | 1 | 51 |
 | JPegPlugin | 1 | 108 |
 | PipelinePlugin | 1 | 273 |
-| cBuoyancy | 1 | 54 |
 
 ## FxEmitterBP_c (141)
 
@@ -2618,6 +2618,17 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | 0x00537570 | 12 | D |  | 0 | 0 |  | alta |
 | 0x00537A10 | 18 | A |  | 1 | 1 |  | baja |
 
+## cHandlingDataMgr (6)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x006F4FA0 | 15 | D |  | 0 | 0 |  | alta |
+| 0x006F5440 | 70 | A |  | 4 | 4 |  | baja |
+| 0x006F54D0 | 85 | C |  | 1 | 0 |  | baja |
+| 0x006F5530 | 49 | B |  | 0 | 0 | sí | baja |
+| 0x006F5570 | 75 | B |  | 0 | 0 | sí | baja |
+| 0x006F55C0 | 5 | B |  | 0 | 0 | sí | baja |
+
 ## CHeli (6)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -2651,17 +2662,6 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | 0x00643CC0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00643CE0 | 30 | B |  | 0 | 0 | sí | baja |
 
-## CTaskComplexGoToPointAnyMeans (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0066B780 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00670830 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00672BB0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00673070 | 878 | C |  | 8 | 0 |  | baja |
-| 0x00673540 | 1628 | D |  | 0 | 0 |  | baja |
-| 0x00673BA0 | 61 | C |  | 2 | 0 |  | baja |
-
 ## CTaskComplexGotoDoorAndOpen (6)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -2672,6 +2672,17 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | 0x0066C3E0 | 86 | A |  | 3 | 1 |  | baja |
 | 0x0066C450 | 106 | C |  | 3 | 0 |  | baja |
 | 0x0066C4C0 | 11 | C |  | 1 | 0 |  | baja |
+
+## CTaskComplexGoToPointAnyMeans (6)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0066B780 | 6 | B |  | 0 | 0 | sí | alta |
+| 0x00670830 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00672BB0 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00673070 | 878 | C |  | 8 | 0 |  | baja |
+| 0x00673540 | 1628 | D |  | 0 | 0 |  | baja |
+| 0x00673BA0 | 61 | C |  | 2 | 0 |  | baja |
 
 ## CTaskComplexSeekEntityAiming (6)
 
@@ -2804,17 +2815,6 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | 0x00745920 | 327 | C |  | 2 | 0 |  | baja |
 | 0x00745A70 | 5 | A |  | 2 | 2 |  | baja |
 | 0x00746480 | 300 | C |  | 1 | 0 |  | alta |
-
-## cHandlingDataMgr (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006F4FA0 | 15 | D |  | 0 | 0 |  | alta |
-| 0x006F5440 | 70 | A |  | 4 | 4 |  | baja |
-| 0x006F54D0 | 85 | C |  | 1 | 0 |  | baja |
-| 0x006F5530 | 49 | B |  | 0 | 0 | sí | baja |
-| 0x006F5570 | 75 | B |  | 0 | 0 | sí | baja |
-| 0x006F55C0 | 5 | B |  | 0 | 0 | sí | baja |
 
 ## CAEAmbienceTrackManager (5)
 
@@ -3739,6 +3739,14 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | 0x00405960 | 54 | D |  | 0 | 0 |  | baja |
 | 0x00406360 | 15 | A |  | 1 | 1 |  | baja |
 
+## Common (3)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0054ED20 | 105 | D |  | 0 | 0 |  | alta |
+| 0x0054EEA0 | 79 | A |  | 3 | 3 |  | alta |
+| 0x0071DB30 | 76 | A |  | 2 | 2 |  | alta |
+
 ## COnscreenCounterEntry (3)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4059,14 +4067,6 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | 0x006E76E0 | 11 | C |  | 1 | 0 |  | alta |
 | 0x006E8550 | 34 | A |  | 4 | 4 |  | alta |
 
-## Common (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0054ED20 | 105 | D |  | 0 | 0 |  | alta |
-| 0x0054EEA0 | 79 | A |  | 3 | 3 |  | alta |
-| 0x0071DB30 | 76 | A |  | 2 | 2 |  | alta |
-
 ## D3DResourceSystem (3)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4141,13 +4141,6 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | 0x004F2930 | 35 | D |  | 0 | 0 |  | alta |
 | 0x004F2B80 | 139 | A |  | 8 | 1 |  | alta |
 
-## CAEWMADecoder (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00502BF0 | 32 | A |  | 1 | 1 |  | alta |
-| 0x00502C40 | 27 | B |  | 0 | 0 | sí | alta |
-
 ## CAEWaterCannonAudioEntity (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4155,12 +4148,12 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | 0x00502F80 | 223 | A |  | 4 | 4 |  | alta |
 | 0x00728AB0 | 86 | C |  | 1 | 0 |  | baja |
 
-## CAnimBlendStaticAssociation (2)
+## CAEWMADecoder (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x004CECF0 | 94 | C |  | 1 | 0 |  | baja |
-| 0x004CEFA0 | 27 | D |  | 0 | 0 |  | baja |
+| 0x00502BF0 | 32 | A |  | 1 | 1 |  | alta |
+| 0x00502C40 | 27 | B |  | 0 | 0 | sí | alta |
 
 ## CAnimatedBuilding (2)
 
@@ -4168,6 +4161,13 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 |---|---:|---|---|---:|---:|---|---|
 | 0x00537A50 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00537A70 | 5 | C |  | 1 | 0 |  | baja |
+
+## CAnimBlendStaticAssociation (2)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004CECF0 | 94 | C |  | 1 | 0 |  | baja |
+| 0x004CEFA0 | 27 | D |  | 0 | 0 |  | baja |
 
 ## CBuilding (2)
 
@@ -4224,6 +4224,13 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 |---|---:|---|---|---:|---:|---|---|
 | 0x00532540 | 28 | A |  | 3 | 0 |  | baja |
 | 0x00532560 | 11 | C |  | 4 | 0 |  | baja |
+
+## CdStream (2)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00406450 | 6 | A |  | 1 | 1 |  | alta |
+| 0x00406D10 | 7 | A |  | 5 | 5 |  | baja |
 
 ## CDummyPool (2)
 
@@ -4785,13 +4792,6 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | 0x0072A620 | 17 | C |  | 1 | 0 |  | alta |
 | 0x0072A640 | 335 | A |  | 3 | 3 |  | alta |
 
-## CdStream (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00406450 | 6 | A |  | 1 | 1 |  | alta |
-| 0x00406D10 | 7 | A |  | 5 | 5 |  | baja |
-
 ## FxMemoryPool_c (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4922,6 +4922,12 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 |---|---:|---|---|---:|---:|---|---|
 | 0x006F1120 | 30 | B |  | 0 | 0 | sí | alta |
 
+## cBuoyancy (1)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x006C4130 | 54 | A |  | 2 | 2 |  | baja |
+
 ## CCamera (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4946,17 +4952,17 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 |---|---:|---|---|---:|---:|---|---|
 | 0x0040F030 | 58 | A |  | 5 | 3 |  | baja |
 
-## CColModel (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0040FAF0 | 96 | A |  | 8 | 4 |  | baja |
-
 ## CCollisionData (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x0040F700 | 52 | A |  | 30 | 7 |  | baja |
+
+## CColModel (1)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0040FAF0 | 96 | A |  | 8 | 4 |  | baja |
 
 ## CConversations (1)
 
@@ -5761,9 +5767,3 @@ Aviso: la clase se atribuye por cercanía de direcciones; la confianza se indica
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x0072FC70 | 273 | A |  | 6 | 6 |  | baja |
-
-## cBuoyancy (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006C4130 | 54 | A |  | 2 | 2 |  | baja |

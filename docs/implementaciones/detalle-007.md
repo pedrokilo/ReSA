@@ -49,7 +49,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| * __fastcall ColPointAssignExe(CColPoint* self, void* /*edx*/, const CColPoint* source) | [source/game_sa/Collision/ColPoint.cpp:43](../../source/game_sa/Collision/ColPoint.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CColPoint::ColPointAssignExe 0x0040FC80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall ColPointAssignExe(CColPoint* self, void* /*edx*/, const CColPoint* source) | [source/game_sa/Collision/ColPoint.cpp:52](../../source/game_sa/Collision/ColPoint.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CColPoint::ColPointAssignExe 0x0040FC80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-124"></a>
 

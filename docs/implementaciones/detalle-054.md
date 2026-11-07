@@ -42,9 +42,9 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| ColLightingCurrentExe(unsigned int lighting, float scale) | [source/game_sa/Collision/ColPoint.cpp:35](../../source/game_sa/Collision/ColPoint.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: tColLighting::GetCurrentLighting 0x0059F0C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_fDNBalanceParam: source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h:24 (0x008D12C0) |
-| CColPointInjectHooksLote105A() | [source/game_sa/Collision/ColPoint.cpp:62](../../source/game_sa/Collision/ColPoint.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| tColLightingInjectHooksLote116A() | [source/game_sa/Collision/ColPoint.cpp:71](../../source/game_sa/Collision/ColPoint.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ColLightingCurrentExe(unsigned int lighting, float scale) | [source/game_sa/Collision/ColPoint.cpp:44](../../source/game_sa/Collision/ColPoint.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: tColLighting::GetCurrentLighting 0x0059F0C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_fDNBalanceParam: source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h:24 (0x008D12C0) |
+| CColPointInjectHooksLote105A() | [source/game_sa/Collision/ColPoint.cpp:71](../../source/game_sa/Collision/ColPoint.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| tColLightingInjectHooksLote116A() | [source/game_sa/Collision/ColPoint.cpp:80](../../source/game_sa/Collision/ColPoint.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1065"></a>
 
