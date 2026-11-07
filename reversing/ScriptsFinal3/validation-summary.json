@@ -220,26 +220,26 @@
     "CTheScripts::WipeLocalVariableMemoryForMissionScript": "Corpus 64; source reviewed against the EXE and corrected before the run where needed (see git diff). Limites del banco: pools de peds, edificios, objetos, dummies y TXD, motor RW, entidades, tareas, eventos y grupos falsos con tablas virtuales falsas; colaboradores (referencias, mundo, cerebros de script, CFileMgr, flujo de guardado en memoria, TXD, marcadores, sombras, dibujo 2D) doblados con traza y sin credito."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/ScriptsFinal3-20261101-090341-223376",
-  "summary_sha256": "32923a753a1e05028760b41e61693e8d94116d1c636efe822392cab30aed969b",
-  "result_txt_sha256": "ba47d91b0ca1e7d1695fba0498274edcb7f853f4001e1572c33fd36658284e76",
-  "log_sha256": "e40878be8179f5651e2bfc790157c9992d9eff2e13719f6bc15b2705614b79e9",
+  "run": "reversing/CppTwelveLevel6Final/runs/ScriptsFinal3-20261107-151420-465165",
+  "summary_sha256": "5dc3ff0a1d82b17f61dfc8d0e567f83960f51885552f3b5eb2b8cc13d8f35c08",
+  "result_txt_sha256": "f0bd9aea95af4bdbd36a87fd75ce5d778e6a5a37c502692556d733d7524741d0",
+  "log_sha256": "d4ed41de1a0c1cc7a82ef5281da7acd9075becae9f971f3cd4bc24ddc1e2688d",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/ScriptsFinal3-20261101-090341-223376/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/ScriptsFinal3-20261107-151420-465165/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "3024d9ef8c807b6dc96acca1b0e9df5b4d3b63d84955f39ea63aa9abcf88fdfa",
-    "uncompressed_sha256": "e40878be8179f5651e2bfc790157c9992d9eff2e13719f6bc15b2705614b79e9"
+    "compressed_sha256": "04e85201170d8add63e43241d6dd3f1f11f96c4807e8ca8ea579bc27578bc1c5",
+    "uncompressed_sha256": "d4ed41de1a0c1cc7a82ef5281da7acd9075becae9f971f3cd4bc24ddc1e2688d"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "86504120ece59aa4d72c9bc9451c1eec22dad57a461670628426ac7c3772923e",
+  "executed_probe_sha256": "bf338bad4caa6889a23b3b170e91d2602cd8e5d42502e240cdbcc18cc2534cfe",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
+      "source/game_sa/Scripts/TheScripts.cpp": "73a8b3402202ef20f5a423da29fe17d7bd1cc255bdd7494251cfff729ee38fd6",
       "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
     }
   },
