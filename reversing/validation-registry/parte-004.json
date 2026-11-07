@@ -57269,7 +57269,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::Shutdown"
@@ -57299,7 +57299,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::DisableRandomTrains"
@@ -57329,7 +57329,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::FindNumCarriagesPulled"
@@ -57359,7 +57359,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::FindSideStationIsOn"
@@ -57389,7 +57389,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::IsInTunnel"
@@ -57419,7 +57419,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::OpenTrainDoor"
@@ -57449,7 +57449,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::AddPassenger"
@@ -57479,7 +57479,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::RemovePassenger"
@@ -57509,7 +57509,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::ProcessTrainAnnouncements"
@@ -57539,7 +57539,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::PlayAnnouncement"
@@ -57569,7 +57569,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::UpdateTrains"
@@ -57599,7 +57599,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::ReleaseOneMissionTrain"
@@ -57629,7 +57629,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::RemoveOneMissionTrain"
@@ -57659,7 +57659,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::SetTrainSpeed"
@@ -57689,7 +57689,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::SetTrainCruiseSpeed"
@@ -57719,7 +57719,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::SetNewTrainPosition"
@@ -57749,7 +57749,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::RemoveMissionTrains"
@@ -57779,7 +57779,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::ReleaseMissionTrains"
@@ -57809,7 +57809,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CTrain::MarkSurroundingEntitiesForCollisionWithTrain"
@@ -57839,7 +57839,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::Constructor"
@@ -57869,7 +57869,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::InitPlaneGenerationAndRemoval"
@@ -57899,7 +57899,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::IsAlreadyFlying"
@@ -57929,7 +57929,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::SetGearUp"
@@ -57959,7 +57959,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::SetGearDown"
@@ -57989,7 +57989,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::CountPlanesAndHelis"
@@ -58019,7 +58019,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::AreWeInNoPlaneZone"
@@ -58049,7 +58049,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::AreWeInNoBigPlaneZone"
@@ -58079,7 +58079,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::Render"
@@ -58109,7 +58109,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::OpenDoor"
@@ -58139,7 +58139,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::SetUpWheelColModel"
@@ -58169,7 +58169,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::BurstTyre"
@@ -58199,7 +58199,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::Fix"
@@ -58229,7 +58229,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CPlane::SetupDamageAfterLoad"
@@ -58259,7 +58259,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::dmgDrawCarCollidingParticles"
@@ -58289,7 +58289,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::KnockOffRider"
@@ -58319,7 +58319,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::ReduceHornCounter"
@@ -58349,7 +58349,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::GetAllWheelsOffGround"
@@ -58379,7 +58379,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::DebugCode"
@@ -58409,7 +58409,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::PlayHornIfNecessary"
@@ -58439,7 +58439,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::CalculateLeanMatrix"
@@ -58469,7 +58469,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::ProcessBuoyancy"
@@ -58499,7 +58499,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::SetModelIndex"
@@ -58529,7 +58529,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::Teleport"
@@ -58559,7 +58559,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::Render"
@@ -58589,7 +58589,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::ProcessControlCollisionCheck"
@@ -58619,7 +58619,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::GetComponentWorldPosition"
@@ -58649,7 +58649,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::ProcessOpenDoor"
@@ -58679,7 +58679,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::RemoveRefsToVehicle"
@@ -58709,7 +58709,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::ProcessDrivingAnims"
@@ -58739,7 +58739,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::Fix"
@@ -58769,7 +58769,7 @@
       },
       "evidence": {
         "path": "reversing/VehWave2/validation-summary.json",
-        "sha256": "ce4bcfe86d23ebdbb6e355a1d648ef64dedf69d4eaa0579d226fce803168130d",
+        "sha256": "0547107ad74c3abdd3a596304fc2c0790b0c5aad06fbacfbe502733fa83e847a",
         "passed_path": [
           "covered_functions",
           "CBike::SetupDamageAfterLoad"

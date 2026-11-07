@@ -163,22 +163,22 @@
     "CBike::SetupDamageAfterLoad": "Corpus 64; virtual slot of the EXE vtable; compared as is."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/VehWave2-20261105-112140-737771",
-  "summary_sha256": "6bf9bb6519b1228708312c2f06f5f83ec324e667119cd18f8a68519605be90de",
-  "result_txt_sha256": "94e05c27744a0edad56188d840f3625d868f23b0d1d65bb39e8ab3433c0e4d8c",
-  "log_sha256": "a3e3da81e482a1774479c4d56d90284c605cb0c2e3180e103b18b13ba480c29e",
+  "run": "reversing/CppTwelveLevel6Final/runs/VehWave2-20261107-141049-281182",
+  "summary_sha256": "8326952e2732566d411d01f05fe0bc5726e7f58a67160583d5d9c3e9681aa1cc",
+  "result_txt_sha256": "5413ae91ff2c1e965a4290bc05e3934012d33be6fadf13bbdb7a77dc58d02a2a",
+  "log_sha256": "dd3da984e67584498692045e0011f305edde7bc385afb3cd5e2ca46ffe8ef5a5",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/VehWave2-20261105-112140-737771/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/VehWave2-20261107-141049-281182/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "5e33cd331a7529e70277a6d810d4a00052cb05c86e7477e1cbee5debffc49ac4",
-    "uncompressed_sha256": "a3e3da81e482a1774479c4d56d90284c605cb0c2e3180e103b18b13ba480c29e"
+    "compressed_sha256": "664ffbc51e01f3c26805a04d79fce977fffdcbedcd2b95cfeb6e9e7776c95599",
+    "uncompressed_sha256": "dd3da984e67584498692045e0011f305edde7bc385afb3cd5e2ca46ffe8ef5a5"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "d94c3a094b0b52c052f67dae143dba56187b7abe3a22d752ef96bfe4ede2f942",
+  "executed_probe_sha256": "753be9eaa383e4d9b84faddb56341704227cfa02d7de7c7f4f40344d14db6c9b",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
