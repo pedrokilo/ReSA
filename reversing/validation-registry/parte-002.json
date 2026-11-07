@@ -10432,7 +10432,7 @@
       },
       "evidence": {
         "path": "reversing/StencilReg62/validation-summary.json",
-        "sha256": "166b77d1537f36c4fb08829b7dee660a8f8b7844353d88347d16995dd7e98d93",
+        "sha256": "65a89e9b816dec65d08f8d85fe4a0bc1bedac150127724f13c83494cf102d6e9",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::RegisterStencilShadows"
@@ -10441,7 +10441,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/StencilShadows.cpp": "824d9085ae61b0904c93da5e53a9e21f11301290518eb50be57b801fff56244d",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908"

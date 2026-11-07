@@ -17,18 +17,18 @@
   "log_sha256": "0f5cf1a4aa95dce6af3648f4e8366ebdb2c52263a39b2fb36c3319876abc5a5d",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stencilreg62\\20261006-003035-814094",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stencilreg62\\20261107-130807-992596",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CStencilShadows::RegisterStencilShadows": true
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "67df3edc33fafa54e8befb3910eccb1c7f9b4d703b460456ef38cc25c9577811",
-      "pdb": "6da36c0213b4b5a44b9f42f7b0e62b1ec6fc4857ac1449e9a3b0de58882a35b2"
+      "asi": "51f182df3e156c21cbf5683de603e9072f641a4bdbbbb520914d76c82c164d69",
+      "pdb": "dc23ee514b69a53fbfa7421da2805334610abfa19ce9c65b650baff6be526b03"
     },
     "sources": {
-      "source/game_sa/StencilShadows.cpp": "824d9085ae61b0904c93da5e53a9e21f11301290518eb50be57b801fff56244d",
+      "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
       "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
       "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
       "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908"
@@ -42,6 +42,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
