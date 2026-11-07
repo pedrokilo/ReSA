@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-07 08:32 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-07 20:03 UTC
 
 **Índice:** [1. Objetivo y dimensiones](#objetivo) · [2. Siguientes mediciones](#mediciones) · [3. Siguiente fase](#siguiente-fase) · [4. Vista general](#vista-general) · [5. Cobertura real del EXE](#cobertura-exe) · [6. Lo que falta del código del juego](#que-falta) · [7. Funciones del juego aún no en C++](#no-en-cpp) · [8. Completas](#completas) · [9. Cohorte 17/10/2026](#cohorte-nuevo) · [10. Dependencias directas (grupo A)](#grupo-a) · [11. Parciales](#parciales) · [12. Sin revertir](#sin-revertir) · [13. Cómo leer y actualizar](#metodo)
 
@@ -16,20 +16,20 @@ Cifras medidas el 07/11/2026. **Cada porcentaje de este informe lleva escrita la
 
 | Tipo | Dimensión | Qué cuenta | Numerador | Denominador | Porcentaje (de qué) | Progreso |
 | --- | --- | --- | ---: | ---: | --- | --- |
-| **Funciones** | Funciones del juego reemplazadas por C++ en el EXE (**meta del proyecto**) | Funciones del EXE en 0x401000–0x74FFFF que ya tienen su hook reconstruido (análisis estático del EXE) | 9,187 | 11,804 | 77.83% de las funciones del juego | `████████████████░░░░` |
-| **Funciones** | Funciones del juego que faltan | Complemento de la fila anterior: grupos A–D de [lo que falta](#que-falta) | 2,617 | 11,804 | 22.17% de las funciones del juego | `████░░░░░░░░░░░░░░░░` |
-| **Bytes** | Bytes de código del juego reemplazados | Suma de los cuerpos de esas mismas funciones, en bytes de código | 2,731,049 | 3,007,877 | 90.80% de los bytes de código del juego | `██████████████████░░` |
+| **Funciones** | Funciones del juego reemplazadas por C++ en el EXE (**meta del proyecto**) | Funciones del EXE en 0x401000–0x74FFFF que ya tienen su hook reconstruido (análisis estático del EXE) | 9,207 | 11,804 | 78.00% de las funciones del juego | `████████████████░░░░` |
+| **Funciones** | Funciones del juego que faltan | Complemento de la fila anterior: grupos A–D de [lo que falta](#que-falta) | 2,597 | 11,804 | 22.00% de las funciones del juego | `████░░░░░░░░░░░░░░░░` |
+| **Bytes** | Bytes de código del juego reemplazados | Suma de los cuerpos de esas mismas funciones, en bytes de código | 2,732,133 | 3,007,877 | 90.83% de los bytes de código del juego | `██████████████████░░` |
 | **Clases** | Clases del juego completas | Clases o grupos del catálogo con todas sus entradas reconstruidas y sin envolturas del juego abiertas | 849 | 849 | 100.00% de las clases del juego | `████████████████████` |
 | **Validación** | Clases del juego validadas | Clases completas cuyas entradas tienen todas `validated=1` | 849 | 849 | 100.00% de las clases completas | `████████████████████` |
-| **Entradas del catálogo** | Entradas del juego reconstruidas | Filas de `hooks.csv` con `reversed=1` más las envolturas del juego abiertas, que cuentan como no reconstruidas | 9,221 | 9,221 | 100.00% de las entradas del juego del catálogo | `████████████████████` |
-| **Validación** | Entradas del juego validadas | Entradas reconstruidas con evidencia aprobada vinculada (`validated=1`) | 9,221 | 9,221 | 100.00% de las entradas reconstruidas | `████████████████████` |
-| **Entradas del catálogo** | Entradas reconstruidas escritas solo en C++ | Entradas reconstruidas cuyo cuerpo fuente no tiene `__asm` ni `naked` (las de fuente no identificada de forma inequívoca no cuentan) | 9,217 | 9,221 | 99.96% de las entradas reconstruidas | `████████████████████` |
+| **Entradas del catálogo** | Entradas del juego reconstruidas | Filas de `hooks.csv` con `reversed=1` más las envolturas del juego abiertas, que cuentan como no reconstruidas | 9,241 | 9,241 | 100.00% de las entradas del juego del catálogo | `████████████████████` |
+| **Validación** | Entradas del juego validadas | Entradas reconstruidas con evidencia aprobada vinculada (`validated=1`) | 9,241 | 9,241 | 100.00% de las entradas reconstruidas | `████████████████████` |
+| **Entradas del catálogo** | Entradas reconstruidas escritas solo en C++ | Entradas reconstruidas cuyo cuerpo fuente no tiene `__asm` ni `naked` (las de fuente no identificada de forma inequívoca no cuentan) | 9,237 | 9,241 | 99.96% de las entradas reconstruidas | `████████████████████` |
 
-**Por qué hay un 78% y un 91%.** No se contradicen: miden cosas distintas. El 77.83% cuenta *funciones* y el 90.80% cuenta *bytes* de código; las funciones que faltan son más pequeñas que las ya reemplazadas, así que quedan muchas funciones pero pocos bytes. Las filas «Funciones» y «Bytes» miden el propio EXE (análisis estático, ver [cobertura real del EXE](#cobertura-exe)) y son la medida del avance hacia la meta; las filas de «Entradas del catálogo», «Clases» y «Validación» miden las filas registradas de `hooks.csv`, que solo conocen una parte del código del juego, por eso su porcentaje es mayor. Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última fila cuenta, de las entradas reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
+**Por qué hay un 78% y un 91%.** No se contradicen: miden cosas distintas. El 78.00% cuenta *funciones* y el 90.83% cuenta *bytes* de código; las funciones que faltan son más pequeñas que las ya reemplazadas, así que quedan muchas funciones pero pocos bytes. Las filas «Funciones» y «Bytes» miden el propio EXE (análisis estático, ver [cobertura real del EXE](#cobertura-exe)) y son la medida del avance hacia la meta; las filas de «Entradas del catálogo», «Clases» y «Validación» miden las filas registradas de `hooks.csv`, que solo conocen una parte del código del juego, por eso su porcentaje es mayor. Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última fila cuenta, de las entradas reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 
 **Migración de ensamblador a C++:** en `source/game_sa` ya no queda ningún `__asm` ni función `naked`: todo lo reconstruido está escrito en C++, con resultados validados contra el EXE dentro del juego. Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Historial y excepciones documentadas: [estado de la migración](../reversing/CppOnlyMigration/README.md) · [FILES.md](../reversing/CppOnlyMigration/FILES.md).
 
-Hay 9,221 entradas catalogadas del juego, 0 bloqueadas y 9,221 sin bloqueo. No constituyen un inventario exhaustivo del código del juego; las filas de RenderWare y del CRT del catálogo (83) quedan fuera de este informe. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
+Hay 9,241 entradas catalogadas del juego, 0 bloqueadas y 9,241 sin bloqueo. No constituyen un inventario exhaustivo del código del juego; las filas de RenderWare y del CRT del catálogo (83) quedan fuera de este informe. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
 
 <a id="mediciones"></a>
 
@@ -39,9 +39,9 @@ Estado al 07/11/2026. Lo que ya se midió y lo que todavía no tiene un porcenta
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validación vigente para el árbol actual (validación) | 0/9,221 entradas validadas confirmadas como vigentes (0.00% de las entradas validadas) | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). El 04/11/2026 se repitieron 20 bancos desfasados sin regresión de producción (todos eran bancos desfasados o artefactos del entorno): falta consolidarlos en el registro. |
-| Dependencias de funciones originales eliminadas (funciones) | Medido (cota inferior): 595 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 752 funciones / 107,959 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan: lista viva en la [sección 10](#grupo-a). |
-| Trabajo real que falta (funciones y bytes) | 2,617 funciones y 276,828 bytes del juego sin reemplazar (22.17% de las funciones y 9.20% de los bytes del juego); grupo A 752 funciones y 107,959 bytes | Reconstruir y validar de menor a mayor coste, empezando por el grupo A ([sección 6](#que-falta)). |
+| Validación vigente para el árbol actual (validación) | 0/9,241 entradas validadas confirmadas como vigentes (0.00% de las entradas validadas) | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). El 04/11/2026 se repitieron 20 bancos desfasados sin regresión de producción (todos eran bancos desfasados o artefactos del entorno): falta consolidarlos en el registro. |
+| Dependencias de funciones originales eliminadas (funciones) | Medido (cota inferior): 575 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 732 funciones / 106,875 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan: lista viva en la [sección 10](#grupo-a). |
+| Trabajo real que falta (funciones y bytes) | 2,597 funciones y 275,744 bytes del juego sin reemplazar (22.00% de las funciones y 9.17% de los bytes del juego); grupo A 732 funciones y 106,875 bytes | Reconstruir y validar de menor a mayor coste, empezando por el grupo A ([sección 6](#que-falta)). |
 | Coste por categoría de lote (tiempo de reconstrucción y validación) | Medido para las categorías 1, 2, 3 y 5 en los lotes 90A, 90B, 92A, 92B y 92C (tabla de abajo); sin medir la categoría 4 (funciones con FPU) | Cronometrar un lote piloto con FPU (método x87 a 24 bits) y los siguientes lotes de lógica para convertir la estimación en un coste por función. |
 
 Costes medidos en los lotes cerrados (datos al 07/11/2026, [lotes.csv](JuegoExe/lotes.csv)). Cada lote reconstruye en C++ puro funciones que antes se llamaban al EXE por dirección y las valida dentro del juego (pares EXE/DLL con cero diferencias).
@@ -65,14 +65,14 @@ Las envolturas de biblioteca no cuentan: 211 funciones con envoltura al EXE (Ren
 
 **Lotes en curso:** ninguno registrado para las envolturas del juego.
 
-Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D, 2,617 funciones al 07/11/2026; [sección 6](#que-falta)). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv), y la lista viva está en la [sección 10](#grupo-a):
+Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D, 2,597 funciones al 07/11/2026; [sección 6](#que-falta)). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv), y la lista viva está en la [sección 10](#grupo-a):
 
 1. **Grupo A, por categorías y de menor a mayor coste:** helpers triviales y thunks muy llamados (hecho en el lote 90A: `CPad::GetPad` 0x53FB70, `CRGBA::Constructor` 0x7170C0...), pequeñas sin FPU (lote 90B), lógica sin FPU (empezando por las más llamadas y por clases enteras), funciones con FPU con el método x87 a 24 bits, y por último las de 0x300 bytes o más, una por lote (92B, 92C).
 2. **Lote piloto de cada categoría** para medir el coste real: ya medidos los de las categorías 1, 2, 3 y 5 (tabla de la sección 2); falta la 4, con FPU.
 3. **Revalidación vigente:** repetir los bancos sobre el árbol actual, priorizando los de fuentes cambiadas por lotes posteriores. Motivo: el banco `CVehD` llevaba roto desde el lote 83C (se cambió `m_fSteerAngle` por `m_GasPedal` en `ProcessDrivingAnims`) y no se vio hasta repetirlo.
 4. **Después del código del juego:** `librw`, pipelines de SA y puentes `RwD3D9*`, QuickTime, DDraw y CRT, según la [hoja de ruta](RutaExeIndependiente.md); el cambio de método de validación sin el exe como oráculo.
 
-**Validación consolidada parcialmente:** 9221 funciones del juego con evidencia aprobada vinculada, 2078 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias (cifras al 07/11/2026). Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 9241 funciones del juego con evidencia aprobada vinculada, 2022 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias (cifras al 07/11/2026). Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
 <a id="vista-general"></a>
 
@@ -82,7 +82,7 @@ Al 07/11/2026. Cada columna indica la dimensión y el denominador de su porcenta
 
 | Clases validadas (validación) | Clases completas por validar (validación) | Entradas validadas (validación) | Entradas reconstruidas por validar (validación) | Entradas por reconstruir (entradas del catálogo) |
 | :---: | :---: | :---: | :---: | :---: |
-| **849 / 849 clases** | **0 / 849 clases** | **9,221 / 9,221 entradas** | **0 / 9,221 entradas** | **0 / 9,221 entradas** |
+| **849 / 849 clases** | **0 / 849 clases** | **9,241 / 9,241 entradas** | **0 / 9,241 entradas** | **0 / 9,241 entradas** |
 | 100.00% de las clases completas | 0.00% de las clases completas | 100.00% de las entradas reconstruidas | 0.00% de las entradas reconstruidas | 0.00% de las entradas del juego del catálogo |
 
 Reconstrucción por clases: 849 completas, 0 parciales y 0 sin revertir de 849 clases o grupos.
@@ -94,31 +94,31 @@ Reconstrucción por clases: 849 completas, 0 parciales y 0 sin revertir de 849 c
 
 ## 5. Cobertura real del EXE (estimación)
 
-Esta tabla es la única parte del informe que habla de lo que no es código del juego: sirve para aclarar qué queda fuera de la meta. Las dos primeras filas de la tabla de dimensiones salen de aquí (región del juego); las demás miden filas del catálogo (`hooks.csv`). Se mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,765 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 9,304 filas reconstruidas del catálogo equivalen a **9,257 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo). En esta tabla, «% de funciones» es la parte de las funciones de esa región que ya está en C++ y «% de bytes» la parte de los bytes de código de esa región.
+Esta tabla es la única parte del informe que habla de lo que no es código del juego: sirve para aclarar qué queda fuera de la meta. Las dos primeras filas de la tabla de dimensiones salen de aquí (región del juego); las demás miden filas del catálogo (`hooks.csv`). Se mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,765 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 9,324 filas reconstruidas del catálogo equivalen a **9,277 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo). En esta tabla, «% de funciones» es la parte de las funciones de esa región que ya está en C++ y «% de bytes» la parte de los bytes de código de esa región.
 
 | Región del EXE | Funciones (total de la región) | Bytes de código (total de la región) | Reemplazadas por C++: funciones y % de funciones | Reemplazadas: % de bytes | Funciones de la región llamadas directamente desde código ya reemplazado |
 | --- | ---: | ---: | --- | --- | ---: |
-| Juego y plataforma (0x401000–0x74FFFF) | 11,804 | 3,007,877 | `████████████████░░░░` 9,187 · 77.8% de funciones | `██████████████████░░` 90.8% de bytes | 595 |
+| Juego y plataforma (0x401000–0x74FFFF) | 11,804 | 3,007,877 | `████████████████░░░░` 9,207 · 78.0% de funciones | `██████████████████░░` 90.8% de bytes | 575 |
 | RenderWare y D3D (0x750000–0x81FFFF) | 1,889 | 600,971 | `█░░░░░░░░░░░░░░░░░░░` 61 · 3.2% de funciones | `░░░░░░░░░░░░░░░░░░░░` 0.3% de bytes | 226 |
 | CRT/MSVC y runtime (0x820000 en adelante) | 4,072 | 115,711 | `░░░░░░░░░░░░░░░░░░░░` 9 · 0.2% de funciones | `░░░░░░░░░░░░░░░░░░░░` 0.2% de bytes | 60 |
-| **Total** | **17,765** | **3,724,559** | `██████████░░░░░░░░░░` 9,257 · 52.1% de funciones | `███████████████░░░░░` 73.4% de bytes | **881** |
+| **Total** | **17,765** | **3,724,559** | `██████████░░░░░░░░░░` 9,277 · 52.2% de funciones | `███████████████░░░░░` 73.4% de bytes | **861** |
 
 **Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,765 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes del EXE) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,804 funciones, 81% de los bytes del EXE), y de él ya está reemplazado el **91% de los bytes del juego** y el 78% de las funciones del juego: no se contradicen, las funciones que quedan son más pequeñas que la media. Entre las 11,804 funciones del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
 
 <a id="que-falta"></a>
 
-## 6. Lo que falta del código del juego: 2,617 funciones, 277 KB
+## 6. Lo que falta del código del juego: 2,597 funciones, 276 KB
 
-Al 07/11/2026: 2,617 funciones (22.17% de las funciones del juego) y 276,828 bytes (9.20% de los bytes del juego) siguen sin reemplazar. Este es el trabajo real que falta del código del juego, lo mida o no el catálogo. Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
+Al 07/11/2026: 2,597 funciones (22.00% de las funciones del juego) y 275,744 bytes (9.17% de los bytes del juego) siguen sin reemplazar. Este es el trabajo real que falta del código del juego, lo mida o no el catálogo. Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
 
 | Grupo (de mayor a menor tamaño) | Funciones | Bytes | Lectura |
 | --- | ---: | ---: | --- |
-| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 752 | 107,959 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. Lista viva: [dependencias directas (grupo A)](#grupo-a). |
+| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 732 | 106,875 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. Lista viva: [dependencias directas (grupo A)](#grupo-a). |
 | C. Llamadas directas solo desde código aún no reemplazado | 535 | 68,402 | Dependen de reconstruir antes A y B; parte puede ser código muerto. |
 | D. Sin llamadas directas ni vtable | 423 | 59,628 | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |
 | B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | 907 | 40,839 | Probablemente necesarios: se ejecutan por despacho virtual. |
 
-Del código del juego ya reemplazado, **595 funciones del juego siguen llamándose directamente desde el EXE**. Esa es la lista corta de dependencias reales que hay que eliminar. Las que caen en RenderWare/D3D o el CRT se muestran solo en la última columna de la tabla de cobertura. No hay envolturas del juego abiertas (sección siguiente).
+Del código del juego ya reemplazado, **575 funciones del juego siguen llamándose directamente desde el EXE**. Esa es la lista corta de dependencias reales que hay que eliminar. Las que caen en RenderWare/D3D o el CRT se muestran solo en la última columna de la tabla de cobertura. No hay envolturas del juego abiertas (sección siguiente).
 
 > [!NOTE]
 > **Cotas y límites.** Es un análisis estático: hay 6,004 llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. La partición por regiones usa la dirección, no una clasificación función a función. «Reemplazada» significa que el hook existe y pasó su banco; no acredita independencia del EXE ni que la validación siga vigente para el árbol actual. Se regenera con `contrib/exe_coverage.py` al sincronizar la documentación.
@@ -169,7 +169,7 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | Clase (funciones) | Clase (funciones) | Clase (funciones) |
 | --- | --- | --- |
 | [App](../source/app/app.cpp) (7) ✅ 7 | [CLodTimeModelInfo](../source/game_sa/Models/LodTimeModelInfo.cpp) (2) ✅ 2 | [CTaskComplexSeekEntityStandard](../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp) (9) ✅ 9 |
-| [BoneNode_c](../source/game_sa/Ragdoll/BoneNode.cpp) (17) ✅ 17 | [CMaths](../source/game_sa/Maths.cpp) (3) ✅ 3 | [CTaskComplexSequence](../source/game_sa/Tasks/TaskComplexSequence.cpp) (13) ✅ 13 |
+| [BoneNode_c](../source/game_sa/Ragdoll/BoneNode.cpp) (17) ✅ 17 | [CMaths](../source/game_sa/Maths.cpp) (3) ✅ 3 | [CTaskComplexSequence](../source/game_sa/Tasks/TaskComplexSequence.cpp) (14) ✅ 14 |
 | [BoneNodeManager_c](../source/game_sa/Ragdoll/BoneNodeManager.cpp) (8) ✅ 8 | [CMatrix](../source/game_sa/Core/Matrix.cpp) (34) ✅ 34 | [CTaskComplexShuffleSeats](../source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp) (10) ✅ 10 |
 | [BreakablePlugin](../source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.cpp) (6) ✅ 6 | [CMatrixLink](../source/game_sa/Core/MatrixLink.cpp) (2) ✅ 2 | [CTaskComplexSignalAtPed](../source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp) (7) ✅ 7 |
 | [BreakManager_c](../source/game_sa/BreakManager_c.cpp) (6) ✅ 6 | [CMatrixLinkList](../source/game_sa/Core/MatrixLinkList.cpp) (10) ✅ 10 | [CTaskComplexSitDownThenIdleThenStandUp](../source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp) (9) ✅ 9 |
@@ -177,7 +177,7 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [C2dEffect](../source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.cpp) (14) ✅ 14 | [CMemoryHeap](../source/game_sa/Memory/MemoryHeap.cpp) (1) ✅ 1 | [CTaskComplexSmartFleePoint](../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp) (12) ✅ 12 |
 | [C3dMarker](../source/game_sa/3dMarker.cpp) (6) ✅ 6 | [CMemoryMgr](../source/game_sa/MemoryMgr.cpp) (6) ✅ 6 | [CTaskComplexStareAtPed](../source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp) (7) ✅ 7 |
 | [C3dMarkers](../source/game_sa/3dMarkers.cpp) (20) ✅ 20 | [CMentalState](../source/game_sa/MentalHealth.cpp) (1) ✅ 1 | [CTaskComplexStealCar](../source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp) (8) ✅ 8 |
-| [C_PcSave](../source/game_sa/C_PcSave.cpp) (6) ✅ 6 | [CMenuManager](../source/game_sa/MenuManager.cpp) (61) ✅ 61 | [CTaskComplexStuckInAir](../source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp) (6) ✅ 6 |
+| [C_PcSave](../source/game_sa/C_PcSave.cpp) (6) ✅ 6 | [CMenuManager](../source/game_sa/MenuManager.cpp) (61) ✅ 61 | [CTaskComplexStuckInAir](../source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp) (7) ✅ 7 |
 | [CAccidentManager](../source/game_sa/AccidentManager.cpp) (5) ✅ 5 | [CMenuSystem](../source/game_sa/MenuSystem.cpp) (21) ✅ 21 | [CTaskComplexSunbathe](../source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp) (9) ✅ 9 |
 | [CAcquaintance](../source/game_sa/Acquaintance.cpp) (5) ✅ 5 | [CMessages](../source/game_sa/Messages.cpp) (28) ✅ 28 | [CTaskComplexTrackEntity](../source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp) (11) ✅ 11 |
 | [CActiveOccluder](../source/game_sa/ActiveOccluder.cpp) (2) ✅ 2 | [CMirrors](../source/game_sa/Mirrors.cpp) (8) ✅ 8 | [CTaskComplexTreatAccident](../source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp) (7) ✅ 7 |
@@ -188,9 +188,9 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [CAEAudioHardware](../source/game_sa/Audio/Hardware/AEAudioHardware.cpp) (55) ✅ 55 | [CMotionBlurStreaks](../source/game_sa/MotionBlurStreaks.cpp) (4) ✅ 4 | [CTaskComplexUseClosestFreeScriptedAttractorRun](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorRun.cpp) (4) ✅ 4 |
 | [CAEAudioUtility](../source/game_sa/Audio/AEAudioUtility.cpp) (11) ✅ 11 | [CMouseControllerState](../source/game_sa/MouseControllerState.cpp) (3) ✅ 3 | [CTaskComplexUseClosestFreeScriptedAttractorSprint](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorSprint.cpp) (4) ✅ 4 |
 | [CAEBankLoader](../source/game_sa/Audio/Loaders/AEBankLoader.cpp) (6) ✅ 6 | [CMovingThings](../source/game_sa/MovingThings.cpp) (5) ✅ 5 | [CTaskComplexUseEffect](../source/game_sa/Tasks/TaskTypes/TaskComplexUseEffect.cpp) (8) ✅ 8 |
-| [CAECollisionAudioEntity](../source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp) (18) ✅ 18 | [CNearbyFireScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 | [CTaskComplexUseEffectRunning](../source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp) (2) ✅ 2 |
-| [CAECutsceneTrackManager](../source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp) (8) ✅ 8 | [CNodeAddress](../source/game_sa/NodeAddress.cpp) (3) ✅ 3 | [CTaskComplexUseEffectSprinting](../source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp) (2) ✅ 2 |
-| [CAEDataStream](../source/game_sa/Audio/Loaders/AEDataStream.cpp) (20) ✅ 20 | [CNodeRoute](../source/game_sa/NodeRoute.cpp) (2) ✅ 2 | [CTaskComplexUseGoggles](../source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp) (5) ✅ 5 |
+| [CAECollisionAudioEntity](../source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp) (18) ✅ 18 | [CNearbyFireScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 | [CTaskComplexUseEffectRunning](../source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp) (3) ✅ 3 |
+| [CAECutsceneTrackManager](../source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp) (8) ✅ 8 | [CNodeAddress](../source/game_sa/NodeAddress.cpp) (3) ✅ 3 | [CTaskComplexUseEffectSprinting](../source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp) (3) ✅ 3 |
+| [CAEDataStream](../source/game_sa/Audio/Loaders/AEDataStream.cpp) (20) ✅ 20 | [CNodeRoute](../source/game_sa/NodeRoute.cpp) (2) ✅ 2 | [CTaskComplexUseGoggles](../source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp) (6) ✅ 6 |
 | [CAEDoorAudioEntity](../source/game_sa/Audio/Entities/AEDoorAudioEntity.cpp) (6) ✅ 6 | [CNodeRoutePool](../source/game_sa/Pools/NodeRoutePool.h) (1) ✅ 1 | [CTaskComplexUseMobilePhone](../source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp) (1) ✅ 1 |
 | [CAEExplosionAudioEntity](../source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp) (3) ✅ 3 | [CObject](../source/game_sa/Entity/Object/Object.cpp) (50) ✅ 50 | [CTaskComplexUsePairedAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUsePairedAttractor.cpp) (11) ✅ 11 |
 | [CAEFireAudioEntity](../source/game_sa/Audio/Entities/AEFireAudioEntity.cpp) (7) ✅ 7 | [CObjectData](../source/game_sa/ObjectData.cpp) (2) ✅ 2 | [CTaskComplexUseScriptedAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp) (7) ✅ 7 |
@@ -208,7 +208,7 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [CAEScriptAudioEntity](../source/game_sa/Audio/Entities/AEScriptAudioEntity.cpp) (19) ✅ 19 | [CPathNode](../source/game_sa/PathFind.cpp) (1) ✅ 1 | [CTaskComplexWalkRoundCar](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp) (13) ✅ 13 |
 | [CAESmoothFadeThread](../source/game_sa/Audio/AESmoothFadeThread.cpp) (10) ✅ 10 | [CPed](../source/game_sa/Entity/Ped/Ped.cpp) (152) ✅ 152 | [CTaskComplexWalkRoundFire](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundFire.cpp) (8) ✅ 8 |
 | [CAESound](../source/game_sa/Audio/AESound.cpp) (19) ✅ 19 | [CPedAcquaintanceScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 | [CTaskComplexWalkRoundObject](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp) (6) ✅ 6 |
-| [CAESoundManager](../source/game_sa/Audio/Managers/AESoundManager.cpp) (14) ✅ 14 | [CPedAttractor](../source/game_sa/Attractors/PedAttractor.cpp) (20) ✅ 20 | [CTaskComplexWander](../source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp) (16) ✅ 16 |
+| [CAESoundManager](../source/game_sa/Audio/Managers/AESoundManager.cpp) (14) ✅ 14 | [CPedAttractor](../source/game_sa/Attractors/PedAttractor.cpp) (20) ✅ 20 | [CTaskComplexWander](../source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp) (17) ✅ 17 |
 | [CAEStaticChannel](../source/game_sa/Audio/Hardware/AEStaticChannel.cpp) (8) ✅ 8 | [CPedAttractorManager](../source/game_sa/PedAttractorManager.cpp) (14) ✅ 14 | [CTaskComplexWanderCop](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp) (9) ✅ 9 |
 | [CAEStreamingChannel](../source/game_sa/Audio/Hardware/AEStreamingChannel.cpp) (24) ✅ 24 | [CPedAttractorPedPlacer](../source/game_sa/Attractors/PedAttractorPedPlacer.cpp) (1) ✅ 1 | [CTaskComplexWanderCriminal](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp) (6) ✅ 6 |
 | [CAEStreamingDecoder](../source/game_sa/Audio/Loaders/AEStreamingDecoder.cpp) (3) ✅ 3 | [CPedAttractorPool](../source/game_sa/Pools/PedAttractorPool.h) (1) ✅ 1 | [CTaskComplexWanderFlee](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderFlee.cpp) (6) ✅ 6 |
@@ -235,8 +235,8 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [CAnimManager](../source/game_sa/Animation/AnimManager.cpp) (32) ✅ 32 | [CPedPool](../source/game_sa/Pools/PedPool.h) (3) ✅ 3 | [CTaskSimple](../source/game_sa/Tasks/Task.cpp) (1) ✅ 1 |
 | [CAtomicModelInfo](../source/game_sa/Models/AtomicModelInfo.cpp) (9) ✅ 9 | [CPedSaveStructure](../source/game_sa/Entity/Ped/PedSaveStructure.cpp) (2) ✅ 2 | [CTaskSimpleAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskSimpleAchieveHeading.cpp) (6) ✅ 6 |
 | [CAttractorScanner](../source/game_sa/AttractorScanner.cpp) (2) ✅ 2 | [CPedScanner](../source/game_sa/PedScanner.cpp) (1) ✅ 1 | [CTaskSimpleAffectSecondaryBehaviour](../source/game_sa/Tasks/TaskTypes/TaskSimpleAffectSecondaryBehaviour.cpp) (5) ✅ 5 |
-| [CAudioEngine](../source/game_sa/Audio/AudioEngine.cpp) (82) ✅ 82 | [CPedScriptedTaskRecord](../source/game_sa/Tasks/PedScriptedTaskRecord.cpp) (5) ✅ 5 | [CTaskSimpleAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp) (1) ✅ 1 |
-| [CAudioZones](../source/game_sa/Audio/AudioZones.cpp) (5) ✅ 5 | [CPedScriptedTaskRecordData](../source/game_sa/Tasks/PedScriptedTaskRecord.cpp) (8) ✅ 8 | [CTaskSimpleArrestPed](../source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp) (3) ✅ 3 |
+| [CAudioEngine](../source/game_sa/Audio/AudioEngine.cpp) (82) ✅ 82 | [CPedScriptedTaskRecord](../source/game_sa/Tasks/PedScriptedTaskRecord.cpp) (5) ✅ 5 | [CTaskSimpleAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp) (2) ✅ 2 |
+| [CAudioZones](../source/game_sa/Audio/AudioZones.cpp) (5) ✅ 5 | [CPedScriptedTaskRecordData](../source/game_sa/Tasks/PedScriptedTaskRecord.cpp) (8) ✅ 8 | [CTaskSimpleArrestPed](../source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp) (4) ✅ 4 |
 | [CAutomobile](../source/game_sa/Entity/Vehicle/Automobile.cpp) (104) ✅ 104 | [CPedShelterAttractor](../source/game_sa/Attractors/PedShelterAttractor.cpp) (4) ✅ 4 | [CTaskSimpleBeHit](../source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp) (8) ✅ 8 |
 | [CAutoPilot](../source/game_sa/AutoPilot.cpp) (2) ✅ 2 | [CPedStats](../source/game_sa/PedStats.cpp) (5) ✅ 5 | [CTaskSimpleBikeJacked](../source/game_sa/Tasks/TaskTypes/TaskSimpleBikeJacked.cpp) (8) ✅ 8 |
 | [CBaseModelInfo](../source/game_sa/Models/BaseModelInfo.cpp) (34) ✅ 34 | [CPedStuckChecker](../source/game_sa/PedStuckChecker.cpp) (1) ✅ 1 | [CTaskSimpleCarAlign](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp) (10) ✅ 10 |
@@ -252,9 +252,9 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [CBuilding](../source/game_sa/Entity/Building.cpp) (2) ✅ 2 | [CPlaneBanners](../source/game_sa/PlaneBanners.cpp) (1) ✅ 1 | [CTaskSimpleCarJumpOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarJumpOut.cpp) (10) ✅ 10 |
 | [CBuildingPool](../source/game_sa/Pools/BuildingPool.h) (1) ✅ 1 | [CPlaneTrail](../source/game_sa/PlaneTrail.cpp) (3) ✅ 3 | [CTaskSimpleCarOpenDoorFromOutside](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarOpenDoorFromOutside.cpp) (10) ✅ 10 |
 | [CBulletInfo](../source/game_sa/BulletInfo.cpp) (4) ✅ 4 | [CPlaneTrails](../source/game_sa/PlaneTrails.cpp) (4) ✅ 4 | [CTaskSimpleCarOpenLockedDoorFromOutside](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarOpenLockedDoorFromOutside.cpp) (9) ✅ 9 |
-| [CBulletTraces](../source/game_sa/BulletTraces.cpp) (5) ✅ 5 | [CPlantColEntEntry](../source/game_sa/Plant/PlantColEntEntry.cpp) (2) ✅ 2 | [CTaskSimpleCarSetPedInAsDriver](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.cpp) (5) ✅ 5 |
+| [CBulletTraces](../source/game_sa/BulletTraces.cpp) (5) ✅ 5 | [CPlantColEntEntry](../source/game_sa/Plant/PlantColEntEntry.cpp) (2) ✅ 2 | [CTaskSimpleCarSetPedInAsDriver](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.cpp) (6) ✅ 6 |
 | [cBuoyancy](../source/game_sa/Buoyancy.cpp) (9) ✅ 9 | [CPlantLocTri](../source/game_sa/Plant/PlantLocTri.cpp) (3) ✅ 3 | [CTaskSimpleCarSetPedInAsPassenger](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp) (5) ✅ 5 |
-| [CCam](../source/game_sa/Cam.cpp) (56) ✅ 56 | [CPlantMgr](../source/game_sa/PlantMgr.cpp) (20) ✅ 20 | [CTaskSimpleCarSetPedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp) (6) ✅ 6 |
+| [CCam](../source/game_sa/Cam.cpp) (56) ✅ 56 | [CPlantMgr](../source/game_sa/PlantMgr.cpp) (20) ✅ 20 | [CTaskSimpleCarSetPedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp) (7) ✅ 7 |
 | [CCamera](../source/game_sa/Camera.cpp) (122) ✅ 122 | [CPlantSurfPropMgr](../source/game_sa/PlantSurfPropMgr.cpp) (4) ✅ 4 | [CTaskSimpleCarSetPedSlowDraggedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedSlowDraggedOut.cpp) (6) ✅ 6 |
 | [CCarAI](../source/game_sa/CarAI.cpp) (26) ✅ 26 | [CPlayerInfo](../source/game_sa/PlayerInfo.cpp) (29) ✅ 29 | [CTaskSimpleCarSetTempAction](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetTempAction.cpp) (6) ✅ 6 |
 | [CCarCtrl](../source/game_sa/CarCtrl.cpp) (112) ✅ 112 | [CPlayerPed](../source/game_sa/Entity/Ped/PlayerPed.cpp) (66) ✅ 66 | [CTaskSimpleCarShuffle](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarShuffle.cpp) (9) ✅ 9 |
@@ -272,13 +272,13 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [CClouds](../source/game_sa/Clouds.cpp) (21) ✅ 21 | [CProjectile](../source/game_sa/Entity/Object/Projectile.cpp) (1) ✅ 1 | [CTaskSimpleDie](../source/game_sa/Tasks/TaskTypes/TaskSimpleDie.cpp) (7) ✅ 7 |
 | [CClumpModelInfo](../source/game_sa/Models/ClumpModelInfo.cpp) (24) ✅ 24 | [CProjectileInfo](../source/game_sa/ProjectileInfo.cpp) (12) ✅ 12 | [CTaskSimpleDieInCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleDieInCar.cpp) (5) ✅ 5 |
 | [CColAccel](../source/game_sa/Collision/ColAccel.cpp) (11) ✅ 11 | [CPtrNodeDoubleLinkPool](../source/game_sa/Pools/PtrNodeDoubleLinkPool.h) (1) ✅ 1 | [CTaskSimpleDoHandSignal](../source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp) (6) ✅ 6 |
-| [CColBox](../source/game_sa/Collision/ColBox.cpp) (2) ✅ 2 | [CPtrNodeSingleLinkPool](../source/game_sa/Pools/PtrNodeSingleLinkPool.h) (1) ✅ 1 | [CTaskSimpleDrown](../source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp) (1) ✅ 1 |
+| [CColBox](../source/game_sa/Collision/ColBox.cpp) (2) ✅ 2 | [CPtrNodeSingleLinkPool](../source/game_sa/Pools/PtrNodeSingleLinkPool.h) (1) ✅ 1 | [CTaskSimpleDrown](../source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp) (2) ✅ 2 |
 | [CColLine](../source/game_sa/Collision/ColLine.cpp) (2) ✅ 2 | [CQuadBike](../source/game_sa/Entity/Vehicle/QuadBike.cpp) (12) ✅ 12 | [CTaskSimpleDrownInCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleDrownInCar.cpp) (1) ✅ 1 |
 | [CCollision](../source/game_sa/Collision/Collision.cpp) (61) ✅ 61 | [CQuadTreeNode&lt;T&gt;](../source/game_sa/Core/QuadTreeNode.h) (12) ✅ 12 | [CTaskSimpleDuck](../source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp) (17) ✅ 17 |
 | [CCollisionData](../source/game_sa/Collision/CollisionData.cpp) (8) ✅ 8 | [CQuaternion](../source/game_sa/Core/Quaternion.cpp) (10) ✅ 10 | [CTaskSimpleDuckToggle](../source/game_sa/Tasks/TaskTypes/TaskSimpleDuckToggle.cpp) (6) ✅ 6 |
 | [CCollisionEventScanner](../source/game_sa/Collision/CollisionEventScanner.cpp) (1) ✅ 1 | [CRadar](../source/game_sa/Radar.cpp) (65) ✅ 65 | [CTaskSimpleEvasiveDive](../source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveDive.cpp) (8) ✅ 8 |
 | [CCollisionPlugin](../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp) (2) ✅ 2 | [CRealTimeShadow](../source/game_sa/RealTimeShadow.cpp) (9) ✅ 9 | [CTaskSimpleEvasiveStep](../source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.cpp) (8) ✅ 8 |
-| [CColModel](../source/game_sa/Collision/ColModel.cpp) (10) ✅ 10 | [CRealTimeShadowManager](../source/game_sa/RealTimeShadowManager.cpp) (7) ✅ 7 | [CTaskSimpleFacial](../source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp) (5) ✅ 5 |
+| [CColModel](../source/game_sa/Collision/ColModel.cpp) (10) ✅ 10 | [CRealTimeShadowManager](../source/game_sa/RealTimeShadowManager.cpp) (7) ✅ 7 | [CTaskSimpleFacial](../source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp) (6) ✅ 6 |
 | [CColModelPool](../source/game_sa/Pools/ColModelPool.h) (1) ✅ 1 | [CRect](../source/game_sa/Core/Rect.cpp) (9) ✅ 9 | [CTaskSimpleFall](../source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp) (6) ✅ 6 |
 | [CColourSet](../source/game_sa/Collision/ColourSet.cpp) (2) ✅ 2 | [CReferences](../source/game_sa/References.cpp) (4) ✅ 4 | [CTaskSimpleFight](../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp) (24) ✅ 24 |
 | [CColPoint](../source/game_sa/Collision/ColPoint.cpp) (1) ✅ 1 | [CRegisteredCorona](../source/game_sa/RegisteredCorona.cpp) (1) ✅ 1 | [CTaskSimpleFightingControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp) (7) ✅ 7 |
@@ -286,7 +286,7 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [CColStore](../source/game_sa/Collision/ColStore.cpp) (23) ✅ 23 | [CRemote](../source/game_sa/Remote.cpp) (2) ✅ 2 | [CTaskSimpleGangDriveBy](../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp) (11) ✅ 11 |
 | [CColTrianglePlane](../source/game_sa/Collision/ColTrianglePlane.cpp) (2) ✅ 2 | [CRenderer](../source/game_sa/Renderer.cpp) (33) ✅ 33 | [CTaskSimpleGetUp](../source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.cpp) (5) ✅ 5 |
 | [CCompressedMatrixNotAligned](../source/game_sa/CompressedMatrixNotAligned.cpp) (2) ✅ 2 | [CReplay](../source/game_sa/Replay.cpp) (47) ✅ 47 | [CTaskSimpleGiveCPR](../source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp) (6) ✅ 6 |
-| [CControllerConfigManager](../source/game_sa/ControllerConfigManager.cpp) (58) ✅ 58 | [CRestart](../source/game_sa/Restart.cpp) (11) ✅ 11 | [CTaskSimpleGoTo](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp) (4) ✅ 4 |
+| [CControllerConfigManager](../source/game_sa/ControllerConfigManager.cpp) (58) ✅ 58 | [CRestart](../source/game_sa/Restart.cpp) (11) ✅ 11 | [CTaskSimpleGoTo](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp) (5) ✅ 5 |
 | [CControllerState](../source/game_sa/ControllerState.cpp) (2) ✅ 2 | [CRGBA](../source/game_sa/RGBA.cpp) (1) ✅ 1 | [CTaskSimpleGoToPoint](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp) (6) ✅ 6 |
 | [CConversationForPed](../source/game_sa/Conversations/ConversationForPed.cpp) (2) ✅ 2 | [CRoadBlocks](../source/game_sa/RoadBlocks.cpp) (8) ✅ 8 | [CTaskSimpleGoToPointFine](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp) (9) ✅ 9 |
 | [CConversationNode](../source/game_sa/Conversations/ConversationNode.cpp) (1) ✅ 1 | [CRope](../source/game_sa/Rope.cpp) (7) ✅ 7 | [CTaskSimpleGunControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp) (6) ✅ 6 |
@@ -321,7 +321,7 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [CDecisionMakerTypesFileLoader](../source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp) (7) ✅ 7 | [CStencilShadows](../source/game_sa/StencilShadows.cpp) (13) ✅ 13 | [CTaskSimplePickUpEntity](../source/game_sa/Tasks/TaskTypes/TaskSimplePickUpEntity.cpp) (4) ✅ 4 |
 | [CDirectory](../source/game_sa/Directory.cpp) (10) ✅ 10 | [CStoredCar](../source/game_sa/Garage.cpp) (2) ✅ 2 | [CTaskSimplePlayerOnFire](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFire.cpp) (6) ✅ 6 |
 | [CDoor](../source/game_sa/Door.cpp) (6) ✅ 6 | [CStreamedScripts](../source/game_sa/StreamedScripts.cpp) (12) ✅ 12 | [CTaskSimplePlayerOnFoot](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp) (12) ✅ 12 |
-| [CDraw](../source/game_sa/Draw.cpp) (2) ✅ 2 | [CStreaming](../source/game_sa/Streaming.cpp) (95) ✅ 95 | [CTaskSimplePlayHandSignalAnim](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp) (2) ✅ 2 |
+| [CDraw](../source/game_sa/Draw.cpp) (2) ✅ 2 | [CStreaming](../source/game_sa/Streaming.cpp) (95) ✅ 95 | [CTaskSimplePlayHandSignalAnim](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp) (3) ✅ 3 |
 | [CdStream](../source/game_sa/CdStreamInfo.cpp) (9) ✅ 9 | [CStreamingInfo](../source/game_sa/StreamingInfo.cpp) (7) ✅ 7 | [CTaskSimplePutDownEntity](../source/game_sa/Tasks/TaskTypes/TaskSimplePutDownEntity.cpp) (3) ✅ 3 |
 | [CDummy](../source/game_sa/Entity/Dummy/Dummy.cpp) (1) ✅ 1 | [CStuckCarCheck](../source/game_sa/StuckCarCheck.cpp) (9) ✅ 9 | [CTaskSimpleRunAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp) (5) ✅ 5 |
 | [CDummyObject](../source/game_sa/Entity/Dummy/DummyObject.cpp) (2) ✅ 2 | [CStuntJumpManager](../source/game_sa/StuntJumpManager.cpp) (7) ✅ 7 | [CTaskSimpleRunNamedAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp) (7) ✅ 7 |
@@ -333,12 +333,12 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [CEntitySeekPosCalculatorStandard](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp) (1) ✅ 1 | [CTaskAllocatorKillThreatsBasic](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp) (6) ✅ 6 | [CTaskSimpleSetKindaStayInSamePlace](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetKindaStayInSamePlace.cpp) (6) ✅ 6 |
 | [CEntitySeekPosCalculatorXYOffset](../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp) (1) ✅ 1 | [CTaskAllocatorKillThreatsBasicRandomGroup](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp) (2) ✅ 2 | [CTaskSimpleSetPedAsAutoDriver](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetPedAsAutoDriver.cpp) (6) ✅ 6 |
 | [CEntryExit](../source/game_sa/EntryExit.cpp) (12) ✅ 12 | [CTaskAllocatorKillThreatsDriveby](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp) (5) ✅ 5 | [CTaskSimpleSetStayInSamePlace](../source/game_sa/Tasks/TaskTypes/TaskSimpleSetStayInSamePlace.cpp) (5) ✅ 5 |
-| [CEntryExitManager](../source/game_sa/EntryExitManager.cpp) (19) ✅ 19 | [CTaskAllocatorPlayerCommandAttack](../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp) (3) ✅ 3 | [CTaskSimpleShakeFist](../source/game_sa/Tasks/TaskTypes/TaskSimpleShakeFist.cpp) (8) ✅ 8 |
+| [CEntryExitManager](../source/game_sa/EntryExitManager.cpp) (19) ✅ 19 | [CTaskAllocatorPlayerCommandAttack](../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp) (4) ✅ 4 | [CTaskSimpleShakeFist](../source/game_sa/Tasks/TaskTypes/TaskSimpleShakeFist.cpp) (8) ✅ 8 |
 | [CEntryInfoList](../source/game_sa/Core/EntryInfoList.cpp) (1) ✅ 1 | [CTaskAllocatorPool](../source/game_sa/Pools/TaskAllocatorPool.h) (1) ✅ 1 | [CTaskSimpleSitDown](../source/game_sa/Tasks/TaskTypes/TaskSimpleSitDown.cpp) (8) ✅ 8 |
 | [CEntryInfoNode](../source/game_sa/Core/EntryInfoNode.cpp) (2) ✅ 2 | [CTaskCategories](../source/game_sa/Tasks/TaskCategories.cpp) (3) ✅ 3 | [CTaskSimpleSitIdle](../source/game_sa/Tasks/TaskTypes/TaskSimpleSitIdle.cpp) (7) ✅ 7 |
 | [CEntryInfoNodePool](../source/game_sa/Pools/EntryInfoNodePool.h) (1) ✅ 1 | [CTaskComplex](../source/game_sa/Tasks/Task.cpp) (2) ✅ 2 | [CTaskSimpleSlideToCoord](../source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp) (1) ✅ 1 |
 | [CEscalator](../source/game_sa/Escalator.cpp) (5) ✅ 5 | [CTaskComplexArrestPed](../source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp) (7) ✅ 7 | [CTaskSimpleStandStill](../source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp) (4) ✅ 4 |
-| [CEscalators](../source/game_sa/Escalators.cpp) (4) ✅ 4 | [CTaskComplexAttractorPartnerWait](../source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp) (5) ✅ 5 | [CTaskSimpleStandUp](../source/game_sa/Tasks/TaskTypes/TaskSimpleStandUp.cpp) (8) ✅ 8 |
+| [CEscalators](../source/game_sa/Escalators.cpp) (4) ✅ 4 | [CTaskComplexAttractorPartnerWait](../source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp) (6) ✅ 6 | [CTaskSimpleStandUp](../source/game_sa/Tasks/TaskTypes/TaskSimpleStandUp.cpp) (8) ✅ 8 |
 | [CEvent](../source/game_sa/Events/Event.cpp) (6) ✅ 6 | [CTaskComplexAvoidOtherPedWhileWandering](../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp) (15) ✅ 15 | [CTaskSimpleStealthKill](../source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp) (7) ✅ 7 |
 | [CEventAcquaintancePed](../source/game_sa/Events/EventAcquaintancePed.cpp) (5) ✅ 5 | [CTaskComplexBeCop](../source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp) (3) ✅ 3 | [CTaskSimpleSwim](../source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp) (11) ✅ 11 |
 | [CEventAcquaintancePedHate](../source/game_sa/Events/EventAcquaintancePedHate.cpp) (1) ✅ 1 | [CTaskComplexBeInCouple](../source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp) (10) ✅ 10 | [CTaskSimpleThrowControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp) (6) ✅ 6 |
@@ -352,7 +352,7 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [CEventDanger](../source/game_sa/Events/EventDanger.cpp) (5) ✅ 5 | [CTaskComplexCarSlowBeDraggedOut](../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOut.cpp) (11) ✅ 11 | [CTaskSimpleWaitForBus](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp) (6) ✅ 6 |
 | [CEventDeadPed](../source/game_sa/Events/EventDeadPed.cpp) (2) ✅ 2 | [CTaskComplexCarSlowBeDraggedOutAndStandUp](../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.cpp) (9) ✅ 9 | [CTaskSimpleWaitUntilAreaCodesMatch](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilAreaCodesMatch.cpp) (6) ✅ 6 |
 | [CEventDeath](../source/game_sa/Events/EventDeath.cpp) (1) ✅ 1 | [CTaskComplexChat](../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp) (7) ✅ 7 | [CTaskSimpleWaitUntilLeaderAreaCodesMatch](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilLeaderAreaCodesMatch.cpp) (4) ✅ 4 |
-| [CEventDontJoinPlayerGroup](../source/game_sa/Events/EventDontJoinPlayerGroup.cpp) (1) ✅ 1 | [CTaskComplexClimb](../source/game_sa/Tasks/TaskTypes/TaskComplexClimb.cpp) (4) ✅ 4 | [CTaskSimpleWaitUntilPedIsInCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.cpp) (6) ✅ 6 |
+| [CEventDontJoinPlayerGroup](../source/game_sa/Events/EventDontJoinPlayerGroup.cpp) (2) ✅ 2 | [CTaskComplexClimb](../source/game_sa/Tasks/TaskTypes/TaskComplexClimb.cpp) (4) ✅ 4 | [CTaskSimpleWaitUntilPedIsInCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.cpp) (6) ✅ 6 |
 | [CEventDraggedOutCar](../source/game_sa/Events/EventDraggedOutCar.cpp) (2) ✅ 2 | [CTaskComplexCopInCar](../source/game_sa/Tasks/TaskTypes/TaskComplexCopInCar.cpp) (9) ✅ 9 | [CTaskSimpleWaitUntilPedIsOutCar](../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.cpp) (6) ✅ 6 |
 | [CEventEditableResponse](../source/game_sa/Events/EventEditableResponse.cpp) (12) ✅ 12 | [CTaskComplexCrossRoadLookAndAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp) (9) ✅ 9 | [CTaskTimer](../source/game_sa/Tasks/TaskTimer.cpp) (2) ✅ 2 |
 | [CEventEscalator](../source/game_sa/Events/EventEscalator.cpp) (1) ✅ 1 | [CTaskComplexDestroyCar](../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp) (9) ✅ 9 | [CTaskUtilityLineUpPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp) (5) ✅ 5 |
@@ -376,7 +376,7 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [CEventNewGangMember](../source/game_sa/Events/EventNewGangMember.cpp) (1) ✅ 1 | [CTaskComplexEvasiveCower](../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp) (8) ✅ 8 | [CVector](../source/game_sa/Core/Vector.cpp) (20) ✅ 20 |
 | [CEventObjectCollision](../source/game_sa/Events/EventObjectCollision.cpp) (3) ✅ 3 | [CTaskComplexEvasiveDiveAndGetUp](../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveDiveAndGetUp.cpp) (9) ✅ 9 | [CVehicle](../source/game_sa/Entity/Vehicle/Vehicle.cpp) (169) ✅ 169 |
 | [CEventOnFire](../source/game_sa/Events/EventOnFire.cpp) (1) ✅ 1 | [CTaskComplexEvasiveStep](../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp) (8) ✅ 8 | [CVehicleAnimGroup](../source/game_sa/VehicleAnimGroupData.cpp) (5) ✅ 5 |
-| [CEventPassObject](../source/game_sa/Events/EventPassObject.cpp) (2) ✅ 2 | [CTaskComplexExtinguishFires](../source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.cpp) (8) ✅ 8 | [CVehicleAnimGroupData](../source/game_sa/VehicleAnimGroupData.cpp) (5) ✅ 5 |
+| [CEventPassObject](../source/game_sa/Events/EventPassObject.cpp) (3) ✅ 3 | [CTaskComplexExtinguishFires](../source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.cpp) (8) ✅ 8 | [CVehicleAnimGroupData](../source/game_sa/VehicleAnimGroupData.cpp) (5) ✅ 5 |
 | [CEventPedCollisionWithPed](../source/game_sa/Events/EventPedCollisionWithPed.cpp) (4) ✅ 4 | [CTaskComplexFacial](../source/game_sa/Tasks/TaskTypes/TaskComplexFacial.cpp) (9) ✅ 9 | [CVehicleModelInfo](../source/game_sa/Models/VehicleModelInfo.cpp) (77) ✅ 77 |
 | [CEventPedCollisionWithPlayer](../source/game_sa/Events/EventPedCollisionWithPlayer.cpp) (1) ✅ 1 | [CTaskComplexFallAndGetUp](../source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp) (9) ✅ 9 | [CVehiclePool](../source/game_sa/Pools/VehiclePool.h) (2) ✅ 2 |
 | [CEventPedToChase](../source/game_sa/Events/EventPedToChase.cpp) (2) ✅ 2 | [CTaskComplexFallToDeath](../source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp) (6) ✅ 6 | [CVehiclePotentialCollisionScanner](../source/game_sa/Events/EventScanner.cpp) (1) ✅ 1 |
@@ -412,11 +412,11 @@ Al 07/11/2026: 849 de 849 clases o grupos están completas (todas sus entradas r
 | [CFileLoader](../source/game_sa/FileLoader.cpp) (48) ✅ 48 | [CTaskComplexInvestigateDeadPed](../source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp) (9) ✅ 9 | [FxInterpInfo255_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp) (1) ✅ 1 |
 | [CFileMgr](../source/game_sa/FileMgr.cpp) (17) ✅ 17 | [CTaskComplexInvestigateDisturbance](../source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDisturbance.cpp) (8) ✅ 8 | [FxInterpInfo32_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp) (1) ✅ 1 |
 | [CFire](../source/game_sa/Fire.cpp) (5) ✅ 5 | [CTaskComplexInWater](../source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp) (7) ✅ 7 | [FxInterpInfoFloat_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp) (1) ✅ 1 |
-| [CFireManager](../source/game_sa/FireManager.cpp) (24) ✅ 24 | [CTaskComplexJump](../source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp) (6) ✅ 6 | [FxInterpInfoU255_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp) (1) ✅ 1 |
+| [CFireManager](../source/game_sa/FireManager.cpp) (24) ✅ 24 | [CTaskComplexJump](../source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp) (7) ✅ 7 | [FxInterpInfoU255_c](../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp) (1) ✅ 1 |
 | [CFont](../source/game_sa/Font.cpp) (38) ✅ 38 | [CTaskComplexKillCriminal](../source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp) (11) ✅ 11 | [FxManager_c](../source/game_sa/Fx/FxManager.cpp) (25) ✅ 25 |
 | [CFormation](../source/game_sa/Formation.cpp) (10) ✅ 10 | [CTaskComplexKillPedFromBoat](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp) (7) ✅ 7 | [FxMemoryPool_c](../source/game_sa/Fx/FxMemoryPool.cpp) (5) ✅ 5 |
 | [CGame](../source/game_sa/Game.cpp) (22) ✅ 22 | [CTaskComplexKillPedGroupOnFoot](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedGroupOnFoot.cpp) (9) ✅ 9 | [FxPrimBP_c](../source/game_sa/Fx/FxPrimBP.cpp) (2) ✅ 2 |
-| [CGameLogic](../source/game_sa/GameLogic.cpp) (27) ✅ 27 | [CTaskComplexKillPedOnFoot](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp) (7) ✅ 7 | [FxPrtMult_c](../source/game_sa/Fx/FxPrtMult.cpp) (2) ✅ 2 |
+| [CGameLogic](../source/game_sa/GameLogic.cpp) (27) ✅ 27 | [CTaskComplexKillPedOnFoot](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp) (8) ✅ 8 | [FxPrtMult_c](../source/game_sa/Fx/FxPrtMult.cpp) (2) ✅ 2 |
 | [CGamma](../source/game_sa/Gamma.cpp) (2) ✅ 2 | [CTaskComplexKillPedOnFootArmed](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp) (11) ✅ 11 | [FxSphere_c](../source/game_sa/Fx/FxSphere.cpp) (4) ✅ 4 |
 | [CGangs](../source/game_sa/Gangs.cpp) (8) ✅ 8 | [CTaskComplexKillPedOnFootMelee](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.cpp) (10) ✅ 10 | [FxSystem_c](../source/game_sa/Fx/FxSystem.cpp) (35) ✅ 35 |
 | [CGangWars](../source/game_sa/GangWars.cpp) (36) ✅ 36 | [CTaskComplexKillPedOnFootStealth](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp) (7) ✅ 7 | [FxSystemBP_c](../source/game_sa/Fx/FxSystemBP.cpp) (10) ✅ 10 |
@@ -671,24 +671,24 @@ Destinos originales explícitos que `source/` seguía referenciando y que no est
 
 ## 10. Dependencias directas de la DLL al EXE (grupo A)
 
-Lista viva del trabajo real. Al 07/11/2026, el grupo A de [JuegoExe](JuegoExe/README.md) tiene **740 funciones del juego** (101,835 bytes) que la DLL ya necesita: 577 se llaman **directamente** desde código ya reemplazado (llamadas detectadas con dirección, bytes y llamador) y 163 solo de forma transitiva, a través de otras funciones aún no reemplazadas. La categoría y los llamadores salen del análisis de [AnalisisGrupoA.md](AnalisisGrupoA.md) ([grupoA.csv](JuegoExe/grupoA.csv), 1,007 funciones en el momento del análisis; 267 ya no son del grupo A: se reconstruyeron desde entonces o pasaron a envoltura abierta). El cierre transitivo de la [sección 6](#que-falta) cuenta 752 funciones: la diferencia (12) son funciones del grupo A que además tienen una envoltura abierta y figuran como envolturas abiertas ([sección 7](#no-en-cpp) y bibliotecas), no en esta lista. Es una cota inferior: las llamadas indirectas sin resolver no entran en el grafo.
+Lista viva del trabajo real. Al 07/11/2026, el grupo A de [JuegoExe](JuegoExe/README.md) tiene **720 funciones del juego** (100,751 bytes) que la DLL ya necesita: 557 se llaman **directamente** desde código ya reemplazado (llamadas detectadas con dirección, bytes y llamador) y 163 solo de forma transitiva, a través de otras funciones aún no reemplazadas. La categoría y los llamadores salen del análisis de [AnalisisGrupoA.md](AnalisisGrupoA.md) ([grupoA.csv](JuegoExe/grupoA.csv), 1,007 funciones en el momento del análisis; 287 ya no son del grupo A: se reconstruyeron desde entonces o pasaron a envoltura abierta). El cierre transitivo de la [sección 6](#que-falta) cuenta 732 funciones: la diferencia (12) son funciones del grupo A que además tienen una envoltura abierta y figuran como envolturas abiertas ([sección 7](#no-en-cpp) y bibliotecas), no en esta lista. Es una cota inferior: las llamadas indirectas sin resolver no entran en el grafo.
 
 ### Composición por categoría de coste
 
 | Categoría de coste | Funciones | % de funciones del grupo A | Bytes | % de bytes del grupo A | Directas desde código reemplazado | Lote medido |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| 1. Triviales y thunks (≤ 0x20 B sin llamadas, o un solo `jmp`) | 148 | 20.0% | 1,829 | 1.8% | 132 | 90A |
-| 2. Pequeñas sin FPU (≤ 0x40 B, ≤ 1 llamada) | 150 | 20.3% | 6,077 | 6.0% | 106 | 90B |
-| 3. Lógica sin FPU (< 0x300 B) | 343 | 46.4% | 53,577 | 52.6% | 250 | 92A |
-| 4. Con FPU (método x87 a 24 bits; < 0x300 B) | 78 | 10.5% | 17,631 | 17.3% | 70 | sin medir |
-| 5. De 0x300 B o más (una por lote) | 21 | 2.8% | 22,721 | 22.3% | 19 | 92B, 92C |
+| 1. Triviales y thunks (≤ 0x20 B sin llamadas, o un solo `jmp`) | 145 | 20.1% | 1,796 | 1.8% | 129 | 90A |
+| 2. Pequeñas sin FPU (≤ 0x40 B, ≤ 1 llamada) | 142 | 19.7% | 5,772 | 5.7% | 98 | 90B |
+| 3. Lógica sin FPU (< 0x300 B) | 334 | 46.4% | 52,831 | 52.4% | 241 | 92A |
+| 4. Con FPU (método x87 a 24 bits; < 0x300 B) | 78 | 10.8% | 17,631 | 17.5% | 70 | sin medir |
+| 5. De 0x300 B o más (una por lote) | 21 | 2.9% | 22,721 | 22.6% | 19 | 92B, 92C |
 
 ### Llamadas directas detectadas
 
 Ordenadas por número de sitios de llamada desde código ya reemplazado (los más llamados ganan más por función) y, a igualdad, de mayor a menor tamaño. «Llamadores» son los primeros llamadores del código ya reemplazado (nombre del catálogo o dirección); «Lote» es el lote en curso o asignado que la reconstruye ([lotes-en-curso.csv](JuegoExe/lotes-en-curso.csv)); «—» significa sin lote asignado. Los lotes ya validados (90A, 90B, 92A–92C) dejaron de figurar porque estas funciones ya no están pendientes.
 
 <details>
-<summary>Llamadas directas del grupo A pendientes (577), de más a menos llamadas</summary>
+<summary>Llamadas directas del grupo A pendientes (557), de más a menos llamadas</summary>
 
 | Dirección | Bytes | Módulo estimado | Categoría | Llamadas desde código reemplazado | Llamadores | Lote |
 | --- | ---: | --- | ---: | ---: | --- | --- |
@@ -699,11 +699,9 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x0074A310` | 377 | Win (baja) | 3 | 13 | `C3dMarkers::Shutdown`, `CAnimBlendAssocGroup::CreateAssociations-1`, `CAnimBlendAssocGroup::CreateAssociations-3` (+10 más) | — |
 | `0x00733910` | 115 | CVisibilityPlugins (alta) | 4 | 13 | `CVisibilityPlugins::InsertAtomicIntoReallyDrawLastList`, `CVisibilityPlugins::InsertEntityIntoReallyDrawLastList`, `CVisibilityPlugins::InsertEntityIntoSortedList` (+10 más) | — |
 | `0x00638290` | 725 | CTaskComplexSunbathe (baja) | 3 | 12 | `CTaskComplexSunbathe::CreateFirstSubTask`, `CTaskComplexSunbathe::CreateNextSubTask` (+9 más) | — |
-| `0x006389F0` | 79 | CTaskComplexWaitForBus (baja) | 3 | 12 | `CGroupEventHandler::ComputeResponseLeaderEnteredCar`, `CGroupEventHandler::ComputeResponseLeaderExitedCar`, `CGroupEventHandler::ComputeResponseNewGangMember` (+9 más) | — |
 | `0x00619440` | 5 | Rs (alta) | 1 | 12 | `App::DoRWStuffEndOfFrame`, `CLoadingScreen::DisplayNextSplash`, `CLoadingScreen::DisplayPCScreen` (+9 más) | — |
 | `0x0074C800` | 595 | Win (baja) | 3 | 11 | `0x5dd100`, `CClothesBuilder::BlendGeometry-2`, `CClothesBuilder::BlendGeometry-3` (+8 más) | — |
 | `0x005DEA00` | 90 | CAEAudioEntity (baja) | 3 | 11 | `0x604500`, `0x61cba0`, `0x6240b0` (+8 más) | — |
-| `0x00647950` | 90 | CTaskSimpleCarSetPedOut (alta) | 3 | 11 | `0x641100`, `CCarAI::AddPoliceCarOccupants`, `CCutsceneMgr::LoadCutsceneData_preload` (+8 más) | — |
 | `0x005F8510` | 77 | CPedGroupDefaultTaskAllocatorChat (baja) | 3 | 11 | `CTaskAllocatorKillOnFoot::AllocateTasks`, `CTaskAllocatorKillThreatsBasic::AllocateTasks`, `CTaskAllocatorKillThreatsBasicRandomGroup::AllocateTasks` (+8 más) | — |
 | `0x004A8E70` | 54 | FxInfoManager_c (baja) | 2 | 11 | `BoneNodeManager_c::GetBoneNode`, `FxManager_c::GetParticle`, `IKChainManager_c::AddIKChain` (+8 más) | — |
 | `0x0074DBC0` | 39 | Win (baja) | 2 | 11 | `CAutomobile::CustomCarPlate_AfterRenderingStop`, `CAutomobile::CustomCarPlate_BeforeRenderingStart`, `CClothesBuilder::CreateSkinnedClump` (+8 más) | — |
@@ -820,7 +818,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x00552830` | 63 | CQuadTreeNode&lt;T&gt; (alta) | 2 | 3 | `CColStore::Initialise`, `CEntryExitManager::Init`, `CIplStore::Initialise` | — |
 | `0x0040F030` | 58 | CColLine (baja) | 2 | 3 | `CFileLoader::LoadCollisionModel`, `CWorld::ProcessLineOfSightSectorList&lt;CPtrListDoubleLink&lt;CPhysical*&gt;&gt;`, `CWorld::TestSphereAgainstSectorList&lt;CPtrListDoubleLink&lt;CPhysical*&gt;&gt;` | — |
 | `0x00552C90` | 49 | CQuadTreeNode&lt;T&gt; (alta) | 2 | 3 | `CColStore::Shutdown`, `CEntryExitManager::Shutdown`, `CIplStore::Shutdown` | — |
-| `0x00690C70` | 48 | CTaskSimpleShakeFist (baja) | 2 | 3 | `CTaskComplexFacial::ControlSubTask`, `CTaskComplexFacial::CreateNextSubTask` | — |
 | `0x00459350` | 47 | CPed (baja) | 4 | 3 | `C3dMarker::Render`, `CVehicleRecording::InterpolateInfoForCar` | — |
 | `0x005335E0` | 47 | CEntity (alta) | 2 | 3 | `CQuadTreeNode&lt;T&gt;::GetAll`, `CQuadTreeNode&lt;T&gt;::GetAllMatching-rect`, `CQuadTreeNode&lt;T&gt;::GetAllMatching-vec` | — |
 | `0x0064E4B0` | 41 | CTaskComplexGoToBoatSteeringWheel (baja) | 3 | 3 | `CTaskUtilityLineUpPedWithCar::ProcessPed` | — |
@@ -835,7 +832,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x0072F460` | 19 | CMemoryMgr (alta) | 2 | 3 | `CMenuManager::DrawStandardMenus`, `VideoMode::GetVideoModeList` | — |
 | `0x004A8DB0` | 16 | FxInfoManager_c (baja) | 1 | 3 | `BoneNode_c::Constructor`, `FxSystemBP_c::Constructor`, `FxSystem_c::Constructor` | — |
 | `0x00552C80` | 11 | CQuadTreeNode&lt;T&gt; (alta) | 1 | 3 | `CColStore::Initialise`, `CEntryExitManager::Init`, `CIplStore::Initialise` | — |
-| `0x00669D20` | 11 | CTaskComplexFollowNodeRoute (baja) | 1 | 3 | `CTaskComplexWanderCriminal::Destructor`, `CTaskComplexWanderFlee::Destructor`, `CTaskInteriorBeInShop::Destructor` | — |
 | `0x0074CCB0` | 9 | Win (baja) | 1 | 3 | `CClothesBuilder::BlendGeometry-2`, `CClothesBuilder::BlendGeometry-3`, `CClothesBuilder::CopyGeometry` | — |
 | `0x004ADE90` | 7 | CEventDamage (baja) | 1 | 3 | `CTaskComplexCarSlowBeDraggedOutAndStandUp::CreateNextSubTask`, `CTaskSimpleDie::ProcessPed`, `CTaskSimpleDrownInCar::ProcessPed` | — |
 | `0x004D7990` | 7 | CAEAudioChannel (alta) | 1 | 3 | `CAEStreamThread::MainLoop`, `CAEStreamingChannel::Pause`, `CAEStreamingChannel::SetFrequencyScalingFactor` | — |
@@ -878,9 +874,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x004AEB90` | 97 | CEventVehicleHitAndRun (baja) | 3 | 2 | `0x607e30`, `CCarEnterExit::MakeUndraggedPassengerPedsLeaveCar` | — |
 | `0x005DE340` | 97 | CCopPed (baja) | 3 | 2 | `CPopulation::AddPed` | — |
 | `0x004AECD0` | 93 | CEventVehicleHitAndRun (baja) | 3 | 2 | `CTaskComplexWanderStandard::LookForChatPartners` | — |
-| `0x00620EF0` | 90 | CTaskComplexKillPedOnFoot (baja) | 3 | 2 | `CGroupEventHandler::ComputeKillPlayerBasicResponse`, `CTaskComplexKillPedOnFootStealth::Destructor` | — |
-| `0x00647170` | 90 | CTaskSimpleCarSetPedInAsDriver (baja) | 3 | 2 | `CCarEnterExit::SetPedInCarDirect`, `CTaskSimpleCreateCarAndGetIn::ProcessPed` | — |
-| `0x0065DCF0` | 90 | CEventPassObject (baja) | 3 | 2 | `CTaskComplexGangFollower::ControlSubTask`, `CTaskComplexGangLeader::ControlSubTask` | — |
 | `0x005DA640` | 82 | CCustomCarEnvMapPipeline (baja) | 3 | 2 | `CCustomBuildingPipeline::CustomPipeRenderCB`, `CCustomCarEnvMapPipeline::CustomPipeRenderCB` | — |
 | `0x004AED60` | 81 | CEventVehicleHitAndRun (baja) | 3 | 2 | `CTaskComplexWanderStandard::LookForChatPartners` | — |
 | `0x00648E90` | 80 | CTaskSimpleCarFallOut (alta) | 3 | 2 | `CTaskSimpleCarFallOut::MakeAbortable`, `CTaskSimpleCarFallOut::ProcessPed` | — |
@@ -1101,8 +1094,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x00550960` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
 | `0x00550A30` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
 | `0x00550CA0` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
-| `0x0068B620` | 91 | CTaskSimpleSwim (baja) | 3 | 1 | `CTaskComplexArrestPed::CreateSubTask` | — |
-| `0x00609140` | 90 | CEventDontJoinPlayerGroup (baja) | 3 | 1 | `0x60c840` | — |
 | `0x00642700` | 88 | CTaskComplexScreamInCarThenLeave (baja) | 3 | 1 | `CTaskSimpleCarDrive::ProcessPed` | — |
 | `0x00460D80` | 87 | CTaskComplexWanderCop (baja) | 3 | 1 | `CTaskComplexBeCop::Destructor` | — |
 | `0x00448660` | 86 | CGarage (alta) | 3 | 1 | `0x44aa50` | — |
@@ -1121,7 +1112,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x004A61A0` | 79 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
 | `0x004A6760` | 79 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
 | `0x005D8980` | 77 | CCustomCarEnvMapPipeline (alta) | 3 | 1 | `CCustomCarEnvMapPipeline::CreatePipe` | — |
-| `0x0061AE50` | 76 | CTaskSimpleRunTimedAnim (baja) | 3 | 1 | `CTaskComplexPlayHandSignalAnim::CreateSubTask` | — |
 | `0x005E0540` | 74 | CPed (baja) | 3 | 1 | `CPed::operator`, `new-poolIndexed` | — |
 | `0x004D6450` | 73 | RpAnimBlend (alta) | 3 | 1 | `RpAnimBlend::RpAnimBlendClumpFillFrameArray` | — |
 | `0x004DBF10` | 71 | CAECutsceneTrackManager (alta) | 3 | 1 | `CAECutsceneTrackManager::Service` | — |
@@ -1133,7 +1123,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x004D7910` | 64 | CAEAmbienceTrackManager (baja) | 3 | 1 | `CAEStreamingChannel::Destructor` | — |
 | `0x004DFB60` | 63 | CAEBankLoader (alta) | 2 | 1 | `CAEMP3BankLoader::Initialise` | — |
 | `0x005EAB80` | 62 | CPedAttractorPool (baja) | 2 | 1 | `CPedAttractor::DeRegisterPed` | — |
-| `0x0062FEC0` | 62 | CTaskComplexDieInCar (baja) | 2 | 1 | `CTaskComplexDie::CreateFirstSubTask` | — |
 | `0x004F0B10` | 60 | CAESoundManager (baja) | 2 | 1 | `CAEAudioHardware::Initialise` | — |
 | `0x0045AFB0` | 54 | CVehicleRecording (baja) | 2 | 1 | `CAutomobile::ProcessHarvester` | — |
 | `0x004650A0` | 54 | CTheScripts (baja) | 3 | 1 | `CDecisionMakerTypesFileLoader::LoadDecisionMaker-enum` | — |
@@ -1142,13 +1131,11 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x00669FB0` | 54 | CTaskComplexWander (baja) | 2 | 1 | `CTaskComplexGangLeader::ScanForStuff` | — |
 | `0x004AB2D0` | 51 | FxSystem_c (baja) | 2 | 1 | `CAutomobile::ProcessHarvester` | — |
 | `0x0056CE30` | 51 | CWorld (baja) | 2 | 1 | `CAccidentManager::GetInstance` | — |
-| `0x0069C480` | 50 | CTaskAllocatorAttack (baja) | 3 | 1 | `CGroupEventHandler::ComputeResponsePlayerCommand` | — |
 | `0x005EC220` | 49 | CPedAttractorManager (baja) | 2 | 1 | `CPedAttractor::BroadcastArrival` | — |
 | `0x0062F2D0` | 49 | CTaskComplexLeaveCarAndDie (baja) | 2 | 1 | `CTaskComplexSunbathe::CanSunbathe` | — |
 | `0x0049C9A0` | 48 | CStuntJumpManager (alta) | 2 | 1 | `CStuntJumpManager::ShutdownForRestart` | — |
 | `0x004E0380` | 48 | CAEMP3BankLoader (alta) | 2 | 1 | `0x4d86b0` | — |
 | `0x005D9180` | 48 | CCustomCarEnvMapPipeline (baja) | 2 | 1 | `CCustomCarEnvMapPipeline::SetFxEnvTexture` | — |
-| `0x0061A6C0` | 47 | CTask (baja) | 2 | 1 | `CTaskSimpleRunNamedAnim::Constructor-Default` | — |
 | `0x00731650` | 46 | D3DResourceSystem (baja) | 2 | 1 | `App::PluginAttach` | — |
 | `0x006955D0` | 44 | CTaskComplexFollowPedFootsteps (baja) | 4 | 1 | `CTaskComplexFollowLeaderInFormation::ControlSubTask` | — |
 | `0x005E88E0` | 43 | CPed (alta) | 3 | 1 | `CCamera::CamControl` | — |
@@ -1158,8 +1145,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x00465040` | 41 | CTheScripts (baja) | 2 | 1 | `0x587000` | — |
 | `0x00552390` | 41 | CPtrNodeDoubleLinkPool (baja) | 2 | 1 | `CEntity::Remove` | — |
 | `0x00465070` | 40 | CTheScripts (baja) | 2 | 1 | `CProjectileInfo::IsProjectileInRange` | — |
-| `0x00636780` | 39 | CTaskComplexUseEffect (baja) | 2 | 1 | `CTaskComplexUseClosestFreeScriptedAttractor::CreateFirstSubTask` | — |
-| `0x00636860` | 39 | CTaskComplexUseEffectRunning (baja) | 2 | 1 | `CTaskComplexUseClosestFreeScriptedAttractor::CreateFirstSubTask` | — |
 | `0x005521D0` | 37 | CPools (baja) | 2 | 1 | `CCover::Update` | — |
 | `0x0054F490` | 36 | CPlaceable (alta) | 2 | 1 | `CEntity::Destructor` | — |
 | `0x0065DE60` | 36 | CEventPassObject (baja) | 2 | 1 | `CTaskComplexGangFollower::CreateNextSubTask` | — |
@@ -1168,7 +1153,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x004F3B30` | 35 | CAEUserRadioTrackManager (alta) | 2 | 1 | `0x4f4620` | — |
 | `0x005EB310` | 35 | CPedAttractor (alta) | 2 | 1 | `CPedAttractor::SetTaskForPed` | — |
 | `0x00631910` | 34 | CTaskComplexObserveTrafficLights (baja) | 2 | 1 | `CTaskComplexWander::CreateSubTask` | — |
-| `0x00633250` | 34 | CTaskComplexUsePairedAttractor (baja) | 2 | 1 | `CTaskComplexUsePairedAttractor::CreateSubTask` | — |
 | `0x0074BE00` | 34 | Win (baja) | 2 | 1 | `PipelinePlugin::PipelinePluginAttach` | — |
 | `0x0074BE70` | 34 | Win (baja) | 2 | 1 | `CCollisionPlugin::PluginAttach` | — |
 | `0x0046AE00` | 33 | CTaskComplexSeekEntityStandard (baja) | 4 | 1 | `CAutomobile::SpawnFlyingComponent` | — |
@@ -1206,8 +1190,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x004A1900` | 18 | FxEmitterBP_c (alta) | 2 | 1 | `FxSystemBP_c::Load` | — |
 | `0x00537A10` | 18 | CFileLoader (baja) | 2 | 1 | `CFileLoader::LoadObjectInstance-inst` | — |
 | `0x0059EA00` | 18 | BreakManager_c (baja) | 2 | 1 | `CFileLoader::LoadObjectInstance-inst` | — |
-| `0x00634EF0` | 18 | CTaskComplexUseClosestFreeScriptedAttractor (baja) | 2 | 1 | `CTaskSimplePlayerOnFoot::ProcessPlayerWeapon` | — |
-| `0x0067BA40` | 18 | CTaskSimpleJetPack (baja) | 2 | 1 | `CEventHandler::ComputeEventResponseTask-0` | — |
 | `0x006D0AF0` | 18 | CAEVehicleAudioEntity (baja) | 1 | 1 | `0x6dfc50` | — |
 | `0x00407A10` | 17 | CStreaming (alta) | 1 | 1 | `CCutsceneMgr::DeleteCutsceneData_overlay` | — |
 | `0x004AEC50` | 17 | CEventVehicleHitAndRun (baja) | 1 | 1 | `CTaskSimpleGiveCPR::ReviveDeadPed` | — |
@@ -1226,8 +1208,6 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 | `0x005326E0` | 11 | CDummyPool (baja) | 1 | 1 | `CFileLoader::LoadObjectInstance-inst` | — |
 | `0x00552380` | 11 | CPtrNodeDoubleLinkPool (baja) | 1 | 1 | `CQuadTreeNode&lt;T&gt;::AddItem` | — |
 | `0x005DDBE0` | 11 | CCivilianPed (alta) | 1 | 1 | `CCivilianPed::Destructor` | — |
-| `0x00667D50` | 11 | CTaskSimpleGoToPoint (alta) | 1 | 1 | `CPedGroup::PlayerGaveCommand_Gather` | — |
-| `0x0067A060` | 11 | CTaskComplexJump (alta) | 1 | 1 | `CTaskComplexClimb::Destructor` | — |
 | `0x00684200` | 11 | CTaskComplexPartnerDeal (baja) | 1 | 1 | `CGroupEventHandler::ComputeDoDealResponse` | — |
 | `0x00746070` | 11 | Win (baja) | 1 | 1 | `CCutsceneMgr::IsCutsceneSkipButtonBeingPressed` | — |
 | `0x0049E640` | 10 | CTrafficLights (baja) | 1 | 1 | `CGame::Process` | — |
@@ -1273,7 +1253,7 @@ Ordenadas por número de sitios de llamada desde código ya reemplazado (los má
 </details>
 
 <a id="parciales"></a>
-## 11. 🟡 Parciales · 0 clases del catálogo + 521 clases/módulos con funciones del EXE pendientes
+## 11. 🟡 Parciales · 0 clases del catálogo + 517 clases/módulos con funciones del EXE pendientes
 
 Orden de mayor a menor tamaño de las envolturas al EXE pendientes (suma de bytes de sus cuerpos; a igualdad, alfabético). «Función más grande» y «Tamaño» (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B) indican cuánto pesa la función más difícil de la clase. Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).
 
@@ -1283,14 +1263,15 @@ Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas 
 | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
 | *(ninguna clase parcial al 07/11/2026)* | | | | | | | | | |
 
-### Clases con funciones del EXE aún sin reemplazar · 521 clases / módulos
+### Clases con funciones del EXE aún sin reemplazar · 517 clases / módulos
 
-Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x401000–0x74FFFF sin reemplazar por C++ (grupos A–D del mapa del EXE y envolturas; 2,617 funciones). La clase se atribuye por cercanía de direcciones y puede ser errónea cuando su confianza es baja. Lista completa por función: [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md).
+Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x401000–0x74FFFF sin reemplazar por C++ (grupos A–D del mapa del EXE y envolturas; 2,597 funciones). La clase se atribuye por cercanía de direcciones y puede ser errónea cuando su confianza es baja. Lista completa por función: [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md).
 
 | Clase o módulo | Funciones pendientes | Bytes pendientes | Función más grande (B) | Tamaño |
 | --- | ---: | ---: | ---: | --- |
 | CAEPedlessSpeechAudioEntity | **1** | 3 | 3 | pequeña |
 | CTaskComplexGangJoinRespond | **1** | 6 | 6 | pequeña |
+| CTaskComplexKillPedOnFoot | **1** | 6 | 6 | pequeña |
 | CTaskComplexPartner | **1** | 6 | 6 | pequeña |
 | CTaskManager | **1** | 6 | 6 | pequeña |
 | CFormation | **1** | 7 | 7 | pequeña |
@@ -1305,7 +1286,6 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CTaskComplexEnterCarAsDriver | **1** | 11 | 11 | pequeña |
 | CTaskComplexEnterCarAsPassenger | **1** | 11 | 11 | pequeña |
 | CTaskComplexFacial | **1** | 11 | 11 | pequeña |
-| CTaskComplexFollowNodeRoute | **1** | 11 | 11 | pequeña |
 | CTaskComplexPartnerDeal | **1** | 11 | 11 | pequeña |
 | CTaskSimpleAchieveHeading | **1** | 11 | 11 | pequeña |
 | CTaskSimpleGoTo | **1** | 11 | 11 | pequeña |
@@ -1377,25 +1357,26 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CTaskSimpleCarGetIn | **1** | 30 | 30 | pequeña |
 | CTaskSimpleCarOpenDoorFromOutside | **1** | 30 | 30 | pequeña |
 | CTaskSimpleCarOpenLockedDoorFromOutside | **1** | 30 | 30 | pequeña |
+| CTaskSimpleCarSetPedInAsDriver | **1** | 30 | 30 | pequeña |
 | CTaskSimpleCarSetPedInAsPassenger | **1** | 30 | 30 | pequeña |
 | CTaskSimpleCarSlowDragPedOut | **1** | 30 | 30 | pequeña |
 | CTaskSimpleEvasiveDive | **1** | 30 | 30 | pequeña |
 | CTaskSimpleGunControl | **1** | 30 | 30 | pequeña |
+| CTaskSimpleJetPack | **1** | 30 | 30 | pequeña |
 | CTaskSimpleKillPedWithCar | **1** | 30 | 30 | pequeña |
 | CTaskSimpleNone | **1** | 30 | 30 | pequeña |
 | CTaskSimplePickUpBike | **1** | 30 | 30 | pequeña |
 | CTaskSimplePlayerOnFire | **1** | 30 | 30 | pequeña |
 | CTaskSimpleSay | **1** | 30 | 30 | pequeña |
+| CTaskSimpleShakeFist | **1** | 30 | 30 | pequeña |
 | CTaskSimpleSitDown | **1** | 30 | 30 | pequeña |
 | CTaskSimpleSitIdle | **1** | 30 | 30 | pequeña |
 | CTaskSimpleStandUp | **1** | 30 | 30 | pequeña |
 | CRoadBlocks | **1** | 31 | 31 | pequeña |
 | CEventEscalator | **1** | 32 | 32 | pequeña |
 | CAECollisionAudioEntity | **1** | 33 | 33 | pequeña |
-| CTaskComplexUseEffect | **1** | 39 | 39 | pequeña |
 | CGeneral | **1** | 47 | 47 | pequeña |
 | CAEMP3BankLoader | **1** | 48 | 48 | pequeña |
-| CTaskAllocatorAttack | **1** | 50 | 50 | pequeña |
 | CWorld | **1** | 51 | 51 | pequeña |
 | CAEScriptAudioEntity | **1** | 52 | 52 | pequeña |
 | CCollisionData | **1** | 52 | 52 | pequeña |
@@ -1416,7 +1397,6 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CTaskSequences | **1** | 79 | 79 | pequeña |
 | CTagManager | **1** | 80 | 80 | pequeña |
 | CTaskSimpleAffectSecondaryBehaviour | **1** | 87 | 87 | pequeña |
-| CTaskSimpleCarSetPedOut | **1** | 90 | 90 | pequeña |
 | CGangs | **1** | 92 | 92 | pequeña |
 | CColModel | **1** | 96 | 96 | pequeña |
 | CPointRoutePool | **1** | 106 | 106 | mediana |
@@ -1462,6 +1442,7 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CTaskComplexDriveToPoint | **2** | 41 | 30 | pequeña |
 | CTaskComplexEnterAnyCarAsDriver | **2** | 41 | 30 | pequeña |
 | CTaskComplexGoToPointAndStandStillTimed | **2** | 41 | 30 | pequeña |
+| CTaskComplexUseEffectRunning | **2** | 41 | 30 | pequeña |
 | CTaskComplexUseEffectSprinting | **2** | 41 | 30 | pequeña |
 | CTaskComplexWanderMedic | **2** | 41 | 30 | pequeña |
 | CTaskComplexWanderStandard | **2** | 41 | 30 | pequeña |
@@ -1471,7 +1452,6 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | ProcObjectMan_c | **2** | 41 | 30 | pequeña |
 | CTaskComplexReactToGunAimedAt | **2** | 42 | 30 | pequeña |
 | CTaskSimpleWaitUntilLeaderAreaCodesMatch | **2** | 42 | 30 | pequeña |
-| CTaskSimpleJetPack | **2** | 48 | 30 | pequeña |
 | CText | **2** | 48 | 24 | pequeña |
 | CAEAudioHardware | **2** | 54 | 27 | pequeña |
 | CAEPedAudioEntity | **2** | 57 | 43 | pequeña |
@@ -1486,10 +1466,12 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CTaskComplexOnFire | **2** | 60 | 30 | pequeña |
 | CTaskComplexPassObject | **2** | 60 | 30 | pequeña |
 | CTaskComplexUseAttractor | **2** | 60 | 30 | pequeña |
+| CTaskComplexUsePairedAttractor | **2** | 60 | 30 | pequeña |
 | CTaskComplexWanderCriminal | **2** | 60 | 30 | pequeña |
 | CTaskInteriorBeInOffice | **2** | 60 | 30 | pequeña |
 | CTaskSimpleCreateCarAndGetIn | **2** | 60 | 30 | pequeña |
 | CTaskSimpleEvasiveStep | **2** | 60 | 30 | pequeña |
+| CTaskSimpleGoToPoint | **2** | 60 | 30 | pequeña |
 | CBuildingPool | **2** | 62 | 51 | pequeña |
 | CDummyPool | **2** | 62 | 51 | pequeña |
 | CNodeRoutePool | **2** | 62 | 51 | pequeña |
@@ -1499,7 +1481,6 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CPedGroups | **2** | 72 | 42 | pequeña |
 | CPedIK | **2** | 72 | 49 | pequeña |
 | CCollision | **2** | 76 | 64 | pequeña |
-| CTaskSimpleShakeFist | **2** | 78 | 48 | pequeña |
 | Securom | **2** | 78 | 49 | pequeña |
 | CBuilding | **2** | 83 | 78 | pequeña |
 | CPedGroupDefaultTaskAllocatorChat | **2** | 86 | 77 | pequeña |
@@ -1507,7 +1488,6 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CAEStreamingChannel | **2** | 88 | 61 | pequeña |
 | CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset> | **2** | 91 | 61 | pequeña |
 | CGarage | **2** | 92 | 86 | pequeña |
-| CTaskComplexKillPedOnFoot | **2** | 96 | 90 | pequeña |
 | CTaskSimpleGiveCPR | **2** | 99 | 93 | pequeña |
 | CTaskSimpleHitHead | **2** | 99 | 93 | pequeña |
 | CInformGroupEvent | **2** | 101 | 51 | pequeña |
@@ -1516,7 +1496,6 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CInterestingEvents | **2** | 110 | 80 | pequeña |
 | CTaskSimpleInAir | **2** | 115 | 109 | mediana |
 | CTaskComplexScreamInCarThenLeave | **2** | 118 | 88 | pequeña |
-| CTaskSimpleCarSetPedInAsDriver | **2** | 120 | 90 | pequeña |
 | CAnimBlendStaticAssociation | **2** | 121 | 94 | pequeña |
 | CTaskComplexPartnerChat | **2** | 123 | 93 | pequeña |
 | CEventPool | **2** | 126 | 77 | pequeña |
@@ -1570,13 +1549,11 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CTaskComplexUseSequence | **3** | 66 | 30 | pequeña |
 | CTaskComplexDiveFromAttachedEntityAndGetUp | **3** | 67 | 30 | pequeña |
 | CTaskComplexCarDriveWander | **3** | 71 | 30 | pequeña |
-| CTaskSimpleGoToPoint | **3** | 71 | 30 | pequeña |
 | CTaskComplexDrivePointRoute | **3** | 78 | 30 | pequeña |
-| CTaskComplexUseEffectRunning | **3** | 80 | 39 | pequeña |
+| CTaskComplexWaitForBus | **3** | 81 | 30 | pequeña |
 | CBaseModelInfo | **3** | 88 | 30 | pequeña |
 | CTaskComplexPlayHandSignalAnim | **3** | 90 | 30 | pequeña |
 | CTaskSimpleCarShuffle | **3** | 90 | 30 | pequeña |
-| CTaskComplexUsePairedAttractor | **3** | 94 | 34 | pequeña |
 | CPlayerRelationshipRecorder | **3** | 111 | 64 | pequeña |
 | CBmx | **3** | 118 | 85 | pequeña |
 | CColSphere | **3** | 124 | 85 | pequeña |
@@ -1640,7 +1617,7 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CTaskSimpleDie | **4** | 159 | 93 | pequeña |
 | CTaskSimpleGetUp | **4** | 159 | 93 | pequeña |
 | CTaskSimpleLand | **4** | 159 | 93 | pequeña |
-| CTaskComplexWaitForBus | **4** | 160 | 79 | pequeña |
+| CTaskComplexJump | **4** | 164 | 122 | mediana |
 | CAtomicModelInfo | **4** | 167 | 82 | pequeña |
 | CEventPedCollisionWithPlayer | **4** | 167 | 120 | mediana |
 | CEventPlayerCollisionWithPed | **4** | 167 | 120 | mediana |
@@ -1656,6 +1633,7 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CAudioZones | **4** | 275 | 139 | mediana |
 | CStuntJumpManager | **4** | 296 | 103 | mediana |
 | CTaskInteriorSitInChair | **4** | 304 | 106 | mediana |
+| CTaskSimpleSwim | **4** | 315 | 162 | mediana |
 | CTaskComplexHitPedWithCar | **4** | 319 | 208 | mediana |
 | CTaskComplexOpenPassengerDoor | **4** | 327 | 131 | mediana |
 | CPedGeometryAnalyser | **4** | 338 | 110 | mediana |
@@ -1678,11 +1656,11 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CAEVehicleAudioEntity | **5** | 121 | 44 | pequeña |
 | CTaskGangHasslePed | **5** | 126 | 30 | pequeña |
 | CEventObjectCollision | **5** | 130 | 110 | mediana |
+| CEventDontJoinPlayerGroup | **5** | 140 | 96 | pequeña |
 | CTaskComplexFleePoint | **5** | 150 | 30 | pequeña |
 | CTaskComplexSitDownThenIdleThenStandUp | **5** | 150 | 30 | pequeña |
 | CTaskSimpleIKChain | **5** | 150 | 30 | pequeña |
 | CTaskComplexGoToAttractor | **5** | 162 | 112 | mediana |
-| CTaskComplexJump | **5** | 175 | 122 | mediana |
 | CLoadingScreen | **5** | 180 | 76 | pequeña |
 | CDamageAtomicModelInfo | **5** | 210 | 103 | mediana |
 | CMenuManager | **5** | 214 | 118 | mediana |
@@ -1690,7 +1668,6 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CAEAmbienceTrackManager | **5** | 386 | 115 | mediana |
 | CTaskSimpleCarFallOut | **5** | 388 | 218 | mediana |
 | CTaskSimpleDieInCar | **5** | 403 | 152 | mediana |
-| CTaskSimpleSwim | **5** | 406 | 162 | mediana |
 | CTheZones | **5** | 422 | 154 | mediana |
 | CObjectPool | **5** | 446 | 230 | mediana |
 | CShopping | **5** | 460 | 184 | mediana |
@@ -1704,12 +1681,12 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CTaskSimpleCarJumpOut | **6** | 156 | 30 | pequeña |
 | CFileLoader | **6** | 158 | 55 | pequeña |
 | CTaskComplexEnterCar | **6** | 177 | 30 | pequeña |
-| CEventDontJoinPlayerGroup | **6** | 230 | 96 | pequeña |
 | CEventNewGangMember | **6** | 230 | 96 | pequeña |
 | CEventLeanOnVehicle | **6** | 234 | 100 | mediana |
 | CTaskSimpleRunNamedAnim | **6** | 235 | 116 | mediana |
 | CTaskSimpleWaitForBus | **6** | 239 | 113 | mediana |
 | CTaskSimpleStandStill | **6** | 241 | 99 | pequeña |
+| CTask | **6** | 289 | 159 | mediana |
 | cHandlingDataMgr | **6** | 299 | 85 | pequeña |
 | CTaskComplexGotoDoorAndOpen | **6** | 388 | 151 | mediana |
 | CTxdStore | **6** | 388 | 104 | mediana |
@@ -1729,7 +1706,6 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CEventLeaderExitedCarAsDriver | **7** | 141 | 80 | pequeña |
 | CTaskComplexDriveFireTruck | **7** | 202 | 106 | mediana |
 | CVisibilityPlugins | **7** | 205 | 115 | mediana |
-| CTask | **7** | 336 | 159 | mediana |
 | CTaskAllocatorPool | **7** | 362 | 59 | pequeña |
 | CEventKnockOffBike | **7** | 395 | 232 | mediana |
 | CPtrNodeDoubleLinkPool | **7** | 436 | 114 | mediana |
@@ -1752,6 +1728,7 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CEventLeaderEntryExit | **9** | 153 | 88 | pequeña |
 | CTaskSimpleUninterruptable | **9** | 154 | 80 | pequeña |
 | CAEAudioEntity | **9** | 176 | 90 | pequeña |
+| CEventPassObject | **9** | 201 | 102 | mediana |
 | CEventHitByWaterCannon | **9** | 234 | 97 | pequeña |
 | CEventLeaderEnteredCarAsDriver | **9** | 244 | 96 | pequeña |
 | CTaskComplexWalkRoundFire | **9** | 385 | 111 | mediana |
@@ -1761,7 +1738,6 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CTaskComplexPartnerGreet | **9** | 458 | 154 | mediana |
 | CTaskComplexRoadRage | **9** | 585 | 194 | mediana |
 | CTaskComplexInvestigateDisturbance | **9** | 1,125 | 348 | mediana |
-| CEventPassObject | **10** | 291 | 102 | mediana |
 | CQuadTreeNode<T> | **10** | 720 | 206 | mediana |
 | CTaskComplexAvoidOtherPedWhileWandering | **10** | 1,382 | 455 | mediana |
 | CReplay | **10** | 4,172 | 1,236 | grande |
@@ -1773,19 +1749,19 @@ Todas estas clases o módulos son parciales: conservan funciones del EXE en 0x40
 | CAutomobile | **11** | 3,922 | 1,018 | grande |
 | CEventPotentialWalkIntoFire | **12** | 514 | 76 | pequeña |
 | CPedAttractorPool | **12** | 530 | 62 | pequeña |
+| CTaskSimpleRunTimedAnim | **12** | 1,175 | 226 | mediana |
 | CEventScriptedAttractor | **13** | 527 | 93 | pequeña |
 | CTaskComplexFallAndGetUp | **13** | 719 | 167 | mediana |
 | CTaskComplexMedicTreatInjuredPed | **13** | 974 | 259 | mediana |
-| CTaskSimpleRunTimedAnim | **13** | 1,251 | 226 | mediana |
 | CClothesBuilder | **13** | 1,285 | 339 | mediana |
+| CTaskComplexUseClosestFreeScriptedAttractor | **13** | 1,858 | 425 | mediana |
 | CCullZones | **13** | 2,476 | 455 | mediana |
+| CTaskComplexDieInCar | **14** | 344 | 96 | pequeña |
 | CEventEditableResponse | **14** | 607 | 88 | pequeña |
 | CTaskSimpleThrowControl | **14** | 1,802 | 836 | grande |
-| CTaskComplexUseClosestFreeScriptedAttractor | **14** | 1,876 | 425 | mediana |
 | CPathFind | **14** | 2,141 | 1,077 | grande |
 | CTaskComplexTurnToFaceEntityOrCoord | **14** | 2,607 | 968 | grande |
 | CTheScripts | **14** | 9,864 | 8,957 | muy grande |
-| CTaskComplexDieInCar | **15** | 406 | 96 | pequeña |
 | CTaskComplexUseWaterCannon | **15** | 769 | 180 | mediana |
 | CEventVehicleCollision | **15** | 1,149 | 126 | mediana |
 | CVehicleModelInfo | **15** | 1,356 | 343 | mediana |

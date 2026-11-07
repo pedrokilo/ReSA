@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (07/11/2026). Total: **2,617** funciones en 521 clases/módulos (rango 0x401000–0x74FFFF): 2,595 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (07/11/2026). Total: **2,597** funciones en 517 clases/módulos (rango 0x401000–0x74FFFF): 2,575 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -12,6 +12,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---:|
 | CAEPedlessSpeechAudioEntity | 1 | 3 |
 | CTaskComplexGangJoinRespond | 1 | 6 |
+| CTaskComplexKillPedOnFoot | 1 | 6 |
 | CTaskComplexPartner | 1 | 6 |
 | CTaskManager | 1 | 6 |
 | CFormation | 1 | 7 |
@@ -26,7 +27,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskComplexEnterCarAsDriver | 1 | 11 |
 | CTaskComplexEnterCarAsPassenger | 1 | 11 |
 | CTaskComplexFacial | 1 | 11 |
-| CTaskComplexFollowNodeRoute | 1 | 11 |
 | CTaskComplexPartnerDeal | 1 | 11 |
 | CTaskSimpleAchieveHeading | 1 | 11 |
 | CTaskSimpleGoTo | 1 | 11 |
@@ -98,25 +98,26 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskSimpleCarGetIn | 1 | 30 |
 | CTaskSimpleCarOpenDoorFromOutside | 1 | 30 |
 | CTaskSimpleCarOpenLockedDoorFromOutside | 1 | 30 |
+| CTaskSimpleCarSetPedInAsDriver | 1 | 30 |
 | CTaskSimpleCarSetPedInAsPassenger | 1 | 30 |
 | CTaskSimpleCarSlowDragPedOut | 1 | 30 |
 | CTaskSimpleEvasiveDive | 1 | 30 |
 | CTaskSimpleGunControl | 1 | 30 |
+| CTaskSimpleJetPack | 1 | 30 |
 | CTaskSimpleKillPedWithCar | 1 | 30 |
 | CTaskSimpleNone | 1 | 30 |
 | CTaskSimplePickUpBike | 1 | 30 |
 | CTaskSimplePlayerOnFire | 1 | 30 |
 | CTaskSimpleSay | 1 | 30 |
+| CTaskSimpleShakeFist | 1 | 30 |
 | CTaskSimpleSitDown | 1 | 30 |
 | CTaskSimpleSitIdle | 1 | 30 |
 | CTaskSimpleStandUp | 1 | 30 |
 | CRoadBlocks | 1 | 31 |
 | CEventEscalator | 1 | 32 |
 | CAECollisionAudioEntity | 1 | 33 |
-| CTaskComplexUseEffect | 1 | 39 |
 | CGeneral | 1 | 47 |
 | CAEMP3BankLoader | 1 | 48 |
-| CTaskAllocatorAttack | 1 | 50 |
 | CWorld | 1 | 51 |
 | CAEScriptAudioEntity | 1 | 52 |
 | CCollisionData | 1 | 52 |
@@ -137,7 +138,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskSequences | 1 | 79 |
 | CTagManager | 1 | 80 |
 | CTaskSimpleAffectSecondaryBehaviour | 1 | 87 |
-| CTaskSimpleCarSetPedOut | 1 | 90 |
 | CGangs | 1 | 92 |
 | CColModel | 1 | 96 |
 | CPointRoutePool | 1 | 106 |
@@ -183,6 +183,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskComplexDriveToPoint | 2 | 41 |
 | CTaskComplexEnterAnyCarAsDriver | 2 | 41 |
 | CTaskComplexGoToPointAndStandStillTimed | 2 | 41 |
+| CTaskComplexUseEffectRunning | 2 | 41 |
 | CTaskComplexUseEffectSprinting | 2 | 41 |
 | CTaskComplexWanderMedic | 2 | 41 |
 | CTaskComplexWanderStandard | 2 | 41 |
@@ -192,7 +193,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | ProcObjectMan_c | 2 | 41 |
 | CTaskComplexReactToGunAimedAt | 2 | 42 |
 | CTaskSimpleWaitUntilLeaderAreaCodesMatch | 2 | 42 |
-| CTaskSimpleJetPack | 2 | 48 |
 | CText | 2 | 48 |
 | CAEAudioHardware | 2 | 54 |
 | CAEPedAudioEntity | 2 | 57 |
@@ -207,10 +207,12 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskComplexOnFire | 2 | 60 |
 | CTaskComplexPassObject | 2 | 60 |
 | CTaskComplexUseAttractor | 2 | 60 |
+| CTaskComplexUsePairedAttractor | 2 | 60 |
 | CTaskComplexWanderCriminal | 2 | 60 |
 | CTaskInteriorBeInOffice | 2 | 60 |
 | CTaskSimpleCreateCarAndGetIn | 2 | 60 |
 | CTaskSimpleEvasiveStep | 2 | 60 |
+| CTaskSimpleGoToPoint | 2 | 60 |
 | CBuildingPool | 2 | 62 |
 | CDummyPool | 2 | 62 |
 | CNodeRoutePool | 2 | 62 |
@@ -220,7 +222,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CPedGroups | 2 | 72 |
 | CPedIK | 2 | 72 |
 | CCollision | 2 | 76 |
-| CTaskSimpleShakeFist | 2 | 78 |
 | Securom | 2 | 78 |
 | CBuilding | 2 | 83 |
 | CPedGroupDefaultTaskAllocatorChat | 2 | 86 |
@@ -228,7 +229,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CAEStreamingChannel | 2 | 88 |
 | CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset> | 2 | 91 |
 | CGarage | 2 | 92 |
-| CTaskComplexKillPedOnFoot | 2 | 96 |
 | CTaskSimpleGiveCPR | 2 | 99 |
 | CTaskSimpleHitHead | 2 | 99 |
 | CInformGroupEvent | 2 | 101 |
@@ -237,7 +237,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CInterestingEvents | 2 | 110 |
 | CTaskSimpleInAir | 2 | 115 |
 | CTaskComplexScreamInCarThenLeave | 2 | 118 |
-| CTaskSimpleCarSetPedInAsDriver | 2 | 120 |
 | CAnimBlendStaticAssociation | 2 | 121 |
 | CTaskComplexPartnerChat | 2 | 123 |
 | CEventPool | 2 | 126 |
@@ -291,13 +290,11 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskComplexUseSequence | 3 | 66 |
 | CTaskComplexDiveFromAttachedEntityAndGetUp | 3 | 67 |
 | CTaskComplexCarDriveWander | 3 | 71 |
-| CTaskSimpleGoToPoint | 3 | 71 |
 | CTaskComplexDrivePointRoute | 3 | 78 |
-| CTaskComplexUseEffectRunning | 3 | 80 |
+| CTaskComplexWaitForBus | 3 | 81 |
 | CBaseModelInfo | 3 | 88 |
 | CTaskComplexPlayHandSignalAnim | 3 | 90 |
 | CTaskSimpleCarShuffle | 3 | 90 |
-| CTaskComplexUsePairedAttractor | 3 | 94 |
 | CPlayerRelationshipRecorder | 3 | 111 |
 | CBmx | 3 | 118 |
 | CColSphere | 3 | 124 |
@@ -361,7 +358,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskSimpleDie | 4 | 159 |
 | CTaskSimpleGetUp | 4 | 159 |
 | CTaskSimpleLand | 4 | 159 |
-| CTaskComplexWaitForBus | 4 | 160 |
+| CTaskComplexJump | 4 | 164 |
 | CAtomicModelInfo | 4 | 167 |
 | CEventPedCollisionWithPlayer | 4 | 167 |
 | CEventPlayerCollisionWithPed | 4 | 167 |
@@ -377,6 +374,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CAudioZones | 4 | 275 |
 | CStuntJumpManager | 4 | 296 |
 | CTaskInteriorSitInChair | 4 | 304 |
+| CTaskSimpleSwim | 4 | 315 |
 | CTaskComplexHitPedWithCar | 4 | 319 |
 | CTaskComplexOpenPassengerDoor | 4 | 327 |
 | CPedGeometryAnalyser | 4 | 338 |
@@ -399,11 +397,11 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CAEVehicleAudioEntity | 5 | 121 |
 | CTaskGangHasslePed | 5 | 126 |
 | CEventObjectCollision | 5 | 130 |
+| CEventDontJoinPlayerGroup | 5 | 140 |
 | CTaskComplexFleePoint | 5 | 150 |
 | CTaskComplexSitDownThenIdleThenStandUp | 5 | 150 |
 | CTaskSimpleIKChain | 5 | 150 |
 | CTaskComplexGoToAttractor | 5 | 162 |
-| CTaskComplexJump | 5 | 175 |
 | CLoadingScreen | 5 | 180 |
 | CDamageAtomicModelInfo | 5 | 210 |
 | CMenuManager | 5 | 214 |
@@ -411,7 +409,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CAEAmbienceTrackManager | 5 | 386 |
 | CTaskSimpleCarFallOut | 5 | 388 |
 | CTaskSimpleDieInCar | 5 | 403 |
-| CTaskSimpleSwim | 5 | 406 |
 | CTheZones | 5 | 422 |
 | CObjectPool | 5 | 446 |
 | CShopping | 5 | 460 |
@@ -425,12 +422,12 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskSimpleCarJumpOut | 6 | 156 |
 | CFileLoader | 6 | 158 |
 | CTaskComplexEnterCar | 6 | 177 |
-| CEventDontJoinPlayerGroup | 6 | 230 |
 | CEventNewGangMember | 6 | 230 |
 | CEventLeanOnVehicle | 6 | 234 |
 | CTaskSimpleRunNamedAnim | 6 | 235 |
 | CTaskSimpleWaitForBus | 6 | 239 |
 | CTaskSimpleStandStill | 6 | 241 |
+| CTask | 6 | 289 |
 | cHandlingDataMgr | 6 | 299 |
 | CTaskComplexGotoDoorAndOpen | 6 | 388 |
 | CTxdStore | 6 | 388 |
@@ -450,7 +447,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CEventLeaderExitedCarAsDriver | 7 | 141 |
 | CTaskComplexDriveFireTruck | 7 | 202 |
 | CVisibilityPlugins | 7 | 205 |
-| CTask | 7 | 336 |
 | CTaskAllocatorPool | 7 | 362 |
 | CEventKnockOffBike | 7 | 395 |
 | CPtrNodeDoubleLinkPool | 7 | 436 |
@@ -473,6 +469,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CEventLeaderEntryExit | 9 | 153 |
 | CTaskSimpleUninterruptable | 9 | 154 |
 | CAEAudioEntity | 9 | 176 |
+| CEventPassObject | 9 | 201 |
 | CEventHitByWaterCannon | 9 | 234 |
 | CEventLeaderEnteredCarAsDriver | 9 | 244 |
 | CTaskComplexWalkRoundFire | 9 | 385 |
@@ -482,7 +479,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskComplexPartnerGreet | 9 | 458 |
 | CTaskComplexRoadRage | 9 | 585 |
 | CTaskComplexInvestigateDisturbance | 9 | 1125 |
-| CEventPassObject | 10 | 291 |
 | CQuadTreeNode<T> | 10 | 720 |
 | CTaskComplexAvoidOtherPedWhileWandering | 10 | 1382 |
 | CReplay | 10 | 4172 |
@@ -494,19 +490,19 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CAutomobile | 11 | 3922 |
 | CEventPotentialWalkIntoFire | 12 | 514 |
 | CPedAttractorPool | 12 | 530 |
+| CTaskSimpleRunTimedAnim | 12 | 1175 |
 | CEventScriptedAttractor | 13 | 527 |
 | CTaskComplexFallAndGetUp | 13 | 719 |
 | CTaskComplexMedicTreatInjuredPed | 13 | 974 |
-| CTaskSimpleRunTimedAnim | 13 | 1251 |
 | CClothesBuilder | 13 | 1285 |
+| CTaskComplexUseClosestFreeScriptedAttractor | 13 | 1858 |
 | CCullZones | 13 | 2476 |
+| CTaskComplexDieInCar | 14 | 344 |
 | CEventEditableResponse | 14 | 607 |
 | CTaskSimpleThrowControl | 14 | 1802 |
-| CTaskComplexUseClosestFreeScriptedAttractor | 14 | 1876 |
 | CPathFind | 14 | 2141 |
 | CTaskComplexTurnToFaceEntityOrCoord | 14 | 2607 |
 | CTheScripts | 14 | 9864 |
-| CTaskComplexDieInCar | 15 | 406 |
 | CTaskComplexUseWaterCannon | 15 | 769 |
 | CEventVehicleCollision | 15 | 1149 |
 | CVehicleModelInfo | 15 | 1356 |
@@ -543,6 +539,12 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00661710 | 6 | B |  | 0 | 0 | sí | alta |
+
+## CTaskComplexKillPedOnFoot (1)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00620EE0 | 6 | B |  | 0 | 0 | sí | baja |
 
 ## CTaskComplexPartner (1)
 
@@ -627,12 +629,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00690D90 | 11 | C |  | 1 | 0 |  | alta |
-
-## CTaskComplexFollowNodeRoute (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00669D20 | 11 | A |  | 8 | 3 |  | baja |
 
 ## CTaskComplexPartnerDeal (1)
 
@@ -1060,6 +1056,12 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x0064AE70 | 30 | B |  | 0 | 0 | sí | baja |
 
+## CTaskSimpleCarSetPedInAsDriver (1)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0064BDC0 | 30 | B |  | 0 | 0 | sí | baja |
+
 ## CTaskSimpleCarSetPedInAsPassenger (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -1083,6 +1085,12 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x006259C0 | 30 | B |  | 0 | 0 | sí | baja |
+
+## CTaskSimpleJetPack (1)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0067FA60 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CTaskSimpleKillPedWithCar (1)
 
@@ -1113,6 +1121,12 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x0048E4C0 | 30 | B |  | 0 | 0 | sí | alta |
+
+## CTaskSimpleShakeFist (1)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00692E30 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CTaskSimpleSitDown (1)
 
@@ -1150,12 +1164,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x004DA510 | 33 | A |  | 2 | 2 |  | alta |
 
-## CTaskComplexUseEffect (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00636780 | 39 | A |  | 1 | 1 |  | baja |
-
 ## CGeneral (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -1167,12 +1175,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x004E0380 | 48 | A |  | 1 | 1 |  | alta |
-
-## CTaskAllocatorAttack (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0069C480 | 50 | A |  | 1 | 1 |  | baja |
 
 ## CWorld (1)
 
@@ -1293,12 +1295,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x006912C0 | 87 | C |  | 1 | 0 |  | alta |
-
-## CTaskSimpleCarSetPedOut (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00647950 | 90 | A |  | 25 | 11 |  | alta |
 
 ## CGangs (1)
 
@@ -1592,6 +1588,13 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00668630 | 11 | C |  | 1 | 0 |  | alta |
 | 0x0066DD50 | 30 | B |  | 0 | 0 | sí | baja |
 
+## CTaskComplexUseEffectRunning (2)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00636830 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00636850 | 11 | C |  | 1 | 0 |  | baja |
+
 ## CTaskComplexUseEffectSprinting (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -1654,13 +1657,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x005F6880 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x005F68A0 | 12 | D |  | 0 | 0 |  | baja |
-
-## CTaskSimpleJetPack (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0067BA40 | 18 | A |  | 1 | 1 |  | baja |
-| 0x0067FA60 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CText (2)
 
@@ -1760,6 +1756,13 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00638900 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00638920 | 30 | B |  | 0 | 0 | sí | baja |
 
+## CTaskComplexUsePairedAttractor (2)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00638F00 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00639F90 | 30 | B |  | 0 | 0 | sí | baja |
+
 ## CTaskComplexWanderCriminal (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -1787,6 +1790,13 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x00655EE0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00655F00 | 30 | B |  | 0 | 0 | sí | baja |
+
+## CTaskSimpleGoToPoint (2)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0066DB60 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x0066DB80 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CBuildingPool (2)
 
@@ -1851,13 +1861,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004161D0 | 12 | D |  | 0 | 0 |  | alta |
 | 0x004161F0 | 64 | A |  | 2 | 2 |  | alta |
 
-## CTaskSimpleShakeFist (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00690C70 | 48 | A |  | 3 | 3 |  | baja |
-| 0x00692E30 | 30 | B |  | 0 | 0 | sí | baja |
-
 ## Securom (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -1906,13 +1909,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x00448650 | 6 | A |  | 2 | 2 |  | alta |
 | 0x00448660 | 86 | A |  | 1 | 1 |  | alta |
-
-## CTaskComplexKillPedOnFoot (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00620EE0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00620EF0 | 90 | A |  | 4 | 2 |  | baja |
 
 ## CTaskSimpleGiveCPR (2)
 
@@ -1969,13 +1965,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x006426E0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00642700 | 88 | A |  | 1 | 1 |  | baja |
-
-## CTaskSimpleCarSetPedInAsDriver (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00647170 | 90 | A |  | 9 | 2 |  | baja |
-| 0x0064BDC0 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CAnimBlendStaticAssociation (2)
 
@@ -2369,14 +2358,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00643260 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00643280 | 30 | B |  | 0 | 0 | sí | baja |
 
-## CTaskSimpleGoToPoint (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00667D50 | 11 | A |  | 3 | 1 |  | alta |
-| 0x0066DB60 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0066DB80 | 30 | B |  | 0 | 0 | sí | baja |
-
 ## CTaskComplexDrivePointRoute (3)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -2385,13 +2366,13 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006434F0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00643A40 | 30 | B |  | 0 | 0 | sí | baja |
 
-## CTaskComplexUseEffectRunning (3)
+## CTaskComplexWaitForBus (3)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x00636830 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00636850 | 11 | C |  | 1 | 0 |  | baja |
-| 0x00636860 | 39 | A |  | 1 | 1 |  | baja |
+| 0x006389B0 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x006389D0 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00638A40 | 21 | B | CTaskComplexSequence::CreateNextSubTask-V | 0 | 0 | sí | baja |
 
 ## CBaseModelInfo (3)
 
@@ -2416,14 +2397,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0064B440 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x0064B460 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x0064B480 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexUsePairedAttractor (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00633250 | 34 | A |  | 1 | 1 |  | baja |
-| 0x00638F00 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00639F90 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CPlayerRelationshipRecorder (3)
 
@@ -2953,14 +2926,14 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0067D550 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x0067D570 | 30 | B |  | 0 | 0 | sí | baja |
 
-## CTaskComplexWaitForBus (4)
+## CTaskComplexJump (4)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x006389B0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006389D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006389F0 | 79 | A |  | 27 | 12 |  | baja |
-| 0x00638A40 | 21 | B | CTaskComplexSequence::CreateNextSubTask-V | 0 | 0 | sí | baja |
+| 0x0067A050 | 6 | B |  | 0 | 0 | sí | alta |
+| 0x0067A100 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x0067C610 | 122 | B |  | 0 | 0 | sí | baja |
+| 0x0067DBC0 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CAtomicModelInfo (4)
 
@@ -3096,6 +3069,15 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00675C90 | 93 | C |  | 1 | 0 |  | baja |
 | 0x00675CF0 | 106 | D |  | 0 | 0 |  | baja |
 | 0x00675D60 | 99 | D |  | 0 | 0 |  | baja |
+
+## CTaskSimpleSwim (4)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x006889F0 | 6 | B |  | 0 | 0 | sí | alta |
+| 0x00688A00 | 141 | C |  | 1 | 0 |  | alta |
+| 0x0068B680 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x0068B690 | 162 | C |  | 1 | 0 |  | baja |
 
 ## CTaskComplexHitPedWithCar (4)
 
@@ -3303,6 +3285,16 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004ACE80 | 110 | A |  | 1 | 1 |  | baja |
 | 0x004ACEF0 | 5 | B |  | 0 | 0 | sí | baja |
 
+## CEventDontJoinPlayerGroup (5)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x006091A0 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x006091B0 | 3 | B |  | 0 | 0 | sí | baja |
+| 0x006091C0 | 96 | B |  | 0 | 0 | sí | baja |
+| 0x00609220 | 5 | B |  | 0 | 0 | sí | baja |
+| 0x00609230 | 30 | B |  | 0 | 0 | sí | baja |
+
 ## CTaskComplexFleePoint (5)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -3342,16 +3334,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0066B710 | 6 | B |  | 0 | 0 | sí | baja |
 | 0x0066D1E0 | 112 | B |  | 0 | 0 | sí | baja |
 | 0x006705B0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexJump (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0067A050 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x0067A060 | 11 | A |  | 2 | 1 |  | alta |
-| 0x0067A100 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0067C610 | 122 | B |  | 0 | 0 | sí | baja |
-| 0x0067DBC0 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CLoadingScreen (5)
 
@@ -3422,16 +3404,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00635F90 | 124 | B |  | 0 | 0 | sí | baja |
 | 0x00636010 | 80 | B |  | 0 | 0 | sí | baja |
 | 0x00636060 | 152 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleSwim (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006889F0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00688A00 | 141 | C |  | 1 | 0 |  | alta |
-| 0x0068B620 | 91 | A |  | 2 | 1 |  | baja |
-| 0x0068B680 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0068B690 | 162 | C |  | 1 | 0 |  | baja |
 
 ## CTheZones (5)
 
@@ -3570,17 +3542,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00643CC0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00643CE0 | 30 | B |  | 0 | 0 | sí | baja |
 
-## CEventDontJoinPlayerGroup (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00609140 | 90 | A |  | 3 | 1 |  | baja |
-| 0x006091A0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x006091B0 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x006091C0 | 96 | B |  | 0 | 0 | sí | baja |
-| 0x00609220 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x00609230 | 30 | B |  | 0 | 0 | sí | baja |
-
 ## CEventNewGangMember (6)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -3635,6 +3596,17 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004B8750 | 11 | C |  | 1 | 0 |  | baja |
 | 0x0062F350 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x0062F520 | 99 | B |  | 0 | 0 | sí | baja |
+
+## CTask (6)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00421190 | 4 | B |  | 0 | 0 | sí | baja |
+| 0x004211A0 | 3 | B |  | 0 | 0 | sí | baja |
+| 0x004211B0 | 8 | B |  | 0 | 0 | sí | baja |
+| 0x0061A620 | 59 | D |  | 0 | 0 |  | baja |
+| 0x0061A660 | 56 | B |  | 0 | 0 | sí | baja |
+| 0x0061A6F0 | 159 | C |  | 6 | 0 |  | baja |
 
 ## cHandlingDataMgr (6)
 
@@ -3849,18 +3821,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00734610 | 1 | A |  | 1 | 1 |  | baja |
 | 0x00734620 | 1 | A |  | 1 | 1 |  | baja |
 | 0x00734640 | 1 | A |  | 3 | 3 |  | baja |
-
-## CTask (7)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00421190 | 4 | B |  | 0 | 0 | sí | baja |
-| 0x004211A0 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004211B0 | 8 | B |  | 0 | 0 | sí | baja |
-| 0x0061A620 | 59 | D |  | 0 | 0 |  | baja |
-| 0x0061A660 | 56 | B |  | 0 | 0 | sí | baja |
-| 0x0061A6C0 | 47 | A |  | 2 | 1 |  | baja |
-| 0x0061A6F0 | 159 | C |  | 6 | 0 |  | baja |
 
 ## CTaskAllocatorPool (7)
 
@@ -4144,6 +4104,20 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x005DEAD0 | 6 | B |  | 0 | 0 | sí | baja |
 | 0x005DEB90 | 30 | D |  | 0 | 0 |  | baja |
 
+## CEventPassObject (9)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0065DD50 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x0065DD60 | 3 | B |  | 0 | 0 | sí | baja |
+| 0x0065DD70 | 102 | B |  | 0 | 0 | sí | baja |
+| 0x0065DDE0 | 5 | B |  | 0 | 0 | sí | baja |
+| 0x0065DDF0 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x0065DE10 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x0065DE20 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x0065DE60 | 36 | A |  | 1 | 1 |  | baja |
+| 0x0065DE90 | 7 | C |  | 5 | 0 |  | baja |
+
 ## CEventHitByWaterCannon (9)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4269,21 +4243,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0066D6D0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x0066D6F0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00674BB0 | 114 | B |  | 0 | 0 | sí | baja |
-
-## CEventPassObject (10)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0065DCF0 | 90 | A |  | 5 | 2 |  | baja |
-| 0x0065DD50 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0065DD60 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x0065DD70 | 102 | B |  | 0 | 0 | sí | baja |
-| 0x0065DDE0 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x0065DDF0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0065DE10 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0065DE20 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0065DE60 | 36 | A |  | 1 | 1 |  | baja |
-| 0x0065DE90 | 7 | C |  | 5 | 0 |  | baja |
 
 ## CQuadTreeNode<T> (10)
 
@@ -4460,6 +4419,23 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x005EAEA0 | 57 | A |  | 3 | 0 |  | baja |
 | 0x005EAEE0 | 37 | A |  | 3 | 0 |  | baja |
 
+## CTaskSimpleRunTimedAnim (12)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0061AC90 | 112 | C |  | 1 | 0 |  | baja |
+| 0x0061AD10 | 222 | C |  | 1 | 0 |  | baja |
+| 0x0061ADF0 | 82 | C |  | 1 | 0 |  | baja |
+| 0x0061AEA0 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x0061AEB0 | 146 | C |  | 1 | 0 |  | baja |
+| 0x0061AF50 | 5 | B |  | 0 | 0 | sí | baja |
+| 0x0061B890 | 226 | D |  | 0 | 0 |  | baja |
+| 0x0061B980 | 118 | B |  | 0 | 0 | sí | baja |
+| 0x0061BC80 | 30 | D |  | 0 | 0 |  | baja |
+| 0x0061BCA0 | 5 | C |  | 1 | 0 |  | baja |
+| 0x0061BCB0 | 193 | D |  | 0 | 0 |  | baja |
+| 0x0061BD80 | 30 | B |  | 0 | 0 | sí | baja |
+
 ## CEventScriptedAttractor (13)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4514,24 +4490,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0065B050 | 18 | B |  | 0 | 0 | sí | baja |
 | 0x0065B070 | 31 | B |  | 0 | 0 | sí | baja |
 
-## CTaskSimpleRunTimedAnim (13)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0061AC90 | 112 | C |  | 1 | 0 |  | baja |
-| 0x0061AD10 | 222 | C |  | 1 | 0 |  | baja |
-| 0x0061ADF0 | 82 | C |  | 1 | 0 |  | baja |
-| 0x0061AE50 | 76 | A |  | 2 | 1 |  | baja |
-| 0x0061AEA0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0061AEB0 | 146 | C |  | 1 | 0 |  | baja |
-| 0x0061AF50 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x0061B890 | 226 | D |  | 0 | 0 |  | baja |
-| 0x0061B980 | 118 | B |  | 0 | 0 | sí | baja |
-| 0x0061BC80 | 30 | D |  | 0 | 0 |  | baja |
-| 0x0061BCA0 | 5 | C |  | 1 | 0 |  | baja |
-| 0x0061BCB0 | 193 | D |  | 0 | 0 |  | baja |
-| 0x0061BD80 | 30 | B |  | 0 | 0 | sí | baja |
-
 ## CClothesBuilder (13)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4550,6 +4508,24 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x005A7570 | 41 | C |  | 1 | 0 |  | baja |
 | 0x005A75B0 | 339 | C |  | 1 | 0 |  | baja |
 
+## CTaskComplexUseClosestFreeScriptedAttractor (13)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x006348A0 | 47 | C |  | 1 | 0 |  | baja |
+| 0x006348D0 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x006348E0 | 11 | C |  | 1 | 0 |  | baja |
+| 0x006348F0 | 62 | C |  | 2 | 0 |  | baja |
+| 0x00634930 | 262 | B |  | 0 | 0 | sí | baja |
+| 0x00634A60 | 425 | B |  | 0 | 0 | sí | baja |
+| 0x00634C10 | 330 | B |  | 0 | 0 | sí | baja |
+| 0x00634D60 | 387 | B |  | 0 | 0 | sí | baja |
+| 0x00636FD0 | 130 | B |  | 0 | 0 | sí | baja |
+| 0x00639660 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00639680 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x006396A0 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x006396C0 | 108 | C |  | 1 | 0 |  | baja |
+
 ## CCullZones (13)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4567,6 +4543,25 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0072ED80 | 212 | A |  | 1 | 0 |  | baja |
 | 0x0072F180 | 418 | A |  | 1 | 1 |  | baja |
 | 0x0072F3B0 | 1 | A |  | 1 | 1 |  | baja |
+
+## CTaskComplexDieInCar (14)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0062FCF0 | 11 | C |  | 1 | 0 |  | alta |
+| 0x0062FF00 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x0062FF10 | 11 | C |  | 1 | 0 |  | baja |
+| 0x0062FF20 | 18 | D |  | 0 | 0 |  | baja |
+| 0x0062FF40 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x0062FF50 | 5 | B |  | 0 | 0 | sí | baja |
+| 0x0062FF60 | 11 | C |  | 1 | 0 |  | baja |
+| 0x006378D0 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x006378F0 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00637910 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00637930 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00637950 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00637970 | 96 | B |  | 0 | 0 | sí | baja |
+| 0x006379D0 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CEventEditableResponse (14)
 
@@ -4605,25 +4600,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00620290 | 34 | B |  | 0 | 0 | sí | baja |
 | 0x00623120 | 111 | B |  | 0 | 0 | sí | baja |
 | 0x00623190 | 130 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexUseClosestFreeScriptedAttractor (14)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006348A0 | 47 | C |  | 1 | 0 |  | baja |
-| 0x006348D0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x006348E0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x006348F0 | 62 | C |  | 2 | 0 |  | baja |
-| 0x00634930 | 262 | B |  | 0 | 0 | sí | baja |
-| 0x00634A60 | 425 | B |  | 0 | 0 | sí | baja |
-| 0x00634C10 | 330 | B |  | 0 | 0 | sí | baja |
-| 0x00634D60 | 387 | B |  | 0 | 0 | sí | baja |
-| 0x00634EF0 | 18 | A |  | 2 | 1 |  | baja |
-| 0x00636FD0 | 130 | B |  | 0 | 0 | sí | baja |
-| 0x00639660 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00639680 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006396A0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006396C0 | 108 | C |  | 1 | 0 |  | baja |
 
 ## CPathFind (14)
 
@@ -4681,26 +4657,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00493360 | 185 | C |  | 1 | 0 |  | alta |
 | 0x00493420 | 88 | C |  | 2 | 0 |  | alta |
 | 0x00493480 | 105 | C |  | 1 | 0 |  | alta |
-
-## CTaskComplexDieInCar (15)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0062FCF0 | 11 | C |  | 1 | 0 |  | alta |
-| 0x0062FEC0 | 62 | A |  | 1 | 1 |  | baja |
-| 0x0062FF00 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0062FF10 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0062FF20 | 18 | D |  | 0 | 0 |  | baja |
-| 0x0062FF40 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0062FF50 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x0062FF60 | 11 | C |  | 1 | 0 |  | baja |
-| 0x006378D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006378F0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637910 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637930 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637950 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637970 | 96 | B |  | 0 | 0 | sí | baja |
-| 0x006379D0 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CTaskComplexUseWaterCannon (15)
 

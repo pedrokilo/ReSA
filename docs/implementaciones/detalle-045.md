@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 07/11/2026 (Ciudad de México):** 858 grupos / 9304 funciones reconstruidas; 9304 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 07/11/2026 (Ciudad de México):** 858 grupos / 9324 funciones reconstruidas; 9324 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,57 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-881"></a>
+
+## CTimer
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTimer::InjectHooks() | [source/game_sa/Timer.cpp:31](../../source/game_sa/Timer.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetMillisecondTime() | [source/game_sa/Timer.cpp:56](../../source/game_sa/Timer.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTimer::GetMillisecondTime 0x005617C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTimer::Initialise() | [source/game_sa/Timer.cpp:71](../../source/game_sa/Timer.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::Initialise 0x005617E0 | 0 / 0 | Posible dato fijo bSkipProcessThisFrame: source/game_sa/Timer.h:25 (0x00B7CB89); Posible dato fijo bSlowMotionActive: source/game_sa/Timer.h:26 (0x00B7CB88); Posible dato fijo game_FPS: source/game_sa/Timer.h:27 (0x00B7CB50); Posible dato fijo m_CodePause: source/game_sa/Timer.h:29 (0x00B7CB48); Posible dato fijo m_FrameCounter: source/game_sa/Timer.h:31 (0x00B7CB4C); Posible dato fijo m_UserPause: source/game_sa/Timer.h:30 (0x00B7CB49); Posible dato fijo m_sbEnableTimeDebug: source/game_sa/Timer.h:24 (0x00B7CB40); Posible dato fijo m_snPPPPreviousTimeInMilliseconds: source/game_sa/Timer.h:50 (0x00B7CB6C); Posible dato fijo m_snPPPreviousTimeInMilliseconds: source/game_sa/Timer.h:51 (0x00B7CB70); Posible dato fijo m_snPPreviousTimeInMilliseconds: source/game_sa/Timer.h:52 (0x00B7CB74); Posible dato fijo m_snPreviousTimeInMilliseconds: source/game_sa/Timer.h:53 (0x00B7CB78); Posible dato fijo m_snPreviousTimeInMillisecondsNonClipped: source/game_sa/Timer.h:43 (0x00B7CB68); Posible dato fijo m_snRenderStartTime: source/game_sa/Timer.h:45 (0x00B7CB38); Posible dato fijo m_snRenderTimerPauseCount: source/game_sa/Timer.h:47 (0x00B7CB44); Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84); Posible dato fijo m_snTimeInMillisecondsNonClipped: source/game_sa/Timer.h:42 (0x00B7CB80); Posible dato fijo m_snTimeInMillisecondsPauseMode: source/game_sa/Timer.h:41 (0x00B7CB7C); Posible dato fijo m_snTimerDivider: source/game_sa/Timer.h:34 (0x00B7CB2C); Posible dato fijo ms_fOldTimeStep: source/game_sa/Timer.h:36 (0x00B7CB54); Posible dato fijo ms_fSlowMotionScale: source/game_sa/Timer.h:37 (0x00B7CB60); Posible dato fijo ms_fTimeScale: source/game_sa/Timer.h:40 (0x00B7CB64); Posible dato fijo ms_fTimeStep: source/game_sa/Timer.h:33 (0x00B7CB5C); Posible dato fijo ms_fnTimerFunction: source/game_sa/Timer.h:21 (0x00B7CB28) |
+| CTimer::Shutdown() | [source/game_sa/Timer.cpp:112](../../source/game_sa/Timer.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::Shutdown 0x005618C0 | 0 / 0 | Posible dato fijo m_sbEnableTimeDebug: source/game_sa/Timer.h:24 (0x00B7CB40) |
+| CTimer::Suspend() | [source/game_sa/Timer.cpp:117](../../source/game_sa/Timer.cpp#L117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::Suspend 0x005619D0 | 0 / 0 | Posible dato fijo m_sbEnableTimeDebug: source/game_sa/Timer.h:24 (0x00B7CB40); Posible dato fijo m_snRenderPauseTime: source/game_sa/Timer.h:46 (0x00B7CB30); Posible dato fijo m_snRenderTimerPauseCount: source/game_sa/Timer.h:47 (0x00B7CB44); Posible dato fijo ms_fnTimerFunction: source/game_sa/Timer.h:21 (0x00B7CB28) |
+| CTimer::Resume() | [source/game_sa/Timer.cpp:127](../../source/game_sa/Timer.cpp#L127) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::Resume 0x00561A00 | 0 / 0 | Posible dato fijo m_sbEnableTimeDebug: source/game_sa/Timer.h:24 (0x00B7CB40); Posible dato fijo m_snRenderPauseTime: source/game_sa/Timer.h:46 (0x00B7CB30); Posible dato fijo m_snRenderStartTime: source/game_sa/Timer.h:45 (0x00B7CB38); Posible dato fijo m_snRenderTimerPauseCount: source/game_sa/Timer.h:47 (0x00B7CB44); Posible dato fijo ms_fnTimerFunction: source/game_sa/Timer.h:21 (0x00B7CB28) |
+| CTimer::Stop() | [source/game_sa/Timer.cpp:138](../../source/game_sa/Timer.cpp#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::Stop 0x00561AA0 | 0 / 0 | Posible dato fijo m_sbEnableTimeDebug: source/game_sa/Timer.h:24 (0x00B7CB40); Posible dato fijo m_snPPPPreviousTimeInMilliseconds: source/game_sa/Timer.h:50 (0x00B7CB6C); Posible dato fijo m_snPPPreviousTimeInMilliseconds: source/game_sa/Timer.h:51 (0x00B7CB70); Posible dato fijo m_snPPreviousTimeInMilliseconds: source/game_sa/Timer.h:52 (0x00B7CB74); Posible dato fijo m_snPreviousTimeInMilliseconds: source/game_sa/Timer.h:53 (0x00B7CB78); Posible dato fijo m_snPreviousTimeInMillisecondsNonClipped: source/game_sa/Timer.h:43 (0x00B7CB68); Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84); Posible dato fijo m_snTimeInMillisecondsNonClipped: source/game_sa/Timer.h:42 (0x00B7CB80) |
+| CTimer::StartUserPause() | [source/game_sa/Timer.cpp:149](../../source/game_sa/Timer.cpp#L149) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::StartUserPause 0x00561AF0 | 0 / 0 | Posible dato fijo m_UserPause: source/game_sa/Timer.h:30 (0x00B7CB49) |
+| CTimer::EndUserPause() | [source/game_sa/Timer.cpp:155](../../source/game_sa/Timer.cpp#L155) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::EndUserPause 0x00561B00 | 0 / 0 | Posible dato fijo m_UserPause: source/game_sa/Timer.h:30 (0x00B7CB49) |
+| CTimer::GetCyclesPerMillisecond() | [source/game_sa/Timer.cpp:161](../../source/game_sa/Timer.cpp#L161) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::GetCyclesPerMillisecond 0x00561A40 | 0 / 0 | Posible dato fijo m_snTimerDivider: source/game_sa/Timer.h:34 (0x00B7CB2C) |
+| CTimer::GetCyclesPerFrame() | [source/game_sa/Timer.cpp:168](../../source/game_sa/Timer.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::GetCyclesPerFrame 0x00561A50 | 0 / 0 | Posible dato fijo m_snTimerDivider: source/game_sa/Timer.h:34 (0x00B7CB2C) |
+| CTimer::GetCurrentTimeInCycles() | [source/game_sa/Timer.cpp:174](../../source/game_sa/Timer.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::GetCurrentTimeInCycles 0x00561A80 | 0 / 0 | Posible dato fijo m_snRenderStartTime: source/game_sa/Timer.h:45 (0x00B7CB38) |
+| CTimer::GetIsSlowMotionActive() | [source/game_sa/Timer.cpp:181](../../source/game_sa/Timer.cpp#L181) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::GetIsSlowMotionActive 0x00561AD0 | 0 / 0 | Posible dato fijo ms_fTimeScale: source/game_sa/Timer.h:40 (0x00B7CB64) |
+| CTimer::UpdateVariables(float timeElapsed) | [source/game_sa/Timer.cpp:187](../../source/game_sa/Timer.cpp#L187) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::UpdateVariables 0x005618D0 | 0 / 0 | Posible dato fijo bSnapShotActive: source/game_sa/SpecialFX.h:26 (0x00C7C714); Posible dato fijo m_CodePause: source/game_sa/Timer.h:29 (0x00B7CB48); Posible dato fijo m_UserPause: source/game_sa/Timer.h:30 (0x00B7CB49); Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84); Posible dato fijo m_snTimeInMillisecondsNonClipped: source/game_sa/Timer.h:42 (0x00B7CB80); Posible dato fijo m_snTimerDivider: source/game_sa/Timer.h:34 (0x00B7CB2C); Posible dato fijo ms_fOldTimeStep: source/game_sa/Timer.h:36 (0x00B7CB54); Posible dato fijo ms_fTimeStep: source/game_sa/Timer.h:33 (0x00B7CB5C); Posible dato fijo ms_fTimeStepNonClipped: source/game_sa/Timer.h:32 (0x00B7CB58) |
+| CTimer::Update() | [source/game_sa/Timer.cpp:242](../../source/game_sa/Timer.cpp#L242) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimer::Update 0x00561B10 | 0 / 0 | Posible dato fijo game_FPS: source/game_sa/Timer.h:27 (0x00B7CB50); Posible dato fijo m_FrameCounter: source/game_sa/Timer.h:31 (0x00B7CB4C); Posible dato fijo m_sbEnableTimeDebug: source/game_sa/Timer.h:24 (0x00B7CB40); Posible dato fijo m_snPPPPreviousTimeInMilliseconds: source/game_sa/Timer.h:50 (0x00B7CB6C); Posible dato fijo m_snPPPreviousTimeInMilliseconds: source/game_sa/Timer.h:51 (0x00B7CB70); Posible dato fijo m_snPPreviousTimeInMilliseconds: source/game_sa/Timer.h:52 (0x00B7CB74); Posible dato fijo m_snPreviousTimeInMilliseconds: source/game_sa/Timer.h:53 (0x00B7CB78); Posible dato fijo m_snPreviousTimeInMillisecondsNonClipped: source/game_sa/Timer.h:43 (0x00B7CB68); Posible dato fijo m_snRenderStartTime: source/game_sa/Timer.h:45 (0x00B7CB38); Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84); Posible dato fijo m_snTimeInMillisecondsNonClipped: source/game_sa/Timer.h:42 (0x00B7CB80); Posible dato fijo m_snTimeInMillisecondsPauseMode: source/game_sa/Timer.h:41 (0x00B7CB7C); Posible dato fijo m_snTimerDivider: source/game_sa/Timer.h:34 (0x00B7CB2C); Posible dato fijo ms_fTimeScale: source/game_sa/Timer.h:40 (0x00B7CB64); Posible dato fijo ms_fnTimerFunction: source/game_sa/Timer.h:21 (0x00B7CB28) |
+| GetTimestepPerSecond() | [source/game_sa/Timer.h:72](../../source/game_sa/Timer.h#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTimeScale() | [source/game_sa/Timer.h:77](../../source/game_sa/Timer.h#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fTimeScale: source/game_sa/Timer.h:40 (0x00B7CB64) |
+| SetTimeScale(float ts) | [source/game_sa/Timer.h:78](../../source/game_sa/Timer.h#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fTimeScale: source/game_sa/Timer.h:40 (0x00B7CB64) |
+| ResetTimeScale() | [source/game_sa/Timer.h:79](../../source/game_sa/Timer.h#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fTimeScale: source/game_sa/Timer.h:40 (0x00B7CB64) |
+| GetTimeStep() | [source/game_sa/Timer.h:81](../../source/game_sa/Timer.h#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fTimeStep: source/game_sa/Timer.h:33 (0x00B7CB5C) |
+| SetTimeStep(float ts) | [source/game_sa/Timer.h:82](../../source/game_sa/Timer.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fTimeStep: source/game_sa/Timer.h:33 (0x00B7CB5C) |
+| UpdateTimeStep(float ts) | [source/game_sa/Timer.h:83](../../source/game_sa/Timer.h#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fTimeStep: source/game_sa/Timer.h:33 (0x00B7CB5C) |
+| GetTimeStepInSeconds() | [source/game_sa/Timer.h:84](../../source/game_sa/Timer.h#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fTimeStep: source/game_sa/Timer.h:33 (0x00B7CB5C) |
+| GetTimeStepInMS() | [source/game_sa/Timer.h:85](../../source/game_sa/Timer.h#L85) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTimeStepNonClipped() | [source/game_sa/Timer.h:87](../../source/game_sa/Timer.h#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fTimeStepNonClipped: source/game_sa/Timer.h:32 (0x00B7CB58) |
+| GetTimeStepNonClippedInSeconds() | [source/game_sa/Timer.h:88](../../source/game_sa/Timer.h#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fTimeStepNonClipped: source/game_sa/Timer.h:32 (0x00B7CB58) |
+| GetTimeStepNonClippedInMS() | [source/game_sa/Timer.h:89](../../source/game_sa/Timer.h#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetTimeStepNonClipped(float ts) | [source/game_sa/Timer.h:90](../../source/game_sa/Timer.h#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fTimeStepNonClipped: source/game_sa/Timer.h:32 (0x00B7CB58) |
+| GetFrameCounter() | [source/game_sa/Timer.h:92](../../source/game_sa/Timer.h#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_FrameCounter: source/game_sa/Timer.h:31 (0x00B7CB4C) |
+| SetFrameCounter(uint32 fc) | [source/game_sa/Timer.h:93](../../source/game_sa/Timer.h#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_FrameCounter: source/game_sa/Timer.h:31 (0x00B7CB4C) |
+| GetTimeInMS() | [source/game_sa/Timer.h:95](../../source/game_sa/Timer.h#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84) |
+| SetTimeInMS(uint32 t) | [source/game_sa/Timer.h:96](../../source/game_sa/Timer.h#L96) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84) |
+| GetTimeInMSNonClipped() | [source/game_sa/Timer.h:98](../../source/game_sa/Timer.h#L98) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_snTimeInMillisecondsNonClipped: source/game_sa/Timer.h:42 (0x00B7CB80) |
+| SetTimeInMSNonClipped(uint32 t) | [source/game_sa/Timer.h:99](../../source/game_sa/Timer.h#L99) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_snTimeInMillisecondsNonClipped: source/game_sa/Timer.h:42 (0x00B7CB80) |
+| GetTimeInMSPauseMode() | [source/game_sa/Timer.h:101](../../source/game_sa/Timer.h#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_snTimeInMillisecondsPauseMode: source/game_sa/Timer.h:41 (0x00B7CB7C) |
+| SetTimeInMSPauseMode(uint32 t) | [source/game_sa/Timer.h:102](../../source/game_sa/Timer.h#L102) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_snTimeInMillisecondsPauseMode: source/game_sa/Timer.h:41 (0x00B7CB7C) |
+| GetPreviousTimeInMS() | [source/game_sa/Timer.h:104](../../source/game_sa/Timer.h#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_snPreviousTimeInMilliseconds: source/game_sa/Timer.h:53 (0x00B7CB78) |
+| SetPreviousTimeInMS(uint32 t) | [source/game_sa/Timer.h:105](../../source/game_sa/Timer.h#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_snPreviousTimeInMilliseconds: source/game_sa/Timer.h:53 (0x00B7CB78) |
+| GetIsPaused() | [source/game_sa/Timer.h:107](../../source/game_sa/Timer.h#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_CodePause: source/game_sa/Timer.h:29 (0x00B7CB48); Posible dato fijo m_UserPause: source/game_sa/Timer.h:30 (0x00B7CB49) |
+| GetIsUserPaused() | [source/game_sa/Timer.h:108](../../source/game_sa/Timer.h#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_UserPause: source/game_sa/Timer.h:30 (0x00B7CB49) |
+| GetIsCodePaused() | [source/game_sa/Timer.h:109](../../source/game_sa/Timer.h#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_CodePause: source/game_sa/Timer.h:29 (0x00B7CB48) |
+| SetCodePause(bool pause) | [source/game_sa/Timer.h:110](../../source/game_sa/Timer.h#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_CodePause: source/game_sa/Timer.h:29 (0x00B7CB48) |
+| HasTimePointPassed(uint32 timeMs) | [source/game_sa/Timer.h:114](../../source/game_sa/Timer.h#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsTimeInRange(uint32 fromMs, uint32 toMs) | [source/game_sa/Timer.h:115](../../source/game_sa/Timer.h#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-882"></a>
 
 ## CTrafficLights
 
@@ -26,7 +77,7 @@
 | CTrafficLights::LightForCars1_Visual() | [source/game_sa/TrafficLights.cpp:455](../../source/game_sa/TrafficLights.cpp#L455) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrafficLights::LightForCars1_Visual 0x0049D350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CTrafficLights::LightForCars2_Visual() | [source/game_sa/TrafficLights.cpp:467](../../source/game_sa/TrafficLights.cpp#L467) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrafficLights::LightForCars2_Visual 0x0049D3A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-882"></a>
+<a id="grupo-883"></a>
 
 ## CTrailer
 
@@ -48,7 +99,7 @@
 | CTrailer::BreakTowLink() | [source/game_sa/Entity/Vehicle/Trailer.cpp:641](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L641) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::BreakTowLink 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Trailer.h:89](../../source/game_sa/Entity/Vehicle/Trailer.h#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::Constructor 0x006D03A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-883"></a>
+<a id="grupo-884"></a>
 
 ## CTrain
 
@@ -98,7 +149,7 @@
 | CTrain::ProcessControl() | [source/game_sa/Entity/Vehicle/Train.cpp:913](../../source/game_sa/Entity/Vehicle/Train.cpp#L913) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::ProcessControl 0x00000000 | 0 / 0 | Posible dato fijo NumTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:36 (0x00C38014); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo arrTotalTrackLength: source/game_sa/Entity/Vehicle/Train.cpp:37 (0x00C37FEC); Posible dato fijo gbModelViewer: source/game_sa/Camera.cpp:42 (0x00BA6728); Posible dato fijo mod_Buoyancy: source/game_sa/Buoyancy.cpp:23 (0x00C1C890); Posible dato fijo pTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:35 (0x00C38024) |
 | * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Train.h:137](../../source/game_sa/Entity/Vehicle/Train.h#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::Constructor 0x006F6030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-884"></a>
+<a id="grupo-885"></a>
 
 ## CTrainNode
 
@@ -118,7 +169,7 @@
 | CTrainNode::GetLightingFromCollision() | [source/game_sa/TrainNode.cpp:90](../../source/game_sa/TrainNode.cpp#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTrainNode::GetLightingFromCollision 0x006F5F80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CTrainNode::GetLightingFromCollisionExeAbi() | [source/game_sa/TrainNode.cpp:109](../../source/game_sa/TrainNode.cpp#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTrainNode::GetLightingFromCollision 0x006F5F80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-885"></a>
+<a id="grupo-886"></a>
 
 ## CTxdStore
 
@@ -157,7 +208,7 @@
 | * CTxdStore::GetTxdParent(RwTexDictionary* txd) | [source/game_sa/TxdStore_Plugin.cpp:38](../../source/game_sa/TxdStore_Plugin.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_txdPluginOffset: source/game_sa/TxdStore.h:22 (0x00C88018) |
 | CTxdStore::SetTxdParent(RwTexDictionary* txd, RwTexDictionary* parent) | [source/game_sa/TxdStore_Plugin.cpp:42](../../source/game_sa/TxdStore_Plugin.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_txdPluginOffset: source/game_sa/TxdStore.h:22 (0x00C88018) |
 
-<a id="grupo-886"></a>
+<a id="grupo-887"></a>
 
 ## CTxdStore::ScopedTXDSlot
 
@@ -167,7 +218,7 @@
 | ScopedTXDSlot(const char* txd) | [source/game_sa/TxdStore.h:35](../../source/game_sa/TxdStore.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ~ScopedTXDSlot() | [source/game_sa/TxdStore.h:40](../../source/game_sa/TxdStore.h#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-887"></a>
+<a id="grupo-888"></a>
 
 ## CUpsideDownCarCheck
 
@@ -183,7 +234,7 @@
 | CUpsideDownCarCheck::RemoveCarFromCheck(int32 carHandle) | [source/game_sa/UpsideDownCarCheck.cpp:121](../../source/game_sa/UpsideDownCarCheck.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CUpsideDownCarCheck::RemoveCarFromCheck 0x00463910 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CUpsideDownCarCheck::HasCarBeenUpsideDownForAWhile(int32 carHandle) | [source/game_sa/UpsideDownCarCheck.cpp:130](../../source/game_sa/UpsideDownCarCheck.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CUpsideDownCarCheck::HasCarBeenUpsideDownForAWhile 0x00463940 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-888"></a>
+<a id="grupo-889"></a>
 
 ## CUserDisplay
 
@@ -193,7 +244,7 @@
 | CUserDisplay::Init() | [source/game_sa/UserDisplay.cpp:34](../../source/game_sa/UserDisplay.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CUserDisplay::Init 0x00571EE0 | 0 / 0 | Posible dato fijo CurrentVehicle: source/game_sa/UserDisplay.h:17 (0x00BA18FC); Posible dato fijo OnscnTimer: source/game_sa/UserDisplay.h:16 (0x00BA1788); Posible dato fijo PlaceName: source/game_sa/UserDisplay.h:15 (0x00BA18F4) |
 | CUserDisplay::Process() | [source/game_sa/UserDisplay.cpp:43](../../source/game_sa/UserDisplay.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CUserDisplay::Process 0x005720A0 | 0 / 0 | Posible dato fijo CurrentVehicle: source/game_sa/UserDisplay.h:17 (0x00BA18FC); Posible dato fijo OnscnTimer: source/game_sa/UserDisplay.h:16 (0x00BA1788); Posible dato fijo PlaceName: source/game_sa/UserDisplay.h:15 (0x00BA18F4) |
 
-<a id="grupo-889"></a>
+<a id="grupo-890"></a>
 
 ## CVector
 
@@ -256,7 +307,7 @@
 | Dist(CVector a, CVector b) | [source/game_sa/Core/Vector.h:213](../../source/game_sa/Core/Vector.h#L213) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DistSqr(CVector a, CVector b) | [source/game_sa/Core/Vector.h:223](../../source/game_sa/Core/Vector.h#L223) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-890"></a>
+<a id="grupo-891"></a>
 
 ## CVector2D
 
@@ -302,7 +353,7 @@
 | Dist(CVector2D a, CVector2D b) | [source/game_sa/Core/Vector2D.h:212](../../source/game_sa/Core/Vector2D.h#L212) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DistSqr(CVector2D a, CVector2D b) | [source/game_sa/Core/Vector2D.h:222](../../source/game_sa/Core/Vector2D.h#L222) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-891"></a>
+<a id="grupo-892"></a>
 
 ## CVehicle
 
@@ -580,7 +631,7 @@
 | Constructor(eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Vehicle.h:778](../../source/game_sa/Entity/Vehicle/Vehicle.h#L778) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicle::Constructor 0x006D5F10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Destructor() | [source/game_sa/Entity/Vehicle/Vehicle.h:783](../../source/game_sa/Entity/Vehicle/Vehicle.h#L783) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CVehicle::Destructor 0x006E2B40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-892"></a>
+<a id="grupo-893"></a>
 
 ## CVehicleAnimGroup
 
@@ -599,7 +650,7 @@
 | & GetInOutTiming(const eInOutTiming timing) | [source/game_sa/VehicleAnimGroupData.h:138](../../source/game_sa/VehicleAnimGroupData.h#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetDoorOffset(const eVehAnimDoorOffset door) | [source/game_sa/VehicleAnimGroupData.h:139](../../source/game_sa/VehicleAnimGroupData.h#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-893"></a>
+<a id="grupo-894"></a>
 
 ## CVehicleAnimGroupData
 
@@ -616,7 +667,7 @@
 | CVehicleAnimGroupData::LoadAGroupFromData(const char* line) | [source/game_sa/VehicleAnimGroupData.cpp:330](../../source/game_sa/VehicleAnimGroupData.cpp#L330) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetVehicleAnimGroup(int32 iGroup) | [source/game_sa/VehicleAnimGroupData.h:164](../../source/game_sa/VehicleAnimGroupData.h#L164) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_vehicleAnimGroups: source/game_sa/VehicleAnimGroupData.h:146 (0x00C1CDC0) |
 
-<a id="grupo-894"></a>
+<a id="grupo-895"></a>
 
 ## CVehicleModelInfo
 
@@ -725,7 +776,7 @@
 | GetSizeOfWheel(eCarWheel wheel) const | [source/game_sa/Models/VehicleModelInfo.h:477](../../source/game_sa/Models/VehicleModelInfo.h#L477) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetVehicleStruct() const | [source/game_sa/Models/VehicleModelInfo.h:486](../../source/game_sa/Models/VehicleModelInfo.h#L486) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pVehicleStruct: source/game_sa/Models/VehicleModelInfo.h:170 (0x00B4E680) |
 
-<a id="grupo-895"></a>
+<a id="grupo-896"></a>
 
 ## CVehicleModelInfo::CLinkedUpgradeList
 
@@ -734,7 +785,7 @@
 | CVehicleModelInfo::CLinkedUpgradeList::AddUpgradeLink(int16 upgrade1, int16 upgrade2) | [source/game_sa/Models/VehicleModelInfo.cpp:1645](../../source/game_sa/Models/VehicleModelInfo.cpp#L1645) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLinkedUpgradeList::AddUpgradeLink 0x004C74B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CVehicleModelInfo::CLinkedUpgradeList::FindOtherUpgrade(int16 upgrade) | [source/game_sa/Models/VehicleModelInfo.cpp:1652](../../source/game_sa/Models/VehicleModelInfo.cpp#L1652) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLinkedUpgradeList::FindOtherUpgrade 0x004C74D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-896"></a>
+<a id="grupo-897"></a>
 
 ## CVehicleModelInfo::CVehicleStructure
 
@@ -747,7 +798,7 @@
 | IsDummyActive(eVehicleDummy dummy) const | [source/game_sa/Models/VehicleModelInfo.h:193](../../source/game_sa/Models/VehicleModelInfo.h#L193) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsComponentDamageable(int32 nodeIndex) const | [source/game_sa/Models/VehicleModelInfo.h:197](../../source/game_sa/Models/VehicleModelInfo.h#L197) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-897"></a>
+<a id="grupo-898"></a>
 
 ## CVehiclePool
 
@@ -756,7 +807,7 @@
 | InjectHooks() | [source/game_sa/Pools/VehiclePool.h:35](../../source/game_sa/Pools/VehiclePool.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * New() | [source/game_sa/Pools/VehiclePool.h:50](../../source/game_sa/Pools/VehiclePool.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehiclePool::New 0x006E2A50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-898"></a>
+<a id="grupo-899"></a>
 
 ## CVehiclePotentialCollisionScanner
 
@@ -765,7 +816,7 @@
 | CVehiclePotentialCollisionScanner::InjectHooks() | [source/game_sa/Events/EventScanner.cpp:264](../../source/game_sa/Events/EventScanner.cpp#L264) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents(const CPed& ped, CEntity** entities, int32 count) | [source/game_sa/Events/EventScanner.cpp:273](../../source/game_sa/Events/EventScanner.cpp#L273) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents 0x00603720 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-899"></a>
+<a id="grupo-900"></a>
 
 ## CVehicleRecording
 
@@ -807,13 +858,3 @@
 | FindVehicleRecordingIndex(CVehicle* vehicle) | [source/game_sa/VehicleRecording.h:139](../../source/game_sa/VehicleRecording.h#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo pVehicleForPlayback: source/game_sa/VehicleRecording.h:64 (0x0097D840) |
 | GetFramesFromPlaybackBuffer(size_t bufferIdx) | [source/game_sa/VehicleRecording.h:148](../../source/game_sa/VehicleRecording.h#L148) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo PlaybackBufferSize: source/game_sa/VehicleRecording.h:67 (0x0097D780); Posible dato fijo pPlaybackBuffer: source/game_sa/VehicleRecording.h:65 (0x0097D800) |
 | GetCurrentFrameIndex(size_t bufferIdx) | [source/game_sa/VehicleRecording.h:152](../../source/game_sa/VehicleRecording.h#L152) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo PlaybackIndex: source/game_sa/VehicleRecording.h:66 (0x0097D7C0) |
-
-<a id="grupo-900"></a>
-
-## CVehicleSaveStructure
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CVehicleSaveStructure::InjectHooks() | [source/game_sa/VehicleSaveStructure.cpp:23](../../source/game_sa/VehicleSaveStructure.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CVehicleSaveStructure::Construct(CVehicle* v) | [source/game_sa/VehicleSaveStructure.cpp:32](../../source/game_sa/VehicleSaveStructure.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleSaveStructure::Construct 0x005D2330 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CVehicleSaveStructure::Extract(CVehicle* v) | [source/game_sa/VehicleSaveStructure.cpp:48](../../source/game_sa/VehicleSaveStructure.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleSaveStructure::Extract 0x005D23B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
