@@ -18,24 +18,24 @@
     "CCarCtrl::WeaveForOtherCar": true,
     "CCarCtrl::WeaveForObject": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-3 (HEAD df26d6fe7 + fuente del lote 63 parte B2). Las dos pruebas TestCollisionBetween2MovingRects* no tienen colaboradores. SlowCarDownForOtherCar, WeaveForOtherCar y WeaveForObject se prueban con falsos identicos en ambos lados para: las dos pruebas de colision (0x425B30/0x425F70), AllocateMatrix (0x54F560), CSimpleTransform::UpdateMatrix (0x54F1B0), CEntity::RegisterReference (0x571B70), GetMatrix (0x411990), FindPlayerVehicle (0x56E0D0), SwitchVehicleToRealPhysics (0x423FC0), GetATanOfXY (0x53CC70), CBaseModelInfo::SwaysInWind (0x4212C0) y la prueba de barrido 0x421A50 (sin reconstruir); 0x59C890 y 0x59C790 (sin reconstruir) se ejecutan de verdad. Entidades, matrices, col models y info de modelos son objetos del banco (tabla ms_modelInfoPtrs con entradas nulas sustituidas durante la corrida y restauradas). Limite conocido: el x87 del EXE conserva exponente extendido en los registros (la DLL usa float): entradas cuyos cuadrados o productos superan el rango de float (>~1e19) o con dos NaN de signo distinto en una misma operacion no se prueban. Oraculo Python independiente solo para las dos pruebas puras; para el resto la verdad es el EXE.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-3 (HEAD df26d6fe7 + fuente del lote 63 parte B2). Las dos pruebas TestCollisionBetween2MovingRects* no tienen colaboradores. SlowCarDownForOtherCar, WeaveForOtherCar y WeaveForObject se prueban con falsos identicos en ambos lados para: las dos pruebas de colision (0x425B30/0x425F70), AllocateMatrix (0x54F560), CSimpleTransform::UpdateMatrix (0x54F1B0), CEntity::RegisterReference (0x571B70), GetMatrix (0x411990), FindPlayerVehicle (0x56E0D0), SwitchVehicleToRealPhysics (0x423FC0), GetATanOfXY (0x53CC70), CBaseModelInfo::SwaysInWind (0x4212C0) y la prueba de barrido 0x421A50 (sin reconstruir); 0x59C890 y 0x59C790 (sin reconstruir) se ejecutan de verdad. Entidades, matrices, col models y info de modelos son objetos del banco (tabla ms_modelInfoPtrs con entradas nulas sustituidas durante la corrida y restauradas). Limite conocido: el x87 del EXE conserva exponente extendido en los registros (la DLL usa float): entradas cuyos cuadrados o productos superan el rango de float (>~1e19) o con dos NaN de signo distinto en una misma operacion no se prueban. Oraculo Python independiente solo para las dos pruebas puras; para el resto la verdad es el EXE. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlWeave63A-20261020-232712-411544",
-  "summary_sha256": "20270f2ccf76b305bcad23350090d2ac029d9f984b9d4fa9b65bb39d17313460",
-  "result_txt_sha256": "502544d2169e998ab505ce34ca2451fa3cbd3085d82ea4013a8b21dfc30238c5",
-  "log_sha256": "841f3fff49fa71f25d228575db2c3f03443556f198e51b8817395b822bfb2df6",
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlWeave63A-20261107-142009-784395",
+  "summary_sha256": "abdceae0330dd55add1425564c02ecba2d93bc8fe40c4a200e8f3872a5a84d14",
+  "result_txt_sha256": "23f928e41a5bdc4d0cfd1fad323e4cc9d478e2fedae6ce77b7cedc2b34a68020",
+  "log_sha256": "0e1f5f8a27c07a690fea8329868dae771ccf838159ae15ad540f5dd674c6f7a3",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "40e49f366cc668617c1e1fadfce1f76111b000edfdd92cba352f43dcef360f27",
+  "executed_probe_sha256": "3f6d8066541ca8de551795b59d33bb68d1fc0cf77d988c62c4a6524905b92f07",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-      "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
-      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+      "source/game_sa/CarCtrl.cpp": "cd16deeae97c78a92292553c93315b283293860463357f226d81b54af93edfa3",
+      "source/game_sa/CarCtrl.h": "c551460ac16e87f07dfb0b044b8af5535794ee3c1c6a14f4b7ed8057b07a3f29",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/CarCtrlWeave63A/LiveComparison.hpp": "78c8fa485a6030b5e55d67c0091a2a9f2e20301cd3715337e01903a8360e5695",
       "reversing/CarCtrlWeave63A/Core.hpp": "e499cd84d26f43a318ed21f45a7577d75cdfde639bbe63759b229134ada81987",
@@ -43,5 +43,12 @@
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarCtrlWeave63A-20261107-142009-784395/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "d275746e418b84c9e1a5bd7b3102f642f91349687f89e7fef18c7646d5c2e9dd",
+    "uncompressed_sha256": "0e1f5f8a27c07a690fea8329868dae771ccf838159ae15ad540f5dd674c6f7a3"
   }
 }
