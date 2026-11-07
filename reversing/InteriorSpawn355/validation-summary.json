@@ -16,10 +16,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "21181d844e493292fb6b5db96b484d1cff748e8591e754ef4b6e31c9b054bc61",
+  "log_sha256": "5ea2ba5cad7932877853608d41c6954a7252250f53e47187305ad75ad75891d5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-spawn355\\20261105-015508-861270",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-spawn355\\20261107-151600-055380",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "InteriorGroup_c::SetupHousePeds": true,
@@ -27,28 +27,28 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "54bb9583d1450c4324fe097144df1bc3ac971c5415ab80e00bfb605bbd436aad",
-      "pdb": "c053be5dbe4a46608236bd4185aff9fbad4e82b92342ee9a08f9f4abd1ab5967"
+      "asi": "428161372a35f2a444ac9206fc6c796a8e737cd73d03161f41958cd5cf4a52e8",
+      "pdb": "6cc7b0353855f954d8f3798636164d7d4ef76ce3f5c8356aebf237c97a6bbb54"
     },
     "sources": {
       "source/game_sa/Interior/InteriorGroup_c.cpp": "dd007307ddbfc31283d0f8dcf4560ee6417b74713d6ec22a0794f64fb5c99efb",
       "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
       "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInOffice.cpp": "f0dff0c2fbb75e39b1580168e5d7db54bd3bda3a723df9ad9c29aa4d1d043ce2",
-      "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+      "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
       "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
       "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
       "source/game_sa/Models/PedModelInfo.h": "feaecc2e78dfa36c4bab6e7f97f9015f2fe5f2d15731bf85b6f8347c60d9bda7",
-      "source/game_sa/Entity/Placeable.cpp": "0b50a70b6d065231f1367f5fb06fa669c4bfee2bdc8550e1b0ed4f852f7d718f",
+      "source/game_sa/Entity/Placeable.cpp": "433b7c0597af59cbccba3022a42a87437db5adeeaa558b0be2ba9d89c938a44d",
       "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInHouse.cpp": "b5596c35c68a6b8b497a2eb60192158a535c4688a339b5f88ec09bf1aa3048b7",
       "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInShop.cpp": "26f36be5908b61a071c564b62c19e05b65a7e3aef5c69acebcd4f2533429b0fa",
       "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp": "187e8cbbb11ce30097cb6a89f1bdb1a56f33b16da80b8cde6bd241e5db97bf68",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "44a066a672764618f93fc20abbc8099b1f785180ddb437b4ce49e0f2fd2011dd",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "43428068ed7ff693ae3fe375d6eacb06a5fcdb9099800d2ce64479e639e9144e",
       "source/game_sa/PopCycle.cpp": "7d322718f4fa5d19ffbfeeeaaa7b7e53500050bdcdaad467d365a049ecc87b0a",
       "source/game_sa/Interior/Interior_c.cpp": "5b9a3f006550285c8d831442667e0b384a6ca4b2ecf192e3fc9c155a1b00061b"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "47dd35492daf86d435b7423cbee7c357a62199a33a65fabe76ecd3f3a567d9f8",
+      "LiveComparison.hpp": "891df462082d4c03a7af444d6fd80a41cc38cc3ce7186294289866f8d254283b",
       "build_probe.py": "c23d8a2eeab78b787b1523363550936f6d9fbd90351374f4da28b045ec6e6dc7",
       "run_local.py": "a1a542672cc799448143354d961fea5cd9aab90969295520963b6ef3c7514d0b"
     }

@@ -36221,7 +36221,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorSpawn355/validation-summary.json",
-        "sha256": "40614e748dbfc94951de92d0a10705674f7c19ad72958d127646b4df3a315135",
+        "sha256": "ebab86b15af8478c303622cab0217ee62cdefc636844d12d78a794e3ccab711a",
         "passed_path": [
           "covered_functions",
           "InteriorGroup_c::SetupHousePeds"
@@ -36233,15 +36233,15 @@
         "source/game_sa/Interior/InteriorGroup_c.cpp": "dd007307ddbfc31283d0f8dcf4560ee6417b74713d6ec22a0794f64fb5c99efb",
         "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
         "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInOffice.cpp": "f0dff0c2fbb75e39b1580168e5d7db54bd3bda3a723df9ad9c29aa4d1d043ce2",
-        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
         "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
         "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
         "source/game_sa/Models/PedModelInfo.h": "feaecc2e78dfa36c4bab6e7f97f9015f2fe5f2d15731bf85b6f8347c60d9bda7",
-        "source/game_sa/Entity/Placeable.cpp": "0b50a70b6d065231f1367f5fb06fa669c4bfee2bdc8550e1b0ed4f852f7d718f",
+        "source/game_sa/Entity/Placeable.cpp": "433b7c0597af59cbccba3022a42a87437db5adeeaa558b0be2ba9d89c938a44d",
         "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInHouse.cpp": "b5596c35c68a6b8b497a2eb60192158a535c4688a339b5f88ec09bf1aa3048b7",
         "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInShop.cpp": "26f36be5908b61a071c564b62c19e05b65a7e3aef5c69acebcd4f2533429b0fa",
         "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp": "187e8cbbb11ce30097cb6a89f1bdb1a56f33b16da80b8cde6bd241e5db97bf68",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "44a066a672764618f93fc20abbc8099b1f785180ddb437b4ce49e0f2fd2011dd",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "43428068ed7ff693ae3fe375d6eacb06a5fcdb9099800d2ce64479e639e9144e",
         "source/game_sa/PopCycle.cpp": "7d322718f4fa5d19ffbfeeeaaa7b7e53500050bdcdaad467d365a049ecc87b0a",
         "source/game_sa/Interior/Interior_c.cpp": "5b9a3f006550285c8d831442667e0b384a6ca4b2ecf192e3fc9c155a1b00061b"
       },
@@ -36259,7 +36259,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorSpawn355/validation-summary.json",
-        "sha256": "40614e748dbfc94951de92d0a10705674f7c19ad72958d127646b4df3a315135",
+        "sha256": "ebab86b15af8478c303622cab0217ee62cdefc636844d12d78a794e3ccab711a",
         "passed_path": [
           "covered_functions",
           "InteriorGroup_c::SetupShopPeds"
@@ -36271,15 +36271,15 @@
         "source/game_sa/Interior/InteriorGroup_c.cpp": "dd007307ddbfc31283d0f8dcf4560ee6417b74713d6ec22a0794f64fb5c99efb",
         "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
         "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInOffice.cpp": "f0dff0c2fbb75e39b1580168e5d7db54bd3bda3a723df9ad9c29aa4d1d043ce2",
-        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
         "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
         "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
         "source/game_sa/Models/PedModelInfo.h": "feaecc2e78dfa36c4bab6e7f97f9015f2fe5f2d15731bf85b6f8347c60d9bda7",
-        "source/game_sa/Entity/Placeable.cpp": "0b50a70b6d065231f1367f5fb06fa669c4bfee2bdc8550e1b0ed4f852f7d718f",
+        "source/game_sa/Entity/Placeable.cpp": "433b7c0597af59cbccba3022a42a87437db5adeeaa558b0be2ba9d89c938a44d",
         "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInHouse.cpp": "b5596c35c68a6b8b497a2eb60192158a535c4688a339b5f88ec09bf1aa3048b7",
         "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInShop.cpp": "26f36be5908b61a071c564b62c19e05b65a7e3aef5c69acebcd4f2533429b0fa",
         "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp": "187e8cbbb11ce30097cb6a89f1bdb1a56f33b16da80b8cde6bd241e5db97bf68",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "44a066a672764618f93fc20abbc8099b1f785180ddb437b4ce49e0f2fd2011dd",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "43428068ed7ff693ae3fe375d6eacb06a5fcdb9099800d2ce64479e639e9144e",
         "source/game_sa/PopCycle.cpp": "7d322718f4fa5d19ffbfeeeaaa7b7e53500050bdcdaad467d365a049ecc87b0a",
         "source/game_sa/Interior/Interior_c.cpp": "5b9a3f006550285c8d831442667e0b384a6ca4b2ecf192e3fc9c155a1b00061b"
       },
