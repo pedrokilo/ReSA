@@ -17,3 +17,7 @@ La restauración final comprueba todos los rangos globales que conserva Small2, 
 build_probe.py registra ModelInfo.cpp/.h, MemoryMgr.cpp/.h, InjectHooksMain.cpp, archivos RH, CMake y HookRoute; conserva PCH y las opciones por fuente aplicadas por el coordinador. Los scripts redirigen runtime_runner.GAME en memoria exclusivamente al clon E:/JUEGOS/GTA San Andreas - CVehicle Test. No editan runtime_runner.py ni la instalación original.
 
 Solo el coordinador compila y ejecuta en serie. La evidencia dinámica de esta regresión está archivada y vinculada desde el registro de migración. No añade conversiones ni funciones a la cohorte.
+
+## Actualizacion del lote 112A (07/11/2026)
+
+Banco repetido con los hooks actuales y aprobado de nuevo. Adaptacion del banco (solo banco, sin cambios de produccion): `RpAtomicSetFrame` (0x74BF20) tiene hook (lote 102A): el falso `FakeAtomicSetFrame` va tambien en el cuerpo de la DLL (antes acceso invalido en `C2dEffect::DestroyAtomic`). Evidencia en `runs/20261107-152014-353421`.

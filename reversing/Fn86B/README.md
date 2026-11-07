@@ -35,3 +35,7 @@ Producción mutada en siete puntos: una entrada de la tabla de la toalla (`3` �
 
 ## Bancos repetidos
 `PopulationPending` citaba 0x6EABA0 (`towel(0x6EABA0,Towel)` solo en la dirección del EXE): adaptado para falsear también el cuerpo de la DLL (`AP(towel,0x6EABA0,CPopulation::CreateSunbatheObject,Towel)`) y para parchear el constructor de `CObject` de la DLL (`PopulationDefaultTask` ya llamaba al constructor en C++ y el banco no lo parcheaba, así que fallaba con un acceso inválido antes de este lote). Con eso `ManageObject` pasa con sus 1024 pares y los eventos `towel` coinciden en los 2048 casos, pero `AddToPopulation` sigue con 256/1024 pares distintos por dos desajustes anteriores a este lote y ajenos a la toalla (colaboradores 0x46FF20 `brain` y `gang_count` que la DLL ya no llama como el banco espera). No se tocaron aquí: ese banco ya estaba detenido por el usuario (08/10/2026) y sin regresión con las fuentes actuales.
+
+## Actualizacion del lote 112A (07/11/2026)
+
+Banco repetido con los hooks actuales y aprobado de nuevo. Adaptacion del banco (solo banco, sin cambios de produccion): `CSimpleTransform::UpdateRwMatrix` (0x54EF40) tiene hook (lote 102A): se declara con `MakeCollab` (ruta apagada, falso tambien en el cuerpo de la DLL) y `run_local.py` espera `hooked=True` para esa direccion.

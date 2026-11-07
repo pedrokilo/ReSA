@@ -23,3 +23,7 @@ Los seis instrumentos propios son LiveComparison.hpp, MatrixPoolProof.hpp, Nativ
 ## Validación aprobada
 
 Corrida 20261010-224345-817070: 2.048 pares, cero diferencias y ningún original/candidate nulo. El oráculo racional independiente confirmó las diez ramas y ambas representaciones. Se restauraron el descriptor completo de colisión, los actores, todas las listas y nodos de matrices, los hooks, el estado flotante, los binarios, la configuración y las partidas. Verificación independiente en runs/20261010-224345-817070/approval-audit.json; SHA256 del registro de comparaciones: 75745177195de2b036db79a1101dfe7dab327bfa9bb3d8a79caa5ba6af3205ee.
+
+## Actualizacion del lote 112A (07/11/2026)
+
+Banco repetido con los hooks actuales y aprobado de nuevo. Adaptacion del banco (solo banco, sin cambios de produccion): `CSimpleTransform::UpdateMatrix` (0x54F1B0) tiene hook (lote 102A): su ruta RH se crea apagada junto a las de `CMatrix` y su cuerpo en la DLL se resuelve antes de crear la ruta (si no, el puntero ya no resuelve a la DLL y el preflight rechazaba).

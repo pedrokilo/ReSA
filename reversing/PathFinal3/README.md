@@ -186,3 +186,7 @@ Funciones sin cambios (MATCH): `GetPathNode`, `IsAreaNodesAvailable`, `ReInit`, 
 ## Aprobación (09/10/2026)
 
 Corrida `20261009-195539-016084`: passed=true, 26880 pares, 54 funciones registradas con 0 fallos, evento complete (state_restored, layout_ok), saves y configuraciones intactos. Registrada con `register_pathfinal3.py` (evidencia en `runs/`, `validation-summary.json`). Limites declarados en el alcance de cada funcion y en las secciones anteriores de este README.
+
+## Actualizacion del lote 112A (07/11/2026)
+
+Banco repetido con los hooks actuales y aprobado de nuevo. Adaptacion del banco (solo banco, sin cambios de produccion): `CMemoryMgr::Free` (0x72F430) tiene hook: el falso `S_Free` va tambien en el cuerpo de la DLL (`B.memFree`); `RemoveInterior` fallaba con acceso invalido al liberar con el Free real.

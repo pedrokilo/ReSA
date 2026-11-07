@@ -110,3 +110,7 @@ Validadas el 02/10/2026 con **15.552 pares original/candidato dentro de GTA**, t
 - `CAESoundManager::PlaySound` pone `ClientVariable` 0 por defecto (el EXE pone -1); `Service` ya no lo usa.
 
 Repetir: `python reversing/Fx43/build_probe.py` y `python reversing/run.py --case fx43`. Evidencia: [validation-summary.json](validation-summary.json).
+
+## Actualizacion del lote 112A (07/11/2026)
+
+Banco repetido con los hooks actuales y aprobado de nuevo. Adaptacion del banco (solo banco, sin cambios de produccion): `CMemoryMgr::Free` (0x72F430) tiene hook: el falso `FakeFree` va tambien en el cuerpo de la DLL (antes `FxMemoryPool_c::Exit` fallaba 88/128 porque la DLL llamaba al Free real).

@@ -71,3 +71,7 @@ python reversing/Garage63/register_hook.py <carpeta-de-evidencia>   # SOLO tras 
 ```
 
 Archivos: `Fixtures.hpp`, `Core.hpp`, `LiveComparison.hpp`, `fixture_oracle.py`, `fixture_mirror.cpp/.py`, `minimums.json`, `run_local.py`, `build_probe.py`, `register_hook.py`, `source.patch`.
+
+## Actualizacion del lote 112A (07/11/2026)
+
+Banco repetido con los hooks actuales y aprobado de nuevo. Adaptacion del banco (solo banco, sin cambios de produccion): `CMatrix::operator*-Vec` (0x59C890) tiene hook: el colaborador se declara con su ruta RH (apagada) y su falso va en el EXE y en el cuerpo de la DLL (antes `collaborators_dll` fallaba en tres funciones).

@@ -33,3 +33,7 @@ Repetición final de las fuentes actuales pendiente. Los informes anteriores acr
 La equivalencia se limita a los fixtures documentados. Los colaboradores aislados simétricamente no acreditan su implementación ni una campaña integral de juego. Se conservan las limitaciones particulares descritas arriba y las desviaciones documentadas en `Pending355/resolutions.json`. Este README no autoriza activar hooks.
 
 Evidencia de las funciones objetivo del banco: [CProjectileInfo_AddProjectile.txt](../World355Evidence/CProjectileInfo_AddProjectile.txt). Cada archivo conserva el pseudocódigo disponible y el ensamblador; sus avisos y limitaciones siguen vigentes. Los colaboradores sustituidos no quedan acreditados por estos enlaces.
+
+## Actualizacion del lote 112A (07/11/2026)
+
+Banco repetido con los hooks actuales y aprobado de nuevo. Adaptacion del banco (solo banco, sin cambios de produccion): el constructor C++ de `CProjectile` (lote 65) se llama directo desde `AddProjectile`: el falso de `0x5A4030` va tambien en el cuerpo de la DLL (simbolo `??0CProjectile@@QAE@H@Z`).
