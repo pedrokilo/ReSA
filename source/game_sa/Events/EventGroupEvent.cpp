@@ -26,6 +26,7 @@ void CEventGroupEvent::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x4ADFD0);
     RH_ScopedInstall(Destructor, 0x4AE070);
+    RH_ScopedInstall(BaseEventTakesPriorityOverBaseEvent, 0x4AE100);
 }
 
 // 0x4ADFD0
@@ -58,6 +59,15 @@ bool CEventGroupEvent::IsPriorityEvent() const {
 
 // 0x4AE100
 bool CEventGroupEvent::BaseEventTakesPriorityOverBaseEvent(const CEventGroupEvent& other) {
-    return IsPriorityEvent()
-        || !other.IsPriorityEvent() && GetEvent().TakesPriorityOver(other.GetEvent());
+    // Como el original: calcula las dos comprobaciones de prioridad (primero la propia, despues la del otro) antes de decidir;
+    // solo si ninguna lo es llama a TakesPriorityOver (ranura 11) del evento propio con el evento del otro.
+    const bool thisIsPriority  = IsPriorityEvent();
+    const bool otherIsPriority = other.IsPriorityEvent();
+    if (thisIsPriority) {
+        return true;
+    }
+    if (otherIsPriority) {
+        return false;
+    }
+    return GetEvent().TakesPriorityOver(other.GetEvent());
 }

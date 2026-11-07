@@ -845,6 +845,8 @@ void CPointRouteInjectHooksLote109A() {
 
     RH_ScopedInstall(operator new, 0x41B7C0);
     RH_ScopedInstall(operator delete, 0x41B7D0);
+    RH_ScopedInstall(AddPoint, 0x48E180);   // lote 114A (banco Fn114A)
+    RH_ScopedInstall(RemovePoint, 0x5F13A0); // lote 114A (banco Fn114A)
 }
 
 // 0x41B7C0
@@ -855,4 +857,25 @@ void* CPointRoute::operator new(uint32 size) {
 // 0x41B7D0
 void CPointRoute::operator delete(void* ptr, size_t sz) {
     GetPointRoutePool()->Delete(reinterpret_cast<CPointRoute*>(ptr));
+}
+
+// 0x48E180: thiscall (`ret 4`), bool en AL. Como el original: contador comparado con signo (`jge`), los tres dwords del punto se copian en crudo (sin pasar por el x87)
+// a la entrada contador (sin comprobar limites inferiores) y el contador se incrementa.
+bool CPointRoute::AddPoint(const CVector& point) {
+    if (int32(m_NumEntries) >= int32(std::size(m_Entries))) {
+        return false;
+    }
+    std::memcpy(&m_Entries.data()[int32(m_NumEntries)], &point, sizeof(CVector));
+    ++m_NumEntries;
+    return true;
+}
+
+// 0x5F13A0: thiscall (`ret 4`), void. Como el original: ultimo = contador - 1 (con signo); desde `index` (con signo) mientras `i < ultimo` copia en crudo la entrada i + 1 sobre la i;
+// despues decrementa el contador (tambien con indice mayor o contador menor).
+void CPointRoute::RemovePoint(int32 index) {
+    const int32 last = int32(m_NumEntries) - 1;
+    for (int32 i = index; i < last; i++) {
+        std::memcpy(&m_Entries.data()[i], &m_Entries.data()[i + 1], sizeof(CVector));
+    }
+    m_NumEntries--;
 }

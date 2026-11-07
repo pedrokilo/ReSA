@@ -167,6 +167,7 @@ void CPedGroups::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Process, 0x5FC800);
+    RH_ScopedInstall(RegisterKillByPlayer, 0x5F7E30);
     RH_ScopedNamedGlobalInstall(AddGroupExe, "AddGroup", 0x5FB800); // Como el original: EAX/ECX/EDX de salida
     RH_ScopedNamedGlobalInstall(InitExe, "Init", 0x5FB8C0);
     RH_ScopedNamedGlobalInstall(CleanUpForShutDownExe, "CleanUpForShutDown", 0x5FB930);

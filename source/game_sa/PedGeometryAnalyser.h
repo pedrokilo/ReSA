@@ -16,6 +16,8 @@ class CPhysical;
 
 class CPointRoute : public notsa::Route<CVector> {
 public:
+    bool AddPoint(const CVector& point); // 0x48E180: anade el punto si hay hueco (contador con signo < 8); devuelve si lo anadio
+    void RemovePoint(int32 index);       // 0x5F13A0: quita la entrada `index` desplazando las siguientes y decrementa el contador
     static void* operator new(uint32 size);
     static void operator delete(void* ptr, size_t sz);
 };

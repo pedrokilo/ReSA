@@ -9257,3 +9257,17 @@ CPlayerRelationshipRecorder,GetRelationshipWithPlayer,0x0061A1A0,1,0,1,S
 CPlayerRelationshipRecorder,Flush,0x0061A2A0,1,0,1,S
 CEventScanner,ScanForEventsNow,0x006053D0,1,0,1,S
 CTaskTimer,GetTimeLeft,0x0062EB80,1,0,1,S
+CPlaceable,GetRightVector,0x0041CC70,1,0,1,S
+CPlaceable,GetUpVector,0x0050E420,1,0,1,S
+CPhysical,ApplyMoveForce-xyz,0x004ABBA0,1,0,1,S
+CPedIntelligence,GetPedFOVRange,0x004ABEA0,1,0,1,S
+CPedGroups,RegisterKillByPlayer,0x005F7E30,1,0,1,S
+CMissionCleanup,AddEntityToList-handle,0x004637E0,1,0,1,S
+CEventDamage,IsSameEventForAI,0x004ADBF0,1,0,1,S
+CEntryExitManager,WeAreInInteriorTransition,0x0043E400,1,0,1,S
+CPointRoute,AddPoint,0x0048E180,1,0,1,S
+CPointRoute,RemovePoint,0x005F13A0,1,0,1,S
+CPedGroupIntelligence,GetTask,0x005F7660,1,0,1,S
+CEventGroupEvent,BaseEventTakesPriorityOverBaseEvent,0x004AE100,1,0,1,S
+CEvent,TakesPriorityOverBase,0x004ABC30,1,0,1,S
+CPed,IsPedPointerValid,0x005E8A30,1,0,1,S

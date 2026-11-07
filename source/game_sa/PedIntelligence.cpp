@@ -122,6 +122,7 @@ void CPedIntelligence::InjectHooks()
     RH_ScopedInstall(ProcessFirst, 0x6073A0);
     RH_ScopedInstall(Process, 0x608260);
     RH_ScopedInstall(GetActivePrimaryTask, 0x4B85B0);
+    RH_ScopedInstall(GetPedFOVRange, 0x4ABEA0);
 }
 
 // 0x607140
@@ -1038,9 +1039,10 @@ CTask* CPedIntelligence::GetActivePrimaryTask() const {
     return nullptr;
 }
 
-// 0x4ABEA0
+// 0x4ABEA0: thiscall, float en ST0. Como el original (`fld oido; fcomp vista; test ah,41h`): devuelve el alcance de oido solo si es estrictamente mayor que el de vista;
+// con igualdad o NaN (comparacion no ordenada) devuelve el de vista. std::max devolveria el primero con NaN.
 float CPedIntelligence::GetPedFOVRange() const {
-    return std::max(m_fHearingRange, m_fSeeingRange);
+    return m_fHearingRange > m_fSeeingRange ? m_fHearingRange : m_fSeeingRange;
 }
 
 // 0x421050: ECX = this, EDX de entrada y un argumento en pila (ret 4). Como el original, deja en EAX los bits altos del EAX de entrada

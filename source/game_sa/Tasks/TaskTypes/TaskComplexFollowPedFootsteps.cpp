@@ -117,14 +117,6 @@ __declspec(noinline) float FootstepsDist2D(const CVector& d) {
 // Se invoca por un puntero a miembro volátil (llamada indirecta, sin expansión).
 CTask* (CTaskManager::* volatile s_getSimplestActiveTask)() = &CTaskManager::GetSimplestActiveTask;
 
-// 0x5F13A0 (CPointRoute: quitar la entrada idx desplazando las siguientes y decrementando el contador)
-void FootstepsRouteRemove(CPointRoute& route, int32 idx) {
-    const int32 last = (int32)route.m_NumEntries - 1;
-    for (int32 i = idx; i < last; i++) {
-        route.m_Entries.data()[i] = route.m_Entries.data()[i + 1];
-    }
-    route.m_NumEntries--;
-}
 } // namespace
 
 // 0x694ED0
@@ -253,7 +245,7 @@ CTask* CTaskComplexFollowPedFootsteps::ControlSubTask(CPed* ped) {
                             v.Normalise();
                             const float dot = FootstepsDot(w, v);
                             if (dot >= 0.95f) { // 0x858EF0; con NaN no se elimina (test ah,1 -> C0)
-                                FootstepsRouteRemove(*route, (int32)route->m_NumEntries - 1);
+                                route->RemovePoint((int32)route->m_NumEntries - 1);
                             }
                         }
                         route->AddUnlessFull(targetPos);
@@ -295,7 +287,7 @@ CTask* CTaskComplexFollowPedFootsteps::CreateSubTask(eTaskType taskType, CPed* p
     case TASK_SIMPLE_GO_TO_POINT: {
         // Como el original: toma el primer punto, lo elimina de la ruta y crea el movimiento hacia él
         const CVector pt = m_pointRoute->m_Entries.data()[0];
-        FootstepsRouteRemove(*m_pointRoute, 0);
+        m_pointRoute->RemovePoint(0);
         return new CTaskSimpleGoToPoint((eMoveState)m_moveState, pt, 0.01f, false, false); // 0x870C28
     }
     case TASK_SIMPLE_STAND_STILL:

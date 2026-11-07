@@ -51,6 +51,7 @@ void CEventDamage::InjectHooks() {
     RH_ScopedInstall(ComputeBodyPartToRemove, 0x4ADC10);
     RH_ScopedInstall(ComputeDeathAnim, 0x4B3A60);
     RH_ScopedInstall(ComputeDamageAnim, 0x4B3FC0);
+    RH_ScopedInstall(IsSameEventForAI, 0x4ADBF0); // lote 114A (banco Fn114A): accesor en linea de la cabecera (thiscall, AL)
     RH_ScopedInstall(HasKilledPed, 0x4ABCA0); // lote 109A (banco Fn109A): accesor en linea de la cabecera (thiscall, AL)
 }
 

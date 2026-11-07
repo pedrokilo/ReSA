@@ -20280,7 +20280,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::Constructor"
@@ -20307,7 +20307,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::Destructor"
@@ -20334,7 +20334,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::CleanUpOldReference-"
@@ -20361,7 +20361,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::RegisterReference-"
@@ -20388,7 +20388,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::ResolveReferences"
@@ -20415,7 +20415,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::PruneReferences"
@@ -20442,7 +20442,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::IsEntityPointerValid"
@@ -20469,7 +20469,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::FlagToDestroyWhenNextProcessed"
@@ -20496,7 +20496,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::SetModelIndex"
@@ -20523,7 +20523,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::SetModelIndexNoCreate"
@@ -20550,7 +20550,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::CreateRwObject"
@@ -20577,7 +20577,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::DeleteRwObject"
@@ -20604,7 +20604,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::SetIsStatic"
@@ -20631,7 +20631,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::GetIsStatic"
@@ -20658,7 +20658,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::GetIsTouching-ent"
@@ -20685,7 +20685,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::GetIsTouching-vec"
@@ -20712,7 +20712,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::GetIsTypePhysical"
@@ -20739,7 +20739,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::DoesNotCollideWithFlyers"
@@ -20766,7 +20766,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::TreatAsPlayerForCollisions"
@@ -20793,7 +20793,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::ProcessCollision"
@@ -20820,7 +20820,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::ProcessControl"
@@ -20847,7 +20847,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::ProcessShift"
@@ -20874,7 +20874,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::TestCollision"
@@ -20901,7 +20901,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::Teleport"
@@ -20928,7 +20928,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::SpecialEntityCalcCollisionSteps"
@@ -20955,7 +20955,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::SpecialEntityPreCollisionStuff"
@@ -20982,7 +20982,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::FindTriggerPointCoors"
@@ -21009,7 +21009,7 @@
       },
       "evidence": {
         "path": "reversing/CEntB/validation-summary.json",
-        "sha256": "d3e4414dd28b7f849008f047e9d50b855d949b7b94e9580ba2ff22bbf02fc76b",
+        "sha256": "d03f6be400ea54bd075d54b8974f0ae9cab8a6eca25675499c0ec130eff8c6f8",
         "passed_path": [
           "covered_functions",
           "CEntity::SetupBigBuilding"
@@ -21452,7 +21452,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDamageResponse"
@@ -21479,7 +21479,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePersonalityResponseToDamage"
@@ -21506,7 +21506,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDeathResponse"
@@ -21533,7 +21533,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDeadPedResponse"
@@ -21560,7 +21560,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeVehicleDamageResponse"
@@ -21587,7 +21587,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeGotKnockedOverByCarResponse"
@@ -21614,7 +21614,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeVehicleCollisionResponse"
@@ -21641,7 +21641,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeVehiclePotentialCollisionResponse"
@@ -21668,7 +21668,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeEventResponseTask-0"
@@ -21695,7 +21695,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeEventResponseTask-Ped"
@@ -21722,7 +21722,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::HandleEvents"
@@ -21749,7 +21749,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::Flush"
@@ -21776,7 +21776,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::FlushImmediately"
@@ -21803,7 +21803,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::SetEventResponseTask"
@@ -21830,7 +21830,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::RegisterKill"
@@ -21857,7 +21857,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::Constructor"
@@ -21884,7 +21884,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::Destructor"
@@ -21911,7 +21911,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::IsKillTaskAppropriate"
@@ -21938,7 +21938,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::IsTemporaryEvent"
@@ -21965,7 +21965,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "15faa8147feea6cdc0d28e7c1d493f79859b82f8c430577ccb21144696915222",
+        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
         "passed_path": [
           "covered_functions",
           "CEventHandler::GetCurrentEventType"
@@ -21992,7 +21992,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeOnEscalatorResponse"
@@ -22001,7 +22001,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22022,7 +22022,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeOnFireResponse"
@@ -22031,7 +22031,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22052,7 +22052,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePassObjectResponse"
@@ -22061,7 +22061,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22082,7 +22082,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePedEnteredVehicleResponse"
@@ -22091,7 +22091,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22112,7 +22112,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePedFriendResponse"
@@ -22121,7 +22121,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22142,7 +22142,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePedSoundQuietResponse"
@@ -22151,7 +22151,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22172,7 +22172,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePedThreatBadlyLitResponse"
@@ -22181,7 +22181,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22202,7 +22202,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePedThreatResponse"
@@ -22211,7 +22211,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22232,7 +22232,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePedToChaseResponse"
@@ -22241,7 +22241,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22262,7 +22262,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePedToFleeResponse"
@@ -22271,7 +22271,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22292,7 +22292,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePlayerCollisionWithPedResponse"
@@ -22301,7 +22301,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22322,7 +22322,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePlayerWantedLevelResponse"
@@ -22331,7 +22331,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22352,7 +22352,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePotentialPedCollideResponse"
@@ -22361,7 +22361,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22382,7 +22382,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePotentialWalkIntoFireResponse"
@@ -22391,7 +22391,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22412,7 +22412,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeReallyLowHealthResponse"
@@ -22421,7 +22421,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22442,7 +22442,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeReviveResponse"
@@ -22451,7 +22451,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
@@ -22472,7 +22472,7 @@
       },
       "evidence": {
         "path": "reversing/EvHC/validation-summary.json",
-        "sha256": "6a0643106bd1a0cf9ff538b031b46a6da1a91dce4f20a78460ad2b5e3e942379",
+        "sha256": "26fc8cf95af9571c9ed6fdeec9daf17547f2603a9442ea49cf45fd0f60a4a569",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeScriptCommandResponse"
@@ -22481,7 +22481,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",

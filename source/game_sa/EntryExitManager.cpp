@@ -37,6 +37,7 @@ void CEntryExitManager::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Init, 0x43F880);
+    RH_ScopedInstall(WeAreInInteriorTransition, 0x43E400);
     RH_ScopedInstall(Shutdown, 0x440B90);
     RH_ScopedInstall(AddEntryExitToStack, 0x43E410);
     RH_ScopedInstall(Update, 0x440D10);
@@ -551,6 +552,7 @@ void CEntryExitManager::SetAreaCodeForVisibleObjects() {
     ms_oldAreaCode = CGame::currArea;
 }
 
+// 0x43E400
 bool CEntryExitManager::WeAreInInteriorTransition() {
     return ms_exitEnterState != 0;
 }

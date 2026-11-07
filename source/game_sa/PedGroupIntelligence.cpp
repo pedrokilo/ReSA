@@ -38,6 +38,7 @@ void CPedGroupIntelligence::InjectHooks() {
     RH_ScopedInstall(Flush, 0x5F7350);
     RH_ScopedOverloadedInstall(AddEvent, "", 0x5F7470, bool(CPedGroupIntelligence::*)(CEvent*));
     RH_ScopedInstall(SetDefaultTaskAllocatorType, 0x5FBB70);
+    RH_ScopedInstall(GetTask, 0x5F7660);
     RH_ScopedInstall(SetDefaultTaskAllocator, 0x5FB280);
     RH_ScopedInstall(ComputeDefaultTasks, 0x5F88D0);
     RH_ScopedInstall(ProcessIgnorePlayerGroup, 0x5F87A0);

@@ -220,6 +220,7 @@ void CPed::InjectHooks() {
 
     RH_ScopedGlobalInstall(SetPedAtomicVisibilityCB, 0x5F0060);
     RH_ScopedGlobalInstall(SayJacked, 0x6497A0);
+    RH_ScopedGlobalInstall(IsPedPointerValid, 0x5E8A30);
     RH_ScopedGlobalInstall(SayJacking, 0x6497F0);
 }
 
@@ -3815,7 +3816,11 @@ void CPed::GiveDelayedWeapon(eWeaponType weaponType, uint32 ammo) {
 * @addr 0x5E8A30
 */
 bool IsPedPointerValid(CPed* ped) {
-    if(!IsPedPointerValid_NotInWorld(ped)) {
+    // Como el original (0x5E8A30): índice por división con signo del desplazamiento respecto al almacenamiento (sin comprobar que el puntero
+    // pertenezca al pool), dentro de 0..capacidad-1 (comparaciones con signo) y con el hueco ocupado; IsObjectValid exigía además puntero del pool.
+    auto* const pool = GetPedPool();
+    const int32 idx  = pool->GetIndexUnchecked(ped);
+    if (idx < 0 || idx >= int32(pool->GetSize()) || pool->IsFreeSlotAtIndex(idx)) {
         return false;
     }
 

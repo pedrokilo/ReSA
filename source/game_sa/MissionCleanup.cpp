@@ -76,6 +76,7 @@ void CMissionCleanup::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Process, 0x468560);
+    RH_ScopedOverloadedInstall(AddEntityToList, "handle", 0x4637E0, void(CMissionCleanup::*)(int32, MissionCleanUpEntityType));
     RH_ScopedInstall(CheckIfCollisionHasLoadedForMissionObjects, 0x4652D0);
 }
 

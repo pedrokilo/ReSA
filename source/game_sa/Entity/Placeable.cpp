@@ -43,6 +43,8 @@ void CPlaceable::InjectHooks() {
     RH_ScopedInstall(GetHeading, 0x441DB0);
     RH_ScopedInstall(GetRoll, 0x420B30);
     RH_ScopedInstall(GetForwardVector, 0x41CCB0);
+    RH_ScopedInstall(GetRightVector, 0x41CC70);
+    RH_ScopedInstall(GetUpVector, 0x50E420);
     RH_ScopedOverloadedInstall(IsWithinArea, "xy", 0x54F200, bool(CPlaceable::*)(float, float, float, float) const);
     RH_ScopedOverloadedInstall(IsWithinArea, "xyz", 0x54F2B0, bool(CPlaceable::*)(float, float, float, float, float, float) const);
     RH_ScopedInstall(RemoveMatrix, 0x54F3B0);
@@ -80,10 +82,21 @@ CPlaceable::~CPlaceable() {
     m_matrix = reinterpret_cast<CMatrixLink*>(&gDummyMatrix);
 }
 
+// 0x41CC70: thiscall, destino oculto en la pila (`ret 4`), devuelve el destino. Con matriz copia en crudo los tres dwords de la fila derecha (+0 de la matriz, sin pasar por el x87);
+// sin ella (cos h, sin h, 0) con fsin/fcos del x87 guardados en float (el EXE calcula el seno primero y el coseno despues; z = 0 se escribe primero).
 CVector CPlaceable::GetRightVector() {
-    if (m_matrix)
-        return m_matrix->GetRight();
-    return { std::cos(m_placement.m_fHeading), std::sin(m_placement.m_fHeading), 0.0f };
+    CVector out;
+    if (m_matrix) {
+        std::memcpy(&out, &m_matrix->GetRight(), sizeof(out));
+        return out;
+    }
+    const float heading = m_placement.m_fHeading;
+    const float sine = TrigSimpleSinCpp(heading);
+    const float cosine = TrigSimpleCosCpp(heading);
+    out.z = 0.0f;
+    out.x = cosine;
+    out.y = sine;
+    return out;
 }
 
 // 0x41CCB0: thiscall, destino oculto en la pila (`ret 4`), devuelve el destino. Con matriz copia en crudo los tres dwords de la fila adelante (+0x10 de la matriz, sin pasar por el x87);
@@ -103,10 +116,18 @@ CVector CPlaceable::GetForwardVector() {
     return out;
 }
 
+// 0x50E420: thiscall, destino oculto en la pila (`ret 4`), devuelve el destino. Con matriz copia en crudo los tres dwords de la fila arriba (+0x20 de la matriz, sin pasar por el x87);
+// sin ella (0, 0, 1.0f).
 CVector CPlaceable::GetUpVector() {
-    if (m_matrix)
-        return m_matrix->GetUp();
-    return {0.0f, 0.0f, 1.0f};
+    CVector out;
+    if (m_matrix) {
+        std::memcpy(&out, &m_matrix->GetUp(), sizeof(out));
+        return out;
+    }
+    out.x = 0.0f;
+    out.y = 0.0f;
+    out.z = 1.0f;
+    return out;
 }
 
 void CPlaceable::SetPosn(float x, float y, float z) {

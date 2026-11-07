@@ -46,6 +46,14 @@ void CEvent::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x4ABFC0);
     RH_ScopedInstall(CalcSoundLevelIncrement, 0x4AC050);
     RH_ScopedInstall(GetSoundLevel, 0x4B2850);
+    RH_ScopedInstall(TakesPriorityOverBase, 0x4ABC30);
+}
+
+// 0x4ABC30: thiscall (`ret 4`), bool en AL. Como el original: primero la prioridad del otro evento (ranura 2 de su vtabla), despues la propia; comparacion con signo `>=`.
+bool CEvent::TakesPriorityOverBase(const CEvent& other) {
+    const int32 otherPriority = other.GetEventPriority();
+    const int32 thisPriority  = GetEventPriority();
+    return thisPriority >= otherPriority;
 }
 
 // 0x4B5620

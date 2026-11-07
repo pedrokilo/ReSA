@@ -50,6 +50,7 @@ void CPhysical::InjectHooks()
     RH_ScopedInstall(ApplyMoveSpeed, 0x542DD0);
     RH_ScopedInstall(ApplyTurnSpeed, 0x542E20);
     RH_ScopedOverloadedInstall(ApplyMoveForce, "vec", 0x5429F0, void(CPhysical::*)(CVector force));
+    RH_ScopedOverloadedInstall(ApplyMoveForce, "xyz", 0x4ABBA0, void(CPhysical::*)(float, float, float));
     RH_ScopedInstall(SetDamagedPieceRecord, 0x5428C0);
     RH_ScopedInstall(RemoveFromMovingList, 0x542860);
     RH_ScopedInstall(AddToMovingList, 0x542800);
