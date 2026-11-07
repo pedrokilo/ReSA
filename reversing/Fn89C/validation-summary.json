@@ -12,22 +12,22 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree con el contenido de la rama de trabajo (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: GetAnimHierarchyFromSkinClump 0x734A40, CCamera::Find3rdPersonCamTargetVector 0x514970, CWeapon::Fire 0x742300 y CPed::DoGunFlash 0x5DF340; RpHAnimIDGetIndex 0x7C51A0, RpHAnimHierarchyGetMatrixArray 0x7C5120 y RwV3dTransformPoints 0x7EDD90 (la DLL los llama por su direccion del EXE). Registran sus argumentos en orden (con el contenido de los vectores). NO se sustituyen y corren de verdad en ambos lados: CPed::IsPlayer (m_nPedType), CVector::Normalise 0x59C910, CMatrix * CVector 0x59C890, 0x40FE90 y 0x40FE30 y toda la aritmetica de la funcion (x87 del EXE frente a los ayudantes x87 de 24 bits de la DLL), con camara activa (byte 0xB6F081, 3 camaras) y ms_modelInfoPtrs (indices 19980..19991) como memoria real del juego restaurada tras cada lado. Mutaciones de una escritura dentro de un falso (entidad objetivo, modelo del vehiculo, coords.x, asociacion de animacion). El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: entidad objetivo sin matriz (AllocateMatrix + UpdateMatrix), vehiculo sin matriz, indices de ranura o modelo fuera de rango, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y valores de retorno de los falsos. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn89C-20261104-220836-533559",
-  "summary_sha256": "9c3b8c460b86dcae0b0a2f9ad5982a9e92a1b589bb528a5ebe3fe6ad3612da64",
-  "result_txt_sha256": "8205b4b1a34ced49cecdbfad9ebed3b064dd0f71fe6b8d136b250a616d0d48d2",
-  "log_sha256": "07b40c90ac2f5d76d19a819034c9c9fabaec2acd05283eaff052e82e803514a5",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn89C-20261107-143342-537800",
+  "summary_sha256": "4e2566c9a00592e86117b33c80bca9043049232cd7544b596cc0aa58db847d39",
+  "result_txt_sha256": "76cddacd4d1021cc294270212b048ae339ca1036051b629f2a92086551ea5bf2",
+  "log_sha256": "630afde47a57cfd01c4f5bca5cbe523dbc69f1b7b15bd0fe91e60d521ccbe26e",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "19a6f4f78ac18de82d427eb1d05f19a02bf7fecb603fcadfce59e30327865c18",
+  "executed_probe_sha256": "9a165a9bfa5593484787b9d489b96629852d9f3ee9c79d9ea9a017b9fc2bca25",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
-      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "1cfe2b6e0949b4f67efcecfc02b617816098e290febcc5f0e1fa152c664c1e98",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "f9d6e381e20f5bace3a3da2ddc520868278f1309c325fd753cd4199bb7812105",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn89C-20261104-220836-533559/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn89C-20261107-143342-537800/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "3331c30c2afeb83e77eb6dd7f41e5d62b76f3c1b28736963216790126c05819e",
-    "uncompressed_sha256": "07b40c90ac2f5d76d19a819034c9c9fabaec2acd05283eaff052e82e803514a5"
+    "compressed_sha256": "1a08953e54e565594d1d49d7a919674fb48fb0ca89887a30adc93186bbd7f674",
+    "uncompressed_sha256": "630afde47a57cfd01c4f5bca5cbe523dbc69f1b7b15bd0fe91e60d521ccbe26e"
   }
 }

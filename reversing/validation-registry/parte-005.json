@@ -14714,7 +14714,7 @@
       },
       "evidence": {
         "path": "reversing/Fn89C/validation-summary.json",
-        "sha256": "3ab21b83bd1b147dc21f725c07f8f706a36195edcc7db9b33a4f180d5b852b4b",
+        "sha256": "1798ceb894a3762bb55d13c708e284f03078f453c6a82ee7c03ceac0a998de92",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleGangDriveBy::FireGun"
@@ -14723,10 +14723,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-        "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
-        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "1cfe2b6e0949b4f67efcecfc02b617816098e290febcc5f0e1fa152c664c1e98",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "f9d6e381e20f5bace3a3da2ddc520868278f1309c325fd753cd4199bb7812105",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
