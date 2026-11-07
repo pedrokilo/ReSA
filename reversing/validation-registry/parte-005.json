@@ -14461,7 +14461,7 @@
       },
       "evidence": {
         "path": "reversing/Fn86B/validation-summary.json",
-        "sha256": "d5de4a3d65e2ca1ee066443506fb2c0a35e0284c21a68a5abe41929d8b4a6e96",
+        "sha256": "44dee048c450c4e302d973c2dba45d2747a6995b3c4b6dda178cec72bfed1dbf",
         "passed_path": [
           "covered_functions",
           "CPopulation::CreateSunbatheObject"
@@ -14470,12 +14470,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "source/game_sa/Population.cpp": "767e9f9e3cc66357c5a6f6c665db0bd7a9a36695838f76536b55eafe22d68109",
         "source/game_sa/Population.h": "03d63c9f80cbddf755b71a5ef1b2f3b8e97dcb746fb0fa46cfe0b6d595ab51d5",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Fn86B/LiveComparison.hpp": "df3f471723451cfdf3af45fb065fa7c918d95a22c1f81170c975e0b13acd09b0",
+        "reversing/Fn86B/LiveComparison.hpp": "df3b0e210da90c64b9cc821c821f8098b83ecdddbabc8374f3063e2a62caec66",
         "reversing/Fn86B/Core.hpp": "8720b1f86300c85bf3513b6f08861e515a48a6ecd605c7a087da2199c6021829",
         "reversing/Fn86B/Fixtures.hpp": "b3a04217e71318fe114e6823ad2d5b562314f63da2ff3938c9deed8f38197728",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",

@@ -272,7 +272,8 @@ inline void Update() {
     Pair pCtor = MakeCollab(env, 0x5A1D70, hooksFound); pCtor.dll = dllObjCtor;
     Pair pMat = MakeCollab(env, 0x59AD70, hooksFound);
     if (!pMat.hooked) pMat.dll = Body(std::bit_cast<uintptr_t>(static_cast<void (CMatrix::*)(RwMatrix*) const>(&CMatrix::UpdateRwMatrix)));   // sin hook registrado: cuerpo de la DLL por su simbolo
-    const Pair pSimple{0x54EF40, Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateRwMatrix)), false};
+    Pair pSimple = MakeCollab(env, 0x54EF40, hooksFound);   // con hook desde el lote 102A: se apaga su ruta y el falso va tambien en el cuerpo de la DLL (lote 112A)
+    if (!pSimple.hooked) pSimple.dll = Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateRwMatrix));
     const Pair pAdd = MakeCollab(env, 0x563220, hooksFound);
     env.stubs[0] = {S(pRand, reinterpret_cast<void*>(&FkRand)), S(pNew, reinterpret_cast<void*>(&FkNew)), S(pCtor, reinterpret_cast<void*>(&FkCtor)),
                     S(pMat, reinterpret_cast<void*>(&FkMatUpdate)), S(pSimple, reinterpret_cast<void*>(&FkSimpleUpdate)), S(pAdd, reinterpret_cast<void*>(&FkWorldAdd))};
