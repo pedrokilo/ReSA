@@ -148368,7 +148368,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::ChangeCarPlaybackToUseAI"
@@ -148394,7 +148394,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::FindIndexWithFileNameNumber"
@@ -148420,7 +148420,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::HasRecordingFileBeenLoaded"
@@ -148446,7 +148446,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::Init"
@@ -148472,7 +148472,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::InitAtStartOfGame"
@@ -148498,7 +148498,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::InterpolateInfoForCar"
@@ -148524,7 +148524,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::IsPlaybackGoingOnForCar"
@@ -148550,7 +148550,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::IsPlaybackPausedForCar"
@@ -148576,7 +148576,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::Load"
@@ -148602,7 +148602,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::PausePlaybackRecordedCar"
@@ -148628,7 +148628,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::RegisterRecordingFile"
@@ -148654,7 +148654,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::RemoveAllRecordingsThatArentUsed"
@@ -148680,7 +148680,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::RemoveRecordingFile"
@@ -148706,7 +148706,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::Render"
@@ -148732,7 +148732,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::RenderLineSegment"
@@ -148758,7 +148758,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::RequestRecordingFile"
@@ -148784,7 +148784,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::RestoreInfoForCar"
@@ -148810,7 +148810,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::RestoreInfoForMatrix"
@@ -148836,7 +148836,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::SaveOrRetrieveDataForThisFrame"
@@ -148862,7 +148862,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::SetPlaybackSpeed"
@@ -148888,7 +148888,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::SetRecordingToPointClosestToCoors"
@@ -148914,7 +148914,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::ShutDown"
@@ -148940,7 +148940,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::SkipForwardInRecording"
@@ -148966,7 +148966,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::SkipToEndAndStopPlaybackRecordedCar"
@@ -148992,7 +148992,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::SmoothRecording"
@@ -149018,7 +149018,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::StartPlaybackRecordedCar"
@@ -149044,7 +149044,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::StopPlaybackRecordedCar"
@@ -149070,7 +149070,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::StopPlaybackWithIndex"
@@ -149096,7 +149096,7 @@
       },
       "evidence": {
         "path": "reversing/VehRec29/validation-summary.json",
-        "sha256": "92a7b253f82726226a9a743e0d9e888094bf8ac8d55280f285467f620697b7ab",
+        "sha256": "88615154a290ef5611d4c374ed66ba609cd21c912ef59e7186296fa0e1327c05",
         "passed_path": [
           "covered_functions",
           "CVehicleRecording::UnpausePlaybackRecordedCar"
