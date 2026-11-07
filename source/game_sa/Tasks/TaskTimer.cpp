@@ -29,6 +29,15 @@ void CTaskTimer::InjectHooks() {
     RH_ScopedCategory("Tasks");
 
     RH_ScopedInstall(IsOutOfTime, 0x420E30);
+    RH_ScopedInstall(GetTimeLeft, 0x62EB80);
+}
+
+// 0x62EB80 (sin simbolo en el EXE): milisegundos que faltan (interval - ahora + inicio, con desbordamiento de 32 bits); 0 si no esta en marcha. No mira m_bStopped.
+int32 CTaskTimer::GetTimeLeft() const {
+    if (!m_bStarted) {
+        return 0;
+    }
+    return (int32)(((uint32)m_nInterval - CTimer::GetTimeInMS()) + m_nStartTime);
 }
 
 // 0x420E30

@@ -68,6 +68,7 @@ void CTaskComplexEnterCar::InjectHooks() {
     RH_ScopedInstall(GetTargetPos, 0x63A300);
     RH_ScopedInstall(GetCameraAvoidVehicle, 0x63A690);
     RH_ScopedInstall(GetCameraStickModifier, 0x63A380);
+    RH_ScopedInstall(ComputeTargetDoorOppositeToFlag, 0x63AB70);
     RH_ScopedInstall(SetVehicleFlags, 0x63AB90);
     RH_ScopedInstall(CreateSubTask, 0x63E040);
 

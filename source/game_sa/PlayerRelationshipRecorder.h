@@ -6,11 +6,12 @@ struct PlayerRelationship {
     const CPed* Ped;
     int32       Relationship;
 
-    PlayerRelationship() { Flush(); }
+    PlayerRelationship() : Ped{}, Relationship{} { }
 
+    // Como el original (0x61A150, 0x61A2A0): el peaton a nulo y solo el byte bajo de la relacion a cero
     void Flush() {
         Ped = nullptr;
-        Relationship = 0;
+        *reinterpret_cast<uint8*>(&Relationship) = 0;
     }
 };
 

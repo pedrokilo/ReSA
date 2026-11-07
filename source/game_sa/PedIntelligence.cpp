@@ -64,6 +64,8 @@ void CPedIntelligence::InjectHooks()
     RH_ScopedCategoryGlobal();
     RH_ScopedNamedGlobalInstall(IncrementAngerAtPlayerRegs, "IncrementAngerAtPlayer", 0x421050);
 
+    RH_ScopedInstall(operator new, 0x6074A0);
+    RH_ScopedInstall(operator delete, 0x6074E0);
     RH_ScopedInstall(Constructor, 0x607140);
     RH_ScopedInstall(Destructor, 0x607300);
 

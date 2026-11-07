@@ -91,6 +91,9 @@ public:
     bool IsStarted() const { return m_bStarted; }
 
     bool IsOutOfTime();
+
+    // 0x62EB80 (sin simbolo en el EXE)
+    int32 GetTimeLeft() const;
 };
 
 VALIDATE_SIZE(CTaskTimer, 0xC);

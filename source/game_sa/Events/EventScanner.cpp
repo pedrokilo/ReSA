@@ -123,6 +123,7 @@ void CEventScanner::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(ScanForEvents, 0x607E30);
+    RH_ScopedInstall(ScanForEventsNow, 0x6053D0);
 }
 
 // 0x605300
@@ -246,7 +247,8 @@ void CEventScanner::ScanForEvents(CPed& ped) {
 }
 
 // 0x6053D0
-void CEventScanner::ScanForEventsNow(const CPed& ped, bool bDontScan) {
+// Como el original: `bDontScan` se prueba como dword (`test esi,esi`), no como bool (el llamador empuja un dword)
+void CEventScanner::ScanForEventsNow(const CPed& ped, uint32 bDontScan) {
     if (bDontScan)
         return;
 

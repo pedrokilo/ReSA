@@ -9240,3 +9240,20 @@ CPointRoute,operator new,0x0041B7C0,1,0,1,S
 CPointRoute,operator delete,0x0041B7D0,1,0,1,S
 CPedClothesDesc,SetTextureAndModel-hash,0x005A8050,1,0,1,S
 CPedClothesDesc,SetTextureAndModel-name,0x005A8080,1,0,1,S
+CTaskComplexEnterCar,ComputeTargetDoorOppositeToFlag,0x0063AB70,1,0,1,S
+CTaskComplexWander,RequestDir,0x00669D30,1,0,1,S
+CTaskComplexWander,RequestNodesFrom,0x00669D50,1,0,1,S
+CTaskComplexWanderStandard,SetMinNextScanTime,0x0066B150,1,0,1,S
+CTaskComplexPartner,GetStateOfPartnerTask,0x006822B0,1,0,1,S
+CTaskComplexGangLeader,GangDrinkAnimOfPed,0x0065E6F0,1,0,1,S
+CTaskComplexGangLeader,GangSmokeAnimOfPed,0x0065E710,1,0,1,S
+CTaskAllocator,operator new,0x0069D980,1,0,1,S
+CTaskAllocator,operator delete,0x0069D990,1,0,1,S
+CPedIntelligence,operator new,0x006074A0,1,0,1,S
+CPedIntelligence,operator delete,0x006074E0,1,0,1,S
+CPlayerRelationshipRecorder,ClearRelationshipWithPlayer,0x0061A150,1,0,1,S
+CPlayerRelationshipRecorder,AddRelationship,0x0061A180,1,0,1,S
+CPlayerRelationshipRecorder,GetRelationshipWithPlayer,0x0061A1A0,1,0,1,S
+CPlayerRelationshipRecorder,Flush,0x0061A2A0,1,0,1,S
+CEventScanner,ScanForEventsNow,0x006053D0,1,0,1,S
+CTaskTimer,GetTimeLeft,0x0062EB80,1,0,1,S

@@ -68,6 +68,10 @@ public:
     bool ScanForBlockedNode(CPed* ped, const CNodeAddress& targetNodeAddress);
     bool ScanForBlockedNode(const CVector& position, class CEntity* entity);
 
+    // 0x669D30 y 0x669D50 (nombres propios: el EXE no tiene simbolo). Como el original, `dir` se compara como dword (el llamador empuja un dword) y la subtarea se pasa por puntero.
+    void RequestDir(uint32 dir);
+    void RequestNodesFrom(const CTaskComplexWander* from);
+
     /// Get sq. distance of the path node (either `m_LastNode` or `m_NextNode`) closest to the ped
     float GetDistSqOfClosestPathNodeToPed(CPed* ped);
 

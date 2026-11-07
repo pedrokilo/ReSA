@@ -93,7 +93,7 @@ public:
 
     void Clear();
     void ScanForEvents(CPed& ped);
-    void ScanForEventsNow(const CPed& ped, bool bDontScan);
+    void ScanForEventsNow(const CPed& ped, uint32 bDontScan); // 0x6053D0
 
     auto& GetAcquaintanceScanner() {
         return m_pedAcquaintanceScanner;

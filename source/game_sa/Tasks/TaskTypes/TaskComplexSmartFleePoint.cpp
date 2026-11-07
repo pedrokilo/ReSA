@@ -71,12 +71,7 @@ void CTaskComplexSmartFleePoint::SetDefaultTaskWanderDir(CPed* ped) {
     if (task && task->GetTaskType() == static_cast<eTaskType>(0x390)) {
         auto* wander = static_cast<CTaskComplexWander*>(task);
         auto* sub = static_cast<CTaskComplexWander*>(m_pSubTask);
-        if (wander->m_LastNode != sub->m_LastNode || wander->m_NextNode != sub->m_NextNode) {
-            wander->m_LastNode = sub->m_LastNode;
-            wander->m_NextNode = sub->m_NextNode;
-            wander->m_nDir = sub->m_nDir;
-            wander->m_bNewNodes = true;
-        }
+        wander->RequestNodesFrom(sub); // 0x669D50
     }
 }
 
@@ -179,10 +174,7 @@ CTask* CTaskComplexSmartFleePoint::ControlSubTask(CPed* ped) {
         const auto dir = ComputeFleeDir(ped);
         if (m_fleeDir != uint8(dir)) {
             m_fleeDir = uint8(dir);
-            if (uint32(wander->m_nDir) != uint32(m_fleeDir)) {
-                wander->m_nDir = m_fleeDir;
-                wander->m_bNewDir = true;
-            }
+            wander->RequestDir(uint32(m_fleeDir)); // 0x669D30
         }
     } else {
         if (m_timer.m_bStarted && m_timer.IsOutOfTime()) {

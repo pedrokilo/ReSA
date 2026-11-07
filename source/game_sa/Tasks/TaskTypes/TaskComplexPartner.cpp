@@ -42,6 +42,7 @@ void CTaskComplexPartner::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x681E70);
     RH_ScopedInstall(ComputeTargetPoints, 0x681FE0);
+    RH_ScopedInstall(GetStateOfPartnerTask, 0x6822B0);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x683AD0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x681F20);
     RH_ScopedVMTInstall(ControlSubTask, 0x6840D0);
@@ -87,16 +88,21 @@ CTaskComplexPartner* CTaskComplexPartner::Constructor(const char* commandName, C
     return this;
 }
 
+// 0x6822B0 (sin símbolo en el catálogo): estado (con signo, movsx) de la tarea equivalente del compañero (FindActiveTaskByType 0x681740 con el mismo tipo), 0 si no la tiene
+int32 CTaskComplexPartner::GetStateOfPartnerTask() const {
+    auto* const other = static_cast<CTaskComplexPartner*>(m_partner->GetIntelligence()->GetTaskManager().FindActiveTaskByType((eTaskType)m_taskId));
+    return other ? (int32)(int8)other->m_partnerState : 0;
+}
+
 namespace {
 // Como el original: los bytes bool (+0x58, +0x5C, +0x5D, +0x6E) se prueban enteros (`test al,al`), también los no canónicos
 uint8 PartnerByte(const bool& flag) {
     return reinterpret_cast<const uint8&>(flag);
 }
 
-// 0x6822B0 (sin símbolo en el catálogo): estado (con signo, movsx) de la tarea equivalente del compañero, 0 si no la tiene
+// Estado de la tarea equivalente del compañero (CTaskComplexPartner::GetStateOfPartnerTask, 0x6822B0)
 int32 PartnerStateOfPartner(const CTaskComplexPartner& task) {
-    auto* const other = static_cast<CTaskComplexPartner*>(task.m_partner->GetIntelligence()->GetTaskManager().FindActiveTaskByType((eTaskType)task.m_taskId));
-    return other ? (int32)(int8)other->m_partnerState : 0;
+    return task.GetStateOfPartnerTask();
 }
 
 // Tarea equivalente del compañero (CTaskManager::FindActiveTaskByType 0x681740 con el mismo tipo)
@@ -173,7 +179,7 @@ CTask* CTaskComplexPartner::CreateNextSubTask(CPed* ped) {
                     const auto    heading = (uint16)CGeneral::GetNodeHeadingFromVector(-fwd.x, -fwd.y);
                     // Como el original: con el pool agotado el EXE escribiría en nulo+0x34 (se detiene); aquí simplemente no se crea la tarea
                     if (auto* const wander = PartnerNewTask<CTaskComplexWanderStandard>(PEDMOVE_WALK, (uint8)heading, true)) {
-                        wander->m_nMinNextScanTime = CTimer::GetTimeInMS() + 100000; // 0x86FCDC
+                        wander->SetMinNextScanTime(CTimer::GetTimeInMS() + 100000); // 0x66B150, 0x86FCDC
                         ped->GetIntelligence()->GetTaskManager().SetTask(wander, TASK_PRIMARY_DEFAULT, false);
                     }
                 }

@@ -53,6 +53,26 @@ void CTaskComplexWander::InjectHooks() {
     RH_ScopedOverloadedInstall(ScanForBlockedNode, "", 0x671EF0, bool(CTaskComplexWander::*)(CPed*, const CNodeAddress&));
     RH_ScopedOverloadedInstall(ScanForBlockedNode, "1", 0x66F4C0, bool(CTaskComplexWander::*)(const CVector&, CEntity*));
     RH_ScopedInstall(GetWanderTaskByPedType, 0x673D00);
+    RH_ScopedInstall(RequestDir, 0x669D30);
+    RH_ScopedInstall(RequestNodesFrom, 0x669D50);
+}
+
+// 0x669D30 (sin simbolo en el EXE): si la direccion pedida (dword contra el byte actual) es distinta, la guarda y marca m_bNewDir
+void CTaskComplexWander::RequestDir(uint32 dir) {
+    if ((uint32)m_nDir != dir) {
+        m_nDir = (uint8)dir;
+        m_bNewDir = true;
+    }
+}
+
+// 0x669D50 (sin simbolo en el EXE): si los nodos (anterior y siguiente, las cuatro palabras) de `from` difieren de los propios, copia los dos nodos y la direccion y marca m_bNewNodes
+void CTaskComplexWander::RequestNodesFrom(const CTaskComplexWander* from) {
+    if (m_LastNode != from->m_LastNode || m_NextNode != from->m_NextNode) {
+        m_LastNode = from->m_LastNode;
+        m_NextNode = from->m_NextNode;
+        m_nDir     = from->m_nDir;
+        m_bNewNodes = true;
+    }
 }
 CTaskComplexWander* CTaskComplexWander::Constructor(eMoveState moveState, uint8 dir, bool bWanderSensibly, float fTargetRadius) { this->CTaskComplexWander::CTaskComplexWander(moveState, dir, bWanderSensibly, fTargetRadius); return this; }
 

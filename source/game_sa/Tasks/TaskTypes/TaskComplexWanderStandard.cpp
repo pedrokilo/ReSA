@@ -30,6 +30,7 @@ void CTaskComplexWanderStandard::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x48E4F0);
     RH_ScopedInstall(WillChat, 0x66AED0);
     RH_ScopedInstall(SetNextMinScanTime, 0x66AF60);
+    RH_ScopedInstall(SetMinNextScanTime, 0x66B150);
     RH_ScopedInstall(LookForSexyCars, 0x66AFD0);
     RH_ScopedInstall(LookForChatPartners, 0x66FDA0);
     RH_ScopedInstall(LookForGangMembers, 0x670100);
@@ -45,6 +46,11 @@ CTaskComplexWanderStandard::CTaskComplexWanderStandard(eMoveState MoveState, uin
     CTaskComplexWander(MoveState, Dir, bWanderSensibly),
     m_nMinNextScanTime{ 0 }
 {
+}
+
+// 0x66B150 (sin simbolo en el EXE): guarda el instante antes del cual no se vuelve a escanear
+void CTaskComplexWanderStandard::SetMinNextScanTime(uint32 time) {
+    m_nMinNextScanTime = time;
 }
 
 // 0x672600

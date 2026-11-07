@@ -44,6 +44,9 @@ public:
     // 0x681FE0: calcula los dos puntos de encuentro (outPoint = centro - mitad de la direccion, outTargetPoint = centro + mitad); sin convergencia marca m_taskCompleted
     void ComputeTargetPoints(CPed* ped, CVector* outPoint, CVector* outTargetPoint);
 
+    // 0x6822B0 (sin simbolo en el EXE): estado (con signo) de la tarea equivalente del companero, 0 si no la tiene
+    int32 GetStateOfPartnerTask() const;
+
 private:
     friend void InjectHooksMain();
     static void InjectHooks();

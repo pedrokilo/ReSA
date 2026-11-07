@@ -45,9 +45,15 @@ constexpr AnimationId s_gangTalkAnims[]{
     ANIM_ID_PRTIAL_GNGTLKH,
 };
 
+AnimationId GangDrinkAnimOfPed(CPed* ped);
+AnimationId GangSmokeAnimOfPed(CPed* ped);
+
 void CTaskComplexGangLeader::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGangLeader, 0x86F8FC, 12);
     RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedGlobalInstall(GangDrinkAnimOfPed, 0x65E6F0);
+    RH_ScopedGlobalInstall(GangSmokeAnimOfPed, 0x65E710);
 
     RH_ScopedInstall(Constructor, 0x65DED0);
     RH_ScopedInstall(Destructor, 0x65DF30);
@@ -91,22 +97,31 @@ CTaskComplexGangLeader::~CTaskComplexGangLeader() {
     }
 }
 
+// 0x65E6F0 (sin simbolo en el EXE, cdecl, un puntero): animacion de beber; el peaton ballas2 o fam1 (indice de modelo de 16 bits, con signo) usa la femenina
+AnimationId GangDrinkAnimOfPed(CPed* ped) {
+    return ped->m_nModelIndex == MODEL_BALLAS2 || ped->m_nModelIndex == MODEL_FAM1 ? ANIM_ID_DRNKBR_PRTL_F : ANIM_ID_DRNKBR_PRTL;
+}
+
+// 0x65E710 (sin simbolo en el EXE, cdecl, un puntero): igual con la animacion de fumar
+AnimationId GangSmokeAnimOfPed(CPed* ped) {
+    return ped->m_nModelIndex == MODEL_BALLAS2 || ped->m_nModelIndex == MODEL_FAM1 ? ANIM_ID_SMKCIG_PRTL_F : ANIM_ID_SMKCIG_PRTL;
+}
+
 // 0x65E730
 AnimationId CTaskComplexGangLeader::GetRandomGangAmbientAnim(CPed* ped, CEntity* entity) {
     if (entity) {
         // Como el original: el modelo de la entidad con signo contra el indice (word) sin signo
         const auto entityModel = (int32)(int16)entity->m_nModelIndex;
-        const auto isFemaleAnimModel = [ped] { return ped->m_nModelIndex == MODEL_BALLAS2 || ped->m_nModelIndex == MODEL_FAM1; };
         if (entityModel == (int32)(uint16)eModelID(ModelIndices::MI_GANG_DRINK)) {
             if (CGeneral::GetRandomNumber() < 0x3FFF) {
-                return isFemaleAnimModel() ? ANIM_ID_DRNKBR_PRTL_F : ANIM_ID_DRNKBR_PRTL;
+                return GangDrinkAnimOfPed(ped);
             }
             return (AnimationId)(ANIM_ID_PRTIAL_GNGTLKA + CGeneral::GetRandomIntInRange(0, 4));
         }
         if (entityModel == (int32)(uint16)eModelID(ModelIndices::MI_GANG_SMOKE)) {
             // Como el original: con el porro se usa la animacion de fumar (0x65E710)
             if (CGeneral::GetRandomNumber() < 0x3FFF) {
-                return isFemaleAnimModel() ? ANIM_ID_SMKCIG_PRTL_F : ANIM_ID_SMKCIG_PRTL;
+                return GangSmokeAnimOfPed(ped);
             }
             return (AnimationId)(ANIM_ID_PRTIAL_GNGTLKA + CGeneral::GetRandomIntInRange(0, 8));
         }

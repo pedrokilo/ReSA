@@ -43,11 +43,12 @@ void CPlayerRelationshipRecorder::Flush() {
 }
 
 // 0x61A180
+// Como el original: solo se mira la primera entrada (sin comparar el peaton) y de `value` se guarda unicamente el byte bajo (`mov dl,[esp+8]`)
 void CPlayerRelationshipRecorder::AddRelationship(const CPed* ped, int32 value) {
     auto& rel = m_Relationships[0];
     if (rel.Ped) {
         rel.Ped = ped;
-        rel.Relationship = value;
+        *reinterpret_cast<uint8*>(&rel.Relationship) = (uint8)value;
     }
 }
 
@@ -101,17 +102,19 @@ uint32 __fastcall CPlayerRelationshipRecorder::RecordRelationshipWithPlayerRegs(
 #pragma runtime_checks("", restore)
 
 // 0x61A1A0
+// Como el original: la primera entrada cuyo peaton coincide (tambien un peaton nulo) y se devuelve solo el byte bajo (AL)
 int32 CPlayerRelationshipRecorder::GetRelationshipWithPlayer(const CPed* ped) {
     for (auto& relationship : m_Relationships) {
         if (relationship.Ped != ped)
             continue;
 
-        return relationship.Relationship;
+        return *reinterpret_cast<const uint8*>(&relationship.Relationship);
     }
     return 0;
 }
 
 // 0x61A150
+// Como el original: borra la primera entrada cuyo peaton coincide (peaton a nulo y solo el byte bajo de la relacion)
 void CPlayerRelationshipRecorder::ClearRelationshipWithPlayer(const CPed* ped) {
     for (auto& relationship : m_Relationships) {
         if (relationship.Ped != ped)
@@ -135,4 +138,8 @@ void CPlayerRelationshipRecorder::InjectHooks() {
     RH_ScopedClass(CPlayerRelationshipRecorder);
     RH_ScopedCategory("Ped");
     RH_ScopedNamedInstall(RecordRelationshipWithPlayerRegs, "RecordRelationshipWithPlayer", 0x61A1D0);
+    RH_ScopedInstall(ClearRelationshipWithPlayer, 0x61A150);
+    RH_ScopedInstall(AddRelationship, 0x61A180);
+    RH_ScopedInstall(GetRelationshipWithPlayer, 0x61A1A0);
+    RH_ScopedInstall(Flush, 0x61A2A0);
 }
