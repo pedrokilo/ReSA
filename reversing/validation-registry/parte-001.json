@@ -82629,7 +82629,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAECutsceneTrackManager::Initialise"
@@ -82638,17 +82638,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -82665,7 +82665,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAECutsceneTrackManager::PlayPreloadedCutsceneTrack"
@@ -82674,17 +82674,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -82701,7 +82701,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAECutsceneTrackManager::StopCutsceneTrack"
@@ -82710,17 +82710,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -82737,7 +82737,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAECutsceneTrackManager::IsCutsceneTrackActive"
@@ -82746,17 +82746,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -82773,7 +82773,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAECutsceneTrackManager::GetCutsceneTrackStatus"
@@ -82782,17 +82782,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -82809,7 +82809,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAECutsceneTrackManager::PauseTrack"
@@ -82818,17 +82818,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -82845,7 +82845,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAECutsceneTrackManager::PreloadBeatTrack"
@@ -82854,17 +82854,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -82881,7 +82881,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAECutsceneTrackManager::Service"
@@ -82890,17 +82890,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -82917,7 +82917,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAEStaticChannel::Service"
@@ -82926,17 +82926,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -82953,7 +82953,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAEStaticChannel::IsSoundPlaying"
@@ -82962,17 +82962,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -82989,7 +82989,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAEStaticChannel::Play"
@@ -82998,17 +82998,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83025,7 +83025,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAEStaticChannel::SynchPlayback"
@@ -83034,17 +83034,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83061,7 +83061,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CAEStaticChannel::Stop"
@@ -83070,17 +83070,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83097,7 +83097,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCarGenerator::CalcNextGen"
@@ -83106,17 +83106,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83133,7 +83133,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCarGenerator::SwitchOff"
@@ -83142,17 +83142,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83169,7 +83169,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCarGenerator::SwitchOn"
@@ -83178,17 +83178,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83205,7 +83205,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCarGenerator::Setup"
@@ -83214,17 +83214,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83241,7 +83241,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCarGenerator::CheckForBlockage"
@@ -83250,17 +83250,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83277,7 +83277,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCarGenerator::CheckIfWithinRangeOfAnyPlayers"
@@ -83286,17 +83286,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83313,7 +83313,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCarGenerator::DoInternalProcessing"
@@ -83322,17 +83322,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83349,7 +83349,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCarGenerator::Process"
@@ -83358,17 +83358,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83385,7 +83385,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCheckpoints::Init"
@@ -83394,17 +83394,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83421,7 +83421,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCheckpoints::Shutdown"
@@ -83430,17 +83430,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83457,7 +83457,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCheckpoints::SetHeading"
@@ -83466,17 +83466,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83493,7 +83493,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCheckpoints::Update"
@@ -83502,17 +83502,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83529,7 +83529,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCheckpoints::PlaceMarker"
@@ -83538,17 +83538,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83565,7 +83565,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCheckpoints::UpdatePos"
@@ -83574,17 +83574,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83601,7 +83601,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCheckpoints::DeleteCP"
@@ -83610,17 +83610,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83637,7 +83637,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCheckpoints::Render"
@@ -83646,17 +83646,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83673,7 +83673,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCollisionData::RemoveCollisionVolumes"
@@ -83682,17 +83682,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83709,7 +83709,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCollisionData::Copy"
@@ -83718,17 +83718,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83745,7 +83745,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCollisionData::CalculateTrianglePlanes"
@@ -83754,17 +83754,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83781,7 +83781,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCollisionData::RemoveTrianglePlanes"
@@ -83790,17 +83790,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83817,7 +83817,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCollisionData::GetTrianglePoint"
@@ -83826,17 +83826,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83853,7 +83853,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCollisionData::GetShadTrianglePoint"
@@ -83862,17 +83862,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83889,7 +83889,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCollisionData::SetLinkPtr"
@@ -83898,17 +83898,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83925,7 +83925,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CCollisionData::GetLinkPtr"
@@ -83934,17 +83934,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83961,7 +83961,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CGangs::Initialise"
@@ -83970,17 +83970,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -83997,7 +83997,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CGangs::Load"
@@ -84006,17 +84006,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -84033,7 +84033,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CGangs::Save"
@@ -84042,17 +84042,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -84069,7 +84069,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CGangs::SetGangWeapons"
@@ -84078,17 +84078,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -84105,7 +84105,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CGangs::ChooseGangPedModel"
@@ -84114,17 +84114,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -84141,7 +84141,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CGangs::GetWillAttackPlayerWithCops"
@@ -84150,17 +84150,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -84177,7 +84177,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CGangs::SetWillAttackPlayerWithCops"
@@ -84186,17 +84186,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
@@ -84213,7 +84213,7 @@
       },
       "evidence": {
         "path": "reversing/Data8a/validation-summary.json",
-        "sha256": "e4c5ec1ac7b9a165913b77ed45fbf0300fecb53c4236dfd789f983f86cc5b7dc",
+        "sha256": "2c0beb3efcdaccf0258a68f08f1e2fae29d8434b5afd8881f0e19699b0beab66",
         "passed_path": [
           "covered_functions",
           "CGangs::SetGangPedModelOverride"
@@ -84222,17 +84222,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "e73eddf44d04b0e390b80a7ddecd75f208a3eafd1129141cdbf78af03188387b",
+        "source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp": "36cb43202f30b844fc63d6f6b26f8b9516513a8219c82bd99b772e52beb8d5ca",
         "source/game_sa/Audio/Managers/AECutsceneTrackManager.h": "b2d54a2b2d0701b93f28d45d9bafd13179dd9ae927b088d3caa9b92d01363007",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "e90b8e50f97ce37e3662e375aa298701c584f25ac97b93ae57ed34e97043add7",
-        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5",
-        "source/game_sa/CarGenerator.cpp": "a047b9ef7ab951bb70b9c8c5656c0a231e878e0162ca62263093eb9f20361040",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/CarGenerator.cpp": "26005f2e4ea35946b09d676a164ccbefd533ed0fdf5754966d6e9d503a40f2ad",
         "source/game_sa/CarGenerator.h": "09baebb355a973c9d1fd6f942daadfe796988eaf20e874f5c505b51107a62aee",
-        "source/game_sa/Checkpoints.cpp": "d01b6456271d7e7dd048d172d84ad8bb52feb15992ab405527a945900709c4ae",
+        "source/game_sa/Checkpoints.cpp": "f2abfad1728b6e0f68a62ac25ba38bf6eb22a963697cf94079232d38e1aa7def",
         "source/game_sa/Checkpoints.h": "4e9fd68d9ccea532647215bdc4d7465d0d3b8dc4f68523c5672106bf528488e6",
-        "source/game_sa/Collision/CollisionData.cpp": "e178fa204681276fbfcbc27d5beacdf33f446bce11fd746fe786737d6ef2ebf3",
+        "source/game_sa/Collision/CollisionData.cpp": "31c42f4c86007eddd7368cc318b96ec66077139cddf606962587bd5771a35bc4",
         "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
-        "source/game_sa/Gangs.cpp": "28b25ded2c7da31b9f613d04dc06df53772feaeac35895cbf08509e79556e079",
+        "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
         "source/game_sa/Gangs.h": "5f939febb249c65e131294bc6dbedf007a21d524906e338a0dd57a2ddb004f04"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-014802-790143).",
