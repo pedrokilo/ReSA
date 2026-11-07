@@ -65477,7 +65477,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::CCTV"
@@ -65486,10 +65486,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65505,7 +65505,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Close"
@@ -65514,10 +65514,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65533,7 +65533,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ColourFilter"
@@ -65542,10 +65542,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65561,7 +65561,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::DarknessFilter"
@@ -65570,10 +65570,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65589,7 +65589,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::DoScreenModeDependentInitializations"
@@ -65598,10 +65598,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65617,7 +65617,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::DrawQuad"
@@ -65626,10 +65626,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65645,7 +65645,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::FilterFX_RestoreDayNightBalance"
@@ -65654,10 +65654,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65673,7 +65673,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::FilterFX_StoreAndSetDayNightBalance"
@@ -65682,10 +65682,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65701,7 +65701,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Fog"
@@ -65710,10 +65710,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65729,7 +65729,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Grain"
@@ -65738,10 +65738,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65757,7 +65757,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::HeatHazeFXInit"
@@ -65766,10 +65766,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65785,7 +65785,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ImmediateModeFilterStuffInitialize"
@@ -65794,10 +65794,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65813,7 +65813,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ImmediateModeRenderStatesReStore"
@@ -65822,10 +65822,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65841,7 +65841,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ImmediateModeRenderStatesSet"
@@ -65850,10 +65850,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65869,7 +65869,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ImmediateModeRenderStatesStore"
@@ -65878,10 +65878,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65897,7 +65897,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::InfraredVision"
@@ -65906,10 +65906,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65925,7 +65925,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::InfraredVisionRestoreLightsForHeatObjects"
@@ -65934,10 +65934,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65953,7 +65953,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::InfraredVisionSetLightsForDefaultObjects"
@@ -65962,10 +65962,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -65981,7 +65981,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::InfraredVisionStoreAndSetLightsForHeatObjects"
@@ -65990,10 +65990,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66009,7 +66009,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Initialise"
@@ -66018,10 +66018,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66037,7 +66037,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::IsVisionFXActive"
@@ -66046,10 +66046,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66065,7 +66065,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::NightVision"
@@ -66074,10 +66074,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66093,7 +66093,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::NightVisionSetLights"
@@ -66102,10 +66102,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66121,7 +66121,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Render"
@@ -66130,10 +66130,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66149,7 +66149,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptCCTVSwitch"
@@ -66158,10 +66158,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66177,7 +66177,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptDarknessFilterSwitch"
@@ -66186,10 +66186,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66205,7 +66205,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptHeatHazeFXSwitch"
@@ -66214,10 +66214,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66233,7 +66233,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptInfraredVisionSwitch"
@@ -66242,10 +66242,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66261,7 +66261,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptNightVisionSwitch"
@@ -66270,10 +66270,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66289,7 +66289,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptResetForEffects"
@@ -66298,10 +66298,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66317,7 +66317,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::SetFilterMainColour"
@@ -66326,10 +66326,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66345,7 +66345,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::SetSpeedFXManualSpeedCurrentFrame"
@@ -66354,10 +66354,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66373,7 +66373,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::SetupBackBufferVertex"
@@ -66382,10 +66382,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66401,7 +66401,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::UnderWaterRipple"
@@ -66410,10 +66410,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66429,7 +66429,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Update"
@@ -66438,10 +66438,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66457,7 +66457,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::AddOffsetPos"
@@ -66466,10 +66466,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66485,7 +66485,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::AttachToBone"
@@ -66494,10 +66494,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66513,7 +66513,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Constructor"
@@ -66522,10 +66522,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66541,7 +66541,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::CopyParentMatrix"
@@ -66550,10 +66550,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66569,7 +66569,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Destructor"
@@ -66578,10 +66578,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66597,7 +66597,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::DoFxAudio"
@@ -66606,10 +66606,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66625,7 +66625,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::EnablePrim"
@@ -66634,10 +66634,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66653,7 +66653,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Exit"
@@ -66662,10 +66662,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66681,7 +66681,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::ForAllParticles"
@@ -66690,10 +66690,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66709,7 +66709,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::GetBoundingSphereLcl"
@@ -66718,10 +66718,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66737,7 +66737,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::GetBoundingSphereWld"
@@ -66746,10 +66746,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66765,7 +66765,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::GetCompositeMatrix"
@@ -66774,10 +66774,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66793,7 +66793,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::GetPlayStatus"
@@ -66802,10 +66802,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66821,7 +66821,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Init"
@@ -66830,10 +66830,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66849,7 +66849,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::IsVisible"
@@ -66858,10 +66858,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66877,7 +66877,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Kill"
@@ -66886,10 +66886,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66905,7 +66905,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Pause"
@@ -66914,10 +66914,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66933,7 +66933,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Play"
@@ -66942,10 +66942,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66961,7 +66961,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::PlayAndKill"
@@ -66970,10 +66970,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -66989,7 +66989,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::ResetBoundingSphere"
@@ -66998,10 +66998,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -67017,7 +67017,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetBoundingSphere"
@@ -67026,10 +67026,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -67045,7 +67045,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetConstTime"
@@ -67054,10 +67054,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -67073,7 +67073,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetLocalParticles"
@@ -67082,10 +67082,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -67101,7 +67101,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetMatrix"
@@ -67110,10 +67110,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -67129,7 +67129,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetMustCreatePrts"
@@ -67138,10 +67138,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -67157,7 +67157,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetOffsetPos"
@@ -67166,10 +67166,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -67185,7 +67185,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetRateMult"
@@ -67194,10 +67194,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -67213,7 +67213,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetTimeMult"
@@ -67222,10 +67222,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -67241,7 +67241,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetVelAdd"
@@ -67250,10 +67250,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -67269,7 +67269,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetZTestEnable"
@@ -67278,10 +67278,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -67297,7 +67297,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "6fd5af2b715f26d0128aa2ac82ec39f4c63458ebd02af38e152b58cf5f0be662",
+        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Stop"
@@ -67306,10 +67306,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "40c7d20a36e89655e94e8b6c968a49fb0b578dea65aedbdfa68ba7bcb882168a",
+        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
         "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
-        "source/game_sa/PostEffects.cpp": "1b663d13d397124eaa96cc87c311a6a62ba82c0aa27aa838ba2136ca0ec2ccb7",
-        "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302"
+        "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
       "source_provenance": "Exact compiled FxPost1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 15488-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
