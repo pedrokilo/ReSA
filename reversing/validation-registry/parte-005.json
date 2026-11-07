@@ -10539,7 +10539,7 @@
       },
       "evidence": {
         "path": "reversing/PickUpFirst68/validation-summary.json",
-        "sha256": "ceb3e27b1e468e858b28822307573e338d5be70476805c9bdfcadc5abcf9775e",
+        "sha256": "00c9b63e00d8a4ee3e24f85560596c5444b9e594ea85bb9e8f3f0464bd926793",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoPickUpEntity::CreateFirstSubTask"
@@ -10549,18 +10549,18 @@
         "original_address": "0x00693610"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "8b415a2f6d904790f490b9e842d91ae40d1d50cc7e5ce08cc96864c1ff659634",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "8e4693fdaaf1eb547e4186661a960f0c7dae81263e35467b4f77e79d08a0482b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
-        "source/game_sa/Entity/Placeable.cpp": "17e8ab6afa41cf7633488c179094a63c1e9d61b83f959f00a891de2f57758945",
-        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
-        "source/game_sa/Core/Matrix.cpp": "645a1038a5e0f0d74e658b08184ee2425a8e585cf4bdd05423c8d6f1982c43bb",
+        "source/game_sa/Entity/Placeable.cpp": "433b7c0597af59cbccba3022a42a87437db5adeeaa558b0be2ba9d89c938a44d",
+        "source/game_sa/SimpleTransform.cpp": "1a94e990d92ce9a4742d7976c200b29b6f1185304ea3ed8edf6c349780f1757d",
+        "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-        "source/game_sa/Tasks/Task.cpp": "30eae0570cb3bdba5c69deb07fac0463dc07f7a51a4420cecd47a35a42aaa0a0",
-        "source/game_sa/X87Math.cpp": "12bbb7e87cff7c2b526c0b2ed101a3914d3d294e5eaecb863073f1df8136881e",
-        "source/game_sa/X87Math.h": "d4258c41d47f70f0852097a299424c832c4f287fc126ef0d2495da43e603f078",
+        "source/game_sa/Tasks/Task.cpp": "b8ea4f262b2b5715c22ec4e9ef087c3716d965cbfa80955806e00084d1883ac6",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/PickUpFirst68/LiveComparison.hpp": "0c86b1288caea8df74c4cfc3a91b4f0c0ca17b6c8ff44cdd94b8948f2edbbcf1",
         "reversing/PickUpFirst68/Core.hpp": "fc0ae1700443d7c4b3afc74704c4b3b6bae7e37d43055863feec1f66ec1f7b81",
