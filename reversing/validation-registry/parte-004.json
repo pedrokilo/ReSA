@@ -100826,7 +100826,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesCollisionAdapters1/validation-summary.json",
-        "sha256": "c2a9cb1cc36a72c164b0b809ab557dd83c3c75385efdaacf4c69d6338e73efd8",
+        "sha256": "f4a1e1e41ac7d5bc0f5ab6fcd2cfddfe16622e58153617ae9532885b7536051b",
         "passed_path": [
           "covered_functions",
           "CCollision::CalculateTrianglePlanes-colModel"
@@ -100845,13 +100845,13 @@
         "source/game_sa/Collision/ColTrianglePlane.h": "4b5a5a9ac830973ae14af16eb74cb73a0ee0d1a8106583292ba60a7c338de499",
         "source/game_sa/Collision/ColTriangle.h": "4c44f284207ecf62fff89de2751bc56aec84a793373304f96fd57062cb125f4a",
         "source/game_sa/CompressedVector.h": "d8e7eba549a22d2a797a0ebcaa284e71477ef9dfdd388fd61d37443a6724bdac",
-        "source/game_sa/MemoryMgr.cpp": "ab60ba7da60d1e3ae062f1e34c389c7e8041e7b1659baaf1f928ba0244f98a30",
+        "source/game_sa/MemoryMgr.cpp": "c8e86e907e02fbfdb62311a8db65d2134725680fb2bb066806baba3f22cfed40",
         "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
         "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
         "source/game_sa/Core/LinkList.h": "28a010ffca27a723ddac87b264084f84a1ec8f95995c414c5be1483cbaa34032",
-        "source/game_sa/Core/Vector.cpp": "63c159b887d3e81feb621be6a1aa2c9885dfc6786cfa85e93f5b453acc9e0fdc",
-        "source/game_sa/Core/Vector.h": "b9dceb0efd2f94e31574963adcbe3c244a52914c2ab7cb059738e858f56aa103",
-        "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
+        "source/game_sa/Core/Vector.cpp": "a5949aa094fc4e1627483af762ee696aabef2571501511d48d85eb48f878034f",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -100872,7 +100872,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesCollisionAdapters1/validation-summary.json",
-        "sha256": "c2a9cb1cc36a72c164b0b809ab557dd83c3c75385efdaacf4c69d6338e73efd8",
+        "sha256": "f4a1e1e41ac7d5bc0f5ab6fcd2cfddfe16622e58153617ae9532885b7536051b",
         "passed_path": [
           "covered_functions",
           "CCollision::RemoveTrianglePlanes-colModel"
@@ -100891,13 +100891,13 @@
         "source/game_sa/Collision/ColTrianglePlane.h": "4b5a5a9ac830973ae14af16eb74cb73a0ee0d1a8106583292ba60a7c338de499",
         "source/game_sa/Collision/ColTriangle.h": "4c44f284207ecf62fff89de2751bc56aec84a793373304f96fd57062cb125f4a",
         "source/game_sa/CompressedVector.h": "d8e7eba549a22d2a797a0ebcaa284e71477ef9dfdd388fd61d37443a6724bdac",
-        "source/game_sa/MemoryMgr.cpp": "ab60ba7da60d1e3ae062f1e34c389c7e8041e7b1659baaf1f928ba0244f98a30",
+        "source/game_sa/MemoryMgr.cpp": "c8e86e907e02fbfdb62311a8db65d2134725680fb2bb066806baba3f22cfed40",
         "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
         "source/game_sa/Core/Link.h": "783fc3162b003ff66a1d1ce8e0a4fb3c718245df0a62aee4ad145558e7311b73",
         "source/game_sa/Core/LinkList.h": "28a010ffca27a723ddac87b264084f84a1ec8f95995c414c5be1483cbaa34032",
-        "source/game_sa/Core/Vector.cpp": "63c159b887d3e81feb621be6a1aa2c9885dfc6786cfa85e93f5b453acc9e0fdc",
-        "source/game_sa/Core/Vector.h": "b9dceb0efd2f94e31574963adcbe3c244a52914c2ab7cb059738e858f56aa103",
-        "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
+        "source/game_sa/Core/Vector.cpp": "a5949aa094fc4e1627483af762ee696aabef2571501511d48d85eb48f878034f",
+        "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
