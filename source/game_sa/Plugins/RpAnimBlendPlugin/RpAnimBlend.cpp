@@ -1284,11 +1284,17 @@ CAnimBlendAssociation* RpAnimBlendGetNextAssociation(CAnimBlendAssociation* asso
     return nullptr;
 }
 
+// 0x4D58A0 (lote 116A): el EXE devuelve el tag en EAX (cdecl, nodo en la pila); eBoneTag32 es una clase (WEnum) que MSVC devuelve por puntero oculto, asi que el enganche usa esta envoltura con la ABI del EXE.
+static int32 __cdecl ConvertPedNode2BoneTagExe(int32 pedNode) {
+    return static_cast<int32>(ConvertPedNode2BoneTag(static_cast<ePedNode>(pedNode)));
+}
+
 void RpAnimBlendPlugin::InjectHooks() {
     RH_ScopedNamespaceName("RpAnimBlend");
     RH_ScopedCategory("Plugins");
 
     RH_ScopedGlobalInstall(RpAnimBlendPluginAttach, 0x4D6150);
+    RH_ScopedNamedGlobalInstall(ConvertPedNode2BoneTagExe, "ConvertPedNode2BoneTag", 0x4D58A0); // Lote 116A, banco Fn116A
     RH_ScopedGlobalInstall(RpAnimBlendClumpInit, 0x4D6720);
     RH_ScopedGlobalInstall(ClumpAnimConstruct, 0x4D5F40);
     RH_ScopedGlobalInstall(ClumpAnimDestruct, 0x4D6110);

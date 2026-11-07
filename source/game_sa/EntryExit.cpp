@@ -51,6 +51,8 @@ static __declspec(safebuffers) uint32 __fastcall EntryExitGetPositionRelativeToO
 }
 #pragma runtime_checks("", restore)
 
+bool IsTeleportPointValid(const CVector& origin, const CVector& target); // 0x43EA90, definida mas abajo
+
 void CEntryExit::InjectHooks() {
     RH_ScopedClass(CEntryExit);
     RH_ScopedCategoryGlobal();
@@ -67,6 +69,7 @@ void CEntryExit::InjectHooks() {
     RH_ScopedInstall(RequestAmbientPeds, 0x43E6D0);
     RH_ScopedInstall(WarpGangWithPlayer, 0x43F1F0);
     RH_ScopedInstall(ProcessStealableObjects, 0x43E990);
+    RH_ScopedNamedGlobalInstall(IsTeleportPointValid, "IsTeleportPointValid", 0x43EA90); // Lote 116A, banco Fn116A
 }
 
 // Code based on 0x43FA00
@@ -119,7 +122,7 @@ CEntryExit::CEntryExit(
     }
 }
 
-// 0x43EA90
+// 0x43EA90 (lote 116A, banco Fn116A)
 bool IsTeleportPointValid(const CVector& origin, const CVector& target) {
     return !CWorld::TestSphereAgainstWorld(target, 0.35f, nullptr, true, true, true, true, true, false)
         && CWorld::GetIsLineOfSightClear(origin, target, true, true, false, true, true, false, false);

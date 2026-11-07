@@ -28,7 +28,7 @@ END GENERATED HOOK STATUS */
 
 #include "SimpleTransform.h"
 
-// Solo UpdateRwMatrix y UpdateMatrix se instalan (Invert, 0x54EF90, queda sin hook): lote 102A, banco Fn102A.
+// UpdateRwMatrix y UpdateMatrix (lote 102A, banco Fn102A) e Invert (lote 116A, banco Fn116A).
 void CSimpleTransform::InjectHooks()
 {
     RH_ScopedClass(CSimpleTransform);
@@ -36,6 +36,7 @@ void CSimpleTransform::InjectHooks()
 
     RH_ScopedInstall(UpdateRwMatrix, 0x54EF40);
     RH_ScopedInstall(UpdateMatrix, 0x54F1B0);
+    RH_ScopedInstall(Invert, 0x54EF90);
 }
 
 // 0x54EF40
@@ -54,14 +55,24 @@ void CSimpleTransform::UpdateRwMatrix(RwMatrix* out)
 
 }
 
+// Como el original (fld + fchs + fstp de un float): invierte el signo y silencia un NaN senalizante; los desnormales se conservan (con SSE y DAZ se vaciarian).
+static float NegateLikeX87(float value)
+{
+    uint32 bits = std::bit_cast<uint32>(value);
+    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x007FFFFFu) != 0) {
+        bits |= 0x00400000u;
+    }
+    return std::bit_cast<float>(bits ^ 0x80000000u);
+}
+
 // 0x54EF90
 void CSimpleTransform::Invert(const CSimpleTransform& base)
 {
     // Como el original (0x54EF90): fcos/fsin a precision completa y productos redondeados a 24 bits por el x87
     // x e y se calculan en una funcion x87 aparte; base se relee tras escribir x, igual que el EXE (por si base == this)
     SimpleTransformInvertCpp(reinterpret_cast<const float*>(&base), reinterpret_cast<float*>(this));
-    m_vPosn.z = -base.m_vPosn.z;
-    m_fHeading = -base.m_fHeading;
+    m_vPosn.z = NegateLikeX87(base.m_vPosn.z);
+    m_fHeading = NegateLikeX87(base.m_fHeading);
 }
 
 // 0x54F1B0

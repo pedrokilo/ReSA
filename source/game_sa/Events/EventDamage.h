@@ -84,6 +84,9 @@ private:
     CEventDamage* Constructor(CEntity * source, uint32 startTime, eWeaponType weaponType, ePedPieceTypes pieceHit, uint8 direction, bool a7, bool bPedInVehicle);
     CEventDamage* Destructor() { this->CEventDamage::~CEventDamage(); return this; }
 
+    //! @addr 0x4ADD60 - Lote 116A: la funcion original (`ComputeHeadShot`, thiscall, `ret 4`) escribe el resultado por referencia
+    void ComputeHeadShot(bool& isHeadShot) const;
+
                 };
 
 VALIDATE_SIZE(CEventDamage, 0x44);

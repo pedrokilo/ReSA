@@ -2274,3 +2274,9 @@ void __cdecl RoundVectorToDecimalsCpp(float* v, int digits);
 // Producto escalar del peaton sumado como (y + z) + x, mas el del companero negado, todo sin redondear fuera de la x87; devuelve 2 si el resultado NO es mayor o igual que cero
 // (menor que cero o NaN: la comparacion del EXE es `fcomp` + `test ah,1`) y 1 en otro caso.
 int __cdecl PartnerSideCpp(const float* right, const float* partnerPos, const float* pedPos);
+
+// Lote 116A (Fn116A).
+// approxEqual (0x4EEA80): fabs(f1 - f2) < epsilon en la x87 (resta redondeada a 24 bits con exponente ampliado; con NaN devuelve 0).
+int __cdecl ApproxEqualCpp(float f1, float f2, float epsilon);
+// tColLighting::GetCurrentLighting (0x59F0C0): mezcla dia/noche segun `balance`, devuelta en ST0 sin guardar como float (ver X87Math.cpp).
+double __cdecl ColLightingCurrentCpp(unsigned int day, unsigned int night, float scale, float balance);

@@ -52,6 +52,7 @@ void CPad::InjectHooks() {
     RH_ScopedInstall(GetCameraCycleUp, 0x5404A0);
     RH_ScopedInstall(GetMouseCameraStickHorizontal, 0x540E80);
     RH_ScopedInstall(GetMouseCameraStickVertical, 0x540F80);
+    RH_ScopedInstall(sub_540530, 0x540530); // Lote 116A, banco Fn116A
 
     // CPad", 0x541D80, &CPad::Constructor);
     // CPad~", 0x53ED60, &CPad::Destructor);

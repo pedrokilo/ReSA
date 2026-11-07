@@ -38,6 +38,8 @@ void CGarages::InjectHooks() {
     RH_ScopedInstall(FindSafeHouseIndexForGarageType, 0x4489F0);
     RH_ScopedNamedInstall(FindGarageForObjectRegs, "FindGarageForObject", 0x44A240);
     RH_ScopedInstall(IsPointWithinHideOutGarage, 0x448900);
+    RH_ScopedInstall(IsPointWithinAnyGarage, 0x448990);      // Lote 116A, banco Fn116A
+    RH_ScopedInstall(IsPointInAGarageCameraZone, 0x449BA0);  // Lote 116A
     RH_ScopedInstall(IsGarageOpen, 0x447D00);
     RH_ScopedInstall(IsGarageClosed, 0x447D30);
     RH_ScopedInstall(IsCarSprayable, 0x4479A0);
@@ -410,7 +412,8 @@ bool CGarages::IsThisCarWithinGarageArea(int16 garageId, CEntity* entity) {
 // 0x448990
 bool CGarages::IsPointWithinAnyGarage(CVector& point) {
     for (auto& garage : aGarages) {
-        if (garage.m_nType != eGarageType::INVALID || garage.IsPointInsideGarage(point)) {
+        // Como el original (0x448990): solo consulta los garajes con tipo distinto de INVALID (el valor 0)
+        if (garage.m_nType != eGarageType::INVALID && garage.IsPointInsideGarage(point)) {
             return true;
         }
     }

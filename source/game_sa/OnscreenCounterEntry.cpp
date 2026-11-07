@@ -28,12 +28,11 @@ void COnscreenCounterEntry::InjectHooks() {
     RH_ScopedInstall(SetColourID, 0x44CB00);
 }
 
+// Como el original (0x44CBC0, en linea dentro de COnscreenTimer::Init, lote 116A): vacia el contador y deja el indicador de parpadeo inicial en true; el texto mostrado y el color no se tocan.
 void COnscreenCounterEntry::Init() {
     Clear();
 
-    m_bFlashWhenFirstDisplayed = false;
-    m_nColourId                = HUD_COLOUR_RED;
-    memset(&m_szDisplayedText, 0, sizeof(m_szDisplayedText));           // original initialization
+    m_bFlashWhenFirstDisplayed = true;
 }
 
 void COnscreenCounterEntry::Clear() {

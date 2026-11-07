@@ -1,0 +1,52 @@
+{
+  "binaries": {
+    "asi": "57d717c87df599420e5ab60725a29192d9e7609e608847bfe9080a77f5d69dde",
+    "pdb": "3aa710f19d3a5dac01810f78037a094f2ccce760eef332cd590b4865647715f2"
+  },
+  "sources": {
+    "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+    "source/InjectHooksMain.cpp": "c8de46222bf7fcc7b02fa2516e20b66aafca71c1cadd55b4652d32917e0d0887",
+    "source/game_sa/Collision/BoundingBox.cpp": "1ba0b1ecf6ae41c47aff2a9498413b9df264dfc794dccb5ee0fa524b422fe645",
+    "source/game_sa/Collision/BoundingBox.h": "8d66a9221d8e47453f826ea16a6bf7ca5527915dfb36dc8e89aa6827c2a72c8a",
+    "source/game_sa/Collision/ColBox.cpp": "ceac47a3a398aca01f91366a581a2cde3182ef9781c8a284f6450b61c0cb3342",
+    "source/game_sa/Collision/ColBox.h": "071987d1f9c4dfe2e14e4eb013a320ca3f46aeb14ed6184af1bb8890d9ccb2bd",
+    "source/game_sa/Collision/ColPoint.cpp": "f1f5b70203bb22cfb2a2a1cdb8b87ebc18ec76ff4707b9360c7de88fef6ef569",
+    "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+    "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+    "source/game_sa/common.cpp": "a0ec0bae5721a51f0ff80d4928ca8684eb2284993a12d124de7a351e6e2d1f3f",
+    "source/game_sa/Pad.cpp": "2e31a55a5512e033ebe84a881b579d305e10952f03aab320aff169ea1937b99d",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "ed2ee288bc5330b7fc369039d513016b6a2243d8f23b8c43952a018fcc95c45a",
+    "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp": "4ca4f29f0c034142faf2701a4e91b8830ec3ff4c804eab6a87def6c786552cd7",
+    "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.h": "3727c5f03eb21d765cd5755ee91551b524138d7dfcc399c8e3da02093ec30e3e",
+    "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+    "source/game_sa/Cam.h": "5086a6edfd1aeaa8bb8650f9cfe561a8499c4f6f846dbb63f112988acbbe5f75",
+    "source/game_sa/StuckCarCheck.cpp": "26edf7f092ffa41d370a0feb068a75352965214ce0e7c43280a2dd168e9930bf",
+    "source/game_sa/Events/EventDamage.cpp": "0b372662edd3a1b48a6bf26e3afc96cf2c9ef167b13751c0f336d173a4b757fa",
+    "source/game_sa/Events/EventDamage.h": "5817ba6a131861f137671266e85d3ca5c97b196f3c9336d3e1b8513b4a28dc9a",
+    "source/game_sa/CutsceneMgr.cpp": "b4ecf9b83747860387e209602603b3fdd75315f9d20214332ae2578dcce4561a",
+    "source/game_sa/SimpleTransform.cpp": "c096ca1a89513c7040619908cc731b47a85436269d30f46c41b6b56875739db5",
+    "source/game_sa/Garages.cpp": "e402908a9acaface30eee234c719901d454f477fce06eb91229a785752c0c07c",
+    "source/game_sa/EntryExit.cpp": "b6bc28171b42f519d77f25f1317b15e4a19d631504b51731d7136ec3b66c9083",
+    "source/game_sa/OnscreenTimer.cpp": "91a19db9b6e949b403be3354a67abb586edc7cde71acfecac865024a3d228432",
+    "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+    "reversing/Fn116A/LiveComparison.hpp": "7fd2c894ece5ebc2b5cd82999c2973a2adc4118e522f96060dc95ea736674aa1",
+    "reversing/Fn116A/Core.hpp": "ef71e485422c14589420ebce30fd2d4fe56314dead04fe4ac1c5230a7802a861",
+    "reversing/Fn116A/Fixtures.hpp": "871eb23c8c66bd615e5195bc1e8262f201407829916e8893534fce8f8b1c09d8",
+    "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+  },
+  "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+  "instrumentation": {
+    "Core.hpp": "ef71e485422c14589420ebce30fd2d4fe56314dead04fe4ac1c5230a7802a861",
+    "Fixtures.hpp": "871eb23c8c66bd615e5195bc1e8262f201407829916e8893534fce8f8b1c09d8",
+    "LiveComparison.hpp": "7fd2c894ece5ebc2b5cd82999c2973a2adc4118e522f96060dc95ea736674aa1",
+    "build_probe.py": "d3d11d7b5a6e9b2c67035fd30972e5a7179ede313179a4208a23fdeb57cda852",
+    "fixture_oracle.py": "642c7f3ccf375e5b76b632a41bd55d82741bbf625bcd44f6f73f0c34c3f6ebbe",
+    "fixture_selfcheck.py": "78acb51e9d541c6bd75a99d10896492b8ab86905cf154acd1324693d8a8d1188",
+    "mutate.py": "197c5173b4a646655d41ba4d48ffa4710edaec60280ba9d570f6154cb8b55751",
+    "negative_run.py": "393ba7cc8a7676eb464e15a5ab899f53266a5464de4e2189f05bcd6887566d69",
+    "register_hook.py": "d36be917b73e433e64fccb757d0e16aed55e37aa787fa1d6b9e1e8431c5bf1d9",
+    "run_local.py": "77d83257c5560b5125d2cec12801efacd6decbfd0a4d0a01ee1029867861dba8"
+  }
+}

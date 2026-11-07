@@ -53,6 +53,7 @@ void CEventDamage::InjectHooks() {
     RH_ScopedInstall(ComputeDamageAnim, 0x4B3FC0);
     RH_ScopedInstall(IsSameEventForAI, 0x4ADBF0); // lote 114A (banco Fn114A): accesor en linea de la cabecera (thiscall, AL)
     RH_ScopedInstall(HasKilledPed, 0x4ABCA0); // lote 109A (banco Fn109A): accesor en linea de la cabecera (thiscall, AL)
+    RH_ScopedInstall(ComputeHeadShot, 0x4ADD60); // lote 116A (banco Fn116A)
 }
 
 // 0x4B33B0
@@ -927,7 +928,15 @@ void CEventDamage::ComputeDamageResponseIfAffectsPed(CPed* ped, CPedDamageRespon
     }
 }
 
-// 0x4ADD60
+// 0x4ADD60 (lote 116A; thiscall, `ret 4`): escribe 0 en el byte de salida y despues 1 si el golpe fue a la cabeza
+void CEventDamage::ComputeHeadShot(bool& isHeadShot) const {
+    isHeadShot = false;
+    if (WasHeadShot()) {
+        isHeadShot = true;
+    }
+}
+
+// 0x4ADD60 (version NOTSA: devuelve el resultado en lugar de escribirlo por referencia)
 bool CEventDamage::WasHeadShot() const {
     switch (m_weaponType) {
     case WEAPON_UNARMED:

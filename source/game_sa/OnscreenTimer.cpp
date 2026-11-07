@@ -26,6 +26,7 @@ void COnscreenTimer::InjectHooks() {
     RH_ScopedClass(COnscreenTimer);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedInstall(Init, 0x44CBC0); // Lote 116A, banco Fn116A
     RH_ScopedInstall(AddClock, 0x44CD50);
     RH_ScopedInstall(ClearClock, 0x44CE60);
     RH_ScopedInstall(SetClockBeepCountdownSecs, 0x44CEE0);

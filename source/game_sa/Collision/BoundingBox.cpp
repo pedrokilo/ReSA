@@ -1,6 +1,13 @@
 #include "StdInc.h"
 #include "BoundingBox.h"
 
+void CBoundingBox::InjectHooks() {
+    RH_ScopedClass(CBoundingBox);
+    RH_ScopedCategory("Collision");
+
+    RH_ScopedInstall(IsPointWithin, 0x49C300); // Lote 116A, banco Fn116A
+}
+
 // 0x49C300
 bool CBoundingBox::IsPointWithin(const CVector& point) const {
     return point.x >= m_vecMin.x

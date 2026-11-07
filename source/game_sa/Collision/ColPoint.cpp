@@ -21,12 +21,20 @@ END GENERATED HOOK STATUS */
 #include "ColPoint.h"
 
 #include "CustomBuildingDNPipeline.h"
+#include "X87Math.h"
 
 // 0x59F0C0
 float tColLighting::GetCurrentLighting(float fScale) const {
     const auto fDay = static_cast<float>(day) * fScale / 15.0F;
     const auto fNight = static_cast<float>(night) * fScale / 15.0F;
     return lerp(fDay, fNight, CCustomBuildingDNPipeline::m_fDNBalanceParam);
+}
+
+// 0x59F0C0 (lote 116A, banco Fn116A): la funcion del EXE no es un metodo: recibe en la pila el byte de iluminacion (dia en el nibble bajo, noche en el alto) y el factor, lee el balance dia/noche
+// (0x8D12C0) y devuelve el resultado en ST0 sin guardarlo como float (cdecl, `ret`).
+static double __cdecl ColLightingCurrentExe(unsigned int lighting, float scale)
+{
+    return ColLightingCurrentCpp(lighting & 0xFu, (lighting & 0xFFu) >> 4, scale, CCustomBuildingDNPipeline::m_fDNBalanceParam);
 }
 
 // 0x40FC80 (lote 105A; thiscall, `ret 4`; EAX = this): CColPoint::operator= del EXE. Copia el punto (+0x00..+0x08), la normal (+0x10..+0x18), tipo/pieza/iluminacion A (word +0x20 y byte +0x22), B (word
@@ -57,4 +65,13 @@ void CColPointInjectHooksLote105A()
     RH_ScopedCategory("Collision");
 
     RH_ScopedGlobalInstall(ColPointAssignExe, 0x40FC80);
+}
+
+// Lote 116A (banco Fn116A): tColLighting::GetCurrentLighting (0x59F0C0). Funcion libre como la anterior; se llama desde InjectHooksMain.cpp.
+void tColLightingInjectHooksLote116A()
+{
+    RH_ScopedNamespaceName("tColLighting");
+    RH_ScopedCategory("Collision");
+
+    RH_ScopedNamedGlobalInstall(ColLightingCurrentExe, "GetCurrentLighting", 0x59F0C0);
 }

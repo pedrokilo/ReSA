@@ -94,6 +94,12 @@ void RpAnimBlendClumpFillFrameArray(RpClump* clump, AnimBlendFrameData** outFram
 AnimBlendFrameData* RpAnimBlendClumpFindBone(RpClump* clump, eBoneTag32 boneTag);
 
 /*!
+ * @addr 0x4D58A0
+ * @brief Maps a ped node (1..18) to the bone tag of its skin bone, or BONE_UNKNOWN (-1) for any other value
+*/
+eBoneTag32 ConvertPedNode2BoneTag(ePedNode pedNode);
+
+/*!
  * @addr 0x4D62A0
  * @brief Find FrameData of a bone
  * @param clump The clump the bone is part of

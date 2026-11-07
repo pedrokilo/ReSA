@@ -1,0 +1,82 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 06/11/2026 (Ciudad de México):** 848 grupos / 9272 funciones reconstruidas; 9272 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Fn116A: dieciocho funciones de colision, pad, combate, eventos, animacion, garajes, transformaciones y temporizador (lote 116A)
+
+Estado: **APROBADO dentro del juego** (06/11/2026, worktree `wv-1` sobre main ad5403bcb + los cambios del lote). Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn116a/20261106-231057-093767` (archivada en `reversing/CppTwelveLevel6Final/runs/Fn116A-20261106-231057-093767`). Banco par a par dentro del juego, 18 x 16384 = 294912 pares EXE/DLL, cero diferencias, compuertas de ABI/ruta/SEH/restauracion en ambos lados, x87 igual (ST0 de `tColLighting::GetCurrentLighting` incluido) y cada lado coincide con el oraculo Python independiente (`fixture_oracle.py`).
+
+| Funcion | Direccion | Bytes | Fuente |
+|---|---|---|---|
+| `CBoundingBox::IsPointWithin` | 0x49C300 | 89 | `Collision/BoundingBox.cpp` |
+| `CColBox::Set` | 0x40EE70 | 71 | `Collision/ColBox.cpp` |
+| `CColBox::operator=` | 0x40EEC0 | 73 | `Collision/ColBox.cpp` |
+| `tColLighting::GetCurrentLighting` (funcion libre con la ABI del EXE) | 0x59F0C0 | 77 | `Collision/ColPoint.cpp` + `X87Math.cpp` (`ColLightingCurrentCpp`) |
+| `CPad::sub_540530` | 0x540530 | 82 | `Pad.cpp` |
+| `FightHitLevel` (el catalogo decia `CTaskSimpleFight::GetHitLevel`) | 0x5BD360 | 68 | `Tasks/TaskTypes/TaskSimpleFight.cpp` |
+| `FightHitSound` | 0x5BD3B0 | 65 | `Tasks/TaskTypes/TaskSimpleFight.cpp` |
+| `approxEqual` | 0x4EEA80 | 30 | `X87Math.cpp` (`ApproxEqualCpp`, hook en `common.cpp`) |
+| `ConvertPedNode2BoneTag` (envoltura `int32` de la funcion con `ePedNode`) | 0x4D58A0 | 128 | `Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp` |
+| `CStuckCarCheck::ResetArrayElement(uint16)` | 0x463970 | 104 | `StuckCarCheck.cpp` |
+| `CEventDamage::ComputeHeadShot(bool&)` (nuevo; el catalogo decia `WasHeadShot`) | 0x4ADD60 | 61 | `Events/EventDamage.cpp/.h` |
+| `FindCutsceneAudioTrackId` (el hook comentado apuntaba a 0x8D0AA8, que es la tabla de nombres) | 0x5AFA50 | 60 | `CutsceneMgr.cpp` |
+| `CSimpleTransform::Invert` | 0x54EF90 | 60 | `SimpleTransform.cpp` (+ `SimpleTransformInvertCpp` de `X87Math.cpp`) |
+| `TransformVectors(CSimpleTransform)` | 0x54EE30 | 97 | `common.cpp` (+ `CommonTransformVectorsCpp` de `X87Math.cpp`) |
+| `CGarages::IsPointWithinAnyGarage` | 0x448990 | 78 | `Garages.cpp` |
+| `CGarages::IsPointInAGarageCameraZone` | 0x449BA0 | 93 | `Garages.cpp` |
+| `IsTeleportPointValid` | 0x43EA90 | 96 | `EntryExit.cpp` |
+| `COnscreenTimer::Init` | 0x44CBC0 | 88 | `OnscreenTimer.cpp` + `OnscreenCounterEntry.cpp` |
+
+Todas tenian C++ sin hook (los nombres del listado `pendientes-A.md` se atribuyen por cercania; las reales salen del desensamblado). Ninguna usa `__asm`/`naked` en produccion; no se tocan opciones de compilacion de `CMakeLists.txt` y `X87Math.cpp/.h` solo reciben dos funciones al final, dentro de `#pragma float_control(precise, on, push)` / `pop` balanceado (`ApproxEqualCpp`, `ColLightingCurrentCpp`).
+
+Cambios de comportamiento para igualar al EXE (los detecto o los confirmo el banco):
+- `CGarages::IsPointWithinAnyGarage` tenia el `&&` convertido en `||` (devolvia 1 con cualquier garaje con tipo): el EXE solo llama a `IsPointInsideGarage` en los garajes con tipo distinto de 0.
+- `COnscreenCounterEntry::Init` (solo la usa `COnscreenTimer::Init`) vaciaba tambien el texto mostrado y ponia el color: el EXE solo vacia id, maximo, clave (10 bytes), tipo y habilitado y deja el parpadeo inicial en `true`.
+- `CColBox::operator=` copia la palabra +0x18 (material y pieza) y despues el byte +0x1A, en ese orden y con esos anchos (con el origen solapado en `this - 1` la copia por campos leia la pieza ya sobrescrita).
+- `CSimpleTransform::Invert`: z y rumbo se niegan como `fld` + `fchs` + `fstp` (un NaN senalizante sale silencioso y los desnormales se conservan; con SSE y DAZ se vaciaban): `NegateLikeX87`.
+- `ConvertPedNode2BoneTag`: devuelve `eBoneTag32` (una clase `WEnum`), que MSVC devuelve por puntero oculto; el hook usa una envoltura con la ABI del EXE (`int32` en EAX). Se elimino la copia duplicada de `Cam.cpp` (que usaba `make_mapping`) y `CCam` llama a la de `RpAnimBlend.cpp`.
+- `tColLighting::GetCurrentLighting` del EXE no es un metodo: recibe el byte de iluminacion y el factor en la pila, multiplica por 0.06666667f (no divide entre 15) y devuelve ST0 sin guardar; el metodo C++ queda igual y el hook usa la funcion libre `ColLightingCurrentExe` + `ColLightingCurrentCpp`.
+- `CEventDamage::ComputeHeadShot` es la funcion original (resultado por referencia); `WasHeadShot` (NOTSA) sigue devolviendolo directamente.
+
+## Revision contra el EXE (desensamblado, `dumpbin /disasm` del EXE canonico)
+- **IsPointWithin (thiscall, `ret 4`; AL)**: `fcomp` de x, y, z contra el minimo (`test ah,1`) y de x, y, z contra el maximo (`test ah,41h` + `jp`): un NaN falla cualquier comparacion y -0 == +0; devuelve 1 solo si se cumplen las seis.
+- **CColBox::Set (`ret 14h`)**: copia sup (tres dwords, cada lectura seguida de su escritura) a +0, inf a +0xC y guarda los bytes bajos de material (+0x18), pieza (+0x19) e iluminacion (+0x1A); no toca +0x1B.
+- **CColBox::operator= (`ret 4`; EAX = this)**: tres dwords de +0, tres de +0xC, la palabra +0x18 y el byte +0x1A (ver arriba).
+- **GetCurrentLighting (cdecl; ST0)**: `((dia*f)*K)*(1-b) + ((noche*f)*K)*b` con K = 0x3D888889, dia = nibble bajo y noche = nibble alto del byte bajo del argumento, `b` = `CCustomBuildingDNPipeline::m_fDNBalanceParam` (0x8D12C0); cada operacion a 24 bits con exponente ampliado y el resultado en ST0 (el EXE hace `fstp st(1)` para quitar `b`).
+- **sub_540530 (thiscall; AL)**: modo = palabra en +0x10A (sin signo; > 3 devuelve 0); modos 0, 2, 3: (+0x1A != 0 y +0x4A == 0); modo 1: (+0x10 != 0 y +0x40 == 0) o (+0x12 != 0 y +0x42 == 0).
+- **FightHitLevel (cdecl; AL)**: primer caracter 'H' -> 0, 'L' -> 1, 'G' -> 2, 'B' -> 3; el resto -> 7 (las comparaciones de 16 bits posteriores, `0x484C`, `0x4C4C` y `0x474C`, nunca se cumplen con EAX de un byte).
+- **FightHitSound (cdecl; EAX)**: `(n - 1)` sin signo > 7 -> 0x3E; si no, tabla 0x3D, 0x3E, 0x3F, 0x40, 0x41, 0x42, 0x43, 0x44. El llamador del EXE (0x5BF219) lee ECX tras la llamada pero esta dentro de `LoadMeleeData` (0x5BEDC0), ya con hook.
+- **approxEqual (cdecl; EAX = 1 o 0)**: `fld f1; fsub f2; fabs; fcomp eps` + `test ah,5` + `jp`: estrictamente menor y ordenado; la resta se redondea a 24 bits con exponente ampliado (la diferencia de dos floats enormes de signo opuesto no desborda).
+- **ConvertPedNode2BoneTag (cdecl; EAX)**: `nodo - 1` sin signo <= 17: tabla 3, 5, 32, 22, 34, 24, 41, 51, 43, 53, 52, 42, 33, 23, 31, 21, 4, 8; otro valor -> -1.
+- **ResetArrayElement (thiscall, `ret 4`)**: entrada = lista + (palabra baja del argumento) * 0x24: +4/+8/+0xC = -5000.0f, +0 = -1, +0x10 = -1, +0x14 = 0, +0x18 = 0 y bytes +0x1C..+0x21 = 0 (no toca +0x22 ni +0x23).
+- **ComputeHeadShot (thiscall, `ret 4`)**: escribe 0 y despues, con el arma (+0x1C, sin signo) <= 0x34: clase 0 (cuerpo a cuerpo y paracaidas) escribe 1 si el byte +0x41 es distinto de 0; clase 1 (armas de fuego y minigun) ademas exige pieza (+0x20) == 9; clase 2: nada.
+- **FindCutsceneAudioTrackId (cdecl; AX)**: recorre la tabla del EXE (0x8D0AA8: puntero al nombre y palabra de id cada 8 bytes, 151 entradas) con `_stricmp` y devuelve el id de la primera igual o -1.
+- **Invert (thiscall, `ret 4`)**: c = fcos(h) y s = fsin(h) sin redondear; +0 = (-(c*bx)) - (s*by) y +4 = (s*bx) - (c*by) (bx releido tras escribir +0), +8 = -bz y +0xC = -h (`fld` + `fchs` + `fstp`).
+- **TransformVectors (cdecl; salida, cuenta, &transformacion, entrada)**: cos y sin de h guardados como float; por vector x' = c*x - s*y (guardado) y y' = s*x + c*y con x releido tras escribir x'; z copiada como dword; con cuenta 0 no hace nada.
+- **IsPointWithinAnyGarage (cdecl, &punto)** e **IsPointInAGarageCameraZone (cdecl, x, y, z por valor)**: para cada uno de los 50 garajes (0xD8 bytes desde 0x96C048) con tipo (+0x4C) distinto de 0, llaman a 0x448740 (punto) o a 0x4487D0 (punto y 0.5f); el primero que devuelve AL distinto de 0 da 1. El EXE guarda el puntero del garaje en EDX (0x448990) o en ECX (0x449BA0) a traves de la llamada, asi que los colaboradores deben conservarlos.
+- **IsTeleportPointValid (cdecl, &origen, &destino)**: `TestSphereAgainstWorld(destino, 0.35f, 0, 1, 1, 1, 1, 1, 0)` (EAX completo != 0 devuelve 0) y si no `GetIsLineOfSightClear(&origen, &destino, 1, 1, 0, 1, 1, 0, 0)` con su AL.
+- **COnscreenTimer::Init (thiscall)**: +0x151 = 0; por cada contador (base +0x40 + 0x44 * j) dwords +0, +4, +8, +0xC = 0, palabras +0x10 y +0x12 = 0, byte +0x3E = 0 y +0x3F = 1; despues reloj: dwords +0, +4, +8 = 0, palabra +0xC = 0, +0x38 = 0, +0x39 = 1 y dword +0x3C = 12.
+- **Llamadores**: en las 18 direcciones se recorrieron las llamadas directas del desensamblado completo y, en las 14 instrucciones siguientes (hasta la primera llamada, retorno o salto), ninguna lee EAX, ECX ni EDX antes de escribirlos, salvo FightHitSound (0x5BF219 y 0x5BF22C, dentro de `LoadMeleeData`, con hook). **No se revisaron uno a uno los llamadores mas alla de esa ventana ni las llamadas indirectas.**
+
+## Banco
+18 funciones x 16384 casos, 16 familias de 1024 (ver `Fixtures.hpp`). Falsos identicos en la direccion del EXE y en el cuerpo de la DLL (todos con hook RH, apagado durante el banco): `CGarage::IsPointInsideGarage(punto)` 0x448740 y `(punto, radio)` 0x4487D0 (IsPointWithinAnyGarage, IsPointInAGarageCameraZone), `CWorld::TestSphereAgainstWorld` 0x569E20 y `CWorld::GetIsLineOfSightClear` 0x56A490 (IsTeleportPointValid). **Dos precisiones**: los bucles del EXE guardan el puntero del garaje en EDX (0x448990) y en ECX (0x449BA0) a traves de la llamada, asi que los falsos de los garajes van envueltos en un adaptador `naked` del banco que conserva ECX y EDX (el primer intento sin el, con falsos `__fastcall` normales, se caia en el bucle del EXE); y la DLL no llama a los cuerpos de los hooks de IsPointInsideGarage (envoltorios con registros del EXE) sino a los metodos `CGarage::IsPointInsideGarage`, que se parchean tambien, solo en la DLL (`dllOnly`).
+Corren de verdad en ambos lados: todas las comparaciones, fsin/fcos de Invert y TransformVectors, los ayudantes x87 de `X87Math.cpp`, la tabla de nombres del EXE (FindCutsceneAudioTrackId) y la memoria real del juego (balance 0x8D12C0 y la tabla de garajes 0x96C048, de la que solo se cambia el byte de tipo; se restauran tras cada lado).
+Se observa: bytes cambiados de las seis arenas (objeto, dos auxiliares, entrada, salida, cadenas), eventos de los falsos con todos sus argumentos (punteros etiquetados por arena), valor devuelto (AL, AX, EAX o la etiqueta de `this`), ST0 completo de 80 bits de GetCurrentLighting, x87 vacia en las demas, hash de las regiones globales y compuertas de ABI.
+Familias: dentro, fronteras y 1 ulp, NaN con distinta carga util (silenciosos y senalizantes), infinitos, ceros con signo, desnormales, enormes (exponente ampliado), alias y solapes de punteros (Set, operator=, Invert, TransformVectors), modos y estados del pad, letras y palabras de FightHitLevel, valores con envoltura sin signo, indices de lista, clases de arma, nombres exactos, con otro uso de mayusculas, prefijos, un caracter mas o cambiado, cadenas aleatorias y vacia, tipos de garaje con aciertos al principio, en medio y al final, y colaboradores que devuelven basura en los bytes altos de EAX.
+El oraculo (`fixture_oracle.py`) modela la x87 a 24 bits con exponente ampliado con fracciones exactas, incluidos NaN con signo y carga util (con dos NaN de igual significando gana el positivo: medido en el EXE con `Invert` y rumbo NaN), y el seno/coseno con series de Taylor de 100 digitos redondeadas a 64 bits de mantisa; la tabla de nombres de cutscene (`cutscene_table.json`) se extrajo del EXE.
+
+## Fuera de los fixtures
+Indices de lista de coches fuera de 0..15 (la `std::array` de la DLL lleva comprobacion), cuentas negativas de TransformVectors (el EXE itera 2^32 veces), rumbos con |h| > 8 en Invert y TransformVectors, dos NaN distintos que se combinan en la misma operacion (el modelo no elige entre cargas utiles distintas), cadenas de mas de 23 caracteres o con bytes altos, punteros nulos y la exactitud de los colaboradores falseados.
+
+## Prueba negativa
+Copias buenas en `D:/Original/w116a_good` (SHA256.txt) y en `artifacts/good/` (no versionado), restauradas con comprobacion de suma tras cada ronda (`mutate.py`). Cada ronda compila la sonda con la fuente mutada y deja correr los 294912 pares (`negative_run.py`); los resultados estan en `negative-runs/`.
+- Ronda 1 (18 mutaciones: `>=` -> `>` en el minimo, pieza = material, byte de iluminacion de `operator=` leido de +0x19, `1 - balance` -> `balance`, `Select == 0` -> `!= 0`, 'G' -> 3, 0x3E -> 0x3F, `<` -> `<=` en approxEqual, JAW -> NECK, `CarHandle = 0`, `isHeadShot = true`, id 740 -> 741, z sin negar, signo del producto de `TransformVectors`, `&&` -> `||` en IsPointWithinAnyGarage, radio 0.25f, radio de la esfera 0.34f, `m_bPaused = true`): el banco FALLA con **2632, 16100, 16304, 12288, 5285, 2771, 9746, 2939, 859, 16384, 12158, 41, 16384, 10780, 16384, 15347, 16384 y 16384** pares con diferencias (IsPointWithin ... Init, en el orden de la tabla; `20261106-232952-631456`), y el oraculo independiente no da ningun par "solo del oraculo".
+- Ronda 2 (fronteras, orden y signo): FALLA con **2651, 13795, 14295, 9357, 1270, 6631, 748, 0, 359, 16384, 1974, 10175, 10096, 12782, 10114, 5244, 10778 y 16384** pares (`20261106-234522-747587`). La mutacion de approxEqual de esta ronda (restar en `float` en lugar de en `double`) es equivalente en la x87 (una sola operacion a 24 bits) y no cambia ningun resultado: queda cubierta por la ronda 3.
+- Ronda 3 (solo approxEqual: `f1 - f2` -> `f1 + f2`): FALLA con **4077** pares (`20261107-000027-644209`).
+- Las 18 funciones fallan al menos en dos rondas. Fuente restaurada y compilada de nuevo para las repeticiones de los bancos antiguos.
+
+## Bancos repetidos
+(se detalla en el commit de los bancos repetidos de este lote)
+
+## Tiempo
+Una corrida de los 294912 pares: unos 16 min (mas la compilacion de la sonda, de 5 a 10 min segun el reparto de los candidatos).

@@ -1207,7 +1207,7 @@ void CCutsceneMgr::InjectHooks() {
     RH_ScopedClass(CCutsceneMgr);
     RH_ScopedCategoryGlobal();
 
-    //RH_ScopedGlobalInstall(FindCutsceneAudioTrackId, 0x8D0AA8, {.locked = true}); // Calling the original function from our code crashes, and vice versa
+    RH_ScopedGlobalInstall(FindCutsceneAudioTrackId, 0x5AFA50); // Lote 116A, banco Fn116A (la direccion de antes, 0x8D0AA8, era la tabla de nombres del EXE)
     RH_ScopedGlobalInstall(SetCutsceneAnim, 0x5B0390);
     RH_ScopedGlobalInstall(SetCutsceneAnimToLoop, 0x5B0420);
     RH_ScopedGlobalInstall(SetHeadAnim, 0x5B0440);

@@ -39,6 +39,7 @@ END GENERATED HOOK STATUS */
 #include "Tasks/TaskTypes/TaskComplexEnterCar.h"
 #include "Ragdoll/IKChainManager.h"
 #include "X87Math.h"
+#include "Plugins/RpAnimBlendPlugin/RpAnimBlend.h"
 
 auto& gbFirstPersonRunThisFrame = StaticRef<bool>(0xB6EC20);
 auto& gLastFrameProcessedDWCineyCam = StaticRef<uint32>(0x8CCB9C);
@@ -1278,7 +1279,7 @@ void CCam::Process_1rstPersonPedOnPC(const CVector&, float orientation, float, f
     if (m_pCamTargetEntity->GetIsTypePed()) {
         auto* ped = m_pCamTargetEntity->AsPed();
         auto* hierarchy = GetAnimHierarchyFromSkinClump(ped->GetRpClump());
-        const auto index = RpHAnimIDGetIndex(hierarchy, ConvertPedNode2BoneTag(2));
+        const auto index = RpHAnimIDGetIndex(hierarchy, ConvertPedNode2BoneTag(PED_NODE_HEAD));
         auto& matrix = RpHAnimHierarchyGetMatrixArray(hierarchy)[index];
         CVector point = StaticRef<CVector>(0x8CCC54);
         RwV3dTransformPoints(&point, &point, 1, &matrix);
@@ -4103,31 +4104,6 @@ void CCam::ApplyUnderwaterMotionBlur() {
         UNDERWATER_CAM_BLUR,
         eMotionBlurType::LIGHT_SCENE
     );
-}
-
-// 0x4D58A0
-int32 ConvertPedNode2BoneTag(int32 simpleId) {
-    const auto map = notsa::make_mapping<int32, int32>({
-        { 1,  3 },
-        { 2,  5 },
-        { 3,  32},
-        { 4,  22},
-        { 5,  34},
-        { 6,  24},
-        { 7,  41},
-        { 8,  51},
-        { 9,  43},
-        { 10, 53},
-        { 11, 52},
-        { 12, 42},
-        { 13, 33},
-        { 14, 23},
-        { 15, 31},
-        { 16, 21},
-        { 17, 4 },
-        { 18, 8 },
-    });
-    return notsa::find_value_or(map, simpleId, -1);
 }
 
 // 0x509A30

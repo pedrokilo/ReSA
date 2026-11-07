@@ -54,6 +54,8 @@ void InjectCommonHooks() {
     RH_ScopedCategory("Common");
     RH_ScopedGlobalInstall(TransformPoint, 0x54ECE0);
     RH_ScopedGlobalInstall(TransformPoints, 0x54EEF0);
+    RH_ScopedGlobalOverloadedInstall(TransformVectors, "Simple", 0x54EE30, void(*)(RwV3d*, int32, const CSimpleTransform&, const RwV3d*)); // Lote 116A, banco Fn116A
+    RH_ScopedNamedGlobalInstall(ApproxEqualCpp, "approxEqual", 0x4EEA80); // Lote 116A, banco Fn116A
 
     RH_ScopedGlobalOverloadedInstall(MakeUpperCase, "", 0x7186E0, char* (*)(char*, const char*));
     RH_ScopedGlobalOverloadedInstall(MakeUpperCase, "in", 0x718710, char* (*)(char*));

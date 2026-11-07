@@ -1893,6 +1893,8 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedInstall(ChooseAttackPlayer, 0x624710);
     RH_ScopedInstall(TargetInReach, 0x61D6F0);
     RH_ScopedInstall(LoadMeleeData, 0x5BEDC0);
+    RH_ScopedNamedGlobalInstall(FightHitLevel, "FightHitLevel", 0x5BD360); // Lote 116A, banco Fn116A
+    RH_ScopedNamedGlobalInstall(FightHitSound, "FightHitSound", 0x5BD3B0); // Lote 116A
     RH_ScopedVMTInstall(MakeAbortable, 0x6239F0);
     RH_ScopedVMTInstall(ProcessPed, 0x629920);
 

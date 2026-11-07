@@ -24,6 +24,8 @@ public:
         m_Surface.m_nLighting = lightning;
     }
 
+    static void InjectHooks();
+
     void Set(const CVector& sup, const CVector& inf, eSurfaceType material, uint8 pieceType, tColLighting lighting);
     CColBox& operator=(const CColBox& right);
 

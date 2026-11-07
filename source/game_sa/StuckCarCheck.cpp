@@ -44,6 +44,7 @@ void CStuckCarCheck::InjectHooks() {
     RH_ScopedInstall(IsCarInStuckCarArray, 0x463C70);
     RH_ScopedInstall(Process, 0x465680);
     RH_ScopedInstall(RemoveCarFromCheck, 0x463B80);
+    RH_ScopedOverloadedInstall(ResetArrayElement, "Index", 0x463970, void (CStuckCarCheck::*)(uint16)); // Lote 116A, banco Fn116A
 }
 
 // 0x4639E0

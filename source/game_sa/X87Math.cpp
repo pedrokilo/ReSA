@@ -18641,3 +18641,28 @@ __declspec(noinline) int __cdecl PartnerSideCpp(const float* right, const float*
     return !((((ry * pedPos[1] + rz * pedPos[2]) + rx * pedPos[0]) + -((ry * partnerPos[1] + rz * partnerPos[2]) + rx * partnerPos[0])) >= 0.0f) ? 2 : 1;
 }
 #pragma float_control(pop)
+
+// Lote 116A (Fn116A).
+#pragma float_control(precise, on, push)
+// 0x4EEA80 (cdecl, tres floats en la pila, `ret`; EAX = 1 o 0): fabs(f1 - f2) < epsilon con la resta redondeada a 24 bits por la palabra de control del juego y el exponente ampliado de la x87
+// (la diferencia de dos floats enormes de signo opuesto no desborda), comparacion ordenada (con NaN devuelve 0). No deja nada en la x87.
+__declspec(noinline) int __cdecl ApproxEqualCpp(float f1, float f2, float epsilon) {
+    const double diff = double(f1) - double(f2);
+    return std::fabs(diff) < double(epsilon) ? 1 : 0;
+}
+
+// 0x59F0C0 (tColLighting::GetCurrentLighting; el EXE recibe el byte de iluminacion y el factor en la pila y devuelve en ST0 sin guardar): con d = dia y n = noche (nibbles del byte),
+// ((d * escala) * k) * (1 - balance) + ((n * escala) * k) * balance, con k = 0x3D888889 (0.06666667f, el EXE multiplica en lugar de dividir entre 15) y cada operacion redondeada a 24 bits
+// por la x87 (exponente ampliado); el resultado queda en ST0 sin pasar por un float.
+__declspec(noinline) double __cdecl ColLightingCurrentCpp(unsigned int day, unsigned int night, float scale, float balance) {
+    const float k = std::bit_cast<float>(0x3D888889u);
+    double dayPart = double(static_cast<int>(day)) * double(scale);
+    dayPart = dayPart * double(k);
+    const double inverse = double(1.0f) - double(balance);
+    dayPart = dayPart * inverse;
+    double nightPart = double(static_cast<int>(night)) * double(scale);
+    nightPart = nightPart * double(k);
+    nightPart = nightPart * double(balance);
+    return dayPart + nightPart;
+}
+#pragma float_control(pop)

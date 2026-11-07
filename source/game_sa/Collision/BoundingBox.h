@@ -14,6 +14,8 @@ public:
     constexpr CBoundingBox(CVector min, CVector max) : CBox(min, max) {}
     constexpr explicit CBoundingBox(const CBox& box) : CBox(box) {}
 
+    static void InjectHooks();
+
     [[nodiscard]] bool IsPointWithin(const CVector& point) const;
     inline void SetMinMax(CVector min, CVector max);
 };
