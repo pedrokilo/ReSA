@@ -431,7 +431,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0041CAA0,175,reemplazada,CCarAI,exacta,CCarAI::FindPoliceCarSpeedForWantedLevel,5,5,,
 0x0041CB70,109,reemplazada,CCarAI,exacta,CCarAI::MellowOutChaseSpeedBoat,1,1,,
 0x0041CC10,31,reemplazada,CCarAI,alta,,6,3,,
-0x0041CC70,59,A,CCarAI,alta,,5,5,,
+0x0041CC70,59,reemplazada,CCarAI,alta,,5,5,,
 0x0041CCB0,70,reemplazada,CCarAI,alta,,28,27,,
 0x0041CD00,291,reemplazada,CCarAI,exacta,CCarAI::EntitiesGoHeadOn,2,2,,
 0x0041CE30,360,reemplazada,CCarAI,exacta,CCarAI::GetCarToGoToCoors,2,2,,
@@ -743,7 +743,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0043E3A0,5,B,CTaskSimpleUninterruptable,baja,,0,0,,sí
 0x0043E3B0,30,B,CTaskSimpleUninterruptable,baja,,0,0,,sí
 0x0043E3D0,11,C,CTaskSimpleUninterruptable,baja,,1,0,,
-0x0043E400,11,A,CTaskSimpleUninterruptable,baja,,1,1,,
+0x0043E400,11,reemplazada,CTaskSimpleUninterruptable,baja,,1,1,,
 0x0043E410,74,reemplazada,CEntryExitManager,exacta,CEntryExitManager::AddEntryExitToStack,2,1,,
 0x0043E460,481,reemplazada,CEntryExit,exacta,CEntryExit::IsInArea,1,1,,
 0x0043E650,58,reemplazada,CEntryExit,exacta,CEntryExit::GetEntryExitToDisplayNameOf,1,1,,
@@ -1188,7 +1188,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004636B0,6,reemplazada,CTaskSimpleFinishBrain,exacta,CTaskSimpleFinishBrain::GetTaskType,0,0,,sí
 0x004636C0,30,B,CTaskSimpleFinishBrain,baja,,0,0,,sí
 0x004636E0,11,C,CTaskSimpleFinishBrain,baja,,1,0,,
-0x004637E0,44,A,CTaskSimpleFinishBrain,baja,,31,2,,
+0x004637E0,44,reemplazada,CTaskSimpleFinishBrain,baja,,31,2,,
 0x00463830,104,reemplazada,CUpsideDownCarCheck,exacta,CUpsideDownCarCheck::IsCarUpsideDown-vehicle,6,6,,
 0x004638D0,49,reemplazada,CUpsideDownCarCheck,exacta,CUpsideDownCarCheck::AddCarToCheck,1,0,,
 0x00463910,38,reemplazada,CUpsideDownCarCheck,exacta,CUpsideDownCarCheck::RemoveCarFromCheck,1,0,,
@@ -1417,7 +1417,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0048E0E0,5,reemplazada,CTaskSimpleRunTimedAnim,exacta,CTaskSimpleRunTimedAnim::GetTaskType,0,0,,sí
 0x0048E0F0,112,reemplazada,CTaskSimpleLookAbout,exacta,CTaskSimpleLookAbout::Clone,0,0,,sí
 0x0048E160,5,reemplazada,CTaskSimpleLookAbout,exacta,CTaskSimpleLookAbout::IsInterruptable,0,0,,sí
-0x0048E180,48,A,CTaskSimpleLookAbout,baja,,5,4,,
+0x0048E180,48,reemplazada,CTaskSimpleLookAbout,baja,,5,4,,
 0x0048E1C0,87,reemplazada,CEventLeaderEnteredCarAsDriver,exacta,CEventLeaderEnteredCarAsDriver::Constructor,5,2,,
 0x0048E220,90,C,CEventLeaderEnteredCarAsDriver,baja,,3,0,,
 0x0048E280,6,B,CEventLeaderEnteredCarAsDriver,baja,,0,0,,sí
@@ -1904,13 +1904,13 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004ABA50,77,reemplazada,RwHelper,exacta,RwHelper::GetEventGlobalGroup,33,30,,
 0x004ABAA0,27,B,RwHelper,baja,,0,0,,sí
 0x004ABAC0,114,reemplazada,CEventSource,exacta,CEventSource::ComputeEventSourceType,4,4,,
-0x004ABBA0,63,A,CEventSource,baja,,6,6,,
-0x004ABC30,36,A,CEventSource,baja,,2,1,,sí
+0x004ABBA0,63,reemplazada,CEventSource,baja,,6,6,,
+0x004ABC30,36,reemplazada,CEventSource,baja,,2,1,,sí
 0x004ABCA0,23,reemplazada,CEventSource,baja,,4,4,,
 0x004ABDA0,30,reemplazada,CTaskSimpleFight,exacta,CTaskSimpleFight::GetComboAnimGroupID,2,2,,
 0x004ABDC0,46,reemplazada,CTaskSimpleFight,exacta,CTaskSimpleFight::IsComboSet,3,3,,
 0x004ABDF0,60,reemplazada,CTaskSimpleFight,exacta,CTaskSimpleFight::IsHitComboSet,1,1,,
-0x004ABEA0,33,A,CTaskSimpleFight,baja,,2,2,,
+0x004ABEA0,33,reemplazada,CTaskSimpleFight,baja,,2,2,,
 0x004ABF50,28,reemplazada,CWeather,exacta,CWeather::IsRainy,1,1,,
 0x004ABFC0,17,reemplazada,CEvent,exacta,CEvent::Constructor,15,7,,
 0x004ABFE0,5,B,CEvent,alta,,0,0,,sí
@@ -1996,7 +1996,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004ADA90,73,reemplazada,CEventDamage,exacta,CEventDamage::IsCriminalEvent,0,0,,sí
 0x004ADAE0,29,reemplazada,CEventDamage,exacta,CEventDamage::DoInformVehicleOccupants,0,0,,sí
 0x004ADB00,236,reemplazada,CEventDamage,exacta,CEventDamage::TakesPriorityOver,0,0,,sí
-0x004ADBF0,30,A,CEventDamage,alta,,2,2,,
+0x004ADBF0,30,reemplazada,CEventDamage,alta,,2,2,,
 0x004ADC10,234,reemplazada,CEventDamage,exacta,CEventDamage::ComputeBodyPartToRemove,1,1,,
 0x004ADD60,61,A,CEventDamage,baja,,1,1,,
 0x004ADDF0,35,reemplazada,CEventDamage,baja,,3,3,,
@@ -2005,7 +2005,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004ADF70,81,A,CEventDamage,baja,,5,1,,
 0x004ADFD0,95,reemplazada,CEventDamage,baja,,27,25,,
 0x004AE070,94,reemplazada,CEventDamage,baja,,52,24,,
-0x004AE100,149,A,CEventDamage,baja,,2,2,,
+0x004AE100,149,reemplazada,CEventDamage,baja,,2,2,,
 0x004AE1A0,102,A,CEventDamage,baja,,3,2,,
 0x004AE270,81,A,CEventDamage,baja,,5,2,,
 0x004AE2D0,69,D,CEventDamage,baja,,0,0,,
@@ -3881,7 +3881,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0050DD70,771,reemplazada,CCam,exacta,CCam::Finalise_DW_CineyCams,7,7,,
 0x0050E090,192,reemplazada,CCam,alta,,1,1,,
 0x0050E180,184,reemplazada,CCam,alta,,2,1,,
-0x0050E420,66,A,CCam,alta,,3,2,,
+0x0050E420,66,reemplazada,CCam,alta,,3,2,,
 0x0050E490,512,reemplazada,CCam,exacta,CCam::Init,5,5,,
 0x0050E690,64,reemplazada,CIdleCam,exacta,CIdleCam::IdleCamGeneralProcess,0,0,,
 0x0050E6D0,129,reemplazada,CIdleCam,exacta,CIdleCam::Init,2,0,,
@@ -4079,7 +4079,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00533280,12,reemplazada,CEntity,exacta,CEntity::SetCompAlphaCB,0,0,,
 0x00533290,35,reemplazada,CEntity,exacta,CEntity::SetAtomicAlpha,0,0,,
 0x005332C0,67,reemplazada,CEntity,exacta,CEntity::SetRwObjectAlpha,0,0,,
-0x00533310,79,reemplazada,CEntity,exacta,CEntity::IsEntityPointerValid,2,1,,
+0x00533310,79,reemplazada,CEntity,exacta,CEntity::IsEntityPointerValid,2,2,,
 0x00533380,142,reemplazada,CEntity,exacta,CEntity::FindTriggerPointCoors,1,0,,
 0x00533410,195,reemplazada,CEntity,exacta,CEntity::GetRandom2dEffect,1,1,,
 0x005334F0,107,reemplazada,CEntity,exacta,CEntity::TransformFromObjectSpace-ref,23,18,,
@@ -4359,7 +4359,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00542800,84,reemplazada,CPhysical,exacta,CPhysical::AddToMovingList,33,25,,
 0x00542860,83,reemplazada,CPhysical,exacta,CPhysical::RemoveFromMovingList,33,31,,
 0x005428C0,292,reemplazada,CPhysical,exacta,CPhysical::SetDamagedPieceRecord,24,24,,
-0x005429F0,90,reemplazada,CPhysical,exacta,CPhysical::ApplyMoveForce-vec,83,80,,
+0x005429F0,90,reemplazada,CPhysical,exacta,CPhysical::ApplyMoveForce-vec,83,81,,
 0x00542A50,245,reemplazada,CPhysical,exacta,CPhysical::ApplyTurnForce,75,74,,
 0x00542B50,398,reemplazada,CPhysical,exacta,CPhysical::ApplyForce,31,29,,
 0x00542CE0,230,reemplazada,CPhysical,exacta,CPhysical::GetSpeed,66,65,,
@@ -4903,7 +4903,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0056E0D0,70,reemplazada,CWorld,exacta,CWorld::FindPlayerVehicle,504,483,,
 0x0056E120,51,reemplazada,CWorld,exacta,CWorld::FindPlayerEntity,12,11,,
 0x0056E160,167,reemplazada,CWorld,exacta,CWorld::FindPlayerTrain,2,2,,
-0x0056E210,28,reemplazada,CWorld,exacta,CWorld::FindPlayerPed,688,658,,
+0x0056E210,28,reemplazada,CWorld,exacta,CWorld::FindPlayerPed,688,659,,
 0x0056E230,28,reemplazada,CWorld,exacta,CWorld::FindPlayerWanted,100,96,,
 0x0056E250,194,reemplazada,CWorld,exacta,CWorld::FindPlayerCentreOfWorld,16,15,,
 0x0056E320,222,reemplazada,CWorld,exacta,CWorld::FindPlayerCentreOfWorld_NoSniperShift,2,2,,
@@ -6262,7 +6262,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005E8910,157,reemplazada,CPed,exacta,CPed::RequestDelayedWeapon,2,2,,
 0x005E89B0,97,reemplazada,CPed,exacta,CPed::GiveDelayedWeapon,26,26,,
 0x005E8A20,15,reemplazada,CPed,exacta,CPed::PreRender,0,0,,sí
-0x005E8A30,125,A,CPed,alta,,2,2,,
+0x005E8A30,125,reemplazada,CPed,alta,,2,2,,
 0x005E8AB0,264,reemplazada,CPed,exacta,CPed::GiveWeaponAtStartOfFight,1,1,,
 0x005E8BE0,158,reemplazada,CPed,exacta,CPed::GiveWeaponWhenJoiningGang,1,1,,
 0x005E8C80,76,B,CPed,baja,,0,0,,sí
@@ -6436,7 +6436,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005F0250,108,reemplazada,CPed,exacta,CPed::RemoveWeaponAnims,5,5,,
 0x005F02C0,145,reemplazada,CPed,exacta,CPed::IsPedHeadAbovePos,1,1,,
 0x005F0360,4009,reemplazada,CPed,exacta,CPed::KillPedWithCar,5,5,,
-0x005F13A0,61,A,CPed,baja,,2,2,,
+0x005F13A0,61,reemplazada,CPed,baja,,2,2,,
 0x005F13F0,87,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputePedShotSide,1,1,,
 0x005F1450,165,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeEntityHitSide-2,5,5,,
 0x005F1500,252,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeEntityDirs,2,2,,
@@ -6537,7 +6537,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005F7440,47,reemplazada,CPedGroupIntelligence,exacta,CPedGroupIntelligence::SetEventResponseTaskAllocator,0,0,,
 0x005F7470,204,reemplazada,CPedGroupIntelligence,exacta,CPedGroupIntelligence::AddEvent-,29,27,,
 0x005F7540,147,reemplazada,CPedGroupIntelligence,exacta,CPedGroupIntelligence::SetTask,31,28,,
-0x005F7660,46,A,CPedGroupIntelligence,alta,,2,2,,
+0x005F7660,46,reemplazada,CPedGroupIntelligence,alta,,2,2,,
 0x005F76C0,107,reemplazada,CPedGroupIntelligence,exacta,CPedGroupIntelligence::ReportFinishedTask-Impl,4,4,,
 0x005F7730,45,reemplazada,CPedGroupIntelligence,exacta,CPedGroupIntelligence::ReportAllTasksFinished,5,2,,
 0x005F7760,55,reemplazada,CPedGroupIntelligence,exacta,CPedGroupIntelligence::IsGroupResponding,1,1,,
@@ -6549,7 +6549,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005F7AD0,493,reemplazada,CPedGroup,exacta,CPedGroup::Teleport,1,1,,
 0x005F7CC0,236,reemplazada,CPedGroup,exacta,CPedGroup::PlayerGaveCommand_Attack,1,1,,
 0x005F7DB0,124,reemplazada,CPedGroup,exacta,CPedGroup::IsAnyoneUsingCar,1,1,,
-0x005F7E30,16,A,CPedGroup,baja,,1,1,,
+0x005F7E30,16,reemplazada,CPedGroup,baja,,1,1,,
 0x005F7E40,55,reemplazada,CPedGroups,exacta,CPedGroups::IsGroupLeader,2,2,,
 0x005F7E80,87,reemplazada,CPedGroups,exacta,CPedGroups::GetPedsGroup,76,66,,
 0x005F7EE0,46,reemplazada,CPedGroups,exacta,CPedGroups::GetGroupId,5,5,,
