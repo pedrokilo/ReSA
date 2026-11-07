@@ -628,7 +628,7 @@ inline void Update() {
                     else if(cls=="FxMemoryPool_c") {
                         auto* mp=memPool.data(); fill(mp,0x40);
                         EntryPatch m1(0x72F420,FakeMalloc), m2(0x72F430,FakeFree), m3(0x72F440,FakeRealloc); // direcciones del EXE
-                        EntryPatch m1d(bit_cast<uintptr_t>(static_cast<void*(*)(uint32,uint32)>(&CMemoryMgr::Malloc)),FakeMalloc), m3d(bit_cast<uintptr_t>(static_cast<uint8*(*)(void*,uint32,uint32)>(&CMemoryMgr::Realloc)),FakeRealloc); // entradas de la DLL (naked desde d26e3a5d): FxMemoryPool_c las llama directo
+                        EntryPatch m1d(bit_cast<uintptr_t>(static_cast<void*(*)(uint32,uint32)>(&CMemoryMgr::Malloc)),FakeMalloc), m2d(bit_cast<uintptr_t>(&CMemoryMgr::Free),FakeFree), m3d(bit_cast<uintptr_t>(static_cast<uint8*(*)(void*,uint32,uint32)>(&CMemoryMgr::Realloc)),FakeRealloc); // entradas de la DLL (naked desde d26e3a5d): FxMemoryPool_c las llama directo
                         if(nm=="Init"){ mallocResult=next()%4 ? bigBuf.data() : nullptr; bigBuf[0]=1; bigBuf[0xFFFFF]=2;
                             ret=int(reinterpret_cast<uint8(__fastcall*)(void*,void*)>(a)(mp,nullptr)); out["big"]=json::array({bigBuf[0],bigBuf[0x7FFFF],bigBuf[0xFFFFF],Fnv(bigBuf.data(),0x1000)}); }
                         else if(nm=="Exit"){ At<void*>(mp,0)=next()%4 ? smallBuf.data() : nullptr; reinterpret_cast<void(__fastcall*)(void*,void*)>(a)(mp,nullptr); }

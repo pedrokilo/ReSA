@@ -60,7 +60,7 @@
   "log_sha256": "069e82d6bb8265a0c3e97ba0a28fafe4375e777139f3486333ddf94f219254e5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx43\\20261101-041810-728085",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx43\\20261107-140637-663631",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEWeatherAudioEntity::Service": true,
@@ -110,8 +110,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "8b856f055639a7b68dc5d45f2de0fdc97128a6ee40378530f119b2d5a5388a80",
-      "pdb": "35d2f2d7bd8921b6f1f4cb66ed5ca93652092f31ecf4ac7c8e06d09accf638ad"
+      "asi": "58af85a4f49d6f1aed752fe258d302af2b7ca60966fd7ad644a323e6ef47a6c3",
+      "pdb": "d7050227038dab4d4df3b44ca6196efd6b66f11f506373181d55e0b307147c72"
     },
     "sources": {
       "source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp": "518da0d6f3d0d26bebbc253afaa9b74c43d31d2b2b90f9e4a2dfc4bd3e890ee4",
@@ -122,20 +122,20 @@
       "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44",
       "source/game_sa/MovingThings.cpp": "2786407c6ac951d2068412829ae4173d0814eafc1c83b13e67d81d377112ff65",
       "source/game_sa/MovingThings.h": "bf065dda9cfd6a03a7403223372a0a4a7eb03ee3f7ea5454c24f08fcb3cec643",
-      "source/game_sa/ShotInfo.cpp": "abeed1e589ed5e511ccfd1c1090710e0700b735451590953d3dbf1870dc99fdc",
+      "source/game_sa/ShotInfo.cpp": "fea8a01c7c116005d2381ce461b2dfd88e63cd3edc7a5a89fdb5af65ef01dbae",
       "source/game_sa/ShotInfo.h": "4fa17732d29dd07379ebbecd71f27fcb307e5bb8481cc7685aaf92792aee44ca",
-      "source/game_sa/WaterCannon.cpp": "609204795d07f95811de8424325a294d40683763fe885f7b7bd42d1d477288a2",
-      "source/game_sa/WaterCannon.h": "18029ae3dfcba53efe6632778e1e2823965fab03cc1595e4402663510b4b463d",
-      "source/game_sa/Fx/FxMemoryPool.cpp": "0e992e2c01e8990cdd0ca7177c34280f1dc235805349267a205012bd2f1ea779",
-      "source/game_sa/Fx/FxMemoryPool.h": "6e8298a8e3ca73c992ecf5cfa763a3c472ec2d3705fb9ef77f989cb14eb1a71b",
-      "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "7de50bd7a6817eed0f7c89e0e0aa04d5c6ed0270bbafeb02be40ad3288c80fb4",
-      "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "e45a08ae8e911edb493f042f0506d5257d6947c8a30e637a70f335e6a406c951",
-      "source/app/app_input.cpp": "d498e71ac2f18190c36f75886d1ad827754caae6b4b4704a8664a5df51086a8d",
+      "source/game_sa/WaterCannon.cpp": "cbd8b9eba8a0ea07acd1a458ef66c7ffb3f967153c8a6a0e625f183e30721760",
+      "source/game_sa/WaterCannon.h": "c75ef579dbf92c3de85946a87a4495a0696871f27ae601d0393b8c3501d03ca6",
+      "source/game_sa/Fx/FxMemoryPool.cpp": "99710e9d4ddc6e662087f76a0288751f225d7b08511a24cb27e8478a6b8ce790",
+      "source/game_sa/Fx/FxMemoryPool.h": "c1cdb364ba657edcb60a3242573e96bd0bca6ff8b137c5a67b29fef79a619091",
+      "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "3bfd2369f43bee9fab657bb56947241ab36df6ead9e31f1bf5c9bf191b13335d",
+      "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "5be5119baf994b22a2d68a0dc7472e1b5fb3221daeeef582e9410a1379115ccc",
+      "source/app/app_input.cpp": "f1ab39d6f48de5f2ccce0fc2049ea91d650650210708dcdf4cac3f463ef93b49",
       "source/app/app_input.h": "f28df039c8e2e2a5c21a2ba67dfc5ed8de0f08dd49ed3a0fbb522ae277810d1b"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "cd5ef95b0974136dd570fb4b6675ce8fa85f1137b2edcfe06767d0ce86cafcd7",
+      "LiveComparison.hpp": "f79fd8a2d1e5aa66f69fc2af728e390426ca7420c4c13cbd2b1b8a8479fac626",
       "build_probe.py": "2f0fce9a9a84f5006511a4d5a00df36cf76f8abfe6c1620969ef2a76c9ee9a79",
       "run_local.py": "e5c411a5bbf89f821459d906729f6d0786282dc29b4ceccb59b48aa5b96500ad"
     }
