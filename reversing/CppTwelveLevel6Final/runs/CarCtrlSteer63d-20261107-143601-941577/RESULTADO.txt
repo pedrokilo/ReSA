@@ -1,0 +1,3 @@
+APROBADO: CarCtrlSteer63d
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-carctrlsteer63d\20261107-143601-941577

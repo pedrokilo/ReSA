@@ -67,7 +67,7 @@ inline void Update() {
     #define FK(f) reinterpret_cast<void*>(&f)
     // 0x59C910 (CVector::Normalise) no se sustituye: solo se apaga su hook (ruta sin falso) para que el EXE ejecute su codigo original y la DLL el suyo
     env.stubs[0]={mk(0x56E090,FK(FkSpeed)),mk(0x56E120,FK(FkEntity)),mk(0x54F560,FK(FkAlloc)),
-                  mk(0x54F1B0,FK(FkUpdate),Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateMatrix))),mk(0x56E010,FK(FkCoors)),mk(0x59C910,nullptr)};
+                  mk(0x54F1B0,FK(FkUpdate)),mk(0x56E010,FK(FkCoors)),mk(0x59C910,nullptr)};
     #undef FK
     for(unsigned f=0;f<kFns;++f) {
         json stubbed=json::array();
