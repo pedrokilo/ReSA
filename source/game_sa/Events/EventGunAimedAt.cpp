@@ -4,6 +4,24 @@
 
 #include "PedType.h"
 
+namespace {
+// Cuerpo no virtual de ~CEventGunAimedAt del EXE (thiscall, sin argumentos de pila, `ret`): deja la vtable de CEventGunAimedAt del EXE (0x85B330), libera con CEntity::CleanUpOldReference (0x571A00) las referencias no nulas
+// en el orden del EXE y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 117A, banco Fn117A.)
+void __fastcall GunAimedAtDestructorBody(CEventGunAimedAt* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B330;
+    CEntity::SafeCleanUpRef(self->m_AimedBy);
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
+void CEventGunAimedAt::InjectHooks() {
+    RH_ScopedVirtualClass(CEventGunAimedAt, 0x85B330, 17);
+    RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(GunAimedAtDestructorBody, "Destructor", 0x4B07B0);
+
+    RH_ScopedInstall(Constructor, 0x4B0700);
+}
+
 // 0x4B0700
 CEventGunAimedAt::CEventGunAimedAt(CPed* ped) : CEventEditableResponse() {
     m_AimedBy = ped;
@@ -13,6 +31,12 @@ CEventGunAimedAt::CEventGunAimedAt(CPed* ped) : CEventEditableResponse() {
 // 0x4B07B0
 CEventGunAimedAt::~CEventGunAimedAt() {
     CEntity::SafeCleanUpRef(m_AimedBy);
+}
+
+// 0x4B0700
+CEventGunAimedAt* CEventGunAimedAt::Constructor(CPed* ped) {
+    this->CEventGunAimedAt::CEventGunAimedAt(ped);
+    return this;
 }
 
 // 0x4B4EE0

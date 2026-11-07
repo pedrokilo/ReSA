@@ -87507,7 +87507,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPassObject::AbortIK"
@@ -87516,15 +87516,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87541,7 +87541,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPassObject::Clone"
@@ -87550,15 +87550,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87575,7 +87575,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPassObject::Constructor"
@@ -87584,15 +87584,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87609,7 +87609,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPassObject::ControlSubTask"
@@ -87618,15 +87618,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87643,7 +87643,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPassObject::CreateFirstSubTask"
@@ -87652,15 +87652,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87677,7 +87677,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPassObject::CreateNextSubTask"
@@ -87686,15 +87686,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87711,7 +87711,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPassObject::GetTaskType"
@@ -87720,15 +87720,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87745,7 +87745,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPassObject::MakeAbortable"
@@ -87754,15 +87754,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87779,7 +87779,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexRoadRage::Clone"
@@ -87788,15 +87788,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87813,7 +87813,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexRoadRage::Constructor"
@@ -87822,15 +87822,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87847,7 +87847,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexRoadRage::ControlSubTask"
@@ -87856,15 +87856,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87881,7 +87881,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexRoadRage::CreateFirstSubTask"
@@ -87890,15 +87890,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87915,7 +87915,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexRoadRage::CreateNextSubTask"
@@ -87924,15 +87924,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87949,7 +87949,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexRoadRage::CreateSubTask"
@@ -87958,15 +87958,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -87983,7 +87983,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexRoadRage::Destructor"
@@ -87992,15 +87992,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88017,7 +88017,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexRoadRage::GetTaskType"
@@ -88026,15 +88026,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88051,7 +88051,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexRoadRage::MakeAbortable"
@@ -88060,15 +88060,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88085,7 +88085,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexScreamInCarThenLeave::Clone"
@@ -88094,15 +88094,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88119,7 +88119,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexScreamInCarThenLeave::Constructor"
@@ -88128,15 +88128,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88153,7 +88153,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexScreamInCarThenLeave::ControlSubTask"
@@ -88162,15 +88162,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88187,7 +88187,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexScreamInCarThenLeave::CreateFirstSubTask"
@@ -88196,15 +88196,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88221,7 +88221,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexScreamInCarThenLeave::CreateNextSubTask"
@@ -88230,15 +88230,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88255,7 +88255,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexScreamInCarThenLeave::CreateSubTask"
@@ -88264,15 +88264,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88289,7 +88289,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexScreamInCarThenLeave::Destructor"
@@ -88298,15 +88298,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88323,7 +88323,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexScreamInCarThenLeave::GetTaskType"
@@ -88332,15 +88332,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88357,7 +88357,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexScreamInCarThenLeave::MakeAbortable"
@@ -88366,15 +88366,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88391,7 +88391,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSitDownThenIdleThenStandUp::Clone"
@@ -88400,15 +88400,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88425,7 +88425,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSitDownThenIdleThenStandUp::Constructor"
@@ -88434,15 +88434,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88459,7 +88459,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSitDownThenIdleThenStandUp::ControlSubTask"
@@ -88468,15 +88468,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88493,7 +88493,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSitDownThenIdleThenStandUp::CreateFirstSubTask"
@@ -88502,15 +88502,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88527,7 +88527,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSitDownThenIdleThenStandUp::CreateNextSubTask"
@@ -88536,15 +88536,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88561,7 +88561,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSitDownThenIdleThenStandUp::CreateSubTask"
@@ -88570,15 +88570,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88595,7 +88595,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSitDownThenIdleThenStandUp::Destructor"
@@ -88604,15 +88604,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88629,7 +88629,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSitDownThenIdleThenStandUp::GetTaskType"
@@ -88638,15 +88638,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88663,7 +88663,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSitDownThenIdleThenStandUp::MakeAbortable"
@@ -88672,15 +88672,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88697,7 +88697,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCop::Constructor"
@@ -88706,15 +88706,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88731,7 +88731,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCop::ControlSubTask"
@@ -88740,15 +88740,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88765,7 +88765,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCop::CreateFirstSubTask"
@@ -88774,15 +88774,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88799,7 +88799,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCop::CreateNextSubTask"
@@ -88808,15 +88808,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88833,7 +88833,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCop::LookForCarAlarms"
@@ -88842,15 +88842,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88867,7 +88867,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCop::LookForCriminals"
@@ -88876,15 +88876,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88901,7 +88901,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCop::LookForStolenCopCars"
@@ -88910,15 +88910,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88935,7 +88935,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCop::ScanForStuff"
@@ -88944,15 +88944,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",
@@ -88969,7 +88969,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9c/validation-summary.json",
-        "sha256": "036301c3b9da77c454ada779088d5b8fa435c226b1df1612c67a475f9b4d5821",
+        "sha256": "c9be6b8c46a9b34c9510bc982761b8f7b0f456fc0f72441cff553bb706dee450",
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCop::ShouldPursuePlayer"
@@ -88978,15 +88978,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
         "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
         "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
         "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-035344-672506).",

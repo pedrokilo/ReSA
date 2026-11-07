@@ -58799,7 +58799,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::ComputeDoorFlag"
@@ -58808,9 +58808,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -58827,7 +58827,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::ComputeOppositeDoorFlag"
@@ -58836,9 +58836,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -58855,7 +58855,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::ComputePassengerIndexFromCarDoor"
@@ -58864,9 +58864,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -58883,7 +58883,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::ComputeSlowJackedPed"
@@ -58892,9 +58892,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -58911,7 +58911,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::ComputeTargetDoorToEnterAsPassenger"
@@ -58920,9 +58920,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -58939,7 +58939,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::ComputeTargetDoorToExit"
@@ -58948,9 +58948,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -58967,7 +58967,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::IsCarDoorInUse"
@@ -58976,9 +58976,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -58995,7 +58995,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::IsCarSlowJackRequired"
@@ -59004,9 +59004,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59023,7 +59023,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::IsVehicleHealthy"
@@ -59032,9 +59032,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59051,7 +59051,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::IsPedHealthy"
@@ -59060,9 +59060,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59079,7 +59079,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::CarHasDoorToOpen"
@@ -59088,9 +59088,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59107,7 +59107,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::CarHasDoorToClose"
@@ -59116,9 +59116,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59135,7 +59135,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::CarHasPartiallyOpenDoor"
@@ -59144,9 +59144,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59163,7 +59163,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::IsCarDoorReady"
@@ -59172,9 +59172,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59191,7 +59191,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::CarHasOpenableDoor"
@@ -59200,9 +59200,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59219,7 +59219,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::IsCarQuickJackPossible"
@@ -59228,9 +59228,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59247,7 +59247,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::IsClearToDriveAway"
@@ -59256,9 +59256,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59275,7 +59275,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::IsPathToDoorBlockedByVehicleCollisionModel"
@@ -59284,9 +59284,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59303,7 +59303,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::RemoveGetInAnims"
@@ -59312,9 +59312,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59331,7 +59331,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::RemoveCarSitAnim"
@@ -59340,9 +59340,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59359,7 +59359,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::AddInCarAnim"
@@ -59368,9 +59368,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59387,7 +59387,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::QuitEnteringCar"
@@ -59396,9 +59396,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59415,7 +59415,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::Init"
@@ -59424,9 +59424,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59443,7 +59443,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::AddScriptToList"
@@ -59452,9 +59452,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59471,7 +59471,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::RemoveScriptFromList"
@@ -59480,9 +59480,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59499,7 +59499,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::UpdatePC"
@@ -59508,9 +59508,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59527,7 +59527,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::UpdateCompareFlag"
@@ -59536,9 +59536,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59555,7 +59555,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::GetPointerToLocalVariable"
@@ -59564,9 +59564,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59583,7 +59583,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::GetPointerToLocalArrayElement"
@@ -59592,9 +59592,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59611,7 +59611,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::ReadArrayInformation"
@@ -59620,9 +59620,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59639,7 +59639,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::GetPointerToScriptVariable"
@@ -59648,9 +59648,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59667,7 +59667,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::GetIndexOfGlobalVariable"
@@ -59676,9 +59676,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59695,7 +59695,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::CollectParameters"
@@ -59704,9 +59704,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59723,7 +59723,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::CollectNextParameterWithoutIncreasingPC"
@@ -59732,9 +59732,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59751,7 +59751,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::StoreParameters"
@@ -59760,9 +59760,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59779,7 +59779,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::ReadParametersForNewlyStartedScript"
@@ -59788,9 +59788,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59807,7 +59807,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::ReadTextLabelFromScript"
@@ -59816,9 +59816,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59835,7 +59835,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::GetCorrectPedModelIndexForEmergencyServiceType"
@@ -59844,9 +59844,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59863,7 +59863,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::ThisIsAValidRandomPed"
@@ -59872,9 +59872,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59891,7 +59891,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::IsPedDead"
@@ -59900,9 +59900,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59919,7 +59919,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::GetPadState"
@@ -59928,9 +59928,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59947,7 +59947,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::DoDeathArrestCheck"
@@ -59956,9 +59956,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -59975,7 +59975,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::ProcessOneCommand"
@@ -59984,9 +59984,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -60003,7 +60003,7 @@
       },
       "evidence": {
         "path": "reversing/MiscWave2/validation-summary.json",
-        "sha256": "9933cea1bbb8de0144028884353a25582c945dcfa22cd61dcfb2105c2c97535e",
+        "sha256": "7ad9d55638efa9a13eb8fde26851f464a37555ac0a059157325d5ad22b03a3a6",
         "passed_path": [
           "covered_functions",
           "CRunningScript::Process"
@@ -60012,9 +60012,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-        "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+        "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
         "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
       },
       "source_provenance": "Exact compiled MiscWave2 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 19264-row log reaudited offline and preserved gzipped with the original hash. CarEnterExit.cpp and RunningScript.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -63689,7 +63689,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "9ce83bd669a184bcccdc6355c4c78a83d047aa4e65d560d6a3785b1e50d5f5c8",
+        "sha256": "4625843b9a990cd6c25d36d4b5a67c0e562ad6c0acf5d76e8d7ede5c7cef8257",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayIdleAnimations"
@@ -63715,7 +63715,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "9ce83bd669a184bcccdc6355c4c78a83d047aa4e65d560d6a3785b1e50d5f5c8",
+        "sha256": "4625843b9a990cd6c25d36d4b5a67c0e562ad6c0acf5d76e8d7ede5c7cef8257",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayerControlZeldaWeapon"
@@ -63741,7 +63741,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "9ce83bd669a184bcccdc6355c4c78a83d047aa4e65d560d6a3785b1e50d5f5c8",
+        "sha256": "4625843b9a990cd6c25d36d4b5a67c0e562ad6c0acf5d76e8d7ede5c7cef8257",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayerControlDucked"
@@ -63767,7 +63767,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "9ce83bd669a184bcccdc6355c4c78a83d047aa4e65d560d6a3785b1e50d5f5c8",
+        "sha256": "4625843b9a990cd6c25d36d4b5a67c0e562ad6c0acf5d76e8d7ede5c7cef8257",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayerControlZelda"
@@ -63793,7 +63793,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "9ce83bd669a184bcccdc6355c4c78a83d047aa4e65d560d6a3785b1e50d5f5c8",
+        "sha256": "4625843b9a990cd6c25d36d4b5a67c0e562ad6c0acf5d76e8d7ede5c7cef8257",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::ProcessPlayerWeapon"
@@ -64209,7 +64209,7 @@
       },
       "evidence": {
         "path": "reversing/CarEnterWave4/validation-summary.json",
-        "sha256": "1b15a83fa364b15755046a8f10935de704df88da2cbf30049c886c12f4080233",
+        "sha256": "66def0c8ddb0403123a52e9f333c8efd25bdd7655e17fa336e6660bee0e2f051",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::GetNearestCarDoor"
@@ -64218,7 +64218,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "b93bb78c20aa1fe0c0d2454eacb3867f86e83b1869639de0992c2510ce1e402c",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50"
       },
       "source_provenance": "Exact compiled CarEnterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -64235,7 +64235,7 @@
       },
       "evidence": {
         "path": "reversing/CarEnterWave4/validation-summary.json",
-        "sha256": "1b15a83fa364b15755046a8f10935de704df88da2cbf30049c886c12f4080233",
+        "sha256": "66def0c8ddb0403123a52e9f333c8efd25bdd7655e17fa336e6660bee0e2f051",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::IsVehicleStealable"
@@ -64244,7 +64244,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "b93bb78c20aa1fe0c0d2454eacb3867f86e83b1869639de0992c2510ce1e402c",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50"
       },
       "source_provenance": "Exact compiled CarEnterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -64261,7 +64261,7 @@
       },
       "evidence": {
         "path": "reversing/CarEnterWave4/validation-summary.json",
-        "sha256": "1b15a83fa364b15755046a8f10935de704df88da2cbf30049c886c12f4080233",
+        "sha256": "66def0c8ddb0403123a52e9f333c8efd25bdd7655e17fa336e6660bee0e2f051",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::MakeUndraggedDriverPedLeaveCar"
@@ -64270,7 +64270,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "b93bb78c20aa1fe0c0d2454eacb3867f86e83b1869639de0992c2510ce1e402c",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50"
       },
       "source_provenance": "Exact compiled CarEnterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -64287,7 +64287,7 @@
       },
       "evidence": {
         "path": "reversing/CarEnterWave4/validation-summary.json",
-        "sha256": "1b15a83fa364b15755046a8f10935de704df88da2cbf30049c886c12f4080233",
+        "sha256": "66def0c8ddb0403123a52e9f333c8efd25bdd7655e17fa336e6660bee0e2f051",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle"
@@ -64296,7 +64296,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "b93bb78c20aa1fe0c0d2454eacb3867f86e83b1869639de0992c2510ce1e402c",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50"
       },
       "source_provenance": "Exact compiled CarEnterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3840-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -64313,7 +64313,7 @@
       },
       "evidence": {
         "path": "reversing/CarEnterWave4/validation-summary.json",
-        "sha256": "1b15a83fa364b15755046a8f10935de704df88da2cbf30049c886c12f4080233",
+        "sha256": "66def0c8ddb0403123a52e9f333c8efd25bdd7655e17fa336e6660bee0e2f051",
         "passed_path": [
           "covered_functions",
           "CCarEnterExit::SetPedInCarDirect"
@@ -64322,7 +64322,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarEnterExit.cpp": "b93bb78c20aa1fe0c0d2454eacb3867f86e83b1869639de0992c2510ce1e402c",
+        "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
         "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50"
       },
       "source_provenance": "Exact compiled CarEnterWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 3840-row log reaudited offline in streaming and preserved gzipped with the original hash.",

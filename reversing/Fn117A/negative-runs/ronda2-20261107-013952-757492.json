@@ -1,0 +1,40 @@
+{
+  "executed_probe_sha256": "facede526286514415787af91208bd9956b941b3538392d5ea8841fbd0a35e90",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "negative_pairs": 229376,
+  "pairs_exe_dll_differ": {
+    "CEventDraggedOutCar::Constructor": 11523,
+    "CEventDraggedOutCar::Destructor": 15247,
+    "CEventGunAimedAt::Constructor": 13354,
+    "CEventGunAimedAt::Destructor": 12202,
+    "CEventDeadPed::Constructor": 16384,
+    "CEventDeadPed::Destructor": 12202,
+    "CEventGotKnockedOverByCar::Constructor": 13354,
+    "CEventGotKnockedOverByCar::Destructor": 12202,
+    "CEventPedToChase::Constructor": 13354,
+    "CEventPedToChase::Destructor": 12202,
+    "CEventPedToFlee::Constructor": 13354,
+    "CEventPedToFlee::Destructor": 12202,
+    "CEventPotentialGetRunOver::Constructor": 13354,
+    "CEventPotentialGetRunOver::Destructor": 12202
+  },
+  "pairs_oracle_differ_only": {},
+  "first_case": {
+    "CEventDraggedOutCar::Constructor": 0,
+    "CEventDraggedOutCar::Destructor": 0,
+    "CEventGunAimedAt::Constructor": 0,
+    "CEventGunAimedAt::Destructor": 0,
+    "CEventDeadPed::Constructor": 0,
+    "CEventDeadPed::Destructor": 0,
+    "CEventGotKnockedOverByCar::Constructor": 0,
+    "CEventGotKnockedOverByCar::Destructor": 0,
+    "CEventPedToChase::Constructor": 0,
+    "CEventPedToChase::Destructor": 0,
+    "CEventPedToFlee::Constructor": 0,
+    "CEventPedToFlee::Destructor": 0,
+    "CEventPotentialGetRunOver::Constructor": 0,
+    "CEventPotentialGetRunOver::Destructor": 0
+  },
+  "ronda": 2,
+  "evidencia": "E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn117a/20261107-013952-757492"
+}

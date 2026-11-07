@@ -5,6 +5,7 @@
 class CPed;
 
 class NOTSA_EXPORT_VTABLE CEventDeadPed final : public CEventEditableResponse {
+public:
     CPed*  m_ped;
     bool   field_18;
     uint32 m_deathTimeInMs;
@@ -22,5 +23,11 @@ public:
     CEventEditableResponse* CloneEditable() const noexcept override;
 
     auto GetDeadPed() const { return m_ped; }
+
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    CEventDeadPed* Constructor(CPed* ped, bool bUnknown, uint32 deathTimeInMs);
 };
 VALIDATE_SIZE(CEventDeadPed, 0x20);

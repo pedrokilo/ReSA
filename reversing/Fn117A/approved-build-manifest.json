@@ -1,0 +1,42 @@
+{
+  "binaries": {
+    "asi": "0d9a602e4826e688715db79e4404214336cff6a59c37b90c25e56e74175ccbf3",
+    "pdb": "24d5f56f6c2ac747bb9cc9913e37334e86bfddfbc3a82d89d4d25f716d080ea2"
+  },
+  "sources": {
+    "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+    "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+    "source/game_sa/Events/EventDraggedOutCar.cpp": "8f7f935427b2a6d772b5885ec045e7d2addaee2b0a8e30ac7192f58645ef7e69",
+    "source/game_sa/Events/EventGunAimedAt.cpp": "57a042f95ec6ada02807fa8f40db28507e8f2fbeb46df665c8122258fe788f52",
+    "source/game_sa/Events/EventDeadPed.cpp": "bac9ae08bf595fe32d90b41f3adb72e8a92353a2f9914d7a1acc4de4121431df",
+    "source/game_sa/Events/EventGotKnockedOverByCar.cpp": "e368f2954e5aa3796e3a6c0f71c16a0625e0e786a0145cefcab9613502e4b314",
+    "source/game_sa/Events/EventPedToChase.cpp": "339873cfb612d5c15f6ebfc0e0fa23b143ad666c5dd0ae58930ea02e2fc9ba36",
+    "source/game_sa/Events/EventPedToFlee.cpp": "3868440c4dc2deda36f550ed89c22a96f59ae7aa5f1b19221b11b80512b1be1d",
+    "source/game_sa/Events/EventPotentialGetRunOver.cpp": "70277f28d9a7fab7279bfdb4ab804b22cf540474eaa4b4229e4a6afafd1b40ce",
+    "source/game_sa/Events/EventDraggedOutCar.h": "1d90d6eddccceec32c04079ee3bb5b4dc06fefef72fb2dd114e4adbab7f6e96d",
+    "source/game_sa/Events/EventGunAimedAt.h": "74a3b31a8d4d70d61f3b1fbeb6235956bf27e1d3cbbaa1cb30d6032e8e4e363d",
+    "source/game_sa/Events/EventDeadPed.h": "fb307f8ddc75db1f20d44e986b2c2e47bffe3a75290e4cb6bb81f779ce8036c1",
+    "source/game_sa/Events/EventGotKnockedOverByCar.h": "49eb4a40042aafccc504db1cf0b07868a127a744ea4bf1c417f3d81afd487237",
+    "source/game_sa/Events/EventPedToChase.h": "5e88b65825b890f3bb4e57a225ff9b572b6ff81da19c300340d9fe6570a44e45",
+    "source/game_sa/Events/EventPedToFlee.h": "49c003689fa44a3765cc18f3e771a343f4de56ac6b195f7dcdb525038d3528ab",
+    "source/game_sa/Events/EventPotentialGetRunOver.h": "a3b860e69f675090a989b4b52a4e57c7eab5ca27d6e7f6be96046a89f35395ba",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+    "reversing/Fn117A/LiveComparison.hpp": "e12797e474cd1e85d68ecd79769399be20f51ea0122214202c253a6d09541ea6",
+    "reversing/Fn117A/Core.hpp": "6ffb7f09e3482594900b0642da435bb282bccec229bef4041dcb90d9d529d1d1",
+    "reversing/Fn117A/Fixtures.hpp": "ea3f0419a866450cf806099c7c90dc96da426bb6cfdab2ee91af376f73cd62e5",
+    "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+  },
+  "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+  "instrumentation": {
+    "Core.hpp": "6ffb7f09e3482594900b0642da435bb282bccec229bef4041dcb90d9d529d1d1",
+    "Fixtures.hpp": "ea3f0419a866450cf806099c7c90dc96da426bb6cfdab2ee91af376f73cd62e5",
+    "LiveComparison.hpp": "e12797e474cd1e85d68ecd79769399be20f51ea0122214202c253a6d09541ea6",
+    "build_probe.py": "6b71e61e1a99c5fbd0945077353d8ac09db5b781505606345e7652138224aa16",
+    "fixture_oracle.py": "a084579f0b3f15f7dd8c1a56c2aaca808880dc00eba5229e43e0b6a977f731ac",
+    "fixture_selfcheck.py": "23455b940fa5424e4f086fd97cf2f81a9fb488c3048dd8c33ee1135bbaf083a7",
+    "mutate.py": "83ce0146553228d97237b94041687d3bec50e68cbb36af5a800e2c3d95607105",
+    "register_hook.py": "b0bfafdc62e563d676ee2a2413dd8e1c2c269f0dbf2abfa383f82a93df88b830",
+    "run_local.py": "8be0eecc76f999b9312964764d7620f87d2f19445a3f6aa34b155eb71483eb67"
+  }
+}

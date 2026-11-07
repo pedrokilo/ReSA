@@ -1,6 +1,7 @@
 #include "StdInc.h"
 #include "AttractorScanner.h"
 #include "Events/EventSource.h"
+#include "Events/EventPotentialGetRunOver.h"
 #include "RenderWare/D3DResourceSystem.h"
 #include "PedSaveStructure.h"
 #include "Interior/TaskInteriorSitInChair.h"
@@ -1474,16 +1475,16 @@ void InjectHooksMain() {
         CEventScriptedAttractor::InjectHooks();
         CEventGunShot::InjectHooks();
         CEventGunShotWhizzedBy::InjectHooks();
-        // + CEventGunAimedAt::InjectHooks();
+        CEventGunAimedAt::InjectHooks();
         CEventDeath::InjectHooks();
-        // + CEventDeadPed::InjectHooks();
-        // + CEventDraggedOutCar::InjectHooks();
-        // + CEventGotKnockedOverByCar::InjectHooks();
+        CEventDeadPed::InjectHooks();
+        CEventDraggedOutCar::InjectHooks();
+        CEventGotKnockedOverByCar::InjectHooks();
         CEventKnockOffBike::InjectHooks();
         CEventScriptCommand::InjectHooks();
         CEventSoundQuiet::InjectHooks();
-        // + CEventPedToChase::InjectHooks();
-        // + CEventPedToFlee::InjectHooks();
+        CEventPedToChase::InjectHooks();
+        CEventPedToFlee::InjectHooks();
         CEventPotentialWalkIntoVehicle::InjectHooks();
         CEventPotentialWalkIntoObject::InjectHooks();
         CEventPotentialWalkIntoFire::InjectHooks();
@@ -1533,7 +1534,7 @@ void InjectHooksMain() {
         // + CEventInteriorUseInfo
         // + CEventLowAngerAtPlayer
         // + CEventPedEnteredMyVehicle
-        // + CEventPotentialGetRunOver
+        CEventPotentialGetRunOver::InjectHooks();
         // + CEventPotentialWalkIntoBuilding::InjectHooks();
         // + CEventSexyPed
         // + CEventSignalAtPed

@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "17927c5f8e50419508e00e0dd01b6fc6f768ef4861a74d44ea50d9961122ea11",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CPlayerPed::Compute3rdPersonMouseTarget": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "f60436ec8ed2c07e257bb765203abac9ae6a7f2034be0cba562cdacc0027a471",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CPlayerPed::Compute3rdPersonMouseTarget": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    }
+  },
+  "branch_coverage": {
+    "CPlayerPed::Compute3rdPersonMouseTarget": {
+      "hit_ped": 10859,
+      "aim_unadjusted": 3805,
+      "aim_path": 7561,
+      "los_true": 13174,
+      "mouse_on": 15034,
+      "target_changed": 8052,
+      "group": 2763,
+      "say": 3329,
+      "old_target_cleaned": 5494,
+      "alive": 11172,
+      "event_say": 3329,
+      "event_alloc_written": 1862,
+      "melee_flag_garbage": 16384,
+      "cam_idx_2": 5413,
+      "mouse_off": 1350,
+      "kept": 2367,
+      "cam_idx_1": 5518,
+      "melee_path": 7473,
+      "target_same": 2807,
+      "fire_melee": 1912,
+      "slot_negative": 2049,
+      "cam_idx_0": 5453,
+      "expired": 2152,
+      "aim_adjusted": 3756,
+      "dead": 1578,
+      "type_0x17": 5788,
+      "los_false": 1860,
+      "flag_off": 1670,
+      "not_seen": 1175,
+      "no_say": 1767,
+      "aim_nonfinite": 725,
+      "no_group": 2333,
+      "task_present": 1935,
+      "hit_self": 424,
+      "event_null": 210,
+      "task_react": 1006,
+      "same_group": 691,
+      "timer_expired_edge": 313
+    }
+  },
+  "independent_oracle": "fixture_oracle.py: cada lado de cada par coincide con el modelo",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

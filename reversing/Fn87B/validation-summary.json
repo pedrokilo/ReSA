@@ -12,24 +12,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol del banco (ver artifacts/build-manifest.json). El objeto this, los pools de peatones, vehiculos y objetos y la camara (TheCamera) son arenas o regiones propias restauradas tras cada lado. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): CPed::GetWeaponSkill 0x5E6580, CWeaponInfo::GetWeaponInfo 0x743C60, CGeneral::GetATanOfXY 0x53CC70, CWeapon::TargetWeaponRangeMultiplier 0x73B380, CPlayerPed::CanIKReachThisTarget 0x609F80, LOSBlockedBetweenPeds 0x60B550, CPedGroups::AreInSameGroup 0x5F7F40 y GetPedsGroup 0x5F7E80, CObject::CanBeTargetted 0x59F320, CGameLogic::IsCoopGameGoingOn 0x441390, CPlayerPed::EvaluateNeighbouringTarget 0x60D1C0, CPedGroupIntelligence::AddEvent 0x5F7470, CEventGroup::Add 0x4AB420, CEvent::operator new 0x4B5620 (sin hook; entrega una ranura real del pool de eventos, que el EXE y la DLL liberan de verdad: el destructor virtual del EXE inlinea el borrado del pool; CEvent::operator delete corre real), CEntity::RegisterReference 0x571B70 y CleanUpOldReference 0x571A00. Corren de verdad en ambos lados los constructores y destructores de CEventGunAimedAt y CEventGroupEvent y CEvent::operator delete y la aritmetica float (x87 a 24 bits en el EXE); cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelado desde el desensamblado, incluido que los bucles de objetos y vehiculos piden el multiplicador de alcance con el ultimo peaton recorrido y no con la entidad evaluada, y que GetATanOfXY con el vector hacia delante se llama y se descarta). Fuera de los fixtures: ver README.md. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn87B-20261105-120024-857640",
-  "summary_sha256": "45f12622a79f9b3b1ddb52a03b8c2fb546fc2b45adc6b47de450b8ad4280bfa7",
-  "result_txt_sha256": "abc01f0a10754334796bc9914217483271799461bcb31e36796553621cfa5833",
-  "log_sha256": "cfba1aa50bdc5bfb752bf682ce41f7abe30f90bcf9d269866e0db88473141f88",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn87B-20261107-020222-603716",
+  "summary_sha256": "7c1b5b2c388cd41d77e93929a17d24fafe9029ead1b511783723fd8e05fa63bc",
+  "result_txt_sha256": "cc72ad8900ac611119e7c12f64bdd52a05d3f8a63638393d0a459a10f341fe37",
+  "log_sha256": "7b80a36e65ef0edbf23f15731f081acf89d823bf650b0593d14dd302a8a8c675",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "5a23295de7c171ba53fcec8a8f9803ef93e1d1f22d175b1c850805848db272a8",
+  "executed_probe_sha256": "9d215ddf598e077982021ddc1b03709571bb1d5ee4d96d49a530a8bba8e16b5c",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
       "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
       "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
-      "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-      "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc",
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Fn87B/LiveComparison.hpp": "e998aa8717f35ef8e5d1da21546631f71e4df1f39cf171a97723ff2736edbf27",
       "reversing/Fn87B/Core.hpp": "73f3b742b119ad17d3813b16c4d30ad64bced53487fab39e26ad074f7a75deb9",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn87B-20261105-120024-857640/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn87B-20261107-020222-603716/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "1318ddac6d5d86aec48e52bbabeddba33f2fd27c451ca949bdb66a4e8ea6a350",
-    "uncompressed_sha256": "cfba1aa50bdc5bfb752bf682ce41f7abe30f90bcf9d269866e0db88473141f88"
+    "compressed_sha256": "5ea12cce4a56fddf3d0d2f658ea1c7e93ac076f6c3193e27e8e34f0b608e263e",
+    "uncompressed_sha256": "7b80a36e65ef0edbf23f15731f081acf89d823bf650b0593d14dd302a8a8c675"
   }
 }

@@ -61,7 +61,7 @@
   "log_sha256": "1a29cf7df679be4d7e6e48ba0aa11c860c21df9259db932b6f82f259d48c4c23",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks9c\\20261003-035344-672506",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks9c\\20261107-020012-207486",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexPassObject::AbortIK": true,
@@ -112,22 +112,22 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "4a05732afdc242eb1d4ad07fd51270496f9a7cd752692374714019bbf2b24a14",
-      "pdb": "1a33b6da1793c66673ab37f252396f0e0f799e38c2c849b4a14b524e14cd89e0"
+      "asi": "1147a02916c5bc09787799ea0ad63ac73b7cd6c90a9bcbaa9875f6e95415993c",
+      "pdb": "ac9e07b9dd4851bcb53e138d932d5d214fb431433337fd87289b798b64f571bd"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "aafaf351efd4ffa37745327ef3457f2bdd53bdda0b18ba12963d11898f91bb6c",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "683b3c0e100ab2a04acfa67479bd6e1dd752f73f66df9a4c6de94c06d021e7ee",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "19ac0e73b8e66550dd665ec570a0586789809b326ff9e241856d8fa57a87ff9b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.h": "582de12e8d098603a1020e6ae5ee168a8f4a44f8f1b36d137df64efa17e1f175",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp": "2c5112434eba9a2c4041b5079c07c25a2e9e9db4c03256177f95e6dd39a3a14b",
       "source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.h": "b6f5939d555651af57172c92755596422b8b856d4f80e8c47a382b95df36f765",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "c47d39d6271baf01be2ee9595ffed675ea5f6db9b91780956f369e8d72d02292",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp": "3d7b69f649595bb49979cc2c470da3351d51c33d92b764be24e9a0f70b470138",
       "source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.h": "089248decdf43a7eb01beeea7e5dad5076dffec0f73f29758cc33b9d106bcbe5",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "5561b69cd293d37bb494bdacd061810bc1e2cb001852730b19c38fdfce174e5d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp": "970df7dce9d96f9af7e4c8dcd1e11e3ffebdc42e3ba4bd67a229bb5545052288",
       "source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.h": "361beac58811b7f92496dd1d5003c3997ef2818b012139fbc4f5545592622d10",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "ea4f14c0ea8e40f4d91f19a21c003b8129215d66cfd163d4b8f30757b81f2304",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp": "7466c8dabf361bf0ac47b7e4150fd172b127daa59e530010231c4e3b19fbf7a8",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.h": "5074affbd5381a955f2950ac8b43742f75d7d1ee46205f21859e228d6ba57283"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "e2855560cc54b18c93a9a256205f89c4351e00fb3f3bdf7240dc87ec034a47b0",
       "build_probe.py": "3cbf1f0dd0c79e62b445ab1fad30e47a417fb47ebadcbbfe30c9d74f5b2b770e",
@@ -136,6 +136,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

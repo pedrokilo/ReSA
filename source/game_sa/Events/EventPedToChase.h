@@ -18,5 +18,11 @@ public:
     int32 GetLifeTime() override { return 0; }
     CEvent* Clone() const noexcept override { return new CEventPedToChase(m_ped); }
     bool AffectsPed(CPed* ped) override { return ped->IsAlive(); }
+
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    CEventPedToChase* Constructor(CPed* ped);
 };
 VALIDATE_SIZE(CEventPedToChase, 0x10);

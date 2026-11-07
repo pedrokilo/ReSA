@@ -94,7 +94,7 @@
     "CRunningScript::ProcessOneCommand": true,
     "CRunningScript::Process": true
   },
-  "scope": "Simple pair bench inside the full game with a loaded save (original with the class hooks off vs candidate with the hooks on), 19264 isolated CPU pairs for 44 functions of CCarEnterExit (22) and CRunningScript (22), zero differences, natural completion event with state_restored, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (fake vehicle with a fake traced vtable [slots 31/33/35/37 IsDoorReady/FullyOpen/Closed/Missing U32, 47 GetRideAnimData], fake peds, matrix, fake model info in slot 400 with ColModel/CCollisionData/spheres, fake scripts and bytecode; the real script is never touched) and compares: return value, the whole memory of the tested objects, guards, the trace of virtual and collaborator calls with arguments, the x87 control word (24-bit precision) and the restored globals (ScriptParams, ScriptSpace[0..0xFFF], mission locals, CommandsExecuted, switch data, OnAMissionFlag, FailCurrentMission, clock, CHud::m_BigMessage, CWorld::Players, model info slot 400). Traced stubs, which get NO credit: CWorld::ProcessLineOfSight, CAnimManager::BlendAnimation, RpAnimBlendClumpGetFirstAssociation, RpAnimBlendGetNextAssociation, RpAnimBlendClumpGetAssociation(uint32), CPed::StopNonPartialAnims, CPed::RestartNonPartialAnims, CMessages::ClearSmallMessagesOnly and CCutsceneMgr::IsCutsceneSkipButtonBeingPressed. Limits: OUT of the bench and with NO credit: CCarEnterExit::GetNearestCarDoor, IsVehicleStealable, MakeUndraggedDriverPedLeaveCar, SetPedInCarDirect and SetAnimOffsetForEnterOrExitVehicle (real collaborators, pools and streaming) and CRunningScript::SetCharCoordinates and GivePedScriptedTask-OG (real world and task/event pools); the source of some of them was corrected but they are not benched. CRunningScript::ProcessOneCommand and Process run only NOP and WAIT (ScriptParams excluded from the comparison in those two); array indices only in variables 0..3; CollectParameters/StoreParameters with count >= 0; DoDeathArrestCheck only with stack depth >= 1; door ids include out-of-domain values; IsCarQuickJackPossible compares result and memory only (no virtual trace). Only the own part of each function is validated. Source corrected to what the EXE does before the approved run (uncommitted at the time; see reversing/MiscWave2/README.md for addresses): see source_corrections_before_run. Historical evidence approved with explicit limits; no current dependency accreditation.",
+  "scope": "Simple pair bench inside the full game with a loaded save (original with the class hooks off vs candidate with the hooks on), 19264 isolated CPU pairs for 44 functions of CCarEnterExit (22) and CRunningScript (22), zero differences, natural completion event with state_restored, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture in both legs (fake vehicle with a fake traced vtable [slots 31/33/35/37 IsDoorReady/FullyOpen/Closed/Missing U32, 47 GetRideAnimData], fake peds, matrix, fake model info in slot 400 with ColModel/CCollisionData/spheres, fake scripts and bytecode; the real script is never touched) and compares: return value, the whole memory of the tested objects, guards, the trace of virtual and collaborator calls with arguments, the x87 control word (24-bit precision) and the restored globals (ScriptParams, ScriptSpace[0..0xFFF], mission locals, CommandsExecuted, switch data, OnAMissionFlag, FailCurrentMission, clock, CHud::m_BigMessage, CWorld::Players, model info slot 400). Traced stubs, which get NO credit: CWorld::ProcessLineOfSight, CAnimManager::BlendAnimation, RpAnimBlendClumpGetFirstAssociation, RpAnimBlendGetNextAssociation, RpAnimBlendClumpGetAssociation(uint32), CPed::StopNonPartialAnims, CPed::RestartNonPartialAnims, CMessages::ClearSmallMessagesOnly and CCutsceneMgr::IsCutsceneSkipButtonBeingPressed. Limits: OUT of the bench and with NO credit: CCarEnterExit::GetNearestCarDoor, IsVehicleStealable, MakeUndraggedDriverPedLeaveCar, SetPedInCarDirect and SetAnimOffsetForEnterOrExitVehicle (real collaborators, pools and streaming) and CRunningScript::SetCharCoordinates and GivePedScriptedTask-OG (real world and task/event pools); the source of some of them was corrected but they are not benched. CRunningScript::ProcessOneCommand and Process run only NOP and WAIT (ScriptParams excluded from the comparison in those two); array indices only in variables 0..3; CollectParameters/StoreParameters with count >= 0; DoDeathArrestCheck only with stack depth >= 1; door ids include out-of-domain values; IsCarQuickJackPossible compares result and memory only (no virtual trace). Only the own part of each function is validated. Source corrected to what the EXE does before the approved run (uncommitted at the time; see reversing/MiscWave2/README.md for addresses): see source_corrections_before_run. Historical evidence approved with explicit limits; no current dependency accreditation. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "function_scope": {
     "CCarEnterExit::ComputeDoorFlag": "Corpus 512; out-of-domain door ids return 0/-1/false as the EXE (no NOTSA_UNREACHABLE).",
     "CCarEnterExit::ComputeOppositeDoorFlag": "Corpus 512; out-of-domain door ids return 0/-1/false as the EXE (no NOTSA_UNREACHABLE).",
@@ -142,102 +142,29 @@
     "CRunningScript::Process": "Corpus 512; source corrected: IP = IPStack[0]; only NOP and WAIT sequences (each ends in WAIT, also scene-skip targets and jump code); ScriptParams excluded."
   },
   "dependency_review": null,
-  "run": "reversing/MiscWave2/runs/20261009-034057-598047",
-  "summary_sha256": "7746fedfb13f5d7b1f6c9571fe26c239607b7129038b962551b55f82845043d2",
-  "result_txt_sha256": "01b890b38215010bca75a02e3c7e6c71c47141acd0f9a9791d5760865ef771e3",
-  "log_sha256": "811a1d544b507c20253a572d9b2aa2329543510050bb261e8ca2c72857aeaa5a",
+  "run": "reversing/CppTwelveLevel6Final/runs/MiscWave2-20261107-015923-979127",
+  "summary_sha256": "979136bf12ecde82e84031a1be5f5015598c59506c167c09b173425510bad66e",
+  "result_txt_sha256": "4e45924c3b2676e50ecda671af064f0eebccb09f1df4f2a26461fa354fc9a5cc",
+  "log_sha256": "d8fca437e52b8abe93e1f7c5ab0b056882a1931ac8a6af5a9164b341220fc9cd",
   "comparison_storage": {
-    "uncompressed_sha256": "811a1d544b507c20253a572d9b2aa2329543510050bb261e8ca2c72857aeaa5a",
-    "uncompressed_bytes": 4550725,
-    "compressed_path": "reversing/MiscWave2/runs/20261009-034057-598047/comparisons.jsonl.gz",
-    "compressed_sha256": "6ed8d4708c620f22e18c6b59a2a62cc0f2dce91b85d285c4df2dc1d7a74e452e",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/MiscWave2-20261107-015923-979127/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "lossless_roundtrip_sha256": "811a1d544b507c20253a572d9b2aa2329543510050bb261e8ca2c72857aeaa5a",
-    "original_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-miscwave2\\20261009-034057-598047\\comparisons.jsonl"
+    "compressed_sha256": "75c71f4d795bb69cc7b5ba84d26b7ecba1a93869959271947e45b7fa4166a2dc",
+    "uncompressed_sha256": "d8fca437e52b8abe93e1f7c5ab0b056882a1931ac8a6af5a9164b341220fc9cd"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "ff89df5b6df4379a59842a7f01f7db83e5d1e8b36cf405dc27826e9fa3027881",
+  "executed_probe_sha256": "92b1e170a7b05290ef33a8f930742e537671b1c0489cf138801f0ed7014a722c",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
-    "head_informational": "cf0a36417210eaa150f011fa3b851d53b22bd983",
-    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-    "expected_pairs": 19264,
-    "asi": "ff89df5b6df4379a59842a7f01f7db83e5d1e8b36cf405dc27826e9fa3027881",
-    "pdb": "aa14e652695e23a5c58a9f582c41a216e146747eb860b20308dd22a8e518b027",
-    "pdb_location": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\gta_reversed-miscwave2-probe.pdb (not copied; hash verified)",
     "tested_sources": {
-      "source/game_sa/CarEnterExit.cpp": "513d42b08139c677056d53bb232a8f174fd76bc94da780ff694ab08a260d70a7",
+      "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
       "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
-      "source/game_sa/Scripts/RunningScript.cpp": "e4c4ec81976533c28b15cbf05cfb2e9ce05dc4b53429170cc1543295d6a429be",
+      "source/game_sa/Scripts/RunningScript.cpp": "27b59d0cd176122061788ef821482094d35b87d86d28011c8e3d633031460de4",
       "source/game_sa/Scripts/RunningScript.h": "709162b54968149b95fcbed542635c5de775a3b1d52f9ebd0ca9484beed20132"
-    },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
-    "bank_sources": {
-      "LiveComparison.hpp": "af9beb25af29ac5c6f300f1918a263bf9c2dbfb3e088cdf6e2e953f79fa67fb5",
-      "build_probe.py": "2a0171b91829e533a883275387a1b5e74293c54e4c290057154ebb47e0f49e99",
-      "run_local.py": "990abdde9f7324cbb1ac19b33811ff6cf354b1efb4d178efb67ac040221b617a"
-    },
-    "uncommitted_source_changes": {
-      "source/game_sa/CarEnterExit.cpp": "AddInCarAnim (SitInBoat and two calls to virtual slot 47); QuitEnteringCar; IsClearToDriveAway; IsPathToDoorBlockedByVehicleCollisionModel (inverted result); ComputeDoorFlag/ComputeOppositeDoorFlag (no NOTSA_UNREACHABLE); GetNearestCarDoor, IsVehicleStealable, SetAnimOffsetForEnterOrExitVehicle (out of bench)",
-      "source/game_sa/Scripts/RunningScript.cpp": "ReadTextLabelFromScript (CRT strncpy); Init (memcpy 7); DoDeathArrestCheck and Process (IP = IPStack[0]); GetPointerToScriptVariable (nullptr); GetPointerToLocalVariable/GetPointerToLocalArrayElement/ReadArrayInformation (32 bits)"
-    }
-  },
-  "reaudit": {
-    "comparison_events": 19264,
-    "complete_events": 1,
-    "begin_events": 1,
-    "function_summaries": 44,
-    "unequal": 0,
-    "distinct_cases": 19264,
-    "per_function": {
-      "CCarEnterExit::ComputeDoorFlag": 512,
-      "CCarEnterExit::ComputeOppositeDoorFlag": 512,
-      "CCarEnterExit::ComputePassengerIndexFromCarDoor": 384,
-      "CCarEnterExit::ComputeSlowJackedPed": 384,
-      "CCarEnterExit::ComputeTargetDoorToEnterAsPassenger": 256,
-      "CCarEnterExit::ComputeTargetDoorToExit": 512,
-      "CCarEnterExit::IsCarDoorInUse": 1024,
-      "CCarEnterExit::IsCarSlowJackRequired": 512,
-      "CCarEnterExit::IsVehicleHealthy": 128,
-      "CCarEnterExit::IsPedHealthy": 128,
-      "CCarEnterExit::CarHasDoorToOpen": 256,
-      "CCarEnterExit::CarHasDoorToClose": 256,
-      "CCarEnterExit::CarHasPartiallyOpenDoor": 256,
-      "CCarEnterExit::IsCarDoorReady": 256,
-      "CCarEnterExit::CarHasOpenableDoor": 256,
-      "CCarEnterExit::IsCarQuickJackPossible": 256,
-      "CCarEnterExit::IsClearToDriveAway": 512,
-      "CCarEnterExit::IsPathToDoorBlockedByVehicleCollisionModel": 1024,
-      "CCarEnterExit::RemoveGetInAnims": 128,
-      "CCarEnterExit::RemoveCarSitAnim": 128,
-      "CCarEnterExit::AddInCarAnim": 512,
-      "CCarEnterExit::QuitEnteringCar": 1024,
-      "CRunningScript::Init": 64,
-      "CRunningScript::AddScriptToList": 64,
-      "CRunningScript::RemoveScriptFromList": 128,
-      "CRunningScript::UpdatePC": 128,
-      "CRunningScript::UpdateCompareFlag": 256,
-      "CRunningScript::GetPointerToLocalVariable": 256,
-      "CRunningScript::GetPointerToLocalArrayElement": 512,
-      "CRunningScript::ReadArrayInformation": 512,
-      "CRunningScript::GetPointerToScriptVariable": 1024,
-      "CRunningScript::GetIndexOfGlobalVariable": 512,
-      "CRunningScript::CollectParameters": 1024,
-      "CRunningScript::CollectNextParameterWithoutIncreasingPC": 512,
-      "CRunningScript::StoreParameters": 1024,
-      "CRunningScript::ReadParametersForNewlyStartedScript": 1024,
-      "CRunningScript::ReadTextLabelFromScript": 1024,
-      "CRunningScript::GetCorrectPedModelIndexForEmergencyServiceType": 256,
-      "CRunningScript::ThisIsAValidRandomPed": 256,
-      "CRunningScript::IsPedDead": 128,
-      "CRunningScript::GetPadState": 64,
-      "CRunningScript::DoDeathArrestCheck": 512,
-      "CRunningScript::ProcessOneCommand": 256,
-      "CRunningScript::Process": 512
     }
   },
   "source_corrections_before_run": {
@@ -253,5 +180,6 @@
     "CRunningScript::SetCharCoordinates",
     "CRunningScript::GivePedScriptedTask-OG"
   ],
-  "readme_discrepancies": "reversing/MiscWave2/README.md said \"Sin compilar ni ejecutar todavia\" (pre-run state at preparation). The earlier failed run (previous.jsonl) is not preserved. README approval section added at registration."
+  "readme_discrepancies": "reversing/MiscWave2/README.md said \"Sin compilar ni ejecutar todavia\" (pre-run state at preparation). The earlier failed run (previous.jsonl) is not preserved. README approval section added at registration.",
+  "registered_pairs": 19264
 }

@@ -9289,3 +9289,17 @@ CGarages,IsPointWithinAnyGarage,0x00448990,1,0,1,S
 CGarages,IsPointInAGarageCameraZone,0x00449BA0,1,0,1,S
 CEntryExit,IsTeleportPointValid,0x0043EA90,1,0,1,S
 COnscreenTimer,Init,0x0044CBC0,1,0,1,S
+CEventDraggedOutCar,Constructor,0x004AD250,1,0,1,S
+CEventDraggedOutCar,Destructor,0x004AD330,1,0,1,S
+CEventGunAimedAt,Constructor,0x004B0700,1,0,1,S
+CEventGunAimedAt,Destructor,0x004B07B0,1,0,1,S
+CEventDeadPed,Constructor,0x004ADEA0,1,0,1,S
+CEventDeadPed,Destructor,0x004ADF70,1,0,1,S
+CEventGotKnockedOverByCar,Constructor,0x004B1B60,1,0,1,S
+CEventGotKnockedOverByCar,Destructor,0x004B1C10,1,0,1,S
+CEventPedToChase,Constructor,0x004AF130,1,0,1,S
+CEventPedToChase,Destructor,0x004AF1C0,1,0,1,S
+CEventPedToFlee,Constructor,0x004AF240,1,0,1,S
+CEventPedToFlee,Destructor,0x004AF2D0,1,0,1,S
+CEventPotentialGetRunOver,Constructor,0x004AE1A0,1,0,1,S
+CEventPotentialGetRunOver,Destructor,0x004AE270,1,0,1,S

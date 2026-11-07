@@ -19,5 +19,11 @@ public:
     CEntity* GetSourceEntity() const override { return m_Vehicle ? m_Vehicle->m_pDriver : nullptr; }
     float GetLocalSoundLevel() override { return 100.0f; }
     CEventEditableResponse* CloneEditable() const noexcept override { return new CEventPotentialGetRunOver(m_Vehicle); }
+
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    CEventPotentialGetRunOver* Constructor(CVehicle* vehicle);
 };
 VALIDATE_SIZE(CEventPotentialGetRunOver, 0x18);
