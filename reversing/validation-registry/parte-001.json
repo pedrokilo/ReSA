@@ -102867,7 +102867,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEPedlessSpeechAudioEntity::Constructor"
@@ -102876,13 +102876,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -102899,7 +102899,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEPedlessSpeechAudioEntity::Initialise"
@@ -102908,13 +102908,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -102931,7 +102931,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEPedlessSpeechAudioEntity::StopCurrentSpeech"
@@ -102940,13 +102940,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -102963,7 +102963,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEPedlessSpeechAudioEntity::AddSayEvent"
@@ -102972,13 +102972,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -102995,7 +102995,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEPedlessSpeechAudioEntity::UpdateParameters"
@@ -103004,13 +103004,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103027,7 +103027,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEPedlessSpeechAudioEntity::Terminate"
@@ -103036,13 +103036,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103059,7 +103059,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEPedlessSpeechAudioEntity::PlayLoadedSound"
@@ -103068,13 +103068,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103091,7 +103091,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEPedlessSpeechAudioEntity::GetAllocatedVoice"
@@ -103100,13 +103100,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103123,7 +103123,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEPedlessSpeechAudioEntity::WillPedChatAboutTopic"
@@ -103132,13 +103132,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103155,7 +103155,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEPedlessSpeechAudioEntity::GetPedType"
@@ -103164,13 +103164,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103187,7 +103187,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEPedlessSpeechAudioEntity::IsPedFemaleForAudio"
@@ -103196,13 +103196,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103219,7 +103219,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEWMADecoder::Constructor"
@@ -103228,13 +103228,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103251,7 +103251,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEWMADecoder::Destructor"
@@ -103260,13 +103260,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103283,7 +103283,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEWMADecoder::FillBuffer"
@@ -103292,13 +103292,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103315,7 +103315,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEWMADecoder::GetSampleRate"
@@ -103324,13 +103324,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103347,7 +103347,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEWMADecoder::GetStreamID"
@@ -103356,13 +103356,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103379,7 +103379,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEWMADecoder::GetStreamLengthMs"
@@ -103388,13 +103388,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103411,7 +103411,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEWMADecoder::GetStreamPlayTimeMs"
@@ -103420,13 +103420,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103443,7 +103443,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEWMADecoder::InitLibrary"
@@ -103452,13 +103452,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103475,7 +103475,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEWMADecoder::Initialise"
@@ -103484,13 +103484,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103507,7 +103507,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEWMADecoder::SelectStreamIndex"
@@ -103516,13 +103516,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103539,7 +103539,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CAEWMADecoder::SetCursor"
@@ -103548,13 +103548,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103571,7 +103571,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CClothes::ConstructPedModel"
@@ -103580,13 +103580,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103603,7 +103603,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CClothes::GetDefaultPlayerMotionGroup"
@@ -103612,13 +103612,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103635,7 +103635,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CClothes::GetDependentTexture"
@@ -103644,13 +103644,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103667,7 +103667,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CClothes::GetPlayerMotionGroupToLoad"
@@ -103676,13 +103676,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103699,7 +103699,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CClothes::Init"
@@ -103708,13 +103708,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103731,7 +103731,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CClothes::LoadClothesFile"
@@ -103740,13 +103740,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103763,7 +103763,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CClothes::RebuildCutscenePlayer"
@@ -103772,13 +103772,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103795,7 +103795,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CClothes::RebuildPlayer"
@@ -103804,13 +103804,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103827,7 +103827,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CClothes::RebuildPlayerIfNeeded"
@@ -103836,13 +103836,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103859,7 +103859,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CClothes::RequestMotionGroupAnims"
@@ -103868,13 +103868,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103891,7 +103891,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CColAccel::addCacheCol"
@@ -103900,13 +103900,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103923,7 +103923,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CColAccel::addColDef"
@@ -103932,13 +103932,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103955,7 +103955,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CColAccel::addIPLEntity"
@@ -103964,13 +103964,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -103987,7 +103987,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CColAccel::cacheIPLSection"
@@ -103996,13 +103996,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -104019,7 +104019,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CColAccel::cacheLoadCol"
@@ -104028,13 +104028,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -104051,7 +104051,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CColAccel::endCache"
@@ -104060,13 +104060,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -104083,7 +104083,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CColAccel::getColDef"
@@ -104092,13 +104092,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -104115,7 +104115,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CColAccel::getIplDef"
@@ -104124,13 +104124,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -104147,7 +104147,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CColAccel::isCacheLoading"
@@ -104156,13 +104156,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -104179,7 +104179,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CColAccel::setIplDef"
@@ -104188,13 +104188,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",
@@ -104211,7 +104211,7 @@
       },
       "evidence": {
         "path": "reversing/Audio11/validation-summary.json",
-        "sha256": "910e9fda861114c902acfc63cf70b3058bbe659ada6743879970b95a229ea8aa",
+        "sha256": "7a7778d9e50c0eedf3b013b3e3431f0a71c564aab61bef6c320b0889c5423532",
         "passed_path": [
           "covered_functions",
           "CColAccel::startCache"
@@ -104220,13 +104220,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
         "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+        "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
         "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-        "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+        "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
         "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-        "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+        "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
         "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060140-356422).",

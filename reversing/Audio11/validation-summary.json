@@ -59,7 +59,7 @@
   "log_sha256": "aba251e9cce764c91014170a2908590ea1b7ec3509d8f3b2b44b28d53f4f4ce0",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio11\\20261003-060140-356422",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio11\\20261107-124434-223226",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEPedlessSpeechAudioEntity::Constructor": true,
@@ -108,20 +108,20 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "bc7ed19300950b9c4ff4f85f5e2f2267e6fb3088ad0a503aae15e96a4ad6b299",
-      "pdb": "973b870e22e4189038ae4de4e2c802ab80d7afc50f1e2d7bb49881dfe56dd90d"
+      "asi": "5cd0ebb6af041505fca081c45e7f4c4d7d9ea68474ec05fe343a8a928759ce34",
+      "pdb": "1f1435271fd9aaea3d6bc99f6716153e9e276a75db964b7d5fcc300356141be4"
     },
     "sources": {
-      "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "c88b33b7fa343c4c4de1a2750e8ff4a84030b7eaf32995b31b8146038c5f7340",
+      "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "31b4a173c596f1208180a17c7cc3b2354f5b63327d4e009ecce05de2a6408df4",
       "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
-      "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4288a62592a311e91887b8e4323c37cc7290b5dba2d38dee8e904a1a843e59c4",
+      "source/game_sa/Audio/Loaders/AEWMADecoder.cpp": "4eb63c6f5cab1366b5bb4ce92e752611cdc9fe8d06c84cd0de34a085ea34b25c",
       "source/game_sa/Audio/Loaders/AEWMADecoder.h": "a2589f03c9c48fa244913ea9d7f70884a128b6f15f1195bd4f641a5957b50d04",
-      "source/game_sa/Clothes.cpp": "7145e27dd94e9c94b67f5e108917c0ec7466ec34602f97ad26651936859d5730",
+      "source/game_sa/Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
       "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
-      "source/game_sa/Collision/ColAccel.cpp": "4a93dd257834be0ba69d870cb7f804e5e4f32ca281c2ff117e3f14072758d05f",
+      "source/game_sa/Collision/ColAccel.cpp": "5278592fb4b404c79101e8f06c0ab24ea9eca0f408722a7431100a3f9c4a87ca",
       "source/game_sa/Collision/ColAccel.h": "7bebba41c29b72090431429b8b4465fc57df74b0c3087db4e382dedb94b3462e"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "ccb97e8ffde18d8076fff4a5e0767849d5cb0139cab7552485ca902c5049161b",
       "build_probe.py": "d8841b7dafeb46eb32b6a84346868fb05010f68a0da852eb9553798c17de7291",
@@ -130,6 +130,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
