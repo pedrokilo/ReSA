@@ -9,17 +9,17 @@
     "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
     "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
   },
-  "pairs": 4096,
+  "pairs": 6144,
   "pairs_per_function": {
-    "CShadows::CastShadowSectorList<CPtrListSingleLink<CPhysical*>>": 2048,
-    "CShadows::CastRealTimeShadowSectorList<CPtrListSingleLink<CPhysical*>>": 2048
+    "CShadows::CastShadowSectorList<CPtrListSingleLink<CPhysical*>>": 3072,
+    "CShadows::CastRealTimeShadowSectorList<CPtrListSingleLink<CPhysical*>>": 3072
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "c7ae191b7b78ad6605d4d9ba0957902d47b7b5c93abb49d8547ce633ec098da2",
+  "log_sha256": "eb5f403f9460641f3246659bd61a3c3f0a6540c70bc689072449e8405405ae51",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-sectors355\\20261007-224002-507368",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-sectors355\\20261107-151337-643622",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CShadows::CastShadowSectorList<CPtrListSingleLink<CPhysical*>>": true,
@@ -27,28 +27,41 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c21052b9311dde05dc3d2b965c1985002b1858aaba281e4e4e2014ebcd5f61d5",
-      "pdb": "49494648d0c038675d837206d7b0b23adf7ae9086a0f51968e2b08e216b446bc"
+      "asi": "b3bf42b8e043ee37de1716cb36161d4a377ae14923a976d7cdd0e1cc19db072d",
+      "pdb": "04b0894489bb633fc9b6fae449098450055633231b5a933e5aaa5ca38c857a3a"
     },
     "sources": {
-      "source/game_sa/Shadows.cpp": "9472c3a71b31ad84f8305b5892b3b0f83c1dcd2eac4bb1d94fd7bcf5e9df2c1c",
+      "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
       "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
       "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
       "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
-      "source/game_sa/Core/Vector2D.h": "8d04bab5a3e40bcea6905c38645544702fa1ae351a3ed84fff68e4155e3089d0"
+      "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
+      "source/game_sa/Core/Vector2D.h": "8d04bab5a3e40bcea6905c38645544702fa1ae351a3ed84fff68e4155e3089d0",
+      "source/game_sa/Collision/CollisionData.h": "ce04b1f286948d7462b44f67f1b0d464f3421f7e91c5ca2219f6375c316a5f4a",
+      "source/game_sa/Collision/ColTrianglePlane.h": "4b5a5a9ac830973ae14af16eb74cb73a0ee0d1a8106583292ba60a7c338de499",
+      "source/game_sa/Collision/ColTriangle.h": "4c44f284207ecf62fff89de2751bc56aec84a793373304f96fd57062cb125f4a",
+      "source/game_sa/Collision/ColModel.h": "99580eb305e1804ec7478aa135ae6076e8f28a572e159cb056030be498710b52",
+      "source/game_sa/RealTimeShadow.h": "9851f77d169019512dfb60e050f620ad383e84c94193bdf80aacbba7d0533b49",
+      "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
+      "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
+      "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+      "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
+      "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "8b23edad0c00734227eb9869b5c1a8d0ae36ae447fe285184ba24c89cf8ad49e",
-      "build_probe.py": "eeb1206f96670131890458983796ba858bc5ab377fad86f130d4b081d8dfaab5",
-      "run_local.py": "1db1846b12780189a363429efbd8c4db65c73e6ad994dcc55da1f0df3308850f"
+      "LiveComparison.hpp": "6866cf5e38c111f7ced8f4f6bb6524417cacbd7a79156f3a220399988da43789",
+      "build_probe.py": "097fcf077ac62b612452bbbbe6f3af6d07f5de85f782403367d030e0b9f9129c",
+      "run_local.py": "6106fcc190e554edc7a80294ff513376f30cbd9e9c65c864df28e75ab06d11c1"
     }
   },
   "limitations": [
     "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
     "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
     "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"build_probe.py\", \"tested_sha256\": \"eeb1206f96670131890458983796ba858bc5ab377fad86f130d4b081d8dfaab5\", \"current_sha256\": \"5dfe29d521d7e6afce65db4e0e617f218669a30487f63ef225d4d357739adc04\"}, {\"path\": \"run_local.py\", \"tested_sha256\": \"1db1846b12780189a363429efbd8c4db65c73e6ad994dcc55da1f0df3308850f\", \"current_sha256\": \"b5fe4342a0127d4605d2746c81b5b98eccf2aff08de3a58a5887b040ef73b4ed\"}]",
-    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
