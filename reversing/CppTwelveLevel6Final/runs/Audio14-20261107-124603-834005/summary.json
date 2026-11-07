@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "b50005df7c0b9b5c7210bd59283dd9b11108fcab0895394047423a4b763d6c6d",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 10240,
+  "pairs_per_function": {
+    "CAESoundManager::AreSoundsOfThisEventPlayingForThisEntity": 512,
+    "CAESoundManager::AreSoundsOfThisEventPlayingForThisEntityAndPhysical": 512,
+    "CAESoundManager::AreSoundsPlayingInBankSlot": 512,
+    "CAESoundManager::CancelSoundsInBankSlot": 512,
+    "CAESoundManager::CancelSoundsOfThisEventPlayingForThisEntity": 512,
+    "CAESoundManager::CancelSoundsOfThisEventPlayingForThisEntityAndPhysical": 512,
+    "CAESoundManager::CancelSoundsOwnedByAudioEntity": 512,
+    "CAESoundManager::GetVirtualChannelForPhysicalChannel": 1024,
+    "CAESoundManager::Initialise": 256,
+    "CAESoundManager::PauseManually": 128,
+    "CAESoundManager::RequestNewSound": 512,
+    "CAESoundManager::Reset": 256,
+    "CAESoundManager::Service": 1024,
+    "CAESoundManager::Terminate": 128,
+    "CAEStreamThread::GetActiveTrackID": 64,
+    "CAEStreamThread::GetPlayingTrackID": 64,
+    "CAEStreamThread::GetTrackLengthMs": 64,
+    "CAEStreamThread::GetTrackPlayTime": 256,
+    "CAEStreamThread::Initialise": 256,
+    "CAEStreamThread::MainLoop": 512,
+    "CAEStreamThread::Pause": 64,
+    "CAEStreamThread::PlayTrack": 512,
+    "CAEStreamThread::Resume": 64,
+    "CAEStreamThread::Service": 1024,
+    "CAEStreamThread::Start": 64,
+    "CAEStreamThread::Stop": 256,
+    "CAEStreamThread::StopTrack": 64,
+    "CAEStreamThread::WaitForExit": 64
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e69f2d41ba5d5b6313d1443753e89de5de6c7716e6135fd1e265ff8431f543a8",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

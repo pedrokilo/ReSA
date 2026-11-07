@@ -44,7 +44,7 @@
   "log_sha256": "e69f2d41ba5d5b6313d1443753e89de5de6c7716e6135fd1e265ff8431f543a8",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio14\\20261003-103948-402870",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio14\\20261107-124603-834005",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAESoundManager::AreSoundsOfThisEventPlayingForThisEntity": true,
@@ -78,16 +78,16 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "520dcb760a217fefa96b1f20db5d6f4ab909e3506bfa387d021d22cabca40b76",
-      "pdb": "e976ae2961e94847a21626412612bc6ead1be53b89beb600d554c61be0b6d84c"
+      "asi": "b50005df7c0b9b5c7210bd59283dd9b11108fcab0895394047423a4b763d6c6d",
+      "pdb": "e280f6f0271557ffd07886dcb8ee63e99f824b94968c087abe685c7a64aca853"
     },
     "sources": {
-      "source/game_sa/Audio/Managers/AESoundManager.cpp": "fa25720da27741916e32d4e0eb3bb08898efb990076f9c637e7ae17eb7e69c4b",
+      "source/game_sa/Audio/Managers/AESoundManager.cpp": "c29a7f5ee8d1681d81c1e96f88fa82a87452aea99327c462c111904da317efef",
       "source/game_sa/Audio/Managers/AESoundManager.h": "b2403444aef581c21788c4da2bfed2f2b97e81c3f673f7aac1105b7cd2ede3a4",
-      "source/game_sa/Audio/AEStreamThread.cpp": "d472f3e2d16256c02b82cf34d3a6979db9c32ecaee84de1bc70f1b3507d4ccdd",
+      "source/game_sa/Audio/AEStreamThread.cpp": "95cee52e577daf101f0d30f45d2d79992b9d916e47822d3902e35e414dec60a7",
       "source/game_sa/Audio/AEStreamThread.h": "a76b8c796a5039b294f0bc94c998a03e18cbd66deee0d3ae170e48bd76c5948b"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "70e246b6f7c624f2a51172499aaaa8a7a1d7b73c5d7ae1f6cf8681f524e18efb",
       "build_probe.py": "596d76d21cdd843076b4386baaf557ff0461761915d57949948fed840d7f8ab7",
@@ -96,6 +96,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
