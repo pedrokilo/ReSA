@@ -12,24 +12,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-2 (HEAD df26d6fe7 + parche del banco). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): CGeneral::GetATanOfXY (el falso devuelve un double sin redondear en ST0), CCarCtrl::FindAngleToWeaveThroughTraffic y FindMaxSteerAngle. La multiplicacion matriz x vector (0x59C890) NO se sustituye: corre de verdad en el EXE y, en la DLL, con el ayudante x87 AutoPreMultiplyMatrixWithVectorCpp. Los dos vehiculos y sus matrices son objetos del banco. Ningun llamador del EXE lee EAX/ECX/EDX (ver README); solo se registran. Limites: NaN silenciosos, sin rumbos infinitos ni enormes (bucles de normalizacion); vehiculo con matriz siempre presente (el EXE la desreferencia sin comprobar). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63c-20261027-195947-485811",
-  "summary_sha256": "416d93d6c495e9f9e0af3ddc896139c1e1d954e5c1ac125968a52955c3968b6c",
-  "result_txt_sha256": "a6375e667230707ef6c8413f3d412d7eeb095b2772a4dbb7013b6db3c9a50c6b",
-  "log_sha256": "2065ae27d43ca5cfc3acb7dfcfa3316b2d6be9d3aee3cfb3ae594e82a7406d34",
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63c-20261107-143156-971891",
+  "summary_sha256": "94925e57327e96fb78bcbc975ec61cfa1b79573f475c62b52ff7661518530404",
+  "result_txt_sha256": "342f1955fdc9b3b8bbd8cf1dbfe7b426ad71aabebd14a49e0dfa7b6ae0b720c4",
+  "log_sha256": "08c5908461c1dfedd44cd735a90b8ec05a911bb72b8138fe5e5a7c8445f563e8",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "8e34fcc0b9b9ef346e0e0b5ebca5525160a1dc28c74feb25e4acd99bada2e119",
+  "executed_probe_sha256": "b4ffac81df9f4220ccb06857c96d336585a9861b4a1aca35e8f4ac7514d81f14",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-      "source/game_sa/CarCtrl.cpp": "4de8d81c0df4a1abefeb524d0ca7951815e1c6a72d840cda780946d1d2599da9",
-      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
-      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+      "source/game_sa/CarCtrl.cpp": "cd16deeae97c78a92292553c93315b283293860463357f226d81b54af93edfa3",
+      "source/game_sa/CarCtrl.h": "c551460ac16e87f07dfb0b044b8af5535794ee3c1c6a14f4b7ed8057b07a3f29",
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/CarCtrlSteer63c/LiveComparison.hpp": "827a67b4c54c8c56ef439ca46617d69be6a35a529d815165f8e2564ddf201683",
       "reversing/CarCtrlSteer63c/Core.hpp": "e6b668eae6adc5d0ef11255319842c885ef575d826e8d2ecb3ec2182317fc4f2",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63c-20261027-195947-485811/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63c-20261107-143156-971891/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "612ff102a17c719f27f6562416018e1c975f53f8228063a9982c99e2a39559e3",
-    "uncompressed_sha256": "2065ae27d43ca5cfc3acb7dfcfa3316b2d6be9d3aee3cfb3ae594e82a7406d34"
+    "compressed_sha256": "6b972a3ecb6d97fc28c3ecf4e10d100ed9d60579d82290a2ac6d16a8afc0c24b",
+    "uncompressed_sha256": "08c5908461c1dfedd44cd735a90b8ec05a911bb72b8138fe5e5a7c8445f563e8"
   }
 }

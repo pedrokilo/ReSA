@@ -7512,7 +7512,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlSteer63c/validation-summary.json",
-        "sha256": "b784f82edd8b8de9140d0987c5e7531ff79b88e8accb6be86ce4cc3714b1e457",
+        "sha256": "a60c5c6c04b7c72c7d25b6b6d6cd6ba7a1805ef11427d08ad7562fa4b75eb1e6",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAICarTowardsPointInEscort"
@@ -7521,12 +7521,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-        "source/game_sa/CarCtrl.cpp": "4de8d81c0df4a1abefeb524d0ca7951815e1c6a72d840cda780946d1d2599da9",
-        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
-        "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/CarCtrl.cpp": "cd16deeae97c78a92292553c93315b283293860463357f226d81b54af93edfa3",
+        "source/game_sa/CarCtrl.h": "c551460ac16e87f07dfb0b044b8af5535794ee3c1c6a14f4b7ed8057b07a3f29",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/CarCtrlSteer63c/LiveComparison.hpp": "827a67b4c54c8c56ef439ca46617d69be6a35a529d815165f8e2564ddf201683",
         "reversing/CarCtrlSteer63c/Core.hpp": "e6b668eae6adc5d0ef11255319842c885ef575d826e8d2ecb3ec2182317fc4f2",
