@@ -42,7 +42,7 @@
   "log_sha256": "f22e8494fc5149c18f155680122f9ba196fd382831f956c0150bb3ff4c78b7c1",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio13\\20261105-115147-920969",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio13\\20261107-141327-410694",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEMP3BankLoader::Constructor": true,
@@ -74,8 +74,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "e36fde13477ad2de7df537d3e4135c4fe84dfea28aed60ca9cc17daed15009a6",
-      "pdb": "b21603b0ab2a4719a305ed4e920b769311cce02a5cac883538099e9dab25c316"
+      "asi": "6afb4e0bc1c96865675051533f6f16bf2781338fffc3a454723b08ddcf196e7a",
+      "pdb": "8fe12c0810e745745fdd5c2e8e20aaaa1497d9a23b92d81fce3d64a9f307a24b"
     },
     "sources": {
       "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",

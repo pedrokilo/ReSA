@@ -116214,7 +116214,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::Constructor"
@@ -116242,7 +116242,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetBankSlotBuffer"
@@ -116270,7 +116270,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundBankLoadingStatus"
@@ -116298,7 +116298,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundBuffer"
@@ -116326,7 +116326,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundHeadroom"
@@ -116354,7 +116354,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::GetSoundLoadingStatus"
@@ -116382,7 +116382,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::Initialise"
@@ -116410,7 +116410,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::IsSoundBankLoaded"
@@ -116438,7 +116438,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::IsSoundLoaded"
@@ -116466,7 +116466,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::LoadSound"
@@ -116494,7 +116494,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::LoadSoundBank"
@@ -116522,7 +116522,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::Service"
@@ -116550,7 +116550,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEMP3BankLoader::UpdateVirtualChannels"
@@ -116578,7 +116578,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::CloseCallback"
@@ -116606,7 +116606,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::Constructor"
@@ -116634,7 +116634,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::Destructor"
@@ -116662,7 +116662,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::FillBuffer"
@@ -116690,7 +116690,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetSampleRate"
@@ -116718,7 +116718,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetStreamID"
@@ -116746,7 +116746,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetStreamLengthMs"
@@ -116774,7 +116774,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::GetStreamPlayTimeMs"
@@ -116802,7 +116802,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::Initialise"
@@ -116830,7 +116830,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::ReadCallback"
@@ -116858,7 +116858,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::SeekCallback"
@@ -116886,7 +116886,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::SetCursor"
@@ -116914,7 +116914,7 @@
       },
       "evidence": {
         "path": "reversing/Audio13/validation-summary.json",
-        "sha256": "cd8d384f5a37da05b33e7237e69e62e86568a6af0e55db8587fc0c8cc1cae609",
+        "sha256": "50c77517015be5797d0a7adcf424f2c1f338f2a30856ac30672ec9d5224731f0",
         "passed_path": [
           "covered_functions",
           "CAEVorbisDecoder::TellCallback"
