@@ -4852,7 +4852,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
+        "sha256": "b6a607756f37ff17c8a42bdbcb0bf30d0b0c6d52504fa01404fe57d72d584005",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindNodeClosestToCoors"
@@ -4861,14 +4861,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
-        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
-        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
-        "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
+        "source/game_sa/MemoryMgr.cpp": "c8e86e907e02fbfdb62311a8db65d2134725680fb2bb066806baba3f22cfed40",
         "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
-        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
-        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
@@ -4891,7 +4891,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
+        "sha256": "b6a607756f37ff17c8a42bdbcb0bf30d0b0c6d52504fa01404fe57d72d584005",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindNthNodeClosestToCoors"
@@ -4900,14 +4900,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
-        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
-        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
-        "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
+        "source/game_sa/MemoryMgr.cpp": "c8e86e907e02fbfdb62311a8db65d2134725680fb2bb066806baba3f22cfed40",
         "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
-        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
-        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
@@ -4930,7 +4930,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
+        "sha256": "b6a607756f37ff17c8a42bdbcb0bf30d0b0c6d52504fa01404fe57d72d584005",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindNextNodeWandering"
@@ -4939,14 +4939,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
-        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
-        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
-        "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
+        "source/game_sa/MemoryMgr.cpp": "c8e86e907e02fbfdb62311a8db65d2134725680fb2bb066806baba3f22cfed40",
         "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
-        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
-        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
@@ -4969,7 +4969,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
+        "sha256": "b6a607756f37ff17c8a42bdbcb0bf30d0b0c6d52504fa01404fe57d72d584005",
         "passed_path": [
           "covered_functions",
           "CPathFind::CompleteNewInterior"
@@ -4978,14 +4978,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
-        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
-        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
-        "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
+        "source/game_sa/MemoryMgr.cpp": "c8e86e907e02fbfdb62311a8db65d2134725680fb2bb066806baba3f22cfed40",
         "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
-        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
-        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
@@ -5008,7 +5008,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
+        "sha256": "b6a607756f37ff17c8a42bdbcb0bf30d0b0c6d52504fa01404fe57d72d584005",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindParkingNodeInArea"
@@ -5017,14 +5017,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
-        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
-        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
-        "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
+        "source/game_sa/MemoryMgr.cpp": "c8e86e907e02fbfdb62311a8db65d2134725680fb2bb066806baba3f22cfed40",
         "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
-        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
-        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
@@ -5047,7 +5047,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
+        "sha256": "b6a607756f37ff17c8a42bdbcb0bf30d0b0c6d52504fa01404fe57d72d584005",
         "passed_path": [
           "covered_functions",
           "CPathFind::GeneratePedCreationCoors_Interior"
@@ -5056,14 +5056,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
-        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
-        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
-        "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
+        "source/game_sa/MemoryMgr.cpp": "c8e86e907e02fbfdb62311a8db65d2134725680fb2bb066806baba3f22cfed40",
         "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
-        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
-        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",

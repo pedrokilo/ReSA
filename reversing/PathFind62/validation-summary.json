@@ -22,26 +22,26 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/we-1 (HEAD 0ac292a76 + fuente del lote 62). El objeto this es una arena propia (nunca ThePaths). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL; no se validan sus cuerpos reales): la busqueda por region 0x44F2C0 (sin reconstruir) en FindNodeClosestToCoors; FindNodeClosestToCoors (0x44F460, con su hook encendido) en FindNthNodeClosestToCoors y FindNextNodeWandering; CMemoryMgr::Malloc (0x72F420), 0x450FB0 (sin reconstruir) y AddDynamicLinkBetween2Nodes_For1Node (0x44E000) en CompleteNewInterior; rand() del CRT del EXE (0x821B1E, sin reconstruir) y CWorld::FindGroundZFor3DCoord (0x5696C0) en GeneratePedCreationCoors_Interior. CPathNode::GetPosition (0x420A10) y CPathFind::FindRegionForCoors (0x44D830) se ejecutan con codigo real. Limites: la mitad de nodo (m_wNodeId) de un CNodeAddress invalido devuelto por FindNodeClosestToCoors es residuo de pila en el EXE (la DLL deja -1) y no se compara (ningun llamador la lee); los argumentos bool/uint16 se prueban con valores que caben en su tipo (el EXE reenvia dwords completos al colaborador, la DLL reenvia el valor ya truncado); FindNextNodeWandering con puntero de origen nulo solo se prueba cuando no encuentra nodo (el EXE escribe en *origen sin comprobarlo). EAX/ECX/EDX solo registrados; EAX = puntero de retorno oculto y AL de bool si se comparan. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PathFind62-20261104-104247-774569",
-  "summary_sha256": "17535f4590c7f4262f3468d402842ddc06371560080fbc99c9d2e87c1648829b",
-  "result_txt_sha256": "dd0363637086898a231cbb22995fc4867df719dd50a1ae1c7aca712efa99e869",
-  "log_sha256": "cb735a9af5b6a34d54e2c19707641096c06a1530e1c25480a99c9e473b0035e3",
+  "run": "reversing/CppTwelveLevel6Final/runs/PathFind62-20261107-140159-743289",
+  "summary_sha256": "69ee6b971f6d4fa0e0c1f21a8701136d91ecd11d526eee810bab1ab89d142f1e",
+  "result_txt_sha256": "b5db89ccfaf5160a6d37346a3d77d5167b0fc69964191fe5a6f182233ee5efeb",
+  "log_sha256": "d661bf06690f890e13e1d4f82350e8c0a6d39994420bb2f70f536eb2aa8eb0fc",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "1ffb6c58143aa4f44e9fd194925c7a0136114f0d57f69ebf2da268bbea7bb1d1",
+  "executed_probe_sha256": "c41ef2a05fa630b981a6c254848a366fcecb89c5324d8c644f00a65757f31002",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
-      "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
-      "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
-      "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
-      "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+      "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+      "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc",
+      "source/game_sa/MemoryMgr.cpp": "c8e86e907e02fbfdb62311a8db65d2134725680fb2bb066806baba3f22cfed40",
       "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
-      "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
-      "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
       "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
@@ -52,10 +52,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PathFind62-20261104-104247-774569/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PathFind62-20261107-140159-743289/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "34b49a26d646effebafc0b648a57d7688a5d88bfba39afe9c2e4cf5172dae480",
-    "uncompressed_sha256": "cb735a9af5b6a34d54e2c19707641096c06a1530e1c25480a99c9e473b0035e3"
+    "compressed_sha256": "d8a33f89be0ce7ecb71938508ff502aa9257aebcfdb30566141ddaf7c1fb4d9c",
+    "uncompressed_sha256": "d661bf06690f890e13e1d4f82350e8c0a6d39994420bb2f70f536eb2aa8eb0fc"
   }
 }
