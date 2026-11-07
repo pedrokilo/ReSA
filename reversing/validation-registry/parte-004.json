@@ -104240,7 +104240,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies23A/validation-summary.json",
-        "sha256": "14dae449cda61fdb9257e8662f243afb4707bedbda45a0d4cea7857f88459fe2",
+        "sha256": "ec63948da928c0d41658971c437d02f005ba2db24506a31aa7aa2dbd9460d2e5",
         "passed_path": [
           "covered_functions",
           "CVehicle::DoVehicleLights"
@@ -104249,7 +104249,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
         "source/game_sa/Coronas.cpp": "afdf5434acbda6a77575e04588a9e832ab5e20c976883baa42b92c351d31eaa0",
@@ -104258,14 +104258,14 @@
         "source/game_sa/DamageManager.h": "ada1c808c605762a63f2d09b6dd2ef007ccf2a57c264444f31d7f995e4a4d1bc",
         "source/game_sa/PointLights.cpp": "8777fd9c418358fa93e703e80a91d92175230e52eac510c69c4aa701b605bc31",
         "source/game_sa/PointLights.h": "4064a0170e62207882e15c48f10e4b76ce043a2748b661e6fe17d30101b973f8",
-        "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00",
+        "source/game_sa/Models/VehicleModelInfo.h": "561a7c419cd8fa583ce8122d6fb612d047d0594af91362485a23de661543b07d",
         "source/game_sa/tHandlingData.h": "91ab5abf070978bff8c2076467a610410196a25038a33bdd9958de88ccadc19d",
         "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
         "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
-        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
-        "source/game_sa/X87Math.cpp": "9bc388015fff074e1f2b15d065415d26acbe54d29127cb1d28134f747c471fcf",
-        "source/game_sa/X87Math.h": "6e842a1d07f38fd525e638e9e15a8bfe61c2991d09b1dd6662376e02d3d7a83e",
-        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/game_sa/Cam.h": "5086a6edfd1aeaa8bb8650f9cfe561a8499c4f6f846dbb63f112988acbbe5f75",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
