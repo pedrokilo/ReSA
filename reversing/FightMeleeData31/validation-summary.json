@@ -10,36 +10,43 @@
   "covered_functions": {
     "CTaskSimpleFight::LoadMeleeData": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wm-1 (HEAD 63d8ac6cb + parches del lote 31; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal las fuentes se fusionaron en tres vías con trabajo sin validar del lote 27 en los mismos archivos, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Función estática (tipo S, 0x005BEDC0). Colaboradores sustituidos por falsos idénticos en ambos lados: CFileMgr::OpenFile, CFileLoader::LoadLine, CFileMgr::CloseFile y CAnimManager::GetAnimGroupName; sscanf del EXE (0x8220AD) real en ambos lados. IMPORTANTE: sin trazas de depuración la sonda NO creaba el registro (3 de 3 corridas se quedaron 240 s sin registro estando el juego en partida: 20261019-161437-454273, 20261019-162617-054339 y una tercera abortada) aunque Update() se ejecutaba; con Dbg() (escribe fm31-debug.txt) en LiveComparison.hpp pasaron 2 de 2 (20261019-163705-648362 y la registrada 20261019-163846-615601). La causa del fallo sin trazas NO está determinada (sensibilidad de orden/tiempo de la sonda); las trazas se conservan en el banco y ninguna de las tres corridas fallidas es evidencia. ",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wm-1 (HEAD 63d8ac6cb + parches del lote 31; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal las fuentes se fusionaron en tres vías con trabajo sin validar del lote 27 en los mismos archivos, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Función estática (tipo S, 0x005BEDC0). Colaboradores sustituidos por falsos idénticos en ambos lados: CFileMgr::OpenFile, CFileLoader::LoadLine, CFileMgr::CloseFile y CAnimManager::GetAnimGroupName; sscanf del EXE (0x8220AD) real en ambos lados. IMPORTANTE: sin trazas de depuración la sonda NO creaba el registro (3 de 3 corridas se quedaron 240 s sin registro estando el juego en partida: 20261019-161437-454273, 20261019-162617-054339 y una tercera abortada) aunque Update() se ejecutaba; con Dbg() (escribe fm31-debug.txt) en LiveComparison.hpp pasaron 2 de 2 (20261019-163705-648362 y la registrada 20261019-163846-615601). La causa del fallo sin trazas NO está determinada (sensibilidad de orden/tiempo de la sonda); las trazas se conservan en el banco y ninguna de las tres corridas fallidas es evidencia.  Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FightMeleeData31-20261019-163846-615601",
-  "summary_sha256": "e4318c7b7352bf50a95c94e8b6fcf675ceadfbc58e75952065ea52b7675d7003",
-  "result_txt_sha256": "3bb18bbd0bd49b0f850f774004285ba63cf8760964c92d66b6f1d18c61063435",
-  "log_sha256": "610e5f8a9f06c7c0d0ada136ec6e0054557ee663080c5e69b349c85590ead31c",
+  "run": "reversing/CppTwelveLevel6Final/runs/FightMeleeData31-20261107-003813-953002",
+  "summary_sha256": "09d1fabe91c9d1296edd51a08c7945131c4ad83c46dfd338af223151d74fa3c1",
+  "result_txt_sha256": "1dd6b6a8c66a92a2e78403f468e451d84400dd8ae2184ee0a80b1b2527c4bd45",
+  "log_sha256": "090f4daaed1642147a3c78fc36c3076015005c23648f7a8d553f51b08cc15a83",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "e6ef4a42eb74442420aed74f83cb411e9188220bd40aec0897e1a13ae4cc2fd4",
+  "executed_probe_sha256": "e9bc2b812a05beb4babdf60a06962892d75ee0b09f749a6ea030205fbdbeb7d0",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
-      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "6b115891eae981f5eaa64160ce407bd90d4043762e9e622f09358b30703bb2b5",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1eab8612f9343d766debc1db79a405df84cc4654a4b2e2e5fb7748fb8d616981",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "c8de46222bf7fcc7b02fa2516e20b66aafca71c1cadd55b4652d32917e0d0887",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "ed2ee288bc5330b7fc369039d513016b6a2243d8f23b8c43952a018fcc95c45a",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "fe453f0e0df4c024c95063fa72d8c375e7714839d8c9eb5d00d989c899ff9532",
       "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
       "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
       "source/game_sa/FileMgr.cpp": "d3d1e045e5fe41895ee4bc624ba91d46134b57affa59ef79b1260f75a8ee55ea",
       "source/game_sa/FileMgr.h": "5ee4a8305e446d6d3ef391530d1a4226b59940d2a781bf97a096a2d268ee514f",
-      "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
-      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+      "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+      "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/FightMeleeData31/LiveComparison.hpp": "e9daed9aee06b3779c312a339fd794ddf531b1106ab22dd214b2641f6f5c63f2",
-      "reversing/FightMeleeData31/Core.hpp": "599d5789b395c5c8c80b2cbaaf4305a174d04ce0c88580196f400f17a70365bc",
-      "reversing/FightMeleeData31/Fixtures.hpp": "d1f8ff816925481ac55ac4256d7fbfd8b16628c7197249648481033b978f73a3",
+      "reversing/FightMeleeData31/LiveComparison.hpp": "c3286063859c371d3f819150c7702afced455afda25ebb972be4a9a94538cd0d",
+      "reversing/FightMeleeData31/Core.hpp": "1a0ee50ee78bcf106db557542fe72f7e8f96db6e888779a9823115f03069925a",
+      "reversing/FightMeleeData31/Fixtures.hpp": "7c9d39c899e42289f9abd94fa4d5a3fa3832812a9a740bb8f688a3b75b24b42b",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FightMeleeData31-20261107-003813-953002/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "990bf31893eaf4b7b6e55eac73d8a268674e923a693ee2f82416015cd8df3281",
+    "uncompressed_sha256": "090f4daaed1642147a3c78fc36c3076015005c23648f7a8d553f51b08cc15a83"
   }
 }

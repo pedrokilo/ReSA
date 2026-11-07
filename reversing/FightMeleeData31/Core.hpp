@@ -165,6 +165,7 @@ struct Side {Reg reg{};std::array<uint8,108> fp{};uint32 mxcsr{};bool routeOK{};
 struct Env {
     uintptr_t asi{},game{};
     std::unique_ptr<HookRoute> route;
+    std::vector<std::unique_ptr<HookRoute>> collab;   // hooks RH de FightHitLevel (0x5BD360) y FightHitSound (0x5BD3B0), apagados durante el banco (lote 116A): el LoadMeleeData del EXE (original) llama a las del EXE, que conservan ECX
     std::vector<Watch> watches;       // las entradas del EXE (parcheadas solo durante la llamada, con RAII): deben seguir siendo lo que eran
     Pair pOpen{},pRead{},pClose{},pName{};   // cuerpos de la DLL resueltos ANTES de escribir ningun parche
     bool WatchesIntact()const{return std::ranges::all_of(watches,[](const auto& w){return w.Intact();});}
@@ -292,6 +293,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies) {
     const bool entriesIntact=env.WatchesIntact();
     bool stateRestored=entriesIntact&&RegionRestored();
     if(env.route)stateRestored&=env.route->Restore();
+    for(auto& r:env.collab)if(r)stateRestored&=r->Restore();
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     Write({{"event","global_state_final"},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact},{"region_restored",RegionRestored()}});
     Write({{"event",ready&&totals.passed&&stateRestored?"complete":"error"},{"pairs",totals.pairs},{"state_restored",stateRestored},{"floating_state_restored",FloatingStateRestored()},{"entries_intact",entriesIntact}});

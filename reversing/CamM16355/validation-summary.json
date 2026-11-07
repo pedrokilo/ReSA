@@ -17,40 +17,40 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "bba8a7b6d1b92808c761ad438b87f13d845f0319e8be27a746dde04ce00865f2",
+  "log_sha256": "d5a9024df001bc6e22b456814c95ddacbadf62724e6845267ec807c396b001f3",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-m16355\\20261106-142020-179684",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-m16355\\20261107-004514-247492",
   "probe_build_manifest": {
     "binaries": {
-      "asi": "3e405c800a6697005cafe1c824f94ab595be5d568805301d9368cd9ff5b554f6",
-      "pdb": "b276bc872aa048f5d3297af8c70d91b98264b3f949357b54ae072e1ee8191f13"
+      "asi": "db4cd8d3de7093c4b02892bb1e3496c5e18e8281927d644d4934d9039fd31dbc",
+      "pdb": "a0ee94b9b07cea54b6062ddb1bf4f994ec0bff53ec151b6db9ad35986d840fb6"
     },
     "sources": {
-      "source/game_sa/Cam.cpp": "700f1b152909eca16a9d65a3479ce3d24dabcbd1f3b897f6151ebb36e2ca86ae",
-      "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+      "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+      "source/game_sa/Cam.h": "5086a6edfd1aeaa8bb8650f9cfe561a8499c4f6f846dbb63f112988acbbe5f75",
       "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
       "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9",
       "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
       "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
       "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
-      "source/game_sa/Pad.cpp": "24a120033da270f5a414ab9c8f5d7de8b65fdcc6dc5dc406bc50df97e4b2d34a",
+      "source/game_sa/Pad.cpp": "2e31a55a5512e033ebe84a881b579d305e10952f03aab320aff169ea1937b99d",
       "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
       "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
       "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
-      "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+      "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
       "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-      "source/game_sa/Entity/Placeable.cpp": "17e8ab6afa41cf7633488c179094a63c1e9d61b83f959f00a891de2f57758945",
+      "source/game_sa/Entity/Placeable.cpp": "433b7c0597af59cbccba3022a42a87437db5adeeaa558b0be2ba9d89c938a44d",
       "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
       "source/game_sa/Core/Vector.cpp": "a5949aa094fc4e1627483af762ee696aabef2571501511d48d85eb48f878034f",
       "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
       "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
-      "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
-      "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "83ebf3f8425d789b777fefcb4773ad32ba3d2f5b93aad7f1942c6977df997eee",
+      "LiveComparison.hpp": "f986be4add218d2608e508fa3f55f8427f884d6683166a664ad42ef281557af1",
       "build_probe.py": "232e6542f18f35b2ba18874f3acf48bc42e47c2ecad8be10ecb178b6ac1b2399",
       "run_local.py": "3a3d3fd83e6752f8abdf7b0c1d532ec5ea43d1b05dbf464e55e87c2739999b71"
     }

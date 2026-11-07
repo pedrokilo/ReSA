@@ -29,6 +29,8 @@ inline uint32 F(float x){return std::bit_cast<uint32>(x);}
 template<class T> T& At(void* b,size_t o){return *reinterpret_cast<T*>(static_cast<uint8*>(b)+o);}
 inline RpHAnimHierarchy* __cdecl Hierarchy(RpClump*){trace.push_back({"hierarchy"});return &hierarchy;}
 inline int32 __cdecl BoneTag(int32 n){trace.push_back({"boneTag",n});return 3;}
+// Lote 116A: la funcion de la DLL devuelve eBoneTag32 (WEnum, clase no trivial) por puntero oculto (primer argumento de la pila); el falso escribe el 3 y devuelve el puntero.
+inline int32* __cdecl BoneTagDll(int32* result,int32 n){trace.push_back({"boneTag",n});*result=3;return result;}
 inline int32 __cdecl BoneIndex(RpHAnimHierarchy*,int32 n){trace.push_back({"boneIndex",n});return 0;}
 inline RwMatrix* __cdecl BoneArray(RpHAnimHierarchy*){trace.push_back({"boneArray"});return &bones;}
 inline RwV3d* __cdecl Transform(RwV3d* out,const RwV3d* in,int32 n,const RwMatrix* m){trace.push_back({"transform",F(in->x),F(in->y),F(in->z),n,Bytes(m,sizeof(*m))});*out={float(int32(scenario%9)-4)*.0625f,.125f,float((scenario/9)%5)*.125f};return out;}
@@ -102,7 +104,7 @@ inline void Update(){
  // Process_FollowPed_SA (DLL) llama a CTaskComplexEnterCar::GetCameraStickModifier de la DLL (sobre una tarea falsa de sizeof(CTask) bytes): mismo falso que en 0x63A380. Body calculado ANTES de crear ningun parche.
  const uintptr_t specialThunk=bit_cast<uintptr_t>(&CTaskComplexEnterCar::GetCameraStickModifier),specialBody=Body(specialThunk);
  EntryPatch h0(0x734A40,Hierarchy),h1(bit_cast<uintptr_t>(&GetAnimHierarchyFromSkinClump),Hierarchy);
- EntryPatch t0(0x4D58A0,BoneTag),t1(bit_cast<uintptr_t>(&ConvertPedNode2BoneTag),BoneTag);
+ EntryPatch t0(0x4D58A0,BoneTag),t1(bit_cast<uintptr_t>(&ConvertPedNode2BoneTag),BoneTagDll);
  EntryPatch i0(0x7C51A0,BoneIndex),i1(bit_cast<uintptr_t>(&RpHAnimIDGetIndex),BoneIndex);
  EntryPatch a0(0x7C5120,BoneArray),a1(bit_cast<uintptr_t>(&RpHAnimHierarchyGetMatrixArray),BoneArray);
  EntryPatch x0(0x7EDD90,Transform),x1(bit_cast<uintptr_t>(&RwV3dTransformPoints),Transform);

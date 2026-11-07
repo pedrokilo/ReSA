@@ -39,27 +39,27 @@
     "CWeapon::TakePhotograph": "Corpus 640; source reviewed against the EXE and corrected before the run where needed (see git diff). ped/object pools swapped temporarily for fake headers (6 peds of 0x7C4, 6 objects of 0x19C) and restored; camera and visibility collaborators doubled with trace."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/WeaponFinal2-20261101-041958-115608",
-  "summary_sha256": "459d77c8ad634a173f5e77282e2dcc593559e8b573391717464cde9bc65a1b1e",
-  "result_txt_sha256": "d90bf748bf3bcf5fe195c2781ccd755cf9b4c4ee8f798b7a6633e73dfd28877e",
-  "log_sha256": "bca6d844d459a8108ba37cce00eb901ebae1644ced7f89c10ff3da900869b155",
+  "run": "reversing/CppTwelveLevel6Final/runs/WeaponFinal2-20261107-002347-882619",
+  "summary_sha256": "26084b0d21b991b06ad3b0e2e78d1405467672206b7e7bef6fb70aed121a3ee4",
+  "result_txt_sha256": "cb28257039884c456a4d237b84ebe9538777472cb5580e0e60847e54cc7376a8",
+  "log_sha256": "6e03b44335073b89cb31e8ef257bb5bdb5eb348300256dbd603fead0c5a37f86",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/WeaponFinal2-20261101-041958-115608/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/WeaponFinal2-20261107-002347-882619/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "b45936a2368cfbe5d785d76b426a79a2ae44f81e101f008a4b5e44e2dde9bdf0",
-    "uncompressed_sha256": "bca6d844d459a8108ba37cce00eb901ebae1644ced7f89c10ff3da900869b155"
+    "compressed_sha256": "7cb98a58e3f2097f6ed9b1616f4272c376777b2f74b76feaf52549d4703f6d3a",
+    "uncompressed_sha256": "6e03b44335073b89cb31e8ef257bb5bdb5eb348300256dbd603fead0c5a37f86"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "de80a58294313f3db7e35dcd265ee47ba8451cabb90624515dc86535356f459d",
+  "executed_probe_sha256": "39d53381e75e480f2ca73b985b320f48752f5b0764e5fd716bad4dbaf644a160",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
       "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
-      "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+      "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
     }
   },
   "source_corrections": {

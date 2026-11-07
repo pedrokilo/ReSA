@@ -63611,7 +63611,7 @@
       },
       "evidence": {
         "path": "reversing/TrainWave3/validation-summary.json",
-        "sha256": "698459610b8c929c1375d642426ba35d6da6580f64815924650a3b8c99262a9d",
+        "sha256": "fdc8634ab63f73e89ad290608ab93f57a23285f302e56f87251dcff917ed7616",
         "passed_path": [
           "covered_functions",
           "CTrain::ProcessControl"
@@ -73551,7 +73551,7 @@
       },
       "evidence": {
         "path": "reversing/WeaponFinal2/validation-summary.json",
-        "sha256": "86c6525f48f3a195ebe77c048dfba626f0f5d86c49f63c7164f3f41234001614",
+        "sha256": "5c5b2c9e973c74c36da6a72d1b81be357f3e15d697642f570e6372b068b82c29",
         "passed_path": [
           "covered_functions",
           "CWeapon::DoBulletImpact"
@@ -73561,7 +73561,7 @@
       },
       "tested_sources": {
         "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled WeaponFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 7808-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73577,7 +73577,7 @@
       },
       "evidence": {
         "path": "reversing/WeaponFinal2/validation-summary.json",
-        "sha256": "86c6525f48f3a195ebe77c048dfba626f0f5d86c49f63c7164f3f41234001614",
+        "sha256": "5c5b2c9e973c74c36da6a72d1b81be357f3e15d697642f570e6372b068b82c29",
         "passed_path": [
           "covered_functions",
           "CWeapon::DoWeaponEffect"
@@ -73587,7 +73587,7 @@
       },
       "tested_sources": {
         "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled WeaponFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 7808-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73603,7 +73603,7 @@
       },
       "evidence": {
         "path": "reversing/WeaponFinal2/validation-summary.json",
-        "sha256": "86c6525f48f3a195ebe77c048dfba626f0f5d86c49f63c7164f3f41234001614",
+        "sha256": "5c5b2c9e973c74c36da6a72d1b81be357f3e15d697642f570e6372b068b82c29",
         "passed_path": [
           "covered_functions",
           "CWeapon::FireInstantHitFromCar2"
@@ -73613,7 +73613,7 @@
       },
       "tested_sources": {
         "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled WeaponFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 7808-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73629,7 +73629,7 @@
       },
       "evidence": {
         "path": "reversing/WeaponFinal2/validation-summary.json",
-        "sha256": "86c6525f48f3a195ebe77c048dfba626f0f5d86c49f63c7164f3f41234001614",
+        "sha256": "5c5b2c9e973c74c36da6a72d1b81be357f3e15d697642f570e6372b068b82c29",
         "passed_path": [
           "covered_functions",
           "CWeapon::FireOneInstantHitRound"
@@ -73639,7 +73639,7 @@
       },
       "tested_sources": {
         "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled WeaponFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 7808-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73655,7 +73655,7 @@
       },
       "evidence": {
         "path": "reversing/WeaponFinal2/validation-summary.json",
-        "sha256": "86c6525f48f3a195ebe77c048dfba626f0f5d86c49f63c7164f3f41234001614",
+        "sha256": "5c5b2c9e973c74c36da6a72d1b81be357f3e15d697642f570e6372b068b82c29",
         "passed_path": [
           "covered_functions",
           "CWeapon::FireProjectile"
@@ -73665,7 +73665,7 @@
       },
       "tested_sources": {
         "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled WeaponFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 7808-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73681,7 +73681,7 @@
       },
       "evidence": {
         "path": "reversing/WeaponFinal2/validation-summary.json",
-        "sha256": "86c6525f48f3a195ebe77c048dfba626f0f5d86c49f63c7164f3f41234001614",
+        "sha256": "5c5b2c9e973c74c36da6a72d1b81be357f3e15d697642f570e6372b068b82c29",
         "passed_path": [
           "covered_functions",
           "CWeapon::FireSniper"
@@ -73691,7 +73691,7 @@
       },
       "tested_sources": {
         "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled WeaponFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 7808-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73707,7 +73707,7 @@
       },
       "evidence": {
         "path": "reversing/WeaponFinal2/validation-summary.json",
-        "sha256": "86c6525f48f3a195ebe77c048dfba626f0f5d86c49f63c7164f3f41234001614",
+        "sha256": "5c5b2c9e973c74c36da6a72d1b81be357f3e15d697642f570e6372b068b82c29",
         "passed_path": [
           "covered_functions",
           "CWeapon::GenerateDamageEvent"
@@ -73717,7 +73717,7 @@
       },
       "tested_sources": {
         "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled WeaponFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 7808-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73733,7 +73733,7 @@
       },
       "evidence": {
         "path": "reversing/WeaponFinal2/validation-summary.json",
-        "sha256": "86c6525f48f3a195ebe77c048dfba626f0f5d86c49f63c7164f3f41234001614",
+        "sha256": "5c5b2c9e973c74c36da6a72d1b81be357f3e15d697642f570e6372b068b82c29",
         "passed_path": [
           "covered_functions",
           "CWeapon::ProcessLineOfSight"
@@ -73743,7 +73743,7 @@
       },
       "tested_sources": {
         "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled WeaponFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 7808-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73759,7 +73759,7 @@
       },
       "evidence": {
         "path": "reversing/WeaponFinal2/validation-summary.json",
-        "sha256": "86c6525f48f3a195ebe77c048dfba626f0f5d86c49f63c7164f3f41234001614",
+        "sha256": "5c5b2c9e973c74c36da6a72d1b81be357f3e15d697642f570e6372b068b82c29",
         "passed_path": [
           "covered_functions",
           "CWeapon::TakePhotograph"
@@ -73769,7 +73769,7 @@
       },
       "tested_sources": {
         "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
       "source_provenance": "Exact compiled WeaponFinal2 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 7808-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,

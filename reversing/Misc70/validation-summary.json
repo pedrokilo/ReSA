@@ -40,7 +40,7 @@
   "log_sha256": "c786d28791de2d13b9549b19e081d7fe7315f6b430afdfaf3a6fc3e3f86441f5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc70\\20261106-190845-787772",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc70\\20261107-002009-048018",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEStreamingDecoder::Constructor": true,
@@ -70,8 +70,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "1eeb9c574df9c727d7579566c6ed2736ace036a0cc8ab697f82fcee8647fe379",
-      "pdb": "68f672cfde4c776a73f4065aa36929083fedbf23dee2bc8ed2d804d8ad296b62"
+      "asi": "ce492f4f53f096e1ebd4fe1959378dea50daab37bc0371af06ecb9df0d177840",
+      "pdb": "6565cab850acdf5a27f2d31fdaf7479e0cd17620814f95450477e44898a66101"
     },
     "sources": {
       "source/game_sa/Audio/Loaders/AEStreamingDecoder.cpp": "c50c71a1e899152ae7a2e4205559cc0e8a7c6b179643e36dee8bcd94570b7850",
@@ -88,7 +88,7 @@
       "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
       "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
       "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-      "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+      "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
       "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
       "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
       "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",

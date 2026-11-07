@@ -71,10 +71,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "29b08024dbe13f331f5f0a5aad4876784833eed061591715f72f5138e4b7a30a",
+  "log_sha256": "3b31db7bd333429cbb3d98d0a05d812b63fd66b324ac7d9f76e5d520105ba955",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61a\\20261104-041134-619161",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61a\\20261107-002602-151548",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleCarDrive::Clone": true,
@@ -138,8 +138,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c3a5b586c1ea61465c0a41fb1eb5bb7f2c5e95395ad22797988d5c2352731572",
-      "pdb": "38d298b999e4c4a44c005156f0f83984305ed08e87348d957db1e8ac8a86fd3c"
+      "asi": "0229936f668228a98226c4a45b8f99e3e221814bea522e3fe3655cf478af86d4",
+      "pdb": "a5a24cbe059681cecb1fba02ab2ccd333f760884f7b2ed55a06312efa10b4a2d"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp": "16df9f9dfa322b3bb6e31eb7626e198441f2765f20db7896d67769fd55890d6b",
@@ -150,7 +150,7 @@
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",

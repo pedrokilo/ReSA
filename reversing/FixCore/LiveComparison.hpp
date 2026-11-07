@@ -3,7 +3,7 @@
 // - CMatrix::RotateX/RotateY/RotateZ, SetRotateX/Y/ZOnly y SetRotateX/Y/Z: CMatrix no instala hooks (InjectHooksMain lo
 //   desactiva por rendimiento), asi que se compara la funcion del EXE (direccion) con el simbolo de la DLL, sobre la
 //   misma matriz de 0x48 bytes (relleno incluido) y el mismo angulo.
-// - CColBox::operator= (0x40EEC0): sin hook; EXE frente a DLL sobre destino y origen de 0x1C bytes.
+// - CColBox::operator= (0x40EEC0): sin hook hasta el lote 116A (EXE frente al simbolo de la DLL); con hook desde entonces (original = hook apagado, candidato = hook encendido), sobre destino y origen de 0x1C bytes.
 // - CVehicle::SetComponentRotation y CTaskSimpleSwim::ApplyRollAndPitch (usan RotateX/Y/Z y SetRotateX/Y/Z de la DLL):
 //   hooks del banco desactivados (original) frente a activados (candidato). Frame/matriz RW falsos; RotateTorso y
 //   UpdateRwFrame simulados y trazados.
@@ -45,7 +45,7 @@ inline const std::array<Fn,17> fns{{
     {"CMatrix","RotateX",0x59B1E0,0,-2,1024},{"CMatrix","RotateY",0x59B2C0,0,-2,1024},{"CMatrix","RotateZ",0x59B390,0,-2,1024},
     {"CMatrix","SetRotateXOnly",0x59AFA0,0,-2,512},{"CMatrix","SetRotateYOnly",0x59AFE0,0,-2,512},{"CMatrix","SetRotateZOnly",0x59B020,0,-2,512},
     {"CMatrix","SetRotateX",0x59B060,0,-2,512},{"CMatrix","SetRotateY",0x59B0A0,0,-2,512},{"CMatrix","SetRotateZ",0x59B0E0,0,-2,512},
-    {"CColBox","operator=",0x40EEC0,0,-2,512},
+    {"CColBox","operator=",0x40EEC0,0,-1,512},
     {"CVehicle","SetComponentRotation",0x6DBA30,0,-1,1024},
     {"CTaskSimpleSwim","ApplyRollAndPitch",0x68A8E0,0,-1,1024},
     {"CTxdStore","AddTxdSlot",0x731C80,0,-1,1024},{"CTxdStore","RemoveTxdSlot",0x731CD0,0,-1,512},

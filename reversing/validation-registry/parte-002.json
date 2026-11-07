@@ -6484,7 +6484,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::Clone"
@@ -6501,7 +6501,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6526,7 +6526,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::Constructor"
@@ -6543,7 +6543,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6568,7 +6568,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::Destructor"
@@ -6585,7 +6585,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6610,7 +6610,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::GetTaskType"
@@ -6627,7 +6627,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6652,7 +6652,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::MakeAbortable"
@@ -6669,7 +6669,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6694,7 +6694,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::ProcessArmBopping"
@@ -6711,7 +6711,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6736,7 +6736,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::ProcessBopping"
@@ -6753,7 +6753,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6778,7 +6778,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::ProcessHeadBopping"
@@ -6795,7 +6795,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6820,7 +6820,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::ProcessPed"
@@ -6837,7 +6837,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6862,7 +6862,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::SetPedPosition"
@@ -6879,7 +6879,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6904,7 +6904,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::StartBopping"
@@ -6921,7 +6921,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6946,7 +6946,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::TriggerIK"
@@ -6963,7 +6963,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -6988,7 +6988,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDrive::UpdateBopping"
@@ -7005,7 +7005,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7030,7 +7030,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDriveTimed::Clone"
@@ -7047,7 +7047,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7072,7 +7072,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDriveTimed::Constructor"
@@ -7089,7 +7089,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7114,7 +7114,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDriveTimed::Destructor"
@@ -7131,7 +7131,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7156,7 +7156,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDriveTimed::GetTaskType"
@@ -7173,7 +7173,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7198,7 +7198,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarDriveTimed::ProcessPed"
@@ -7215,7 +7215,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7240,7 +7240,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsDriver::Clone"
@@ -7257,7 +7257,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7282,7 +7282,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsDriver::Constructor"
@@ -7299,7 +7299,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7324,7 +7324,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsDriver::GetTaskType"
@@ -7341,7 +7341,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7366,7 +7366,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsDriver::MakeAbortable"
@@ -7383,7 +7383,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7408,7 +7408,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsDriver::ProcessPed"
@@ -7425,7 +7425,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7450,7 +7450,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsPassenger::Clone"
@@ -7467,7 +7467,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7492,7 +7492,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsPassenger::Destructor"
@@ -7509,7 +7509,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7534,7 +7534,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsPassenger::GetTaskType"
@@ -7551,7 +7551,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7576,7 +7576,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsPassenger::MakeAbortable"
@@ -7593,7 +7593,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7618,7 +7618,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedInAsPassenger::ProcessPed"
@@ -7635,7 +7635,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7660,7 +7660,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedOut::Clone"
@@ -7677,7 +7677,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7702,7 +7702,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedOut::GetTaskType"
@@ -7719,7 +7719,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7744,7 +7744,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedOut::MakeAbortable"
@@ -7761,7 +7761,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7786,7 +7786,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedOut::PositionPedOutOfCollision"
@@ -7803,7 +7803,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7828,7 +7828,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarSetPedOut::ProcessPed"
@@ -7845,7 +7845,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7870,7 +7870,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDriveToPoint::Clone"
@@ -7887,7 +7887,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7912,7 +7912,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDriveToPoint::Constructor"
@@ -7929,7 +7929,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7954,7 +7954,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDriveToPoint::CreateSubTaskCannotGetInCar"
@@ -7971,7 +7971,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -7996,7 +7996,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDriveToPoint::Drive"
@@ -8013,7 +8013,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8038,7 +8038,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDriveToPoint::GetTaskType"
@@ -8055,7 +8055,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8080,7 +8080,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDriveToPoint::IsTargetBlocked-"
@@ -8097,7 +8097,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8122,7 +8122,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDriveToPoint::IsTargetBlocked-entities"
@@ -8139,7 +8139,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8164,7 +8164,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDriveToPoint::SetUpCar"
@@ -8181,7 +8181,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8206,7 +8206,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterCarAsPassengerWait::Clone"
@@ -8223,7 +8223,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8248,7 +8248,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterCarAsPassengerWait::Constructor"
@@ -8265,7 +8265,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8290,7 +8290,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterCarAsPassengerWait::ControlSubTask"
@@ -8307,7 +8307,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8332,7 +8332,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterCarAsPassengerWait::CreateFirstSubTask"
@@ -8349,7 +8349,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8374,7 +8374,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterCarAsPassengerWait::CreateNextSubTask"
@@ -8391,7 +8391,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8416,7 +8416,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterCarAsPassengerWait::CreateSubTask"
@@ -8433,7 +8433,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8458,7 +8458,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterCarAsPassengerWait::Destructor"
@@ -8475,7 +8475,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8500,7 +8500,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexEnterCarAsPassengerWait::GetTaskType"
@@ -8517,7 +8517,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8542,7 +8542,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexOpenPassengerDoor::Clone"
@@ -8559,7 +8559,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8584,7 +8584,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexOpenPassengerDoor::Constructor"
@@ -8601,7 +8601,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8626,7 +8626,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexOpenPassengerDoor::Destructor"
@@ -8643,7 +8643,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8668,7 +8668,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskComplexOpenPassengerDoor::GetTaskType"
@@ -8685,7 +8685,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8710,7 +8710,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskLeanOnVehicle::Constructor"
@@ -8727,7 +8727,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8752,7 +8752,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskLeanOnVehicle::Destructor"
@@ -8769,7 +8769,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8794,7 +8794,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskLeanOnVehicle::FinishAnimCB"
@@ -8811,7 +8811,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8836,7 +8836,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskLeanOnVehicle::MakeAbortable"
@@ -8853,7 +8853,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -8878,7 +8878,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks61a/validation-summary.json",
-        "sha256": "c3af8c258549c04165a6c44344e270510b9271e5f6d1eb3090870abec3c4c724",
+        "sha256": "8e779930ff777ae1748b0da26e217328bc0fde6907faf2020d06054efeb4df05",
         "passed_path": [
           "covered_functions",
           "CTaskLeanOnVehicle::ProcessPed"
@@ -8895,7 +8895,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "29459549ff94c33752a6d3fad8d8884359a5965b536508c4fbed3c4a5269cbdf",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
@@ -77109,7 +77109,7 @@
       },
       "evidence": {
         "path": "reversing/CamAim355/validation-summary.json",
-        "sha256": "9553bbb91434da1eddad718dce4669a9cde6f6e3efab384eec8b33c919f0f5d9",
+        "sha256": "3d1709214b0d5780c3b9d061e6d6e0d3d96e4afe339c9b0d69bdaa1a9889e7a9",
         "passed_path": [
           "covered_functions",
           "CCam::Process_AimWeapon"
@@ -77118,37 +77118,37 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cam.cpp": "700f1b152909eca16a9d65a3479ce3d24dabcbd1f3b897f6151ebb36e2ca86ae",
-        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Cam.h": "5086a6edfd1aeaa8bb8650f9cfe561a8499c4f6f846dbb63f112988acbbe5f75",
         "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9",
         "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
         "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
-        "source/game_sa/Pad.cpp": "24a120033da270f5a414ab9c8f5d7de8b65fdcc6dc5dc406bc50df97e4b2d34a",
+        "source/game_sa/Pad.cpp": "2e31a55a5512e033ebe84a881b579d305e10952f03aab320aff169ea1937b99d",
         "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
         "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Placeable.cpp": "17e8ab6afa41cf7633488c179094a63c1e9d61b83f959f00a891de2f57758945",
+        "source/game_sa/Entity/Placeable.cpp": "433b7c0597af59cbccba3022a42a87437db5adeeaa558b0be2ba9d89c938a44d",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
         "source/game_sa/Core/Vector.cpp": "a5949aa094fc4e1627483af762ee696aabef2571501511d48d85eb48f878034f",
         "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
-        "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
+        "source/game_sa/PedIntelligence.cpp": "e4c5cab10235b8f13e14ddb95689d98dffcb6341116233ecd99fc289c6ee21e0",
         "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
         "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
-        "source/game_sa/PedClothesDesc.cpp": "7ad72f650ab13c2b3064925d3384352a1b81c3b4e1cea7dfcbaa48d970bd5f44",
+        "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "source/game_sa/PedClothesDesc.h": "a88240dd6a493856993dea39d1d3e8a98016ab5cbcc534a408232812b6fe4e01",
         "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
         "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed",
-        "source/game_sa/WeaponInfo.cpp": "94ae37868705fc7af459a43e70621b57b5645ff49a8452b49f970b94951e3a4a",
-        "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
+        "source/game_sa/WeaponInfo.cpp": "18575e20fbe5e0425066270a1439ec8fd4d7d3661aa40560a963a2c75956859b",
+        "source/game_sa/WeaponInfo.h": "838c0d418cca94a3b7e58cb6db3e25ad5d32ebcab268dc80a6a2b5925177a76f",
         "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
-        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
-        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Partial current full-manifest replay 20261008-065812-968852",
       "dependency_review": {
@@ -80209,7 +80209,7 @@
       },
       "evidence": {
         "path": "reversing/CamControl355/validation-summary.json",
-        "sha256": "c18e7be53e718c7ecf382a59103d3ac0282b7d2bb0ba3ebb44822320bee5a1eb",
+        "sha256": "71c11e71f184f98043ccd1811a2ab2c260ecae8bef288d09ba3a4b8643815ef7",
         "passed_path": [
           "covered_functions",
           "CCamera::CamControl"
@@ -80220,8 +80220,8 @@
       "tested_sources": {
         "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
         "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
-        "source/game_sa/Cam.cpp": "700f1b152909eca16a9d65a3479ce3d24dabcbd1f3b897f6151ebb36e2ca86ae",
-        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Cam.h": "5086a6edfd1aeaa8bb8650f9cfe561a8499c4f6f846dbb63f112988acbbe5f75",
         "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Vector.cpp": "a5949aa094fc4e1627483af762ee696aabef2571501511d48d85eb48f878034f",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
@@ -80231,19 +80231,19 @@
         "source/game_sa/WaterLevel.cpp": "61404b8e0e7de73a4888ecfd863eee11d816f2912e7d7ad7be9b39841fc09b3f",
         "source/game_sa/Draw.cpp": "38d5ca7fba6b3825e841c9882b931b203acc784fac9b187fac32e5ff5870f7be",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
-        "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
-        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+        "source/game_sa/PedIntelligence.cpp": "e4c5cab10235b8f13e14ddb95689d98dffcb6341116233ecd99fc289c6ee21e0",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
         "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
-        "source/game_sa/Garages.cpp": "4f03dd2b536629f5c34b832ae78be81a09467cc7c1e2b9ccea97ee0c96c7de9c",
+        "source/game_sa/Garages.cpp": "e402908a9acaface30eee234c719901d454f477fce06eb91229a785752c0c07c",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
-        "source/game_sa/Pad.cpp": "24a120033da270f5a414ab9c8f5d7de8b65fdcc6dc5dc406bc50df97e4b2d34a",
+        "source/game_sa/Pad.cpp": "2e31a55a5512e033ebe84a881b579d305e10952f03aab320aff169ea1937b99d",
         "source/game_sa/GameLogic.cpp": "0ec6c7cab71b4d52b11c9e54cbd7de10640d757605fb6ecddef95273d946bc11",
         "source/game_sa/Audio/AudioEngine.cpp": "91c60419226364524a4c29e2c75f763c718521063437e978877e0fc02e9a1298",
-        "source/game_sa/common.cpp": "4faa46dc199e0f2104ede26de6604d4c7d6010d27f30e587acb7f5aaa538d6ea",
+        "source/game_sa/common.cpp": "a0ec0bae5721a51f0ff80d4928ca8684eb2284993a12d124de7a351e6e2d1f3f",
         "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
-        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
-        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Partial current full-manifest replay 20261008-070335-007128",
       "dependency_review": {
@@ -107251,7 +107251,7 @@
       },
       "evidence": {
         "path": "reversing/CamFirstPerson355/validation-summary.json",
-        "sha256": "2ab30510152278da9ef2134c6109a21ee5f7a45e6d5d9c2cebb2cc69c8ae9c36",
+        "sha256": "315fe76eb2b38250a088ce936dc36920719e5ce2c4161a568d1db85b6cfa4540",
         "passed_path": [
           "covered_functions",
           "CCam::Process_1rstPersonPedOnPC"
@@ -107260,22 +107260,22 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cam.cpp": "700f1b152909eca16a9d65a3479ce3d24dabcbd1f3b897f6151ebb36e2ca86ae",
-        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Cam.h": "5086a6edfd1aeaa8bb8650f9cfe561a8499c4f6f846dbb63f112988acbbe5f75",
         "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
-        "source/game_sa/Pad.cpp": "24a120033da270f5a414ab9c8f5d7de8b65fdcc6dc5dc406bc50df97e4b2d34a",
+        "source/game_sa/Pad.cpp": "2e31a55a5512e033ebe84a881b579d305e10952f03aab320aff169ea1937b99d",
         "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
         "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Placeable.cpp": "17e8ab6afa41cf7633488c179094a63c1e9d61b83f959f00a891de2f57758945",
+        "source/game_sa/Entity/Placeable.cpp": "433b7c0597af59cbccba3022a42a87437db5adeeaa558b0be2ba9d89c938a44d",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
         "source/game_sa/Core/Vector.cpp": "a5949aa094fc4e1627483af762ee696aabef2571501511d48d85eb48f878034f",
         "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
-        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
-        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Partial current full-manifest replay 20261008-071223-798393",
       "dependency_review": {
@@ -108875,7 +108875,7 @@
       },
       "evidence": {
         "path": "reversing/CamFollowPed355/validation-summary.json",
-        "sha256": "4ba03900692730e1cd39227e29ae5541c70d0190b5f5cff6ded806aa6ad761c0",
+        "sha256": "e6775d5b263292f0bde2c278674c8fdab6b97944cfa89120560074b4696823e3",
         "passed_path": [
           "covered_functions",
           "CCam::Process_FollowPed_SA"
@@ -108884,46 +108884,46 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cam.cpp": "700f1b152909eca16a9d65a3479ce3d24dabcbd1f3b897f6151ebb36e2ca86ae",
-        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Cam.h": "5086a6edfd1aeaa8bb8650f9cfe561a8499c4f6f846dbb63f112988acbbe5f75",
         "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9",
         "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
         "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
-        "source/game_sa/Pad.cpp": "24a120033da270f5a414ab9c8f5d7de8b65fdcc6dc5dc406bc50df97e4b2d34a",
+        "source/game_sa/Pad.cpp": "2e31a55a5512e033ebe84a881b579d305e10952f03aab320aff169ea1937b99d",
         "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
         "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Placeable.cpp": "17e8ab6afa41cf7633488c179094a63c1e9d61b83f959f00a891de2f57758945",
+        "source/game_sa/Entity/Placeable.cpp": "433b7c0597af59cbccba3022a42a87437db5adeeaa558b0be2ba9d89c938a44d",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
         "source/game_sa/Core/Vector.cpp": "a5949aa094fc4e1627483af762ee696aabef2571501511d48d85eb48f878034f",
         "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
-        "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
+        "source/game_sa/PedIntelligence.cpp": "e4c5cab10235b8f13e14ddb95689d98dffcb6341116233ecd99fc289c6ee21e0",
         "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911",
         "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
-        "source/game_sa/PedClothesDesc.cpp": "7ad72f650ab13c2b3064925d3384352a1b81c3b4e1cea7dfcbaa48d970bd5f44",
+        "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
         "source/game_sa/PedClothesDesc.h": "a88240dd6a493856993dea39d1d3e8a98016ab5cbcc534a408232812b6fe4e01",
         "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
         "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed",
-        "source/game_sa/WeaponInfo.cpp": "94ae37868705fc7af459a43e70621b57b5645ff49a8452b49f970b94951e3a4a",
-        "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
+        "source/game_sa/WeaponInfo.cpp": "18575e20fbe5e0425066270a1439ec8fd4d7d3661aa40560a963a2c75956859b",
+        "source/game_sa/WeaponInfo.h": "838c0d418cca94a3b7e58cb6db3e25ad5d32ebcab268dc80a6a2b5925177a76f",
         "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "185b77e7287699dcf749592ff55c3012065d6defabad5fb0fbf23b04c5fd86f8",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.h": "945dc59db432d358c436dcffa3af5a850c50fbfaa59e6d96110d943c79d51d63",
-        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
         "source/game_sa/Ragdoll/IKChainManager.cpp": "c2e0c7d3f0c686cd3308e881771fe6862804a29da5238c8a2087e3941ef7a255",
         "source/game_sa/Ragdoll/IKChainManager.h": "5b9ccff23eeba87ab4aed02aa2c598a5b6f51ee35813e45dd06777e325455b8d",
         "source/game_sa/IdleCam.cpp": "a1df50218aa884bd010fedbe425a393362a75a4d92bd9a964c093c2ca1c80628",
         "source/game_sa/IdleCam.h": "730c34b9f5e7b7fe299038971dbe5d45fa5a257de22b183ef1a48408de339de4",
-        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
-        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Partial current full-manifest replay 20261008-071541-647693",
       "dependency_review": {
@@ -113320,7 +113320,7 @@
       },
       "evidence": {
         "path": "reversing/CamM16355/validation-summary.json",
-        "sha256": "2094724258769c16a17c848d4a513b478b2e7e49760099dee34273c762e44a31",
+        "sha256": "6add53ee76b7455eb6f6f4380699d7d95ad4e3d0accfae44882ddb8471fe346c",
         "passed_path": [
           "covered_functions",
           "CCam::Process_M16_1stPerson"
@@ -113329,26 +113329,26 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cam.cpp": "700f1b152909eca16a9d65a3479ce3d24dabcbd1f3b897f6151ebb36e2ca86ae",
-        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Cam.h": "5086a6edfd1aeaa8bb8650f9cfe561a8499c4f6f846dbb63f112988acbbe5f75",
         "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9",
         "source/game_sa/Entity/Vehicle/Automobile.cpp": "9e3925eb40bb404df3d52179ed7a3316777b10a0454e4c7a88d4fc10714ecf40",
         "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
         "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
-        "source/game_sa/Pad.cpp": "24a120033da270f5a414ab9c8f5d7de8b65fdcc6dc5dc406bc50df97e4b2d34a",
+        "source/game_sa/Pad.cpp": "2e31a55a5512e033ebe84a881b579d305e10952f03aab320aff169ea1937b99d",
         "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
         "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Placeable.cpp": "17e8ab6afa41cf7633488c179094a63c1e9d61b83f959f00a891de2f57758945",
+        "source/game_sa/Entity/Placeable.cpp": "433b7c0597af59cbccba3022a42a87437db5adeeaa558b0be2ba9d89c938a44d",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
         "source/game_sa/Core/Vector.cpp": "a5949aa094fc4e1627483af762ee696aabef2571501511d48d85eb48f878034f",
         "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
-        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
-        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Partial current full-manifest replay 20261008-071921-577190",
       "dependency_review": {

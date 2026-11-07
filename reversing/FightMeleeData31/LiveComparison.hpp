@@ -35,6 +35,11 @@ inline void Update() {
     env.route.reset(new HookRoute("CTaskSimpleFight","LoadMeleeData",0x5BEDC0,HookRoute::RegisteredTarget{}));
     registered["CTaskSimpleFight::LoadMeleeData"]=env.route->Registered();bodies["CTaskSimpleFight::LoadMeleeData"]=env.route->Body();
     ready&=env.route->Registered()&&env.route->Body()&&ModuleOf(env.route->Body())==env.asi;
+    // Lote 116A: FightHitLevel (0x5BD360) y FightHitSound (0x5BD3B0) tienen hook RH desde entonces. El llamador del EXE de FightHitSound (0x5BF219, dentro de LoadMeleeData) lee ECX tras la llamada y la
+    // funcion de la DLL no lo conserva; con el LoadMeleeData del EXE como original, esas dos funciones deben ser las del EXE: sus hooks quedan apagados mientras dura el banco (la DLL las llama directamente).
+    env.collab.emplace_back(new HookRoute("CTaskSimpleFight","FightHitLevel",0x5BD360,HookRoute::RegisteredTarget{}));
+    env.collab.emplace_back(new HookRoute("CTaskSimpleFight","FightHitSound",0x5BD3B0,HookRoute::RegisteredTarget{}));
+    for(auto& r:env.collab)ready&=r->Registered();
     // Cuerpos de la DLL de los colaboradores: se resuelven ANTES de escribir ningun parche (PROCESO.md, trampas). Con sus hooks encendidos (estado normal del ASI) la entrada del EXE
     // salta a la DLL; Body() sigue el salto.
     env.pOpen={0x538900,Body(std::bit_cast<uintptr_t>(&CFileMgr::OpenFile))};

@@ -75,8 +75,13 @@ Copias buenas en `D:/Original/w116a_good` (SHA256.txt) y en `artifacts/good/` (n
 - Ronda 3 (solo approxEqual: `f1 - f2` -> `f1 + f2`): FALLA con **4077** pares (`20261107-000027-644209`).
 - Las 18 funciones fallan al menos en dos rondas. Fuente restaurada y compilada de nuevo para las repeticiones de los bancos antiguos.
 
-## Bancos repetidos
-(se detalla en el commit de los bancos repetidos de este lote)
+## Bancos repetidos (todos con el codigo final)
+`grep` de las 18 direcciones en `reversing/` (sin Fn116A ni las evidencias): 17 bancos las citan. Se repitieron los 12 que las usan de verdad (todos APROBADOS, evidencia archivada en `reversing/CppTwelveLevel6Final/runs/<Banco>-<corrida>` y registro refrescado con `refresh_bank.py`): `CTasks61a` (26624 pares; falso de 0x448990), `CamAim355`, `CamFirstPerson355`, `CamFollowPed355` y `CamM16355` (1024 pares cada uno; falso de 0x4D58A0), `CamControl355` (24576; falsos de 0x540530 y 0x449BA0), `Data23` (13904), `TrainWave3` (1024) y `WeaponFinal2` (7808) (falso de 0x59F0C0), `FightMeleeData31` (4608; 0x5BD360 y 0x5BD3B0), `FixCore` (11776; 0x40EEC0) y `Misc70` (12416; falso de 0x44CBC0).
+Adaptaciones (solo bancos, no produccion):
+- `FixCore`: `CColBox::operator=` pasa de "sin hook: EXE frente al simbolo de la DLL" (slot -2) a "hook normal que se conmuta" (slot -1): original = hook apagado, candidato = hook encendido.
+- `FightMeleeData31`: el llamador del EXE de `FightHitSound` (0x5BF219) lee ECX tras la llamada y la funcion de la DLL no lo conserva (el original no toca ECX ni EDX): con el `LoadMeleeData` del EXE como lado original el banco fallaba (4240 de 4608 pares). Los hooks de `FightHitLevel` y `FightHitSound` se apagan mientras dura el banco (`env.collab`, `HookRoute`): el lado original usa las del EXE y la DLL llama a las suyas directamente. **Consecuencia**: la evidencia no cubre ejecutar el `LoadMeleeData` del EXE (hook de `LoadMeleeData` apagado a mano) con el hook de `FightHitSound` encendido; con `LoadMeleeData` enganchado (el estado normal) ese llamador no se ejecuta.
+- `CamAim355`, `CamFirstPerson355`, `CamFollowPed355` y `CamM16355`: parchean el simbolo `ConvertPedNode2BoneTag` de la DLL con un falso de ABI `int32`; la funcion devuelve `eBoneTag32` (una clase) por puntero oculto y `CamFirstPerson355` se caia dentro de `CCam::Process_1rstPersonPedOnPC`. Cada banco lleva ahora `BoneTagDll(int32* resultado, int32 nodo)`.
+Sin repetir (5): `CppTransformVectors1` (compara el EXE en 0x54EE30 con la DLL llamada directamente porque la funcion no tenia hook; ahora la funcion tiene hook y banco propio y el banco no tiene evidencia registrada), `CppIntegerWorld4` y `CppIntegerWorld10` (las direcciones solo aparecen en las copias de fuentes archivadas bajo `runs/`), `RequestedPadMutationRemaining3` y `RequestedPadSourceProposals` (solo en copias de fuentes archivadas).
 
 ## Tiempo
 Una corrida de los 294912 pares: unos 16 min (mas la compilacion de la sonda, de 5 a 10 min segun el reparto de los candidatos).

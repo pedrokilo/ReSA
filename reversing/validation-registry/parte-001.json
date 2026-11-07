@@ -27177,7 +27177,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CAEStreamingDecoder::Constructor"
@@ -27200,7 +27200,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27225,7 +27225,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CAEStreamingDecoder::Destructor"
@@ -27248,7 +27248,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27273,7 +27273,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CAEStreamTransformer::Initialise"
@@ -27296,7 +27296,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27321,7 +27321,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CAEStreamTransformer::TransformBuffer"
@@ -27344,7 +27344,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27369,7 +27369,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CColourSet::Constructor"
@@ -27392,7 +27392,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27417,7 +27417,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CColourSet::Interpolate"
@@ -27440,7 +27440,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27465,7 +27465,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CCrime::FindImmediateDetectionRange"
@@ -27488,7 +27488,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27513,7 +27513,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CCrime::ReportCrime"
@@ -27536,7 +27536,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27561,7 +27561,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CCurrentVehicle::Display"
@@ -27584,7 +27584,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27609,7 +27609,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CCurrentVehicle::Process"
@@ -27632,7 +27632,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27657,7 +27657,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CFallingGlassPane::Render"
@@ -27680,7 +27680,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27705,7 +27705,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CFallingGlassPane::Update"
@@ -27728,7 +27728,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27753,7 +27753,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CGamma::Init"
@@ -27776,7 +27776,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27801,7 +27801,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CGamma::SetGamma"
@@ -27824,7 +27824,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27849,7 +27849,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "COnscreenCounterEntry::ProcessForDisplayCounter"
@@ -27872,7 +27872,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27897,7 +27897,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "COnscreenCounterEntry::SetColourID"
@@ -27920,7 +27920,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27945,7 +27945,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CPlaceName::GetForMap"
@@ -27968,7 +27968,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -27993,7 +27993,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CPlaceName::Process"
@@ -28016,7 +28016,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -28041,7 +28041,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CRegisteredMotionBlurStreak::Render"
@@ -28064,7 +28064,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -28089,7 +28089,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CRegisteredMotionBlurStreak::Update"
@@ -28112,7 +28112,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -28137,7 +28137,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CUserDisplay::Init"
@@ -28160,7 +28160,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -28185,7 +28185,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "CUserDisplay::Process"
@@ -28208,7 +28208,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -28233,7 +28233,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "Securom::SecuromDisplayInit"
@@ -28256,7 +28256,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -28281,7 +28281,7 @@
       },
       "evidence": {
         "path": "reversing/Misc70/validation-summary.json",
-        "sha256": "0c87ec1f95b72123c5ffdc228a1e74687c623543cbd48a894697b83b98d8e2f5",
+        "sha256": "70527a74907782bf0058701f513ba612d8343cc1ac4b572cd824aab36c9e0abb",
         "passed_path": [
           "covered_functions",
           "Securom::SecuromStateDisplay"
@@ -28304,7 +28304,7 @@
         "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
         "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
         "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-        "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
+        "source/game_sa/OnscreenCounterEntry.cpp": "e9ae35c432aaa565745a6e2e2a62a5c3d981c8dc9f38f2fa55cd7be0376eb5d7",
         "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
         "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
         "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
@@ -117215,7 +117215,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
+        "sha256": "bbfaf2c059def6959b21bcc9cef946336a324e913ba778c18a51a4d3fc1033d7",
         "passed_path": [
           "covered_functions",
           "CVehicle::SetComponentRotation"
@@ -117224,15 +117224,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
+        "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
-        "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
+        "source/game_sa/Collision/ColBox.cpp": "ceac47a3a398aca01f91366a581a2cde3182ef9781c8a284f6450b61c0cb3342",
+        "source/game_sa/Collision/ColBox.h": "071987d1f9c4dfe2e14e4eb013a320ca3f46aeb14ed6184af1bb8890d9ccb2bd",
         "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
@@ -117250,7 +117250,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
+        "sha256": "bbfaf2c059def6959b21bcc9cef946336a324e913ba778c18a51a4d3fc1033d7",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::ApplyRollAndPitch"
@@ -117259,15 +117259,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
+        "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
-        "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
+        "source/game_sa/Collision/ColBox.cpp": "ceac47a3a398aca01f91366a581a2cde3182ef9781c8a284f6450b61c0cb3342",
+        "source/game_sa/Collision/ColBox.h": "071987d1f9c4dfe2e14e4eb013a320ca3f46aeb14ed6184af1bb8890d9ccb2bd",
         "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
@@ -117285,7 +117285,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
+        "sha256": "bbfaf2c059def6959b21bcc9cef946336a324e913ba778c18a51a4d3fc1033d7",
         "passed_path": [
           "covered_functions",
           "CTxdStore::AddTxdSlot"
@@ -117294,15 +117294,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
+        "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
-        "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
+        "source/game_sa/Collision/ColBox.cpp": "ceac47a3a398aca01f91366a581a2cde3182ef9781c8a284f6450b61c0cb3342",
+        "source/game_sa/Collision/ColBox.h": "071987d1f9c4dfe2e14e4eb013a320ca3f46aeb14ed6184af1bb8890d9ccb2bd",
         "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
@@ -117320,7 +117320,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
+        "sha256": "bbfaf2c059def6959b21bcc9cef946336a324e913ba778c18a51a4d3fc1033d7",
         "passed_path": [
           "covered_functions",
           "CTxdStore::RemoveTxdSlot"
@@ -117329,15 +117329,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
+        "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
-        "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
+        "source/game_sa/Collision/ColBox.cpp": "ceac47a3a398aca01f91366a581a2cde3182ef9781c8a284f6450b61c0cb3342",
+        "source/game_sa/Collision/ColBox.h": "071987d1f9c4dfe2e14e4eb013a320ca3f46aeb14ed6184af1bb8890d9ccb2bd",
         "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
@@ -117355,7 +117355,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
+        "sha256": "bbfaf2c059def6959b21bcc9cef946336a324e913ba778c18a51a4d3fc1033d7",
         "passed_path": [
           "covered_functions",
           "CPed::operator new-anon"
@@ -117364,15 +117364,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
+        "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
-        "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
+        "source/game_sa/Collision/ColBox.cpp": "ceac47a3a398aca01f91366a581a2cde3182ef9781c8a284f6450b61c0cb3342",
+        "source/game_sa/Collision/ColBox.h": "071987d1f9c4dfe2e14e4eb013a320ca3f46aeb14ed6184af1bb8890d9ccb2bd",
         "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
@@ -117390,7 +117390,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
+        "sha256": "bbfaf2c059def6959b21bcc9cef946336a324e913ba778c18a51a4d3fc1033d7",
         "passed_path": [
           "covered_functions",
           "CPed::operator new-poolIndexed"
@@ -117399,15 +117399,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
+        "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
-        "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
+        "source/game_sa/Collision/ColBox.cpp": "ceac47a3a398aca01f91366a581a2cde3182ef9781c8a284f6450b61c0cb3342",
+        "source/game_sa/Collision/ColBox.h": "071987d1f9c4dfe2e14e4eb013a320ca3f46aeb14ed6184af1bb8890d9ccb2bd",
         "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
@@ -117425,7 +117425,7 @@
       },
       "evidence": {
         "path": "reversing/FixCore/validation-summary.json",
-        "sha256": "b95fccd467fc45203ed3c6b8cbbe89aa42731a86cf3a6add913195d933b5c238",
+        "sha256": "bbfaf2c059def6959b21bcc9cef946336a324e913ba778c18a51a4d3fc1033d7",
         "passed_path": [
           "covered_functions",
           "CPed::operator delete-anon"
@@ -117434,15 +117434,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Core/Matrix.cpp": "66c3735eae9fb07c0c582b18b948df284515c21a0a8859a09ca3b3caef7c5fe5",
+        "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
         "source/game_sa/Core/Matrix.h": "8c45b44decadc1e502a86c3215d1a29552ea679ba1549818ae444e1c9d58ba31",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
-        "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
+        "source/game_sa/Collision/ColBox.cpp": "ceac47a3a398aca01f91366a581a2cde3182ef9781c8a284f6450b61c0cb3342",
+        "source/game_sa/Collision/ColBox.h": "071987d1f9c4dfe2e14e4eb013a320ca3f46aeb14ed6184af1bb8890d9ccb2bd",
         "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
       },
@@ -175582,7 +175582,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CAEPedWeaponAudioEntity::AddAudioEvent"
@@ -175594,19 +175594,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -175622,7 +175622,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CAEPedWeaponAudioEntity::Initialise"
@@ -175634,19 +175634,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -175662,7 +175662,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CAEPedWeaponAudioEntity::Service"
@@ -175674,19 +175674,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -175702,7 +175702,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CAEPedWeaponAudioEntity::Terminate"
@@ -175714,19 +175714,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -175742,7 +175742,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CBulletInfo::AddBullet"
@@ -175754,19 +175754,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -175782,7 +175782,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CBulletInfo::Initialise"
@@ -175794,19 +175794,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -175822,7 +175822,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CBulletInfo::Shutdown"
@@ -175834,19 +175834,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -175862,7 +175862,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CBulletInfo::Update"
@@ -175874,19 +175874,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -175902,7 +175902,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CDamageAtomicModelInfo::AsDamageAtomicModelInfoPtr"
@@ -175914,19 +175914,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -175942,7 +175942,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CDamageAtomicModelInfo::DeleteRwObject"
@@ -175954,19 +175954,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -175982,7 +175982,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CDamageAtomicModelInfo::Init"
@@ -175994,19 +175994,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176022,7 +176022,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CDamageAtomicModelInfo::SetDamagedAtomic"
@@ -176034,19 +176034,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176062,7 +176062,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CGarage::BuildRotatedDoorMatrix"
@@ -176074,19 +176074,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176102,7 +176102,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CGarage::CloseThisGarage"
@@ -176114,19 +176114,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176142,7 +176142,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CGarage::OpenThisGarage"
@@ -176154,19 +176154,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176182,7 +176182,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CGarage::StoreAndRemoveCarsForThisHideOut"
@@ -176194,19 +176194,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176222,7 +176222,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CPedStats::GetPedStatType"
@@ -176234,19 +176234,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176262,7 +176262,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CPedStats::Initialise"
@@ -176274,19 +176274,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176302,7 +176302,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CPedStats::LoadPedStats"
@@ -176314,19 +176314,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176342,7 +176342,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CPedStats::Shutdown"
@@ -176354,19 +176354,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176382,7 +176382,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CPlantSurfPropMgr::AllocSurfProperties"
@@ -176394,19 +176394,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176422,7 +176422,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CPlantSurfPropMgr::GetSurfProperties"
@@ -176434,19 +176434,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176462,7 +176462,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CPlantSurfPropMgr::Initialise"
@@ -176474,19 +176474,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176502,7 +176502,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CPlantSurfPropMgr::LoadPlantsDat"
@@ -176514,19 +176514,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176542,7 +176542,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CScriptResourceManager::AddToResourceManager"
@@ -176554,19 +176554,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176582,7 +176582,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CScriptResourceManager::HasResourceBeenRequested"
@@ -176594,19 +176594,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176622,7 +176622,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CScriptResourceManager::Initialise"
@@ -176634,19 +176634,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176662,7 +176662,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CScriptResourceManager::RemoveFromResourceManager"
@@ -176674,19 +176674,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176702,7 +176702,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CSpecialPlateHandler::Add"
@@ -176714,19 +176714,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176742,7 +176742,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CSpecialPlateHandler::Find"
@@ -176754,19 +176754,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176782,7 +176782,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CSpecialPlateHandler::Init"
@@ -176794,19 +176794,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,
@@ -176822,7 +176822,7 @@
       },
       "evidence": {
         "path": "reversing/Data23/validation-summary.json",
-        "sha256": "e8f2a3e97567cb54d0072d2948b82f15ada78da80adfc36e42dc8b2be3b17fd3",
+        "sha256": "3ce4a8acbe5506ec33ef14f54e5875f57eacbfd8fe1c4916bd66b77fe39d091e",
         "passed_path": [
           "covered_functions",
           "CSpecialPlateHandler::Remove"
@@ -176834,19 +176834,19 @@
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
         "source/game_sa/BulletInfo.cpp": "c927a467431dc390a3d29a69cd6481f039f86bef556d94529881e7b0fcd98639",
-        "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
+        "source/game_sa/BulletInfo.h": "be81698f1551bacbdf6700f17c3c4393810a0a7f6c339a6c52d2fc50c10a846d",
         "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
         "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-        "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
         "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
         "source/game_sa/PlantSurfPropMgr.cpp": "c67d85d9d09929fa3fd33f86ec3fc91d4898a8420ac240dbccbabaf0b28ddf7a",
         "source/game_sa/PlantSurfPropMgr.h": "35a75613a7d41d824a23fbb2dff150f7cf5cc6fbd0ae7a58d035afa41c36c712",
-        "source/game_sa/ScriptResourceManager.cpp": "bc4f357a6a36415bd5962cc3a342e1ae39fc3d6679a540d51f44fd7811f60e6d",
+        "source/game_sa/ScriptResourceManager.cpp": "8f723cced57b83603ec3657c99f216f89c449fd4b7c0b649a33a4d3f3d9a8be9",
         "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
-        "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
-        "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
+        "source/game_sa/SpecialPlateHandler.cpp": "148a558a5299412b888799b5477e5487319601065a29dc7e71039536bd3440d2",
+        "source/game_sa/SpecialPlateHandler.h": "c6d6bede145cbcc46d23d528f5b378864dd3fdeb4163686b64aabd4a60ef0a72"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-143050-950715).",
       "dependency_review": null,

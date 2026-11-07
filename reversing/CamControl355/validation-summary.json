@@ -20,17 +20,17 @@
   "log_sha256": "fbf6572b336a9919be7efdf7a4d62fd90a79d0d9528ee4d1667958e29d28fdb8",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-control355\\20261106-142520-810883",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-control355\\20261107-003141-048067",
   "probe_build_manifest": {
     "binaries": {
-      "asi": "dfb1b25137ef39f6ea6dc638893ac1ae2864e830281c8234ae3bd4f4d96f7284",
-      "pdb": "bd126db3824b72a6353fd06bad32f320275b3ddeb0f9042a0a6ccc576ef365b0"
+      "asi": "773c406eccc66b54ac8767319c141533ae002c656c7630bfb111aee54e41dab8",
+      "pdb": "5124e31eddad7bcc1fdb9a20682e8f758a598df12b85affa83579442fbd6a2d7"
     },
     "sources": {
       "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
       "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
-      "source/game_sa/Cam.cpp": "700f1b152909eca16a9d65a3479ce3d24dabcbd1f3b897f6151ebb36e2ca86ae",
-      "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+      "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+      "source/game_sa/Cam.h": "5086a6edfd1aeaa8bb8650f9cfe561a8499c4f6f846dbb63f112988acbbe5f75",
       "source/game_sa/Core/Matrix.cpp": "c6a511a5b258401342aa2655e8ac54bccd8ae12fd05bb6a787bf08ea7f33fb99",
       "source/game_sa/Core/Vector.cpp": "a5949aa094fc4e1627483af762ee696aabef2571501511d48d85eb48f878034f",
       "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
@@ -40,19 +40,19 @@
       "source/game_sa/WaterLevel.cpp": "61404b8e0e7de73a4888ecfd863eee11d816f2912e7d7ad7be9b39841fc09b3f",
       "source/game_sa/Draw.cpp": "38d5ca7fba6b3825e841c9882b931b203acc784fac9b187fac32e5ff5870f7be",
       "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
-      "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
-      "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
-      "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+      "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+      "source/game_sa/PedIntelligence.cpp": "e4c5cab10235b8f13e14ddb95689d98dffcb6341116233ecd99fc289c6ee21e0",
+      "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
       "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ec48eb96aa57f99fea9136415e3faafc4fa61a30cadfce6ef76944aa55127b98",
-      "source/game_sa/Garages.cpp": "4f03dd2b536629f5c34b832ae78be81a09467cc7c1e2b9ccea97ee0c96c7de9c",
+      "source/game_sa/Garages.cpp": "e402908a9acaface30eee234c719901d454f477fce06eb91229a785752c0c07c",
       "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
-      "source/game_sa/Pad.cpp": "24a120033da270f5a414ab9c8f5d7de8b65fdcc6dc5dc406bc50df97e4b2d34a",
+      "source/game_sa/Pad.cpp": "2e31a55a5512e033ebe84a881b579d305e10952f03aab320aff169ea1937b99d",
       "source/game_sa/GameLogic.cpp": "0ec6c7cab71b4d52b11c9e54cbd7de10640d757605fb6ecddef95273d946bc11",
       "source/game_sa/Audio/AudioEngine.cpp": "91c60419226364524a4c29e2c75f763c718521063437e978877e0fc02e9a1298",
-      "source/game_sa/common.cpp": "4faa46dc199e0f2104ede26de6604d4c7d6010d27f30e587acb7f5aaa538d6ea",
+      "source/game_sa/common.cpp": "a0ec0bae5721a51f0ff80d4928ca8684eb2284993a12d124de7a351e6e2d1f3f",
       "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
-      "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
-      "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5"
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
