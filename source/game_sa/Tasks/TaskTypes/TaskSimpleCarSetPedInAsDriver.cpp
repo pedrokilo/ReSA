@@ -31,9 +31,21 @@ END GENERATED HOOK STATUS */
 #include "Events/EventGroup.h"
 #include "Events/EventGlobalGroup.h"
 
+namespace {
+// 0x647170 (lote 115A, banco Fn115A): cuerpo no virtual de ~CTaskSimpleCarSetPedInAsDriver del EXE (thiscall, sin argumentos de pila, `ret`)
+// Deja la vtable de CTaskSimpleCarSetPedInAsDriver del EXE (0x86EE28), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula en +0x10 y salta a CTask::Destructor (0x61A3A0), que deja la vtable de CTask (0x86D48C). El EXE lo envuelve en un marco SEH que solo desenrolla.
+void __fastcall CarSetPedInAsDriverDestructorBody(CTaskSimpleCarSetPedInAsDriver* self, void* /*edx*/) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x86EE28;
+    CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0x10));
+    self->CTask::Destructor();
+}
+} // namespace
+
 void CTaskSimpleCarSetPedInAsDriver::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarSetPedInAsDriver, 0x86EE28, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CarSetPedInAsDriverDestructorBody, "Destructor", 0x647170);
 
     RH_ScopedInstall(Constructor, 0x6470E0);
 

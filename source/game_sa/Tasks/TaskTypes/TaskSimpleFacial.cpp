@@ -20,9 +20,30 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleFacial.h"
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
+namespace {
+// 0x690C70 (lote 115A, banco Fn115A): cuerpo del constructor de CTaskSimpleFacial del EXE (thiscall, dos dwords en la pila, `ret 8`, devuelve this). Base CTaskSimple (0x61A390), vtable 0x870AB8, +8 y +0xC a cero, bytes +0x10 y +0x11 a cero, +0x14 = primer argumento y +0x18 = segundo.
+CTaskSimpleFacial* __fastcall FacialConstructorBody(CTaskSimpleFacial* self, void* /*edx*/, uint32 first, uint32 second) {
+    CTaskSimpleBody::Constructor(self, nullptr);
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x870AB8;
+    *reinterpret_cast<uint32*>(bytes + 8) = 0;
+    *reinterpret_cast<uint32*>(bytes + 0xC) = 0;
+    bytes[0x10] = 0;
+    bytes[0x11] = 0;
+    *reinterpret_cast<uint32*>(bytes + 0x18) = second;
+    *reinterpret_cast<uint32*>(bytes + 0x14) = first;
+    return self;
+}
+} // namespace
+
 void CTaskSimpleFacial::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleFacial, 0x870ab8, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(FacialConstructorBody, "Constructor", 0x690C70);
 
     RH_ScopedGlobalInstall(GetAnimId, 0x690CC0);
     RH_ScopedVMTInstall(Clone, 0x692820);

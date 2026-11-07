@@ -52,9 +52,21 @@ CTaskSimpleCarSetPedOut* __fastcall CarSetPedOutConstructorBody(CTaskSimpleCarSe
 }
 } // namespace
 
+namespace {
+// 0x647950 (lote 115A, banco Fn115A): cuerpo no virtual de ~CTaskSimpleCarSetPedOut del EXE (thiscall, sin argumentos de pila, `ret`)
+// Deja la vtable de CTaskSimpleCarSetPedOut del EXE (0x86EEB8), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula en +0x8 y salta a CTask::Destructor (0x61A3A0), que deja la vtable de CTask (0x86D48C). El EXE lo envuelve en un marco SEH que solo desenrolla.
+void __fastcall CarSetPedOutDestructorBody(CTaskSimpleCarSetPedOut* self, void* /*edx*/) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x86EEB8;
+    CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0x8));
+    self->CTask::Destructor();
+}
+} // namespace
+
 void CTaskSimpleCarSetPedOut::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarSetPedOut, 0x86EEB8, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CarSetPedOutDestructorBody, "Destructor", 0x647950);
 
     RH_ScopedNamedGlobalInstall(CarSetPedOutConstructorBody, "Constructor", 0x6478B0);
     RH_ScopedInstall(PositionPedOutOfCollision, 0x6479B0);

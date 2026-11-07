@@ -26,13 +26,14 @@ public:
     CTask*    CreateFirstSubTask(CPed* ped) final override;
     CTask*    ControlSubTask(CPed* ped) final override;
 
-private: // Wrappers for hooks
+public: // Constructor: lo llaman los constructores de las subclases reconstruidas del EXE (lote 115A)
     // 0x6321F0
     CTaskComplexUseEffect* Constructor(C2dEffectPedAttractor* fx, CEntity* entity) {
         this->CTaskComplexUseEffect::CTaskComplexUseEffect(fx, entity);
         return this;
     }
 
+private: // Wrappers for hooks
     // 0x632270
     CTaskComplexUseEffect* Destructor() {
         this->CTaskComplexUseEffect::~CTaskComplexUseEffect();

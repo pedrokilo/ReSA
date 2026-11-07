@@ -35,9 +35,24 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexWanderCop.h"
 #include "TaskComplexLeaveCar.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
+}
+
+namespace {
+// 0x669D20 (lote 115A, banco Fn115A): cuerpo no virtual de ~CTaskComplexWander del EXE (thiscall, sin argumentos de pila, `ret`)
+// Deja la vtable de CTaskComplexWander del EXE (0x86FE84) y salta a CTaskComplex::Destructor (0x61A3D0). El EXE lo envuelve en un marco SEH que solo desenrolla.
+void __fastcall WanderDestructorBody(CTaskComplexWander* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86FE84;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexWander::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWander, 0x86FE84, 15);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(WanderDestructorBody, "Destructor", 0x669D20);
 
     RH_ScopedInstall(Constructor, 0x66F450);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x674140);

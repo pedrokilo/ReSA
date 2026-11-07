@@ -179,9 +179,24 @@ CTask* CTaskComplexStuckInAir::CreateSubTask(eTaskType taskType, CPed* ped) {
     return nullptr; // 0x67BBE9
 }
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
+}
+
+namespace {
+// 0x67BA40 (lote 115A, banco Fn115A): cuerpo del constructor de CTaskComplexStuckInAir del EXE (thiscall, sin argumentos, `ret`, devuelve this). Base CTaskComplex (0x61A3B0) y vtable 0x870608.
+CTaskComplexStuckInAir* __fastcall StuckInAirConstructorBody(CTaskComplexStuckInAir* self, void* /*edx*/) {
+    CTaskComplexBody::Constructor(self, nullptr);
+    *reinterpret_cast<uint32*>(self) = 0x870608;
+    return self;
+}
+} // namespace
+
 void CTaskComplexStuckInAir::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexStuckInAir, 0x870608, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(StuckInAirConstructorBody, "Constructor", 0x67BA40);
 
     RH_ScopedGlobalInstall(CreateSubTask, 0x67BA80);
     RH_ScopedVMTInstall(Clone, 0x67C700);

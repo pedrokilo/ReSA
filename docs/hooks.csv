@@ -3223,6 +3223,7 @@ CEventPedCollisionWithPed,AffectsPed,0x00000000,1,0,1,V
 CEventPedCollisionWithPed,Constructor,0x004AC990,1,0,1,S
 CEventPedCollisionWithPed,TakesPriorityOver,0x00000000,1,0,1,V
 CEventPedCollisionWithPed,Destructor,0x004ACA70,1,0,1,S
+CEventPassObject,Destructor,0x0065DCF0,1,0,1,S
 CEventPassObject,Constructor,0x0065DC70,1,0,1,S
 CEventPassObject,IsValid,0x00000000,1,0,1,V
 CEventOnFire,AffectsPed,0x00000000,1,0,1,V
@@ -3372,6 +3373,7 @@ CEventEditableResponse,InformVehicleOccupants,0x004AC4A0,1,0,1,S
 CEventEditableResponse,TriggerLookAt,0x004AC5A0,1,0,1,S
 CEventEditableResponse,WillRespond,0x004AC490,1,0,1,S
 CEventEditableResponse,Destructor,0x004AC480,1,0,1,S
+CEventDontJoinPlayerGroup,Destructor,0x00609140,1,0,1,S
 CEventDontJoinPlayerGroup,Constructor,0x006090E0,1,0,1,S
 CEventDanger,AffectsPed,0x00000000,1,0,1,V
 CEventDanger,AffectsPedGroup,0x00000000,1,0,1,V
@@ -5173,6 +5175,7 @@ CTaskSimplePlayerOnFire,Destructor,0x006335B0,1,0,1,S
 CTaskSimplePlayerOnFire,GetTaskType,0x00000000,1,0,1,V
 CTaskSimplePlayerOnFire,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimplePlayerOnFire,ProcessPed,0x00000000,1,0,1,V
+CTaskSimplePlayHandSignalAnim,Constructor,0x0061AE50,1,0,1,S
 CTaskSimplePlayHandSignalAnim,ProcessPed,0x00000000,1,0,1,V
 CTaskSimplePlayHandSignalAnim,StartAnim,0x0061AF60,1,0,1,S
 CTaskSimplePickUpEntity,Clone,0x00000000,1,0,1,V
@@ -5347,6 +5350,7 @@ CTaskSimpleGoToPoint,GetTaskType,0x00000000,1,0,1,V
 CTaskSimpleGoToPoint,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleGoToPoint,ProcessPed,0x00000000,1,0,1,V
 CTaskSimpleGoToPoint,UpdatePoint,0x00645700,1,0,1,S
+CTaskSimpleGoTo,Destructor,0x00667D50,1,0,1,S
 CTaskSimpleGoTo,Constructor,0x006679C0,1,0,1,S
 CTaskSimpleGoTo,HasCircledTarget,0x00667A10,1,0,1,S
 CTaskSimpleGoTo,QuitIK,0x00667CA0,1,0,1,S
@@ -5377,6 +5381,7 @@ CTaskSimpleFall,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleFall,ProcessFall,0x006784C0,1,0,1,S
 CTaskSimpleFall,ProcessPed,0x00000000,1,0,1,V
 CTaskSimpleFall,StartAnim,0x0067CA40,1,0,1,S
+CTaskSimpleFacial,Constructor,0x00690C70,1,0,1,S
 CTaskSimpleFacial,Clone,0x00000000,1,0,1,V
 CTaskSimpleFacial,GetAnimId,0x00690CC0,1,0,1,S
 CTaskSimpleFacial,GetTaskType,0x00000000,1,0,1,V
@@ -5406,6 +5411,7 @@ CTaskSimpleDuck,SetMoveAnim,0x006939F0,1,0,1,S
 CTaskSimpleDuck,StopFireGun,0x0061C420,1,0,1,S
 CTaskSimpleDuck,AbortBecauseOfOtherDuck,0x00692340,1,0,1,S
 CTaskSimpleDrownInCar,ProcessPed,0x00000000,1,0,1,V
+CTaskSimpleDrown,Constructor,0x0062FEC0,1,0,1,S
 CTaskSimpleDrown,ProcessPed,0x00000000,1,0,1,V
 CTaskSimpleDie,Constructor-1,0x0062FA00,1,0,1,S
 CTaskSimpleDie,Constructor-2,0x0062FA60,1,0,1,S
@@ -5618,9 +5624,11 @@ CTaskSimpleBeHit,GetTaskType,0x00000000,1,0,1,V
 CTaskSimpleBeHit,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleBeHit,ProcessPed,0x00000000,1,0,1,V
 CTaskSimpleBeHit,StartAnim,0x00620910,1,0,1,S
+CTaskSimpleArrestPed,Constructor,0x0068B620,1,0,1,S
 CTaskSimpleArrestPed,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleArrestPed,ProcessPed,0x00000000,1,0,1,V
 CTaskSimpleArrestPed,StartAnim,0x0068B7E0,1,0,1,S
+CTaskSimpleAnim,Constructor,0x0061A6C0,1,0,1,S
 CTaskSimpleAnim,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleAffectSecondaryBehaviour,Clone,0x00000000,1,0,1,V
 CTaskSimpleAffectSecondaryBehaviour,Constructor,0x00691270,1,0,1,S
@@ -5672,6 +5680,7 @@ CTaskComplexWanderCop,LookForCriminals,0x0066B300,1,0,1,S
 CTaskComplexWanderCop,LookForStolenCopCars,0x0066B290,1,0,1,S
 CTaskComplexWanderCop,ScanForStuff,0x00000000,1,0,1,V
 CTaskComplexWanderCop,ShouldPursuePlayer,0x0066B160,1,0,1,S
+CTaskComplexWander,Destructor,0x00669D20,1,0,1,S
 CTaskComplexWander,ComputeTargetHeading,0x0066F530,1,0,1,S
 CTaskComplexWander,ComputeTargetPos,0x00669F60,1,0,1,S
 CTaskComplexWander,Constructor,0x0066F450,1,0,1,S
@@ -5785,13 +5794,16 @@ CTaskComplexUseScriptedAttractor,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexUseScriptedAttractor,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexUseScriptedAttractor,Destructor,0x00633360,1,0,1,S
 CTaskComplexUseScriptedAttractor,GetTaskType,0x00000000,1,0,1,V
+CTaskComplexUseGoggles,Constructor,0x00634EF0,1,0,1,S
 CTaskComplexUseGoggles,Clone,0x00000000,1,0,1,V
 CTaskComplexUseGoggles,ControlSubTask,0x00000000,1,0,1,V
 CTaskComplexUseGoggles,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexUseGoggles,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexUseGoggles,GetTaskType,0x00000000,1,0,1,V
+CTaskComplexUseEffectSprinting,Constructor,0x00636860,1,0,1,S
 CTaskComplexUseEffectSprinting,Clone,0x00000000,1,0,1,V
 CTaskComplexUseEffectSprinting,GetTaskType,0x00000000,1,0,1,V
+CTaskComplexUseEffectRunning,Constructor,0x00636780,1,0,1,S
 CTaskComplexUseEffectRunning,Clone,0x00000000,1,0,1,V
 CTaskComplexUseEffectRunning,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexUseEffect,Clone,0x00000000,1,0,1,V
@@ -5867,6 +5879,7 @@ CTaskComplexSunbathe,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexSunbathe,Destructor,0x00632050,1,0,1,S
 CTaskComplexSunbathe,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexSunbathe,MakeAbortable,0x00000000,1,0,1,V
+CTaskComplexStuckInAir,Constructor,0x0067BA40,1,0,1,S
 CTaskComplexStuckInAir,Clone,0x00000000,1,0,1,V
 CTaskComplexStuckInAir,ControlSubTask,0x00000000,1,0,1,V
 CTaskComplexStuckInAir,CreateFirstSubTask,0x00000000,1,0,1,V
@@ -6116,6 +6129,7 @@ CTaskComplexKillPedOnFootArmed,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexKillPedOnFootArmed,IsPedInLeaderFiringLine,0x00621300,1,0,1,S
 CTaskComplexKillPedOnFootArmed,LineOfSightClearForAttack,0x00621500,1,0,1,S
 CTaskComplexKillPedOnFootArmed,MakeAbortable,0x00000000,1,0,1,V
+CTaskComplexKillPedOnFoot,Destructor,0x00620EF0,1,0,1,S
 CTaskComplexKillPedOnFoot,Constructor,0x00620E30,1,0,1,S
 CTaskComplexKillPedGroupOnFoot,Clone,0x00000000,1,0,1,V
 CTaskComplexKillPedGroupOnFoot,ComputeNearestLivingGroupPed,0x00622450,1,0,1,S
@@ -6144,6 +6158,7 @@ CTaskComplexKillCriminal,Destructor,0x0068BF30,1,0,1,S
 CTaskComplexKillCriminal,FindNextCriminalToKill,0x0068C3C0,1,0,1,S
 CTaskComplexKillCriminal,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexKillCriminal,MakeAbortable,0x00000000,1,0,1,V
+CTaskComplexJump,Destructor,0x0067A060,1,0,1,S
 CTaskComplexJump,Clone,0x00000000,1,0,1,V
 CTaskComplexJump,Constructor,0x0067A030,1,0,1,S
 CTaskComplexJump,CreateFirstSubTask,0x00000000,1,0,1,V
@@ -6602,6 +6617,7 @@ CTaskComplexAvoidOtherPedWhileWandering,MakeAbortable,0x00000000,1,0,1,V
 CTaskComplexAvoidOtherPedWhileWandering,NearbyPedsInSphere,0x00671FE0,1,0,1,S
 CTaskComplexAvoidOtherPedWhileWandering,QuitIK,0x0066A230,1,0,1,S
 CTaskComplexAvoidOtherPedWhileWandering,SetUpIK,0x0066A850,1,0,1,S
+CTaskComplexAttractorPartnerWait,Constructor,0x00633250,1,0,1,S
 CTaskComplexAttractorPartnerWait,Clone,0x00000000,1,0,1,V
 CTaskComplexAttractorPartnerWait,ControlSubTask,0x00000000,1,0,1,V
 CTaskComplexAttractorPartnerWait,CreateFirstSubTask,0x00000000,1,0,1,V
@@ -6635,6 +6651,7 @@ CPedGroupDefaultTaskAllocatorChat,GetType,0x00000000,1,0,1,V
 CTaskAllocator,Abort,0x00000000,1,0,1,V
 CTaskAllocator,IsFinished,0x00000000,1,0,1,V
 CTaskAllocator,ProcessGroup,0x00000000,1,0,1,V
+CTaskAllocatorPlayerCommandAttack,Constructor,0x0069C480,1,0,1,S
 CTaskAllocatorPlayerCommandAttack,AllocateTasks,0x00000000,1,0,1,V
 CTaskAllocatorPlayerCommandAttack,GetType,0x00000000,1,0,1,V
 CTaskAllocatorPlayerCommandAttack,ProcessGroup,0x00000000,1,0,1,V
@@ -6680,6 +6697,7 @@ CTaskManager,SetTaskSecondary,0x00681B60,1,0,1,S
 CTaskManager,StopTimers,0x006819A0,1,0,1,S
 CTaskManager,GetLastTaskOf-of-task,0x00681970,1,0,1,S
 CTaskManager,GetLastTaskOf-at-index,0x00681A00,1,0,1,S
+CTaskComplexSequence,Destructor,0x006389F0,1,0,1,S
 CTaskComplexSequence,AddTask-0,0x00632D10,1,0,1,S
 CTaskComplexSequence,AddTask-1,0x00632D50,1,0,1,S
 CTaskComplexSequence,Clone,0x00000000,1,0,1,V
@@ -8335,6 +8353,7 @@ CTaskComplexWanderStandard,LookForSexyCars,0x0066AFD0,1,0,1,S
 CTaskComplexWanderStandard,ScanForStuff,0x00672600,1,0,1,V
 CTaskComplexWanderStandard,SetNextMinScanTime,0x0066AF60,1,0,1,S
 CTaskComplexWanderStandard,WillChat,0x0066AED0,1,0,1,S
+CTaskSimpleCarSetPedInAsDriver,Destructor,0x00647170,1,0,1,S
 CTaskSimpleCarSetPedInAsDriver,Clone,0x00649E00,1,0,1,V
 CTaskSimpleCarSetPedInAsDriver,Constructor,0x006470E0,1,0,1,S
 CTaskSimpleCarSetPedInAsDriver,GetTaskType,0x00647150,1,0,1,V
@@ -8345,6 +8364,7 @@ CTaskSimpleCarSetPedInAsPassenger,Destructor,0x00647080,1,0,1,S
 CTaskSimpleCarSetPedInAsPassenger,GetTaskType,0x00647060,1,0,1,V
 CTaskSimpleCarSetPedInAsPassenger,MakeAbortable,0x00647070,1,0,1,V
 CTaskSimpleCarSetPedInAsPassenger,ProcessPed,0x0064B5D0,1,0,1,V
+CTaskSimpleCarSetPedOut,Destructor,0x00647950,1,0,1,S
 CTaskSimpleCarSetPedOut,Clone,0x00649F50,1,0,1,V
 CTaskSimpleCarSetPedOut,GetTaskType,0x00647930,1,0,1,V
 CTaskSimpleCarSetPedOut,MakeAbortable,0x00647940,1,0,1,V

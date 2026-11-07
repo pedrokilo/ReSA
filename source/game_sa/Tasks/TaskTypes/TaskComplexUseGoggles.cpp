@@ -65,9 +65,24 @@ CTask* CTaskComplexUseGoggles::ControlSubTask(CPed* ped) {
     return m_pSubTask;
 }
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
+}
+
+namespace {
+// 0x634EF0 (lote 115A, banco Fn115A): cuerpo del constructor de CTaskComplexUseGoggles del EXE (thiscall, sin argumentos, `ret`, devuelve this). Base CTaskComplex (0x61A3B0) y vtable 0x86E4A8.
+CTaskComplexUseGoggles* __fastcall UseGogglesConstructorBody(CTaskComplexUseGoggles* self, void* /*edx*/) {
+    CTaskComplexBody::Constructor(self, nullptr);
+    *reinterpret_cast<uint32*>(self) = 0x86E4A8;
+    return self;
+}
+} // namespace
+
 void CTaskComplexUseGoggles::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexUseGoggles, 0x86E4A8, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(UseGogglesConstructorBody, "Constructor", 0x634EF0);
 
     RH_ScopedVMTInstall(Clone, 0x637060);
     RH_ScopedVMTInstall(GetTaskType, 0x634F10);

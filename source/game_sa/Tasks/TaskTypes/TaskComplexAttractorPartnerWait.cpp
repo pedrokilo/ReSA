@@ -21,9 +21,27 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexAttractorPartnerWait.h"
 #include "Scripted2dEffects.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
+}
+
+namespace {
+// 0x633250 (lote 115A, banco Fn115A): cuerpo del constructor de CTaskComplexAttractorPartnerWait del EXE (thiscall, un byte y un dword en la pila, `ret 8`, devuelve this). Base CTaskComplex (0x61A3B0); byte +0xC = byte bajo del primer argumento (sin normalizar), vtable 0x86E284 y +0x10 = segundo argumento.
+CTaskComplexAttractorPartnerWait* __fastcall AttractorPartnerWaitConstructorBody(CTaskComplexAttractorPartnerWait* self, void* /*edx*/, uint32 flag, uint32 value) {
+    CTaskComplexBody::Constructor(self, nullptr);
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    bytes[0xC] = static_cast<uint8>(flag);
+    *reinterpret_cast<uint32*>(bytes) = 0x86E284;
+    *reinterpret_cast<uint32*>(bytes + 0x10) = value;
+    return self;
+}
+} // namespace
+
 void CTaskComplexAttractorPartnerWait::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexAttractorPartnerWait, 0x86e284, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(AttractorPartnerWaitConstructorBody, "Constructor", 0x633250);
 
     RH_ScopedVMTInstall(Clone, 0x636CF0);
     RH_ScopedVMTInstall(GetTaskType, 0x633280);

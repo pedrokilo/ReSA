@@ -20,9 +20,25 @@ END GENERATED HOOK STATUS */
 #include "EventPassObject.h"
 
 
+namespace CEventBody {
+void __fastcall EventDestructorBody(CEvent* self, void* edx); // Event.cpp: 0x4AC010
+}
+
+namespace {
+// 0x65DCF0 (lote 115A, banco Fn115A): cuerpo no virtual de ~CEventPassObject del EXE (thiscall, sin argumentos de pila, `ret`)
+// Deja la vtable de CEventPassObject del EXE (0x86F8B8), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula en +0xC y llama al cuerpo de ~CEvent (0x4AC010), que deja la vtable de CEvent (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla.
+void __fastcall PassObjectDestructorBody(CEventPassObject* self, void* /*edx*/) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x86F8B8;
+    CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0xC));
+    CEventBody::EventDestructorBody(self, nullptr);
+}
+} // namespace
+
 void CEventPassObject::InjectHooks() {
     RH_ScopedVirtualClass(CEventPassObject, 0x86F8B8, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(PassObjectDestructorBody, "Destructor", 0x65DCF0);
 
     RH_ScopedInstall(Constructor, 0x65DC70);
     RH_ScopedVMTInstall(IsValid, 0x4B1700);

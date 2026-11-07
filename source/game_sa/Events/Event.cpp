@@ -24,7 +24,8 @@ END GENERATED HOOK STATUS */
 #include "Event.h"
 
 
-namespace {
+// El cuerpo se exporta (espacio de nombres con nombre) para que los destructores de eventos del EXE reconstruidos en otros archivos (lote 115A) lo llamen como el original.
+namespace CEventBody {
 // 0x4AC010 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEvent que usan los destructores del EXE (58 llamadores, muchos con `jmp` final desde los destructores de los eventos).
 // Es `mov dword ptr [ecx], 0x85AB38; ret`: deja la vtable de CEvent del EXE y conserva EAX, ECX y EDX (algun llamador, p. ej. el destructor con borrado, sigue usando ECX tras la llamada), asi que el codigo no puede
 // llevar marco ni comprobaciones: se optimiza por pragma (CMakeLists.txt: /Zi y BasicRuntimeChecks=Default para este archivo). __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos. (Lote 107A, banco Fn107A.)
@@ -35,12 +36,12 @@ void __fastcall EventDestructorBody(CEvent* self, void* /*edx*/) {
 }
 #pragma optimize("", on)
 #pragma runtime_checks("", restore)
-} // namespace
+} // namespace CEventBody
 
 void CEvent::InjectHooks() {
     RH_ScopedVirtualClass(CEvent, 0x85AB38, 16);
     RH_ScopedCategory("Events");
-    RH_ScopedNamedGlobalInstall(EventDestructorBody, "Destructor", 0x4AC010);
+    RH_ScopedNamedGlobalInstall(CEventBody::EventDestructorBody, "Destructor", 0x4AC010);
 
     RH_ScopedInstall(operator new, 0x4B5620);
     RH_ScopedInstall(Constructor, 0x4ABFC0);

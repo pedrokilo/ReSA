@@ -93,7 +93,7 @@ namespace CTaskComplexBody {
 // en un marco SEH (sólo desenrolla); aquí se omite. Los llamadores (destructores de las tareas complejas, con `call` o `jmp`) no leen EAX, ECX ni EDX tras él.
 // __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos de pila (`ret`).
 #pragma runtime_checks("", off)
-static void __fastcall Destructor(CTask* self, void* /*edx*/) {
+void __fastcall Destructor(CTask* self, void* /*edx*/) {
     uint32& vtable = *reinterpret_cast<uint32*>(self);
     CTask*& subTask = *reinterpret_cast<CTask**>(reinterpret_cast<uint8*>(self) + 8);
     vtable = 0x86D4CC;
@@ -110,7 +110,7 @@ static void __fastcall Destructor(CTask* self, void* /*edx*/) {
 // Los 198 llamadores son constructores de tareas complejas del EXE. __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos de pila (`ret`).
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
-static void* __fastcall Constructor(void* self, void* /*edx*/) {
+void* __fastcall Constructor(void* self, void* /*edx*/) {
     uint32* const words = static_cast<uint32*>(self);
     words[1] = 0;
     words[0] = 0x86D4CC;

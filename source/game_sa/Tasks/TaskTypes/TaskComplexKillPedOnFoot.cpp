@@ -39,9 +39,26 @@ END GENERATED HOOK STATUS */
 #include "General.h"
 #include "EventAreaCodes.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
+}
+
+namespace {
+// 0x620EF0 (lote 115A, banco Fn115A): cuerpo no virtual de ~CTaskComplexKillPedOnFoot del EXE (thiscall, sin argumentos de pila, `ret`)
+// Deja la vtable de CTaskComplexKillPedOnFoot del EXE (0x86D894), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula en +0x10 y salta a CTaskComplex::Destructor (0x61A3D0). El EXE lo envuelve en un marco SEH que solo desenrolla.
+void __fastcall KillPedOnFootDestructorBody(CTaskComplexKillPedOnFoot* self, void* /*edx*/) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x86D894;
+    CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0x10));
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexKillPedOnFoot::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexKillPedOnFoot, 0x86D894, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(KillPedOnFootDestructorBody, "Destructor", 0x620EF0);
     RH_ScopedInstall(Constructor, 0x620E30);
     RH_ScopedInstall(CreateSubTask, 0x625E70);
     RH_ScopedInstall(SayGangAttack, 0x65E9A0);

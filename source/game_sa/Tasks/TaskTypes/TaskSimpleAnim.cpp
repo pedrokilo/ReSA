@@ -20,9 +20,26 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleAnim.h"
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
+namespace {
+// 0x61A6C0 (lote 115A, banco Fn115A): cuerpo del constructor de CTaskSimpleAnim del EXE (thiscall, un dword en la pila, `ret 4`, devuelve this). Base CTaskSimple (0x61A390), el bit 2 del byte +0xC toma el bit 0 del argumento (los bits 0..2 se borran y el resto se conserva), vtable 0x86D504 y +8 = 0.
+CTaskSimpleAnim* __fastcall SimpleAnimConstructorBody(CTaskSimpleAnim* self, void* /*edx*/, uint32 holdLastFrame) {
+    CTaskSimpleBody::Constructor(self, nullptr);
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    bytes[0xC] = static_cast<uint8>(((holdLastFrame & 1) << 2) | (bytes[0xC] & 0xF8));
+    *reinterpret_cast<uint32*>(bytes) = 0x86D504;
+    *reinterpret_cast<uint32*>(bytes + 8) = 0;
+    return self;
+}
+} // namespace
+
 void CTaskSimpleAnim::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleAnim, 0x86D504, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(SimpleAnimConstructorBody, "Constructor", 0x61A6C0);
     RH_ScopedVMTInstall(MakeAbortable, 0x61A790);
 }
 

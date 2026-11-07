@@ -25,9 +25,24 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexInAirAndLand.h"
 #include "TaskSimpleClimb.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
+}
+
+namespace {
+// 0x67A060 (lote 115A, banco Fn115A): cuerpo no virtual de ~CTaskComplexJump del EXE (thiscall, sin argumentos de pila, `ret`)
+// Deja la vtable de CTaskComplexJump del EXE (0x870570) y salta a CTaskComplex::Destructor (0x61A3D0). El EXE lo envuelve en un marco SEH que solo desenrolla.
+void __fastcall JumpDestructorBody(CTaskComplexJump* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870570;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexJump::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexJump, 0x870570, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(JumpDestructorBody, "Destructor", 0x67A060);
     RH_ScopedInstall(Constructor, 0x67A030);
     RH_ScopedInstall(CreateSubTask, 0x67D980);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x67FD10);

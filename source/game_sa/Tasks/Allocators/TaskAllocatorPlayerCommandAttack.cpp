@@ -93,9 +93,22 @@ CTaskAllocator* CTaskAllocatorPlayerCommandAttack::ProcessGroup(CPedGroupIntelli
         : this;
 }
 
+namespace {
+// 0x69C480 (lote 115A, banco Fn115A): cuerpo del constructor de CTaskAllocatorPlayerCommandAttack del EXE (thiscall, un puntero a peaton y dos dwords en la pila, `ret 0Ch`, devuelve this). Primero CWorld::FindPlayerPed(-1) (0x56E210), despues el constructor de CTaskAllocatorAttack (0x69C240) con (objetivo, id de grupo, jugador), vtable 0x870E78 y +0x1C = tercer argumento.
+CTaskAllocatorPlayerCommandAttack* __fastcall PlayerCommandAttackConstructorBody(CTaskAllocatorPlayerCommandAttack* self, void* /*edx*/, CPed* target, int32 groupTargetId, uint32 value) {
+    CPed* const player = FindPlayerPed(-1);
+    reinterpret_cast<CTaskAllocatorAttack*>(self)->Constructor(target, groupTargetId, player);
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x870E78;
+    *reinterpret_cast<uint32*>(bytes + 0x1C) = value;
+    return self;
+}
+} // namespace
+
 void CTaskAllocatorPlayerCommandAttack::InjectHooks() {
     RH_ScopedVirtualClass(CTaskAllocatorPlayerCommandAttack, 0x870e78, 6);
     RH_ScopedCategory("Tasks/Allocators");
+    RH_ScopedNamedGlobalInstall(PlayerCommandAttackConstructorBody, "Constructor", 0x69C480);
 
     RH_ScopedVMTInstall(AllocateTasks, 0x69C4D0);
     RH_ScopedVMTInstall(GetType, 0x69C4C0);

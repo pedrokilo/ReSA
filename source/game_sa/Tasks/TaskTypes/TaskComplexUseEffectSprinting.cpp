@@ -19,9 +19,21 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "TaskComplexUseEffectSprinting.h"
 
+namespace {
+// 0x636860 (lote 115A, banco Fn115A): cuerpo del constructor de CTaskComplexUseEffectSprinting del EXE (thiscall, dos punteros en la pila, `ret 8`, devuelve this). Constructor de CTaskComplexUseEffect (0x6321F0) con los mismos dos argumentos, vtable 0x86E5C0 y +0x1C = 7 (estado de movimiento: esprintar).
+CTaskComplexUseEffectSprinting* __fastcall UseEffectSprintingConstructorBody(CTaskComplexUseEffectSprinting* self, void* /*edx*/, C2dEffectPedAttractor* effect, CEntity* entity) {
+    reinterpret_cast<CTaskComplexUseEffect*>(self)->Constructor(effect, entity);
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x86E5C0;
+    *reinterpret_cast<uint32*>(bytes + 0x1C) = 7;
+    return self;
+}
+} // namespace
+
 void CTaskComplexUseEffectSprinting::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexUseEffectSprinting, 0x86e5c0, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(UseEffectSprintingConstructorBody, "Constructor", 0x636860);
 
     RH_ScopedVMTInstall(Clone, 0x6368A0);
     RH_ScopedVMTInstall(GetTaskType, 0x636890);

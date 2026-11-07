@@ -20,9 +20,25 @@ END GENERATED HOOK STATUS */
 
 #include "TaskComplexSequence.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
+}
+
+namespace {
+// 0x6389F0 (lote 115A, banco Fn115A): cuerpo no virtual de ~CTaskComplexSequence del EXE (thiscall, sin argumentos de pila, `ret`)
+// Deja la vtable de CTaskComplexSequence del EXE (0x86E200) y llama a CTaskComplexSequence::Flush (0x632C10) y a CTaskComplex::Destructor (0x61A3D0). El EXE lo envuelve en un marco SEH que solo desenrolla.
+void __fastcall SequenceDestructorBody(CTaskComplexSequence* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86E200;
+    self->Flush();
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexSequence::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexSequence, 0x86e200, 11);
     RH_ScopedCategory("Tasks");
+    RH_ScopedNamedGlobalInstall(SequenceDestructorBody, "Destructor", 0x6389F0);
 
     RH_ScopedInstall(Constructor, 0x632BD0);
 

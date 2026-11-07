@@ -22,13 +22,14 @@ public:
     CPed::Ref  m_Originator;
     CTaskTimer m_NextUpdateTimer;
 
-private: // Wrappers for hooks
+public: // Constructor: lo llama el constructor reconstruido de CTaskAllocatorPlayerCommandAttack (lote 115A)
     // 0x69C240
     CTaskAllocatorAttack* Constructor(CPed * ped1, int32 groupId, CPed * ped2) {
         this->CTaskAllocatorAttack::CTaskAllocatorAttack(ped1, groupId, ped2);
         return this;
     }
 
+private: // Wrappers for hooks
     // 0x69C2D0
     CTaskAllocatorAttack* Destructor() {
         this->CTaskAllocatorAttack::~CTaskAllocatorAttack();

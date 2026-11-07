@@ -1,0 +1,52 @@
+{
+  "binaries": {
+    "asi": "870d9bd8df43fc0ca50ac7855d73f89a4a23faf4a47d892b1aec13f0e10d350f",
+    "pdb": "aa5ea759e16ccc68da0d9353646c7000620a8baceec74ba87c2b9fea4b536d89"
+  },
+  "sources": {
+    "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+    "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+    "source/game_sa/Events/Event.cpp": "8a1cf4b9dcb3e4884e21ebf564a77629f818aac6b00f170aecf62692865e7fe5",
+    "source/game_sa/Events/EventDontJoinPlayerGroup.cpp": "7cb38038fce1953aa12d5e279f3b7aa184ab7f74ec9bed4016a4665731e4efbd",
+    "source/game_sa/Events/EventPassObject.cpp": "6a8126602b5338f7c5ed407c29d58d42c8f1a54a58179c399c8aed96574dffa8",
+    "source/game_sa/Tasks/Task.cpp": "be8bc85ded7b60208f987af721340a13aa0db0d50272406ad67ec86f4101c0e6",
+    "source/game_sa/Tasks/TaskComplexSequence.cpp": "316b8de619e6c000267a1bc319adee212ebe24721620d14ece593db9d8e5ccfd",
+    "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
+    "source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp": "ffe41423d6406a732ee8d04d440f79ffa7bb1ae6b039b769dbb6823190991c5e",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "977809ceb9f2b58853a03602adebd8eeaeb5149356967755bcf27457cfa6a4cf",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.cpp": "036b408bb0ea0cddbcae833a3c364176bc327d5b7f6e1615892d442a9755e448",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "50d65bcf0bcd9b053a16b48b250c3f3be1112413aa0fd2619a0f3061a7b461ca",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "27defa8b6dd963488270e46024506324f7245c562692542168d4c31411ec61a2",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "c2f9efa015ee1274f6a760434a00f8413a540410bcd9b52c056b588c794ac6d6",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp": "0e6da2ba5526e4f069f88b0ed45a4fe05bdf413f54a5fd43f86096943212a946",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "e9686c35f3da4b320bab4ca810362b25368d96f9a683cf98bf6d70ea630137b6",
+    "source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp": "0472979181d3979a37e1b9eec152455e04ffc0420ab8c77382561a1e24b96168",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp": "047f6ba8622da0c753440f89c4fb07ef957d1c1687c7930bc580eb235a06d045",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "a328707c153488977d55beb3a09b1562f7bc9de64cffc4538d80ec668afcb06c",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "93bce9fab0094aa85d807a6d7619149f7daec39030c6688ac52b3b49b38fda0d",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffect.h": "17d1241832cd0e728965c980eab946e454d7cf463504e8d2edf460012a043273",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "72c79f077feb4961bdd8171998be7c25a5c8c3fc9a62dea82ec65948824f55d3",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "0f0ffd3d4626b7159541d2446e421461bdee097015caa5d3917e35b227457ab4",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp": "eb66abf70ce58315f87126f728558165ecf5dc532a3552b28af05bc9187b79cc",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "c0b09319ec84e3bfe6b353bdf32124db816d37fb44a11ab3820e94f7e47d39e8",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp": "3c70404703170b2b9da555f00b3b4ed64331227ab57a1e7a50456bc7bf547fcd",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+    "reversing/Fn115A/LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
+    "reversing/Fn115A/Core.hpp": "b2d90bce3ca46c79d6fa0cef98c0df3b0ba03bd14da1d1d913f81ff18e92c35c",
+    "reversing/Fn115A/Fixtures.hpp": "bf1eaac83e53b17f545350179d6e9f414a37eb1671014d6cbcc914c9c0e16eff",
+    "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+  },
+  "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+  "instrumentation": {
+    "Core.hpp": "b2d90bce3ca46c79d6fa0cef98c0df3b0ba03bd14da1d1d913f81ff18e92c35c",
+    "Fixtures.hpp": "bf1eaac83e53b17f545350179d6e9f414a37eb1671014d6cbcc914c9c0e16eff",
+    "LiveComparison.hpp": "9aebafe26f7e24d4dd69003802b490320fc019b3f17aa72947c90fb17452f2f6",
+    "build_probe.py": "bac390389a4b70b763c4e5423ec10716e8d834b4a53d925c46c13595d1c3659a",
+    "fixture_oracle.py": "267dac98d8ba93811938fe20af14a7a889003a4bd3c6ff79fc75a7644af7cf85",
+    "fixture_selfcheck.py": "44f7daa2640a972361d770bdb01a623043ddb224a5dcdf981e4a219cd6b18f48",
+    "negative_run.py": "5a4476ea6685b1a08a123f6618dad5534a2c2db29d5e888933cf518c42255d8b",
+    "register_hook.py": "3a0f392b087aa3f9966568b8d664199ceeb3d7e83b4743036fe1432b775ccf9a",
+    "run_local.py": "c8a79c91d52977108efa8c51e7846a612c6d036ad0dd53eec3c916e0d42abe35"
+  }
+}

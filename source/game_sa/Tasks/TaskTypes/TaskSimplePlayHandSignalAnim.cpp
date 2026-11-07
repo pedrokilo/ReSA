@@ -22,9 +22,31 @@ END GENERATED HOOK STATUS */
 
 #include "Ragdoll/IKChainManager.h"
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
+namespace {
+// 0x61AE50 (lote 115A, banco Fn115A): cuerpo del constructor de CTaskSimplePlayHandSignalAnim del EXE (thiscall, cuatro dwords en la pila, `ret 10h`, devuelve this). Base CTaskSimple (0x61A390); id de animacion en +0x10, factor (patron de bits tal cual) en +0x14, byte +0x18 = (byte bajo del tercer argumento != 0), bit 2 del byte +0xC = bit 0 del cuarto, +8/+0x1C/+0x20 = 0 y vtable 0x86D5B8.
+CTaskSimplePlayHandSignalAnim* __fastcall HandSignalConstructorBody(CTaskSimplePlayHandSignalAnim* self, void* /*edx*/, uint32 animId, uint32 blendBits, uint32 fatHands, uint32 holdLastFrame) {
+    CTaskSimpleBody::Constructor(self, nullptr);
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    bytes[0xC] = static_cast<uint8>(((holdLastFrame & 1) << 2) | (bytes[0xC] & 0xF8));
+    *reinterpret_cast<uint32*>(bytes + 0x10) = animId;
+    *reinterpret_cast<uint32*>(bytes + 8) = 0;
+    *reinterpret_cast<uint32*>(bytes + 0x1C) = 0;
+    *reinterpret_cast<uint32*>(bytes + 0x20) = 0;
+    *reinterpret_cast<uint32*>(bytes) = 0x86D5B8;
+    *reinterpret_cast<uint32*>(bytes + 0x14) = blendBits;
+    bytes[0x18] = static_cast<uint8>(fatHands) != 0 ? 1 : 0;
+    return self;
+}
+} // namespace
+
 void CTaskSimplePlayHandSignalAnim::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimplePlayHandSignalAnim, 0x86D5B8, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(HandSignalConstructorBody, "Constructor", 0x61AE50);
 
     RH_ScopedVMTInstall(ProcessPed, 0x61BDA0);
     RH_ScopedInstall(StartAnim, 0x61AF60);

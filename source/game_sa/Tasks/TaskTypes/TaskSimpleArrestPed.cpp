@@ -20,9 +20,30 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleArrestPed.h"
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
+namespace {
+// 0x68B620 (lote 115A, banco Fn115A): cuerpo del constructor de CTaskSimpleArrestPed del EXE (thiscall, un puntero a entidad en la pila, `ret 4`, devuelve this). Base CTaskSimple (0x61A390), vtable 0x870984, el peaton en +8, byte +0xC y dword +0x10 a cero y, si el peaton no es nulo, CEntity::RegisterReference (0x571B70) sobre +8.
+CTaskSimpleArrestPed* __fastcall ArrestPedConstructorBody(CTaskSimpleArrestPed* self, void* /*edx*/, CEntity* ped) {
+    CTaskSimpleBody::Constructor(self, nullptr);
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x870984;
+    *reinterpret_cast<CEntity**>(bytes + 8) = ped;
+    bytes[0xC] = 0;
+    *reinterpret_cast<uint32*>(bytes + 0x10) = 0;
+    if (ped) {
+        ped->RegisterReference(reinterpret_cast<CEntity**>(bytes + 8));
+    }
+    return self;
+}
+} // namespace
+
 void CTaskSimpleArrestPed__InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleArrestPed, 0x870984, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(ArrestPedConstructorBody, "Constructor", 0x68B620);
 
     RH_ScopedVMTInstall(MakeAbortable, 0x68B740);
     RH_ScopedVMTInstall(ProcessPed, 0x68B8A0);
