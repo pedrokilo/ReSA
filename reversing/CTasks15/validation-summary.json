@@ -61,7 +61,7 @@
   "log_sha256": "c0326801b431cd740bad2ecc432b8018577771e81f8d6d668a2c1e305c94cc28",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks15\\20261003-115224-613649",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks15\\20261106-182752-711938",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexAvoidOtherPedWhileWandering::Clone": true,
@@ -112,27 +112,28 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "e2c36053701f3dce98dfd052c3afb32588e0cf35e27c6ebf8f2ee53812460947",
-      "pdb": "d100084637bfc0c5559c0f1b664ca218aed7005ec5e2f36b7a5f12fef31fe5be"
+      "asi": "90d03ba0eb9a97279b0a2c298dc97983334b5efc21b2f5a2c070e6eb3fec348e",
+      "pdb": "d402abc55e6782b5202c96ebd917f8d71e0b927a5197b99d23c29ad8448c7223"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp": "0b4c605eb40bd6e834ad16033c9beb1c3ee20cb74c615c5ce2051f55455aace3",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp": "2ccecd7dc653cb255e7f4f87bbb521f7c83a871511beb65f470f30434c0a23a3",
       "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h": "16966b71a1c11212c47811cddc02ac4046ecc0bd95a49c8244a202e02371314e",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "a6af733e275f10c31aa535f4b32b1fe1c572c6c5f811666d8c7d85117001ac20",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "185b77e7287699dcf749592ff55c3012065d6defabad5fb0fbf23b04c5fd86f8",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.h": "945dc59db432d358c436dcffa3af5a850c50fbfaa59e6d96110d943c79d51d63",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "aac4447b267038d67c3bd47f4b37fa0c515c6efb8481252192f0730442dd0012",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "ab0d55663e320c6e45ede9cc6697b28bcf04b2541b2ea3867873165b6658c05f",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h": "d54eed4e75e1c79bed74f14a43ea09039db40b710404d2c67b01064653f32c84",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb_models.h": "8ea3f37578e8df2e2f15684e3938de5f291a6f99c930beccc040b939c76f9b5f"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "ba0520d5137ecd3bc483f4fb390e877ce95a2597a25efd401a85155b988dab14",
+      "LiveComparison.hpp": "604ff73f0888e9afc8013c7251a9ff6e03aced034c01e63671e3648a85c49d2d",
       "build_probe.py": "348c223ec2fe7a83cdbcceaa4a0e701d771787bfdf539f82a9b0e9e2e9cb3396",
       "run_local.py": "1282b17df63dc26932c9cbdf5c0eb779a5712f1c79b9ff06dfeeff91c4b8c407"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

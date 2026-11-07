@@ -189,7 +189,7 @@ inline void Update() {
     add(0x4B57A0,MAddr(static_cast<void(CEventEditableResponse::*)(CPedGroup*)>(&CEventEditableResponse::ComputeResponseTaskType)),reinterpret_cast<void*>(&FakeCrtt));
     add(0x4AC490,MAddr(&CEventEditableResponse::WillRespond),reinterpret_cast<void*>(&FakeWill));
     add(0x5FC200,uintptr_t(&CGroupEventHandler::ComputeEventResponseTasks),reinterpret_cast<void*>(&FakeCert));
-    plan.push_back({0x5F7E80,reinterpret_cast<void*>(&FakePedsGroup)});   // la DLL llama al EXE (plugin::CallAndReturn)
+    add(0x5F7E80,uintptr_t(&CPedGroups::GetPedsGroup),reinterpret_cast<void*>(&FakePedsGroup));   // CPedGroups::GetPedsGroup tiene hook RH: el mismo falso en el EXE y en el cuerpo de la DLL (lote 114A)
     { std::vector<uintptr_t> stubs; for(auto& p:plan)stubs.push_back(Body(uintptr_t(p.stub)));
       std::vector<P> clean; for(auto& p:plan){ bool dup=false; for(auto& q:clean)dup|=q.at==p.at; for(auto s:stubs)dup|=s==p.at||uintptr_t(p.stub)==p.at; if(!dup)clean.push_back(p); } plan=clean; }
     const auto occupancyStart=Occupancy();

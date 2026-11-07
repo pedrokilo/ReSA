@@ -40,30 +40,30 @@
     "CPedClothesDesc::SetTextureAndModel-hash": true,
     "CPedClothesDesc::SetTextureAndModel-name": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main b00bfe4d9 con los cambios del lote (ver artifacts/build-manifest.json). CPointRoute::operator new corre CPointRoutePool::New (0x41B5B0) de verdad en ambos lados (original en el EXE con su hook apagado, cuerpo propio en la DLL); SetTextureAndModel corre CClothes::GetTextureDependency (0x5A7EA0) de verdad en ambos lados y, por nombre, CKeyGen::GetUppercaseKey (0x53CF30) es un falso identico en el EXE y en su cuerpo de la DLL. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros no validos, ranuras de arma fuera de -8..14, bytes de bandera no booleanos (solo se compara AL como verdad), borrado doble en el pool y valores de parte fuera de -8..30.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main b00bfe4d9 con los cambios del lote (ver artifacts/build-manifest.json). CPointRoute::operator new corre CPointRoutePool::New (0x41B5B0) de verdad en ambos lados (original en el EXE con su hook apagado, cuerpo propio en la DLL); SetTextureAndModel corre CClothes::GetTextureDependency (0x5A7EA0) de verdad en ambos lados y, por nombre, CKeyGen::GetUppercaseKey (0x53CF30) es un falso identico en el EXE y en su cuerpo de la DLL. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros no validos, ranuras de arma fuera de -8..14, bytes de bandera no booleanos (solo se compara AL como verdad), borrado doble en el pool y valores de parte fuera de -8..30. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn109A-20261106-113215-086576",
-  "summary_sha256": "bbfa337643162187440983d3f2b57fd03dca02d14f383b3f07e38e6b55e25d50",
-  "result_txt_sha256": "6cacb0d46df82ac684213a7ebba582e6bb7d0d66f79d6b22f9f693f1ee96e590",
-  "log_sha256": "e2fb862d30e136609aa44fdf013592106fbedc81a30e4786218cdccc431e199b",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn109A-20261106-193647-190561",
+  "summary_sha256": "38d7ca0c104cef506b8057c5b4a11f7fbe0b80c640dd46a6935d5b6429d451b7",
+  "result_txt_sha256": "46783ac7fbc7c2b60569fcdc29524761579154122d91e32e2599473f9e11ef09",
+  "log_sha256": "0cac8ebfb70cdc107891052998fb09a2e515e9051e59b18b82726067b99721da",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "cc203075dabae3cc15ccd4a4a8dbf39747b691a463efe6767254442061b3179b",
+  "executed_probe_sha256": "a6dcd4185a92b7183fd0be0c0c8ce0713cf8f086a686cbba6984f4c5c17d15d8",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-      "source/InjectHooksMain.cpp": "ecad3fea0985c9eb7f04c5393f218c5aee3ced2c733a24cf5f3ab3382c715dbb",
-      "source/game_sa/common.cpp": "4faa46dc199e0f2104ede26de6604d4c7d6010d27f30e587acb7f5aaa538d6ea",
-      "source/game_sa/SetPiece.cpp": "13a41fa8af71e31322302a07b6eb0a7d9ce621cc09da09afba8437a31b14bda7",
-      "source/game_sa/Cam.cpp": "700f1b152909eca16a9d65a3479ce3d24dabcbd1f3b897f6151ebb36e2ca86ae",
-      "source/game_sa/Events/EventDamage.cpp": "4ee9ba5be4e0fe4a394f619009e63c9593ace1dd77acc6807fd175f1dd35a73c",
-      "source/game_sa/VehicleScanner.cpp": "3f74ef751328598eac7141646cb1498a7629295b4da7d3792af042578c4b8c04",
-      "source/game_sa/PedScanner.cpp": "efe6727dd62dcf11619f644e3d48e29366047a05acba5e9ec9262a4dbcb4eaaf",
-      "source/game_sa/PedGeometryAnalyser.cpp": "d80116c006cc6bcbebe35f17a940dce39a7ee84cb88fdd571ce39e827b7500a7",
-      "source/game_sa/PedClothesDesc.cpp": "7ad72f650ab13c2b3064925d3384352a1b81c3b4e1cea7dfcbaa48d970bd5f44",
+      "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
+      "source/game_sa/common.cpp": "1cba920178115176b8f2cfc621b0f8645c2cb90042116cf0d35e7187ea6c1499",
+      "source/game_sa/SetPiece.cpp": "d8d44edfc42cb0b3e57c4c641f4942c9953d2ccb6209ef294a4002f199cd75e5",
+      "source/game_sa/Cam.cpp": "b5cb06ace1d54c172054901d9815d5fb016e21504333e1950174d282e8ce8dfb",
+      "source/game_sa/Events/EventDamage.cpp": "e7418617408cf4d52d2053fc52112563f03ca623c81e82bf944183a53df30c4a",
+      "source/game_sa/VehicleScanner.cpp": "975a022037f3960ea0e08bebc547f6c57fcc95b5c64c7878f964801c6f2afd2c",
+      "source/game_sa/PedScanner.cpp": "47680b94f13db8e4f279e21df16736f43dd59a09071e5a2907998bed2ebbee0f",
+      "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+      "source/game_sa/PedClothesDesc.cpp": "b29da28f5fea41cac9773c792d7bc984bae575dc602b3ecc39cd1ac1a374c695",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Fn109A/LiveComparison.hpp": "561eff3b53bcd9945a77c98fbd892f28f66ff6d8f75f8a9ea030ded079af8095",
       "reversing/Fn109A/Core.hpp": "429e0dd354098195d88127b82da7f36689cab9b8822a6a245bd8d06e55a301ac",
@@ -71,5 +71,12 @@
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn109A-20261106-193647-190561/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "3946d60748eb5f86481094c0971443bf5fa0c16e527fa3534ba284be1770cca9",
+    "uncompressed_sha256": "0cac8ebfb70cdc107891052998fb09a2e515e9051e59b18b82726067b99721da"
   }
 }

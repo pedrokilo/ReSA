@@ -64,7 +64,7 @@
   "log_sha256": "d50c737338d8f8641efe9524c8ceefb9f5b1ab22c32728f1e4bdb673c21c5d3a",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-data8b\\20261104-010153-988956",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-data8b\\20261106-184126-200372",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CEventKnockOffBike::AffectsPed": true,
@@ -118,11 +118,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "6cd72caea2ad743ecb45960d72b9ab950bd6d3344b95cf99ab31135ad76145df",
-      "pdb": "969cfc9902c70158e7e0035614005f853ccf103ba1a08499d721b03cc13a8172"
+      "asi": "fb68bd4dd8914577a75017d66731d08324dc042fe051fb073c7f1060c206df2a",
+      "pdb": "d9a847053b4465ee9ebb4db4e9200e576370ab451742d21f7347f3bf44e7cd26"
     },
     "sources": {
-      "source/game_sa/Events/EventKnockOffBike.cpp": "ddff5735670ba952caaf08ce8ca45d2e1e3198e30d86b743b3af4a66db9c9a20",
+      "source/game_sa/Events/EventKnockOffBike.cpp": "1142ba77f1113dab102d63274250322e325c728144102115f86e3137e2b180b2",
       "source/game_sa/Events/EventKnockOffBike.h": "26be087da7bba477efb9b2a1b5268ac9356b7962d08b183a8f242e244c0237ac",
       "source/game_sa/Events/EventScriptCommand.cpp": "8a0b75844d0c7e192ee0dd14f143d410503dd0c9f6312cfa5852892eefb6f993",
       "source/game_sa/Events/EventScriptCommand.h": "4860ba0ad4eba054d5d0a708d9cf3c2c8a530425ced7a2e7666eb38975b6bb27",
@@ -130,8 +130,8 @@
       "source/game_sa/Tasks/PedScriptedTaskRecord.h": "7f68827e4b6f920abb394b9d132c41988ba6059ae7b60b0e07a2884c722cfd5a",
       "source/game_sa/RealTimeShadow.cpp": "faf8df8f54c646c8109ef43ac43d85d0ebb6679f4beb2359f0f2aa26455208fa",
       "source/game_sa/RealTimeShadow.h": "9851f77d169019512dfb60e050f620ad383e84c94193bdf80aacbba7d0533b49",
-      "source/game_sa/Core/Rect.cpp": "f234c9ab59e9822bb3cf095a2093d2c5206aca736f44063c23bbd52eb43abeae",
-      "source/game_sa/Core/Rect.h": "e7b704bfc6028faa25c61da1f5203788bafe0bb23dce706a20e16e96077421ca",
+      "source/game_sa/Core/Rect.cpp": "397fc8e6d5abe0febd99afba1b4f4b444f0ad222b5cd9cc06f6e7c2e4448cdbc",
+      "source/game_sa/Core/Rect.h": "0e1b9ebe4762153586c9d15cd5f6f9b109104e8552256832425a179f06815d0c",
       "source/game_sa/StuckCarCheck.cpp": "00d40cc15a10c7ed67835cbee33148d8858a6ab5d125a31af6540cf596ce08f0",
       "source/game_sa/StuckCarCheck.h": "ebd346cb0bb2c5c51d2b78870e3ea8c4bcff07c30205ff90d54dd354dc8eadb7"
     },

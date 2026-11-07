@@ -1,0 +1,3 @@
+APROBADO: CEventHandler grupo C (EvHC)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-evhc\20261106-201448-798829

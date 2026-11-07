@@ -38,7 +38,7 @@
   "log_sha256": "f16c6c668eb6e4056bf64de9a59224e57ca5d39868959bf6851028bd6a158205",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-carctrl22\\20261102-044526-418480",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-carctrl22\\20261106-183217-580039",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CCarCtrl::Init": true,
@@ -66,16 +66,16 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "286076da4c6b3a46abdb6cd28896ae1b6b37e3dc28e40a6aa277f59200b0917e",
-      "pdb": "6d96eaa398594ebf07f622dc0b3a1908f6400076f53a2861bbc26968d6f74d1e"
+      "asi": "cc98364250d68362a3696e38c1a5602a1902bdc7ac26b92185907e057b1ebd66",
+      "pdb": "f51d0676a7731292a131099ec28f35514711ffa1f93e8c9a21e265870ea7e967"
     },
     "sources": {
-      "source/game_sa/CarCtrl.cpp": "fccd720e9dd8f1b0934a8570e567ba9ef77a9e8017d404ffaca8a4c1d228b028",
-      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
+      "source/game_sa/CarCtrl.cpp": "cd16deeae97c78a92292553c93315b283293860463357f226d81b54af93edfa3",
+      "source/game_sa/CarCtrl.h": "c551460ac16e87f07dfb0b044b8af5535794ee3c1c6a14f4b7ed8057b07a3f29"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "add770bb79b46b2c38c5f4db227d1e6e94d30e96e51d3c6ec01f1a94dd7c0186",
+      "LiveComparison.hpp": "8d19a75a9ac1d87748553cc49e502fd9f76ec9f1df9bd920d5a5d823bd517e29",
       "build_probe.py": "064bfe1408fd5df3cf0836bb779156bb0cd033bdff0e73737fe74ace5361316f",
       "run_local.py": "911d524945328d4a09ce446ee4b3f1ef0e48d959d82f14176cb9592e71d3e8b1"
     }

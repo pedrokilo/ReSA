@@ -12,27 +12,27 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wm-1 (HEAD 63d8ac6cb + parches del lote 31; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal las fuentes se fusionaron en tres vías con trabajo sin validar del lote 27 en los mismos archivos, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00657220. CTask::operator new (0x61A5A0) y el constructor de CTaskComplexGoToPointAndStandStill (0x668120, con GoToPoint 0x46FE60 dentro) son los ya reconstruidos y enganchados; ComputeClosestSurfacePoint (ped 0x5F3B70 y posicion 0x5F36F0), ComputeEntityHitSide (0x5F3AC0) y CreateRouteTask (0x655140, sin hook: la DLL la llama por plugin al EXE) estan sustituidos por falsos identicos en ambos lados; la subtarea es una tarea falsa con vtable propia. EAX/ECX/EDX solo registrados (el unico llamador es CTaskManager::SetNextSubTask 0x681920 (C++ de la DLL), que solo usa EAX). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/WalkRoundNext31-20261104-124530-712791",
-  "summary_sha256": "0979143571ef17d45c8be09499ca6527a620e8bc78e3804bab07beb539f6f683",
-  "result_txt_sha256": "0b1d5b8fe10ba4d3dbeb743be21144de2820b8202c86cc2d03ad015d9b6f9370",
-  "log_sha256": "9cad6142329db368ebad962680b79528f8da12a539c3ef3bef8cda9e61cac1f6",
+  "run": "reversing/CppTwelveLevel6Final/runs/WalkRoundNext31-20261106-192738-931831",
+  "summary_sha256": "a9c5b93e8a974dbea86bff956af1202e894b6e329430be180612ab327db51975",
+  "result_txt_sha256": "b8dffce37e03ead657379d4f001601cb79b7dedb297b2d58085e6d8ee739b02d",
+  "log_sha256": "32f74cd04be0bef3dc111d7fd633c3343010acdab19eb33e097c2b6455b3db64",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "2b0a23f8170db8a7a4eee905a73777121866dbded485aa2b8553921b2bc22647",
+  "executed_probe_sha256": "302ecb7d5538cb8e4c3ff838d7dfe30cc3283bc621749e810999d2007eb40c74",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "d80de777ac5a20cbfbe5d0d285a3a601af69365a82ef393939ab13d5d2097a73",
-      "source/InjectHooksMain.cpp": "52f079e9863766f588a5177d8ddcbf77cd547c0f8cb408b21f354aeee259c45b",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "55e132e2294c6cedb8f5c4c4a07c173686d0ca9b9476067750561c44a92c4904",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "886c3af5682df984fad5cc6f5da7eb5f8d7b2c55daf8114d8faf4731c18de62d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "ebeb18343014f98a036b980fd29cbe9f6972ed83978e7fe801e20d5fe42d1eff",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "a46fd5a5d124242b245ba0e85c9b16634229cf7ac3a519ca88e2b7a1fa6da4b5",
       "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
-      "source/game_sa/Tasks/Task.cpp": "23b303826ad108736f38102ebf5180adaa7264f765f9f6e26a89a863bf595ae0",
+      "source/game_sa/Tasks/Task.cpp": "b8ea4f262b2b5715c22ec4e9ef087c3716d965cbfa80955806e00084d1883ac6",
       "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-      "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
-      "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
+      "source/game_sa/PedGeometryAnalyser.cpp": "a01d941dba51f4f1284e1116f4354f4ca0827c0e211ad21239c89d2e1e8c3d7c",
+      "source/game_sa/PedGeometryAnalyser.h": "d9e26504d3ac0df72af1caf4a031142bfed33071c540ff0a77f6d4d816a6866d",
       "source/game_sa/Route.hpp": "daaa88cd5402a812f7c1ee6ce5d4829df5dc38d473757a3bfbe4cfef240fbaba",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.h": "70a6149b4fe79ca1505be3b8fa9cd90fee360a3f73d8d7b5f3417d09491163e9",
@@ -47,10 +47,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/WalkRoundNext31-20261104-124530-712791/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/WalkRoundNext31-20261106-192738-931831/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "33f98ebff7a73a7609f1414650991ba76f59366479fc4147c9c0a940eca7e9f6",
-    "uncompressed_sha256": "9cad6142329db368ebad962680b79528f8da12a539c3ef3bef8cda9e61cac1f6"
+    "compressed_sha256": "039cb6d53a5e96e5cef90a5d48f90e126f9085d4e74cecc214de30eb8276bbbd",
+    "uncompressed_sha256": "32f74cd04be0bef3dc111d7fd633c3343010acdab19eb33e097c2b6455b3db64"
   }
 }

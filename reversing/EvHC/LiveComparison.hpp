@@ -208,7 +208,7 @@ inline void Update() {
         EntryPatch p4(bit_cast<uintptr_t>(&CPed::RestartNonPartialAnims),Restart), p4e(0x5DED50,Restart);
         EntryPatch p5(bit_cast<uintptr_t>(&CTaskComplexWander::GetWanderTaskByPedType),WanderTask), p5e(0x673D00,WanderTask);
         EntryPatch k1(bit_cast<uintptr_t>(&CEventHandler::IsKillTaskAppropriate),KillApprop), k1e(0x4BC3E0,KillApprop); // estatica cdecl en EXE y DLL
-        EntryPatch i1(0x602590,InterestingAdd);                                                                                   // la DLL reenvia al EXE
+        EntryPatch i1(bit_cast<uintptr_t>(&CInterestingEvents::Add),InterestingAdd), i1e(0x602590,InterestingAdd);                  // CInterestingEvents::Add tiene hook RH: el mismo falso en el cuerpo de la DLL y en el EXE (lote 114A)
         EntryPatch m1(bit_cast<uintptr_t>(&CTheScripts::IsPlayerOnAMission),OnMission), m1e(0x464D50,OnMission);
         EntryPatch l1(bit_cast<uintptr_t>(&IKChainManager_c::LookAt),LookAt), l1e(0x618970,LookAt);
         EntryPatch f1(bit_cast<uintptr_t>(&CPedIntelligence::GetPedFOVRange),FovRange), f1e(0x4ABEA0,FovRange);
