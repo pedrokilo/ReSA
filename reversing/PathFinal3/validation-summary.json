@@ -175,27 +175,27 @@
     "CPathFind::UpdateStreaming": "Corpus 1024; source reviewed against the EXE and corrected before the run where needed (see git diff). FindPlayerPed solo a traves del doble; fuente corregida: ToBeStreamedForScript global 0x96EF90, pool de vehiculos de la ultima ranura a la primera (0x450B40), rep stos por columnas (0x450CA5/0x450CBF), bucle final x+y*8 (0x450D00..0x450D4D). Limites del banco: ThePaths y las globales vecinas se sobrescriben con datos deterministas en un arena propio y se restauran; areas falsas; pool de vehiculos falso; RwStreamOpen/Read/Close y CMemoryMgr::Malloc/Free simulados; colaboradores doblados con traza (sin credito)."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PathFinal3-20261104-221939-363721",
-  "summary_sha256": "644d071a2c7f76f4267b4d63c38b860920c676a4f302af34b3bcee77fc0b5120",
-  "result_txt_sha256": "f28b108b12b5c37ef051b398e71564d0cd75d78ef1b74bbcfb4acaea33c019a9",
-  "log_sha256": "38aefbe0a001b77dd7e95dd866515e71690db6b770db05d98f68d6b38d3334cf",
+  "run": "reversing/CppTwelveLevel6Final/runs/PathFinal3-20261107-141218-606500",
+  "summary_sha256": "fc16b06585f5603748617f0dccc81d0ce15b3942f596701e9c21f3ef740f1b06",
+  "result_txt_sha256": "18fdb023f76f31a72fbd8c361789fb7ead5da5ae957a37c2dd13f6b59ead1024",
+  "log_sha256": "2a6dafbfaf00b7674335ea26249bcd2d5e46b5e506dde90b394667edcddb4753",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PathFinal3-20261104-221939-363721/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PathFinal3-20261107-141218-606500/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "c11a4d6d692cfc4b2d94ab5be6078325f152693efd648778dd0cd457c1c8cd2c",
-    "uncompressed_sha256": "38aefbe0a001b77dd7e95dd866515e71690db6b770db05d98f68d6b38d3334cf"
+    "compressed_sha256": "b752116008df2fa233d73cff165d90d56e3ea02c1a9f40bfd1f4ed5c054fa38e",
+    "uncompressed_sha256": "2a6dafbfaf00b7674335ea26249bcd2d5e46b5e506dde90b394667edcddb4753"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "6e20b19761118b4d62a22216f809a3027bff403cfd1994b311857385bac64d25",
+  "executed_probe_sha256": "d2c13438d9aeccd5c725df78be403efa11b1fb0c2baf45fd0d5d70e1d3fd20b5",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-      "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+      "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+      "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
     }
   },
   "source_corrections": {

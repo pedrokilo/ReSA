@@ -73785,7 +73785,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::AddDynamicLinkBetween2Nodes_For1Node"
@@ -73794,8 +73794,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73811,7 +73811,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::AddInteriorLink"
@@ -73820,8 +73820,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73837,7 +73837,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::AddInteriorLinkToExternalNode"
@@ -73846,8 +73846,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73863,7 +73863,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::AddNodeToList"
@@ -73872,8 +73872,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73889,7 +73889,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::AddNodeToNewInterior"
@@ -73898,8 +73898,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73915,7 +73915,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::AreNodesLoadedForArea"
@@ -73924,8 +73924,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73941,7 +73941,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::CountNeighboursToBeSwitchedOff"
@@ -73950,8 +73950,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73967,7 +73967,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindLinkBetweenNodes"
@@ -73976,8 +73976,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -73993,7 +73993,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindNearestExteriorNodeToInteriorNode"
@@ -74002,8 +74002,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74019,7 +74019,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindNodeClosestToCoorsFavourDirection"
@@ -74028,8 +74028,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74045,7 +74045,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindNodeCoorsForScript-LinkedNode"
@@ -74054,8 +74054,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74071,7 +74071,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindNodeCoorsForScript-TwoNodes"
@@ -74080,8 +74080,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74097,7 +74097,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindRegionForCoors"
@@ -74106,8 +74106,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74123,7 +74123,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindStartPointOfRegion-"
@@ -74132,8 +74132,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74149,7 +74149,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindXCoorsForRegion"
@@ -74158,8 +74158,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74175,7 +74175,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindXRegionForCoors"
@@ -74184,8 +74184,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74201,7 +74201,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindYCoorsForRegion"
@@ -74210,8 +74210,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74227,7 +74227,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindYRegionForCoors"
@@ -74236,8 +74236,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74253,7 +74253,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::GetPathNode"
@@ -74262,8 +74262,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74279,7 +74279,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::HaveRequestedNodesBeenLoaded"
@@ -74288,8 +74288,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74305,7 +74305,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::Init"
@@ -74314,8 +74314,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74331,7 +74331,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::IsAreaNodesAvailable"
@@ -74340,8 +74340,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74357,7 +74357,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::IsWaterNodeNearby"
@@ -74366,8 +74366,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74383,7 +74383,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::Load"
@@ -74392,8 +74392,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74409,7 +74409,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::LoadPathFindData-Area"
@@ -74418,8 +74418,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74435,7 +74435,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::LoadPathFindData-FromStream"
@@ -74444,8 +74444,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74461,7 +74461,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::LoadSceneForPathNodes"
@@ -74470,8 +74470,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74487,7 +74487,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::MakeRequestForNodesToBeLoaded"
@@ -74496,8 +74496,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74513,7 +74513,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::MarkRegionsForCoors"
@@ -74522,8 +74522,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74539,7 +74539,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::MarkRoadNodeAsDontWander"
@@ -74548,8 +74548,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74565,7 +74565,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::ReInit"
@@ -74574,8 +74574,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74591,7 +74591,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::ReleaseRequestedNodes"
@@ -74600,8 +74600,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74617,7 +74617,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::RemoveInterior"
@@ -74626,8 +74626,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74643,7 +74643,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::RemoveNodeFromList"
@@ -74652,8 +74652,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74669,7 +74669,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::ReturnInteriorNodeIndex"
@@ -74678,8 +74678,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74695,7 +74695,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::Save"
@@ -74704,8 +74704,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74721,7 +74721,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::SetLinksBridgeLights"
@@ -74730,8 +74730,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74747,7 +74747,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::SetPathsNeededAtPosition"
@@ -74756,8 +74756,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74773,7 +74773,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::Shutdown"
@@ -74782,8 +74782,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74799,7 +74799,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::StartNewInterior"
@@ -74808,8 +74808,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74825,7 +74825,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::SwitchOffNodeAndNeighbours"
@@ -74834,8 +74834,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74851,7 +74851,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::SwitchPedRoadsOffInArea"
@@ -74860,8 +74860,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74877,7 +74877,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::SwitchRoadsOffInArea"
@@ -74886,8 +74886,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74903,7 +74903,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::SwitchRoadsOffInAreaForOneRegion"
@@ -74912,8 +74912,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74929,7 +74929,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::TakeWidthIntoAccountForWandering"
@@ -74938,8 +74938,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74955,7 +74955,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::TestCrossesRoad"
@@ -74964,8 +74964,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -74981,7 +74981,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::TestForPedTrafficLight"
@@ -74990,8 +74990,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -75007,7 +75007,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::These2NodesAreAdjacent"
@@ -75016,8 +75016,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -75033,7 +75033,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::ThisNodeHasToBeSwitchedOff"
@@ -75042,8 +75042,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -75059,7 +75059,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::ThisNodeWillLeadIntoADeadEnd"
@@ -75068,8 +75068,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -75085,7 +75085,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::TidyUpNodeSwitchesAfterMission"
@@ -75094,8 +75094,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -75111,7 +75111,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::UnLoadPathFindData"
@@ -75120,8 +75120,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -75137,7 +75137,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::UnMarkAllRoadNodesAsDontWander"
@@ -75146,8 +75146,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
@@ -75163,7 +75163,7 @@
       },
       "evidence": {
         "path": "reversing/PathFinal3/validation-summary.json",
-        "sha256": "ba7783a982e144787a4f849326a680491ae736cbb84eb054135a9cb8d443e342",
+        "sha256": "bf942f5dafe2d11eaedb2451313c9a7dc8e8a10b8c21e6a12136f31d714f059c",
         "passed_path": [
           "covered_functions",
           "CPathFind::UpdateStreaming"
@@ -75172,8 +75172,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PathFind.cpp": "43bbd3479f53648bd90642f8801a9eaaa6b493f24bad9f5c3e652edadeec77a5",
-        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21"
+        "source/game_sa/PathFind.cpp": "e0e7bf097eceb63d5391ece597a586cc2fa4dd34bef2ea5087d5208f31d76bbf",
+        "source/game_sa/PathFind.h": "c5e93228fc23842dc40f52276367f5743985123e9b5b5c73fa7d25d91fcbb6fc"
       },
       "source_provenance": "Exact compiled PathFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 26880-row log reaudited offline in streaming and preserved gzipped with the original hash.",
       "dependency_review": null,
