@@ -54224,7 +54224,7 @@
       },
       "evidence": {
         "path": "reversing/GeoFinal1/validation-summary.json",
-        "sha256": "fc828afe307f4db0aca3613bf920fd1c8ae181fcebb8cf292a052faa36f03f2b",
+        "sha256": "e273f27f3de4aa1ae7b62968277f27f768c94b3162a6d2ab2770ec3b759e0db9",
         "passed_path": [
           "covered_functions",
           "CCollision::SphereVsEntity"
@@ -54233,13 +54233,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/Collision.cpp": "afb6fd337305b02ee19af94e8e3de752853125118861a45dcb39d4206268cf94",
+        "source/game_sa/Collision/Collision.cpp": "fc796ec6fbcf261f79045da809bed7e41f0f1ed275f02dc5f937063a45e36fa6",
         "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
-        "source/game_sa/Entity/Ped/PlayerPed.cpp": "6e884f6ba9c7aa2dbe3e6ec905134960c9d1a5dc5e9066952d1fb8e8c31e2866",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/PedGeometryAnalyser.cpp": "6182475a742b4ade9680c09bd62abeb00b7bdf26f2ee8bfba13e624973b10ea4",
-        "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
-        "source/game_sa/RealTimeShadowManager.cpp": "e3ed2a70b0edf0bdc73ee734cc83417bf0078c81fe1ee13eb2582450d5e4e130",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/PedGeometryAnalyser.cpp": "895f72beef0d3aaad4835cf3f4ff88575707cf5e12417ff9c763a798c0abaa9e",
+        "source/game_sa/PedGeometryAnalyser.h": "770e9c4f1c479898442f1a1048da0c055ca649b00e5c72d41f101ea66913d4d8",
+        "source/game_sa/RealTimeShadowManager.cpp": "fe571954e09ae35f8acb6fee7cdf75d0cea141efb84c13e1fcf29bfafb39b8f8",
         "source/game_sa/RealTimeShadowManager.h": "0f614a440916acab27fa80efaaa1efbbeafcc61b0ad5862a3a4b9579beb0d32d"
       },
       "source_provenance": "Exact compiled GeoFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 4608-row log reaudited offline and preserved gzipped with the original hash. Collision.cpp, PlayerPed.cpp, PedGeometryAnalyser.cpp and RealTimeShadowManager.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -54256,7 +54256,7 @@
       },
       "evidence": {
         "path": "reversing/GeoFinal1/validation-summary.json",
-        "sha256": "fc828afe307f4db0aca3613bf920fd1c8ae181fcebb8cf292a052faa36f03f2b",
+        "sha256": "e273f27f3de4aa1ae7b62968277f27f768c94b3162a6d2ab2770ec3b759e0db9",
         "passed_path": [
           "covered_functions",
           "CPlayerPed::SetupPlayerPed"
@@ -54265,13 +54265,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/Collision.cpp": "afb6fd337305b02ee19af94e8e3de752853125118861a45dcb39d4206268cf94",
+        "source/game_sa/Collision/Collision.cpp": "fc796ec6fbcf261f79045da809bed7e41f0f1ed275f02dc5f937063a45e36fa6",
         "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
-        "source/game_sa/Entity/Ped/PlayerPed.cpp": "6e884f6ba9c7aa2dbe3e6ec905134960c9d1a5dc5e9066952d1fb8e8c31e2866",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/PedGeometryAnalyser.cpp": "6182475a742b4ade9680c09bd62abeb00b7bdf26f2ee8bfba13e624973b10ea4",
-        "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
-        "source/game_sa/RealTimeShadowManager.cpp": "e3ed2a70b0edf0bdc73ee734cc83417bf0078c81fe1ee13eb2582450d5e4e130",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/PedGeometryAnalyser.cpp": "895f72beef0d3aaad4835cf3f4ff88575707cf5e12417ff9c763a798c0abaa9e",
+        "source/game_sa/PedGeometryAnalyser.h": "770e9c4f1c479898442f1a1048da0c055ca649b00e5c72d41f101ea66913d4d8",
+        "source/game_sa/RealTimeShadowManager.cpp": "fe571954e09ae35f8acb6fee7cdf75d0cea141efb84c13e1fcf29bfafb39b8f8",
         "source/game_sa/RealTimeShadowManager.h": "0f614a440916acab27fa80efaaa1efbbeafcc61b0ad5862a3a4b9579beb0d32d"
       },
       "source_provenance": "Exact compiled GeoFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 4608-row log reaudited offline and preserved gzipped with the original hash. Collision.cpp, PlayerPed.cpp, PedGeometryAnalyser.cpp and RealTimeShadowManager.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -54288,7 +54288,7 @@
       },
       "evidence": {
         "path": "reversing/GeoFinal1/validation-summary.json",
-        "sha256": "fc828afe307f4db0aca3613bf920fd1c8ae181fcebb8cf292a052faa36f03f2b",
+        "sha256": "e273f27f3de4aa1ae7b62968277f27f768c94b3162a6d2ab2770ec3b759e0db9",
         "passed_path": [
           "covered_functions",
           "CPedGeometryAnalyser::CanPedTargetPed"
@@ -54297,13 +54297,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/Collision.cpp": "afb6fd337305b02ee19af94e8e3de752853125118861a45dcb39d4206268cf94",
+        "source/game_sa/Collision/Collision.cpp": "fc796ec6fbcf261f79045da809bed7e41f0f1ed275f02dc5f937063a45e36fa6",
         "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
-        "source/game_sa/Entity/Ped/PlayerPed.cpp": "6e884f6ba9c7aa2dbe3e6ec905134960c9d1a5dc5e9066952d1fb8e8c31e2866",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/PedGeometryAnalyser.cpp": "6182475a742b4ade9680c09bd62abeb00b7bdf26f2ee8bfba13e624973b10ea4",
-        "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
-        "source/game_sa/RealTimeShadowManager.cpp": "e3ed2a70b0edf0bdc73ee734cc83417bf0078c81fe1ee13eb2582450d5e4e130",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/PedGeometryAnalyser.cpp": "895f72beef0d3aaad4835cf3f4ff88575707cf5e12417ff9c763a798c0abaa9e",
+        "source/game_sa/PedGeometryAnalyser.h": "770e9c4f1c479898442f1a1048da0c055ca649b00e5c72d41f101ea66913d4d8",
+        "source/game_sa/RealTimeShadowManager.cpp": "fe571954e09ae35f8acb6fee7cdf75d0cea141efb84c13e1fcf29bfafb39b8f8",
         "source/game_sa/RealTimeShadowManager.h": "0f614a440916acab27fa80efaaa1efbbeafcc61b0ad5862a3a4b9579beb0d32d"
       },
       "source_provenance": "Exact compiled GeoFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 4608-row log reaudited offline and preserved gzipped with the original hash. Collision.cpp, PlayerPed.cpp, PedGeometryAnalyser.cpp and RealTimeShadowManager.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -54320,7 +54320,7 @@
       },
       "evidence": {
         "path": "reversing/GeoFinal1/validation-summary.json",
-        "sha256": "fc828afe307f4db0aca3613bf920fd1c8ae181fcebb8cf292a052faa36f03f2b",
+        "sha256": "e273f27f3de4aa1ae7b62968277f27f768c94b3162a6d2ab2770ec3b759e0db9",
         "passed_path": [
           "covered_functions",
           "CPedGeometryAnalyser::ComputeClosestSurfacePoint-ped"
@@ -54329,13 +54329,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/Collision.cpp": "afb6fd337305b02ee19af94e8e3de752853125118861a45dcb39d4206268cf94",
+        "source/game_sa/Collision/Collision.cpp": "fc796ec6fbcf261f79045da809bed7e41f0f1ed275f02dc5f937063a45e36fa6",
         "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
-        "source/game_sa/Entity/Ped/PlayerPed.cpp": "6e884f6ba9c7aa2dbe3e6ec905134960c9d1a5dc5e9066952d1fb8e8c31e2866",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/PedGeometryAnalyser.cpp": "6182475a742b4ade9680c09bd62abeb00b7bdf26f2ee8bfba13e624973b10ea4",
-        "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
-        "source/game_sa/RealTimeShadowManager.cpp": "e3ed2a70b0edf0bdc73ee734cc83417bf0078c81fe1ee13eb2582450d5e4e130",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/PedGeometryAnalyser.cpp": "895f72beef0d3aaad4835cf3f4ff88575707cf5e12417ff9c763a798c0abaa9e",
+        "source/game_sa/PedGeometryAnalyser.h": "770e9c4f1c479898442f1a1048da0c055ca649b00e5c72d41f101ea66913d4d8",
+        "source/game_sa/RealTimeShadowManager.cpp": "fe571954e09ae35f8acb6fee7cdf75d0cea141efb84c13e1fcf29bfafb39b8f8",
         "source/game_sa/RealTimeShadowManager.h": "0f614a440916acab27fa80efaaa1efbbeafcc61b0ad5862a3a4b9579beb0d32d"
       },
       "source_provenance": "Exact compiled GeoFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 4608-row log reaudited offline and preserved gzipped with the original hash. Collision.cpp, PlayerPed.cpp, PedGeometryAnalyser.cpp and RealTimeShadowManager.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -54352,7 +54352,7 @@
       },
       "evidence": {
         "path": "reversing/GeoFinal1/validation-summary.json",
-        "sha256": "fc828afe307f4db0aca3613bf920fd1c8ae181fcebb8cf292a052faa36f03f2b",
+        "sha256": "e273f27f3de4aa1ae7b62968277f27f768c94b3162a6d2ab2770ec3b759e0db9",
         "passed_path": [
           "covered_functions",
           "CRealTimeShadowManager::DoShadowThisFrame"
@@ -54361,13 +54361,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/Collision.cpp": "afb6fd337305b02ee19af94e8e3de752853125118861a45dcb39d4206268cf94",
+        "source/game_sa/Collision/Collision.cpp": "fc796ec6fbcf261f79045da809bed7e41f0f1ed275f02dc5f937063a45e36fa6",
         "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
-        "source/game_sa/Entity/Ped/PlayerPed.cpp": "6e884f6ba9c7aa2dbe3e6ec905134960c9d1a5dc5e9066952d1fb8e8c31e2866",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/PedGeometryAnalyser.cpp": "6182475a742b4ade9680c09bd62abeb00b7bdf26f2ee8bfba13e624973b10ea4",
-        "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
-        "source/game_sa/RealTimeShadowManager.cpp": "e3ed2a70b0edf0bdc73ee734cc83417bf0078c81fe1ee13eb2582450d5e4e130",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/PedGeometryAnalyser.cpp": "895f72beef0d3aaad4835cf3f4ff88575707cf5e12417ff9c763a798c0abaa9e",
+        "source/game_sa/PedGeometryAnalyser.h": "770e9c4f1c479898442f1a1048da0c055ca649b00e5c72d41f101ea66913d4d8",
+        "source/game_sa/RealTimeShadowManager.cpp": "fe571954e09ae35f8acb6fee7cdf75d0cea141efb84c13e1fcf29bfafb39b8f8",
         "source/game_sa/RealTimeShadowManager.h": "0f614a440916acab27fa80efaaa1efbbeafcc61b0ad5862a3a4b9579beb0d32d"
       },
       "source_provenance": "Exact compiled GeoFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 4608-row log reaudited offline and preserved gzipped with the original hash. Collision.cpp, PlayerPed.cpp, PedGeometryAnalyser.cpp and RealTimeShadowManager.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -54384,7 +54384,7 @@
       },
       "evidence": {
         "path": "reversing/GeoFinal1/validation-summary.json",
-        "sha256": "fc828afe307f4db0aca3613bf920fd1c8ae181fcebb8cf292a052faa36f03f2b",
+        "sha256": "e273f27f3de4aa1ae7b62968277f27f768c94b3162a6d2ab2770ec3b759e0db9",
         "passed_path": [
           "covered_functions",
           "CRealTimeShadowManager::Exit"
@@ -54393,13 +54393,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/Collision.cpp": "afb6fd337305b02ee19af94e8e3de752853125118861a45dcb39d4206268cf94",
+        "source/game_sa/Collision/Collision.cpp": "fc796ec6fbcf261f79045da809bed7e41f0f1ed275f02dc5f937063a45e36fa6",
         "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
-        "source/game_sa/Entity/Ped/PlayerPed.cpp": "6e884f6ba9c7aa2dbe3e6ec905134960c9d1a5dc5e9066952d1fb8e8c31e2866",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/PedGeometryAnalyser.cpp": "6182475a742b4ade9680c09bd62abeb00b7bdf26f2ee8bfba13e624973b10ea4",
-        "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
-        "source/game_sa/RealTimeShadowManager.cpp": "e3ed2a70b0edf0bdc73ee734cc83417bf0078c81fe1ee13eb2582450d5e4e130",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/PedGeometryAnalyser.cpp": "895f72beef0d3aaad4835cf3f4ff88575707cf5e12417ff9c763a798c0abaa9e",
+        "source/game_sa/PedGeometryAnalyser.h": "770e9c4f1c479898442f1a1048da0c055ca649b00e5c72d41f101ea66913d4d8",
+        "source/game_sa/RealTimeShadowManager.cpp": "fe571954e09ae35f8acb6fee7cdf75d0cea141efb84c13e1fcf29bfafb39b8f8",
         "source/game_sa/RealTimeShadowManager.h": "0f614a440916acab27fa80efaaa1efbbeafcc61b0ad5862a3a4b9579beb0d32d"
       },
       "source_provenance": "Exact compiled GeoFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 4608-row log reaudited offline and preserved gzipped with the original hash. Collision.cpp, PlayerPed.cpp, PedGeometryAnalyser.cpp and RealTimeShadowManager.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -54416,7 +54416,7 @@
       },
       "evidence": {
         "path": "reversing/GeoFinal1/validation-summary.json",
-        "sha256": "fc828afe307f4db0aca3613bf920fd1c8ae181fcebb8cf292a052faa36f03f2b",
+        "sha256": "e273f27f3de4aa1ae7b62968277f27f768c94b3162a6d2ab2770ec3b759e0db9",
         "passed_path": [
           "covered_functions",
           "CRealTimeShadowManager::Init"
@@ -54425,13 +54425,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/Collision.cpp": "afb6fd337305b02ee19af94e8e3de752853125118861a45dcb39d4206268cf94",
+        "source/game_sa/Collision/Collision.cpp": "fc796ec6fbcf261f79045da809bed7e41f0f1ed275f02dc5f937063a45e36fa6",
         "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
-        "source/game_sa/Entity/Ped/PlayerPed.cpp": "6e884f6ba9c7aa2dbe3e6ec905134960c9d1a5dc5e9066952d1fb8e8c31e2866",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/PedGeometryAnalyser.cpp": "6182475a742b4ade9680c09bd62abeb00b7bdf26f2ee8bfba13e624973b10ea4",
-        "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
-        "source/game_sa/RealTimeShadowManager.cpp": "e3ed2a70b0edf0bdc73ee734cc83417bf0078c81fe1ee13eb2582450d5e4e130",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/PedGeometryAnalyser.cpp": "895f72beef0d3aaad4835cf3f4ff88575707cf5e12417ff9c763a798c0abaa9e",
+        "source/game_sa/PedGeometryAnalyser.h": "770e9c4f1c479898442f1a1048da0c055ca649b00e5c72d41f101ea66913d4d8",
+        "source/game_sa/RealTimeShadowManager.cpp": "fe571954e09ae35f8acb6fee7cdf75d0cea141efb84c13e1fcf29bfafb39b8f8",
         "source/game_sa/RealTimeShadowManager.h": "0f614a440916acab27fa80efaaa1efbbeafcc61b0ad5862a3a4b9579beb0d32d"
       },
       "source_provenance": "Exact compiled GeoFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 4608-row log reaudited offline and preserved gzipped with the original hash. Collision.cpp, PlayerPed.cpp, PedGeometryAnalyser.cpp and RealTimeShadowManager.cpp were corrected to the EXE before the run (uncommitted at the time).",
@@ -54448,7 +54448,7 @@
       },
       "evidence": {
         "path": "reversing/GeoFinal1/validation-summary.json",
-        "sha256": "fc828afe307f4db0aca3613bf920fd1c8ae181fcebb8cf292a052faa36f03f2b",
+        "sha256": "e273f27f3de4aa1ae7b62968277f27f768c94b3162a6d2ab2770ec3b759e0db9",
         "passed_path": [
           "covered_functions",
           "CRealTimeShadowManager::Update"
@@ -54457,13 +54457,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Collision/Collision.cpp": "afb6fd337305b02ee19af94e8e3de752853125118861a45dcb39d4206268cf94",
+        "source/game_sa/Collision/Collision.cpp": "fc796ec6fbcf261f79045da809bed7e41f0f1ed275f02dc5f937063a45e36fa6",
         "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7",
-        "source/game_sa/Entity/Ped/PlayerPed.cpp": "6e884f6ba9c7aa2dbe3e6ec905134960c9d1a5dc5e9066952d1fb8e8c31e2866",
-        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/PedGeometryAnalyser.cpp": "6182475a742b4ade9680c09bd62abeb00b7bdf26f2ee8bfba13e624973b10ea4",
-        "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
-        "source/game_sa/RealTimeShadowManager.cpp": "e3ed2a70b0edf0bdc73ee734cc83417bf0078c81fe1ee13eb2582450d5e4e130",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/PedGeometryAnalyser.cpp": "895f72beef0d3aaad4835cf3f4ff88575707cf5e12417ff9c763a798c0abaa9e",
+        "source/game_sa/PedGeometryAnalyser.h": "770e9c4f1c479898442f1a1048da0c055ca649b00e5c72d41f101ea66913d4d8",
+        "source/game_sa/RealTimeShadowManager.cpp": "fe571954e09ae35f8acb6fee7cdf75d0cea141efb84c13e1fcf29bfafb39b8f8",
         "source/game_sa/RealTimeShadowManager.h": "0f614a440916acab27fa80efaaa1efbbeafcc61b0ad5862a3a4b9579beb0d32d"
       },
       "source_provenance": "Exact compiled GeoFinal1 probe (ASI/PDB hashes in build-manifest.json); sources hashed from the probe build manifest; full 4608-row log reaudited offline and preserved gzipped with the original hash. Collision.cpp, PlayerPed.cpp, PedGeometryAnalyser.cpp and RealTimeShadowManager.cpp were corrected to the EXE before the run (uncommitted at the time).",
