@@ -42,6 +42,7 @@ inline tBlipHandle __cdecl Blip(eBlipType type,int32 handle,uint32 color,eBlipDi
 inline void __cdecl Scale(tBlipHandle handle,int32 scale){trace.push_back({"scale",handle,scale});}
 inline void __cdecl Colour(tBlipHandle handle,eBlipColour color){trace.push_back({"colour",handle,uint32(color)});}
 inline void __fastcall Audio(CAudioEngine*,void*,int32 event,eWeaponType type,CPhysical* entity){trace.push_back({"audio",event,int(type),uintptr_t(entity)});}
+inline uintptr_t Symbol(const char* name){ static const bool init=SymInitialize(GetCurrentProcess(),nullptr,TRUE);(void)init; HMODULE module{}; if(GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,reinterpret_cast<LPCSTR>(&Symbol),&module)){if(const auto exported=GetProcAddress(module,name))return uintptr_t(exported);} alignas(SYMBOL_INFO) char buffer[sizeof(SYMBOL_INFO)+512]{};auto* s=reinterpret_cast<SYMBOL_INFO*>(buffer);s->SizeOfStruct=sizeof(SYMBOL_INFO);s->MaxNameLen=511;return SymFromName(GetCurrentProcess(),name,s)?uintptr_t(s->Address):0;}
 inline bool done{}; inline std::ofstream log;
 inline void Write(const json& r) { ReversingProbe::PumpMessages(); log << r.dump() << '\n'; log.flush(); }
 template<class T=uint32> T& At(void* b, size_t o) { return *reinterpret_cast<T*>(static_cast<uint8*>(b)+o); }
@@ -65,7 +66,8 @@ inline void Update() {
  const auto savedMS=CTimer::GetTimeInMS();const auto savedModel=StaticRef<uintptr_t>(0xA9B0C8+2000*4),savedPool=StaticRef<uintptr_t>(0xB7449C);const auto savedActive=TheCamera.m_nActiveCam;const auto savedFront=TheCamera.m_aCams[0].m_vecFront,savedUp=TheCamera.m_aCams[0].m_vecUp;const auto savedFlare=StaticRef<int32>(0x8CD75C);
  const auto savedInfos=gaProjectileInfo;const auto savedProjectiles=CProjectileInfo::ms_apProjectile;
  EntryPatch al(0x5A1EE0,Allocate),ald(bit_cast<uintptr_t>(static_cast<void*(*)(size_t)>(&CObject::operator new)),Allocate);
- EntryPatch ct(0x5A4030,Construct);
+ const auto projectileCtorBody=Symbol("??0CProjectile@@QAE@H@Z");if(!projectileCtorBody){Write({{"event","error"},{"reason","DLL constructor symbol missing"},{"state_restored",true}});return;}
+ EntryPatch ct(0x5A4030,Construct),ctd(projectileCtorBody,Construct); // el constructor C++ de CProjectile (lote 65) se llama directo desde AddProjectile: mismo falso en el cuerpo de la DLL (lote 112A)
  EntryPatch wi(0x743C60,Info),wid(bit_cast<uintptr_t>(static_cast<CWeaponInfo*(*)(eWeaponType,eWeaponSkill)>(&CWeaponInfo::GetWeaponInfo)),Info);
  EntryPatch re(0x571B70,Reference),red(bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference)),Reference);
  EntryPatch mt(0x54F610,Matrix),mtd(bit_cast<uintptr_t>(&CPlaceable::SetMatrix),Matrix);
