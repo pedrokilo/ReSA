@@ -26,32 +26,39 @@
     "CGarage::TidyUpGarage": true,
     "CGarage::TidyUpGarageClose": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wf-1 (HEAD 35e7b9d4b + fuente del lote 63). Todos los colaboradores se sustituyen por falsos identicos en ambos lados (no se validan sus cuerpos): GetColModel (0x535300), GetMatrix (0x411990), AllocateMatrix (0x54F560), CSimpleTransform::UpdateMatrix (0x54F1B0), la transformacion 0x59C890, CGarage::IsPointInsideGarage punto (0x448740) y radio (0x4487D0; ECX/EDX intactos como el EXE), IsEntityTouching3D (0x448EE0), CWorld::FindObjectsIntersectingCube (0x568DD0), FindPlayerVehicle (0x56E0D0), FindPlayerPed (0x56E210), CTaskManager::FindActiveTaskByType (0x681740), CVehicle::CanBeDeleted (0x6D1180), CWorld::Remove (0x563280), IsEntityEntirelyInside3D (0x448BE0, solo para IsStaticPlayerCarEntirelyInside) y el destructor virtual (tabla de metodos falsa). Entidades, matrices, CColModel/CCollisionData, esferas, pool de vehiculos (ds:[0xB74494] sustituido por un pool privado durante cada llamada), jugador y TaskManager son objetos falsos del banco; ningun vehiculo, garaje ni pool reales se tocan. Update (0x44AA50) NO esta reconstruida. PlayerArrestedOrDied conserva ECX y EDX (el bucle de 0x449E60 los lee); en el resto solo AL en las funciones bool y ECX/EDX/EAX de salida solo se registran. No se prueban los vehiculos de TidyUpGarage con matriz nula y sin estado WRECKED, ni los de TidyUpGarageClose sin CCollisionData (el EXE desreferencia sin comprobar).",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wf-1 (HEAD 35e7b9d4b + fuente del lote 63). Todos los colaboradores se sustituyen por falsos identicos en ambos lados (no se validan sus cuerpos): GetColModel (0x535300), GetMatrix (0x411990), AllocateMatrix (0x54F560), CSimpleTransform::UpdateMatrix (0x54F1B0), la transformacion 0x59C890, CGarage::IsPointInsideGarage punto (0x448740) y radio (0x4487D0; ECX/EDX intactos como el EXE), IsEntityTouching3D (0x448EE0), CWorld::FindObjectsIntersectingCube (0x568DD0), FindPlayerVehicle (0x56E0D0), FindPlayerPed (0x56E210), CTaskManager::FindActiveTaskByType (0x681740), CVehicle::CanBeDeleted (0x6D1180), CWorld::Remove (0x563280), IsEntityEntirelyInside3D (0x448BE0, solo para IsStaticPlayerCarEntirelyInside) y el destructor virtual (tabla de metodos falsa). Entidades, matrices, CColModel/CCollisionData, esferas, pool de vehiculos (ds:[0xB74494] sustituido por un pool privado durante cada llamada), jugador y TaskManager son objetos falsos del banco; ningun vehiculo, garaje ni pool reales se tocan. Update (0x44AA50) NO esta reconstruida. PlayerArrestedOrDied conserva ECX y EDX (el bucle de 0x449E60 los lee); en el resto solo AL en las funciones bool y ECX/EDX/EAX de salida solo se registran. No se prueban los vehiculos de TidyUpGarage con matriz nula y sin estado WRECKED, ni los de TidyUpGarageClose sin CCollisionData (el EXE desreferencia sin comprobar). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Garage63-20261020-163753-142632",
-  "summary_sha256": "487e421d2fa4adf2cc52df2348289d8ebf9b98d256314acac0eb17b903798470",
-  "result_txt_sha256": "36e39dd8c6e2a10ee256a2803b70e932e6a7b62ca4e3c663d918364cd2cd40da",
-  "log_sha256": "ce806f138699b055217cac9bdacd1777673f7726048392eb5bc5582cab96c3ec",
+  "run": "reversing/CppTwelveLevel6Final/runs/Garage63-20261107-142836-312799",
+  "summary_sha256": "fe187df3f370c6f6dd0811edc43ca053121f214b16706a07f906545ff149ecf8",
+  "result_txt_sha256": "c1db89ed16169c31571444c76a5e9c2a21e330df0d53b5264082a80ff75e209d",
+  "log_sha256": "7aa39d468c5e3c4f0c2c6973f227dfe37763fc9111142fc465f0d6489d078caf",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "749bc5df69223f8f269b17fbf3c87986ad36fdc9a247c3925d3d2ea68eceeeb2",
+  "executed_probe_sha256": "813a4d7bdbe305e49dc6261aadf5e8eb25dadcf5e2adf8bf50ebc715b060f225",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
-      "source/game_sa/Garage.cpp": "36e4ca85c9ea3cde6b02e3c2cdd837bbc5e813554c78010a0f6eda7812395d21",
-      "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
-      "source/game_sa/X87Math.cpp": "700583c16051dd6cf29a8b5631490b1789ec65c489d3d02deed7671955e4eef0",
-      "source/game_sa/X87Math.h": "d62b2f5d121ff4e18c7bcf7ef4bea5c091fd948de1a209be8c8998be33220036",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+      "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
+      "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/Garage63/LiveComparison.hpp": "686bd0cbb3c19bfbc5564800d377f4eb975125860747d3dd24cfeb6c0e77226a",
+      "reversing/Garage63/LiveComparison.hpp": "35fe1219d9744376d28b4365286a9bdec430595f038890653beb6c35da94e45d",
       "reversing/Garage63/Core.hpp": "afaa47cdc49d7c23397b505ca4c0066b77b1ac0522c12376295efb02999cedb2",
       "reversing/Garage63/Fixtures.hpp": "c210f68ffa0c2b9bade0dd76357cf0e293029b9da270b91463c760513bc2506e",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Garage63-20261107-142836-312799/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "9ee53e54da95e70863020bbaa7d952eae5ddfeb0effe7d0196dc7dcabe2e09a5",
+    "uncompressed_sha256": "7aa39d468c5e3c4f0c2c6973f227dfe37763fc9111142fc465f0d6489d078caf"
   }
 }

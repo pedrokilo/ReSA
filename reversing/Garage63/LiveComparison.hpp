@@ -57,7 +57,7 @@ inline void Update() {
     const StubSpec mat=mk({"CPlaceable","GetMatrix",0x411990,reinterpret_cast<void*>(&FkMat),0});
     const StubSpec alloc=mk({"CPlaceable","AllocateMatrix",0x54F560,reinterpret_cast<void*>(&FkAlloc),0});
     const StubSpec upd=mk({"CSimpleTransform","UpdateMatrix",0x54F1B0,reinterpret_cast<void*>(&FkUpd),Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateMatrix))});
-    const StubSpec xform=mk({nullptr,nullptr,0x59C890,reinterpret_cast<void*>(&FkXform),0});
+    const StubSpec xform=mk({"CMatrix","operator*-Vec",0x59C890,reinterpret_cast<void*>(&FkXform),0});
     const StubSpec ipr=mk({"CGarage","IsPointInsideGarage-radius",0x4487D0,reinterpret_cast<void*>(&FkIpr),RadiusBody()});
     const StubSpec ipp=mk({"CGarage","IsPointInsideGarage-point",0x448740,reinterpret_cast<void*>(&FkIpp),PointBody()});
     const StubSpec touch=mk({"CGarage","IsEntityTouching3D",0x448EE0,reinterpret_cast<void*>(&FkTouch),0});
