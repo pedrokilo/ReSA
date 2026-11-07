@@ -76,3 +76,6 @@ Partner nulo / `Find` nulo / tarea de otro peatón; estado 6 (streamed y contado
 
 ## Depuración en el worktree de integración (19/10/2026): APROBADO
 Defecto del banco: la familia 14 usa el estado 0x105 (byte bajo 5) con `ped_mat` aleatorio; la rama geométrica del EXE (0x683DC7) lee `ped->m_matrix` sin comprobar nulo y fallaba con AV. `Fixtures.hpp` fuerza `pedMat = 1` cuando `(state & 0xFF) == 5`, cara != 0 y primero != 1. Sin cambios en producción.
+
+## Actualizacion del lote 113A (06/11/2026)
+`CTaskComplexPartner::GetStateOfPartnerTask` (0x6822B0) y `CTaskComplexWanderStandard::SetMinNextScanTime` (0x66B150) tienen hook RH desde el lote 113A: el banco los daba por ayudantes sin hook del EXE (`kExeHelpers`) y fallaba al comprobarlo. Se apagan durante el banco con `HookRoute` (`stateRoute`, `scanRoute`, como `fwdRoute`) para que el lado original ejecute los bytes del EXE.

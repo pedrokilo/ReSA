@@ -3849,7 +3849,7 @@
       },
       "evidence": {
         "path": "reversing/PartnerStream60/validation-summary.json",
-        "sha256": "47e1e48a61e6684de3361035485ea5fbd708466e90126390994c870b053e4579",
+        "sha256": "1fc001ad603821e47b49614f051ab4ac416ee1b42412b886c49cf106a0e2a073",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartner::StreamRequiredAnims"
@@ -3859,16 +3859,16 @@
         "original_address": "0x00682310"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "d80de777ac5a20cbfbe5d0d285a3a601af69365a82ef393939ab13d5d2097a73",
-        "source/InjectHooksMain.cpp": "52f079e9863766f588a5177d8ddcbf77cd547c0f8cb408b21f354aeee259c45b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "d5ad335bd63e9083ef228b41a00ad6b706bf7837fa326db4b1b97c67ff5547cd",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f75e8b2a374f13bb42390a47f667f76a5d65300f13a35c75acd628b54d7dd4ad",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
         "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
         "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
         "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
-        "source/game_sa/Streaming.cpp": "48313acbad9ed6f78f77272a6700e80623215eb4c32063936b9cd8967b2f443f",
+        "source/game_sa/Streaming.cpp": "5f28fc4eec5a5e226c9f2e59fd3ed08529e8dfc732290bba335c83b72cfc53b7",
         "source/game_sa/Streaming.h": "0055e9284d015c283c2e31bf4b82a6e57fc44f0658b7d20e0e98cd7db9d4ebf7",
-        "source/game_sa/Tasks/Task.cpp": "23b303826ad108736f38102ebf5180adaa7264f765f9f6e26a89a863bf595ae0",
+        "source/game_sa/Tasks/Task.cpp": "b8ea4f262b2b5715c22ec4e9ef087c3716d965cbfa80955806e00084d1883ac6",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/PartnerStream60/LiveComparison.hpp": "dce09d010d8797ac737c6b6e167fd5c1a6f028b22b18cbbf0ab4a6160b87a9c6",
         "reversing/PartnerStream60/Core.hpp": "e3cb1e2e74a022e55ea4560157cfc3a043054bb1cf2f3d15f51af57f384d45b4",
@@ -3935,7 +3935,7 @@
       },
       "evidence": {
         "path": "reversing/PartnerControl60/validation-summary.json",
-        "sha256": "934fcac0e4cf1c3d0cdc0050489db543cd57a35c5b86edcb762e388a86538b6a",
+        "sha256": "a815528e50013f2b68d9864a38b471266f15a89c4be547494677612eb081893d",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartner::ControlSubTask"
@@ -3945,18 +3945,18 @@
         "original_address": "0x006840D0"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "d80de777ac5a20cbfbe5d0d285a3a601af69365a82ef393939ab13d5d2097a73",
-        "source/InjectHooksMain.cpp": "52f079e9863766f588a5177d8ddcbf77cd547c0f8cb408b21f354aeee259c45b",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "d5ad335bd63e9083ef228b41a00ad6b706bf7837fa326db4b1b97c67ff5547cd",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f75e8b2a374f13bb42390a47f667f76a5d65300f13a35c75acd628b54d7dd4ad",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
-        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
         "source/game_sa/Ragdoll/IKChainManager.cpp": "c2e0c7d3f0c686cd3308e881771fe6862804a29da5238c8a2087e3941ef7a255",
         "source/game_sa/Ragdoll/IKChainManager.h": "5b9ccff23eeba87ab4aed02aa2c598a5b6f51ee35813e45dd06777e325455b8d",
-        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+        "source/game_sa/Entity/Ped/Ped.cpp": "271efa2cd399f93fdcce58c8a83d43c932b118e3d80895955f0d010a07bd6089",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Tasks/Task.cpp": "23b303826ad108736f38102ebf5180adaa7264f765f9f6e26a89a863bf595ae0",
+        "source/game_sa/Tasks/Task.cpp": "b8ea4f262b2b5715c22ec4e9ef087c3716d965cbfa80955806e00084d1883ac6",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/PartnerControl60/LiveComparison.hpp": "29339dce5b90184b857d8f080681365fdc4a6ad35e7bb9176567b00e56e2ba10",
         "reversing/PartnerControl60/Core.hpp": "742f757f399e7865390b7d1e507540bb4b0ae87a68814df2a9ceb5f540b80661",
@@ -3980,7 +3980,7 @@
       },
       "evidence": {
         "path": "reversing/PartnerNext60/validation-summary.json",
-        "sha256": "5daa25ee393113e670e56b04fbf437e863571843273b917d8f87c46b5fbc06b1",
+        "sha256": "4c14fbb4f2c1f0d20072a939d9f24f073ffac89bb459f24886c25a34a5c9173e",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartner::CreateNextSubTask"
@@ -3990,27 +3990,27 @@
         "original_address": "0x00683AD0"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "4a5634726b91ed0867e23dd801902dcd6f880e8545772631db6897b217249101",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f75e8b2a374f13bb42390a47f667f76a5d65300f13a35c75acd628b54d7dd4ad",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
-        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
         "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
         "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
-        "source/game_sa/X87Math.cpp": "9bc388015fff074e1f2b15d065415d26acbe54d29127cb1d28134f747c471fcf",
-        "source/game_sa/X87Math.h": "6e842a1d07f38fd525e638e9e15a8bfe61c2991d09b1dd6662376e02d3d7a83e",
-        "source/game_sa/Tasks/Task.cpp": "23b303826ad108736f38102ebf5180adaa7264f765f9f6e26a89a863bf595ae0",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "4edd32b27d4cba511632ae0f11ce9f69ad4452726952553d07694be7f14b0fd2",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "44a066a672764618f93fc20abbc8099b1f785180ddb437b4ce49e0f2fd2011dd",
+        "source/game_sa/X87Math.cpp": "8a3069041b3e9a8cf1476464ebff56c0cbd0b9737af9625430af6ecf0389e0da",
+        "source/game_sa/X87Math.h": "dd99480cdcca21fda46e35fdde5ac1b9d2a443600f1c37ac8efc9eb00f20ed5d",
+        "source/game_sa/Tasks/Task.cpp": "b8ea4f262b2b5715c22ec4e9ef087c3716d965cbfa80955806e00084d1883ac6",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp": "921d5f3f7fe35d7c4bc106ea20c88a25b50577a3296ee6a50937860b5a450a81",
         "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/PartnerNext60/LiveComparison.hpp": "716838f2f54020e3fe4b17d4a06bf0e29d7d6ef72352d783f7503c4e234d2d08",
-        "reversing/PartnerNext60/Core.hpp": "593b05cda19edcb91daddbdb26332a6b884727789dc473783d3b33d053a7d280",
+        "reversing/PartnerNext60/LiveComparison.hpp": "e5bb523b254a782beae5eb40ca16836aa5c5cc8335895f1555c86ac63f6cd9c8",
+        "reversing/PartnerNext60/Core.hpp": "74b7e9ad75ac3ab489b3e1ddf4f37411a6468bcd22fde635d2ec889e58bf77cf",
         "reversing/PartnerNext60/Fixtures.hpp": "0a00cbb1dba18efbfb45b579c0ef725ff7923eeac18da9bdb9a5b779d6a0a7fa",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
@@ -25190,6 +25190,839 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main b00bfe4d9 con los cambios del lote (ver artifacts/build-manifest.json). CPointRoute::operator new corre CPointRoutePool::New (0x41B5B0) de verdad en ambos lados (original en el EXE con su hook apagado, cuerpo propio en la DLL); SetTextureAndModel corre CClothes::GetTextureDependency (0x5A7EA0) de verdad en ambos lados y, por nombre, CKeyGen::GetUppercaseKey (0x53CF30) es un falso identico en el EXE y en su cuerpo de la DLL. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros no validos, ranuras de arma fuera de -8..14, bytes de bandera no booleanos (solo se compara AL como verdad), borrado doble en el pool y valores de parte fuera de -8..30.",
       "review_reference": "reversing/Fn109A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexEnterCar",
+        "fn_name": "ComputeTargetDoorOppositeToFlag",
+        "address": "0x0063AB70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexEnterCar::ComputeTargetDoorOppositeToFlag"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWander",
+        "fn_name": "RequestDir",
+        "address": "0x00669D30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexWander::RequestDir"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWander",
+        "fn_name": "RequestNodesFrom",
+        "address": "0x00669D50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexWander::RequestNodesFrom"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWanderStandard",
+        "fn_name": "SetMinNextScanTime",
+        "address": "0x0066B150",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexWanderStandard::SetMinNextScanTime"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexPartner",
+        "fn_name": "GetStateOfPartnerTask",
+        "address": "0x006822B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexPartner::GetStateOfPartnerTask"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGangLeader",
+        "fn_name": "GangDrinkAnimOfPed",
+        "address": "0x0065E6F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "GangDrinkAnimOfPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGangLeader",
+        "fn_name": "GangSmokeAnimOfPed",
+        "address": "0x0065E710",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "GangSmokeAnimOfPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskAllocator",
+        "fn_name": "operator new",
+        "address": "0x0069D980",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CTaskAllocator::operator new"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskAllocator",
+        "fn_name": "operator delete",
+        "address": "0x0069D990",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CTaskAllocator::operator delete"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedIntelligence",
+        "fn_name": "operator new",
+        "address": "0x006074A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CPedIntelligence::operator new"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedIntelligence",
+        "fn_name": "operator delete",
+        "address": "0x006074E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CPedIntelligence::operator delete"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerRelationshipRecorder",
+        "fn_name": "ClearRelationshipWithPlayer",
+        "address": "0x0061A150",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CPlayerRelationshipRecorder::ClearRelationshipWithPlayer"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerRelationshipRecorder",
+        "fn_name": "AddRelationship",
+        "address": "0x0061A180",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CPlayerRelationshipRecorder::AddRelationship"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerRelationshipRecorder",
+        "fn_name": "GetRelationshipWithPlayer",
+        "address": "0x0061A1A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CPlayerRelationshipRecorder::GetRelationshipWithPlayer"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerRelationshipRecorder",
+        "fn_name": "Flush",
+        "address": "0x0061A2A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CPlayerRelationshipRecorder::Flush"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventScanner",
+        "fn_name": "ScanForEventsNow",
+        "address": "0x006053D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CEventScanner::ScanForEventsNow"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskTimer",
+        "fn_name": "GetTimeLeft",
+        "address": "0x0062EB80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn113A/validation-summary.json",
+        "sha256": "3b96cc3341881a02b9476d0b5a2f4ac4fa68c664055285b605c9bf247aebd557",
+        "passed_path": [
+          "covered_functions",
+          "CTaskTimer::GetTimeLeft"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "49f0dd9966e60e4e1728b8e7519aa3af87d09c7302d914d22fa95f1818fd9e4b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "e158c3684892f41a3939b8c083c6fa3be08db777fd08e097ef59f226728b8db5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp": "ec337a41dac8cd4bc6b0cde23ef9a9c7d4cb0834d344e58ea1fc30b48465f69a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "08cdb4d07e09522e4dcc6a83a6c0177fe5fce164ee8d959036f9cf6363cbbf28",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.h": "f05e9273d0dd75dc8655f37875f92935ba23aace4c4953fba05c598ef9f83475",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "dd9235f6ae1322644fa394598f87839a49522447ecb935d9bb5c373bcda6dc9f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
+        "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "a56543ec86dfcf484c16fab0b5f11b57e6b1a92376f12a4aa26d6f325633e7a0",
+        "source/game_sa/PedIntelligence.cpp": "ee2dc4fabee3ae02b16b13d9c4bf9a22e5ff48170f754689c1dfba93e1af0d6f",
+        "source/game_sa/PlayerRelationshipRecorder.cpp": "3e1adf49384a9ab4c0e3e9ea3cc037395c7948ae0edee5c64e6affe3881ba26d",
+        "source/game_sa/PlayerRelationshipRecorder.h": "a6ad6964f2d9517e7616f54156479d2678c2907dff97f2aee5733d80c8507ab2",
+        "source/game_sa/Events/EventScanner.cpp": "48092dc32864d211a0df1a4519e0444a4a8124beb027ad5d82b9ad55848b4931",
+        "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+        "source/game_sa/Tasks/TaskTimer.cpp": "ccd11ed14433ce5764f913ddd24b43bbb969660a569a940e8204f879aec07e79",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn113A/LiveComparison.hpp": "46438c9d47fa8522ad7faeb8667dc4882aeff634038f0c677040bb64d89a7faa",
+        "reversing/Fn113A/Core.hpp": "02c780c8a94e93315d63f3ca5a3809bd67c99a2b09c9314ff19dd91edd6c605b",
+        "reversing/Fn113A/Fixtures.hpp": "a0e7ae1dc70fb23ca2096085598bdb7ccb10a732f67215cd88b67f49af83e36f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 4275e5247 con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores con hook: CTaskManager::FindActiveTaskByType (0x681740, GetStateOfPartnerTask) y CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents (0x603720, ScanForEventsNow) son falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTaskAllocatorPool::New (0x69D8E0) y CPedIntelligencePool::New (0x605EC0) corren de verdad en ambos lados (EXE con su hook apagado). Corren de verdad: los operator delete de los pools (arenas de pool), los bits y comparaciones de las tareas, el registro de relaciones (solo el byte bajo de la relacion) y la aritmetica de 32 bits sobre CTimer::m_snTimeInMilliseconds (0xB7CB84, memoria real restaurada). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: punteros invalidos distintos de nulo/arena, pools con cursor fuera de 0..capacidad-1 o indices fuera del pool (la DLL tiene asserts), tarea del companero nula en GetStateOfPartnerTask (el EXE falla igual), entradas de pool ya libres en operator delete y relaciones con mas de un byte (el EXE solo escribe el byte bajo).",
+      "review_reference": "reversing/Fn113A/README.md"
     }
   ]
 }

@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "65095a2e2063f573c38dc9d66fe276e3b0ece51067d3c930c003b828f893685c",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "game_stopped_before_analysis": true,
+  "negative_pairs": 278528,
+  "pairs_exe_dll_differ": {
+    "CTaskComplexEnterCar::ComputeTargetDoorOppositeToFlag": 4599,
+    "CTaskComplexWander::RequestDir": 1065,
+    "CTaskComplexWander::RequestNodesFrom": 9270,
+    "CTaskComplexWanderStandard::SetMinNextScanTime": 14794,
+    "CTaskComplexPartner::GetStateOfPartnerTask": 5154,
+    "GangDrinkAnimOfPed": 1501,
+    "GangSmokeAnimOfPed": 1508,
+    "CTaskAllocator::operator delete": 4566,
+    "CPedIntelligence::operator delete": 16270,
+    "CPlayerRelationshipRecorder::AddRelationship": 16368,
+    "CPlayerRelationshipRecorder::Flush": 16384,
+    "CEventScanner::ScanForEventsNow": 5654,
+    "CTaskTimer::GetTimeLeft": 1028
+  },
+  "pairs_oracle_differ_only": {},
+  "first_case": {
+    "CTaskComplexEnterCar::ComputeTargetDoorOppositeToFlag": 1,
+    "CTaskComplexWander::RequestDir": 3,
+    "CTaskComplexWander::RequestNodesFrom": 1,
+    "CTaskComplexWanderStandard::SetMinNextScanTime": 0,
+    "CTaskComplexPartner::GetStateOfPartnerTask": 0,
+    "GangDrinkAnimOfPed": 0,
+    "GangSmokeAnimOfPed": 1,
+    "CTaskAllocator::operator delete": 2,
+    "CPedIntelligence::operator delete": 0,
+    "CPlayerRelationshipRecorder::AddRelationship": 0,
+    "CPlayerRelationshipRecorder::Flush": 0,
+    "CEventScanner::ScanForEventsNow": 0,
+    "CTaskTimer::GetTimeLeft": 0
+  },
+  "saves_unchanged": true,
+  "configs_restored": true
+}

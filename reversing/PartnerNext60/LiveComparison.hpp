@@ -59,6 +59,8 @@ inline void Update() {
     if(hook&&!strcmp(hook->Symbol(),"V"))body=uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Virtual*>(hook)->GetHookOurAddress());
     env.route.reset(new HookRoute("CTaskComplexPartner","CreateNextSubTask",0x683AD0,body));
     env.fwdRoute.reset(new HookRoute("CPlaceable","GetForwardVector",0x41CCB0,HookRoute::RegisteredTarget{}));
+    env.stateRoute.reset(new HookRoute("CTaskComplexPartner","GetStateOfPartnerTask",0x6822B0,HookRoute::RegisteredTarget{}));   // lote 113A: hook RH nuevo, apagado durante el banco
+    env.scanRoute.reset(new HookRoute("CTaskComplexWanderStandard","SetMinNextScanTime",0x66B150,HookRoute::RegisteredTarget{}));   // lote 113A
     registered["CTaskComplexPartner::CreateNextSubTask"]=env.route->Registered();bodies["CTaskComplexPartner::CreateNextSubTask"]=env.route->Body();
     ready&=env.route->Registered()&&env.route->Body()&&ModuleOf(env.route->Body())==env.asi;
     // Cuerpos de la DLL de los colaboradores sustituidos: se resuelven ANTES de escribir ningun parche (con su hook encendido, la entrada del EXE salta a la DLL; Body() sigue el salto).

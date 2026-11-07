@@ -218,6 +218,7 @@ inline constexpr uintptr_t kExeHelpers[]{0x6822B0,0x41CCB0,0x44E480,0x66B150};  
 struct Env {
     uintptr_t asi{},game{};
     std::unique_ptr<HookRoute> route;
+    std::unique_ptr<HookRoute> stateRoute, scanRoute;   // lote 113A: CTaskComplexPartner::GetStateOfPartnerTask (0x6822B0) y CTaskComplexWanderStandard::SetMinNextScanTime (0x66B150) tienen hook RH: apagados (codigo del EXE en ambos lados)
     std::unique_ptr<HookRoute> fwdRoute;   // CPlaceable::GetForwardVector (0x41CCB0) tiene hook RH desde el lote 98A: se apaga durante el banco (codigo del EXE en ambos lados)
     std::vector<Watch> watches;       // colaboradores sustituidos, constructores y ayudantes: deben seguir siendo el codigo que eran al empezar
     std::array<Pair,kStubs> stub{};   // 0 Find, 1 GetNodeHeadingFromVector, 2 operator new, 3 SetTask, 4 0x681FE0 (cuerpo de la DLL resuelto ANTES de parchear)
@@ -436,6 +437,8 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies) {
     bool stateRestored=entriesIntact&&*reinterpret_cast<volatile u32*>(uintptr_t(kTimeAddr))==savedTime;
     if(env.route)stateRestored&=env.route->Restore();
     if(env.fwdRoute)stateRestored&=env.fwdRoute->Restore();
+    if(env.stateRoute)stateRestored&=env.stateRoute->Restore();
+    if(env.scanRoute)stateRestored&=env.scanRoute->Restore();
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     Write({{"event","global_state_final"},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact}});
     Write({{"event",ready&&totals.passed&&stateRestored?"complete":"error"},{"pairs",totals.pairs},{"state_restored",stateRestored},{"floating_state_restored",FloatingStateRestored()},{"entries_intact",entriesIntact}});

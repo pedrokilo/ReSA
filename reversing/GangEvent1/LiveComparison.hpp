@@ -15,6 +15,7 @@
 #include <set>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Simple.h>
 #include "Events/GroupEventHandler.h"
 #include "Events/EventHandler.h"
 #include "Events/EventGroup.h"
@@ -1512,6 +1513,16 @@ template<class A, class B> inline void AddSpec(Tag t, uintptr_t exe, uintptr_t d
 }
 template<class A> inline void AddSpec(Tag t, uintptr_t exe, uintptr_t dll, A stub) { AddSpec(t, exe, dll, stub, stub); }
 using std::bit_cast;
+// Cuerpo de la DLL del hook Simple registrado para una direccion del EXE (0 si no hay): lote 113A, para los colaboradores que ya tienen hook (la DLL los llama directamente)
+inline uintptr_t HookBodyOf(uintptr_t exe) {
+    uintptr_t body = 0;
+    ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c) {
+        for (auto& h : c.Items())
+            if (h->Type() == ReversibleHooks::ReversibleHook::Base::HookType::Simple && reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookGTAAddress()) == exe)
+                body = reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookOurAddress());
+    });
+    return body;
+}
 inline void BuildSpecs() {
     AddSpec(T_PLAYERPED, 0x56E210, bit_cast<uintptr_t>(static_cast<CPlayerPed * (*)(int32)>(&FindPlayerPed)), &FindPlayerPedStub);
     AddSpec(T_SETTASK, 0x5F7540, bit_cast<uintptr_t>(&CPedGroupIntelligence::SetTask), &SetTaskStub);
@@ -1552,7 +1563,7 @@ inline void BuildSpecs() {
     AddSpec(T_CREATEDBY, 0x5E47E0, bit_cast<uintptr_t>(&CPed::SetCharCreatedBy), &CreatedByStub);
     AddSpec(T_WORLDADD, 0x563220, bit_cast<uintptr_t>(&CWorld::Add), &WorldAddStub);
     AddSpec(T_PEDNEW, 0x5E4720, bit_cast<uintptr_t>(static_cast<void* (*)(unsigned)>(&CPed::operator new)), &PedNewStub);
-    AddSpec(T_CIVILIAN, 0x5DDB70, uintptr_t(0), &CivilianStub);   // la DLL llama al constructor del EXE por direccion
+    AddSpec(T_CIVILIAN, 0x5DDB70, HookBodyOf(0x5DDB70), &CivilianStub);   // CCivilianPed::Constructor tiene hook RH: la DLL llama a su cuerpo (113A)
     AddSpec(T_GIVEDELAYED, 0x5E89B0, bit_cast<uintptr_t>(&CPed::GiveDelayedWeapon), &GiveDelayedStub);
     AddSpec(T_SETWEAPON, 0x5E6280, bit_cast<uintptr_t>(static_cast<void (CPed::*)(eWeaponType)>(&CPed::SetCurrentWeapon)), &SetCurrentWeaponStub);
     AddSpec(T_GROUNDZ, 0x5696C0, bit_cast<uintptr_t>(&CWorld::FindGroundZFor3DCoord), &GroundZStub);
@@ -1562,8 +1573,8 @@ inline void BuildSpecs() {
     AddSpec(T_ROAD, 0x6AF420, bit_cast<uintptr_t>(&CAutomobile::PlaceOnRoadProperly), &RoadProperlyStub);
     AddSpec(T_VEHCREATED, 0x6D5D70, bit_cast<uintptr_t>(&CVehicle::SetVehicleCreatedBy), &CreatedByVehStub);
     AddSpec(T_NODESLOADED, 0x44DD10, bit_cast<uintptr_t>(&CPathFind::AreNodesLoadedForArea), &NodesLoadedStub);
-    AddSpec(T_FINDNODE, 0x44F460, uintptr_t(0), &FindNodeStub);   // el envoltorio de la DLL llama a esta direccion del EXE (puntero oculto de retorno)
-    AddSpec(T_FINDNTH, 0x44F8C0, uintptr_t(0), &FindNthNodeStub);
+    AddSpec(T_FINDNODE, 0x44F460, HookBodyOf(0x44F460), &FindNodeStub);   // CPathFind::FindNodeClosestToCoors tiene hook RH desde el lote 93A (la DLL ya no llama a la direccion del EXE): el mismo falso va tambien en su cuerpo de la DLL (adaptacion del lote 113A)
+    AddSpec(T_FINDNTH, 0x44F8C0, HookBodyOf(0x44F8C0), &FindNthNodeStub);   // hook RH (93A): se parchea tambien el cuerpo de la DLL (113A)
     AddSpec(T_INITSEQ, 0x421740, bit_cast<uintptr_t>(&CCarCtrl::InitSequence), &InitSequenceStub);
     AddSpec(T_FINDSEQ, 0x421770, bit_cast<uintptr_t>(&CCarCtrl::FindSequenceElement), &FindSequenceStub);
     AddSpec(T_CALC2D, 0x5725B0, bit_cast<uintptr_t>(&CTheZones::Calc2DDistanceBetween2Zones), &Calc2DStub);

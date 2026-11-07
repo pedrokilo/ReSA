@@ -58,7 +58,7 @@
   "log_sha256": "4420eafad2660dac64daee878184b7aad5880a5fbe1869c07fb21b5a25b7eb72",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks6a\\20261106-051313-198131",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks6a\\20261106-180337-523488",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleClearLookAt::Clone": true,
@@ -106,8 +106,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "26a8e834c4316e47311083b8d8710ca5ef6cd00b043d7ed8f378d79981386197",
-      "pdb": "33a7407ae5b10832da37361069fa36d7dadb0e27dd5a867820a766a43a4a8730"
+      "asi": "7f9d1a17b43c79e74d970df39cca98e05884882b332ad05eee9d5530b37015a9",
+      "pdb": "ac13761f6d22633097a96b7d6b501bad62b178c3028d9811db354184ef6a6d58"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskSimpleClearLookAt.cpp": "78d3608aa091dc362049914d5318392ed9018f7180d8372f2c35a2165ffc548b",
@@ -128,7 +128,7 @@
       "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "67d3c03de0fd6a06b5780757caac6b646a3d2828080ec9c6df6b5dad3a932eb8",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp": "7899633694c605f266d06f4053ea7deafb7f527df6d1863bfb56fb8146b1ef38",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h": "3a6429f26373a916d4af8e66a9e8faa39ba210522efb7cb2b312f3de1c22cd27",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "f36ccdc68acf0013afd3f8c4df23775a01a6564cb8cdcf04bbdb8a0da6593f8a",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "ab0d55663e320c6e45ede9cc6697b28bcf04b2541b2ea3867873165b6658c05f",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h": "d54eed4e75e1c79bed74f14a43ea09039db40b710404d2c67b01064653f32c84",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",

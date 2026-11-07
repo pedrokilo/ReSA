@@ -64,10 +64,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "a4c399cc84d1f04e2d9221150e1134283cc2eddf96ad5c0acec02a2450d300c2",
+  "log_sha256": "5d41e4f7c70ab471438de3422595997db06e385475acb8edf1da459c37ac05ea",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks13\\20261005-142638-671607",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks13\\20261106-183709-265357",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexFollowPointRoute::CalcBlendRatio": true,
@@ -124,15 +124,15 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "dd5260b8099d47e0badf6e9cd5128ca715cd1cf6cbd2fc2235aad9d4084778a4",
-      "pdb": "b6469c8d16268ce14b7a91fe208a16577b47bfa24ea9fc34bee4e74ca19d6379"
+      "asi": "a1213a75263106a5df6ae31cc3ffb20b4f73aec4871409e2ef271e540b8783a4",
+      "pdb": "39f8ff65ba4d14b93d101c3bc981255885caca140ce2dac1735f215dda06f677"
     },
     "sources": {
       "source/game_sa/Tasks/TaskComplexSequence.cpp": "3497ea85aebba258669ea20dbd06fd3628f1e443bca554bfbdd257f1984d5df5",
       "source/game_sa/Tasks/TaskComplexSequence.h": "9d2404579563e19da54b6c829f3f98129484cc3d10c6c2732e5845d5660926aa",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp": "3d31f805b3f0bebf8a1f2b00bbea2ee36ea002143fc523ece70ef075c8e286e8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp": "68f96619e102963b58f2ebe4e9c7aa278af321703b48f194849800164e69b763",
       "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.h": "23f508fce4f2fda7812b678aa6ce1b39ddc4f5902679bbbbc71d15a2e18e5512",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "02f74c58ec3e129240e4d53c754e7b45500ecdec3acd27e30d3dd08a3f65cc12",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "63faa78379d9725bca50bc943b2d47bb68ac739af829e34a1076c4755f20e81f",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.h": "609b0839ebdfa401b89407b8096a94568c92f0eb14b9f15fd1c462d5e68868e4",
       "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
       "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33"
@@ -146,6 +146,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
