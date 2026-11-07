@@ -129647,7 +129647,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psWindowSetText"
@@ -129656,8 +129656,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129673,7 +129673,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psErrorMessage"
@@ -129682,8 +129682,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129699,7 +129699,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psWarningMessage"
@@ -129708,8 +129708,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129725,7 +129725,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psCameraBeginUpdate"
@@ -129734,8 +129734,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129751,7 +129751,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psCameraShowRaster"
@@ -129760,8 +129760,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129777,7 +129777,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psTimer"
@@ -129786,8 +129786,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129803,7 +129803,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psGrabScreen"
@@ -129812,8 +129812,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129829,7 +129829,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psMouseSetVisibility"
@@ -129838,8 +129838,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129855,7 +129855,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psMouseSetPos"
@@ -129864,8 +129864,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129881,7 +129881,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psPathnameCreate"
@@ -129890,8 +129890,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129907,7 +129907,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psPathnameDestroy"
@@ -129916,8 +129916,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129933,7 +129933,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psPathGetSeparator"
@@ -129942,8 +129942,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129959,7 +129959,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psInstallFileSystem"
@@ -129968,8 +129968,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -129985,7 +129985,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psNativeTextureSupport"
@@ -129994,8 +129994,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -130011,7 +130011,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psDebugMessageHandler"
@@ -130020,8 +130020,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -130037,7 +130037,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::GetVideoMemInfo"
@@ -130046,8 +130046,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -130063,7 +130063,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::CheckDirectSound"
@@ -130072,8 +130072,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -130089,7 +130089,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psTerminate"
@@ -130098,8 +130098,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -130115,7 +130115,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psAlwaysOnTop"
@@ -130124,8 +130124,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -130141,7 +130141,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psSelectDevice"
@@ -130150,8 +130150,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -130167,7 +130167,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::InitialiseLanguage"
@@ -130176,8 +130176,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
@@ -130193,7 +130193,7 @@
       },
       "evidence": {
         "path": "reversing/Ps22/validation-summary.json",
-        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "sha256": "d78de8647cc6ff3c15133bb6ac51a90768fd1eed960d6f4542a03392b561015d",
         "passed_path": [
           "covered_functions",
           "Ps::psInitialize"
@@ -130202,8 +130202,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
-        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+        "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9",
+        "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
       "dependency_review": null,
