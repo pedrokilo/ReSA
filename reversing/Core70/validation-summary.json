@@ -60,7 +60,7 @@
   "log_sha256": "8cc4a666d3e5e7a77b58565c1a689e2794a279d76bcd7fdf1ef3bbd0acd73a4b",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-core70\\20261105-114534-749860",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-core70\\20261107-141434-410888",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CBox::Set": true,
@@ -110,8 +110,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "68f338f397ade1257126b65938e5fecfe3375317e8cf0070dc83877ec004c89b",
-      "pdb": "b4e952afaae90de8646da9c25110dcddd08e5fa4a9dd6ea165362a92c9901809"
+      "asi": "e54f5ccced0f66e7aaed6c1df9a4540e326d5a9188a29c95805740577c6b4d9c",
+      "pdb": "58e31d3a9e248fcca52b5a7a1024ded1ba2faa6545a02550706300dc2ae5af12"
     },
     "sources": {
       "source/game_sa/Collision/Box.cpp": "e9ee21cfd40133ce8db58bcb94db507c2139421a2b9c57850b0101d18a8b75c2",

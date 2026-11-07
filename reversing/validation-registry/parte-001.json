@@ -24977,7 +24977,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CBox::Set"
@@ -25027,7 +25027,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CBox::Recalc"
@@ -25077,7 +25077,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CBuilding::IsBuildingPointerValid"
@@ -25127,7 +25127,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CBuilding::ReplaceWithNewModel"
@@ -25177,7 +25177,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CCollisionPlugin::PluginAttach"
@@ -25227,7 +25227,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CCollisionPlugin::SetModelInfo"
@@ -25277,7 +25277,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CColTrianglePlane::GetNormal-Out"
@@ -25327,7 +25327,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CColTrianglePlane::Set"
@@ -25377,7 +25377,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CCompressedMatrixNotAligned::CompressFromFullMatrix"
@@ -25427,7 +25427,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CCompressedMatrixNotAligned::DecompressIntoFullMatrix"
@@ -25477,7 +25477,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CControllerState::CheckForInput"
@@ -25527,7 +25527,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CControllerState::Clear"
@@ -25577,7 +25577,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CData::Load"
@@ -25627,7 +25627,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CData::Unload"
@@ -25677,7 +25677,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CDraw::CalculateAspectRatio"
@@ -25727,7 +25727,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CDraw::SetFOV"
@@ -25777,7 +25777,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CDummyObject::CreateObject"
@@ -25827,7 +25827,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CDummyObject::UpdateFromObject"
@@ -25877,7 +25877,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CEntryInfoNode::operator new"
@@ -25927,7 +25927,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CEntryInfoNode::operator delete"
@@ -25977,7 +25977,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CNodeRoute::operator new"
@@ -26027,7 +26027,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CNodeRoute::operator delete"
@@ -26077,7 +26077,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CObjectData::Initialise"
@@ -26127,7 +26127,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CObjectData::SetObjectData"
@@ -26177,7 +26177,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CObjectPool::GetAt"
@@ -26227,7 +26227,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CObjectPool::New"
@@ -26277,7 +26277,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CPedPool::GetAtRef"
@@ -26327,7 +26327,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CPedPool::New"
@@ -26377,7 +26377,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CObjectSaveStructure::Construct"
@@ -26427,7 +26427,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CObjectSaveStructure::Extract"
@@ -26477,7 +26477,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CSimpleVariablesSaveStructure::Construct"
@@ -26527,7 +26527,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CSimpleVariablesSaveStructure::Extract"
@@ -26577,7 +26577,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CVehicleSaveStructure::Construct"
@@ -26627,7 +26627,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CVehicleSaveStructure::Extract"
@@ -26677,7 +26677,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CTempColModels::Initialise"
@@ -26727,7 +26727,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CTempColModels::Shutdown"
@@ -26777,7 +26777,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "ModelIndices::InitModelIndices"
@@ -26827,7 +26827,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "ModelIndices::MatchAllModelStrings"
@@ -26877,7 +26877,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "FxPrimBP_c::GetRWMatrix"
@@ -26927,7 +26927,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "FxPrimBP_c::Load"
@@ -26977,7 +26977,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CWindModifiers::FindWindModifier"
@@ -27027,7 +27027,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CWindModifiers::RegisterOne"
@@ -27077,7 +27077,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CPlantColEntEntry::AddEntry"
@@ -27127,7 +27127,7 @@
       },
       "evidence": {
         "path": "reversing/Core70/validation-summary.json",
-        "sha256": "8599b197305f98c52ab9d2b11492cef53a0f82ee202e37523adfd8e1e10ec9c0",
+        "sha256": "70a4d8b74e541169c0b6c2722b717d9b4dd3d819625f3d1ddc789e3b03450b6b",
         "passed_path": [
           "covered_functions",
           "CPlantColEntEntry::ReleaseEntry"
