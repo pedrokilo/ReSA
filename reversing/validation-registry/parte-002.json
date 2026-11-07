@@ -10520,7 +10520,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::DrawBackground"
@@ -10529,7 +10529,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10549,7 +10549,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::DrawFrontEnd"
@@ -10558,7 +10558,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10578,7 +10578,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::DrawStandardMenus"
@@ -10587,7 +10587,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10607,7 +10607,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::DrawWindow"
@@ -10616,7 +10616,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10636,7 +10636,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::DrawWindowedText"
@@ -10645,7 +10645,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10665,7 +10665,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::DrawQuitGameScreen"
@@ -10674,7 +10674,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10694,7 +10694,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::DrawControllerBound"
@@ -10703,7 +10703,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10723,7 +10723,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::DrawControllerScreenExtraText"
@@ -10732,7 +10732,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10752,7 +10752,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::DrawControllerSetupScreen"
@@ -10761,7 +10761,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10781,7 +10781,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::DisplaySlider"
@@ -10790,7 +10790,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10810,7 +10810,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::DisplayHelperText"
@@ -10819,7 +10819,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10839,7 +10839,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::PrintBriefs"
@@ -10848,7 +10848,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10868,7 +10868,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::PrintMap"
@@ -10877,7 +10877,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10897,7 +10897,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::PrintRadioStationList"
@@ -10906,7 +10906,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10926,7 +10926,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::PrintStats"
@@ -10935,7 +10935,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10955,7 +10955,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::MessageScreen"
@@ -10964,7 +10964,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -10984,7 +10984,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::SmallMessageScreen"
@@ -10993,7 +10993,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -11013,7 +11013,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::StretchX"
@@ -11022,7 +11022,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -11042,7 +11042,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrA/validation-summary.json",
-        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "sha256": "80636887df710c84e6e3e1ce424d2dd373ac573184044dc25340fd94c88da3bc",
         "passed_path": [
           "covered_functions",
           "CMenuManager::StretchY"
@@ -11051,7 +11051,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
         "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
         "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",

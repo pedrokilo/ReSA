@@ -33,10 +33,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "26d285da259da5f0cedfb31cc748be22d1cc8013262ebfce8260b620b069cc96",
+  "log_sha256": "b89deed2d47b2571c4709e4f17abf91703ca0c1c487ab091938bc82d03a5b7d7",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-menumgra\\20261006-130008-826163",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-menumgra\\20261107-130857-858251",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CMenuManager::DrawBackground": true,
@@ -61,11 +61,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "f643168fab027cd7810b64285382eff22007f0040ef15cc903051b585235dd6c",
-      "pdb": "9ae55fb5563ceea5dbbca00099d61f6cd8df0c411367427cce5030bb86611208"
+      "asi": "f3356df6c34f8d927d9080472c96706fbbdb4d4f0d01662f2d62b60ba4174028",
+      "pdb": "ecdc26783945384e5b1b6bdd226c95e418d517848de5a62828ea494d020bffdb"
     },
     "sources": {
-      "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+      "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
       "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
       "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
       "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
@@ -80,6 +80,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
