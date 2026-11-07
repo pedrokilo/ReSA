@@ -1022,7 +1022,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "RwCore::RxHeapGetGlobalHeap"
@@ -1031,11 +1031,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1055,7 +1055,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "RwCore::_rwFrameListDeinitialize"
@@ -1064,11 +1064,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1088,7 +1088,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "RwCore::RwD3D9RasterIsCompressed"
@@ -1097,11 +1097,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1121,7 +1121,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "RwPlCore::_rwPluginRegistryGetPluginOffset"
@@ -1130,11 +1130,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1154,7 +1154,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "RwPlCore::_rwSListDestroyEndEntries"
@@ -1163,11 +1163,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1187,7 +1187,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "RwPlCore::_rwSListGetNumEntries"
@@ -1196,11 +1196,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1220,7 +1220,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "RwPlCore::_rwSListGetEntry"
@@ -1229,11 +1229,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1253,7 +1253,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "RwPlCore::_rwSListGetBegin"
@@ -1262,11 +1262,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1286,7 +1286,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "RwPlCore::_rwSListGetEnd"
@@ -1295,11 +1295,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1319,7 +1319,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "RwPlCore::_rwStringClose"
@@ -1328,11 +1328,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1352,7 +1352,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "RwPlCore::_rwStringStreamGetSize"
@@ -1361,11 +1361,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1385,7 +1385,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "CRT::CrtAtexit"
@@ -1394,11 +1394,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1418,7 +1418,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "CRT::CrtLockFile2"
@@ -1427,11 +1427,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1451,7 +1451,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "CRT::CrtUnlockFile2"
@@ -1460,11 +1460,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1484,7 +1484,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "CRT::CrtMalloc"
@@ -1493,11 +1493,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -1517,7 +1517,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies25E/validation-summary.json",
-        "sha256": "995bf9edf4d78f1e7e1e55827349f22dbe06b0220cb56f839ab575fbd2afca64",
+        "sha256": "b2cd868211eb502511f4963bad18a0b27523a31ac12e866f3e551d5188be6b53",
         "passed_path": [
           "covered_functions",
           "CRT::CrtErrno"
@@ -1526,11 +1526,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-        "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
         "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-        "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-        "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+        "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",

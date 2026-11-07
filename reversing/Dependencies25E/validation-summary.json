@@ -40,29 +40,36 @@
     "CRT::CrtMalloc": true,
     "CRT::CrtErrno": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies25E-20261017-215327-913702",
-  "summary_sha256": "c0c2579b18d89384def8312e76a26c1f277932c2250a4601965110027b5145e5",
-  "result_txt_sha256": "3b29ee1ed6e5202b4bd70ee40dc544c00cb5508d072257aaafed87f8d69d616b",
-  "log_sha256": "f3eb8e87fe78b47ed9f7216a6ae9e80665f41857600017eee053bd6699f5ae56",
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies25E-20261107-135434-545130",
+  "summary_sha256": "81bf66093c36de255a9be0f2d1ac5abbb74867d5d24373bfcdeaa0412ad5d9fc",
+  "result_txt_sha256": "6b112d639a9be90641a77c2ab102e3719a11290c606050e3d218d3e250895afb",
+  "log_sha256": "196e20a27be8e05306c1f7bc379e03cb8ddd0e125e67062d199b543018491249",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "861473f0446c6a4d3fd915fd3bd25cf39b8930fe3b847ae52acf2cb069ad8614",
+  "executed_probe_sha256": "35c8e3783a482ce6f9b5e412c876ae2b9e77f4fb70f4300dffd8da982f63f73e",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/RenderWare/rw/rwcore.cpp": "6e3fab9c212f5cb501db37f822e397e757bcb88d8a2f66d4834ae6b4039a0382",
-      "source/game_sa/RenderWare/rw/rwplcore.cpp": "a296e4dab903187a63aa599e07a6a9e767ed32ecdb777f82518c96ee37b6fde7",
+      "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+      "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
       "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
-      "source/game_sa/VehicleRecording.cpp": "6a517200468d8d6189828340c2d7918b82df0ce7202599ca6c3ab23f363059a9",
-      "source/InjectHooksMain.cpp": "342f20be95f3e24a12206afafa53680e094ac174d980d239921c35328985546d",
+      "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+      "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Dependencies25E/Fixtures.hpp": "b1843bea7e4dd6241fa157c2f976ebc588c8a44319ad1332be5e150c191e8369",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Dependencies25E-20261107-135434-545130/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "c5f7a255d48e6882150c5771d94b2b8bfbfb60447ffc57b74f3f86ffe24eee68",
+    "uncompressed_sha256": "196e20a27be8e05306c1f7bc379e03cb8ddd0e125e67062d199b543018491249"
   }
 }
