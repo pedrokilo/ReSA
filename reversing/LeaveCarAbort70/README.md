@@ -44,3 +44,6 @@ Archivo de arranque en el clon: `leavecarabort70-runtime.start`; salida `leaveca
 
 ## Actualizacion del lote 106A (06/11/2026)
 0x6478B0 (constructor de CTaskSimpleCarSetPedOut del EXE) tiene hook RH desde el lote 106A: `LiveComparison.hpp` apaga ese hook durante la corrida con una ruta `HookRoute` (`ctorOff`) y la restaura al final; el banco se repitio aprobado (`20261106-014932-591316`).
+
+## Lote 115A (07/11/2026)
+0x647950 (cuerpo del destructor de CTaskSimpleCarSetPedOut) tiene hook RH desde el lote 115A; el banco crea una ruta apagada (`dtorOff`, como `ctorOff` del lote 106A) para que el lado del EXE ejecute su codigo original. Repetido APROBADO.

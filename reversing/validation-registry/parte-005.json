@@ -10848,7 +10848,7 @@
       },
       "evidence": {
         "path": "reversing/LeaveCarSub70/validation-summary.json",
-        "sha256": "37ba38293688714cce98de3296382753fc143763b34b441c5c8254306c6e003c",
+        "sha256": "553df80db38bf9a6423a5b05f0db6515b9e05b6818301dd53469567439886465",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveCar::CreateSubTask"
@@ -10858,14 +10858,14 @@
         "original_address": "0x00641530"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "6bc97dfd1834167939c395f743a93ffc37e39187a3216a55901f4f22ae5e9e18",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "d7fd870a679a009f1d987d9d1b69a208b275cffb1e50b9346dce734fa248bf31",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "08ab7a3a2c9c650dc4ce1fa4cdd424ac912b635fe19f7041b0ca9ba410ce1d7f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "b59c2f42c4d4550ecfb7c5e6cbfc45f7a3756446f670d6022850b09d6277d25d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "2dce4fb1605c3a244f1b2a59c9514a2339d6265dfd6de78d5b5cc788360b316b",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "f22da1781866f3aac7bf3c1309f7de6845a3227569e104e96c125c3e81109371",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/LeaveCarSub70/LiveComparison.hpp": "38fe797627d4c9874e7b1337954e7a0aa8cf32ba4edb7940dbffa8ec32551e72",
+        "reversing/LeaveCarSub70/LiveComparison.hpp": "441872d74d397c8cdd65c3b0287bcaf9ffbddb21d059dcbeeffa5e8151be3a83",
         "reversing/LeaveCarSub70/Core.hpp": "449f5b48cd91278e94031e836b70afe528b21fce853d5106d383d5cd424d925f",
         "reversing/LeaveCarSub70/Fixtures.hpp": "0edef30a4dff8c52aa74c5da8d0a5b09119365d8432cb50659c5b97f0befab32",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -24489,7 +24489,7 @@
       },
       "evidence": {
         "path": "reversing/LeaveCarAbort70/validation-summary.json",
-        "sha256": "404e30764fe0c10fcd3b6412e5aa50a27d10c0a0119a1841cfcbcbbe329d1312",
+        "sha256": "2f35e478da2cdfa349ac82d4af9b09fff145756e2ce579894d999fcecaa57f3e",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveCar::MakeAbortable"
@@ -24500,11 +24500,11 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "ecad3fea0985c9eb7f04c5393f218c5aee3ced2c733a24cf5f3ab3382c715dbb",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "d7fd870a679a009f1d987d9d1b69a208b275cffb1e50b9346dce734fa248bf31",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "08ab7a3a2c9c650dc4ce1fa4cdd424ac912b635fe19f7041b0ca9ba410ce1d7f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "b59c2f42c4d4550ecfb7c5e6cbfc45f7a3756446f670d6022850b09d6277d25d",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/LeaveCarAbort70/LiveComparison.hpp": "866a3b8d91c73472f81bcd23aeebb8f2e8169ba78c9410ae79d36f0cf31340e6",
+        "reversing/LeaveCarAbort70/LiveComparison.hpp": "cd5bf41b2bd3f92897c6d18bf8409c659abae3b249012968f24b52b957bd53aa",
         "reversing/LeaveCarAbort70/Core.hpp": "0b2b836f328e30d2e971f4985fe3aad4b1a47f7c409956e56b09f3312d9cbc3c",
         "reversing/LeaveCarAbort70/Fixtures.hpp": "c037c288d53e502dc79032a575c7103fc2ac156b14b967f21dd5331bc4d10ca1",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",

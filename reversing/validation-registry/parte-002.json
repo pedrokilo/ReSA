@@ -21452,7 +21452,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDamageResponse"
@@ -21479,7 +21479,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputePersonalityResponseToDamage"
@@ -21506,7 +21506,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDeathResponse"
@@ -21533,7 +21533,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDeadPedResponse"
@@ -21560,7 +21560,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeVehicleDamageResponse"
@@ -21587,7 +21587,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeGotKnockedOverByCarResponse"
@@ -21614,7 +21614,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeVehicleCollisionResponse"
@@ -21641,7 +21641,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeVehiclePotentialCollisionResponse"
@@ -21668,7 +21668,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeEventResponseTask-0"
@@ -21695,7 +21695,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeEventResponseTask-Ped"
@@ -21722,7 +21722,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::HandleEvents"
@@ -21749,7 +21749,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::Flush"
@@ -21776,7 +21776,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::FlushImmediately"
@@ -21803,7 +21803,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::SetEventResponseTask"
@@ -21830,7 +21830,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::RegisterKill"
@@ -21857,7 +21857,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::Constructor"
@@ -21884,7 +21884,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::Destructor"
@@ -21911,7 +21911,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::IsKillTaskAppropriate"
@@ -21938,7 +21938,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::IsTemporaryEvent"
@@ -21965,7 +21965,7 @@
       },
       "evidence": {
         "path": "reversing/EvHA/validation-summary.json",
-        "sha256": "7f13d513b47f5fd09f38b20f4af1bf2a17b8c3cdfbc48e7e15bd6b3ba0d2b946",
+        "sha256": "0abab2a8433c6db3cd9ece52fa2c91f89d87483ce5e5961dc98b17423b789d53",
         "passed_path": [
           "covered_functions",
           "CEventHandler::GetCurrentEventType"

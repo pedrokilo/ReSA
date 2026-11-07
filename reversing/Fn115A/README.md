@@ -39,3 +39,12 @@ Falsos identicos en la direccion del EXE y en el cuerpo de la DLL (todos con hoo
 
 ## Fuera de los fixtures
 Objetos reales con vtables del ASI, metodos virtuales, registros volatiles, `this` nulo, la exactitud de los colaboradores falseados.
+
+## Prueba negativa
+Copias buenas en `artifacts/good/` (no versionado), restauradas y comprobadas por SHA256 tras cada ronda (`mutate.py`); `negative_run.py` deja correr los 327680 pares; resultados en `negative-runs/`. Una mutacion por funcion y ronda: ronda 1 (vtable propia +4, cola omitida, otro desplazamiento, bit desplazado, constante o campo cambiado) y ronda 2 (liberacion omitida, llamada base omitida, mascara de bits, constante, argumento o campo cambiado).
+- Ronda 1 (`20261107-131108-050284`): las 20 funciones fallan (pares con diferencias, en el orden de la tabla): 16384, 12989, 16384, 16384, 16384, 16384, 16384, 16384, 16384, 7133, 16384, 16384, 12754, 16384, 16384, 16384, 16384, 16384, 16384, 10047.
+- Ronda 2 (`20261107-132742-993178`): las 20 fallan (3064 a 16384 pares; ver `negative-runs/`). Un primer intento de la ronda 2 no compilo (argumentos intercambiados de tipo distinto) y se cambio la mutacion; no produjo corrida.
+- Ningun par "solo del oraculo". Fuente restaurada (`mutate.py restore`) antes de las repeticiones.
+
+## Bancos repetidos (codigo final)
+`grep` de las 20 direcciones en `reversing/` (sin Fn115A ni evidencias): 2 bancos las citan, `LeaveCarAbort70` (0x647950) y `EvHA` (0x67BA40, 0x...). Ademas se repitio `LeaveCarSub70` (misma sonda de CTaskSimpleCarSetPedOut). Los tres APROBADOS: `EvHA` (`20261107-134817-372240`, sin cambios), `LeaveCarAbort70` (`20261107-135216-777696`) y `LeaveCarSub70` (`20261107-135530-028094`), estos dos **adaptados** (banco, no produccion): el destructor 0x647950 ahora tiene hook y el lado del EXE saltaria a la DLL (fallo `collaborators_dll` en 16384/16384 en el primer intento), asi que crean una ruta apagada (`dtorOff`, como `ctorOff` del lote 106A) y la restauran al final. Evidencia refrescada con `refresh_bank.py`.

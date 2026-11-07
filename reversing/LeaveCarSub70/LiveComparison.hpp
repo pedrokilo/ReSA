@@ -149,6 +149,7 @@ inline void CaseSub(Env& env,Totals& t,unsigned n) {
 }
 
 // ================================================================================================ ejecucion
+inline std::unique_ptr<HookRoute> dtorOff;   // ruta apagada del hook 0x647950 (lote 115A)
 inline std::unique_ptr<HookRoute> ctorOff;   // ruta apagada del hook 0x6478B0 (lote 106A)
 inline void Run(Env& env,bool ready,const json& registered,const json& bodies,const json& collaborators) {
     for(unsigned f=0;f<kFunctions;++f) {
@@ -179,6 +180,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies,co
     const bool entriesIntact=env.WatchesIntact()&&RegionsIntact();
     bool stateRestored=entriesIntact;
     for(auto& r:env.route)if(r)stateRestored&=r->Restore();
+    if(dtorOff)stateRestored&=dtorOff->Restore();   // lote 115A: 0x647950 (destructor de CTaskSimpleCarSetPedOut) tiene hook RH; apagado durante el banco
     if(ctorOff)stateRestored&=ctorOff->Restore();   // lote 106A: 0x6478B0 (CTaskSimpleCarSetPedOut, constructor) tiene hook RH; apagado durante el banco para que el lado del EXE ejecute su codigo original
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     Write({{"event","global_state_final"},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact}});
@@ -242,6 +244,7 @@ inline void Update() {
     ready&=newBody&&playerBody&&refBody&&pauseBody&&getUpBody&&dieBody&&boatBody&&driveBody&&closeBody&&waitSlowBody&&waitDoorBody&&getOutBody&&jumpBody&&slowBody&&forceBody;
     auto fk=[](auto* f){return reinterpret_cast<void*>(f);};
     ctorOff.reset(new HookRoute("CTaskSimpleCarSetPedOut","Constructor",0x6478B0,HookRoute::RegisteredTarget{}));   // lote 106A: el hook queda apagado hasta Restore()
+    dtorOff.reset(new HookRoute("CTaskSimpleCarSetPedOut","Destructor",0x647950,HookRoute::RegisteredTarget{}));   // lote 115A
     env.stubs[0]={{Pair{0x61A5A0,newBody,true},fk(&FakeNew)},
                   {Pair{0x5DF8F0,playerBody,true},fk(&FakeIsPlayer)},
                   {Pair{0x571B70,refBody,true},fk(&FakeRegRef)},

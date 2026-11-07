@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "a8dcd5a5303e716b6120f07fd01918239839c7739d43bf16911e1089ec4029d7",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "game_stopped_before_analysis": true,
+  "negative_pairs": 327680,
+  "pairs_exe_dll_differ": {
+    "CEventDontJoinPlayerGroup::Destructor": 12989,
+    "CEventPassObject::Destructor": 16384,
+    "CTaskComplexKillPedOnFoot::Destructor": 16384,
+    "CTaskComplexSequence::Destructor": 16384,
+    "CTaskSimpleCarSetPedInAsDriver::Destructor": 12989,
+    "CTaskSimpleCarSetPedOut::Destructor": 16384,
+    "CTaskSimpleGoTo::Destructor": 16384,
+    "CTaskComplexWander::Destructor": 16384,
+    "CTaskComplexJump::Destructor": 16384,
+    "CTaskSimpleAnim::Constructor": 8128,
+    "CTaskSimplePlayHandSignalAnim::Constructor": 3064,
+    "CTaskSimpleDrown::Constructor": 16384,
+    "CTaskComplexAttractorPartnerWait::Constructor": 16384,
+    "CTaskComplexUseGoggles::Constructor": 16384,
+    "CTaskComplexUseEffectRunning::Constructor": 13420,
+    "CTaskComplexUseEffectSprinting::Constructor": 16384,
+    "CTaskComplexStuckInAir::Constructor": 16384,
+    "CTaskSimpleArrestPed::Constructor": 13459,
+    "CTaskAllocatorPlayerCommandAttack::Constructor": 10051,
+    "CTaskSimpleFacial::Constructor": 16384
+  },
+  "pairs_oracle_differ_only": {},
+  "first_case": {
+    "CEventDontJoinPlayerGroup::Destructor": 0,
+    "CEventPassObject::Destructor": 0,
+    "CTaskComplexKillPedOnFoot::Destructor": 0,
+    "CTaskComplexSequence::Destructor": 0,
+    "CTaskSimpleCarSetPedInAsDriver::Destructor": 0,
+    "CTaskSimpleCarSetPedOut::Destructor": 0,
+    "CTaskSimpleGoTo::Destructor": 0,
+    "CTaskComplexWander::Destructor": 0,
+    "CTaskComplexJump::Destructor": 0,
+    "CTaskSimpleAnim::Constructor": 1,
+    "CTaskSimplePlayHandSignalAnim::Constructor": 1,
+    "CTaskSimpleDrown::Constructor": 0,
+    "CTaskComplexAttractorPartnerWait::Constructor": 0,
+    "CTaskComplexUseGoggles::Constructor": 0,
+    "CTaskComplexUseEffectRunning::Constructor": 0,
+    "CTaskComplexUseEffectSprinting::Constructor": 0,
+    "CTaskComplexStuckInAir::Constructor": 0,
+    "CTaskSimpleArrestPed::Constructor": 0,
+    "CTaskAllocatorPlayerCommandAttack::Constructor": 0,
+    "CTaskSimpleFacial::Constructor": 0
+  },
+  "saves_unchanged": true,
+  "configs_restored": true
+}

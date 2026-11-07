@@ -37,7 +37,7 @@ M = [
     (T + 'TaskSimpleDrown.cpp', 'DrownConstructorBody', ('= 0x40800000;', '= 0x40000000;'), ('    bytes[0x28] = 1;\n', '    bytes[0x28] = 0;\n')),
     (T + 'TaskComplexAttractorPartnerWait.cpp', 'AttractorPartnerWaitConstructorBody', ('static_cast<uint8>(flag);', 'static_cast<uint8>(flag != 0);'), ('= 0x86E284;', '= 0x86E288;')),
     (T + 'TaskComplexUseGoggles.cpp', 'UseGogglesConstructorBody', ('= 0x86E4A8;', '= 0x86E4AC;'), ('    CTaskComplexBody::Constructor(self, nullptr);\n', '')),
-    (T + 'TaskComplexUseEffectRunning.cpp', 'UseEffectRunningConstructorBody', ('(bytes + 0x1C) = 6;', '(bytes + 0x1C) = 7;'), ('Constructor(effect, entity);', 'Constructor(entity, effect);')),
+    (T + 'TaskComplexUseEffectRunning.cpp', 'UseEffectRunningConstructorBody', ('(bytes + 0x1C) = 6;', '(bytes + 0x1C) = 7;'), ('Constructor(effect, entity);', 'Constructor(effect, nullptr);')),
     (T + 'TaskComplexUseEffectSprinting.cpp', 'UseEffectSprintingConstructorBody', ('(bytes + 0x1C) = 7;', '(bytes + 0x1C) = 6;'), ('= 0x86E5C0;', '= 0x86E5C4;')),
     (T + 'TaskComplexStuckInAir.cpp', 'StuckInAirConstructorBody', ('    CTaskComplexBody::Constructor(self, nullptr);\n', ''), ('= 0x870608;', '= 0x87060C;')),
     (T + 'TaskSimpleArrestPed.cpp', 'ArrestPedConstructorBody', ('    bytes[0xC] = 0;\n', '    bytes[0xC] = 1;\n'), ('RegisterReference(reinterpret_cast<CEntity**>(bytes + 8))', 'RegisterReference(reinterpret_cast<CEntity**>(bytes + 0xC))')),

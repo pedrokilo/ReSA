@@ -204,6 +204,7 @@ inline void CaseAbort(Env& env,Totals& t,unsigned n) {
 }
 
 // ================================================================================================ ejecucion
+inline std::unique_ptr<HookRoute> dtorOff;   // ruta apagada del hook 0x647950 (lote 115A)
 inline std::unique_ptr<HookRoute> ctorOff;   // ruta apagada del hook 0x6478B0 (lote 106A)
 inline void Run(Env& env,bool ready,const json& registered,const json& bodies,const json& collaborators) {
     for(unsigned f=0;f<kFunctions;++f) {
@@ -235,6 +236,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies,co
     const bool entriesIntact=env.WatchesIntact()&&RegionsIntact();
     bool stateRestored=entriesIntact;
     for(auto& r:env.route)if(r)stateRestored&=r->Restore();
+    if(dtorOff)stateRestored&=dtorOff->Restore();   // lote 115A: 0x647950 (cuerpo del destructor de CTaskSimpleCarSetPedOut) tiene hook RH; apagado durante el banco
     if(ctorOff)stateRestored&=ctorOff->Restore();   // lote 106A: 0x6478B0 (CTaskSimpleCarSetPedOut, constructor) tiene hook RH; apagado durante el banco para que el lado del EXE ejecute su codigo original
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     Write({{"event","global_state_final"},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact}});
@@ -282,6 +284,7 @@ inline void Update() {
     ready&=blendBody&&vertBody&&clearBody&&magBody&&playerBody&&doorBody&&cdCtorBody&&cdDtorBody&&cdAbortBody&&spProcessBody&&spCtorBody&&spDtorBody;
     ready&=spCtorBody!=spDtorBody&&cdCtorBody!=cdDtorBody;
     ctorOff.reset(new HookRoute("CTaskSimpleCarSetPedOut","Constructor",0x6478B0,HookRoute::RegisteredTarget{}));   // lote 106A: el hook queda apagado hasta Restore()
+    dtorOff.reset(new HookRoute("CTaskSimpleCarSetPedOut","Destructor",0x647950,HookRoute::RegisteredTarget{}));   // lote 115A: idem para el destructor
     env.stubs[0]={{Pair{0x4D4610,blendBody,true},reinterpret_cast<void*>(&FakeBlend)},
                   {Pair{0x5674E0,vertBody,true},reinterpret_cast<void*>(&FakeVertLine)},
                   {Pair{0x6D3060,clearBody,true},reinterpret_cast<void*>(&FakeClearOut)},
