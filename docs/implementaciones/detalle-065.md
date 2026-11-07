@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 07/11/2026 (Ciudad de México):** 851 grupos / 9290 funciones reconstruidas; 9290 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 07/11/2026 (Ciudad de México):** 858 grupos / 9304 funciones reconstruidas; 9304 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,150 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1281"></a>
+
+## Globales y helpers: source/game_sa/Scripts/Commands/ScriptCommands.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| TerminateAllScriptsWithThisName(std::string_view name) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:18](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo pActiveScripts: source/game_sa/Scripts/TheScripts.h:465 (0x00A8B42C); Posible dato fijo pIdleScripts: source/game_sa/Scripts/TheScripts.h:464 (0x00A8B428) |
+| RemoveAllScriptFires() | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:31](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gFireManager: source/game_sa/FireManager.h:81 (0x00B71F80) |
+| LoadScene(CVector point) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:35](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| LoadSceneInDirection(CVector point, float heading) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:41](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| LoadMissionAudio(uint32 slotId, int32 sampleId) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:48](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90) |
+| AttachMissionAudioToCar(uint32 slotId, CVehicle& veh) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:52](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90) |
+| ReportMissionAudioEventAtChar(CPed& ped, int32 eventId) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:56](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90) |
+| ReportMissionAudioEventAtCar(CVehicle& vehicle, int eventId) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:60](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90) |
+| PlayMissionAudio(uint32 slotId) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:64](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90) |
+| SetPhotoCameraEffect(bool enable) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:68](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bDrawCrossHair: source/game_sa/Scripts/TheScripts.h:430 (0x00A44490) |
+| DrawOddJobTitleBeforeFade(bool enable) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:72](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bDrawOddJobTitleBeforeFade: source/game_sa/Scripts/TheScripts.h:426 (0x00A44489) |
+| DrawSubtitlesBeforeFade(bool enable) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:76](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bDrawSubtitlesBeforeFade: source/game_sa/Scripts/TheScripts.h:425 (0x00A44488) |
+| SetPlayerInStadium(bool enable) | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:80](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bPlayerIsOffTheMap: source/game_sa/Scripts/TheScripts.h:440 (0x00A444A4) |
+
+<a id="grupo-1282"></a>
+
+## Globales y helpers: source/game_sa/Scripts/Commands/SequenceCommands.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| SetSequenceToRepeat(int32 index, bool repeat) | [source/game_sa/Scripts/Commands/SequenceCommands.cpp:11](../../source/game_sa/Scripts/Commands/SequenceCommands.cpp#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1283"></a>
+
+## Globales y helpers: source/game_sa/Scripts/Commands/StatCommands.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| IncrementStat(eStats stat, T by) | [source/game_sa/Scripts/Commands/StatCommands.cpp:11](../../source/game_sa/Scripts/Commands/StatCommands.cpp#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| DecrementStat(eStats stat, T by) | [source/game_sa/Scripts/Commands/StatCommands.cpp:19](../../source/game_sa/Scripts/Commands/StatCommands.cpp#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RegisterStat(eStats stat, T value) | [source/game_sa/Scripts/Commands/StatCommands.cpp:27](../../source/game_sa/Scripts/Commands/StatCommands.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetStat(eStats stat, T value) | [source/game_sa/Scripts/Commands/StatCommands.cpp:35](../../source/game_sa/Scripts/Commands/StatCommands.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetStat(eStats stat) | [source/game_sa/Scripts/Commands/StatCommands.cpp:43](../../source/game_sa/Scripts/Commands/StatCommands.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1284"></a>
+
+## Globales y helpers: source/game_sa/Scripts/Commands/TextCommands.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ClearSmallPrints() | [source/game_sa/Scripts/Commands/TextCommands.cpp:14](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PrintHelp(CRunningScript& S, const char* key) | [source/game_sa/Scripts/Commands/TextCommands.cpp:19](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo bAddNextMessageToPreviousBriefs: source/game_sa/Scripts/TheScripts.h:428 (0x00A4448B); Posible dato fijo bDisplayNonMiniGameHelpMessages: source/game_sa/Scripts/TheScripts.h:443 (0x00A444A7); Posible dato fijo bMiniGameInProgress: source/game_sa/Scripts/TheScripts.h:444 (0x00A444A8) |
+| ClearHelp() | [source/game_sa/Scripts/Commands/TextCommands.cpp:31](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlashHudObject(eHudItem item) | [source/game_sa/Scripts/Commands/TextCommands.cpp:35](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_ItemToFlash: source/game_sa/Hud.h:60 (0x00BAB1DC) |
+| PrintBig(const char* key, uint32 time, uint32 flags) | [source/game_sa/Scripts/Commands/TextCommands.cpp:40](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
+| Print(const char* key, uint32 time, uint32 flags) | [source/game_sa/Scripts/Commands/TextCommands.cpp:45](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo bAddNextMessageToPreviousBriefs: source/game_sa/Scripts/TheScripts.h:428 (0x00A4448B) |
+| PrintNow(const char* key, int32 time, uint32 flags) | [source/game_sa/Scripts/Commands/TextCommands.cpp:53](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo bAddNextMessageToPreviousBriefs: source/game_sa/Scripts/TheScripts.h:428 (0x00A4448B) |
+| ClearThisPrintBigNow(uint16 item) | [source/game_sa/Scripts/Commands/TextCommands.cpp:62](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ClearPrints() | [source/game_sa/Scripts/Commands/TextCommands.cpp:66](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| UseTextCommands(bool state) | [source/game_sa/Scripts/Commands/TextCommands.cpp:71](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo UseTextCommands: source/game_sa/Scripts/TheScripts.h:419 (0x00A44B67) |
+| I_DisplayText(CVector2D pos, const char* key, int32 n1, int32 n2) | [source/game_sa/Scripts/Commands/TextCommands.cpp:77](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68); Posible dato fijo UseTextCommands: source/game_sa/Scripts/TheScripts.h:419 (0x00A44B67) |
+| DisplayText(CVector2D pos, const char* key) | [source/game_sa/Scripts/Commands/TextCommands.cpp:88](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| DisplayTextWithFloat(CVector2D pos, const char* key, float value, float precision) | [source/game_sa/Scripts/Commands/TextCommands.cpp:93](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| DisplayTextWithNumbers(CVector2D pos, const char* key, Numbers... args) | [source/game_sa/Scripts/Commands/TextCommands.cpp:107](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PrintWithNumbersNow(const char* key, Numbers... args, int32 time, int32 flag) | [source/game_sa/Scripts/Commands/TextCommands.cpp:125](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo bAddNextMessageToPreviousBriefs: source/game_sa/Scripts/TheScripts.h:428 (0x00A4448B) |
+| PrintWithNumbers(const char* key, Numbers... args, int32 time, int32 flag) | [source/game_sa/Scripts/Commands/TextCommands.cpp:150](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L150) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo bAddNextMessageToPreviousBriefs: source/game_sa/Scripts/TheScripts.h:428 (0x00A4448B) |
+| PrintWithNumbersBig(const char* key, Numbers... args, int32 time, int16 style) | [source/game_sa/Scripts/Commands/TextCommands.cpp:175](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L175) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
+| PrintBigQ(const char* key, int32 time, int16 style) | [source/game_sa/Scripts/Commands/TextCommands.cpp:192](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L192) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
+| PrintHelpForever(CRunningScript& S, const char* key) | [source/game_sa/Scripts/Commands/TextCommands.cpp:197](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L197) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo bAddNextMessageToPreviousBriefs: source/game_sa/Scripts/TheScripts.h:428 (0x00A4448B); Posible dato fijo bDisplayNonMiniGameHelpMessages: source/game_sa/Scripts/TheScripts.h:443 (0x00A444A7); Posible dato fijo bMiniGameInProgress: source/game_sa/Scripts/TheScripts.h:444 (0x00A444A8) |
+| PrintHelpForeverWithNumber(CRunningScript& S, const char* key, int32 n1) | [source/game_sa/Scripts/Commands/TextCommands.cpp:209](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L209) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo bDisplayNonMiniGameHelpMessages: source/game_sa/Scripts/TheScripts.h:443 (0x00A444A7); Posible dato fijo bMiniGameInProgress: source/game_sa/Scripts/TheScripts.h:444 (0x00A444A8) |
+| ClearThisPrint(const char* key) | [source/game_sa/Scripts/Commands/TextCommands.cpp:216](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L216) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
+| ClearThisBigPrint(const char* key) | [source/game_sa/Scripts/Commands/TextCommands.cpp:221](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L221) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
+| SetTextDrawBeforeFade(bool enabled) | [source/game_sa/Scripts/Commands/TextCommands.cpp:226](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L226) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextRightJustify(bool enabled) | [source/game_sa/Scripts/Commands/TextCommands.cpp:231](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L231) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextDropshadow(int32 shadow, CRGBA color) | [source/game_sa/Scripts/Commands/TextCommands.cpp:236](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L236) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextEdge(int32 edge, CRGBA color) | [source/game_sa/Scripts/Commands/TextCommands.cpp:242](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L242) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextScale(float x, float y) | [source/game_sa/Scripts/Commands/TextCommands.cpp:248](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L248) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextColour(CRGBA color) | [source/game_sa/Scripts/Commands/TextCommands.cpp:253](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L253) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextJustify(bool justify) | [source/game_sa/Scripts/Commands/TextCommands.cpp:258](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L258) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextCentre(bool isCentered) | [source/game_sa/Scripts/Commands/TextCommands.cpp:263](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L263) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextWrapX(float wrapX) | [source/game_sa/Scripts/Commands/TextCommands.cpp:268](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L268) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextCentreSize(float centreSize) | [source/game_sa/Scripts/Commands/TextCommands.cpp:273](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L273) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextBackground(bool hasBg) | [source/game_sa/Scripts/Commands/TextCommands.cpp:278](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L278) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextProportional(bool isProportional) | [source/game_sa/Scripts/Commands/TextCommands.cpp:283](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L283) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| SetTextFont(eFontStyle fontStyle) | [source/game_sa/Scripts/Commands/TextCommands.cpp:288](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L288) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo IntroTextLines: source/game_sa/Scripts/TheScripts.h:388 (0x00A913E8); Posible dato fijo NumberOfIntroTextLinesThisFrame: source/game_sa/Scripts/TheScripts.h:389 (0x00A44B68) |
+| LoadMissionText(const char* key) | [source/game_sa/Scripts/Commands/TextCommands.cpp:293](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L293) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
+| AddNextMessageToPreviousBriefs(bool state) | [source/game_sa/Scripts/Commands/TextCommands.cpp:298](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L298) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bAddNextMessageToPreviousBriefs: source/game_sa/Scripts/TheScripts.h:428 (0x00A4448B) |
+| DisplayNonMiniGameHelpMessages(bool state) | [source/game_sa/Scripts/Commands/TextCommands.cpp:303](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L303) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bDisplayNonMiniGameHelpMessages: source/game_sa/Scripts/TheScripts.h:443 (0x00A444A7) |
+
+<a id="grupo-1285"></a>
+
+## Globales y helpers: source/game_sa/Scripts/Commands/UnusedCommands.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| GetLatestConsoleCommand() | [source/game_sa/Scripts/Commands/UnusedCommands.cpp:15](../../source/game_sa/Scripts/Commands/UnusedCommands.cpp#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1286"></a>
+
+## Globales y helpers: source/game_sa/Scripts/Commands/VehicleCommands.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ClearHeliOrientation(CHeli& heli) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:19](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RemoveRCBuggy() | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:23](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetCarProofs(CVehicle& veh, bool bullet, bool fire, bool explosion, bool collision, bool melee) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:27](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SwitchCarGenerator(int32 generatorId, int32 count) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:36](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetHasBeenOwnedForCarGenerator(int32 generatorId, bool alreadyOwned) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:48](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetCarSpeed(CVehicle& veh) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:52](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetCarDrivingStyle(CVehicle& veh, eCarDrivingStyle style) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:56](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsFirstCarColor(CVehicle& veh, int32 color) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:60](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsSecondCarColor(CVehicle& veh, int32 color) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:64](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetExtraCarColors(CVehicle& veh) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:68](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PopCarBootUsingPhysics(CAutomobile& automobile) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:72](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SkipToNextAllowedStation(CTrain& train) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:76](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetRailTrackResistanceMult(float value) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:80](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fRailTrackResistance: source/game_sa/Entity/Vehicle/Vehicle.h:424 (0x008D34AC); Posible dato fijo ms_fRailTrackResistanceDefault: source/game_sa/Entity/Vehicle/Vehicle.h:425 (0x008D34B0) |
+| DisableHeliAudio(CVehicle& vehicle, bool enable) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:84](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsCarInAirProper(CRunningScript& S, CVehicle& vehicle) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:92](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsCarStuck(CVehicle& vehicle) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:101](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StuckCars: source/game_sa/Scripts/TheScripts.h:467 (0x00A90AB0) |
+| AddStuckCarCheck(CVehicle& vehicle, float stuckRadius, uint32 time) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:105](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StuckCars: source/game_sa/Scripts/TheScripts.h:467 (0x00A90AB0) |
+| RemoveStuckCarCheck(CVehicle& vehicle) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:109](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StuckCars: source/game_sa/Scripts/TheScripts.h:467 (0x00A90AB0) |
+| AddStuckCarCheckWithWarp(CVehicle& vehicle, float stuckRadius, uint32 time, bool stuck, bool flipped, bool inWater, int8 numberOfNodesToCheck) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:113](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StuckCars: source/game_sa/Scripts/TheScripts.h:467 (0x00A90AB0) |
+| PlaneAttackPlayerUsingDogFight(CPlane& plane, CPlayerPed& player, float altitude) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:117](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetCarAlwaysCreateSkids(CVehicle& vehicle, bool enable) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:125](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetCarAsMissionCar(CRunningScript& S, CVehicle& vehicle) | [source/game_sa/Scripts/Commands/VehicleCommands.cpp:130](../../source/game_sa/Scripts/Commands/VehicleCommands.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo MissionCleanUp: source/game_sa/Scripts/TheScripts.h:466 (0x00A90850) |
+
+<a id="grupo-1287"></a>
+
+## Globales y helpers: source/game_sa/Scripts/Commands/ZoneCommands.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * GetZoneByLabel(const char* label) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:9](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetZoneInfoByLabel(const char* label) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:17](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetZonePopulationType(const char* label, eZonePopulationType popType) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:25](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetZoneDealerStrength(const char* label, uint8 strength) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:32](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetZoneDealerStrength(const char* label) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:39](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetZoneGangStrength(const char* label, eGangID gang, uint8 strength) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:47](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetZoneGangStrength(const char* label, eGangID gang) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:54](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetZonePopulationRace(const char* label, uint8 races) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:68](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetZoneForGangWarsTraining(const char* label) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:75](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ZoneInfoForTraining: source/game_sa/GangWars.h:52 (0x008A5F40) |
+| InitZonePopulationSettings() | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:82](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetCurrentPopulationZoneType() | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:87](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_nCurrentZoneType: source/game_sa/PopCycle.h:213 (0x00C0BC6C) |
+| SetSpecificZoneToTriggerGangWar(const char* label) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:98](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L98) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ClearSpecificZonesToTriggerGangWar() | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:103](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetZoneNoCops(const char* label, bool isNoCops) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:108](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| DisplayZoneNames(bool enabled) | [source/game_sa/Scripts/Commands/ZoneCommands.cpp:115](../../source/game_sa/Scripts/Commands/ZoneCommands.cpp#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bScriptDontDisplayAreaName: source/game_sa/Hud.h:22 (0x00BAA3F8) |
+
+<a id="grupo-1288"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/RunningScript.cpp
 
@@ -21,7 +165,7 @@
 | ScriptInsideAngled(ScriptAngledBox& box,const CVector& pos,bool flame) | [source/game_sa/Scripts/RunningScript.cpp:529](../../source/game_sa/Scripts/RunningScript.cpp#L529) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ScriptDrawAngled(CRunningScript* script,const ScriptAngledBox& box) | [source/game_sa/Scripts/RunningScript.cpp:538](../../source/game_sa/Scripts/RunningScript.cpp#L538) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1282"></a>
+<a id="grupo-1289"></a>
 
 ## Globales y helpers: source/game_sa/Scripts/TheScripts.cpp
 
@@ -36,7 +180,7 @@
 | ExeMultiply3x3MV(const CMatrix& m, const CVector& v) | [source/game_sa/Scripts/TheScripts.cpp:2227](../../source/game_sa/Scripts/TheScripts.cpp#L2227) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SearchLightNormaliseAndMag(float* vector, void*) | [source/game_sa/Scripts/TheScripts.cpp:2303](../../source/game_sa/Scripts/TheScripts.cpp#L2303) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVector::NormaliseAndMag 0x0059C970 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1283"></a>
+<a id="grupo-1290"></a>
 
 ## Globales y helpers: source/game_sa/Shadows.cpp
 
@@ -53,7 +197,7 @@
 | ShadowVehiclePosition(CVector& position,float extentLength,float maximumY,float shift,float forwardX,float forwardY) | [source/game_sa/Shadows.cpp:1448](../../source/game_sa/Shadows.cpp#L1448) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CShadows::StoreShadowForVehicle 0x0070BDA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ShadowRenderTriangleCB(CVector* normal, CVector* trianglePos, _ProjectionParam* param) | [source/game_sa/Shadows.cpp:1667](../../source/game_sa/Shadows.cpp#L1667) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1284"></a>
+<a id="grupo-1291"></a>
 
 ## Globales y helpers: source/game_sa/Shopping.cpp
 
@@ -61,7 +205,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetChangingStatIndex(const char* stat) | [source/game_sa/Shopping.cpp:70](../../source/game_sa/Shopping.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1285"></a>
+<a id="grupo-1292"></a>
 
 ## Globales y helpers: source/game_sa/SimpleTransform.cpp
 
@@ -69,7 +213,7 @@
 | --- | --- | --- | --- | --- | --- |
 | NegateLikeX87(float value) | [source/game_sa/SimpleTransform.cpp:59](../../source/game_sa/SimpleTransform.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1286"></a>
+<a id="grupo-1293"></a>
 
 ## Globales y helpers: source/game_sa/SpecialFX.cpp
 
@@ -77,7 +221,7 @@
 | --- | --- | --- | --- | --- | --- |
 | MultiplyPointLikeExe(const CMatrix& m, const CVector& v) | [source/game_sa/SpecialFX.cpp:100](../../source/game_sa/SpecialFX.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1287"></a>
+<a id="grupo-1294"></a>
 
 ## Globales y helpers: source/game_sa/Sprite.cpp
 
@@ -95,7 +239,7 @@
 | SetSpriteVertices(RwIm2DVertex* vertices, const CornerCoords1D& xs, const CornerCoords1D& ys, float z, float rhw, uint32 color) | [source/game_sa/Sprite.cpp:168](../../source/game_sa/Sprite.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PushSpriteQuad() | [source/game_sa/Sprite.cpp:174](../../source/game_sa/Sprite.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo nSpriteBufferIndex: source/game_sa/Sprite.cpp:23 (0x00C6A158) |
 
-<a id="grupo-1288"></a>
+<a id="grupo-1295"></a>
 
 ## Globales y helpers: source/game_sa/Stats.cpp
 
@@ -157,7 +301,7 @@
 | StatsAddToHealthBody(uint32 entryEcx, uint32 entryEdx, volatile uint32* argument) | [source/game_sa/Stats.cpp:2501](../../source/game_sa/Stats.cpp#L2501) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatReactionValue: source/game_sa/Stats.h:50 (0x00B78F10); Posible dato fijo m_AddToHealthCounter: source/game_sa/Stats.h:69 (0x00B79510) |
 | StatsUpdateStatsAddToHealthExe(uint32 entryEcx, uint32 entryEdx) | [source/game_sa/Stats.cpp:2523](../../source/game_sa/Stats.cpp#L2523) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1289"></a>
+<a id="grupo-1296"></a>
 
 ## Globales y helpers: source/game_sa/StencilShadows.cpp
 
@@ -171,7 +315,7 @@
 | StencilToggleEdge(RxVertexIndex* edges, uint16& count, uint16 i0, uint16 i1) | [source/game_sa/StencilShadows.cpp:101](../../source/game_sa/StencilShadows.cpp#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | BuildShadowVolume(CStencilShadowObject* obj, bool forVehicle) | [source/game_sa/StencilShadows.cpp:123](../../source/game_sa/StencilShadows.cpp#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo s_ShadowTrianglePoints: source/game_sa/StencilShadows.cpp:28 (0x00C6A174); Posible dato fijo s_ShadowTrianglePointsUnk: source/game_sa/StencilShadows.cpp:27 (0x00C6A170); Posible dato fijo s_SunPosNrm: source/game_sa/StencilShadows.cpp:30 (0x008D5244); Posible dato fijo s_TransformedShadowTrianglePoints: source/game_sa/StencilShadows.cpp:29 (0x00C6A178) |
 
-<a id="grupo-1290"></a>
+<a id="grupo-1297"></a>
 
 ## Globales y helpers: source/game_sa/Streaming.cpp
 
@@ -181,7 +325,7 @@
 | ExeLodSector(float v) | [source/game_sa/Streaming.cpp:41](../../source/game_sa/Streaming.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MemoryUsedBelow(size_t goal) | [source/game_sa/Streaming.cpp:43](../../source/game_sa/Streaming.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_memoryUsedBytes: source/game_sa/Streaming.h:245 (0x008E4CB4) |
 
-<a id="grupo-1291"></a>
+<a id="grupo-1298"></a>
 
 ## Globales y helpers: source/game_sa/Streaming.h
 
@@ -213,7 +357,7 @@
 | ModelIdToRRR(int32 absId) | [source/game_sa/Streaming.h:138](../../source/game_sa/Streaming.h#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ModelIdToSCM(int32 absId) | [source/game_sa/Streaming.h:139](../../source/game_sa/Streaming.h#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1292"></a>
+<a id="grupo-1299"></a>
 
 ## Globales y helpers: source/game_sa/StuckCarCheck.cpp
 
@@ -221,7 +365,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * GetVehicleNoBoundsCheck(int32 handle) | [source/game_sa/StuckCarCheck.cpp:25](../../source/game_sa/StuckCarCheck.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1293"></a>
+<a id="grupo-1300"></a>
 
 ## Globales y helpers: source/game_sa/StuntJumpManager.cpp
 
@@ -233,61 +377,3 @@
 | SetJumpState(eJumpState state) | [source/game_sa/StuntJumpManager.cpp:84](../../source/game_sa/StuntJumpManager.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_jumpState: source/game_sa/StuntJumpManager.h:33 (0x00A9A898) |
 | ResetAllJumps() | [source/game_sa/StuntJumpManager.cpp:351](../../source/game_sa/StuntJumpManager.cpp#L351) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | StuntJumpTestCode() | [source/game_sa/StuntJumpManager.cpp:359](../../source/game_sa/StuntJumpManager.cpp#L359) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1294"></a>
-
-## Globales y helpers: source/game_sa/TagManager.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| IsTagInArea(const CRect& area, const tTagDesc& tag) | [source/game_sa/TagManager.cpp:121](../../source/game_sa/TagManager.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1295"></a>
-
-## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| ClosestThreatDistance(const CVector& a, const CVector& b) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp:92](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1296"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskComplexSequence.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| IsActive() const | [source/game_sa/Tasks/TaskComplexSequence.h:57](../../source/game_sa/Tasks/TaskComplexSequence.h#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1297"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskManager.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| DeleteTaskAndNull(CTask*& task) | [source/game_sa/Tasks/TaskManager.cpp:58](../../source/game_sa/Tasks/TaskManager.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FindFirstTaskOfType(CTask* task, eTaskType type) | [source/game_sa/Tasks/TaskManager.cpp:64](../../source/game_sa/Tasks/TaskManager.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1298"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorGoToInfo.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| InteriorInfoHeading(const InteriorInfo_t* info) | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorGoToInfo.cpp:60](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorGoToInfo.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1299"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| LieInBedTransformPointXY(const CMatrix& m, const CVector& v) | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp:112](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1300"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| SitAtDeskRandom(float scale) | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp:78](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SitAtDeskMatrixTimesPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp:139](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMatrix::operator*-Vec 0x0059C890 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

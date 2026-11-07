@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,290 entradas reversed=1**, de 9,290 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,304 entradas reversed=1**, de 9,304 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9290 |
+| `validated=1` · evidencia aprobada vinculada | 9304 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9290 |
+| Evidencia histórica vinculada; revisión pendiente | 9304 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2504,8 +2504,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventDanger | `Constructor` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CEventDanger | `Destructor` | [Resumen](../reversing/Fn107A/validation-summary.json) |
 | CEventDanger | `GetSourceEntity` | [Resumen](../reversing/Events23/validation-summary.json) |
+| CEventDeadPed | `Constructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
+| CEventDeadPed | `Destructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
 | CEventDeath | `Constructor` | [Resumen](../reversing/Fn90B/validation-summary.json) |
 | CEventDontJoinPlayerGroup | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CEventDraggedOutCar | `Constructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
+| CEventDraggedOutCar | `Destructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
 | CEventEditableResponse | `Clone` | [Resumen](../reversing/CTasks11/validation-summary.json) |
 | CEventEditableResponse | `ComputeResponseTaskOfType` | [Resumen](../reversing/CTasks11/validation-summary.json) |
 | CEventEditableResponse | `ComputeResponseTaskType-group` | [Resumen](../reversing/CTasks11/validation-summary.json) |
@@ -2522,6 +2526,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventGlobalGroup | `AddEventsToGroup` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventGlobalGroup | `AddEventsToPed` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventGlobalGroup | `GetSoundLevel` | [Resumen](../reversing/Events52/validation-summary.json) |
+| CEventGotKnockedOverByCar | `Constructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
+| CEventGotKnockedOverByCar | `Destructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
 | CEventGroup | `Add-` | [Resumen](../reversing/Mix12/validation-summary.json) |
 | CEventGroup | `Constructor` | [Resumen](../reversing/Mix12/validation-summary.json) |
 | CEventGroup | `Flush` | [Resumen](../reversing/Mix12/validation-summary.json) |
@@ -2537,6 +2543,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventGroupEvent | `BaseEventTakesPriorityOverBaseEvent` | [Resumen](../reversing/Fn114A/validation-summary.json) |
 | CEventGroupEvent | `Constructor` | [Resumen](../reversing/Fn100A/validation-summary.json) |
 | CEventGroupEvent | `Destructor` | [Resumen](../reversing/Fn100A/validation-summary.json) |
+| CEventGunAimedAt | `Constructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
+| CEventGunAimedAt | `Destructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
 | CEventGunShot | `AffectsPed` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CEventGunShot | `CloneEditable` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CEventGunShot | `Constructor` | [Resumen](../reversing/Events43/validation-summary.json) |
@@ -2661,6 +2669,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventPedCollisionWithPed | `Destructor` | [Resumen](../reversing/Fn107A/validation-summary.json) |
 | CEventPedCollisionWithPed | `TakesPriorityOver` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventPedCollisionWithPlayer | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CEventPedToChase | `Constructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
+| CEventPedToChase | `Destructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
+| CEventPedToFlee | `Constructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
+| CEventPedToFlee | `Destructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
 | CEventPlayerCollisionWithPed | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CEventPlayerCommandToGroup | `AffectsPedGroup` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventPlayerCommandToGroup | `Constructor` | [Resumen](../reversing/Events70/validation-summary.json) |
@@ -2669,6 +2681,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventPlayerCommandToGroupAttack | `Constructor` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventPlayerCommandToGroupGather | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CEventPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CEventPotentialGetRunOver | `Constructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
+| CEventPotentialGetRunOver | `Destructor` | [Resumen](../reversing/Fn117A/validation-summary.json) |
 | CEventPotentialWalkIntoFire | `AffectsPed` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventPotentialWalkIntoFire | `Constructor` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventPotentialWalkIntoObject | `AffectsPed` | [Resumen](../reversing/Events70/validation-summary.json) |
@@ -9496,13 +9510,17 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventCopCarBeingStolen` | 3 | 0 | 3 | 0 |
 | `CEventDamage` | 24 | 0 | 24 | 0 |
 | `CEventDanger` | 5 | 0 | 5 | 0 |
+| `CEventDeadPed` | 2 | 0 | 2 | 0 |
 | `CEventDeath` | 1 | 0 | 1 | 0 |
 | `CEventDontJoinPlayerGroup` | 1 | 0 | 1 | 0 |
+| `CEventDraggedOutCar` | 2 | 0 | 2 | 0 |
 | `CEventEditableResponse` | 12 | 0 | 12 | 0 |
 | `CEventEscalator` | 1 | 0 | 1 | 0 |
 | `CEventGlobalGroup` | 3 | 0 | 3 | 0 |
+| `CEventGotKnockedOverByCar` | 2 | 0 | 2 | 0 |
 | `CEventGroup` | 12 | 0 | 12 | 0 |
 | `CEventGroupEvent` | 3 | 0 | 3 | 0 |
+| `CEventGunAimedAt` | 2 | 0 | 2 | 0 |
 | `CEventGunShot` | 6 | 0 | 6 | 0 |
 | `CEventGunShotWhizzedBy` | 2 | 0 | 2 | 0 |
 | `CEventHandler` | 72 | 0 | 72 | 0 |
@@ -9521,11 +9539,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventPassObject` | 2 | 0 | 2 | 0 |
 | `CEventPedCollisionWithPed` | 4 | 0 | 4 | 0 |
 | `CEventPedCollisionWithPlayer` | 1 | 0 | 1 | 0 |
+| `CEventPedToChase` | 2 | 0 | 2 | 0 |
+| `CEventPedToFlee` | 2 | 0 | 2 | 0 |
 | `CEventPlayerCollisionWithPed` | 1 | 0 | 1 | 0 |
 | `CEventPlayerCommandToGroup` | 3 | 0 | 3 | 0 |
 | `CEventPlayerCommandToGroupAttack` | 2 | 0 | 2 | 0 |
 | `CEventPlayerCommandToGroupGather` | 1 | 0 | 1 | 0 |
 | `CEventPool` | 1 | 0 | 1 | 0 |
+| `CEventPotentialGetRunOver` | 2 | 0 | 2 | 0 |
 | `CEventPotentialWalkIntoFire` | 2 | 0 | 2 | 0 |
 | `CEventPotentialWalkIntoObject` | 3 | 0 | 3 | 0 |
 | `CEventPotentialWalkIntoPed` | 4 | 0 | 4 | 0 |

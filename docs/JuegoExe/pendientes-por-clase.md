@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (07/11/2026). Total: **2,631** funciones en 521 clases/módulos (rango 0x401000–0x74FFFF): 2,609 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor número de funciones pendientes. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (07/11/2026). Total: **2,617** funciones en 521 clases/módulos (rango 0x401000–0x74FFFF): 2,595 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor número de funciones pendientes. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -344,6 +344,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CEventPotentialWalkIntoVehicle | 4 | 20 |
 | CEventVehicleDied | 4 | 20 |
 | CEventInAir | 4 | 22 |
+| CEventVehicleDamage | 4 | 23 |
 | CMemoryMgr | 4 | 26 |
 | CEventDanger | 4 | 43 |
 | CEventAreaCodes | 4 | 56 |
@@ -417,13 +418,13 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CStencilShadows | 5 | 543 |
 | CTrafficLights | 5 | 770 |
 | CTaskComplexSeekEntityRadiusAngleOffset | 5 | 8771 |
+| CEventBuildingCollision | 6 | 82 |
 | App | 6 | 116 |
 | CEventPotentialWalkIntoObject | 6 | 116 |
 | CEventPlayerCommandToGroupAttack | 6 | 151 |
 | CTaskSimpleCarJumpOut | 6 | 156 |
 | CFileLoader | 6 | 158 |
 | CTaskComplexEnterCar | 6 | 177 |
-| CEventVehicleDamage | 6 | 206 |
 | CEventDontJoinPlayerGroup | 6 | 230 |
 | CEventNewGangMember | 6 | 230 |
 | CEventLeanOnVehicle | 6 | 234 |
@@ -451,6 +452,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CVisibilityPlugins | 7 | 205 |
 | CTask | 7 | 336 |
 | CTaskAllocatorPool | 7 | 362 |
+| CEventKnockOffBike | 7 | 395 |
 | CPtrNodeDoubleLinkPool | 7 | 436 |
 | CTaskComplexStealCar | 7 | 495 |
 | CObject | 7 | 728 |
@@ -459,7 +461,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CEventLeaderQuitEnteringCarAsDriver | 8 | 146 |
 | CEvent | 8 | 280 |
 | CTaskSimpleHoldEntity | 8 | 302 |
-| CEventBuildingCollision | 8 | 318 |
 | CCopPed | 8 | 335 |
 | CEventAcquaintancePedHateBadlyLit | 8 | 342 |
 | CEventPlayerCommandToGroupGather | 8 | 372 |
@@ -479,7 +480,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Fx_c | 9 | 434 |
 | CTaskComplexWanderCop | 9 | 442 |
 | CTaskComplexPartnerGreet | 9 | 458 |
-| CEventKnockOffBike | 9 | 578 |
 | CTaskComplexRoadRage | 9 | 585 |
 | CTaskComplexInvestigateDisturbance | 9 | 1125 |
 | CEventPassObject | 10 | 291 |
@@ -516,11 +516,11 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskSimpleHitFromFront | 21 | 430 |
 | CBike | 22 | 168 |
 | CModelInfo | 22 | 814 |
+| CEventDamage | 22 | 1596 |
 | CPlaceable | 25 | 1157 |
+| CEventVehicleHitAndRun | 25 | 1806 |
 | CCustomCarEnvMapPipeline | 25 | 3547 |
-| CEventDamage | 26 | 1980 |
 | CPedAttractor | 28 | 1774 |
-| CEventVehicleHitAndRun | 29 | 2140 |
 | CAEUserRadioTrackManager | 30 | 2533 |
 | CVehicle | 33 | 861 |
 | CEventSeenCop | 35 | 902 |
@@ -2800,6 +2800,15 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004B0CF0 | 6 | B |  | 0 | 0 | sí | baja |
 | 0x004B0D00 | 7 | A |  | 3 | 1 |  | baja |
 
+## CEventVehicleDamage (4)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004B1960 | 3 | B |  | 0 | 0 | sí | alta |
+| 0x004B1970 | 7 | B |  | 0 | 0 | sí | alta |
+| 0x004B1980 | 6 | B |  | 0 | 0 | sí | alta |
+| 0x004B1B50 | 7 | C |  | 1 | 0 |  | baja |
+
 ## CMemoryMgr (4)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -3484,6 +3493,17 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00496E00 | 8462 | D |  | 0 | 0 |  | baja |
 | 0x004993D0 | 82 | A |  | 4 | 4 |  | baja |
 
+## CEventBuildingCollision (6)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004ACFB0 | 6 | B |  | 0 | 0 | sí | alta |
+| 0x004ACFC0 | 3 | B |  | 0 | 0 | sí | alta |
+| 0x004ACFD0 | 3 | B |  | 0 | 0 | sí | alta |
+| 0x004ACFE0 | 6 | B |  | 0 | 0 | sí | alta |
+| 0x004AD050 | 32 | B |  | 0 | 0 | sí | alta |
+| 0x004AD3A0 | 32 | D |  | 0 | 0 |  | baja |
+
 ## App (6)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -3549,17 +3569,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00643CA0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00643CC0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00643CE0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CEventVehicleDamage (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B1960 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B1970 | 7 | B |  | 0 | 0 | sí | alta |
-| 0x004B1980 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B1B50 | 7 | C |  | 1 | 0 |  | baja |
-| 0x004B1B60 | 102 | A |  | 2 | 1 |  | baja |
-| 0x004B1C10 | 81 | A |  | 3 | 1 |  | baja |
 
 ## CEventDontJoinPlayerGroup (6)
 
@@ -3865,6 +3874,18 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0069DB00 | 59 | B |  | 0 | 0 | sí | baja |
 | 0x0069DB40 | 11 | C |  | 1 | 0 |  | baja |
 
+## CEventKnockOffBike (7)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004AFCB0 | 6 | B |  | 0 | 0 | sí | alta |
+| 0x004AFCC0 | 3 | B |  | 0 | 0 | sí | alta |
+| 0x004AFCD0 | 7 | B |  | 0 | 0 | sí | alta |
+| 0x004AFCE0 | 6 | B |  | 0 | 0 | sí | alta |
+| 0x004B06F0 | 3 | B |  | 0 | 0 | sí | baja |
+| 0x004B0810 | 138 | D |  | 0 | 0 |  | baja |
+| 0x004B4EE0 | 232 | D |  | 0 | 0 |  | baja |
+
 ## CPtrNodeDoubleLinkPool (7)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -3963,19 +3984,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006935E0 | 5 | C |  | 1 | 0 |  | baja |
 | 0x006935F0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x006939D0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CEventBuildingCollision (8)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004ACFB0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004ACFC0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004ACFD0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004ACFE0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004AD050 | 32 | B |  | 0 | 0 | sí | alta |
-| 0x004AD250 | 139 | A |  | 7 | 6 |  | baja |
-| 0x004AD330 | 97 | A |  | 13 | 6 |  | baja |
-| 0x004AD3A0 | 32 | D |  | 0 | 0 |  | baja |
 
 ## CCopPed (8)
 
@@ -4233,20 +4241,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00684FA0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00684FC0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00684FE0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CEventKnockOffBike (9)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AFCB0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004AFCC0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004AFCD0 | 7 | B |  | 0 | 0 | sí | alta |
-| 0x004AFCE0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B06F0 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004B0700 | 102 | A |  | 7 | 6 |  | baja |
-| 0x004B07B0 | 81 | A |  | 9 | 3 |  | baja |
-| 0x004B0810 | 138 | D |  | 0 | 0 |  | baja |
-| 0x004B4EE0 | 232 | D |  | 0 | 0 |  | baja |
 
 ## CTaskComplexRoadRage (9)
 
@@ -4913,6 +4907,33 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004C6B70 | 92 | D |  | 0 | 0 |  | baja |
 | 0x004C6BD0 | 61 | D |  | 0 | 0 |  | baja |
 
+## CEventDamage (22)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004ADE90 | 7 | A |  | 7 | 3 |  | baja |
+| 0x004AE2D0 | 69 | D |  | 0 | 0 |  | baja |
+| 0x004B5E00 | 76 | D |  | 0 | 0 |  | baja |
+| 0x004B5E50 | 76 | D |  | 0 | 0 |  | baja |
+| 0x004B5EA0 | 76 | D |  | 0 | 0 |  | baja |
+| 0x004B5EF0 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B5F40 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B5F90 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B5FE0 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B6030 | 76 | D |  | 0 | 0 |  | baja |
+| 0x004B60D0 | 76 | D |  | 0 | 0 |  | baja |
+| 0x004B6120 | 76 | D |  | 0 | 0 |  | baja |
+| 0x004B6170 | 76 | D |  | 0 | 0 |  | baja |
+| 0x004B61C0 | 76 | D |  | 0 | 0 |  | baja |
+| 0x004B6210 | 76 | D |  | 0 | 0 |  | baja |
+| 0x004B6260 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B62B0 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B6300 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B6350 | 76 | D |  | 0 | 0 |  | baja |
+| 0x004B63A0 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B63F0 | 76 | D |  | 0 | 0 |  | baja |
+| 0x004B6440 | 76 | B |  | 0 | 0 | sí | baja |
+
 ## CPlaceable (25)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4943,6 +4964,36 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0054FEC0 | 54 | D |  | 0 | 0 |  | baja |
 | 0x0054FF10 | 54 | D |  | 0 | 0 |  | baja |
 
+## CEventVehicleHitAndRun (25)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004AEA00 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x004AEA10 | 3 | B |  | 0 | 0 | sí | baja |
+| 0x004AEA20 | 12 | B |  | 0 | 0 | sí | baja |
+| 0x004AEA30 | 7 | B |  | 0 | 0 | sí | baja |
+| 0x004AEA40 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x004AEAC0 | 124 | A |  | 3 | 2 |  | baja |
+| 0x004AEB90 | 97 | A |  | 5 | 2 |  | baja |
+| 0x004AEC00 | 65 | D |  | 0 | 0 |  | baja |
+| 0x004AEC50 | 17 | A |  | 1 | 1 |  | baja |
+| 0x004AECA0 | 7 | A |  | 3 | 1 |  | baja |
+| 0x004AECD0 | 93 | A |  | 3 | 2 |  | baja |
+| 0x004AED60 | 81 | A |  | 5 | 2 |  | baja |
+| 0x004AEDC0 | 35 | D |  | 0 | 0 |  | baja |
+| 0x004AEDF0 | 102 | A |  | 3 | 2 |  | baja |
+| 0x004AEEA0 | 81 | A |  | 5 | 2 |  | baja |
+| 0x004AEF00 | 272 | D |  | 0 | 0 |  | baja |
+| 0x004AF010 | 86 | A |  | 2 | 1 |  | baja |
+| 0x004AF0A0 | 81 | A |  | 3 | 1 |  | baja |
+| 0x004AF100 | 35 | D |  | 0 | 0 |  | baja |
+| 0x004B7170 | 105 | D |  | 0 | 0 |  | baja |
+| 0x004B7210 | 103 | D |  | 0 | 0 |  | baja |
+| 0x004B7280 | 97 | D |  | 0 | 0 |  | baja |
+| 0x004B72F0 | 97 | D |  | 0 | 0 |  | baja |
+| 0x004B7360 | 97 | D |  | 0 | 0 |  | baja |
+| 0x004B73D0 | 97 | D |  | 0 | 0 |  | baja |
+
 ## CCustomCarEnvMapPipeline (25)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4972,37 +5023,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x005DA6A0 | 236 | A |  | 3 | 2 |  | baja |
 | 0x005DA790 | 804 | A |  | 1 | 1 |  | baja |
 | 0x005DAAC0 | 21 | A |  | 1 | 1 |  | baja |
-
-## CEventDamage (26)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004ADE90 | 7 | A |  | 7 | 3 |  | baja |
-| 0x004ADEA0 | 120 | A |  | 3 | 1 |  | baja |
-| 0x004ADF70 | 81 | A |  | 5 | 1 |  | baja |
-| 0x004AE1A0 | 102 | A |  | 3 | 2 |  | baja |
-| 0x004AE270 | 81 | A |  | 5 | 2 |  | baja |
-| 0x004AE2D0 | 69 | D |  | 0 | 0 |  | baja |
-| 0x004B5E00 | 76 | D |  | 0 | 0 |  | baja |
-| 0x004B5E50 | 76 | D |  | 0 | 0 |  | baja |
-| 0x004B5EA0 | 76 | D |  | 0 | 0 |  | baja |
-| 0x004B5EF0 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B5F40 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B5F90 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B5FE0 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B6030 | 76 | D |  | 0 | 0 |  | baja |
-| 0x004B60D0 | 76 | D |  | 0 | 0 |  | baja |
-| 0x004B6120 | 76 | D |  | 0 | 0 |  | baja |
-| 0x004B6170 | 76 | D |  | 0 | 0 |  | baja |
-| 0x004B61C0 | 76 | D |  | 0 | 0 |  | baja |
-| 0x004B6210 | 76 | D |  | 0 | 0 |  | baja |
-| 0x004B6260 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B62B0 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B6300 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B6350 | 76 | D |  | 0 | 0 |  | baja |
-| 0x004B63A0 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B63F0 | 76 | D |  | 0 | 0 |  | baja |
-| 0x004B6440 | 76 | B |  | 0 | 0 | sí | baja |
 
 ## CPedAttractor (28)
 
@@ -5036,40 +5056,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x005EC660 | 217 | A |  | 10 | 10 |  | baja |
 | 0x005EC740 | 217 | A |  | 10 | 10 |  | baja |
 | 0x005EC820 | 39 | D |  | 0 | 0 |  | baja |
-
-## CEventVehicleHitAndRun (29)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AEA00 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA10 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA20 | 12 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA30 | 7 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA40 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004AEAC0 | 124 | A |  | 3 | 2 |  | baja |
-| 0x004AEB90 | 97 | A |  | 5 | 2 |  | baja |
-| 0x004AEC00 | 65 | D |  | 0 | 0 |  | baja |
-| 0x004AEC50 | 17 | A |  | 1 | 1 |  | baja |
-| 0x004AECA0 | 7 | A |  | 3 | 1 |  | baja |
-| 0x004AECD0 | 93 | A |  | 3 | 2 |  | baja |
-| 0x004AED60 | 81 | A |  | 5 | 2 |  | baja |
-| 0x004AEDC0 | 35 | D |  | 0 | 0 |  | baja |
-| 0x004AEDF0 | 102 | A |  | 3 | 2 |  | baja |
-| 0x004AEEA0 | 81 | A |  | 5 | 2 |  | baja |
-| 0x004AEF00 | 272 | D |  | 0 | 0 |  | baja |
-| 0x004AF010 | 86 | A |  | 2 | 1 |  | baja |
-| 0x004AF0A0 | 81 | A |  | 3 | 1 |  | baja |
-| 0x004AF100 | 35 | D |  | 0 | 0 |  | baja |
-| 0x004AF130 | 86 | A |  | 2 | 1 |  | baja |
-| 0x004AF1C0 | 81 | A |  | 3 | 1 |  | baja |
-| 0x004AF240 | 86 | A |  | 2 | 1 |  | baja |
-| 0x004AF2D0 | 81 | A |  | 3 | 1 |  | baja |
-| 0x004B7170 | 105 | D |  | 0 | 0 |  | baja |
-| 0x004B7210 | 103 | D |  | 0 | 0 |  | baja |
-| 0x004B7280 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B72F0 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B7360 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B73D0 | 97 | D |  | 0 | 0 |  | baja |
 
 ## CAEUserRadioTrackManager (30)
 
