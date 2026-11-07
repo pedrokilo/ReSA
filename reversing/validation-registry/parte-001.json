@@ -114898,7 +114898,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::Constructor"
@@ -114907,10 +114907,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -114926,7 +114926,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::Destructor"
@@ -114935,10 +114935,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -114954,7 +114954,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::Shutdown"
@@ -114963,10 +114963,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -114982,7 +114982,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::RemoveAnimSequences"
@@ -114991,10 +114991,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115010,7 +115010,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::AllocSequenceBlock"
@@ -115019,10 +115019,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115038,7 +115038,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::FindSequence"
@@ -115047,10 +115047,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115066,7 +115066,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::SetName"
@@ -115075,10 +115075,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115094,7 +115094,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::RemoveQuaternionFlips"
@@ -115103,10 +115103,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115122,7 +115122,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::GetSequenceBlock"
@@ -115131,10 +115131,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115150,7 +115150,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::Uncompress"
@@ -115159,10 +115159,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115178,7 +115178,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::CompressKeyframes"
@@ -115187,10 +115187,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115206,7 +115206,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::RemoveUncompressedData"
@@ -115215,10 +115215,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115234,7 +115234,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::MoveMemory"
@@ -115243,10 +115243,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115262,7 +115262,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendHierarchy::Print"
@@ -115271,10 +115271,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115290,7 +115290,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::Init"
@@ -115299,10 +115299,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115318,7 +115318,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::NextKeyFrameNoCalc"
@@ -115327,10 +115327,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115346,7 +115346,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::NextKeyFrame"
@@ -115355,10 +115355,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115374,7 +115374,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::NextKeyFrameCompressed"
@@ -115383,10 +115383,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115402,7 +115402,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::CalcTheta"
@@ -115411,10 +115411,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115430,7 +115430,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::CalcDeltas"
@@ -115439,10 +115439,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115458,7 +115458,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::CalcDeltasCompressed"
@@ -115467,10 +115467,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115486,7 +115486,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::FindKeyFrame"
@@ -115495,10 +115495,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115514,7 +115514,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::SetupKeyFrameCompressed"
@@ -115523,10 +115523,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115542,7 +115542,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::UpdateTime"
@@ -115551,10 +115551,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115570,7 +115570,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::GetCurrentTranslation"
@@ -115579,10 +115579,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115598,7 +115598,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::GetCurrentTranslationCompressed"
@@ -115607,10 +115607,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115626,7 +115626,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::GetEndTranslation"
@@ -115635,10 +115635,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115654,7 +115654,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::GetEndTranslationCompressed"
@@ -115663,10 +115663,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115682,7 +115682,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::Update"
@@ -115691,10 +115691,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
@@ -115710,7 +115710,7 @@
       },
       "evidence": {
         "path": "reversing/Anim16/validation-summary.json",
-        "sha256": "3aeeadbec2802d746f7131caa614a783b15404158f9fed491f0adc73c3f9f713",
+        "sha256": "d6214cc27dbce8154367b15f60a3e8e75a9b732029715352a9aa7b6e3299330d",
         "passed_path": [
           "covered_functions",
           "CAnimBlendNode::UpdateCompressed"
@@ -115719,10 +115719,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+        "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
-        "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
-        "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+        "source/game_sa/Animation/AnimBlendNode.cpp": "977f5f2ca32ab66b24e36d9fd2872b0a945d9432941f64c4593f123f27b2f2b6",
+        "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-122116-297730).",
       "dependency_review": null,
