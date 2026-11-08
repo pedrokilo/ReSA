@@ -593,7 +593,7 @@
       },
       "evidence": {
         "path": "reversing/LeaveCarNext70/validation-summary.json",
-        "sha256": "840faba6bac67d13c4967e998d42d9cfac3bb7abe67c0a64e51585e5cc2153d9",
+        "sha256": "a16ce45afede91b044b33f3a315ac539bb037c444ffbeceaa9a080b8a5f2aa99",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveCar::CreateNextSubTask"
@@ -604,11 +604,11 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "e5580a84009400aaf83b308ecbcaf2a36b37dbda29d3b44e2f2bc346b39cb8ef",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "b25d669c2b1562afdb9e91389064b8fa7b3be1ef8a3d7ac0c8730ef2c8bce07a",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "b59c2f42c4d4550ecfb7c5e6cbfc45f7a3756446f670d6022850b09d6277d25d",
-        "source/game_sa/X87Math.cpp": "8a3069041b3e9a8cf1476464ebff56c0cbd0b9737af9625430af6ecf0389e0da",
-        "source/game_sa/X87Math.h": "dd99480cdcca21fda46e35fdde5ac1b9d2a443600f1c37ac8efc9eb00f20ed5d",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "464ac327a78869354c2111e954741a9eec3f11fabaff8995e8ef3cd8e863205d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "048f20bde645f158139eb659a67acf9e3b8c077629370cffc9fb2c58677ee6f5",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/LeaveCarNext70/LiveComparison.hpp": "38425539a549bfdacc5a72c99739a1d4bb9e4a1cd725e952fe2c283bf709bb53",
         "reversing/LeaveCarNext70/Core.hpp": "efcaad505023aebe4310aedb2a3dac8ee572874fd9824397f8cc3d558f211e9d",
