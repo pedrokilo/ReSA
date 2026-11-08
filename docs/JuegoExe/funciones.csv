@@ -3237,7 +3237,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004E5CD0,576,reemplazada,CAEPedSpeechAudioEntity,exacta,CAEPedSpeechAudioEntity::PlayLoadedSound,0,0,,sí
 0x004E5F10,338,reemplazada,CAEPedSpeechAudioEntity,exacta,CAEPedSpeechAudioEntity::CanWePlayGlobalSpeechContext,2,2,,
 0x004E6070,16,reemplazada,CAEPedlessSpeechAudioEntity,exacta,CAEPedlessSpeechAudioEntity::Constructor,1,1,,
-0x004E6080,3,B,CAEPedlessSpeechAudioEntity,alta,,0,0,,sí
+0x004E6080,3,reemplazada,CAEPedlessSpeechAudioEntity,alta,,0,0,,sí
 0x004E6090,5,reemplazada,CAEPedlessSpeechAudioEntity,exacta,CAEPedlessSpeechAudioEntity::GetAllocatedVoice,0,0,,sí
 0x004E60A0,5,reemplazada,CAEPedlessSpeechAudioEntity,exacta,CAEPedlessSpeechAudioEntity::WillPedChatAboutTopic,0,0,,sí
 0x004E60B0,5,reemplazada,CAEPedlessSpeechAudioEntity,exacta,CAEPedlessSpeechAudioEntity::GetPedType,0,0,,sí
@@ -7306,7 +7306,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00620C30,451,C,CTaskSimpleBeHit,baja,,4,0,,
 0x00620E00,41,B,CTaskSimpleBeHit,baja,,0,0,,sí
 0x00620E30,162,reemplazada,CTaskComplexKillPedOnFoot,exacta,CTaskComplexKillPedOnFoot::Constructor,48,42,,
-0x00620EE0,6,B,CTaskComplexKillPedOnFoot,baja,,0,0,,sí
+0x00620EE0,6,reemplazada,CTaskComplexKillPedOnFoot,baja,,0,0,,sí
 0x00620EF0,90,reemplazada,CTaskComplexKillPedOnFoot,baja,,4,2,,
 0x00620F70,101,reemplazada,CTaskComplexKillPedOnFootStealth,exacta,CTaskComplexKillPedOnFootStealth::Constructor,5,5,,
 0x00620FE0,6,reemplazada,CTaskComplexKillPedOnFootStealth,exacta,CTaskComplexKillPedOnFootStealth::GetTaskType,0,0,,sí
@@ -9001,7 +9001,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006613A0,454,reemplazada,CTaskComplexPassObject,exacta,CTaskComplexPassObject::CreateFirstSubTask,0,0,,sí
 0x00661570,373,reemplazada,CTaskComplexPassObject,exacta,CTaskComplexPassObject::ControlSubTask,0,0,,sí
 0x006616F0,31,reemplazada,CTaskComplexGangJoinRespond,exacta,CTaskComplexGangJoinRespond::Constructor,2,2,,
-0x00661710,6,B,CTaskComplexGangJoinRespond,alta,,0,0,,sí
+0x00661710,6,reemplazada,CTaskComplexGangJoinRespond,alta,,0,0,,sí
 0x00661720,104,reemplazada,CTaskComplexGangJoinRespond,exacta,CTaskComplexGangJoinRespond::Destructor,1,0,,
 0x00661790,5,reemplazada,CTaskComplexGangJoinRespond,exacta,CTaskComplexGangJoinRespond::MakeAbortable,0,0,,sí
 0x006617A0,292,reemplazada,CTaskComplexGangJoinRespond,exacta,CTaskComplexGangJoinRespond::CreateNextSubTask,0,0,,sí
@@ -9582,12 +9582,12 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00681B60,103,reemplazada,CTaskManager,exacta,CTaskManager::SetTaskSecondary,41,40,,
 0x00681BD0,59,reemplazada,CTaskManager,exacta,CTaskManager::ClearTaskEventResponse,2,2,,
 0x00681C10,476,reemplazada,CTaskManager,exacta,CTaskManager::ManageTasks,2,2,,
-0x00681DF0,6,B,CTaskManager,baja,,0,0,,sí
+0x00681DF0,6,reemplazada,CTaskManager,baja,,0,0,,sí
 0x00681E00,6,reemplazada,CTaskComplexPartnerGreet,exacta,CTaskComplexPartnerGreet::GetTaskType,0,0,,sí
 0x00681E10,6,B,CTaskComplexPartnerGreet,baja,,0,0,,sí
 0x00681E20,6,B,CTaskComplexPartnerGreet,baja,,0,0,,sí
 0x00681E70,157,reemplazada,CTaskComplexPartner,exacta,CTaskComplexPartner::Constructor,4,4,,
-0x00681F10,6,B,CTaskComplexPartner,baja,,0,0,,sí
+0x00681F10,6,reemplazada,CTaskComplexPartner,baja,,0,0,,sí
 0x00681F20,177,reemplazada,CTaskComplexPartner,baja,,0,0,,sí
 0x00681FE0,658,reemplazada,CTaskComplexPartner,baja,,1,1,,
 0x006822B0,33,reemplazada,CTaskComplexPartner,baja,,3,3,,

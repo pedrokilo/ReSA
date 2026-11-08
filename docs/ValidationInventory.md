@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,345 entradas reversed=1**, de 9,345 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,350 entradas reversed=1**, de 9,350 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9345 |
+| `validated=1` · evidencia aprobada vinculada | 9350 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9345 |
+| Evidencia histórica vinculada; revisión pendiente | 9350 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -401,6 +401,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEPedWeaponAudioEntity | `Service` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CAEPedWeaponAudioEntity | `Terminate` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CAEPedlessSpeechAudioEntity | `AddSayEvent` | [Resumen](../reversing/Audio11/validation-summary.json) |
+| CAEPedlessSpeechAudioEntity | `AddScriptSayEvent` | [Resumen](../reversing/Fn120A/validation-summary.json) |
 | CAEPedlessSpeechAudioEntity | `Constructor` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CAEPedlessSpeechAudioEntity | `GetAllocatedVoice` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CAEPedlessSpeechAudioEntity | `GetPedType` | [Resumen](../reversing/Audio11/validation-summary.json) |
@@ -5978,6 +5979,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexGangJoinRespond | `CreateFirstSubTask` | [Resumen](../reversing/GangJoin355/validation-summary.json) |
 | CTaskComplexGangJoinRespond | `CreateNextSubTask` | [Resumen](../reversing/GangJoin355/validation-summary.json) |
 | CTaskComplexGangJoinRespond | `Destructor` | [Resumen](../reversing/RequestedPreflightTasks/validation-summary.json) |
+| CTaskComplexGangJoinRespond | `GetTaskType` | [Resumen](../reversing/Fn120A/validation-summary.json) |
 | CTaskComplexGangJoinRespond | `MakeAbortable` | [Resumen](../reversing/GangJoin355/validation-summary.json) |
 | CTaskComplexGangLeader | `Clone` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexGangLeader | `Constructor` | [Resumen](../reversing/CTasks13/validation-summary.json) |
@@ -6172,6 +6174,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexKillPedOnFoot | `CreateNextSubTask` | [Resumen](../reversing/KillPedOnFoot62/validation-summary.json) |
 | CTaskComplexKillPedOnFoot | `CreateSubTask` | [Resumen](../reversing/KillPedOnFoot62/validation-summary.json) |
 | CTaskComplexKillPedOnFoot | `Destructor` | [Resumen](../reversing/Fn115A/validation-summary.json) |
+| CTaskComplexKillPedOnFoot | `GetTaskType` | [Resumen](../reversing/Fn120A/validation-summary.json) |
 | CTaskComplexKillPedOnFoot | `MakeAbortable` | [Resumen](../reversing/KillPedOnFoot62/validation-summary.json) |
 | CTaskComplexKillPedOnFoot | `SayGangAttack` | [Resumen](../reversing/Fn94A/validation-summary.json) |
 | CTaskComplexKillPedOnFootArmed | `Clone` | [Resumen](../reversing/TaskWave2A/validation-summary.json) |
@@ -6309,6 +6312,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexPartner | `CreateFirstSubTask` | [Resumen](../reversing/PartnerFirstSub31/validation-summary.json) |
 | CTaskComplexPartner | `CreateNextSubTask` | [Resumen](../reversing/PartnerNext60/validation-summary.json) |
 | CTaskComplexPartner | `GetStateOfPartnerTask` | [Resumen](../reversing/Fn113A/validation-summary.json) |
+| CTaskComplexPartner | `GetTaskType` | [Resumen](../reversing/Fn120A/validation-summary.json) |
 | CTaskComplexPartner | `RemoveStreamedAnims` | [Resumen](../reversing/PartnerRemove60/validation-summary.json) |
 | CTaskComplexPartner | `StreamRequiredAnims` | [Resumen](../reversing/PartnerStream60/validation-summary.json) |
 | CTaskComplexPartnerChat | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
@@ -6317,6 +6321,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexPartnerDeal | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CTaskComplexPartnerDeal | `CreateFirstSubTask` | [Resumen](../reversing/PartnerDealFirst31/validation-summary-reval-20261019.json) |
 | CTaskComplexPartnerDeal | `GetPartnerSequence` | [Resumen](../reversing/PartnerDealSeq31/validation-summary.json) |
+| CTaskComplexPartnerDeal | `GetTaskType` | [Resumen](../reversing/Fn120A/validation-summary.json) |
 | CTaskComplexPartnerDeal | `StreamRequiredAnims` | [Resumen](../reversing/PartnerDealAnims31/validation-summary.json) |
 | CTaskComplexPartnerGreet | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
 | CTaskComplexPartnerGreet | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
@@ -9402,7 +9407,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEPedAudioEntity` | 20 | 0 | 20 | 0 |
 | `CAEPedSpeechAudioEntity` | 58 | 0 | 58 | 0 |
 | `CAEPedWeaponAudioEntity` | 5 | 0 | 5 | 0 |
-| `CAEPedlessSpeechAudioEntity` | 11 | 0 | 11 | 0 |
+| `CAEPedlessSpeechAudioEntity` | 12 | 0 | 12 | 0 |
 | `CAEPoliceScannerAudioEntity` | 17 | 0 | 17 | 0 |
 | `CAERadioTrackManager` | 43 | 0 | 43 | 0 |
 | `CAEScriptAudioEntity` | 19 | 0 | 19 | 0 |
@@ -9879,7 +9884,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexFollowPedFootsteps` | 6 | 0 | 6 | 0 |
 | `CTaskComplexFollowPointRoute` | 13 | 0 | 13 | 0 |
 | `CTaskComplexGangFollower` | 8 | 0 | 8 | 0 |
-| `CTaskComplexGangJoinRespond` | 7 | 0 | 7 | 0 |
+| `CTaskComplexGangJoinRespond` | 8 | 0 | 8 | 0 |
 | `CTaskComplexGangLeader` | 15 | 0 | 15 | 0 |
 | `CTaskComplexGetOnBoatSeat` | 8 | 0 | 8 | 0 |
 | `CTaskComplexGetUpAndStandStill` | 5 | 0 | 5 | 0 |
@@ -9905,7 +9910,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexKillCriminal` | 11 | 0 | 11 | 0 |
 | `CTaskComplexKillPedFromBoat` | 7 | 0 | 7 | 0 |
 | `CTaskComplexKillPedGroupOnFoot` | 9 | 0 | 9 | 0 |
-| `CTaskComplexKillPedOnFoot` | 8 | 0 | 8 | 0 |
+| `CTaskComplexKillPedOnFoot` | 9 | 0 | 9 | 0 |
 | `CTaskComplexKillPedOnFootArmed` | 11 | 0 | 11 | 0 |
 | `CTaskComplexKillPedOnFootMelee` | 10 | 0 | 10 | 0 |
 | `CTaskComplexKillPedOnFootStealth` | 7 | 0 | 7 | 0 |
@@ -9923,9 +9928,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexOnFire` | 9 | 0 | 9 | 0 |
 | `CTaskComplexOpenDriverDoor` | 4 | 0 | 4 | 0 |
 | `CTaskComplexOpenPassengerDoor` | 4 | 0 | 4 | 0 |
-| `CTaskComplexPartner` | 8 | 0 | 8 | 0 |
+| `CTaskComplexPartner` | 9 | 0 | 9 | 0 |
 | `CTaskComplexPartnerChat` | 3 | 0 | 3 | 0 |
-| `CTaskComplexPartnerDeal` | 4 | 0 | 4 | 0 |
+| `CTaskComplexPartnerDeal` | 5 | 0 | 5 | 0 |
 | `CTaskComplexPartnerGreet` | 7 | 0 | 7 | 0 |
 | `CTaskComplexPartnerShove` | 2 | 0 | 2 | 0 |
 | `CTaskComplexPassObject` | 9 | 0 | 9 | 0 |

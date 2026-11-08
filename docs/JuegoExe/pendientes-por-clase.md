@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,576** funciones en 517 clases/módulos (rango 0x401000–0x74FFFF): 2,554 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,571** funciones en 512 clases/módulos (rango 0x401000–0x74FFFF): 2,549 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,11 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CAEPedlessSpeechAudioEntity | 1 | 3 |
-| CTaskComplexGangJoinRespond | 1 | 6 |
-| CTaskComplexKillPedOnFoot | 1 | 6 |
-| CTaskComplexPartner | 1 | 6 |
-| CTaskManager | 1 | 6 |
 | CFormation | 1 | 7 |
 | CTaskSimpleSetCharDecisionMaker | 1 | 7 |
 | CPedGroupDefaultTaskAllocatorFollowAnyMeans | 1 | 9 |
@@ -527,36 +522,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxInfoManager_c | 116 | 6591 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CAEPedlessSpeechAudioEntity (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004E6080 | 3 | B |  | 0 | 0 | sí | alta |
-
-## CTaskComplexGangJoinRespond (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00661710 | 6 | B |  | 0 | 0 | sí | alta |
-
-## CTaskComplexKillPedOnFoot (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00620EE0 | 6 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexPartner (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00681F10 | 6 | B |  | 0 | 0 | sí | baja |
-
-## CTaskManager (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00681DF0 | 6 | B |  | 0 | 0 | sí | baja |
 
 ## CFormation (1)
 
