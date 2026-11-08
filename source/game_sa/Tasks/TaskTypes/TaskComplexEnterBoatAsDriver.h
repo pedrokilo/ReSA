@@ -35,8 +35,9 @@ private: // Wrappers for hooks
     }
 
     // 0x63B650
-    CTaskComplexEnterBoatAsDriver* Destructor() {
+    __declspec(noinline) CTaskComplexEnterBoatAsDriver* Destructor() {
         this->CTaskComplexEnterBoatAsDriver::~CTaskComplexEnterBoatAsDriver();
         return this;
     }
+    CTaskComplexEnterBoatAsDriver* ScalarDeletingDestructor(uint8 flags); // 0x640E40 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x86E7D0), `ret 4`
 };

@@ -25,6 +25,7 @@ private:
     static void InjectHooks();
 
     CTaskComplexLeaveAnyCar* Constructor(int32 delayTime, bool sensibleLeaveCar, bool forceGetOut) { this->CTaskComplexLeaveAnyCar::CTaskComplexLeaveAnyCar(delayTime, sensibleLeaveCar, forceGetOut); return this; }
-    CTaskComplexLeaveAnyCar* Destructor() { this->CTaskComplexLeaveAnyCar::~CTaskComplexLeaveAnyCar(); return this; }
+    __declspec(noinline) CTaskComplexLeaveAnyCar* Destructor() { this->CTaskComplexLeaveAnyCar::~CTaskComplexLeaveAnyCar(); return this; }
+    CTaskComplexLeaveAnyCar* ScalarDeletingDestructor(uint8 flags); // 0x421250 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x858EB0), `ret 4`
 };
 VALIDATE_SIZE(CTaskComplexLeaveAnyCar, 0x14);

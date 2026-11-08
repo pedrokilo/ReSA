@@ -46,9 +46,10 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x63C2C0
-    CTaskComplexScreamInCarThenLeave* Destructor() {
+    __declspec(noinline) CTaskComplexScreamInCarThenLeave* Destructor() {
         this->CTaskComplexScreamInCarThenLeave::~CTaskComplexScreamInCarThenLeave();
         return this;
     }
+    CTaskComplexScreamInCarThenLeave* ScalarDeletingDestructor(uint8 flags); // 0x6424F0 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x86E8D8), `ret 4`
 };
 VALIDATE_SIZE(CTaskComplexScreamInCarThenLeave, 0x20);

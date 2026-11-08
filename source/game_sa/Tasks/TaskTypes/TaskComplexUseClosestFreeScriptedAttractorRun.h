@@ -22,8 +22,9 @@ private: // Wrappers for hooks
     }
 
     // 0x4B8840
-    CTaskComplexUseClosestFreeScriptedAttractorRun* Destructor() {
+    __declspec(noinline) CTaskComplexUseClosestFreeScriptedAttractorRun* Destructor() {
         this->CTaskComplexUseClosestFreeScriptedAttractorRun::~CTaskComplexUseClosestFreeScriptedAttractorRun();
         return this;
     }
+    CTaskComplexUseClosestFreeScriptedAttractorRun* ScalarDeletingDestructor(uint8 flags); // 0x4B8820 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x85B904), `ret 4`
 };

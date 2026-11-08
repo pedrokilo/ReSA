@@ -27,6 +27,7 @@ void CTaskComplexOnFire::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x633390);
     RH_ScopedInstall(Destructor, 0x6333C0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x639190);
 
     RH_ScopedInstall(ComputeFireDamage, 0x6333D0);
     RH_ScopedInstall(CreateSubTask, 0x633470);
@@ -128,4 +129,15 @@ CTask* CTaskComplexOnFire::ControlSubTask(CPed* ped) {
     }
 
     return subTask;
+}
+
+// 0x639190 (lote 127A, banco Fn127A) : destructor con borrado de CTaskComplexOnFire del EXE (ranura 0 de su vtable 0x86E308; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6333C0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x6333C0), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexOnFire* CTaskComplexOnFire::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

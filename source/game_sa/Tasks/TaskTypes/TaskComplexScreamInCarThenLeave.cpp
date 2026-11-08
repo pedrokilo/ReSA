@@ -28,6 +28,7 @@ void CTaskComplexScreamInCarThenLeave::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x63C240);
     RH_ScopedInstall(Destructor, 0x63C2C0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6424F0);
 
     RH_ScopedInstall(CreateSubTask, 0x642510);
 
@@ -130,4 +131,15 @@ CTask* CTaskComplexScreamInCarThenLeave::ControlSubTask(CPed* ped) {
         return subTask;
     }
     return m_pSubTask;
+}
+
+// 0x6424F0 (lote 127A, banco Fn127A) : destructor con borrado de CTaskComplexScreamInCarThenLeave del EXE (ranura 0 de su vtable 0x86E8D8; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x63C2C0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x63C2C0), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexScreamInCarThenLeave* CTaskComplexScreamInCarThenLeave::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

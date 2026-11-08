@@ -60,9 +60,10 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x654950
-    CTaskComplexWalkRoundBuildingAttempt* Destructor() {
+    __declspec(noinline) CTaskComplexWalkRoundBuildingAttempt* Destructor() {
         this->CTaskComplexWalkRoundBuildingAttempt::~CTaskComplexWalkRoundBuildingAttempt();
         return this;
     }
+    CTaskComplexWalkRoundBuildingAttempt* ScalarDeletingDestructor(uint8 flags); // 0x656E50 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x86F334), `ret 4`
 };
 VALIDATE_SIZE(CTaskComplexWalkRoundBuildingAttempt, 0x4C);

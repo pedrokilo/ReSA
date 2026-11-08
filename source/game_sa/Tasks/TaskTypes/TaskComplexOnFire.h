@@ -37,8 +37,9 @@ private: // Wrappers for hooks
     }
 
     // 0x6333C0
-    CTaskComplexOnFire* Destructor() {
+    __declspec(noinline) CTaskComplexOnFire* Destructor() {
         this->CTaskComplexOnFire::~CTaskComplexOnFire();
         return this;
     }
+    CTaskComplexOnFire* ScalarDeletingDestructor(uint8 flags); // 0x639190 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x86E308), `ret 4`
 };

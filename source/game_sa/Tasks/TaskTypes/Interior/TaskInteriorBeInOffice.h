@@ -34,10 +34,11 @@ private: // Wrappers for hooks
     }
 
     // 0x675260
-    CTaskInteriorBeInOffice* Destructor() {
+    __declspec(noinline) CTaskInteriorBeInOffice* Destructor() {
         this->CTaskInteriorBeInOffice::~CTaskInteriorBeInOffice();
         return this;
     }
+    CTaskInteriorBeInOffice* ScalarDeletingDestructor(uint8 flags); // 0x676330 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x870218), `ret 4`
 
 private:
     InteriorGroup_c* m_IntGrp{};

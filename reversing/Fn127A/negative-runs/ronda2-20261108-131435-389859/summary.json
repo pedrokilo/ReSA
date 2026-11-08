@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "43c12aa208143b374ade80344f4ab4488c24475c7202467ad37dacd9b8ed2272",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CTaskComplexLeaveAnyCar::ScalarDeletingDestructor: 1884/16384; CTaskComplexScreamInCarThenLeave::ScalarDeletingDestructor: 185/16384; CTaskComplexLeaveCarAndFlee::ScalarDeletingDestructor: 6347/16384; CTaskComplexEnterBoatAsDriver::ScalarDeletingDestructor: 16384/16384; CTaskComplexEvasiveCower::ScalarDeletingDestructor: 16384/16384; CTaskComplexKillCriminal::ScalarDeletingDestructor: 4061/16384; CTaskSimpleCarSetTempAction::ScalarDeletingDestructor: 1798/16384; CTaskGangHassleVehicle::ScalarDeletingDestructor: 203/16384; CTaskComplexUseScriptedAttractor::ScalarDeletingDestructor: 6283/16384; CTaskComplexUseClosestFreeScriptedAttractorRun::ScalarDeletingDestructor: 16384/16384; CTaskComplexUseClosestFreeScriptedAttractorSprint::ScalarDeletingDestructor: 16384/16384; CTaskComplexOnFire::ScalarDeletingDestructor: 4163/16384; CTaskComplexExtinguishFires::ScalarDeletingDestructor: 1814/16384; CTaskComplexWalkRoundBuildingAttempt::ScalarDeletingDestructor: 216/16384; CTaskInteriorBeInOffice::ScalarDeletingDestructor: 6292/16384; CTaskInteriorUseInfo::ScalarDeletingDestructor: 16384/16384; CTaskInteriorSitAtDesk::ScalarDeletingDestructor: 16384/16384; CTaskInteriorGoToInfo::ScalarDeletingDestructor: 3939/16384; CTaskInteriorBeInHouse::ScalarDeletingDestructor: 1808/16384; CTaskSimpleCarFallOut::ScalarDeletingDestructor: 210/16384; CTaskSimpleCarOpenDoorFromOutside::ScalarDeletingDestructor: 6288/16384; CTaskSimpleCarCloseDoorFromOutside::ScalarDeletingDestructor: 16384/16384",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

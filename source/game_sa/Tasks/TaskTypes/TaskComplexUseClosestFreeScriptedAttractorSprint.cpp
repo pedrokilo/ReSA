@@ -25,6 +25,7 @@ void CTaskComplexUseClosestFreeScriptedAttractorSprint::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x4B8850);
     RH_ScopedInstall(Destructor, 0x4B8900);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4B88E0);
 
     RH_ScopedVMTInstall(Clone, 0x4B8870);
     RH_ScopedVMTInstall(GetTaskType, 0x4B88D0);
@@ -45,4 +46,15 @@ CTask* CTaskComplexUseClosestFreeScriptedAttractorSprint::Clone() const {
 // 0x4B88D0
 eTaskType CTaskComplexUseClosestFreeScriptedAttractorSprint::GetTaskType() const {
     return Type;
+}
+
+// 0x4B88E0 (lote 127A, banco Fn127A) : destructor con borrado de CTaskComplexUseClosestFreeScriptedAttractorSprint del EXE (ranura 0 de su vtable 0x85B930; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x4B8900; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x4B8900), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexUseClosestFreeScriptedAttractorSprint* CTaskComplexUseClosestFreeScriptedAttractorSprint::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

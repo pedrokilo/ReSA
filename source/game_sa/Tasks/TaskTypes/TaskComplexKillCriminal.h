@@ -42,10 +42,11 @@ private: // Wrappers for hooks
     }
 
     // 0x68BF30
-    CTaskComplexKillCriminal* Destructor() {
+    __declspec(noinline) CTaskComplexKillCriminal* Destructor() {
         this->CTaskComplexKillCriminal::~CTaskComplexKillCriminal();
         return this;
     }
+    CTaskComplexKillCriminal* ScalarDeletingDestructor(uint8 flags); // 0x68DAB0 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x870A00), `ret 4`
 
 private:
     notsa::EntityRef<CPed>    m_Criminal{};

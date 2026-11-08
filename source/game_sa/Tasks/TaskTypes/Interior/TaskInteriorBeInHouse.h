@@ -33,10 +33,11 @@ private: // Wrappers for hooks
     }
 
     // 0x675000
-    CTaskInteriorBeInHouse* Destructor() {
+    __declspec(noinline) CTaskInteriorBeInHouse* Destructor() {
         this->CTaskInteriorBeInHouse::~CTaskInteriorBeInHouse();
         return this;
     }
+    CTaskInteriorBeInHouse* ScalarDeletingDestructor(uint8 flags); // 0x6761E0 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x8701E8), `ret 4`
 
 private:
     InteriorGroup_c* m_IntGrp{};  //< Current interior's group (Used to find the interior to use for the ped)

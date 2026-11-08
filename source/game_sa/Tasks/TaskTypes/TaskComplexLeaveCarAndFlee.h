@@ -47,8 +47,9 @@ private: // Wrappers for hooks
     }
 
     // 0x63C030
-    CTaskComplexLeaveCarAndFlee* Destructor() {
+    __declspec(noinline) CTaskComplexLeaveCarAndFlee* Destructor() {
         this->CTaskComplexLeaveCarAndFlee::~CTaskComplexLeaveCarAndFlee();
         return this;
     }
+    CTaskComplexLeaveCarAndFlee* ScalarDeletingDestructor(uint8 flags); // 0x642370 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x86E8AC), `ret 4`
 };

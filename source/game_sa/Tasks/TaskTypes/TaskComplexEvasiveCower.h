@@ -30,9 +30,10 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x6554E0
-    CTaskComplexEvasiveCower* Destructor() {
+    __declspec(noinline) CTaskComplexEvasiveCower* Destructor() {
         this->CTaskComplexEvasiveCower::~CTaskComplexEvasiveCower();
         return this;
     }
+    CTaskComplexEvasiveCower* ScalarDeletingDestructor(uint8 flags); // 0x6577D0 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x86F3BC), `ret 4`
 };
 VALIDATE_SIZE(CTaskComplexEvasiveCower, 0x1C);

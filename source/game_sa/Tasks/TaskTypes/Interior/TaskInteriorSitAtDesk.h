@@ -40,10 +40,11 @@ private: // Wrappers for hooks
     }
 
     // 0x676080
-    CTaskInteriorSitAtDesk* Destructor() {
+    __declspec(noinline) CTaskInteriorSitAtDesk* Destructor() {
         this->CTaskInteriorSitAtDesk::~CTaskInteriorSitAtDesk();
         return this;
     }
+    CTaskInteriorSitAtDesk* ScalarDeletingDestructor(uint8 flags); // 0x677760 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x87035C), `ret 4`
 
 private:
     int32                  m_Duration;

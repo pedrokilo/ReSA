@@ -26,6 +26,7 @@ void CTaskSimpleCarOpenDoorFromOutside::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x645E50);
     RH_ScopedInstall(Destructor, 0x645EE0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x64ACE0);
 
     RH_ScopedInstall(FinishAnimCarOpenDoorFromOutsideCB, 0x646020);
     RH_ScopedInstall(ComputeAnimID_ToHook, 0x645FA0);
@@ -188,4 +189,15 @@ bool CTaskSimpleCarOpenDoorFromOutside::ProcessPed(CPed* ped) {
 bool CTaskSimpleCarOpenDoorFromOutside::SetPedPosition(CPed* ped) {
     m_lineUpTask->ProcessPed(ped, m_veh, m_anim);
     return true;
+}
+
+// 0x64ACE0 (lote 127A, banco Fn127A) : destructor con borrado de CTaskSimpleCarOpenDoorFromOutside del EXE (ranura 0 de su vtable 0x86EC9C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x645EE0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x645EE0), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleCarOpenDoorFromOutside* CTaskSimpleCarOpenDoorFromOutside::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

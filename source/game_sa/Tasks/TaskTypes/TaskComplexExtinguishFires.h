@@ -34,8 +34,9 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x6975F0
-    CTaskComplexExtinguishFires* Destructor() {
+    __declspec(noinline) CTaskComplexExtinguishFires* Destructor() {
         this->CTaskComplexExtinguishFires::~CTaskComplexExtinguishFires();
         return this;
     }
+    CTaskComplexExtinguishFires* ScalarDeletingDestructor(uint8 flags); // 0x6980F0 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x870DD0), `ret 4`
 };

@@ -31,10 +31,11 @@ private: // Wrappers for hooks
     }
 
     // 0x675A90
-    CTaskInteriorUseInfo* Destructor() {
+    __declspec(noinline) CTaskInteriorUseInfo* Destructor() {
         this->CTaskInteriorUseInfo::~CTaskInteriorUseInfo();
         return this;
     }
+    CTaskInteriorUseInfo* ScalarDeletingDestructor(uint8 flags); // 0x676860 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x8702E8), `ret 4`
 
 private:
     InteriorInfo_t* m_IntInfo{};

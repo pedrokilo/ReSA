@@ -32,8 +32,9 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x633360
-    CTaskComplexUseScriptedAttractor* Destructor() {
+    __declspec(noinline) CTaskComplexUseScriptedAttractor* Destructor() {
         this->CTaskComplexUseScriptedAttractor::~CTaskComplexUseScriptedAttractor();
         return this;
     }
+    CTaskComplexUseScriptedAttractor* ScalarDeletingDestructor(uint8 flags); // 0x6390A0 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x86E2DC), `ret 4`
 };

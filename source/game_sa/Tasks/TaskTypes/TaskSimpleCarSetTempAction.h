@@ -31,10 +31,11 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x63D730
-    CTaskSimpleCarSetTempAction* Destructor() {
+    __declspec(noinline) CTaskSimpleCarSetTempAction* Destructor() {
         this->CTaskSimpleCarSetTempAction::~CTaskSimpleCarSetTempAction();
         return this;
     }
+    CTaskSimpleCarSetTempAction* ScalarDeletingDestructor(uint8 flags); // 0x643760 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x86EA6C), `ret 4`
 
 private:
     notsa::WEnumS32<eAutoPilotTempAction> m_TempAct{};

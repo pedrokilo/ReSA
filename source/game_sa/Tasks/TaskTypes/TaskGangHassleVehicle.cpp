@@ -37,6 +37,7 @@ void CTaskGangHassleVehicle::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x65FAC0);
     RH_ScopedInstall(Destructor, 0x65FB60);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6637A0);
     RH_ScopedInstall(GetTargetHeading, 0x65FDD0);
     RH_ScopedInstall(CalcTargetOffset, 0x6641A0);
     RH_ScopedVMTInstall(Clone, 0x65FC00);
@@ -247,4 +248,15 @@ CTask* CTaskGangHassleVehicle::ControlSubTask(CPed* ped) {
     m_Vehicle->m_fHealth = health;
     m_Vehicle->m_vehicleAudio.AddAudioEvent(static_cast<eAudioEvents>(0x6C), 0.f);
     return m_pSubTask;
+}
+
+// 0x6637A0 (lote 127A, banco Fn127A) : destructor con borrado de CTaskGangHassleVehicle del EXE (ranura 0 de su vtable 0x86F9D4; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x65FB60; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x65FB60), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskGangHassleVehicle* CTaskGangHassleVehicle::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

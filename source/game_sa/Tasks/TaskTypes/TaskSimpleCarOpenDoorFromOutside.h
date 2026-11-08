@@ -54,8 +54,9 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x645EE0
-    CTaskSimpleCarOpenDoorFromOutside* Destructor() {
+    __declspec(noinline) CTaskSimpleCarOpenDoorFromOutside* Destructor() {
         this->CTaskSimpleCarOpenDoorFromOutside::~CTaskSimpleCarOpenDoorFromOutside();
         return this;
     }
+    CTaskSimpleCarOpenDoorFromOutside* ScalarDeletingDestructor(uint8 flags); // 0x64ACE0 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x86EC9C), `ret 4`
 };

@@ -31,6 +31,7 @@ void CTaskInteriorBeInHouse::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x674FC0);
     RH_ScopedInstall(Destructor, 0x675000);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6761E0);
 
     RH_ScopedInstall(GetInfoForPedToUse, 0x6750A0);
     RH_ScopedVMTInstall(Clone, 0x675010);
@@ -128,4 +129,15 @@ CTask* CTaskInteriorBeInHouse::CreateFirstSubTask(CPed* ped) {
     int32 duration;
     GetInfoForPedToUse(ped, &duration);
     return new CTaskInteriorUseInfo{ m_IntInfo, m_Int, duration, true };
+}
+
+// 0x6761E0 (lote 127A, banco Fn127A) : destructor con borrado de CTaskInteriorBeInHouse del EXE (ranura 0 de su vtable 0x8701E8; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x675000; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x675000), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskInteriorBeInHouse* CTaskInteriorBeInHouse::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

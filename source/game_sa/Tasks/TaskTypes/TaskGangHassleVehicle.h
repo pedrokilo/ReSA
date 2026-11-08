@@ -44,6 +44,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
     CTaskGangHassleVehicle* Constructor(CVehicle* vehicle, int32 a3, uint8 a4, float a5, float a6) { this->CTaskGangHassleVehicle::CTaskGangHassleVehicle(vehicle, a3, a4, a5, a6); return this; }
-    CTaskGangHassleVehicle* Destructor() { this->CTaskGangHassleVehicle::~CTaskGangHassleVehicle(); return this; }
+    __declspec(noinline) CTaskGangHassleVehicle* Destructor() { this->CTaskGangHassleVehicle::~CTaskGangHassleVehicle(); return this; }
+    CTaskGangHassleVehicle* ScalarDeletingDestructor(uint8 flags); // 0x6637A0 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x86F9D4), `ret 4`
 };
 VALIDATE_SIZE(CTaskGangHassleVehicle, 0x44);

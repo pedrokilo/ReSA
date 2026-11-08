@@ -46,8 +46,9 @@ private: // Wrappers for hooks
     }
 
     // 0x648DE0
-    CTaskSimpleCarFallOut* Destructor() {
+    __declspec(noinline) CTaskSimpleCarFallOut* Destructor() {
         this->CTaskSimpleCarFallOut::~CTaskSimpleCarFallOut();
         return this;
     }
+    CTaskSimpleCarFallOut* ScalarDeletingDestructor(uint8 flags); // 0x64CC40 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x86EFD0), `ret 4`
 };

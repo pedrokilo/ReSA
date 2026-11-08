@@ -28,6 +28,7 @@ void CTaskComplexLeaveAnyCar::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x421150);
     RH_ScopedInstall(Destructor, 0x421270);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x421250);
     RH_ScopedVMTInstall(Clone, 0x4211C0);
     RH_ScopedVMTInstall(GetTaskType, 0x421240);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x63BCD0);
@@ -50,4 +51,15 @@ CTask* CTaskComplexLeaveAnyCar::CreateFirstSubTask(CPed* ped) {
         return new CTaskComplexLeaveCar(ped->m_pVehicle, TARGET_DOOR_FRONT_LEFT, m_nDelayTime, m_sensibleLeaveCar, m_forceGetOut);
     }
     return new CTaskSimpleNone();
+}
+
+// 0x421250 (lote 127A, banco Fn127A) : destructor con borrado de CTaskComplexLeaveAnyCar del EXE (ranura 0 de su vtable 0x858EB0; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x421270; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x421270), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexLeaveAnyCar* CTaskComplexLeaveAnyCar::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

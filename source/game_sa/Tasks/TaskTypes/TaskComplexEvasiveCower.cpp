@@ -28,6 +28,7 @@ void CTaskComplexEvasiveCower::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x655460);
     RH_ScopedInstall(Destructor, 0x6554E0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6577D0);
 
     RH_ScopedInstall(CreateSubTask, 0x655570);
 
@@ -82,4 +83,15 @@ CTask* CTaskComplexEvasiveCower::CreateSubTask(eTaskType taskType) {
     default:
         return nullptr;
     }
+}
+
+// 0x6577D0 (lote 127A, banco Fn127A) : destructor con borrado de CTaskComplexEvasiveCower del EXE (ranura 0 de su vtable 0x86F3BC; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6554E0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x6554E0), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexEvasiveCower* CTaskComplexEvasiveCower::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
