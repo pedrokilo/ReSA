@@ -36,7 +36,7 @@
   "log_sha256": "b89deed2d47b2571c4709e4f17abf91703ca0c1c487ab091938bc82d03a5b7d7",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-menumgra\\20261107-130857-858251",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-menumgra\\20261107-200450-713656",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CMenuManager::DrawBackground": true,
@@ -61,8 +61,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "f3356df6c34f8d927d9080472c96706fbbdb4d4f0d01662f2d62b60ba4174028",
-      "pdb": "ecdc26783945384e5b1b6bdd226c95e418d517848de5a62828ea494d020bffdb"
+      "asi": "e69fe96040aa487aaa08c426b408fe13cae2942fb39389bda3255c16dba5e838",
+      "pdb": "2fa5bffb32f09eae8d35e516377f60230f74e064b26e29690753dc9aa65db1f8"
     },
     "sources": {
       "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
