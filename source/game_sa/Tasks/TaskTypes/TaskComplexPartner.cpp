@@ -43,6 +43,7 @@ void CTaskComplexPartner::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x681E70);
     RH_ScopedInstall(ComputeTargetPoints, 0x681FE0);
     RH_ScopedInstall(GetStateOfPartnerTask, 0x6822B0);
+    RH_ScopedVMTInstall(GetTaskType, 0x681F10);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x683AD0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x681F20);
     RH_ScopedVMTInstall(ControlSubTask, 0x6840D0);

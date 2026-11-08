@@ -35,6 +35,7 @@ void CAEPedlessSpeechAudioEntity::InjectHooks() {
     RH_ScopedInstall(AddSayEvent, 0x4E60D0);
     RH_ScopedVMTInstall(IsPedFemaleForAudio, 0x4E60C0);
     RH_ScopedVMTInstall(GetPedType, 0x4E60B0);
+    RH_ScopedVMTInstall(AddScriptSayEvent, 0x4E6080);
     RH_ScopedVMTInstall(UpdateParameters, 0x4E4D10);
     RH_ScopedVMTInstall(Terminate, 0x4E6300);
     RH_ScopedVMTInstall(PlayLoadedSound, 0x4E6380);

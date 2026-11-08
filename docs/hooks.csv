@@ -4389,6 +4389,7 @@ CAEPedlessSpeechAudioEntity,StopCurrentSpeech,0x004E4E80,1,0,1,S
 CAEPedlessSpeechAudioEntity,Terminate,0x00000000,1,0,1,V
 CAEPedlessSpeechAudioEntity,UpdateParameters,0x00000000,1,0,1,V
 CAEPedlessSpeechAudioEntity,WillPedChatAboutTopic,0x00000000,1,0,1,V
+CAEPedlessSpeechAudioEntity,AddScriptSayEvent,0x00000000,1,0,1,V
 CAEPedSpeechAudioEntity,AddSayEvent,0x004E6550,1,0,1,S
 CAEPedSpeechAudioEntity,AddScriptSayEvent,0x00000000,1,0,1,V
 CAEPedSpeechAudioEntity,CanPedHoldConversation,0x004E69E0,1,0,1,S
@@ -6308,6 +6309,7 @@ CTaskComplexGangJoinRespond,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexGangJoinRespond,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexGangJoinRespond,Destructor,0x00661720,1,0,1,S
 CTaskComplexGangJoinRespond,MakeAbortable,0x00000000,1,0,1,V
+CTaskComplexGangJoinRespond,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexGangFollower,Clone,0x00000000,1,0,1,V
 CTaskComplexGangFollower,Constructor,0x0065EAA0,1,0,1,S
 CTaskComplexGangFollower,ControlSubTask,0x00000000,1,0,1,V
@@ -8786,6 +8788,7 @@ CScriptsForBrains,StartNewStreamedScriptBrain,0x0046B270,1,0,1,S
 CTaskComplexPartnerDeal,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexPartnerDeal,StreamRequiredAnims,0x00000000,1,0,1,V
 CTaskComplexPartnerDeal,GetPartnerSequence,0x00000000,1,0,1,V
+CTaskComplexPartnerDeal,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexWalkRoundObject,ControlSubTask,0x00000000,1,0,1,V
 CTaskComplexWalkRoundObject,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexWalkRoundObject,CreateNextSubTask,0x00000000,1,0,1,V
@@ -8807,6 +8810,7 @@ CTaskComplexPartner,ControlSubTask,0x00000000,1,0,1,V
 CTaskComplexPartner,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexPartner,RemoveStreamedAnims,0x00000000,1,0,1,V
 CTaskComplexPartner,StreamRequiredAnims,0x00000000,1,0,1,V
+CTaskComplexPartner,GetTaskType,0x00000000,1,0,1,V
 CAutomobile,PreRender,0x00000000,1,0,1,V
 CPed,ProcessEntityCollision,0x00000000,1,0,1,V
 CPed,SayJacked,0x006497A0,1,0,1,S
@@ -8840,6 +8844,7 @@ CTaskComplexKillPedOnFoot,ControlSubTask,0x00000000,1,0,1,V
 CTaskComplexKillPedOnFoot,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexKillPedOnFoot,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexKillPedOnFoot,MakeAbortable,0x00000000,1,0,1,V
+CTaskComplexKillPedOnFoot,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexKillPedOnFoot,CreateSubTask,0x00625E70,1,0,1,S
 CWaterLevel,FillQuadsAndTrianglesList,0x006E7B30,1,0,1,S
 CWaterLevel,GetWaterDepth,0x006EA960,1,0,1,S

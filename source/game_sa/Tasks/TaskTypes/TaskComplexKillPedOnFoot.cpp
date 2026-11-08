@@ -63,6 +63,7 @@ void CTaskComplexKillPedOnFoot::InjectHooks() {
     RH_ScopedInstall(CreateSubTask, 0x625E70);
     RH_ScopedInstall(SayGangAttack, 0x65E9A0);
 
+    RH_ScopedVMTInstall(GetTaskType, 0x620EE0);
     RH_ScopedVMTInstall(MakeAbortable, 0x625E40);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x62B150);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x62B490);

@@ -20269,6 +20269,241 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e6e53b1125 con los cambios del lote (ver artifacts/build-manifest.json). Los cuatro CMemoryMgr (Malloc, Realloc, MallocAlign, FreeAlign) sustituyen la evidencia anterior de DependenciesMemory9 (premisa obsoleta: la DLL ya no es un reenvio al CRT; desde 100A es C++ real). Colaboradores sustituidos por falsos en la direccion del EXE: malloc 0x824257, realloc 0x824269, calloc 0x824416 y free 0x82413F del CRT del EXE (con trampolin para hilos ajenos), y por falsos identicos en la direccion del EXE y en su cuerpo del ASI (tienen hook RH): CCarEnterExit::ComputeTargetDoorToExit 0x64F110 y CWaterLevel::CalculateWavesOnlyForCoordinate2Native 0x6E7210. Corre de verdad en ambos lados CDecision::SetDefault 0x600530 (EXE: sus bytes; DLL: su cuerpo). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: base nula o cruda y alineamientos 0 o mayores de 0x400 en MallocAlign, punteros no mapeados en FreeAlign, el comportamiento real del CRT (memoria devuelta por malloc, realloc, calloc y free) y la exactitud de los colaboradores sustituidos.",
       "review_reference": "reversing/Fn118A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEPedlessSpeechAudioEntity",
+        "fn_name": "AddScriptSayEvent",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn120A/validation-summary.json",
+        "sha256": "c75439116dc64cb1bd8537ac5832e65b957735b71bcd6c705ef338c8bbd462c5",
+        "passed_path": [
+          "covered_functions",
+          "CAEPedlessSpeechAudioEntity::AddScriptSayEvent"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004E6080"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "bf7673a9c63834217ad545db4cf1703876482e9a73e410dd4cd497ea8ef62f66",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "373a2537e5871ef3c1d4a8cd9a73cf252c75638028ee51faa68c3b00d4a4abc1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "f0e92e7400efcf9cd117f9a1a4e29597a6732c83ceb63c532980d713aa17793d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "f7920d71b80d7c508a1f7c23488484aa025a9e46bc20386be64814413461a4cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "26f1705645b9b8be32baec1dafb94e0c2019613f5b2c0cffce0c9219c36256eb",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "1857b2108a0a1cd92929a410256e6f8a6fa7e03d61fbd962d7583c8d3ab651a3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn120A/LiveComparison.hpp": "8312b907c657d85a9e17d40409f522c34bdb9e67001c95c75f4dfda94f2a504a",
+        "reversing/Fn120A/Core.hpp": "2c7d39da949f19e4679b0dadf37801eb19b672e9d4c8e88974377073947a8f28",
+        "reversing/Fn120A/Fixtures.hpp": "9e2ceaf6ca67d0dc24743af5771790415271adc9a96cb015a4a4d0c7a9b94f4c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 5bf6a9cd00 con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: las cinco funciones no llaman a nada ni leen memoria; cada caso se ejecuta por la entrada del EXE o por la ranura de la vtable del EXE (hook virtual) con un objeto sintetico en una arena propia; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: objetos reales construidos por el EXE (la vtable de cada clase solo cambia de ranura al enganchar el hook; ninguna de las cinco lee el objeto) y la identidad de las clases mas alla de la vtable que contiene cada direccion.",
+      "review_reference": "reversing/Fn120A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGangJoinRespond",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn120A/validation-summary.json",
+        "sha256": "c75439116dc64cb1bd8537ac5832e65b957735b71bcd6c705ef338c8bbd462c5",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexGangJoinRespond::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00661710"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "bf7673a9c63834217ad545db4cf1703876482e9a73e410dd4cd497ea8ef62f66",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "373a2537e5871ef3c1d4a8cd9a73cf252c75638028ee51faa68c3b00d4a4abc1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "f0e92e7400efcf9cd117f9a1a4e29597a6732c83ceb63c532980d713aa17793d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "f7920d71b80d7c508a1f7c23488484aa025a9e46bc20386be64814413461a4cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "26f1705645b9b8be32baec1dafb94e0c2019613f5b2c0cffce0c9219c36256eb",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "1857b2108a0a1cd92929a410256e6f8a6fa7e03d61fbd962d7583c8d3ab651a3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn120A/LiveComparison.hpp": "8312b907c657d85a9e17d40409f522c34bdb9e67001c95c75f4dfda94f2a504a",
+        "reversing/Fn120A/Core.hpp": "2c7d39da949f19e4679b0dadf37801eb19b672e9d4c8e88974377073947a8f28",
+        "reversing/Fn120A/Fixtures.hpp": "9e2ceaf6ca67d0dc24743af5771790415271adc9a96cb015a4a4d0c7a9b94f4c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 5bf6a9cd00 con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: las cinco funciones no llaman a nada ni leen memoria; cada caso se ejecuta por la entrada del EXE o por la ranura de la vtable del EXE (hook virtual) con un objeto sintetico en una arena propia; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: objetos reales construidos por el EXE (la vtable de cada clase solo cambia de ranura al enganchar el hook; ninguna de las cinco lee el objeto) y la identidad de las clases mas alla de la vtable que contiene cada direccion.",
+      "review_reference": "reversing/Fn120A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexKillPedOnFoot",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn120A/validation-summary.json",
+        "sha256": "c75439116dc64cb1bd8537ac5832e65b957735b71bcd6c705ef338c8bbd462c5",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexKillPedOnFoot::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00620EE0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "bf7673a9c63834217ad545db4cf1703876482e9a73e410dd4cd497ea8ef62f66",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "373a2537e5871ef3c1d4a8cd9a73cf252c75638028ee51faa68c3b00d4a4abc1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "f0e92e7400efcf9cd117f9a1a4e29597a6732c83ceb63c532980d713aa17793d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "f7920d71b80d7c508a1f7c23488484aa025a9e46bc20386be64814413461a4cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "26f1705645b9b8be32baec1dafb94e0c2019613f5b2c0cffce0c9219c36256eb",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "1857b2108a0a1cd92929a410256e6f8a6fa7e03d61fbd962d7583c8d3ab651a3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn120A/LiveComparison.hpp": "8312b907c657d85a9e17d40409f522c34bdb9e67001c95c75f4dfda94f2a504a",
+        "reversing/Fn120A/Core.hpp": "2c7d39da949f19e4679b0dadf37801eb19b672e9d4c8e88974377073947a8f28",
+        "reversing/Fn120A/Fixtures.hpp": "9e2ceaf6ca67d0dc24743af5771790415271adc9a96cb015a4a4d0c7a9b94f4c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 5bf6a9cd00 con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: las cinco funciones no llaman a nada ni leen memoria; cada caso se ejecuta por la entrada del EXE o por la ranura de la vtable del EXE (hook virtual) con un objeto sintetico en una arena propia; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: objetos reales construidos por el EXE (la vtable de cada clase solo cambia de ranura al enganchar el hook; ninguna de las cinco lee el objeto) y la identidad de las clases mas alla de la vtable que contiene cada direccion.",
+      "review_reference": "reversing/Fn120A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexPartner",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn120A/validation-summary.json",
+        "sha256": "c75439116dc64cb1bd8537ac5832e65b957735b71bcd6c705ef338c8bbd462c5",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexPartner::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00681F10"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "bf7673a9c63834217ad545db4cf1703876482e9a73e410dd4cd497ea8ef62f66",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "373a2537e5871ef3c1d4a8cd9a73cf252c75638028ee51faa68c3b00d4a4abc1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "f0e92e7400efcf9cd117f9a1a4e29597a6732c83ceb63c532980d713aa17793d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "f7920d71b80d7c508a1f7c23488484aa025a9e46bc20386be64814413461a4cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "26f1705645b9b8be32baec1dafb94e0c2019613f5b2c0cffce0c9219c36256eb",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "1857b2108a0a1cd92929a410256e6f8a6fa7e03d61fbd962d7583c8d3ab651a3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn120A/LiveComparison.hpp": "8312b907c657d85a9e17d40409f522c34bdb9e67001c95c75f4dfda94f2a504a",
+        "reversing/Fn120A/Core.hpp": "2c7d39da949f19e4679b0dadf37801eb19b672e9d4c8e88974377073947a8f28",
+        "reversing/Fn120A/Fixtures.hpp": "9e2ceaf6ca67d0dc24743af5771790415271adc9a96cb015a4a4d0c7a9b94f4c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 5bf6a9cd00 con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: las cinco funciones no llaman a nada ni leen memoria; cada caso se ejecuta por la entrada del EXE o por la ranura de la vtable del EXE (hook virtual) con un objeto sintetico en una arena propia; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: objetos reales construidos por el EXE (la vtable de cada clase solo cambia de ranura al enganchar el hook; ninguna de las cinco lee el objeto) y la identidad de las clases mas alla de la vtable que contiene cada direccion.",
+      "review_reference": "reversing/Fn120A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexPartnerDeal",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn120A/validation-summary.json",
+        "sha256": "c75439116dc64cb1bd8537ac5832e65b957735b71bcd6c705ef338c8bbd462c5",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexPartnerDeal::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00681DF0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp": "bf7673a9c63834217ad545db4cf1703876482e9a73e410dd4cd497ea8ef62f66",
+        "source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.h": "2d714918dc41b4eaefa17f033405c7ac124bbd459efe3e27191e7f4349f0c26a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp": "373a2537e5871ef3c1d4a8cd9a73cf252c75638028ee51faa68c3b00d4a4abc1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.h": "02a6c7b40fb63c2c5d9cc87df797ab636198f97455e197f946627b71a688a957",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "f0e92e7400efcf9cd117f9a1a4e29597a6732c83ceb63c532980d713aa17793d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "f7920d71b80d7c508a1f7c23488484aa025a9e46bc20386be64814413461a4cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "26f1705645b9b8be32baec1dafb94e0c2019613f5b2c0cffce0c9219c36256eb",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f9c87f36b0f721f02c51f51b17e45f7ac67663cc09aa3eb3c50d69d829181c42",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "1857b2108a0a1cd92929a410256e6f8a6fa7e03d61fbd962d7583c8d3ab651a3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn120A/LiveComparison.hpp": "8312b907c657d85a9e17d40409f522c34bdb9e67001c95c75f4dfda94f2a504a",
+        "reversing/Fn120A/Core.hpp": "2c7d39da949f19e4679b0dadf37801eb19b672e9d4c8e88974377073947a8f28",
+        "reversing/Fn120A/Fixtures.hpp": "9e2ceaf6ca67d0dc24743af5771790415271adc9a96cb015a4a4d0c7a9b94f4c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 5bf6a9cd00 con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: las cinco funciones no llaman a nada ni leen memoria; cada caso se ejecuta por la entrada del EXE o por la ranura de la vtable del EXE (hook virtual) con un objeto sintetico en una arena propia; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: objetos reales construidos por el EXE (la vtable de cada clase solo cambia de ranura al enganchar el hook; ninguna de las cinco lee el objeto) y la identidad de las clases mas alla de la vtable que contiene cada direccion.",
+      "review_reference": "reversing/Fn120A/README.md"
     }
   ]
 }

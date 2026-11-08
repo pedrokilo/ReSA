@@ -31,6 +31,7 @@ void CTaskComplexGangJoinRespond::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x6616F0);
     RH_ScopedInstall(Destructor, 0x661720);
 
+    RH_ScopedVMTInstall(GetTaskType, 0x661710);
     RH_ScopedVMTInstall(Clone, 0x662290);
     RH_ScopedVMTInstall(MakeAbortable, 0x661790);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x6617A0);

@@ -29,6 +29,7 @@ void CTaskComplexPartnerDeal::InjectHooks()
     RH_ScopedVirtualClass(CTaskComplexPartnerDeal, 0x870754, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x684190);
+    RH_ScopedVMTInstall(GetTaskType, 0x681DF0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x6823B0);
     RH_ScopedVMTInstall(StreamRequiredAnims, 0x6823C0);
     RH_ScopedVMTInstall(GetPartnerSequence, 0x682440);
