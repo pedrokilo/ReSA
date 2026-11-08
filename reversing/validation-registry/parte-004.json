@@ -94000,7 +94000,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesTask11/validation-summary.json",
-        "sha256": "207252cd61dd151e39a1d26ef18bc3642f7054ceeca97e06eabf381ba1270732",
+        "sha256": "84f05d1ed76c2467fac094e68600096510bdf20b4efed43288c58a015d5a4ae7",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypes::GetInstance"
@@ -94009,21 +94009,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "8d4f5187ca896f7cc31d1039fdedc7eb5800e7f99a563bf317d9649cb110c8ba",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
-        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
-        "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "85b9c4f92c62b5ddffa09aaffbdf67d3c01e941eb06714d69f6400a2b92b3626",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "9b7771785d2a20378fceb904085d95ba08cd8896c0f9c736885489fae9f53921",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
+        "source/game_sa/DecisionMakers/Decision.cpp": "0e9caedf49df3904998e55a7da8cc7e9c78421aa2e2f9d344ddf6e5ad00a1990",
+        "source/game_sa/DecisionMakers/Decision.h": "38e2547f828569a281e373042e64087c471b329448ec764b74660fe8ae1b0359",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "a91e82d7157949f9631623c51ae26a3f7c1a7df2883fe67cc02e0baabe4825ac",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
         "source/game_sa/Clock.h": "b623a30bec24062a66a9ae08c36616847af8179edcb9f9925fcaab50a8023491",
-        "source/game_sa/Weather.h": "2e1157e99a5d1c74402b94df44a72ff0d599dce975071bb87396ab5b19851852",
-        "source/game_sa/Population.cpp": "65f680fef7edfb64dae07ab7c899dd5203a6c9dfea4093916010b627fab23f89",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
+        "source/game_sa/Population.cpp": "767e9f9e3cc66357c5a6f6c665db0bd7a9a36695838f76536b55eafe22d68109",
+        "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -94039,7 +94039,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesTask11/validation-summary.json",
-        "sha256": "207252cd61dd151e39a1d26ef18bc3642f7054ceeca97e06eabf381ba1270732",
+        "sha256": "84f05d1ed76c2467fac094e68600096510bdf20b4efed43288c58a015d5a4ae7",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSunbathe::CanSunbathe"
@@ -94048,21 +94048,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "8d4f5187ca896f7cc31d1039fdedc7eb5800e7f99a563bf317d9649cb110c8ba",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
-        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
-        "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "85b9c4f92c62b5ddffa09aaffbdf67d3c01e941eb06714d69f6400a2b92b3626",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "9b7771785d2a20378fceb904085d95ba08cd8896c0f9c736885489fae9f53921",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
+        "source/game_sa/DecisionMakers/Decision.cpp": "0e9caedf49df3904998e55a7da8cc7e9c78421aa2e2f9d344ddf6e5ad00a1990",
+        "source/game_sa/DecisionMakers/Decision.h": "38e2547f828569a281e373042e64087c471b329448ec764b74660fe8ae1b0359",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "a91e82d7157949f9631623c51ae26a3f7c1a7df2883fe67cc02e0baabe4825ac",
         "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
         "source/game_sa/Clock.h": "b623a30bec24062a66a9ae08c36616847af8179edcb9f9925fcaab50a8023491",
-        "source/game_sa/Weather.h": "2e1157e99a5d1c74402b94df44a72ff0d599dce975071bb87396ab5b19851852",
-        "source/game_sa/Population.cpp": "65f680fef7edfb64dae07ab7c899dd5203a6c9dfea4093916010b627fab23f89",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
+        "source/game_sa/Population.cpp": "767e9f9e3cc66357c5a6f6c665db0bd7a9a36695838f76536b55eafe22d68109",
+        "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",

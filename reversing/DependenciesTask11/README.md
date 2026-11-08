@@ -40,3 +40,7 @@ La raíz aplicó/revisó la propuesta y ejecutó serialmente el build y runner d
 Log descomprimido SHA-256: `9bc789a856a699e8f8c17c13ea9abb46851850e05844e573127de809b042f2b5`.
 ASI ejecutada SHA-256: `bbaa8052ba3bc66e05dd33fc1b06e0e871b7bcb8102f2a438f13417618e4f0ba`.
 Los cuatro instrumentos de prueba conservan sus huellas admitidas. Los límites de SEH normal, m_EventIndices indefinido y colaboradores compartidos siguen vigentes tras aprobar.
+
+## Actualizacion del lote 118A (07/11/2026)
+
+Banco repetido con los hooks actuales y aprobado de nuevo (4096 pares, cero diferencias). Adaptacion del banco (solo banco, sin cambios de produccion): el constructor 0x4650F0 de `CDecisionMakerTypes` ya tiene hook y su entrada en memoria es un JMP a la DLL, asi que `native_complete_bodies_ok` (que exigia los 415 bytes canonicos en memoria) fallaba en los 4096 pares. Ahora los bytes canonicos de 0x4650F0 y 0x62F2D0 se comprueban contra el `gta_sa.exe` original en disco (`DiskBytes`, VA a offset por secciones PE) y, en memoria, se exige el original o bien el hook activo con la ruta verificada por `Helper::Check`.

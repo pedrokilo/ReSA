@@ -59,6 +59,16 @@ inline ABI Gate(uintptr_t entry,uint32 seed){uint32 a{},c{},d{},sp0{},sp1{},b0{}
  }
  return {a,c,d,sp0==sp1,b0==b1&&s0==s1&&d0==d1&&p0==p1,h0==h1};}
 
+// Lote 118A: 0x4650F0 (constructor de CDecisionMakerTypes) ya tiene hook en produccion y su entrada en memoria es un JMP a la DLL.
+// Los bytes canonicos se comprueban contra el gta_sa.exe original en disco (VA -> offset por secciones PE); en memoria se exige el original o, si
+// el hook esta activo, que la entrada sea el JMP verificado por Helper::Check.
+inline std::vector<uint8> DiskBytes(uintptr_t va,size_t n){
+ char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);std::ifstream f(exe,std::ios::binary);std::vector<char> img((std::istreambuf_iterator<char>(f)),std::istreambuf_iterator<char>());
+ if(img.size()<0x1000)return {};auto* dos=reinterpret_cast<const IMAGE_DOS_HEADER*>(img.data());auto* nt=reinterpret_cast<const IMAGE_NT_HEADERS32*>(img.data()+dos->e_lfanew);
+ const auto rva=uint32(va-nt->OptionalHeader.ImageBase);auto* sec=IMAGE_FIRST_SECTION(nt);
+ for(unsigned i=0;i<nt->FileHeader.NumberOfSections;++i)if(rva>=sec[i].VirtualAddress&&rva+n<=sec[i].VirtualAddress+sec[i].SizeOfRawData){const auto off=sec[i].PointerToRawData+(rva-sec[i].VirtualAddress);if(off+n>img.size())return {};return std::vector<uint8>(img.begin()+off,img.begin()+off+n);}
+ return {};}
+inline bool CanonicalOnDisk(uintptr_t va,const uint8* canonical,size_t n){const auto d=DiskBytes(va,n);return d.size()==n&&std::equal(d.begin(),d.end(),canonical);}
 inline void NativeFree(void* block){reinterpret_cast<void(__cdecl*)(void*)>(0x8214BD)(block);}
 inline void Update(){
  if(done)return;char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);const auto dir=std::filesystem::path(exe).parent_path();
@@ -76,7 +86,8 @@ inline void Update(){
  routes[1]=std::make_unique<OriginalDependencies499::HookRoute>("CTaskComplexSunbathe","CanSunbathe",0x632140,&CanSunbathe);
  std::vector<Helper> helpers;for(auto at:{0x4650F0u,0x4650A0u,0x6040C0u,0x600530u,0x821D30u,0x82119Au,0x8214BDu,0x824257u,0x82413Fu,0x62F2D0u})helpers.emplace_back(at);
  auto helpersOK=[&]{for(const auto& h:helpers)if(!h.Check())return false;return true;};
- auto nativeOK=[&]{return std::equal(canonical_4650F0.begin(),canonical_4650F0.end(),reinterpret_cast<const uint8*>(0x4650F0))&&std::equal(canonical_62F2D0.begin(),canonical_62F2D0.end(),reinterpret_cast<const uint8*>(0x62F2D0));};
+ static const bool diskOK=CanonicalOnDisk(0x4650F0,canonical_4650F0.data(),canonical_4650F0.size())&&CanonicalOnDisk(0x62F2D0,canonical_62F2D0.data(),canonical_62F2D0.size());
+ auto nativeOK=[&]{const bool ctorMem=std::equal(canonical_4650F0.begin(),canonical_4650F0.end(),reinterpret_cast<const uint8*>(0x4650F0))||(helpers[0].hook&&helpers[0].enabled&&helpers[0].Check());return diskOK&&ctorMem&&std::equal(canonical_62F2D0.begin(),canonical_62F2D0.end(),reinterpret_cast<const uint8*>(0x62F2D0));};
  auto originalIntact=[&]{return oldObject==ReversingProbe::Bytes(oldSingleton,0xF1C0);};
  auto restore=[&]{singleton=oldSingleton;std::memcpy(reinterpret_cast<void*>(0xC0AFE0),oldGlobals.data(),80);*reinterpret_cast<uint8*>(0xB70153)=oldHour;*reinterpret_cast<int16*>(0xC8131C)=oldWeather;RestoreFP(fp);};
  auto restored=[&]{return singleton==oldSingleton&&originalIntact()&&oldGlobals==ReversingProbe::Bytes(reinterpret_cast<void*>(0xC0AFE0),80)&&*reinterpret_cast<uint8*>(0xB70153)==oldHour&&*reinterpret_cast<int16*>(0xC8131C)==oldWeather;};
