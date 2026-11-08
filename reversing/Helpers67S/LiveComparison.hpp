@@ -30,7 +30,12 @@ inline void Update() {
     bool ready=env.route->Registered()&&env.route->Body()&&ModuleOf(env.route->Body())==env.asi&&ReversingProbe::JumpsToDll(kSetDefault);
     // Colaboradores del EXE con trampa en el lado candidato (no tienen cuerpo propio en la DLL que se sustituya: la DLL no los llama).
     auto fake=[](auto* f){return reinterpret_cast<void*>(f);};
-    env.collabs={{{0x821D30,0},fake(&TrapVecCtor)},{{0x4650A0,0},fake(&TrapCtorThis)},{{0x6040C0,0},fake(&TrapCtorThis)}};
+    // Lote 118A: CDecision::CDecision (0x6040C0) ya tiene hook (RH_ScopedInstall). HookRoute lo deja apagado (la entrada del EXE vuelve a ser codigo original) y el mismo falso
+    // se instala tambien en el cuerpo de la DLL, que es lo que llamaria el constructor reconstruido (MakeCollab como en 112A/114A/116A/Fn119A).
+    env.collabRoutes.emplace_back(new HookRoute("CDecision","Constructor",0x6040C0,HookRoute::RegisteredTarget{}));
+    const uintptr_t decisionCtorBody=env.collabRoutes.back()->Registered()?env.collabRoutes.back()->Body():0;
+    ready&=decisionCtorBody!=0&&ModuleOf(decisionCtorBody)==env.asi;
+    env.collabs={{{0x821D30,0},fake(&TrapVecCtor)},{{0x4650A0,0},fake(&TrapCtorThis)},{{0x6040C0,decisionCtorBody},fake(&TrapCtorThis)}};
     Run(env,ready,registered,bodies);
 }
 }

@@ -153,6 +153,7 @@ struct Env {
     uintptr_t asi{},game{};
     std::unique_ptr<HookRoute> route;
     std::vector<Collab> collabs;                          // colaboradores del EXE con trampa en el lado candidato
+    std::vector<std::unique_ptr<HookRoute>> collabRoutes; // lote 118A: rutas de los colaboradores que ya tienen hook (apagados durante el banco; el falso va tambien en su cuerpo de la DLL)
     std::vector<Watch> watches;                           // entradas del EXE y cuerpos de la DLL: deben seguir intactos al volver
     bool WatchesIntact()const{return std::ranges::all_of(watches,[](const auto& w){return w.Intact();});}
 };
@@ -259,7 +260,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies) {
     {const uintptr_t body=env.route?env.route->Body():0;ready&=body&&ModuleOf(body)==env.asi;}
     json collaborators=json::array();
     for(const auto& c:env.collabs){
-        collaborators.push_back({{"exe",c.pair.exe},{"dll",c.pair.dll},{"hooked",false}});
+        collaborators.push_back({{"exe",c.pair.exe},{"dll",c.pair.dll},{"hooked",c.pair.dll!=0}});
         env.watches.emplace_back(c.pair.exe,16);
         ready&=!ReversingProbe::JumpsToDll(c.pair.exe);
     }
@@ -286,6 +287,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies) {
     Region fin;fin.Save();
     bool stateRestored=entriesIntact&&fin.Equal(initialRegion);
     if(env.route)stateRestored&=env.route->Restore();
+    for(auto& r:env.collabRoutes)if(r)stateRestored&=r->Restore();
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     Write({{"event","global_state_final"},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact},
         {"region",HexBytes(fin.bytes.data(),kRegionBytes)}});

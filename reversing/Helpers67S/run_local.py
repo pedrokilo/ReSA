@@ -23,6 +23,7 @@ EXPECTED = {name: oracle.CASES for name in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'seh_chain_restored', 'direction_flag_clear', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = dict(zip(NAMES, oracle.ADDRESS))
 COLLABORATORS = [0x821D30, 0x4650A0, 0x6040C0]
+HOOKED_COLLABORATORS = {0x6040C0}
 FAMILY_MINIMUM = oracle.CASES // 16
 STACK_SEED_MINIMUM = oracle.CASES
 
@@ -83,7 +84,8 @@ def analyze(path):
     if b.get('set_default_hook_on') is not True:
         raise RuntimeError('El hook de CDecision::SetDefault (0x600530) no estaba encendido durante el banco')
     got = [(c['exe'], c['dll'], c['hooked']) for c in b['collaborators']]
-    if got != [(a, 0, False) for a in COLLABORATORS]:
+    # Lote 118A: 0x6040C0 (CDecision::CDecision) tiene hook; su falso va tambien en el cuerpo de la DLL (dll != 0, hooked=True). Los demas siguen sin hook.
+    if [(e, h) for e, _, h in got] != [(a, a in HOOKED_COLLABORATORS) for a in COLLABORATORS] or any((d != 0) != (e in HOOKED_COLLABORATORS) for e, d, _ in got):
         raise RuntimeError('Colaboradores inesperados: ' + json.dumps(got))
     lay = b['layout']
     for key, want in oracle.LAYOUT.items():

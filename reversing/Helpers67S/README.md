@@ -68,3 +68,7 @@ EAX/EDX extremos y 12 semillas de pila. Mínimos de cobertura en `run_local.py` 
 - Defecto del banco (no de producción): la primera versión apagaba el hook de `CDecision::SetDefault`. `Simple::Switch` con el hook apagado reescribe el cuerpo de la DLL con un salto al EXE, así que el candidato acababa llamando a 0x600530/0x6040C0 del EXE (2050 llamadas por caso, atrapadas) y el objeto salía distinto del oráculo. El EXE coincidía con el oráculo. Corregido dejando el hook encendido.
 - Producción: sin discrepancias respecto al desensamblado; el único cambio funcional frente al código previo es que `m_EventIndices` ya no se pone a cero (el EXE no lo toca).
 - Candado: la ejecución estuvo bloqueada por un `D:\Original\gta_lock` y un `reversed-tests.lock` obsoletos del 22/10; los liberó otra persona/agente.
+
+## Actualizacion del lote 118A (07/11/2026)
+
+Banco repetido con los hooks actuales y aprobado de nuevo (16384 pares, cero diferencias). Adaptacion del banco (solo banco, sin cambios de produccion): `CDecision::CDecision` (0x6040C0) ya tiene hook, asi que la corrida fallaba antes de empezar (colaborador con salto a la DLL). Ahora una `HookRoute` lo deja apagado durante el banco y el mismo falso `TrapCtorThis` se instala tambien en el cuerpo de la DLL (patron `MakeCollab` de 112A/114A/116A/Fn119A); `run_local.py` exige `dll != 0` y `hooked=true` solo para 0x6040C0 (0x821D30 y 0x4650A0 siguen sin hook).

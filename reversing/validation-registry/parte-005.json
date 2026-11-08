@@ -248,7 +248,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers67S/validation-summary.json",
-        "sha256": "73f05ba800e5e3d73e6047be0515b5301e6692dcad02e4ad8fe024e218740a44",
+        "sha256": "8612db3e91b47b74b6049edb186658d5ba0f3388699e851e91a625059c5ddd46",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypes::CDecisionMakerTypes"
@@ -257,15 +257,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "e802e8ee1634351aba5fe37d43bed62a2967eb703b427d43bdd3c1f6bed89797",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
         "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
-        "source/game_sa/DecisionMakers/Decision.cpp": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5",
+        "source/game_sa/DecisionMakers/Decision.cpp": "0e9caedf49df3904998e55a7da8cc7e9c78421aa2e2f9d344ddf6e5ad00a1990",
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "9b7771785d2a20378fceb904085d95ba08cd8896c0f9c736885489fae9f53921",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers67S/LiveComparison.hpp": "8d983c919d645c10e421d7140d790adbd45e9442fdc7586c13d9bdb5a9efbeb2",
-        "reversing/Helpers67S/Core.hpp": "abd0cb674cc77f9de5ee3096b743cc62ea88199e51f7ef774453fa3796588921",
+        "reversing/Helpers67S/LiveComparison.hpp": "f05dbeb289013715138662893f7a2c29a014ccf19c16ba35141d297ba918ee5f",
+        "reversing/Helpers67S/Core.hpp": "c2436553a42d46dfa4d0c6d0675097770cebd9ac1fac007f8e6f894775a3eb7d",
         "reversing/Helpers67S/Fixtures.hpp": "1116f12db3825e02126189e5b5be1416e904adecd05418ec3c37d6ba4c25adff",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
