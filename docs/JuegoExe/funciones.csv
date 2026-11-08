@@ -7166,7 +7166,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061A4B0,73,reemplazada,CTask,exacta,CTask::IsTaskPtr,2,2,,
 0x0061A500,103,reemplazada,CTaskPool,exacta,CTaskPool::New,1,1,,
 0x0061A5A0,11,reemplazada,CTask,exacta,CTask::operator new,1788,1531,,
-0x0061A5B0,41,reemplazada,CTask,exacta,CTask::operator delete,2114,9,,
+0x0061A5B0,41,reemplazada,CTask,exacta,CTask::operator delete,2114,22,,
 0x0061A620,59,D,CTask,baja,,0,0,,
 0x0061A660,56,B,CTask,baja,,0,0,,sí
 0x0061A6C0,47,reemplazada,CTask,baja,,2,1,,
@@ -7318,7 +7318,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00621100,135,reemplazada,CTaskComplexKillPedOnFootMelee,exacta,CTaskComplexKillPedOnFootMelee::CalculateSearchPositionAndRanges,5,5,,
 0x00621190,175,reemplazada,CTaskComplexKillPedOnFootArmed,exacta,CTaskComplexKillPedOnFootArmed::Constructor,2,2,,
 0x00621240,6,reemplazada,CTaskComplexKillPedOnFootArmed,exacta,CTaskComplexKillPedOnFootArmed::GetTaskType,0,0,,sí
-0x00621250,90,reemplazada,CTaskComplexKillPedOnFootArmed,exacta,CTaskComplexKillPedOnFootArmed::Destructor,1,0,,
+0x00621250,90,reemplazada,CTaskComplexKillPedOnFootArmed,exacta,CTaskComplexKillPedOnFootArmed::Destructor,1,1,,
 0x006212B0,76,reemplazada,CTaskComplexKillPedOnFootArmed,exacta,CTaskComplexKillPedOnFootArmed::MakeAbortable,0,0,,sí
 0x00621300,512,reemplazada,CTaskComplexKillPedOnFootArmed,exacta,CTaskComplexKillPedOnFootArmed::IsPedInLeaderFiringLine,1,1,,
 0x00621500,709,reemplazada,CTaskComplexKillPedOnFootArmed,exacta,CTaskComplexKillPedOnFootArmed::LineOfSightClearForAttack,11,11,,
@@ -7356,7 +7356,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00622450,401,reemplazada,CTaskComplexKillPedGroupOnFoot,exacta,CTaskComplexKillPedGroupOnFoot::ComputeNearestLivingGroupPed,3,3,,
 0x006225F0,113,reemplazada,CTaskSimpleStealthKill,exacta,CTaskSimpleStealthKill::Constructor,3,3,,
 0x00622670,6,reemplazada,CTaskSimpleStealthKill,exacta,CTaskSimpleStealthKill::GetTaskType,0,0,,sí
-0x00622680,109,C,CTaskSimpleStealthKill,alta,,1,0,,
+0x00622680,109,A,CTaskSimpleStealthKill,alta,,1,1,,
 0x006226F0,154,reemplazada,CTaskSimpleStealthKill,exacta,CTaskSimpleStealthKill::MakeAbortable,0,0,,sí
 0x00622790,48,reemplazada,CTaskSimpleStealthKill,exacta,CTaskSimpleStealthKill::FinishAnimStealthKillCB,0,0,,
 0x006227C0,87,reemplazada,CTaskComplexKillPedFromBoat,exacta,CTaskComplexKillPedFromBoat::Constructor,2,2,,
@@ -7431,7 +7431,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00626AA0,30,B,CTaskSimpleThrowProjectile,baja,,0,0,,sí
 0x00626AC0,713,reemplazada,CTaskComplexKillPedOnFootMelee,exacta,CTaskComplexKillPedOnFootMelee::CreateSubTask,15,15,,
 0x00626D90,519,reemplazada,CTaskComplexKillPedOnFootMelee,exacta,CTaskComplexKillPedOnFootMelee::ControlSubTask,0,0,,sí
-0x00626FA0,30,B,CTaskComplexKillPedOnFootMelee,baja,,0,0,,sí
+0x00626FA0,30,reemplazada,CTaskComplexKillPedOnFootMelee,baja,,0,0,,sí
 0x00626FC0,1554,reemplazada,CTaskComplexKillPedOnFootArmed,exacta,CTaskComplexKillPedOnFootArmed::CreateSubTask,9,9,,
 0x006275E0,30,B,CTaskComplexKillPedOnFootArmed,baja,,0,0,,sí
 0x00627600,1255,reemplazada,CTaskComplexKillPedOnFootArmed,baja,,1,1,,
@@ -7456,7 +7456,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00629550,30,B,CTaskComplexRoadRage,baja,,0,0,,sí
 0x00629570,177,reemplazada,CTaskComplexKillPedGroupOnFoot,exacta,CTaskComplexKillPedGroupOnFoot::CreateNextSubTask,0,0,,sí
 0x00629630,115,reemplazada,CTaskComplexKillPedGroupOnFoot,exacta,CTaskComplexKillPedGroupOnFoot::CreateFirstSubTask,0,0,,sí
-0x006296B0,30,B,CTaskComplexKillPedGroupOnFoot,baja,,0,0,,sí
+0x006296B0,30,reemplazada,CTaskComplexKillPedGroupOnFoot,baja,,0,0,,sí
 0x006296D0,518,reemplazada,CTaskSimpleStealthKill,exacta,CTaskSimpleStealthKill::ManageAnim,1,1,,
 0x006298E0,30,B,CTaskSimpleStealthKill,baja,,0,0,,sí
 0x00629900,30,B,CTaskSimpleStealthKill,baja,,0,0,,sí
@@ -8025,24 +8025,24 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0063ACC0,166,reemplazada,CTaskComplexEnterCar,exacta,CTaskComplexEnterCar::CreateTaskUtilityLineUpPedWithCar,2,2,,
 0x0063AD70,114,reemplazada,CTaskComplexEnterCarAsDriverTimed,exacta,CTaskComplexEnterCarAsDriverTimed::Constructor,4,1,,
 0x0063ADF0,6,reemplazada,CTaskComplexEnterCarAsDriverTimed,exacta,CTaskComplexEnterCarAsDriverTimed::GetTaskType,0,0,,sí
-0x0063AE00,90,reemplazada,CTaskComplexEnterCarAsDriverTimed,exacta,CTaskComplexEnterCarAsDriverTimed::Destructor,1,0,,
+0x0063AE00,90,reemplazada,CTaskComplexEnterCarAsDriverTimed,exacta,CTaskComplexEnterCarAsDriverTimed::Destructor,1,1,,
 0x0063AE60,100,reemplazada,CTaskComplexEnterCarAsDriverTimed,exacta,CTaskComplexEnterCarAsDriverTimed::MakeAbortable,0,0,,sí
 0x0063AED0,5,reemplazada,CTaskComplexEnterCarAsDriverTimed,exacta,CTaskComplexEnterCarAsDriverTimed::CreateNextSubTask,0,0,,sí
 0x0063AEE0,265,reemplazada,CTaskComplexEnterCarAsDriverTimed,exacta,CTaskComplexEnterCarAsDriverTimed::ControlSubTask,0,0,,sí
 0x0063AFF0,53,reemplazada,CTaskComplexEnterCarAsDriverTimed,exacta,CTaskComplexEnterCarAsDriverTimed::StopTimer,0,0,,sí
 0x0063B030,128,reemplazada,CTaskComplexEnterCarAsPassengerTimed,exacta,CTaskComplexEnterCarAsPassengerTimed::Constructor,6,3,,
 0x0063B0B0,6,reemplazada,CTaskComplexEnterCarAsPassengerTimed,exacta,CTaskComplexEnterCarAsPassengerTimed::GetTaskType,0,0,,sí
-0x0063B0C0,90,reemplazada,CTaskComplexEnterCarAsPassengerTimed,exacta,CTaskComplexEnterCarAsPassengerTimed::Destructor,1,0,,
+0x0063B0C0,90,reemplazada,CTaskComplexEnterCarAsPassengerTimed,exacta,CTaskComplexEnterCarAsPassengerTimed::Destructor,1,1,,
 0x0063B120,100,reemplazada,CTaskComplexEnterCarAsPassengerTimed,exacta,CTaskComplexEnterCarAsPassengerTimed::MakeAbortable,0,0,,sí
 0x0063B190,5,reemplazada,CTaskComplexEnterCarAsPassengerTimed,exacta,CTaskComplexEnterCarAsPassengerTimed::CreateNextSubTask,0,0,,sí
 0x0063B1A0,315,reemplazada,CTaskComplexEnterCarAsPassengerTimed,exacta,CTaskComplexEnterCarAsPassengerTimed::ControlSubTask,0,0,,sí
 0x0063B2E0,53,reemplazada,CTaskComplexEnterCarAsPassengerTimed,exacta,CTaskComplexEnterCarAsPassengerTimed::StopTimer,0,0,,sí
 0x0063B320,135,reemplazada,CTaskComplexEnterCarAsPassengerWait,exacta,CTaskComplexEnterCarAsPassengerWait::Constructor,3,3,,
 0x0063B3B0,6,reemplazada,CTaskComplexEnterCarAsPassengerWait,exacta,CTaskComplexEnterCarAsPassengerWait::GetTaskType,0,0,,sí
-0x0063B3C0,106,reemplazada,CTaskComplexEnterCarAsPassengerWait,exacta,CTaskComplexEnterCarAsPassengerWait::Destructor,3,1,,
+0x0063B3C0,106,reemplazada,CTaskComplexEnterCarAsPassengerWait,exacta,CTaskComplexEnterCarAsPassengerWait::Destructor,3,2,,
 0x0063B430,87,reemplazada,CTaskComplexLeaveCarAsPassengerWait,exacta,CTaskComplexLeaveCarAsPassengerWait::Constructor,3,3,,
 0x0063B490,6,reemplazada,CTaskComplexLeaveCarAsPassengerWait,exacta,CTaskComplexLeaveCarAsPassengerWait::GetTaskType,0,0,,sí
-0x0063B4A0,90,reemplazada,CTaskComplexLeaveCarAsPassengerWait,exacta,CTaskComplexLeaveCarAsPassengerWait::Destructor,3,1,,
+0x0063B4A0,90,reemplazada,CTaskComplexLeaveCarAsPassengerWait,exacta,CTaskComplexLeaveCarAsPassengerWait::Destructor,3,2,,
 0x0063B500,58,reemplazada,CTaskComplexLeaveCarAsPassengerWait,exacta,CTaskComplexLeaveCarAsPassengerWait::GetNextPassengerToLeave,2,2,,
 0x0063B540,159,reemplazada,CTaskComplexLeaveCarAsPassengerWait,exacta,CTaskComplexLeaveCarAsPassengerWait::SetPedInZerothPassengerSeat,1,1,,
 0x0063B5E0,87,reemplazada,CTaskComplexEnterBoatAsDriver,exacta,CTaskComplexEnterBoatAsDriver::Constructor,2,2,,
@@ -8052,7 +8052,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0063B6C0,264,reemplazada,CTaskComplexEnterBoatAsDriver,exacta,CTaskComplexEnterBoatAsDriver::CreateSubTask,6,6,,
 0x0063B7D0,103,reemplazada,CTaskComplexStealCar,exacta,CTaskComplexStealCar::Constructor,6,6,,
 0x0063B840,6,reemplazada,CTaskComplexStealCar,exacta,CTaskComplexStealCar::GetTaskType,0,0,,sí
-0x0063B850,106,reemplazada,CTaskComplexStealCar,exacta,CTaskComplexStealCar::Destructor,1,0,,
+0x0063B850,106,reemplazada,CTaskComplexStealCar,exacta,CTaskComplexStealCar::Destructor,1,1,,
 0x0063B8C0,153,reemplazada,CTaskComplexStealCar,baja,,56,50,,
 0x0063B960,6,B,CTaskComplexStealCar,baja,,0,0,,sí
 0x0063B970,136,reemplazada,CTaskComplexStealCar,baja,,7,2,,
@@ -8168,19 +8168,19 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006404C0,6,B,CTaskComplexOpenPassengerDoor,baja,,0,0,,sí
 0x006404D0,90,C,CTaskComplexOpenPassengerDoor,baja,,1,0,,
 0x00640530,82,reemplazada,CTaskComplexDragPedFromCar,exacta,CTaskComplexDragPedFromCar::ControlSubTask,0,0,,sí
-0x00640590,30,B,CTaskComplexDragPedFromCar,baja,,0,0,,sí
+0x00640590,30,reemplazada,CTaskComplexDragPedFromCar,baja,,0,0,,sí
 0x006405B0,133,reemplazada,CTaskComplexEnterCarAsDriverTimed,exacta,CTaskComplexEnterCarAsDriverTimed::CreateFirstSubTask,0,0,,sí
-0x00640640,30,B,CTaskComplexEnterCarAsDriverTimed,baja,,0,0,,sí
+0x00640640,30,reemplazada,CTaskComplexEnterCarAsDriverTimed,baja,,0,0,,sí
 0x00640660,172,reemplazada,CTaskComplexEnterCarAsPassengerTimed,exacta,CTaskComplexEnterCarAsPassengerTimed::CreateFirstSubTask,0,0,,sí
-0x00640710,30,B,CTaskComplexEnterCarAsPassengerTimed,baja,,0,0,,sí
+0x00640710,30,reemplazada,CTaskComplexEnterCarAsPassengerTimed,baja,,0,0,,sí
 0x00640730,403,reemplazada,CTaskComplexEnterCarAsPassengerWait,exacta,CTaskComplexEnterCarAsPassengerWait::ControlSubTask,0,0,,sí
 0x006408D0,739,reemplazada,CTaskComplexEnterCarAsPassengerWait,exacta,CTaskComplexEnterCarAsPassengerWait::CreateSubTask,9,9,,
-0x00640BC0,30,B,CTaskComplexEnterCarAsPassengerWait,baja,,0,0,,sí
+0x00640BC0,30,reemplazada,CTaskComplexEnterCarAsPassengerWait,baja,,0,0,,sí
 0x00640BE0,605,reemplazada,CTaskComplexLeaveCarAsPassengerWait,exacta,CTaskComplexLeaveCarAsPassengerWait::CreateSubTask,6,6,,
 0x00640E40,30,B,CTaskComplexLeaveCarAsPassengerWait,baja,,0,0,,sí
 0x00640E60,112,reemplazada,CTaskComplexEnterBoatAsDriver,exacta,CTaskComplexEnterBoatAsDriver::CreateNextSubTask,0,0,,sí
 0x00640ED0,49,reemplazada,CTaskComplexEnterBoatAsDriver,exacta,CTaskComplexEnterBoatAsDriver::CreateFirstSubTask,0,0,,sí
-0x00640F10,30,B,CTaskComplexEnterBoatAsDriver,baja,,0,0,,sí
+0x00640F10,30,reemplazada,CTaskComplexEnterBoatAsDriver,baja,,0,0,,sí
 0x00640F30,425,reemplazada,CTaskComplexStealCar,exacta,CTaskComplexStealCar::CreateSubTask,7,7,,
 0x006410E0,30,B,CTaskComplexStealCar,baja,,0,0,,sí
 0x00641100,1069,reemplazada,CTaskComplexStealCar,baja,,0,0,,sí
@@ -8264,7 +8264,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00645910,549,reemplazada,CTaskComplexGoToCarDoorAndStandStill,exacta,CTaskComplexGoToCarDoorAndStandStill::ComputeRouteToDoor,3,3,,
 0x00645B40,134,reemplazada,CTaskSimpleCarAlign,exacta,CTaskSimpleCarAlign::Constructor,2,2,,
 0x00645BD0,6,reemplazada,CTaskSimpleCarAlign,exacta,CTaskSimpleCarAlign::GetTaskType,0,0,,sí
-0x00645BE0,109,reemplazada,CTaskSimpleCarAlign,exacta,CTaskSimpleCarAlign::Destructor,1,0,,
+0x00645BE0,109,reemplazada,CTaskSimpleCarAlign,exacta,CTaskSimpleCarAlign::Destructor,1,1,,
 0x00645C50,31,reemplazada,CTaskSimpleCarAlign,exacta,CTaskSimpleCarAlign::MakeAbortable,0,0,,sí
 0x00645C70,57,reemplazada,CTaskSimpleCarAlign,exacta,CTaskSimpleCarAlign::SetPedPosition,0,0,,sí
 0x00645CB0,390,reemplazada,CTaskSimpleCarAlign,exacta,CTaskSimpleCarAlign::FixHeading,1,1,,
@@ -8465,7 +8465,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0064A580,106,reemplazada,CTaskComplexGoToCarDoorAndStandStill,exacta,CTaskComplexGoToCarDoorAndStandStill::Destructor,1,0,,
 0x0064A5F0,552,reemplazada,CTaskComplexGoToCarDoorAndStandStill,exacta,CTaskComplexGoToCarDoorAndStandStill::CreateSubTask,21,21,,
 0x0064A820,960,reemplazada,CTaskComplexGoToCarDoorAndStandStill,exacta,CTaskComplexGoToCarDoorAndStandStill::ControlSubTask,0,0,,sí
-0x0064ABE0,30,B,CTaskComplexGoToCarDoorAndStandStill,baja,,0,0,,sí
+0x0064ABE0,30,reemplazada,CTaskComplexGoToCarDoorAndStandStill,baja,,0,0,,sí
 0x0064AC00,217,reemplazada,CTaskSimpleCarAlign,exacta,CTaskSimpleCarAlign::StartAnim,1,1,,
 0x0064ACE0,30,B,CTaskSimpleCarAlign,baja,,0,0,,sí
 0x0064AD00,135,reemplazada,CTaskSimpleCarOpenDoorFromOutside,exacta,CTaskSimpleCarOpenDoorFromOutside::MakeAbortable,0,0,,sí
@@ -8623,7 +8623,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00653820,380,reemplazada,CTaskComplexEvasiveDiveAndGetUp,exacta,CTaskComplexEvasiveDiveAndGetUp::CreateSubTask,7,7,,
 0x006539A0,114,reemplazada,CTaskComplexHitPedWithCar,exacta,CTaskComplexHitPedWithCar::Constructor,4,4,,
 0x00653A20,6,reemplazada,CTaskComplexHitPedWithCar,exacta,CTaskComplexHitPedWithCar::GetTaskType,0,0,,sí
-0x00653A30,90,reemplazada,CTaskComplexHitPedWithCar,exacta,CTaskComplexHitPedWithCar::Destructor,1,0,,
+0x00653A30,90,reemplazada,CTaskComplexHitPedWithCar,exacta,CTaskComplexHitPedWithCar::Destructor,1,1,,
 0x00653A90,6,reemplazada,CTaskComplexHitPedWithCar,exacta,CTaskComplexHitPedWithCar::ControlSubTask,0,0,,sí
 0x00653AA0,51,D,CTaskComplexHitPedWithCar,alta,,0,0,,
 0x00653AE0,92,reemplazada,CTaskComplexHitPedWithCar,exacta,CTaskComplexHitPedWithCar::HitHurtsPed,1,1,,
@@ -8703,7 +8703,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00655FE0,30,B,CTaskSimpleEvasiveDive,baja,,0,0,,sí
 0x00656000,154,reemplazada,CTaskComplexEvasiveDiveAndGetUp,exacta,CTaskComplexEvasiveDiveAndGetUp::CreateNextSubTask,1,1,,sí
 0x006560A0,28,reemplazada,CTaskComplexEvasiveDiveAndGetUp,exacta,CTaskComplexEvasiveDiveAndGetUp::CreateFirstSubTask,0,0,,sí
-0x006560C0,30,B,CTaskComplexEvasiveDiveAndGetUp,baja,,0,0,,sí
+0x006560C0,30,reemplazada,CTaskComplexEvasiveDiveAndGetUp,baja,,0,0,,sí
 0x006560E0,516,reemplazada,CTaskComplexHitPedWithCar,exacta,CTaskComplexHitPedWithCar::CreateSubTask,5,5,,
 0x00656300,169,reemplazada,CTaskComplexHitPedWithCar,exacta,CTaskComplexHitPedWithCar::CreateFirstSubTask,0,0,,sí
 0x006563B0,30,B,CTaskComplexHitPedWithCar,baja,,0,0,,sí
@@ -8931,7 +8931,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0065EA50,68,reemplazada,CTaskComplexGangLeader,exacta,CTaskComplexGangLeader::TryToPassObject,2,2,,
 0x0065EAA0,246,reemplazada,CTaskComplexGangFollower,exacta,CTaskComplexGangFollower::Constructor,2,2,,
 0x0065EBA0,6,B,CTaskComplexGangFollower,alta,,0,0,,sí
-0x0065EBB0,123,reemplazada,CTaskComplexGangFollower,exacta,CTaskComplexGangFollower::Destructor,1,0,,
+0x0065EBB0,123,reemplazada,CTaskComplexGangFollower,exacta,CTaskComplexGangFollower::Destructor,1,1,,
 0x0065EC30,125,reemplazada,CTaskComplexGangFollower,exacta,CTaskComplexGangFollower::MakeAbortable,0,0,,sí
 0x0065ECB0,138,reemplazada,CTaskComplexGangFollower,exacta,CTaskComplexGangFollower::Clone,0,0,,sí
 0x0065ED40,329,A,CTaskComplexGangFollower,alta,,2,2,,
@@ -9028,7 +9028,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006622F0,96,reemplazada,CTaskComplexProstituteSolicit,exacta,CTaskComplexProstituteSolicit::Clone,0,0,,sí
 0x00662350,30,B,CTaskComplexProstituteSolicit,baja,,0,0,,sí
 0x00662370,1662,reemplazada,CTaskComplexGangLeader,exacta,CTaskComplexGangLeader::ControlSubTask,0,0,,sí
-0x006629F0,30,B,CTaskComplexGangLeader,baja,,0,0,,sí
+0x006629F0,30,reemplazada,CTaskComplexGangLeader,baja,,0,0,,sí
 0x00662A10,2702,reemplazada,CTaskComplexGangFollower,exacta,CTaskComplexGangFollower::ControlSubTask,0,0,,sí
 0x006634E0,30,B,CTaskComplexGangFollower,baja,,0,0,,sí
 0x00663500,55,reemplazada,CTaskSimpleGoToPointFine,exacta,CTaskSimpleGoToPointFine::MakeAbortable,0,0,,sí
@@ -9715,7 +9715,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0068C6E0,272,reemplazada,CTaskComplexKillCriminal,exacta,CTaskComplexKillCriminal::ChangeTarget,7,7,,
 0x0068C7F0,183,reemplazada,CTaskComplexCopInCar,exacta,CTaskComplexCopInCar::Constructor,3,3,,
 0x0068C8B0,6,reemplazada,CTaskComplexCopInCar,exacta,CTaskComplexCopInCar::GetTaskType,0,0,,sí
-0x0068C8C0,122,reemplazada,CTaskComplexCopInCar,exacta,CTaskComplexCopInCar::Destructor,1,0,,
+0x0068C8C0,122,reemplazada,CTaskComplexCopInCar,exacta,CTaskComplexCopInCar::Destructor,1,1,,
 0x0068C940,159,reemplazada,CTaskComplexCopInCar,exacta,CTaskComplexCopInCar::MakeAbortable,0,0,,sí
 0x0068C9E0,788,reemplazada,CTaskComplexCopInCar,exacta,CTaskComplexCopInCar::CreateSubTask,15,15,,
 0x0068CD10,96,B,CTaskComplexCopInCar,baja,,0,0,,sí
@@ -9734,7 +9734,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0068DC60,2188,reemplazada,CTaskComplexKillCriminal,exacta,CTaskComplexKillCriminal::CreateFirstSubTask,0,0,,sí
 0x0068E4F0,1106,reemplazada,CTaskComplexKillCriminal,exacta,CTaskComplexKillCriminal::CreateNextSubTask,0,0,,sí
 0x0068E950,4214,reemplazada,CTaskComplexKillCriminal,exacta,CTaskComplexKillCriminal::ControlSubTask,0,0,,sí
-0x0068F9F0,30,B,CTaskComplexKillCriminal,baja,,0,0,,sí
+0x0068F9F0,30,reemplazada,CTaskComplexKillCriminal,baja,,0,0,,sí
 0x0068FA10,56,reemplazada,CTaskComplexCopInCar,exacta,CTaskComplexCopInCar::CreateFirstSubTask,0,0,,sí
 0x0068FA50,759,reemplazada,CTaskComplexCopInCar,exacta,CTaskComplexCopInCar::CreateNextSubTask,0,0,,sí
 0x0068FD50,1219,reemplazada,CTaskComplexCopInCar,exacta,CTaskComplexCopInCar::ControlSubTask,0,0,,sí
@@ -9889,12 +9889,12 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00696DA0,74,reemplazada,CTaskComplexFollowLeaderAnyMeans,exacta,CTaskComplexFollowLeaderAnyMeans::ControlSubTask,0,0,,sí
 0x00696DF0,124,reemplazada,CTaskComplexInvestigateDeadPed,exacta,CTaskComplexInvestigateDeadPed::Constructor,2,2,,
 0x00696E70,6,reemplazada,CTaskComplexInvestigateDeadPed,exacta,CTaskComplexInvestigateDeadPed::GetTaskType,0,0,,sí
-0x00696E80,90,reemplazada,CTaskComplexInvestigateDeadPed,exacta,CTaskComplexInvestigateDeadPed::Destructor,1,0,,
+0x00696E80,90,reemplazada,CTaskComplexInvestigateDeadPed,exacta,CTaskComplexInvestigateDeadPed::Destructor,1,1,,
 0x00696EE0,175,reemplazada,CTaskComplexInvestigateDeadPed,exacta,CTaskComplexInvestigateDeadPed::ComputeTargetPos,2,2,,
 0x00696F90,530,reemplazada,CTaskComplexInvestigateDeadPed,exacta,CTaskComplexInvestigateDeadPed::CreateSubTask,8,8,,
 0x006971B0,100,reemplazada,CTaskComplexReactToGunAimedAt,exacta,CTaskComplexReactToGunAimedAt::Constructor,2,2,,
 0x00697220,6,reemplazada,CTaskComplexReactToGunAimedAt,exacta,CTaskComplexReactToGunAimedAt::GetTaskType,0,0,,sí
-0x00697230,90,reemplazada,CTaskComplexReactToGunAimedAt,exacta,CTaskComplexReactToGunAimedAt::Destructor,1,0,,
+0x00697230,90,reemplazada,CTaskComplexReactToGunAimedAt,exacta,CTaskComplexReactToGunAimedAt::Destructor,1,1,,
 0x00697290,133,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::Constructor,1,1,,
 0x00697320,6,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::GetTaskType,0,0,,sí
 0x00697330,106,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::Destructor,1,0,,
@@ -9908,11 +9908,11 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006976E0,96,reemplazada,CTaskComplexReactToGunAimedAt,exacta,CTaskComplexReactToGunAimedAt::Clone,0,0,,sí
 0x00697740,104,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::Clone,0,0,,sí
 0x006977B0,107,reemplazada,CTaskComplexExtinguishFires,exacta,CTaskComplexExtinguishFires::Clone,0,0,,sí
-0x00697820,30,B,CTaskComplexExtinguishFires,baja,,0,0,,sí
+0x00697820,30,reemplazada,CTaskComplexExtinguishFires,baja,,0,0,,sí
 0x00697840,332,reemplazada,CTaskComplexInvestigateDeadPed,exacta,CTaskComplexInvestigateDeadPed::CreateNextSubTask,0,0,,sí
 0x00697990,105,reemplazada,CTaskComplexInvestigateDeadPed,exacta,CTaskComplexInvestigateDeadPed::CreateFirstSubTask,0,0,,sí
 0x00697A00,333,reemplazada,CTaskComplexInvestigateDeadPed,exacta,CTaskComplexInvestigateDeadPed::ControlSubTask,0,0,,sí
-0x00697B50,30,B,CTaskComplexInvestigateDeadPed,baja,,0,0,,sí
+0x00697B50,30,reemplazada,CTaskComplexInvestigateDeadPed,baja,,0,0,,sí
 0x00697B70,893,reemplazada,CTaskComplexReactToGunAimedAt,exacta,CTaskComplexReactToGunAimedAt::CreateSubTask,11,11,,
 0x00697EF0,30,B,CTaskComplexReactToGunAimedAt,baja,,0,0,,sí
 0x00697F10,424,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::CreateNextSubTask,0,0,,sí

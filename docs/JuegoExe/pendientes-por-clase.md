@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,528** funciones en 470 clases/módulos (rango 0x401000–0x74FFFF): 2,506 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,515** funciones en 457 clases/módulos (rango 0x401000–0x74FFFF): 2,493 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,19 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CTaskComplexDragPedFromCar | 1 | 30 |
-| CTaskComplexEnterBoatAsDriver | 1 | 30 |
-| CTaskComplexEnterCarAsDriverTimed | 1 | 30 |
-| CTaskComplexEnterCarAsPassengerTimed | 1 | 30 |
-| CTaskComplexEnterCarAsPassengerWait | 1 | 30 |
-| CTaskComplexEvasiveDiveAndGetUp | 1 | 30 |
-| CTaskComplexExtinguishFires | 1 | 30 |
-| CTaskComplexGangLeader | 1 | 30 |
-| CTaskComplexGoToCarDoorAndStandStill | 1 | 30 |
-| CTaskComplexInvestigateDeadPed | 1 | 30 |
-| CTaskComplexKillCriminal | 1 | 30 |
-| CTaskComplexKillPedGroupOnFoot | 1 | 30 |
-| CTaskComplexKillPedOnFootMelee | 1 | 30 |
 | CTaskComplexLeaveAnyCar | 1 | 30 |
 | CTaskComplexLeaveCarAndFlee | 1 | 30 |
 | CTaskComplexLeaveCarAndWander | 1 | 30 |
@@ -480,84 +467,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxInfoManager_c | 116 | 6591 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CTaskComplexDragPedFromCar (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00640590 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexEnterBoatAsDriver (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00640F10 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexEnterCarAsDriverTimed (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00640640 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexEnterCarAsPassengerTimed (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00640710 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexEnterCarAsPassengerWait (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00640BC0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexEvasiveDiveAndGetUp (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006560C0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexExtinguishFires (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00697820 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexGangLeader (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006629F0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexGoToCarDoorAndStandStill (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064ABE0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexInvestigateDeadPed (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00697B50 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexKillCriminal (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0068F9F0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexKillPedGroupOnFoot (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006296B0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexKillPedOnFootMelee (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00626FA0 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CTaskComplexLeaveAnyCar (1)
 
@@ -2191,7 +2100,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x00622680 | 109 | C |  | 1 | 0 |  | alta |
+| 0x00622680 | 109 | A |  | 1 | 1 |  | alta |
 | 0x006298E0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00629900 | 30 | B |  | 0 | 0 | sí | baja |
 
