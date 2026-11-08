@@ -1,0 +1,7 @@
+CTaskAllocator::Destructor 1313 / 16384 (solo oraculo: 0 )
+CEntitySeekPosCalculator::Destructor 2427 / 16384 (solo oraculo: 0 )
+CPedGroupDefaultTaskAllocatorFollowLimited::Constructor 422 / 16384 (solo oraculo: 0 )
+CPedGroupDefaultTaskAllocatorStandStill::Constructor 2324 / 16384 (solo oraculo: 0 )
+CPedGroupDefaultTaskAllocatorChat::Constructor 993 / 16384 (solo oraculo: 0 )
+CPedGroupDefaultTaskAllocatorSitInLeaderCar::Constructor 2391 / 16384 (solo oraculo: 0 )
+errores {'error': 1}

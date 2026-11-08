@@ -1,0 +1,3 @@
+FALLO: Fn121A
+Funciones con diferencias: CTaskAllocator::Destructor: 1313/16384; CEntitySeekPosCalculator::Destructor: 2427/16384; CPedGroupDefaultTaskAllocatorFollowLimited::Constructor: 422/16384; CPedGroupDefaultTaskAllocatorStandStill::Constructor: 2324/16384; CPedGroupDefaultTaskAllocatorChat::Constructor: 993/16384; CPedGroupDefaultTaskAllocatorSitInLeaderCar::Constructor: 2391/16384
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn121a\20261108-003348-687245
