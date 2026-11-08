@@ -130,10 +130,13 @@ private: // Wrappers for hooks
     }
 
     // 0x6F00F0
-    CBoat* Destructor() {
+    __declspec(noinline) CBoat* Destructor() {
         this->CBoat::~CBoat();
         return this;
     }
+
+    // 0x6F1120 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable 0x8721A0), `ret 4`
+    CBoat* ScalarDeletingDestructor(uint8 flags);
 };
 
 VALIDATE_SIZE(CBoat, 0x7E8);

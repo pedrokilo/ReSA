@@ -9379,3 +9379,16 @@ CAEVorbisDecoder,ScalarDeletingDestructor,0x00502700,1,0,1,S
 CAEWaveDecoder,ScalarDeletingDestructor,0x00503430,1,0,1,S
 CWanted,ScalarDeletingDestructor,0x0056F850,1,0,1,S
 CRealTimeShadow,ScalarDeletingDestructor,0x00706850,1,0,1,S
+CBoat,ScalarDeletingDestructor,0x006F1120,1,0,1,S
+CCutsceneObject,ScalarDeletingDestructor,0x005B1DE0,1,0,1,S
+CDummyObject,ScalarDeletingDestructor,0x0059EB50,1,0,1,S
+CMonsterTruck,ScalarDeletingDestructor,0x006C7F90,1,0,1,S
+CTaskComplexBeCop,ScalarDeletingDestructor,0x004994C0,1,0,1,S
+CTaskComplexUsePairedAttractor,ScalarDeletingDestructor,0x00638AC0,1,0,1,S
+CTaskComplexBeStill,ScalarDeletingDestructor,0x005F66E0,1,0,1,S
+CTaskComplexCarDriveMissionFleeScene,ScalarDeletingDestructor,0x004B89D0,1,0,1,S
+CTaskComplexCarDriveMissionKillPed,ScalarDeletingDestructor,0x004B8AB0,1,0,1,S
+CTaskComplexClimb,ScalarDeletingDestructor,0x0046A6C0,1,0,1,S
+CTaskComplexDestroyCarMelee,ScalarDeletingDestructor,0x006289D0,1,0,1,S
+CTaskComplexDestroyCarArmed,ScalarDeletingDestructor,0x00628C60,1,0,1,S
+CTaskComplexRoadRage,ScalarDeletingDestructor,0x00629060,1,0,1,S

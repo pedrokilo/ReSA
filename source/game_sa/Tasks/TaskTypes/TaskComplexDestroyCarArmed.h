@@ -46,6 +46,7 @@ public:
 
     static void InjectHooks();
     CTaskComplexDestroyCarArmed* Constructor(CVehicle* vehicleToDestroy, uint32 a3, uint32 a4, uint32 a5) { this->CTaskComplexDestroyCarArmed::CTaskComplexDestroyCarArmed(vehicleToDestroy, a3, a4, a5); return this; }
-    CTaskComplexDestroyCarArmed* Destructor() { this->CTaskComplexDestroyCarArmed::~CTaskComplexDestroyCarArmed(); return this; }
+    __declspec(noinline) CTaskComplexDestroyCarArmed* Destructor() { this->CTaskComplexDestroyCarArmed::~CTaskComplexDestroyCarArmed(); return this; }
+    CTaskComplexDestroyCarArmed* ScalarDeletingDestructor(uint8 flags); // 0x628C60 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable), `ret 4`
 };
 VALIDATE_SIZE(CTaskComplexDestroyCarArmed, 0x64);

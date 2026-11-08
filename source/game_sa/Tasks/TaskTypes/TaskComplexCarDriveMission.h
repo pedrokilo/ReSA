@@ -46,7 +46,8 @@ private:
     // 0x4B8920
     CTaskComplexCarDriveMissionFleeScene* Constructor(CVehicle* vehicle) { this->CTaskComplexCarDriveMissionFleeScene::CTaskComplexCarDriveMissionFleeScene(vehicle); return this; }
     // 0x4B89F0
-    CTaskComplexCarDriveMissionFleeScene* Destructor() { this->CTaskComplexCarDriveMissionFleeScene::~CTaskComplexCarDriveMissionFleeScene(); return this; }
+    __declspec(noinline) CTaskComplexCarDriveMissionFleeScene* Destructor() { this->CTaskComplexCarDriveMissionFleeScene::~CTaskComplexCarDriveMissionFleeScene(); return this; }
+    CTaskComplexCarDriveMissionFleeScene* ScalarDeletingDestructor(uint8 flags); // 0x4B89D0 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable), `ret 4`
 };
 
 class NOTSA_EXPORT_VTABLE CTaskComplexCarDriveMissionKillPed : public CTaskComplexCarDriveMission {
@@ -65,5 +66,6 @@ private:
     // 0x4B8A00
     CTaskComplexCarDriveMissionKillPed* Constructor(CVehicle* vehicle, CEntity* targetVehicle) { this->CTaskComplexCarDriveMissionKillPed::CTaskComplexCarDriveMissionKillPed(vehicle, targetVehicle); return this; }
     // 0x4B8AD0
-    CTaskComplexCarDriveMissionKillPed* Destructor() { this->CTaskComplexCarDriveMissionKillPed::~CTaskComplexCarDriveMissionKillPed(); return this; }
+    __declspec(noinline) CTaskComplexCarDriveMissionKillPed* Destructor() { this->CTaskComplexCarDriveMissionKillPed::~CTaskComplexCarDriveMissionKillPed(); return this; }
+    CTaskComplexCarDriveMissionKillPed* ScalarDeletingDestructor(uint8 flags); // 0x4B8AB0 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable), `ret 4`
 };

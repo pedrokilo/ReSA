@@ -26,6 +26,7 @@ void CMonsterTruck::InjectHooks() {
     RH_ScopedVirtualClass(CMonsterTruck, 0x8717d8, 71);
     RH_ScopedCategory("Vehicle");
 
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6C7F90);
     RH_ScopedInstall(Constructor, 0x6C8D60);
 
     RH_ScopedInstall(ExtendSuspension, 0x6C7D80);
@@ -318,4 +319,25 @@ bool CMonsterTruck::BurstTyre(uint8 tyreComponentId, bool bPhysicalEffect) {
 // 0x6C7D20
 bool CMonsterTruck::SetUpWheelColModel(CColModel* colModel) {
     return false;
+}
+
+namespace {
+// 0x6C7D10 (lote 125A, banco Fn125A): cuerpo del destructor de CMonsterTruck del EXE (vtable 0x8717D8 y salto al destructor de la base; sin hook propio: el destructor de la clase es el generado por el compilador).
+// Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x6C7D10` del EXE.
+__declspec(noinline) void __fastcall MonsterTruckDestructorBody(CMonsterTruck* self, void* /*edx*/) {
+    self->CMonsterTruck::~CMonsterTruck();
+}
+} // namespace
+
+uintptr_t Lote125AMonsterTruckDestructorBody() { return reinterpret_cast<uintptr_t>(&MonsterTruckDestructorBody); } // para el banco Fn125A
+
+// 0x6C7F90 (lote 125A, banco Fn125A) : destructor con borrado de CMonsterTruck del EXE (ranura 0 de su vtable 0x8717D8; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6C7D10; test byte [esp+8],1; je ..; push esi; call 0x6E2D90; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x6C7D10; aqui su envoltura Destructor()), libera `this` con CVehicle::operator delete (0x6E2D90, sin hook: pool de vehiculos) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. 
+CMonsterTruck* CMonsterTruck::ScalarDeletingDestructor(uint8 flags) {
+    MonsterTruckDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CVehicle::operator delete(this);
+    }
+    return this;
 }

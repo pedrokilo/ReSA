@@ -20,8 +20,9 @@ public:
 
 private: // Wrappers for hooks
     // 0x5F6700
-    CTaskComplexBeStill* Destructor() {
+    __declspec(noinline) CTaskComplexBeStill* Destructor() {
         this->CTaskComplexBeStill::~CTaskComplexBeStill();
         return this;
     }
+    CTaskComplexBeStill* ScalarDeletingDestructor(uint8 flags); // 0x5F66E0 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable), `ret 4`
 };

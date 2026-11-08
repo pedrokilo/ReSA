@@ -28,6 +28,7 @@ void CDummyObject::InjectHooks() {
     RH_ScopedVirtualClass(CDummyObject, 0x866E78, 22);
     RH_ScopedCategory("Entity/Dummy");
 
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x59EB50);
     RH_ScopedInstall(CreateObject, 0x59EAC0);
     RH_ScopedInstall(UpdateFromObject, 0x59EB70);
 }
@@ -98,4 +99,25 @@ void CDummyObject::UpdateFromObject(CObject* obj) {
 
     SetLod(obj->GetLod());
     obj->SetLod(nullptr);
+}
+
+namespace {
+// 0x59EAB0 (lote 125A, banco Fn125A): cuerpo del destructor de CDummyObject del EXE (vtable 0x866E78 y salto al destructor de la base; sin hook propio: el destructor de la clase es el generado por el compilador).
+// Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x59EAB0` del EXE.
+__declspec(noinline) void __fastcall DummyObjectDestructorBody(CDummyObject* self, void* /*edx*/) {
+    self->CDummyObject::~CDummyObject();
+}
+} // namespace
+
+uintptr_t Lote125ADummyObjectDestructorBody() { return reinterpret_cast<uintptr_t>(&DummyObjectDestructorBody); } // para el banco Fn125A
+
+// 0x59EB50 (lote 125A, banco Fn125A) : destructor con borrado de CDummyObject del EXE (ranura 0 de su vtable 0x866E78; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x59EAB0; test byte [esp+8],1; je ..; push esi; call 0x5326F0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x59EAB0; aqui su envoltura Destructor()), libera `this` con CDummy::operator delete (0x5326F0, sin hook: pool de dummies 0xB744A0) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. 
+CDummyObject* CDummyObject::ScalarDeletingDestructor(uint8 flags) {
+    DummyObjectDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CDummy::operator delete(this);
+    }
+    return this;
 }

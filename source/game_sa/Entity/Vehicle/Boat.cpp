@@ -78,6 +78,7 @@ void CBoat::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x6F2940);
     RH_ScopedInstall(Destructor, 0x6F00F0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6F1120);
 
     RH_ScopedVMTInstall(SetModelIndex, 0x6F1140);
     RH_ScopedVMTInstall(ProcessControl, 0x6F1770);
@@ -1212,4 +1213,15 @@ RwObject* GetBoatAtomicObjectCB(RwObject* object, void* data) {
     }
 
     return object;
+}
+
+// 0x6F1120 (lote 125A, banco Fn125A) : destructor con borrado de CBoat del EXE (ranura 0 de su vtable 0x8721A0; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6F00F0; test byte [esp+8],1; je ..; push esi; call 0x6E2D90; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x6F00F0; aqui su envoltura Destructor()), libera `this` con CVehicle::operator delete (0x6E2D90, sin hook: marca el hueco del pool de vehiculos 0xB74494) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. 
+CBoat* CBoat::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CVehicle::operator delete(this);
+    }
+    return this;
 }

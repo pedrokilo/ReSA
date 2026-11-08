@@ -40,10 +40,11 @@ private: // Wrappers for hooks
     }
 
     // 0x6331E0
-    CTaskComplexUsePairedAttractor* Destructor() {
+    __declspec(noinline) CTaskComplexUsePairedAttractor* Destructor() {
         this->CTaskComplexUsePairedAttractor::~CTaskComplexUsePairedAttractor();
         return this;
     }
+    CTaskComplexUsePairedAttractor* ScalarDeletingDestructor(uint8 flags); // 0x638AC0 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable), `ret 4`
 
 public:
     CPedAttractor*             m_Attractor{};

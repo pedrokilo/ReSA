@@ -36,8 +36,9 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x622110
-    CTaskComplexRoadRage* Destructor() {
+    __declspec(noinline) CTaskComplexRoadRage* Destructor() {
         this->CTaskComplexRoadRage::~CTaskComplexRoadRage();
         return this;
     }
+    CTaskComplexRoadRage* ScalarDeletingDestructor(uint8 flags); // 0x629060 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable), `ret 4`
 };

@@ -36,6 +36,7 @@ public:
     void RemoveLighting(bool bRemove) override;
 
 private:
+    CCutsceneObject* ScalarDeletingDestructor(uint8 flags); // 0x5B1DE0 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable 0x868A60), `ret 4`
 
 private: // Functions fully inlined in android idb, and unnamed in PC idb
     static void      SetupCarPipeAtomicsForClump(uint32 modelId, RpClump* clump);

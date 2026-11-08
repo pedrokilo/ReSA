@@ -21,9 +21,10 @@ public:
 
 private: // Wrappers para los hooks
     // 0x4994E0
-    CTaskComplexBeCop* Destructor() {
+    __declspec(noinline) CTaskComplexBeCop* Destructor() {
         this->CTaskComplexBeCop::~CTaskComplexBeCop();
         return this;
     }
+    CTaskComplexBeCop* ScalarDeletingDestructor(uint8 flags); // 0x4994C0 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable), `ret 4`
 };
 VALIDATE_SIZE(CTaskComplexBeCop, 0x50);

@@ -29,6 +29,7 @@ void CCutsceneObject::InjectHooks() {
     RH_ScopedVirtualClass(CCutsceneObject, 0x868A60, 23);
     RH_ScopedCategory("Entity/Object");
 
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x5B1DE0);
     RH_ScopedVMTInstall(SetModelIndex, 0x5B1B20);
     RH_ScopedVMTInstall(SetupLighting, 0x553F40);
     RH_ScopedVMTInstall(RemoveLighting, 0x5533F0);
@@ -211,4 +212,25 @@ RpAtomic* CCutsceneObject::SetupCarPipeAtomicCB(RpAtomic* atomic, void* data) {
     UNUSED(data);
     CCarFXRenderer::CustomCarPipeAtomicSetup(atomic);
     return atomic;
+}
+
+namespace {
+// 0x5B1A80 (lote 125A, banco Fn125A): cuerpo del destructor de CCutsceneObject del EXE (vtable 0x868A60 y salto al destructor de la base; sin hook propio: el destructor de la clase es el generado por el compilador).
+// Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x5B1A80` del EXE.
+__declspec(noinline) void __fastcall CutsceneObjectDestructorBody(CCutsceneObject* self, void* /*edx*/) {
+    self->CCutsceneObject::~CCutsceneObject();
+}
+} // namespace
+
+uintptr_t Lote125ACutsceneObjectDestructorBody() { return reinterpret_cast<uintptr_t>(&CutsceneObjectDestructorBody); } // para el banco Fn125A
+
+// 0x5B1DE0 (lote 125A, banco Fn125A) : destructor con borrado de CCutsceneObject del EXE (ranura 0 de su vtable 0x868A60; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x5B1A80; test byte [esp+8],1; je ..; push esi; call 0x5A1F20; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x5B1A80; aqui su envoltura Destructor()), libera `this` con CObject::operator delete (0x5A1F20, sin hook: pool de objetos 0xB7449C) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. 
+CCutsceneObject* CCutsceneObject::ScalarDeletingDestructor(uint8 flags) {
+    CutsceneObjectDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CObject::operator delete(this);
+    }
+    return this;
 }

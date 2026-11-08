@@ -24,6 +24,9 @@ public:
 
     CObject* CreateObject();
     void     UpdateFromObject(CObject* obj);
+
+private:
+    CDummyObject* ScalarDeletingDestructor(uint8 flags); // 0x59EB50 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable 0x866E78), `ret 4`
 };
 
 VALIDATE_SIZE(CDummyObject, 0x38);

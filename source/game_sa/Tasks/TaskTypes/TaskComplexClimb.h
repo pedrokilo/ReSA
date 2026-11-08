@@ -22,8 +22,9 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x46A6E0
-    CTaskComplexClimb* Destructor() {
+    __declspec(noinline) CTaskComplexClimb* Destructor() {
         this->CTaskComplexClimb::~CTaskComplexClimb();
         return this;
     }
+    CTaskComplexClimb* ScalarDeletingDestructor(uint8 flags); // 0x46A6C0 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable), `ret 4`
 };

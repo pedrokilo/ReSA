@@ -38,6 +38,7 @@ public:
 
 private:
     CTaskComplexDestroyCarMelee* Constructor(CVehicle* vehToDestroy) { this->CTaskComplexDestroyCarMelee::CTaskComplexDestroyCarMelee(vehToDestroy); return this; }
-    CTaskComplexDestroyCarMelee* Destructor() { this->CTaskComplexDestroyCarMelee::~CTaskComplexDestroyCarMelee(); return this; }
+    __declspec(noinline) CTaskComplexDestroyCarMelee* Destructor() { this->CTaskComplexDestroyCarMelee::~CTaskComplexDestroyCarMelee(); return this; }
+    CTaskComplexDestroyCarMelee* ScalarDeletingDestructor(uint8 flags); // 0x6289D0 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable), `ret 4`
 };
 VALIDATE_SIZE(CTaskComplexDestroyCarMelee, 0x34);
