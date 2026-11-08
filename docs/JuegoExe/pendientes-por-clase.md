@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,458** funciones en 400 clases/módulos (rango 0x401000–0x74FFFF): 2,436 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,447** funciones en 389 clases/módulos (rango 0x401000–0x74FFFF): 2,425 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,19 +10,8 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CVehicleAnimGroupData | 1 | 61 |
-| CAEBankLoader | 1 | 63 |
-| CTimeInfo | 1 | 63 |
-| CEntryInfoList | 1 | 65 |
-| CRadar | 1 | 67 |
-| CIplDefPool | 1 | 71 |
 | CWanted | 1 | 76 |
-| CDummy | 1 | 78 |
-| CTaskSequences | 1 | 79 |
-| CTagManager | 1 | 80 |
-| CTaskSimpleAffectSecondaryBehaviour | 1 | 87 |
 | CGangs | 1 | 92 |
-| CColModel | 1 | 96 |
 | CPointRoutePool | 1 | 106 |
 | JPegPlugin | 1 | 108 |
 | CTaskComplexWalkAlongsidePed | 1 | 110 |
@@ -411,83 +400,17 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | FxInfoManager_c | 116 | 6591 |
 | FxEmitterBP_c | 141 | 28395 |
 
-## CVehicleAnimGroupData (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0063A040 | 61 | A |  | 4 | 4 |  | baja |
-
-## CAEBankLoader (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004DFB60 | 63 | A |  | 1 | 1 |  | alta |
-
-## CTimeInfo (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005B3680 | 63 | A |  | 9 | 9 |  | baja |
-
-## CEntryInfoList (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00536E90 | 65 | A |  | 3 | 3 |  | baja |
-
-## CRadar (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00583AF0 | 67 | A |  | 2 | 2 |  | alta |
-
-## CIplDefPool (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00405A60 | 71 | D |  | 0 | 0 |  | baja |
-
 ## CWanted (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00563130 | 76 | D |  | 0 | 0 |  | baja |
 
-## CDummy (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00532770 | 78 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSequences (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00632E00 | 79 | C |  | 1 | 0 |  | baja |
-
-## CTagManager (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0049CD50 | 80 | A |  | 1 | 1 |  | alta |
-
-## CTaskSimpleAffectSecondaryBehaviour (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006912C0 | 87 | C |  | 1 | 0 |  | alta |
-
 ## CGangs (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x005DE920 | 92 | A |  | 3 | 1 |  | baja |
-
-## CColModel (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0040FAF0 | 96 | A |  | 8 | 4 |  | baja |
 
 ## CPointRoutePool (1)
 
@@ -717,7 +640,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00532540 | 28 | A |  | 3 | 0 |  | baja |
-| 0x00532560 | 11 | A |  | 4 | 0 |  | baja |
+| 0x00532560 | 11 | A |  | 4 | 1 |  | baja |
 
 ## CPedType (2)
 
@@ -2586,7 +2509,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x00572130 | 69 | A |  | 3 | 2 |  | alta |
+| 0x00572130 | 69 | A |  | 3 | 3 |  | alta |
 | 0x00572DB0 | 26 | A |  | 3 | 3 |  | baja |
 | 0x00572E70 | 24 | A |  | 1 | 1 |  | baja |
 | 0x005D3020 | 149 | A |  | 1 | 1 |  | baja |
