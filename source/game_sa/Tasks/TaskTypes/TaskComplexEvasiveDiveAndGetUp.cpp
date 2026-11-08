@@ -29,6 +29,7 @@ void CTaskComplexEvasiveDiveAndGetUp::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x6536B0);
     RH_ScopedInstall(Destructor, 0x653740);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x655FE0);
 
     RH_ScopedInstall(CreateSubTask, 0x653820);
     RH_ScopedVMTInstall(Clone, 0x655940);
@@ -114,4 +115,15 @@ CTask* CTaskComplexEvasiveDiveAndGetUp::CreateNextSubTask(CPed* ped) {
 // 0x6560A0
 CTask* CTaskComplexEvasiveDiveAndGetUp::CreateFirstSubTask(CPed* ped) {
     return CreateSubTask(m_bAchieveHeadingFirst ? TASK_SIMPLE_ACHIEVE_HEADING : TASK_SIMPLE_EVASIVE_DIVE);
+}
+
+// 0x655FE0 (lote 128A, banco Fn128A) : destructor con borrado de CTaskComplexEvasiveDiveAndGetUp del EXE (ranura 0 de su vtable 0x86F268; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x653740; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x653740), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexEvasiveDiveAndGetUp* CTaskComplexEvasiveDiveAndGetUp::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

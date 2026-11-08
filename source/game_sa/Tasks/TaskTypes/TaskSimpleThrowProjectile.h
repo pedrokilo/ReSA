@@ -46,8 +46,9 @@ private:
         return this;
     }
 
+    CTaskSimpleThrowProjectile* ScalarDeletingDestructor(uint8 flags); // 0x6259C0 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86D790), `ret 4`
     // 0x61F700
-    CTaskSimpleThrowProjectile* Destructor() {
+    __declspec(noinline) CTaskSimpleThrowProjectile* Destructor() {
         this->CTaskSimpleThrowProjectile::~CTaskSimpleThrowProjectile();
         return this;
     }

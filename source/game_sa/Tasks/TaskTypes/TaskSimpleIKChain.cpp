@@ -27,6 +27,7 @@ void CTaskSimpleIKChain::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x6339C0);
     RH_ScopedInstall(Destructor, 0x633A90);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x636F00);
 
     RH_ScopedInstall(BlendOut, 0x633C40);
     RH_ScopedInstall(GetIKChain, 0x633C70);
@@ -187,4 +188,15 @@ bool CTaskSimpleIKChain::ProcessPed(CPed* ped) {
 bool CTaskSimpleIKChain::CreateIKChain(CPed* ped) {
     m_IKChain = g_ikChainMan.AddIKChain("", eIKChainSlot::CUSTOM, ped, m_EffectorBone, m_EffectorOffset, m_PivotBone, m_TargetEntity, RawBoneTag32(m_OffsetBone), m_OffsetPos, m_Speed, 3);
     return !!m_IKChain;
+}
+
+// 0x636F00 (lote 128A, banco Fn128A) : destructor con borrado de CTaskSimpleIKChain del EXE (ranura 0 de su vtable 0x86DB48; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x633A90; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x633A90), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleIKChain* CTaskSimpleIKChain::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

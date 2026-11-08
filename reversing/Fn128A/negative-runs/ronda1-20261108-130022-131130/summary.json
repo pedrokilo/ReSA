@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "3db7952af5b1f613d2a23f3492e25c28106c64671df79edadc243ff28cc9b986",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CTaskSimpleCarGetIn::ScalarDeletingDestructor: 4736/16384; CTaskComplexCarDrive::ScalarDeletingDestructor: 4269/16384; CTaskSimpleCarDriveTimed::ScalarDeletingDestructor: 9059/16384; CTaskSimpleCarShuffle::ScalarDeletingDestructor: 2406/16384; CTaskSimpleCarOpenLockedDoorFromOutside::ScalarDeletingDestructor: 236/16384; CTaskSimplePickUpBike::ScalarDeletingDestructor: 9104/16384; CTaskSimpleCarGetOut::ScalarDeletingDestructor: 16384/16384; CTaskSimpleCarSetPedInAsDriver::ScalarDeletingDestructor: 16384/16384; CTaskSimpleCarSlowBeDraggedOut::ScalarDeletingDestructor: 16384/16384; CTaskComplexEvasiveDiveAndGetUp::ScalarDeletingDestructor: 1850/16384; CTaskSimpleThrowProjectile::ScalarDeletingDestructor: 16384/16384; CTaskComplexStuckInAir::ScalarDeletingDestructor: 7228/16384; CTaskSimpleHurtPedWithCar::ScalarDeletingDestructor: 4745/16384; CTaskSimpleNone::ScalarDeletingDestructor: 4249/16384; CTaskSimpleCarCloseDoorFromInside::ScalarDeletingDestructor: 8923/16384; CTaskSimpleIKChain::ScalarDeletingDestructor: 2450/16384; CTaskSimpleSay::ScalarDeletingDestructor: 200/16384; CTaskSimpleFacial::ScalarDeletingDestructor: 8949/16384; CTaskSimpleSitIdle::ScalarDeletingDestructor: 16384/16384; CTaskSimpleStandUp::ScalarDeletingDestructor: 16384/16384; CTaskComplexSitDownThenIdleThenStandUp::ScalarDeletingDestructor: 16384/16384",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

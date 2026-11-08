@@ -39,8 +39,9 @@ private: // Wrappers for hooks
         this->CTaskSimpleSitIdle::CTaskSimpleSitIdle(durationMs, sitAfterStep);
         return this;
     }
+    CTaskSimpleSitIdle* ScalarDeletingDestructor(uint8 flags); // 0x637A40 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86DF18), `ret 4`
     // 0x6311B0
-    CTaskSimpleSitIdle* Destructor() {
+    __declspec(noinline) CTaskSimpleSitIdle* Destructor() {
         this->CTaskSimpleSitIdle::~CTaskSimpleSitIdle();
         return this;
     }

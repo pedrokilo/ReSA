@@ -43,8 +43,9 @@ private: // Wrappers for hooks
         this->CTaskSimplePickUpBike::CTaskSimplePickUpBike(veh, targetDoor, lineUpUtil);
         return this;
     }
+    CTaskSimplePickUpBike* ScalarDeletingDestructor(uint8 flags); // 0x64AE70 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86ECE4), `ret 4`
     // 0x646230
-    CTaskSimplePickUpBike* Destructor() {
+    __declspec(noinline) CTaskSimplePickUpBike* Destructor() {
         this->CTaskSimplePickUpBike::~CTaskSimplePickUpBike();
         return this;
     }

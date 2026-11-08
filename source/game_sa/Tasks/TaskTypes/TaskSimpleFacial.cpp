@@ -43,6 +43,7 @@ CTaskSimpleFacial* __fastcall FacialConstructorBody(CTaskSimpleFacial* self, voi
 void CTaskSimpleFacial::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleFacial, 0x870ab8, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x692E30);
     RH_ScopedNamedGlobalInstall(FacialConstructorBody, "Constructor", 0x690C70);
 
     RH_ScopedGlobalInstall(GetAnimId, 0x690CC0);
@@ -130,4 +131,26 @@ bool CTaskSimpleFacial::ProcessPed(CPed* ped) {
     anim->m_BlendDelta = -4.0f;
 
     return true;
+}
+
+namespace {
+// 0x690CB0 (lote 128A, banco Fn128A): cuerpo del destructor de CTaskSimpleFacial del EXE, sin hook propio (`mov dword [ecx],0x870AB8; jmp CTask::Destructor (0x61A3A0)`, thiscall sin argumentos). Funcion propia sin expansion
+// en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x690CB0` del EXE.
+__declspec(noinline) void __fastcall SimpleFacialDestructorBody(CTaskSimpleFacial* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870AB8;
+    self->CTask::Destructor();
+}
+} // namespace
+
+uintptr_t Lote128ASimpleFacialDestructorBody() { return reinterpret_cast<uintptr_t>(&SimpleFacialDestructorBody); } // para el banco Fn128A
+
+// 0x692E30 (lote 128A, banco Fn128A) : destructor con borrado de CTaskSimpleFacial del EXE (ranura 0 de su vtable 0x870AB8; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x690CB0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x690CB0), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleFacial* CTaskSimpleFacial::ScalarDeletingDestructor(uint8 flags) {
+    SimpleFacialDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

@@ -39,8 +39,9 @@ private: // Wrappers for hooks
         this->CTaskSimpleStandUp::CTaskSimpleStandUp(sitAfterStep);
         return this;
     }
+    CTaskSimpleStandUp* ScalarDeletingDestructor(uint8 flags); // 0x637D40 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86DF3C), `ret 4`
     // 0x631320
-    CTaskSimpleStandUp* Destructor() {
+    __declspec(noinline) CTaskSimpleStandUp* Destructor() {
         this->CTaskSimpleStandUp::~CTaskSimpleStandUp();
         return this;
     }

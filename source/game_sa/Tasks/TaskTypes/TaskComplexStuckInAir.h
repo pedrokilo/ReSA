@@ -18,5 +18,7 @@ public:
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateSubTask(eTaskType taskType, CPed* ped);
+private:
+    CTaskComplexStuckInAir* ScalarDeletingDestructor(uint8 flags); // 0x67FA60 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x870608), `ret 4`
 };
 VALIDATE_SIZE(CTaskComplexStuckInAir, 0xC);

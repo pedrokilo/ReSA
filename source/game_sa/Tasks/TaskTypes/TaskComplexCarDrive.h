@@ -34,7 +34,8 @@ private:
 
     CTaskComplexCarDrive* Constructor_0(CVehicle* vehicle) { this->CTaskComplexCarDrive::CTaskComplexCarDrive(vehicle); return this; }
     CTaskComplexCarDrive* Constructor_1(CVehicle* vehicle, float speed, eModelID carModelIndexToCreate, eCarDrivingStyle carDrivingStyle) { this->CTaskComplexCarDrive::CTaskComplexCarDrive(vehicle, speed, carModelIndexToCreate, carDrivingStyle); return this; }
-    CTaskComplexCarDrive* Destructor() { this->CTaskComplexCarDrive::~CTaskComplexCarDrive(); return this; }
+    CTaskComplexCarDrive* ScalarDeletingDestructor(uint8 flags); // 0x642F80 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86E934), `ret 4`
+    __declspec(noinline) CTaskComplexCarDrive* Destructor() { this->CTaskComplexCarDrive::~CTaskComplexCarDrive(); return this; }
 
 public:
     CVehicle*                         m_Veh{};

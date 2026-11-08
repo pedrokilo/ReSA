@@ -56,5 +56,6 @@ private:
     CTaskTimer        m_Timer;
     eFacialExpression m_Type;
     int32             m_Duration;
+    CTaskSimpleFacial* ScalarDeletingDestructor(uint8 flags); // 0x692E30 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x870AB8), `ret 4`
 };
 VALIDATE_SIZE(CTaskSimpleFacial, 0x1C);

@@ -34,7 +34,7 @@ END GENERATED HOOK STATUS */
 namespace {
 // 0x647170 (lote 115A, banco Fn115A): cuerpo no virtual de ~CTaskSimpleCarSetPedInAsDriver del EXE (thiscall, sin argumentos de pila, `ret`)
 // Deja la vtable de CTaskSimpleCarSetPedInAsDriver del EXE (0x86EE28), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula en +0x10 y salta a CTask::Destructor (0x61A3A0), que deja la vtable de CTask (0x86D48C). El EXE lo envuelve en un marco SEH que solo desenrolla.
-void __fastcall CarSetPedInAsDriverDestructorBody(CTaskSimpleCarSetPedInAsDriver* self, void* /*edx*/) {
+__declspec(noinline) void __fastcall CarSetPedInAsDriverDestructorBody(CTaskSimpleCarSetPedInAsDriver* self, void* /*edx*/) {
     uint8* const bytes = reinterpret_cast<uint8*>(self);
     *reinterpret_cast<uint32*>(bytes) = 0x86EE28;
     CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0x10));
@@ -46,6 +46,7 @@ void CTaskSimpleCarSetPedInAsDriver::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarSetPedInAsDriver, 0x86EE28, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CarSetPedInAsDriverDestructorBody, "Destructor", 0x647170);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x64B930);
 
     RH_ScopedInstall(Constructor, 0x6470E0);
 
@@ -191,4 +192,15 @@ bool CTaskSimpleCarSetPedInAsDriver::ProcessPed(CPed* ped) {
         GetEventGlobalGroup()->Add(&copEvent, false);
     }
     return true;
+}
+
+// 0x64B930 (lote 128A, banco Fn128A) : destructor con borrado de CTaskSimpleCarSetPedInAsDriver del EXE (ranura 0 de su vtable 0x86EE28; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x647170; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x647170), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleCarSetPedInAsDriver* CTaskSimpleCarSetPedInAsDriver::ScalarDeletingDestructor(uint8 flags) {
+    CarSetPedInAsDriverDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

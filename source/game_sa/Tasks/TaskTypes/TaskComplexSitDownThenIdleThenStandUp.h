@@ -38,8 +38,9 @@ private: // Wrappers for hooks
         this->CTaskComplexSitDownThenIdleThenStandUp::CTaskComplexSitDownThenIdleThenStandUp(durationMs, a3, a4);
         return this;
     }
+    CTaskComplexSitDownThenIdleThenStandUp* ScalarDeletingDestructor(uint8 flags); // 0x637D90 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86DF60), `ret 4`
     // 0x6314A0
-    CTaskComplexSitDownThenIdleThenStandUp* Destructor() {
+    __declspec(noinline) CTaskComplexSitDownThenIdleThenStandUp* Destructor() {
         this->CTaskComplexSitDownThenIdleThenStandUp::~CTaskComplexSitDownThenIdleThenStandUp();
         return this;
     }

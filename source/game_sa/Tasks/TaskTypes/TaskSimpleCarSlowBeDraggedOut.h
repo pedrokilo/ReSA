@@ -46,8 +46,9 @@ private: // Wrappers for hooks
         return this;
     }
 
+    CTaskSimpleCarSlowBeDraggedOut* ScalarDeletingDestructor(uint8 flags); // 0x64C060 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86EF0C), `ret 4`
     // 0x6482C0
-    CTaskSimpleCarSlowBeDraggedOut* Destructor() {
+    __declspec(noinline) CTaskSimpleCarSlowBeDraggedOut* Destructor() {
         this->CTaskSimpleCarSlowBeDraggedOut::~CTaskSimpleCarSlowBeDraggedOut();
         return this;
     }

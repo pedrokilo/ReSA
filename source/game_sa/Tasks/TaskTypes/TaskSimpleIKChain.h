@@ -35,7 +35,8 @@ private:
     static void InjectHooks();
 
     CTaskSimpleIKChain* Constructor(char* name, eBoneTag32 effectorBoneTag, RwV3d effectorVec, eBoneTag32 pivotBoneTag, CEntity* a6, eBoneTag32 offsetBoneTag, RwV3d offsetPos, float speed, int32 time, int32 blendTime) { this->CTaskSimpleIKChain::CTaskSimpleIKChain(name, effectorBoneTag, effectorVec, pivotBoneTag, a6, offsetBoneTag, offsetPos, speed, time, blendTime); return this; }
-    CTaskSimpleIKChain* Destructor() { this->CTaskSimpleIKChain::~CTaskSimpleIKChain(); return this; }
+    CTaskSimpleIKChain* ScalarDeletingDestructor(uint8 flags); // 0x636F00 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86DB48), `ret 4`
+    __declspec(noinline) CTaskSimpleIKChain* Destructor() { this->CTaskSimpleIKChain::~CTaskSimpleIKChain(); return this; }
 
 protected:
     //! NOTSA: constructor sin inicializar para CTaskSimpleIKPointArm, que en el EXE escribe los campos en linea.

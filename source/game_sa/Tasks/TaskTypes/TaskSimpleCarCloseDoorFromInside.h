@@ -43,8 +43,9 @@ private: // Wrappers for hooks
         return this;
     }
 
+    CTaskSimpleCarCloseDoorFromInside* ScalarDeletingDestructor(uint8 flags); // 0x64AF30 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86ED08), `ret 4`
     // 0x646380
-    CTaskSimpleCarCloseDoorFromInside* Destructor() {
+    __declspec(noinline) CTaskSimpleCarCloseDoorFromInside* Destructor() {
         this->CTaskSimpleCarCloseDoorFromInside::~CTaskSimpleCarCloseDoorFromInside();
         return this;
     }

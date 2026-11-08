@@ -196,6 +196,7 @@ CTaskComplexStuckInAir* __fastcall StuckInAirConstructorBody(CTaskComplexStuckIn
 void CTaskComplexStuckInAir::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexStuckInAir, 0x870608, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x67FA60);
     RH_ScopedNamedGlobalInstall(StuckInAirConstructorBody, "Constructor", 0x67BA40);
 
     RH_ScopedGlobalInstall(CreateSubTask, 0x67BA80);
@@ -204,4 +205,26 @@ void CTaskComplexStuckInAir::InjectHooks() {
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x67BE20);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x67BD10);
     RH_ScopedVMTInstall(ControlSubTask, 0x67BE50);
+}
+
+namespace {
+// 0x67BA70 (lote 128A, banco Fn128A): cuerpo del destructor de CTaskComplexStuckInAir del EXE, sin hook propio (`mov dword [ecx],0x870608; jmp CTaskComplex::Destructor (0x61A3D0)`, thiscall sin argumentos). Funcion propia sin expansion
+// en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x67BA70` del EXE.
+__declspec(noinline) void __fastcall ComplexStuckInAirDestructorBody(CTaskComplexStuckInAir* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870608;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
+uintptr_t Lote128AComplexStuckInAirDestructorBody() { return reinterpret_cast<uintptr_t>(&ComplexStuckInAirDestructorBody); } // para el banco Fn128A
+
+// 0x67FA60 (lote 128A, banco Fn128A) : destructor con borrado de CTaskComplexStuckInAir del EXE (ranura 0 de su vtable 0x870608; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x67BA70; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x67BA70), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexStuckInAir* CTaskComplexStuckInAir::ScalarDeletingDestructor(uint8 flags) {
+    ComplexStuckInAirDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

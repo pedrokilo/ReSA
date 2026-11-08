@@ -37,8 +37,9 @@ private: // Wrappers for hooks
         static_cast<int32&>(m_GlobalSpeechContext) = sayId; // Como el original: el contexto se copia como dword completo
         return this;
     }
+    CTaskSimpleSay* ScalarDeletingDestructor(uint8 flags); // 0x48E4C0 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x85A1DC), `ret 4`
     // 0x48E4E0
-    CTaskSimpleSay* Destructor() {
+    __declspec(noinline) CTaskSimpleSay* Destructor() {
         this->CTaskSimpleSay::~CTaskSimpleSay();
         return this;
     }

@@ -22,5 +22,6 @@ private: // Wrappers para los hooks
         this->CTaskSimpleNone::~CTaskSimpleNone();
         return this;
     }
+    CTaskSimpleNone* ScalarDeletingDestructor(uint8 flags); // 0x4635F0 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x859CFC), `ret 4`
 };
 VALIDATE_SIZE(CTaskSimpleNone, 0x8);

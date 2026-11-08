@@ -40,5 +40,6 @@ private: // Wrappers for hooks
         this->CTaskSimpleCarSetPedInAsDriver::CTaskSimpleCarSetPedInAsDriver(targetVehicle, utility);
         return this;
     }
+    CTaskSimpleCarSetPedInAsDriver* ScalarDeletingDestructor(uint8 flags); // 0x64B930 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86EE28), `ret 4`
 };
 VALIDATE_SIZE(CTaskSimpleCarSetPedInAsDriver, 0x1C);

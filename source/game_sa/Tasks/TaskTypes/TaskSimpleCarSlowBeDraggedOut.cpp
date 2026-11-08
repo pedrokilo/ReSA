@@ -156,6 +156,7 @@ void CTaskSimpleCarSlowBeDraggedOut::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x648230);
     RH_ScopedInstall(Destructor, 0x6482C0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x64C060);
 
     RH_ScopedGlobalInstall(FinishAnimCarSlowBeDraggedOutCB, 0x6483A0);
 
@@ -167,4 +168,15 @@ void CTaskSimpleCarSlowBeDraggedOut::InjectHooks() {
     RH_ScopedVMTInstall(MakeAbortable, 0x64C080);
     RH_ScopedVMTInstall(ProcessPed, 0x64E180);
     RH_ScopedVMTInstall(SetPedPosition, 0x64C0E0);
+}
+
+// 0x64C060 (lote 128A, banco Fn128A) : destructor con borrado de CTaskSimpleCarSlowBeDraggedOut del EXE (ranura 0 de su vtable 0x86EF0C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6482C0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x6482C0), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleCarSlowBeDraggedOut* CTaskSimpleCarSlowBeDraggedOut::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

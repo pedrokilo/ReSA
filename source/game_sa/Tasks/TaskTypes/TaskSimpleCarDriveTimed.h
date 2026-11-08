@@ -24,8 +24,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
     CTaskSimpleCarDriveTimed* Constructor(CVehicle* vehicle, int32 nTime);
+    CTaskSimpleCarDriveTimed* ScalarDeletingDestructor(uint8 flags); // 0x46F670 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x859E50), `ret 4`
     // 0x46F690
-    CTaskSimpleCarDriveTimed* Destructor() {
+    __declspec(noinline) CTaskSimpleCarDriveTimed* Destructor() {
         this->CTaskSimpleCarDriveTimed::~CTaskSimpleCarDriveTimed();
         return this;
     }

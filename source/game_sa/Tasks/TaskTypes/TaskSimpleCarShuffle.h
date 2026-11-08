@@ -43,8 +43,9 @@ private: // Wrappers for hooks
         return this;
     }
 
+    CTaskSimpleCarShuffle* ScalarDeletingDestructor(uint8 flags); // 0x64B3C0 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86ED74), `ret 4`
     // 0x646890
-    CTaskSimpleCarShuffle* Destructor() {
+    __declspec(noinline) CTaskSimpleCarShuffle* Destructor() {
         this->CTaskSimpleCarShuffle::~CTaskSimpleCarShuffle();
         return this;
     }

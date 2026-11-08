@@ -28,8 +28,9 @@ private: // Wrappers for hooks
         return this;
     }
 
+    CTaskSimpleHurtPedWithCar* ScalarDeletingDestructor(uint8 flags); // 0x656AE0 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86F2E4), `ret 4`
     // 0x653F30
-    CTaskSimpleHurtPedWithCar* Destructor() {
+    __declspec(noinline) CTaskSimpleHurtPedWithCar* Destructor() {
         this->CTaskSimpleHurtPedWithCar::~CTaskSimpleHurtPedWithCar();
         return this;
     }

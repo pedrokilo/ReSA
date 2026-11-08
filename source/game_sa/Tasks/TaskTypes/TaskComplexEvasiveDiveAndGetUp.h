@@ -35,8 +35,9 @@ private: // Wrappers for hooks
         return this;
     }
 
+    CTaskComplexEvasiveDiveAndGetUp* ScalarDeletingDestructor(uint8 flags); // 0x655FE0 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86F268), `ret 4`
     // 0x653740
-    CTaskComplexEvasiveDiveAndGetUp* Destructor() {
+    __declspec(noinline) CTaskComplexEvasiveDiveAndGetUp* Destructor() {
         this->CTaskComplexEvasiveDiveAndGetUp::~CTaskComplexEvasiveDiveAndGetUp();
         return this;
     }
