@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,565** funciones en 506 clases/módulos (rango 0x401000–0x74FFFF): 2,543 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,555** funciones en 496 clases/módulos (rango 0x401000–0x74FFFF): 2,533 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,16 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CCrime | 1 | 10 |
-| CCivilianPed | 1 | 11 |
-| CDamageManager | 1 | 11 |
-| CTaskComplexEnterCarAsDriver | 1 | 11 |
-| CTaskComplexEnterCarAsPassenger | 1 | 11 |
-| CTaskComplexFacial | 1 | 11 |
-| CTaskComplexPartnerDeal | 1 | 11 |
-| CTaskSimpleAchieveHeading | 1 | 11 |
-| CTaskSimpleGoTo | 1 | 11 |
-| CTaskSimpleSetStayInSamePlace | 1 | 11 |
 | BoneNode_c | 1 | 12 |
 | CUserDisplay | 1 | 15 |
 | CGenericGameStorage | 1 | 16 |
@@ -516,66 +506,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxInfoManager_c | 116 | 6591 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CCrime (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00532240 | 10 | A |  | 1 | 1 |  | baja |
-
-## CCivilianPed (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005DDBE0 | 11 | A |  | 1 | 1 |  | alta |
-
-## CDamageManager (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006C2740 | 11 | C |  | 1 | 0 |  | baja |
-
-## CTaskComplexEnterCarAsDriver (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00640330 | 11 | C |  | 1 | 0 |  | baja |
-
-## CTaskComplexEnterCarAsPassenger (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00640380 | 11 | C |  | 3 | 0 |  | baja |
-
-## CTaskComplexFacial (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00690D90 | 11 | C |  | 1 | 0 |  | alta |
-
-## CTaskComplexPartnerDeal (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00684200 | 11 | A |  | 3 | 1 |  | baja |
-
-## CTaskSimpleAchieveHeading (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00667E70 | 11 | C |  | 1 | 0 |  | alta |
-
-## CTaskSimpleGoTo (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00667A00 | 11 | C |  | 2 | 0 |  | alta |
-
-## CTaskSimpleSetStayInSamePlace (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0062F5D0 | 11 | C |  | 3 | 0 |  | alta |
 
 ## BoneNode_c (1)
 
@@ -2054,7 +1984,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x00683A40 | 142 | A |  | 6 | 1 |  | baja |
+| 0x00683A40 | 142 | A |  | 6 | 2 |  | baja |
 | 0x00684D10 | 137 | B |  | 0 | 0 | sí | baja |
 
 ## Input (2)

@@ -3,3 +3,4 @@ CTaskComplexPartnerGreet,CreateFirstSubTask,0x00000000,1,0,1,V,hooks.csv
 CTaskComplex,Destructor,0x0061A3D0,1,0,1,S,hooks.csv
 CTaskSimple,Constructor,0x0061A390,1,0,1,S,hooks.csv
 CTaskComplex,Constructor,0x0061A3B0,1,0,1,S,hooks.csv
+CTaskSimpleGoTo,DestructorBody,0x00667A00,1,0,1,S,hooks.csv
