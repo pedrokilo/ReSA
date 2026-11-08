@@ -37,9 +37,14 @@ END GENERATED HOOK STATUS */
 #pragma warning(pop)
 #endif
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
 void CTaskComplexPartner::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexPartner, 0x870664, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexPartnerBody::Destructor, "Destructor", 0x683A40);
     RH_ScopedInstall(Constructor, 0x681E70);
     RH_ScopedInstall(ComputeTargetPoints, 0x681FE0);
     RH_ScopedInstall(GetStateOfPartnerTask, 0x6822B0);
@@ -70,18 +75,38 @@ CTaskComplexPartner::CTaskComplexPartner(const char* commandName, CPed* partner,
     CEntity::SafeRegisterRef(m_partner);
 }
 
-/*!
- * @addr 0x683A40
- */
-CTaskComplexPartner::~CTaskComplexPartner() {
-    CEntity::SafeCleanUpRef(m_partner);
+// 0x683A40 (lote 123A, banco Fn123A): cuerpo no virtual de ~CTaskComplexPartner del EXE (thiscall, sin argumentos de pila, `ret`). El EXE lo envuelve en un marco SEH que solo desenrolla
+// (el estado -1/0 solo cubre la llamada a la base) y lo llaman los cuerpos de destructor de las subclases (0x684200, ...), sus funclets de limpieza y los destructores con borrado.
+// Orden del EXE: vtable de CTaskComplexPartner del EXE (0x870664); libera con CEntity::CleanUpOldReference (0x571A00) el companero de +0x38 si no es nulo; si el byte +0x6E (m_requiredAnimsStreamedIn,
+// probado entero) no es cero: si el primer byte del nombre del bloque (+0x5E) difiere del byte de 0x858B54 (`repe cmps` de un byte; ese byte vale 0, es decir, nombre no vacio) llama a
+// CAnimManager::GetAnimationBlockIndex (0x4D3990) y a RemoveAnimBlockRef (0x4D3FD0) con su resultado; pone el byte +0x6E a 0; por ultimo llama a CTaskComplex::Destructor (0x61A3D0).
+namespace {
+uint8 PartnerByteOf(const bool& flag) {
+    return reinterpret_cast<const uint8&>(flag);
+}
 
-    if (m_requiredAnimsStreamedIn) {
-        if (strcmp(m_animBlockName, "") != 0) {
-            CAnimManager::RemoveAnimBlockRef(CAnimManager::GetAnimationBlockIndex(m_animBlockName));
+void ReleasePartnerResources(CTaskComplexPartner& task) {
+    CEntity::SafeCleanUpRef(task.m_partner);
+
+    if (PartnerByteOf(task.m_requiredAnimsStreamedIn)) {
+        if (task.m_animBlockName[0] != '\0') {
+            CAnimManager::RemoveAnimBlockRef(CAnimManager::GetAnimationBlockIndex(task.m_animBlockName));
         }
-        m_requiredAnimsStreamedIn = false;
+        task.m_requiredAnimsStreamedIn = false;
     }
+}
+} // namespace
+
+namespace CTaskComplexPartnerBody {
+void __fastcall Destructor(CTaskComplexPartner* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870664;
+    ReleasePartnerResources(*self);
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace CTaskComplexPartnerBody
+
+CTaskComplexPartner::~CTaskComplexPartner() {
+    ReleasePartnerResources(*this);
 }
 
 CTaskComplexPartner* CTaskComplexPartner::Constructor(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, bool makePedAlwaysFacePartner, int8 updateDirectionCount, CVector point) {

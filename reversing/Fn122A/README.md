@@ -58,3 +58,6 @@ Fuente restaurada (`cmp` por SHA256 contra las copias buenas) y sonda recompilad
 
 ## Tiempo
 Una corrida de los 163840 pares: unos 6 min (mas la compilacion incremental de la sonda).
+
+## Actualizacion del lote 123A (08/11/2026)
+`~CTaskComplexPartner` (0x683A40) tiene hook RH y banco propio desde el lote 123A (`reversing/Fn123A`: 16384 pares contra el EXE, cero diferencias). Lo dicho arriba de que 0x683A40 no tiene hook y de que 0x684200 dependia del EXE por esa llamada ya no aplica: el cuerpo de `CTaskComplexPartnerDeal` llama ahora a `CTaskComplexPartnerBody::Destructor` en C++. El banco se adapto (`run_local.py` espera `(0x683A40, True)`: `MakeCollab` ya parchea tambien el cuerpo de la DLL) y se repitio aprobado con el codigo final: `resultados-fn122a/20261108-034147-968424` (archivada en `reversing/CppTwelveLevel6Final/runs/Fn122A-20261108-034147-968424`; 163840 pares, cero diferencias).

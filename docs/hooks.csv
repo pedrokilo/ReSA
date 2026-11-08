@@ -9365,3 +9365,4 @@ CTaskComplexPartnerDeal,Destructor,0x00684200,1,0,1,S
 CTaskSimpleAchieveHeading,Destructor,0x00667E70,1,0,1,S
 CTaskSimpleGoTo,DestructorBody,0x00667A00,1,0,1,S
 CTaskSimpleSetStayInSamePlace,Destructor,0x0062F5D0,1,0,1,S
+CTaskComplexPartner,Destructor,0x00683A40,1,0,1,S

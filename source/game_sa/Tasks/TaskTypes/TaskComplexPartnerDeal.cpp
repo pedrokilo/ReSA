@@ -26,11 +26,11 @@ END GENERATED HOOK STATUS */
 
 namespace {
 // 0x684200 (lote 122A, banco Fn122A): cuerpo no virtual de ~CTaskComplexPartnerDeal del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx], 0x870754 ; jmp 0x683A40`).
-// Deja la vtable de CTaskComplexPartnerDeal del EXE (0x870754) y salta a ~CTaskComplexPartner (0x683A40). Ese cuerpo base aun no esta enganchado (usa un marco SEH y `repe cmps`; ver Fn115A):
-// se llama por su direccion del EXE, igual que el EXE. Lo llaman el funclet de limpieza (SEH) y el destructor con borrado.
+// Deja la vtable de CTaskComplexPartnerDeal del EXE (0x870754) y salta a ~CTaskComplexPartner (0x683A40), que desde el lote 123A (banco Fn123A) esta en C++: llamada directa.
+// Lo llaman el funclet de limpieza (SEH) y el destructor con borrado.
 void __fastcall PartnerDealDestructorBody(CTaskComplexPartnerDeal* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x870754;
-    plugin::CallMethod<0x683A40, CTaskComplexPartnerDeal*>(self);
+    CTaskComplexPartnerBody::Destructor(self, nullptr);
 }
 } // namespace
 

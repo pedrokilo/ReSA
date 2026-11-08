@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexPartner::Destructor": 16384
+  },
+  "covered_functions": {
+    "CTaskComplexPartner::Destructor": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 1dd408a67c con los cambios del lote (ver artifacts/build-manifest.json). 0x683A40 es el cuerpo no virtual de ~CTaskComplexPartner (marco SEH que solo desenrolla): vtable 0x870664, CEntity::CleanUpOldReference (0x571A00) del companero de +0x38, bloque de animaciones (0x4D3990 y 0x4D3FD0) si el byte +0x6E y el primer byte del nombre (+0x5E; el repe cmps de un byte contra 0x858B54, que vale 0) no son cero, byte +0x6E a cero y CTaskComplex::Destructor (0x61A3D0). Los cuatro colaboradores tienen hook RH y son falsos identicos en el EXE y en el cuerpo de la DLL (se comprueba su orden y sus argumentos). El cuerpo de 0x684200 (~CTaskComplexPartnerDeal, lote 122A) pasa a llamar a este cuerpo en C++ (llamada directa). Fuera de los fixtures: objetos reales construidos por el EXE (funclets SEH, destructores con borrado, excepciones dentro del marco SEH), this nulo o crudo, el cuerpo real de los colaboradores (falseados; tienen sus propios bancos), y los registros volatiles tras la llamada (ningun llamador los lee).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn123A-20261108-034013-483427",
+  "summary_sha256": "858dfece80536223e7eb0b7fa5f313956b6d9167a260dae158b9de05b5717451",
+  "result_txt_sha256": "632199ad607bdff675c962c93068052895a4fb823753fa50f8f2c7a54968bdf1",
+  "log_sha256": "ffabd69b06f48eef237176419660be2ccd78ccd079b617a31cb7eea6c7dea56a",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "ce31087ee75c3c0a5f49cf830a7fb3ba33098ed54554b9f145999a4538cb916f",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "79458c171c8e14354a08dde120c4072cadba6ca690883c367ac7f1c0d8b2ebf5",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "b4865077c881b16ed70bc4423728b8e0d4ff59897d31697da0fbb492a80542df",
+      "source/game_sa/Tasks/Task.cpp": "be8bc85ded7b60208f987af721340a13aa0db0d50272406ad67ec86f4101c0e6",
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn123A/LiveComparison.hpp": "5869fbc855b30b4bac141e50fded522addc0a5ad5f28f7168d89bebb7220cb2a",
+      "reversing/Fn123A/Core.hpp": "818fd90896fa2989e03b97799c2826fe98c3cbc8860422df9dbf6820956f723d",
+      "reversing/Fn123A/Fixtures.hpp": "4fd5034d066dc501279316dbebe04c9a121a74702ebfada26aeefcdd5c49a88c",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

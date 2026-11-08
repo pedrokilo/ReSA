@@ -55,3 +55,8 @@ private:
 };
 
 VALIDATE_SIZE(CTaskComplexPartner, 0x70);
+
+namespace CTaskComplexPartnerBody {
+// 0x683A40: cuerpo no virtual de ~CTaskComplexPartner del EXE (lo llaman los cuerpos de destructor de las subclases)
+void __fastcall Destructor(CTaskComplexPartner* self, void* edx);
+}

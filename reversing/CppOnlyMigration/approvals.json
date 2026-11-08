@@ -19195,5 +19195,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn122A con 163840 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main f1969b0d54 con los cambios del lote (ver artifacts/build-manifest.json). Las clases del listado se atribuian por cercania: las reales salen del desensamblado, de la vtable que escribe cada funcion y de sus llamadores (0x532240 = CDebug::DebugInitTextBuffer, 0x6C2740 = cBuoyancy::cBuoyancy; las otras ocho son cuerpos de destructor que escriben su vtable y saltan al destructor base). Los colaboradores a los que saltan los cuerpos de destructor (CPed::Destructor 0x5E8620, CTaskComplexEnterCar::Destructor 0x63DFA0, CTaskComplex::Destructor 0x61A3D0, CTask::Destructor 0x61A3A0) tienen hook RH y son falsos identicos en el EXE y en el cuerpo de la DLL; ~CTaskComplexPartner (0x683A40) SIN hook (marco SEH y repe cmps; lo dejo el lote 115A): falso en la direccion del EXE, que la DLL llama por esa direccion, asi que 0x684200 sigue dependiendo del EXE por esa llamada. Cada caso se ejecuta por la entrada del EXE con un objeto sintetico en una arena propia (desplazamiento alineado, desalineado o al borde de la ventana), con imagen previa conocida; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los cuerpos de la DLL escriben la direccion literal de la vtable del EXE (no la del ASI), asi que los objetos que construye el EXE la conservan. Fuera de los fixtures: objetos reales construidos por el EXE (funclets SEH, destructores con borrado), this nulo o crudo, el cuerpo real de los destructores base (falseados), y los registros volatiles tras la llamada (ningun llamador los lee; EXE y DLL difieren en EAX/ECX de 0x532240 y en ECX de 0x6C2740)."
+  },
+  "0x00683A40": {
+    "identity": "CTaskComplexPartner::Destructor",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp",
+    "bank": "Fn123A",
+    "run": "20261108-034013-483427",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn123A-20261108-034013-483427/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn123A con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 1dd408a67c con los cambios del lote (ver artifacts/build-manifest.json). 0x683A40 es el cuerpo no virtual de ~CTaskComplexPartner (marco SEH que solo desenrolla): vtable 0x870664, CEntity::CleanUpOldReference (0x571A00) del companero de +0x38, bloque de animaciones (0x4D3990 y 0x4D3FD0) si el byte +0x6E y el primer byte del nombre (+0x5E; el repe cmps de un byte contra 0x858B54, que vale 0) no son cero, byte +0x6E a cero y CTaskComplex::Destructor (0x61A3D0). Los cuatro colaboradores tienen hook RH y son falsos identicos en el EXE y en el cuerpo de la DLL (se comprueba su orden y sus argumentos). El cuerpo de 0x684200 (~CTaskComplexPartnerDeal, lote 122A) pasa a llamar a este cuerpo en C++ (llamada directa). Fuera de los fixtures: objetos reales construidos por el EXE (funclets SEH, destructores con borrado, excepciones dentro del marco SEH), this nulo o crudo, el cuerpo real de los colaboradores (falseados; tienen sus propios bancos), y los registros volatiles tras la llamada (ningun llamador los lee)."
   }
 }
