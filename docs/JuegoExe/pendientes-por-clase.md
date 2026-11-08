@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,580** funciones en 517 clases/módulos (rango 0x401000–0x74FFFF): 2,558 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,576** funciones en 517 clases/módulos (rango 0x401000–0x74FFFF): 2,554 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -254,6 +254,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | IKChain_c | 2 | 205 |
 | WaterCreature_c | 2 | 211 |
 | CTaskSimpleFightingControl | 2 | 215 |
+| CWaterLevel | 2 | 219 |
 | CTaskSimpleFight | 2 | 223 |
 | CTaskComplexObserveTrafficLightsAndAchieveHeading | 2 | 229 |
 | CCheat | 2 | 246 |
@@ -269,6 +270,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | VideoMode | 2 | 382 |
 | CPedIntelligence | 2 | 419 |
 | SurfaceInfos_c | 2 | 2174 |
+| CMemoryMgr | 3 | 7 |
 | CEventCarUpsideDown | 3 | 15 |
 | CEventCopCarBeingStolen | 3 | 15 |
 | CEventInAir | 3 | 15 |
@@ -317,7 +319,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskComplexWanderProstitute | 3 | 223 |
 | CAnimBlendHierarchy | 3 | 244 |
 | CFont | 3 | 251 |
-| CWaterLevel | 3 | 253 |
 | Common | 3 | 260 |
 | CTaskComplexWalkRoundObject | 3 | 273 |
 | CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse | 3 | 304 |
@@ -342,7 +343,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CEventPotentialWalkIntoVehicle | 4 | 20 |
 | CEventVehicleDied | 4 | 20 |
 | CEventVehicleDamage | 4 | 23 |
-| CMemoryMgr | 4 | 26 |
 | CEventDanger | 4 | 43 |
 | CEventAreaCodes | 4 | 56 |
 | CTaskComplexSequence | 4 | 65 |
@@ -434,6 +434,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTxdStore | 6 | 388 |
 | CAnimManager | 6 | 434 |
 | CTaskComplexSeekEntityAiming | 6 | 451 |
+| CTaskComplexStealCar | 6 | 461 |
 | CTaskSimpleIKPointArm | 6 | 516 |
 | CTaskComplexWaitForPed | 6 | 772 |
 | Ps | 6 | 876 |
@@ -451,10 +452,10 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskAllocatorPool | 7 | 362 |
 | CEventKnockOffBike | 7 | 395 |
 | CPtrNodeDoubleLinkPool | 7 | 436 |
-| CTaskComplexStealCar | 7 | 495 |
 | CObject | 7 | 728 |
 | CCam | 7 | 1059 |
 | CPed | 7 | 1093 |
+| CEntityScanner | 7 | 1435 |
 | CEventLeaderQuitEnteringCarAsDriver | 8 | 146 |
 | CEvent | 8 | 280 |
 | CTaskSimpleHoldEntity | 8 | 302 |
@@ -466,7 +467,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskSimpleDuck | 8 | 496 |
 | CTaskComplexGoToPointAndStandStill | 8 | 977 |
 | CTaskSimpleBeHit | 8 | 1022 |
-| CEntityScanner | 8 | 1443 |
 | CEventLeaderEntryExit | 9 | 153 |
 | CTaskSimpleUninterruptable | 9 | 154 |
 | CAEAudioEntity | 9 | 176 |
@@ -2085,6 +2085,13 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0061DE60 | 185 | A |  | 9 | 9 |  | baja |
 | 0x00624DA0 | 30 | B |  | 0 | 0 | sí | baja |
 
+## CWaterLevel (2)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x006E67A0 | 208 | D |  | 0 | 0 |  | alta |
+| 0x006E76E0 | 11 | C |  | 1 | 0 |  | alta |
+
 ## CTaskSimpleFight (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -2189,6 +2196,14 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x0055EB90 | 1814 | A |  | 1 | 1 |  | alta |
 | 0x0055F2B0 | 360 | A |  | 1 | 1 |  | alta |
+
+## CMemoryMgr (3)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0072F4A0 | 1 | A |  | 2 | 1 |  | alta |
+| 0x0072F4B0 | 1 | A |  | 2 | 1 |  | alta |
+| 0x0072F500 | 5 | A |  | 2 | 2 |  | baja |
 
 ## CEventCarUpsideDown (3)
 
@@ -2574,14 +2589,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00719240 | 115 | A |  | 3 | 3 |  | alta |
 | 0x00719360 | 19 | A |  | 2 | 2 |  | alta |
 
-## CWaterLevel (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006E67A0 | 208 | D |  | 0 | 0 |  | alta |
-| 0x006E76E0 | 11 | C |  | 1 | 0 |  | alta |
-| 0x006E8550 | 34 | A |  | 4 | 4 |  | alta |
-
 ## Common (3)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -2780,15 +2787,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004B1970 | 7 | B |  | 0 | 0 | sí | alta |
 | 0x004B1980 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x004B1B50 | 7 | C |  | 1 | 0 |  | baja |
-
-## CMemoryMgr (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0072F460 | 19 | A |  | 3 | 3 |  | alta |
-| 0x0072F4A0 | 1 | A |  | 2 | 1 |  | alta |
-| 0x0072F4B0 | 1 | A |  | 2 | 1 |  | alta |
-| 0x0072F500 | 5 | A |  | 2 | 2 |  | baja |
 
 ## CEventDanger (4)
 
@@ -3673,6 +3671,17 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00695C00 | 30 | B |  | 0 | 0 | sí | alta |
 | 0x00695DC0 | 113 | C |  | 1 | 0 |  | baja |
 
+## CTaskComplexStealCar (6)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0063B960 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x0063BA00 | 157 | A |  | 3 | 3 |  | baja |
+| 0x0063BAE0 | 122 | A |  | 2 | 2 |  | baja |
+| 0x0063D9E0 | 116 | B |  | 0 | 0 | sí | baja |
+| 0x006410E0 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x00642250 | 30 | B |  | 0 | 0 | sí | baja |
+
 ## CTaskSimpleIKPointArm (6)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -3868,18 +3877,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00552470 | 112 | A |  | 15 | 10 |  | baja |
 | 0x00552520 | 114 | A |  | 5 | 3 |  | baja |
 
-## CTaskComplexStealCar (7)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0063B960 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0063BA00 | 157 | A |  | 3 | 3 |  | baja |
-| 0x0063BAB0 | 34 | A |  | 2 | 2 |  | baja |
-| 0x0063BAE0 | 122 | A |  | 2 | 2 |  | baja |
-| 0x0063D9E0 | 116 | B |  | 0 | 0 | sí | baja |
-| 0x006410E0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00642250 | 30 | B |  | 0 | 0 | sí | baja |
-
 ## CObject (7)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -3915,6 +3912,18 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x005E47A0 | 49 | C |  | 3 | 0 |  | alta |
 | 0x005E88E0 | 43 | A |  | 1 | 1 |  | alta |
 | 0x005E8C80 | 76 | B |  | 0 | 0 | sí | baja |
+
+## CEntityScanner (7)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x005FFE60 | 113 | A |  | 1 | 1 |  | baja |
+| 0x005FFF30 | 55 | A |  | 1 | 1 |  | baja |
+| 0x006034B0 | 181 | A |  | 2 | 2 |  | baja |
+| 0x00603570 | 422 | A |  | 1 | 1 |  | baja |
+| 0x00603A30 | 187 | A |  | 1 | 1 |  | baja |
+| 0x00603AF0 | 241 | A |  | 4 | 0 |  | baja |
+| 0x006042B0 | 236 | A |  | 1 | 0 |  | baja |
 
 ## CEventLeaderQuitEnteringCarAsDriver (8)
 
@@ -4058,19 +4067,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00620E00 | 41 | B |  | 0 | 0 | sí | baja |
 | 0x00623300 | 112 | B |  | 0 | 0 | sí | baja |
 | 0x00623370 | 137 | B |  | 0 | 0 | sí | baja |
-
-## CEntityScanner (8)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005FFE60 | 113 | A |  | 1 | 1 |  | baja |
-| 0x005FFF30 | 55 | A |  | 1 | 1 |  | baja |
-| 0x006034B0 | 181 | A |  | 2 | 2 |  | baja |
-| 0x00603570 | 422 | A |  | 1 | 1 |  | baja |
-| 0x00603A30 | 187 | A |  | 1 | 1 |  | baja |
-| 0x00603AF0 | 241 | A |  | 4 | 0 |  | baja |
-| 0x006040C0 | 8 | A |  | 7 | 6 |  | baja |
-| 0x006042B0 | 236 | A |  | 1 | 0 |  | baja |
 
 ## CEventLeaderEntryExit (9)
 

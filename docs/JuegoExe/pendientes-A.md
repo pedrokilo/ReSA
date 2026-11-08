@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 07/11/2026 (Ciudad de México):** 865 grupos / 9341 funciones reconstruidas; 9341 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 07/11/2026 (Ciudad de México):** 865 grupos / 9345 funciones reconstruidas; 9345 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-703 funciones, 99,861 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+699 funciones, 99,766 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -60,7 +60,6 @@
 | `0x00541F40` | 38 | CPad | baja | 6 (6) |  |
 | `0x0074A4C0` | 33 | Win | baja | 6 (6) |  |
 | `0x00734EA0` | 9 | RwHelper | baja | 6 (6) |  |
-| `0x006040C0` | 8 | CEntityScanner | baja | 7 (6) |  |
 | `0x0041BD50` | 7 | CBridge | baja | 6 (6) |  |
 | `0x00411BA0` | 4 | CPlaceable | baja | 6 (6) |  |
 | `0x0047E050` | 4 | CTheCarGenerators | baja | 6 (6) |  |
@@ -98,7 +97,6 @@
 | `0x006F5440` | 70 | cHandlingDataMgr | baja | 4 (4) |  |
 | `0x0063A040` | 61 | CVehicleAnimGroupData | baja | 4 (4) |  |
 | `0x00441130` | 54 | CEntryExitManager | baja | 8 (4) |  |
-| `0x006E8550` | 34 | CWaterLevel | alta | 4 (4) |  |
 | `0x0053EDC0` | 23 | App | baja | 4 (4) |  |
 | `0x005FE9C0` | 23 | CPedIK | baja | 6 (4) |  |
 | `0x00404090` | 11 | CBuildingPool | baja | 4 (4) |  |
@@ -148,7 +146,6 @@
 | `0x00403E00` | 32 | CEntity | baja | 4 (3) |  |
 | `0x00572DB0` | 26 | CTheZones | baja | 3 (3) |  |
 | `0x0043A6A0` | 23 | CCheat | baja | 4 (3) |  |
-| `0x0072F460` | 19 | CMemoryMgr | alta | 3 (3) |  |
 | `0x004A8DB0` | 16 | FxInfoManager_c | baja | 15 (3) |  |
 | `0x00552C80` | 11 | CQuadTreeNode<T> | alta | 3 (3) |  |
 | `0x0074CCB0` | 9 | Win | baja | 7 (3) |  |
@@ -220,7 +217,6 @@
 | `0x005A1EF0` | 36 | CObjectPool | baja | 2 (2) |  |
 | `0x00533020` | 35 | CEntity | alta | 2 (2) | sí |
 | `0x0059ACF0` | 35 | CMaths | baja | 2 (2) |  |
-| `0x0063BAB0` | 34 | CTaskComplexStealCar | baja | 2 (2) |  |
 | `0x0074DC20` | 34 | Win | baja | 5 (2) |  |
 | `0x004DA510` | 33 | CAECollisionAudioEntity | alta | 2 (2) |  |
 | `0x00463370` | 31 | CRoadBlocks | baja | 5 (2) |  |

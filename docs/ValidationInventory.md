@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,341 entradas reversed=1**, de 9,341 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,345 entradas reversed=1**, de 9,345 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9341 |
+| `validated=1` · evidencia aprobada vinculada | 9345 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9341 |
+| Evidencia histórica vinculada; revisión pendiente | 9345 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2275,6 +2275,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CData | `Unload` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CDebug | `DebugDisplayTextBuffer` | [Resumen](../reversing/Misc56/validation-summary.json) |
 | CDecision | `Add` | [Resumen](../reversing/DecisionAdd27/validation-summary.json) |
+| CDecision | `Constructor` | [Resumen](../reversing/Fn118A/validation-summary.json) |
 | CDecision | `From` | [Resumen](../reversing/RequestedLeafValidation/LiveBatch/validation-summary.json) |
 | CDecision | `MakeDecision` | [Resumen](../reversing/DecisionMakeDecision27/validation-summary.json) |
 | CDecision | `Set` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
@@ -3440,12 +3441,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMatrixLinkList | `MoveToList2` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `Shutdown` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMemoryHeap | `IntegrityCheck` | [Resumen](../reversing/Misc61/validation-summary.json) |
+| CMemoryMgr | `Calloc-NumSizeHint` | [Resumen](../reversing/Fn118A/validation-summary.json) |
 | CMemoryMgr | `Free` | [Resumen](../reversing/Fn100A/validation-summary.json) |
-| CMemoryMgr | `FreeAlign` | [Resumen](../reversing/DependenciesMemory9/validation-summary.json) |
+| CMemoryMgr | `FreeAlign` | [Resumen](../reversing/Fn118A/validation-summary.json) |
 | CMemoryMgr | `InitScratchPad` | [Resumen](../reversing/DependenciesLeaf2/validation-summary.json) |
-| CMemoryMgr | `Malloc-SizeHint` | [Resumen](../reversing/DependenciesMemory9/validation-summary.json) |
-| CMemoryMgr | `MallocAlign-SizeAlignHint` | [Resumen](../reversing/DependenciesMemory9/validation-summary.json) |
-| CMemoryMgr | `Realloc-MemorySizeHint` | [Resumen](../reversing/DependenciesMemory9/validation-summary.json) |
+| CMemoryMgr | `Malloc-SizeHint` | [Resumen](../reversing/Fn118A/validation-summary.json) |
+| CMemoryMgr | `MallocAlign-SizeAlignHint` | [Resumen](../reversing/Fn118A/validation-summary.json) |
+| CMemoryMgr | `Realloc-MemorySizeHint` | [Resumen](../reversing/Fn118A/validation-summary.json) |
 | CMentalState | `Process` | [Resumen](../reversing/EventScanners61/validation-summary.json) |
 | CMenuManager | `AdditionalOptionInput` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
 | CMenuManager | `CentreMousePointer` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
@@ -6215,6 +6217,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexLeaveBoat | `CreateSubTask` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
 | CTaskComplexLeaveBoat | `Destructor` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
 | CTaskComplexLeaveBoat | `GetTaskType` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
+| CTaskComplexLeaveCar | `ComputeTargetDoor` | [Resumen](../reversing/Fn118A/validation-summary.json) |
 | CTaskComplexLeaveCar | `Constructor` | [Resumen](../reversing/LeaveCarCtor71/validation-summary.json) |
 | CTaskComplexLeaveCar | `ControlSubTask` | [Resumen](../reversing/LeaveCarCore71/validation-summary.json) |
 | CTaskComplexLeaveCar | `CreateFirstSubTask` | [Resumen](../reversing/LeaveCarFirst70/validation-summary.json) |
@@ -8398,6 +8401,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterLevel | `AddWaveToResult` | [Resumen](../reversing/WaterQuery355/validation-summary.json) |
 | CWaterLevel | `BlockHit` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `CalculateWavesOnlyForCoordinate` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `CalculateWavesOnlyForCoordinate2` | [Resumen](../reversing/Fn118A/validation-summary.json) |
 | CWaterLevel | `CalculateWavesOnlyForCoordinate2Native` | [Resumen](../reversing/DependenciesWorld9/validation-summary.json) |
 | CWaterLevel | `FillQuadsAndTrianglesList` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `FindNearestWaterAndItsFlow` | [Resumen](../reversing/WaterNearest355/validation-summary.json) |
@@ -9513,7 +9517,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CDarkel` | 19 | 0 | 19 | 0 |
 | `CData` | 2 | 0 | 2 | 0 |
 | `CDebug` | 1 | 0 | 1 | 0 |
-| `CDecision` | 5 | 0 | 5 | 0 |
+| `CDecision` | 6 | 0 | 6 | 0 |
 | `CDecisionMaker` | 1 | 0 | 1 | 0 |
 | `CDecisionMakerTypes` | 10 | 0 | 10 | 0 |
 | `CDecisionMakerTypesFileLoader` | 7 | 0 | 7 | 0 |
@@ -9661,7 +9665,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CMatrixLink` | 2 | 0 | 2 | 0 |
 | `CMatrixLinkList` | 10 | 0 | 10 | 0 |
 | `CMemoryHeap` | 1 | 0 | 1 | 0 |
-| `CMemoryMgr` | 6 | 0 | 6 | 0 |
+| `CMemoryMgr` | 7 | 0 | 7 | 0 |
 | `CMentalState` | 1 | 0 | 1 | 0 |
 | `CMenuManager` | 61 | 0 | 61 | 0 |
 | `CMenuSystem` | 21 | 0 | 21 | 0 |
@@ -9907,7 +9911,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexKillPedOnFootStealth` | 7 | 0 | 7 | 0 |
 | `CTaskComplexLeaveAnyCar` | 7 | 0 | 7 | 0 |
 | `CTaskComplexLeaveBoat` | 8 | 0 | 8 | 0 |
-| `CTaskComplexLeaveCar` | 8 | 0 | 8 | 0 |
+| `CTaskComplexLeaveCar` | 9 | 0 | 9 | 0 |
 | `CTaskComplexLeaveCarAndDie` | 4 | 0 | 4 | 0 |
 | `CTaskComplexLeaveCarAndFlee` | 8 | 0 | 8 | 0 |
 | `CTaskComplexLeaveCarAndWander` | 8 | 0 | 8 | 0 |
@@ -10154,7 +10158,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWanted` | 33 | 0 | 33 | 0 |
 | `CWaterCannon` | 5 | 0 | 5 | 0 |
 | `CWaterCannons` | 4 | 0 | 4 | 0 |
-| `CWaterLevel` | 46 | 0 | 46 | 0 |
+| `CWaterLevel` | 47 | 0 | 47 | 0 |
 | `CWeapon` | 41 | 0 | 41 | 0 |
 | `CWeaponEffects` | 10 | 0 | 10 | 0 |
 | `CWeaponInfo` | 12 | 0 | 12 | 0 |
