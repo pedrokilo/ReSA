@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,472** funciones en 414 clases/módulos (rango 0x401000–0x74FFFF): 2,450 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,458** funciones en 400 clases/módulos (rango 0x401000–0x74FFFF): 2,436 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,20 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CRoadBlocks | 1 | 31 |
-| CEventEscalator | 1 | 32 |
-| CAECollisionAudioEntity | 1 | 33 |
-| CGeneral | 1 | 47 |
-| CAEMP3BankLoader | 1 | 48 |
-| CWorld | 1 | 51 |
-| CAEScriptAudioEntity | 1 | 52 |
-| CCollisionData | 1 | 52 |
-| cBuoyancy | 1 | 54 |
-| CPedPool | 1 | 54 |
-| CConversations | 1 | 55 |
-| CShadowCamera | 1 | 57 |
-| CSprite | 1 | 57 |
-| CColLine | 1 | 58 |
 | CVehicleAnimGroupData | 1 | 61 |
 | CAEBankLoader | 1 | 63 |
 | CTimeInfo | 1 | 63 |
@@ -424,90 +410,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxInfoManager_c | 116 | 6591 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CRoadBlocks (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00463370 | 31 | A |  | 5 | 2 |  | baja |
-
-## CEventEscalator (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B25E0 | 32 | B |  | 0 | 0 | sí | baja |
-
-## CAECollisionAudioEntity (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004DA510 | 33 | A |  | 2 | 2 |  | alta |
-
-## CGeneral (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0041BDD0 | 47 | A |  | 10 | 2 |  | baja |
-
-## CAEMP3BankLoader (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004E0380 | 48 | A |  | 1 | 1 |  | alta |
-
-## CWorld (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0056CE30 | 51 | A |  | 1 | 1 |  | baja |
-
-## CAEScriptAudioEntity (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004EE9A0 | 52 | C |  | 1 | 0 |  | baja |
-
-## CCollisionData (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0040F700 | 52 | A |  | 30 | 7 |  | baja |
-
-## cBuoyancy (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006C4130 | 54 | A |  | 2 | 2 |  | baja |
-
-## CPedPool (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004049C0 | 54 | D |  | 0 | 0 |  | baja |
-
-## CConversations (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0043AA40 | 55 | C |  | 2 | 0 |  | alta |
-
-## CShadowCamera (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00705480 | 57 | D |  | 0 | 0 |  | alta |
-
-## CSprite (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0070F890 | 57 | D |  | 0 | 0 |  | baja |
-
-## CColLine (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0040F030 | 58 | A |  | 5 | 3 |  | baja |
 
 ## CVehicleAnimGroupData (1)
 
