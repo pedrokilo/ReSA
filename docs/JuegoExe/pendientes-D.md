@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 08/11/2026 (Ciudad de México):** 866 grupos / 9367 funciones reconstruidas; 9367 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 08/11/2026 (Ciudad de México):** 868 grupos / 9380 funciones reconstruidas; 9380 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo D: Falta: sin llamadas ni vtable (¿muerto o por puntero?)
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-420 funciones, 59,403 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+415 funciones, 59,297 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -355,10 +355,8 @@
 | `0x004F4110` | 27 | CAEUserRadioTrackManager | alta | 0 (0) |  |
 | `0x00506DC0` | 27 | CAudioEngine | alta | 0 (0) |  |
 | `0x00514010` | 27 | CCam | baja | 0 (0) |  |
-| `0x0056F850` | 27 | CPlayerPedData | alta | 0 (0) |  |
 | `0x0059CD50` | 27 | CQuaternion | baja | 0 (0) |  |
 | `0x0063A2E0` | 27 | CTaskComplexEnterCar | alta | 0 (0) |  |
-| `0x00706850` | 27 | CRealTimeShadowManager | alta | 0 (0) |  |
 | `0x004D6430` | 26 | RpAnimBlend | alta | 0 (0) |  |
 | `0x0061FC20` | 26 | CTaskSimpleThrowControl | baja | 0 (0) |  |
 | `0x004C57A0` | 25 | CWeaponModelInfo | baja | 0 (0) |  |
@@ -368,7 +366,6 @@
 | `0x0069FFA0` | 24 | CText | baja | 0 (0) |  |
 | `0x0069FFD0` | 24 | CText | baja | 0 (0) |  |
 | `0x00517740` | 23 | CCam | baja | 0 (0) |  |
-| `0x00420860` | 22 | CCarAI | baja | 0 (0) |  |
 | `0x005C62D0` | 20 | FxEmitterBP_c | baja | 0 (0) |  |
 | `0x0043E110` | 19 | CPlaceable | baja | 0 (0) |  |
 | `0x006E3E30` | 19 | CVehicleAnimGroup | baja | 0 (0) |  |
@@ -379,7 +376,6 @@
 | `0x004C5760` | 18 | CClumpModelInfo | baja | 0 (0) |  |
 | `0x005B1A90` | 18 | CCutsceneMgr | baja | 0 (0) |  |
 | `0x005DE2E0` | 18 | CCopPed | baja | 0 (0) |  |
-| `0x005F6660` | 18 | CTaskSimpleChat | baja | 0 (0) |  |
 | `0x005FF440` | 18 | CEventSeenCop | baja | 0 (0) |  |
 | `0x005FF500` | 18 | CEventSeenCop | baja | 0 (0) |  |
 | `0x005FF5C0` | 18 | CEventSeenCop | baja | 0 (0) |  |
@@ -414,7 +410,6 @@
 | `0x005A3070` | 12 | ProcSurfaceInfo_c | baja | 0 (0) |  |
 | `0x005B2AB0` | 12 | CCam | baja | 0 (0) |  |
 | `0x005F68A0` | 12 | CTaskSimpleWaitUntilLeaderAreaCodesMatch | baja | 0 (0) |  |
-| `0x00617850` | 12 | BoneNode_c | baja | 0 (0) |  |
 | `0x006986E0` | 12 | CTaskComplexReactToGunAimedAt | baja | 0 (0) |  |
 | `0x00732D60` | 12 | CVisibilityPlugins | alta | 0 (0) |  |
 | `0x00732D80` | 12 | CVisibilityPlugins | alta | 0 (0) |  |

@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 08/11/2026 (Ciudad de México):** 866 grupos / 9367 funciones reconstruidas; 9367 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 08/11/2026 (Ciudad de México):** 868 grupos / 9380 funciones reconstruidas; 9380 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Implementaciones del juego: C++, ensamblador y dependencia del EXE
@@ -8,7 +8,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 19033 definiciones en 1572 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 19044 definiciones en 1573 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -23,7 +23,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 
 - **Excepción NOTSA con ensamblador fuera de source/game_sa:** 1 definición con 14 apariciones `__asm` (contadas por expansión de macro) y 1 `naked` en source/app/platform/win/WindowedMode.cpp: código propio del proyecto (modo ventana), no una función del juego, y su hook figura solo en hooks_notsa.csv. Se mantiene como excepción documentada, no se convierte a C++ y **no cuenta como «solo C++»**. Los contadores de ensamblador de arriba cubren source/game_sa; esta excepción se lista aparte en [el listado de excepciones NOTSA](implementaciones/catalogo-excepciones-notsa-asm.csv) y sus apariciones constan en apariciones.csv.
 
-- 5 entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).
+- 6 entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).
 
 ## Resumen por clase o grupo
 
@@ -34,9 +34,9 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [App](implementaciones/detalle-001.md#grupo-3) · [source/app/app.cpp](../source/app/app.cpp) | 7 | 0 | 0 | 0 | 0 |
 | [Attractor](implementaciones/detalle-001.md#grupo-4) · [source/game_sa/Scripts/Commands/ObjectCommands.cpp](../source/game_sa/Scripts/Commands/ObjectCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [BoneNodeManager_c](implementaciones/detalle-001.md#grupo-5) · [source/game_sa/Ragdoll/BoneNodeManager.cpp](../source/game_sa/Ragdoll/BoneNodeManager.cpp), [source/game_sa/Ragdoll/BoneNodeManager.h](../source/game_sa/Ragdoll/BoneNodeManager.h) | 7 | 0 | 3 | 0 | 0 |
-| [BoneNode_c](implementaciones/detalle-001.md#grupo-6) · [source/game_sa/Ragdoll/BoneNode.cpp](../source/game_sa/Ragdoll/BoneNode.cpp), [source/game_sa/Ragdoll/BoneNode.h](../source/game_sa/Ragdoll/BoneNode.h) | 16 | 0 | 8 | 0 | 0 |
+| [BoneNode_c](implementaciones/detalle-001.md#grupo-6) · [source/game_sa/Ragdoll/BoneNode.cpp](../source/game_sa/Ragdoll/BoneNode.cpp), [source/game_sa/Ragdoll/BoneNode.h](../source/game_sa/Ragdoll/BoneNode.h) | 17 | 0 | 8 | 0 | 0 |
 | [BreakGroup_t](implementaciones/detalle-001.md#grupo-7) · [source/game_sa/BreakObject_c.h](../source/game_sa/BreakObject_c.h) | 0 | 0 | 1 | 0 | 0 |
-| [BreakManager_c](implementaciones/detalle-001.md#grupo-8) · [source/game_sa/BreakManager_c.cpp](../source/game_sa/BreakManager_c.cpp) | 6 | 0 | 2 | 0 | 0 |
+| [BreakManager_c](implementaciones/detalle-001.md#grupo-8) · [source/game_sa/BreakManager_c.cpp](../source/game_sa/BreakManager_c.cpp) | 7 | 0 | 2 | 0 | 0 |
 | [BreakObject_c](implementaciones/detalle-001.md#grupo-9) · [source/game_sa/BreakObject_c.cpp](../source/game_sa/BreakObject_c.cpp), [source/game_sa/BreakObject_c.h](../source/game_sa/BreakObject_c.h) | 7 | 0 | 6 | 0 | 0 |
 | [BreakablePlugin](implementaciones/detalle-001.md#grupo-10) · [source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.cpp](../source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.cpp), [source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h](../source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h) | 5 | 0 | 3 | 0 | 0 |
 | [BreakablePluginData](implementaciones/detalle-001.md#grupo-11) · [source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h](../source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h) | 0 | 0 | 20 | 0 | 0 |
@@ -83,10 +83,10 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CAETwinLoopSoundEntity](implementaciones/detalle-003.md#grupo-52) · [source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp](../source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp), [source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h](../source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h) | 7 | 0 | 9 | 0 | 0 |
 | [CAEUserRadioTrackManager](implementaciones/detalle-003.md#grupo-53) · [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp](../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp) | 15 | 0 | 6 | 0 | 0 |
 | [CAEVehicleAudioEntity](implementaciones/detalle-003.md#grupo-54) · [source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp), [source/game_sa/Audio/Entities/AEVehicleAudioEntity.h](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.h) | 109 | 0 | 26 | 0 | 0 |
-| [CAEVorbisDecoder](implementaciones/detalle-003.md#grupo-55) · [source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp](../source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp) | 14 | 0 | 2 | 0 | 0 |
+| [CAEVorbisDecoder](implementaciones/detalle-003.md#grupo-55) · [source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp](../source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp) | 15 | 0 | 2 | 0 | 0 |
 | [CAEWMADecoder](implementaciones/detalle-003.md#grupo-56) · [source/game_sa/Audio/Loaders/AEWMADecoder.cpp](../source/game_sa/Audio/Loaders/AEWMADecoder.cpp) | 12 | 0 | 3 | 0 | 0 |
 | [CAEWaterCannonAudioEntity](implementaciones/detalle-003.md#grupo-57) · [source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp](../source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp) | 8 | 0 | 5 | 0 | 0 |
-| [CAEWaveDecoder](implementaciones/detalle-003.md#grupo-58) · [source/game_sa/Audio/Loaders/AEWaveDecoder.cpp](../source/game_sa/Audio/Loaders/AEWaveDecoder.cpp) | 9 | 0 | 2 | 0 | 0 |
+| [CAEWaveDecoder](implementaciones/detalle-003.md#grupo-58) · [source/game_sa/Audio/Loaders/AEWaveDecoder.cpp](../source/game_sa/Audio/Loaders/AEWaveDecoder.cpp) | 10 | 0 | 2 | 0 | 0 |
 | [CAEWeaponAudioEntity](implementaciones/detalle-003.md#grupo-59) · [source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp](../source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp) | 20 | 0 | 2 | 0 | 0 |
 | [CAEWeatherAudioEntity](implementaciones/detalle-003.md#grupo-60) · [source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp](../source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp) | 5 | 0 | 2 | 0 | 0 |
 | [CAccident](implementaciones/detalle-004.md#grupo-61) · [source/game_sa/Accident.h](../source/game_sa/Accident.h) | 0 | 0 | 2 | 0 | 0 |
@@ -328,7 +328,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CGarage](implementaciones/detalle-015.md#grupo-297) · [source/game_sa/Garage.cpp](../source/game_sa/Garage.cpp), [source/game_sa/Garage.h](../source/game_sa/Garage.h) | 32 | 0 | 7 | 0 | 0 |
 | [CGarages](implementaciones/detalle-015.md#grupo-298) · [source/game_sa/Garages.cpp](../source/game_sa/Garages.cpp), [source/game_sa/Garages.h](../source/game_sa/Garages.h) | 29 | 0 | 12 | 0 | 0 |
 | [CGeneral](implementaciones/detalle-015.md#grupo-299) · [source/game_sa/General.cpp](../source/game_sa/General.cpp), [source/game_sa/General.h](../source/game_sa/General.h) | 10 | 0 | 13 | 0 | 0 |
-| [CGenericGameStorage](implementaciones/detalle-015.md#grupo-300) · [source/game_sa/GenericGameStorage.cpp](../source/game_sa/GenericGameStorage.cpp), [source/game_sa/GenericGameStorage.h](../source/game_sa/GenericGameStorage.h) | 22 | 0 | 2 | 0 | 0 |
+| [CGenericGameStorage](implementaciones/detalle-015.md#grupo-300) · [source/game_sa/GenericGameStorage.cpp](../source/game_sa/GenericGameStorage.cpp), [source/game_sa/GenericGameStorage.h](../source/game_sa/GenericGameStorage.h) | 23 | 0 | 2 | 0 | 0 |
 | [CGlass](implementaciones/detalle-016.md#grupo-301) · [source/game_sa/Glass.cpp](../source/game_sa/Glass.cpp) | 19 | 0 | 1 | 0 | 0 |
 | [CGrassRenderer](implementaciones/detalle-016.md#grupo-302) · [source/game_sa/GrassRenderer.cpp](../source/game_sa/GrassRenderer.cpp) | 12 | 0 | 1 | 0 | 0 |
 | [CGridRef](implementaciones/detalle-016.md#grupo-303) · [source/game_sa/GridRef.cpp](../source/game_sa/GridRef.cpp) | 5 | 0 | 1 | 0 | 0 |
@@ -384,7 +384,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CNodeAddress](implementaciones/detalle-018.md#grupo-353) · [source/game_sa/NodeAddress.cpp](../source/game_sa/NodeAddress.cpp), [source/game_sa/NodeAddress.h](../source/game_sa/NodeAddress.h) | 3 | 0 | 6 | 0 | 0 |
 | [CNodeRoute](implementaciones/detalle-018.md#grupo-354) · [source/game_sa/NodeRoute.cpp](../source/game_sa/NodeRoute.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CNodeRoutePool](implementaciones/detalle-018.md#grupo-355) · [source/game_sa/Pools/NodeRoutePool.h](../source/game_sa/Pools/NodeRoutePool.h) | 1 | 0 | 2 | 0 | 0 |
-| [CObject](implementaciones/detalle-018.md#grupo-356) · [source/game_sa/Entity/Object/Object.cpp](../source/game_sa/Entity/Object/Object.cpp), [source/game_sa/Entity/Object/Object.h](../source/game_sa/Entity/Object/Object.h) | 54 | 0 | 10 | 0 | 0 |
+| [CObject](implementaciones/detalle-018.md#grupo-356) · [source/game_sa/Entity/Object/Object.cpp](../source/game_sa/Entity/Object/Object.cpp), [source/game_sa/Entity/Object/Object.h](../source/game_sa/Entity/Object/Object.h) | 55 | 0 | 10 | 0 | 0 |
 | [CObjectData](implementaciones/detalle-018.md#grupo-357) · [source/game_sa/ObjectData.cpp](../source/game_sa/ObjectData.cpp), [source/game_sa/ObjectData.h](../source/game_sa/ObjectData.h) | 2 | 0 | 4 | 0 | 0 |
 | [CObjectPool](implementaciones/detalle-018.md#grupo-358) · [source/game_sa/Pools/ObjectPool.h](../source/game_sa/Pools/ObjectPool.h) | 1 | 0 | 1 | 0 | 0 |
 | [CObjectPotentialCollisionScanner](implementaciones/detalle-018.md#grupo-359) · [source/game_sa/Events/EventScanner.cpp](../source/game_sa/Events/EventScanner.cpp) | 1 | 0 | 1 | 0 | 0 |
@@ -501,7 +501,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CRadar](implementaciones/detalle-024.md#grupo-470) · [source/game_sa/Radar.cpp](../source/game_sa/Radar.cpp), [source/game_sa/Radar.h](../source/game_sa/Radar.h) | 67 | 0 | 9 | 0 | 0 |
 | [CRange2D](implementaciones/detalle-024.md#grupo-471) · [source/game_sa/Range2D.cpp](../source/game_sa/Range2D.cpp) | 0 | 0 | 4 | 0 | 0 |
 | [CRange3D](implementaciones/detalle-024.md#grupo-472) · [source/game_sa/Range3D.cpp](../source/game_sa/Range3D.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [CRealTimeShadow](implementaciones/detalle-024.md#grupo-473) · [source/game_sa/RealTimeShadow.cpp](../source/game_sa/RealTimeShadow.cpp), [source/game_sa/RealTimeShadow.h](../source/game_sa/RealTimeShadow.h) | 9 | 0 | 5 | 0 | 0 |
+| [CRealTimeShadow](implementaciones/detalle-024.md#grupo-473) · [source/game_sa/RealTimeShadow.cpp](../source/game_sa/RealTimeShadow.cpp), [source/game_sa/RealTimeShadow.h](../source/game_sa/RealTimeShadow.h) | 10 | 0 | 5 | 0 | 0 |
 | [CRealTimeShadowManager](implementaciones/detalle-024.md#grupo-474) · [source/game_sa/RealTimeShadowManager.cpp](../source/game_sa/RealTimeShadowManager.cpp) | 7 | 0 | 1 | 0 | 0 |
 | [CRect](implementaciones/detalle-024.md#grupo-475) · [source/game_sa/Core/Rect.cpp](../source/game_sa/Core/Rect.cpp), [source/game_sa/Core/Rect.h](../source/game_sa/Core/Rect.h) | 10 | 0 | 11 | 0 | 0 |
 | [CReferences](implementaciones/detalle-024.md#grupo-476) · [source/game_sa/References.cpp](../source/game_sa/References.cpp) | 4 | 0 | 1 | 0 | 0 |
@@ -578,7 +578,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CTaskComplexBeCop](implementaciones/detalle-028.md#grupo-547) · [source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp](../source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp), [source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h](../source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h) | 2 | 0 | 3 | 0 | 0 |
 | [CTaskComplexBeInCouple](implementaciones/detalle-028.md#grupo-548) · [source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp](../source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp), [source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h](../source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h) | 11 | 0 | 2 | 0 | 0 |
 | [CTaskComplexBeInGroup](implementaciones/detalle-028.md#grupo-549) · [source/game_sa/Tasks/TaskTypes/TaskComplexBeInGroup.cpp](../source/game_sa/Tasks/TaskTypes/TaskComplexBeInGroup.cpp), [source/game_sa/Tasks/TaskTypes/TaskComplexBeInGroup.h](../source/game_sa/Tasks/TaskTypes/TaskComplexBeInGroup.h) | 10 | 0 | 4 | 0 | 0 |
-| [CTaskComplexBeStill](implementaciones/detalle-028.md#grupo-550) · [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp](../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp), [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.h](../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.h) | 5 | 0 | 2 | 0 | 0 |
+| [CTaskComplexBeStill](implementaciones/detalle-028.md#grupo-550) · [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp](../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp), [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.h](../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.h) | 6 | 0 | 2 | 0 | 0 |
 | [CTaskComplexBody](implementaciones/detalle-028.md#grupo-551) · [source/game_sa/Tasks/Task.cpp](../source/game_sa/Tasks/Task.cpp) | 0 | 0 | 3 | 0 | 0 |
 | [CTaskComplexCarDrive](implementaciones/detalle-028.md#grupo-552) · [source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.cpp](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.cpp), [source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h) | 13 | 0 | 4 | 0 | 0 |
 | [CTaskComplexCarDriveMission](implementaciones/detalle-028.md#grupo-553) · [source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp), [source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h](../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h) | 6 | 0 | 2 | 0 | 0 |
@@ -797,7 +797,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CTaskSimpleCarSlowBeDraggedOut](implementaciones/detalle-039.md#grupo-766) · [source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowBeDraggedOut.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowBeDraggedOut.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowBeDraggedOut.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowBeDraggedOut.h) | 10 | 0 | 5 | 0 | 0 |
 | [CTaskSimpleCarSlowDragPedOut](implementaciones/detalle-039.md#grupo-767) · [source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowDragPedOut.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowDragPedOut.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowDragPedOut.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowDragPedOut.h) | 11 | 0 | 4 | 0 | 0 |
 | [CTaskSimpleCarWaitForDoorNotToBeInUse](implementaciones/detalle-039.md#grupo-768) · [source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitForDoorNotToBeInUse.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitForDoorNotToBeInUse.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitForDoorNotToBeInUse.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitForDoorNotToBeInUse.h) | 7 | 0 | 4 | 0 | 0 |
-| [CTaskSimpleCarWaitToSlowDown](implementaciones/detalle-039.md#grupo-769) · [source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitToSlowDown.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitToSlowDown.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitToSlowDown.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitToSlowDown.h) | 7 | 0 | 3 | 0 | 0 |
+| [CTaskSimpleCarWaitToSlowDown](implementaciones/detalle-039.md#grupo-769) · [source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitToSlowDown.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitToSlowDown.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitToSlowDown.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitToSlowDown.h) | 8 | 0 | 2 | 0 | 0 |
 | [CTaskSimpleChat](implementaciones/detalle-039.md#grupo-770) · [source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h) | 4 | 0 | 3 | 0 | 0 |
 | [CTaskSimpleChoking](implementaciones/detalle-039.md#grupo-771) · [source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h) | 8 | 0 | 3 | 0 | 0 |
 | [CTaskSimpleClearLookAt](implementaciones/detalle-039.md#grupo-772) · [source/game_sa/Tasks/TaskTypes/TaskSimpleClearLookAt.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleClearLookAt.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleClearLookAt.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleClearLookAt.h) | 5 | 0 | 2 | 0 | 0 |
@@ -920,7 +920,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CUpsideDownCarCheck](implementaciones/detalle-045.md#grupo-889) · [source/game_sa/UpsideDownCarCheck.cpp](../source/game_sa/UpsideDownCarCheck.cpp) | 6 | 0 | 3 | 0 | 0 |
 | [CUserDisplay](implementaciones/detalle-045.md#grupo-890) · [source/game_sa/UserDisplay.cpp](../source/game_sa/UserDisplay.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CVector](implementaciones/detalle-045.md#grupo-891) · [source/game_sa/Core/Vector.cpp](../source/game_sa/Core/Vector.cpp), [source/game_sa/Core/Vector.h](../source/game_sa/Core/Vector.h) | 17 | 0 | 39 | 0 | 0 |
-| [CVector2D](implementaciones/detalle-045.md#grupo-892) · [source/game_sa/Core/Vector2D.cpp](../source/game_sa/Core/Vector2D.cpp), [source/game_sa/Core/Vector2D.h](../source/game_sa/Core/Vector2D.h) | 0 | 0 | 39 | 0 | 0 |
+| [CVector2D](implementaciones/detalle-045.md#grupo-892) · [source/game_sa/Core/Vector2D.cpp](../source/game_sa/Core/Vector2D.cpp), [source/game_sa/Core/Vector2D.h](../source/game_sa/Core/Vector2D.h) | 1 | 0 | 38 | 0 | 0 |
 | [CVehicle](implementaciones/detalle-045.md#grupo-893) · [source/game_sa/Entity/Vehicle/Vehicle.cpp](../source/game_sa/Entity/Vehicle/Vehicle.cpp), [source/game_sa/Entity/Vehicle/Vehicle.h](../source/game_sa/Entity/Vehicle/Vehicle.h) | 166 | 0 | 105 | 0 | 0 |
 | [CVehicleAnimGroup](implementaciones/detalle-045.md#grupo-894) · [source/game_sa/VehicleAnimGroupData.cpp](../source/game_sa/VehicleAnimGroupData.cpp), [source/game_sa/VehicleAnimGroupData.h](../source/game_sa/VehicleAnimGroupData.h) | 5 | 0 | 7 | 0 | 0 |
 | [CVehicleAnimGroupData](implementaciones/detalle-045.md#grupo-895) · [source/game_sa/VehicleAnimGroupData.cpp](../source/game_sa/VehicleAnimGroupData.cpp), [source/game_sa/VehicleAnimGroupData.h](../source/game_sa/VehicleAnimGroupData.h) | 5 | 0 | 5 | 0 | 0 |
@@ -933,7 +933,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CVehicleSaveStructure](implementaciones/detalle-046.md#grupo-902) · [source/game_sa/VehicleSaveStructure.cpp](../source/game_sa/VehicleSaveStructure.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CVehicleScanner](implementaciones/detalle-046.md#grupo-903) · [source/game_sa/VehicleScanner.cpp](../source/game_sa/VehicleScanner.cpp) | 1 | 0 | 1 | 0 | 0 |
 | [CVisibilityPlugins](implementaciones/detalle-046.md#grupo-904) · [source/game_sa/VisibilityPlugins.cpp](../source/game_sa/VisibilityPlugins.cpp), [source/game_sa/VisibilityPlugins.h](../source/game_sa/VisibilityPlugins.h) | 84 | 0 | 13 | 0 | 0 |
-| [CWanted](implementaciones/detalle-046.md#grupo-905) · [source/game_sa/Wanted.cpp](../source/game_sa/Wanted.cpp), [source/game_sa/Wanted.h](../source/game_sa/Wanted.h) | 33 | 0 | 6 | 0 | 0 |
+| [CWanted](implementaciones/detalle-046.md#grupo-905) · [source/game_sa/Wanted.cpp](../source/game_sa/Wanted.cpp), [source/game_sa/Wanted.h](../source/game_sa/Wanted.h) | 34 | 0 | 6 | 0 | 0 |
 | [CWaterCannon](implementaciones/detalle-046.md#grupo-906) · [source/game_sa/WaterCannon.cpp](../source/game_sa/WaterCannon.cpp) | 5 | 0 | 4 | 0 | 0 |
 | [CWaterCannons](implementaciones/detalle-046.md#grupo-907) · [source/game_sa/WaterCannons.cpp](../source/game_sa/WaterCannons.cpp) | 4 | 0 | 1 | 0 | 0 |
 | [CWaterLevel](implementaciones/detalle-046.md#grupo-908) · [source/game_sa/WaterLevel.cpp](../source/game_sa/WaterLevel.cpp), [source/game_sa/WaterLevel.h](../source/game_sa/WaterLevel.h) | 47 | 0 | 11 | 0 | 0 |
@@ -948,7 +948,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CWindModifiers](implementaciones/detalle-046.md#grupo-917) · [source/game_sa/WindModifiers.cpp](../source/game_sa/WindModifiers.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CWorld](implementaciones/detalle-046.md#grupo-918) · [source/game_sa/World.cpp](../source/game_sa/World.cpp), [source/game_sa/World.h](../source/game_sa/World.h), [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 96 | 0 | 32 | 0 | 0 |
 | [CWorldScan](implementaciones/detalle-046.md#grupo-919) · [source/game_sa/Renderer.cpp](../source/game_sa/Renderer.cpp) | 2 | 0 | 1 | 0 | 0 |
-| [CZone](implementaciones/detalle-046.md#grupo-920) · [source/game_sa/Zone.cpp](../source/game_sa/Zone.cpp), [source/game_sa/Zone.h](../source/game_sa/Zone.h) | 0 | 0 | 5 | 0 | 0 |
+| [CZone](implementaciones/detalle-046.md#grupo-920) · [source/game_sa/Zone.cpp](../source/game_sa/Zone.cpp), [source/game_sa/Zone.h](../source/game_sa/Zone.h) | 1 | 0 | 4 | 0 | 0 |
 | [CZoneDef](implementaciones/detalle-047.md#grupo-921) · [source/game_sa/CullZones.cpp](../source/game_sa/CullZones.cpp), [source/game_sa/CullZones.h](../source/game_sa/CullZones.h) | 1 | 0 | 2 | 0 | 0 |
 | [CZoneInfo](implementaciones/detalle-047.md#grupo-922) · [source/game_sa/ZoneInfo.h](../source/game_sa/ZoneInfo.h) | 0 | 0 | 1 | 0 | 0 |
 | [C_PcSave](implementaciones/detalle-047.md#grupo-923) · [source/game_sa/C_PcSave.cpp](../source/game_sa/C_PcSave.cpp) | 6 | 0 | 1 | 0 | 0 |
@@ -1108,7 +1108,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/Core/List_c.cpp](implementaciones/detalle-054.md#grupo-1077) · [source/game_sa/Core/List_c.cpp](../source/game_sa/Core/List_c.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/Matrix.cpp](implementaciones/detalle-054.md#grupo-1078) · [source/game_sa/Core/Matrix.cpp](../source/game_sa/Core/Matrix.cpp) | 1 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/Quaternion.h](implementaciones/detalle-054.md#grupo-1079) · [source/game_sa/Core/Quaternion.h](../source/game_sa/Core/Quaternion.h) | 0 | 0 | 6 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Core/Vector.cpp](implementaciones/detalle-054.md#grupo-1080) · [source/game_sa/Core/Vector.cpp](../source/game_sa/Core/Vector.cpp) | 6 | 0 | 1 | 0 | 0 |
+| [Globales y helpers: source/game_sa/Core/Vector.cpp](implementaciones/detalle-054.md#grupo-1080) · [source/game_sa/Core/Vector.cpp](../source/game_sa/Core/Vector.cpp) | 6 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/Vector.h](implementaciones/detalle-055.md#grupo-1081) · [source/game_sa/Core/Vector.h](../source/game_sa/Core/Vector.h) | 0 | 0 | 20 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Core/Vector2D.h](implementaciones/detalle-055.md#grupo-1082) · [source/game_sa/Core/Vector2D.h](../source/game_sa/Core/Vector2D.h) | 0 | 0 | 17 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Coronas.cpp](implementaciones/detalle-055.md#grupo-1083) · [source/game_sa/Coronas.cpp](../source/game_sa/Coronas.cpp) | 0 | 0 | 5 | 0 | 0 |
@@ -1421,186 +1421,187 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/World.cpp](implementaciones/detalle-070.md#grupo-1390) · [source/game_sa/World.cpp](../source/game_sa/World.cpp) | 0 | 0 | 18 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-070.md#grupo-1391) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 4 | 0 | 0 |
 | [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-070.md#grupo-1392) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1238 | 0 | 1 | 0 | 0 |
-| [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-070.md#grupo-1393) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [Globales y helpers: source/game_sa/common.cpp](implementaciones/detalle-070.md#grupo-1394) · [source/game_sa/common.cpp](../source/game_sa/common.cpp) | 6 | 0 | 9 | 0 | 0 |
-| [Globales y helpers: source/game_sa/common.h](implementaciones/detalle-070.md#grupo-1395) · [source/game_sa/common.h](../source/game_sa/common.h) | 0 | 0 | 25 | 0 | 0 |
-| [HeapBlockDesc](implementaciones/detalle-070.md#grupo-1396) · [source/game_sa/Memory/HeapBlockDesc.cpp](../source/game_sa/Memory/HeapBlockDesc.cpp) | 0 | 0 | 5 | 0 | 0 |
-| [HeapBlockFlags](implementaciones/detalle-070.md#grupo-1397) · [source/game_sa/Memory/HeapBlockDesc.h](../source/game_sa/Memory/HeapBlockDesc.h) | 0 | 0 | 1 | 0 | 0 |
-| [HeapFreeBlockDesc](implementaciones/detalle-070.md#grupo-1398) · [source/game_sa/Memory/HeapFreeBlockDesc.cpp](../source/game_sa/Memory/HeapFreeBlockDesc.cpp) | 0 | 0 | 6 | 0 | 0 |
-| [IKChainManager_c](implementaciones/detalle-070.md#grupo-1399) · [source/game_sa/Ragdoll/IKChainManager.cpp](../source/game_sa/Ragdoll/IKChainManager.cpp) | 17 | 0 | 3 | 0 | 0 |
-| [IKChain_c](implementaciones/detalle-070.md#grupo-1400) · [source/game_sa/Ragdoll/IKChain.cpp](../source/game_sa/Ragdoll/IKChain.cpp), [source/game_sa/Ragdoll/IKChain.h](../source/game_sa/Ragdoll/IKChain.h) | 19 | 0 | 6 | 0 | 0 |
-| [Input](implementaciones/detalle-071.md#grupo-1401) · [source/app/app_input.cpp](../source/app/app_input.cpp) | 5 | 0 | 0 | 0 | 0 |
-| [InteriorGroup_c](implementaciones/detalle-071.md#grupo-1402) · [source/game_sa/Interior/InteriorGroup_c.cpp](../source/game_sa/Interior/InteriorGroup_c.cpp), [source/game_sa/Interior/InteriorGroup_c.h](../source/game_sa/Interior/InteriorGroup_c.h) | 24 | 0 | 6 | 0 | 0 |
-| [InteriorManager_c](implementaciones/detalle-071.md#grupo-1403) · [source/game_sa/Interior/InteriorManager_c.cpp](../source/game_sa/Interior/InteriorManager_c.cpp), [source/game_sa/Interior/InteriorManager_c.h](../source/game_sa/Interior/InteriorManager_c.h) | 21 | 0 | 3 | 0 | 0 |
-| [Interior_c](implementaciones/detalle-071.md#grupo-1404) · [source/game_sa/Interior/Interior_c.cpp](../source/game_sa/Interior/Interior_c.cpp), [source/game_sa/Interior/Interior_c.h](../source/game_sa/Interior/Interior_c.h) | 52 | 0 | 4 | 0 | 0 |
-| [IplDef](implementaciones/detalle-071.md#grupo-1405) · [source/game_sa/IplDef.h](../source/game_sa/IplDef.h) | 0 | 0 | 1 | 0 | 0 |
-| [JPegPlugin](implementaciones/detalle-071.md#grupo-1406) · [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp](../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp) | 5 | 0 | 1 | 0 | 0 |
-| [Light](implementaciones/detalle-071.md#grupo-1407) · [source/app/app_light.cpp](../source/app/app_light.cpp) | 25 | 0 | 0 | 0 | 0 |
-| [LimbOrientation](implementaciones/detalle-071.md#grupo-1408) · [source/game_sa/PedIK.h](../source/game_sa/PedIK.h) | 0 | 0 | 1 | 0 | 0 |
-| [Model](implementaciones/detalle-071.md#grupo-1409) · [source/game_sa/Scripts/Commands/ObjectCommands.cpp](../source/game_sa/Scripts/Commands/ObjectCommands.cpp) | 0 | 0 | 5 | 0 | 0 |
-| [ModelIndices](implementaciones/detalle-071.md#grupo-1410) · [source/game_sa/ModelIndices.cpp](../source/game_sa/ModelIndices.cpp), [source/game_sa/ModelIndices.h](../source/game_sa/ModelIndices.h) | 2 | 0 | 25 | 0 | 0 |
-| [MovementInfo_t](implementaciones/detalle-071.md#grupo-1411) · [source/game_sa/Fx/MovementInfo.h](../source/game_sa/Fx/MovementInfo.h) | 0 | 0 | 1 | 0 | 0 |
-| [NodeNamePlugin](implementaciones/detalle-071.md#grupo-1412) · [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp](../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp) | 3 | 0 | 1 | 0 | 0 |
-| [OALBase](implementaciones/detalle-071.md#grupo-1413) · [source/game_sa/Audio/OpenAL/OALBase.cpp](../source/game_sa/Audio/OpenAL/OALBase.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [OALBuffer](implementaciones/detalle-071.md#grupo-1414) · [source/game_sa/Audio/OpenAL/OALBuffer.cpp](../source/game_sa/Audio/OpenAL/OALBuffer.cpp) | 0 | 0 | 3 | 0 | 0 |
-| [OALSource](implementaciones/detalle-071.md#grupo-1415) · [source/game_sa/Audio/OpenAL/OALSource.cpp](../source/game_sa/Audio/OpenAL/OALSource.cpp), [source/game_sa/Audio/OpenAL/OALSource.h](../source/game_sa/Audio/OpenAL/OALSource.h) | 0 | 0 | 14 | 0 | 0 |
-| [Object](implementaciones/detalle-071.md#grupo-1416) · [source/game_sa/Scripts/Commands/ObjectCommands.cpp](../source/game_sa/Scripts/Commands/ObjectCommands.cpp) | 0 | 0 | 14 | 0 | 0 |
-| [Particle_c](implementaciones/detalle-071.md#grupo-1417) · [source/game_sa/Fx/Particle.h](../source/game_sa/Fx/Particle.h) | 0 | 0 | 1 | 0 | 0 |
-| [PipelinePlugin](implementaciones/detalle-071.md#grupo-1418) · [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp](../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp) | 3 | 0 | 1 | 0 | 0 |
-| [PlayerRelationship](implementaciones/detalle-071.md#grupo-1419) · [source/game_sa/PlayerRelationshipRecorder.h](../source/game_sa/PlayerRelationshipRecorder.h) | 0 | 0 | 2 | 0 | 0 |
-| [PointLightsShadow](implementaciones/detalle-071.md#grupo-1420) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 8 | 0 | 0 | 0 | 0 |
-| [ProcObjectMan_c](implementaciones/detalle-072.md#grupo-1421) · [source/game_sa/Plant/ProcObjectMan.cpp](../source/game_sa/Plant/ProcObjectMan.cpp) | 8 | 0 | 1 | 0 | 0 |
-| [ProcSurfaceInfo_c](implementaciones/detalle-072.md#grupo-1422) · [source/game_sa/Plant/ProcSurfaceInfo.cpp](../source/game_sa/Plant/ProcSurfaceInfo.cpp) | 4 | 0 | 2 | 0 | 0 |
-| [Ps](implementaciones/detalle-072.md#grupo-1423) · [source/app/platform/win/WinPs.cpp](../source/app/platform/win/WinPs.cpp) | 23 | 0 | 0 | 0 | 0 |
-| [RandomCarLift](implementaciones/detalle-072.md#grupo-1424) · [source/game_sa/CarCtrl.cpp](../source/game_sa/CarCtrl.cpp) | 0 | 0 | 7 | 0 | 0 |
-| [RenderBuffer](implementaciones/detalle-072.md#grupo-1425) · [source/game_sa/RenderBuffer.cpp](../source/game_sa/RenderBuffer.cpp) | 5 | 0 | 7 | 0 | 0 |
-| [RenderInfo_t](implementaciones/detalle-072.md#grupo-1426) · [source/game_sa/Fx/RenderInfo.h](../source/game_sa/Fx/RenderInfo.h) | 0 | 0 | 3 | 0 | 0 |
-| [RenderWare](implementaciones/detalle-072.md#grupo-1427) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 8 | 0 | 0 |
-| [ResidueEcx](implementaciones/detalle-072.md#grupo-1428) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1 | 0 | 0 | 0 | 0 |
-| [RpAnimBlend](implementaciones/detalle-072.md#grupo-1429) · [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 38 | 0 | 0 | 0 | 0 |
-| [RpAnimBlendPlugin](implementaciones/detalle-072.md#grupo-1430) · [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [RpAnisot](implementaciones/detalle-072.md#grupo-1431) · [source/game_sa/RenderWare/rw/rpanisot.cpp](../source/game_sa/RenderWare/rw/rpanisot.cpp) | 3 | 0 | 0 | 0 | 0 |
-| [RpHAnim](implementaciones/detalle-072.md#grupo-1432) · [source/game_sa/RenderWare/rw/rphanim.cpp](../source/game_sa/RenderWare/rw/rphanim.cpp) | 1 | 0 | 0 | 0 | 0 |
-| [RpSkin](implementaciones/detalle-072.md#grupo-1433) · [source/game_sa/RenderWare/rw/rpskin.cpp](../source/game_sa/RenderWare/rw/rpskin.cpp) | 1 | 0 | 0 | 0 | 0 |
-| [RpUVAnim](implementaciones/detalle-072.md#grupo-1434) · [source/game_sa/RenderWare/rw/rpuvanim.cpp](../source/game_sa/RenderWare/rw/rpuvanim.cpp) | 2 | 0 | 0 | 0 | 0 |
-| [RpWorld](implementaciones/detalle-072.md#grupo-1435) · [source/game_sa/RenderWare/rw/rpworld.cpp](../source/game_sa/RenderWare/rw/rpworld.cpp) | 25 | 0 | 0 | 0 | 0 |
-| [Rs](implementaciones/detalle-072.md#grupo-1436) · [source/app/platform/platform.cpp](../source/app/platform/platform.cpp), [source/app/platform/preset_view.cpp](../source/app/platform/preset_view.cpp) | 30 | 0 | 0 | 0 | 0 |
-| [RtAnim](implementaciones/detalle-072.md#grupo-1437) · [source/game_sa/RenderWare/rw/rtanim.cpp](../source/game_sa/RenderWare/rw/rtanim.cpp) | 3 | 0 | 1 | 0 | 0 |
-| [RtDict](implementaciones/detalle-072.md#grupo-1438) · [source/game_sa/RenderWare/rw/rtdict.cpp](../source/game_sa/RenderWare/rw/rtdict.cpp) | 2 | 0 | 0 | 0 | 0 |
-| [RwCore](implementaciones/detalle-072.md#grupo-1439) · [source/game_sa/RenderWare/rw/rwcore.cpp](../source/game_sa/RenderWare/rw/rwcore.cpp) | 29 | 0 | 0 | 0 | 0 |
-| [RwHelper](implementaciones/detalle-072.md#grupo-1440) · [source/game_sa/RenderWare/rw/rwtexdict.cpp](../source/game_sa/RenderWare/rw/rwtexdict.cpp), [source/game_sa/RwHelper.cpp](../source/game_sa/RwHelper.cpp) | 40 | 0 | 0 | 0 | 0 |
-| [RwObjectNameIdAssocation](implementaciones/detalle-073.md#grupo-1441) · [source/game_sa/RwObjectNameIdAssocation.h](../source/game_sa/RwObjectNameIdAssocation.h) | 0 | 0 | 1 | 0 | 0 |
-| [RwPlCore](implementaciones/detalle-073.md#grupo-1442) · [source/game_sa/RenderWare/rw/rwplcore.cpp](../source/game_sa/RenderWare/rw/rwplcore.cpp) | 14 | 0 | 0 | 0 | 0 |
-| [SArray](implementaciones/detalle-073.md#grupo-1443) · [source/game_sa/Core/SArray.h](../source/game_sa/Core/SArray.h) | 0 | 0 | 20 | 0 | 0 |
-| [Securom](implementaciones/detalle-073.md#grupo-1444) · [source/app/securom/Securom.cpp](../source/app/securom/Securom.cpp) | 2 | 0 | 1 | 0 | 0 |
-| [SurfaceInfo](implementaciones/detalle-073.md#grupo-1445) · [source/game_sa/SurfaceInfo_c.h](../source/game_sa/SurfaceInfo_c.h) | 0 | 0 | 1 | 0 | 0 |
-| [SurfaceInfos_c](implementaciones/detalle-073.md#grupo-1446) · [source/game_sa/SurfaceInfos_c.cpp](../source/game_sa/SurfaceInfos_c.cpp), [source/game_sa/SurfaceInfos_c.h](../source/game_sa/SurfaceInfos_c.h) | 47 | 0 | 5 | 0 | 0 |
-| [TList_c](implementaciones/detalle-073.md#grupo-1447) · [source/game_sa/Core/List_c.cpp](../source/game_sa/Core/List_c.cpp), [source/game_sa/Core/List_c.h](../source/game_sa/Core/List_c.h) | 3 | 0 | 21 | 0 | 0 |
-| [TList_c::BaseIterator](implementaciones/detalle-073.md#grupo-1448) · [source/game_sa/Core/List_c.h](../source/game_sa/Core/List_c.h) | 0 | 0 | 9 | 0 | 0 |
-| [UpgradePosnDesc](implementaciones/detalle-073.md#grupo-1449) · [source/game_sa/Models/VehicleModelInfo.h](../source/game_sa/Models/VehicleModelInfo.h) | 0 | 0 | 2 | 0 | 0 |
-| [UpsideDownCar](implementaciones/detalle-073.md#grupo-1450) · [source/game_sa/UpsideDownCarCheck.h](../source/game_sa/UpsideDownCarCheck.h) | 0 | 0 | 2 | 0 | 0 |
-| [UserTracksLegacyVector](implementaciones/detalle-073.md#grupo-1451) · [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp](../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp) | 1 | 0 | 0 | 0 | 0 |
-| [VectorConstructorIterator](implementaciones/detalle-073.md#grupo-1452) · [source/game_sa/RuntimeHelpers.cpp](../source/game_sa/RuntimeHelpers.cpp) | 1 | 0 | 0 | 0 | 0 |
-| [VideoMode](implementaciones/detalle-073.md#grupo-1453) · [source/app/platform/win/VideoMode.cpp](../source/app/platform/win/VideoMode.cpp) | 4 | 0 | 0 | 0 | 0 |
-| [VideoPlayer](implementaciones/detalle-073.md#grupo-1454) · [source/app/platform/win/VideoPlayer/VideoPlayer.cpp](../source/app/platform/win/VideoPlayer/VideoPlayer.cpp) | 6 | 0 | 2 | 0 | 0 |
-| [WaterCreatureManager_c](implementaciones/detalle-073.md#grupo-1455) · [source/game_sa/WaterCreatureManager_c.cpp](../source/game_sa/WaterCreatureManager_c.cpp), [source/game_sa/WaterCreatureManager_c.h](../source/game_sa/WaterCreatureManager_c.h) | 7 | 0 | 3 | 0 | 0 |
-| [WaterCreature_c](implementaciones/detalle-073.md#grupo-1456) · [source/game_sa/WaterCreature_c.cpp](../source/game_sa/WaterCreature_c.cpp), [source/game_sa/WaterCreature_c.h](../source/game_sa/WaterCreature_c.h) | 3 | 0 | 5 | 0 | 0 |
-| [Win](implementaciones/detalle-073.md#grupo-1457) · [source/app/platform/win/WinMain.cpp](../source/app/platform/win/WinMain.cpp), [source/app/platform/win/WinPlatform.cpp](../source/app/platform/win/WinPlatform.cpp), [source/app/platform/win/WndProc.cpp](../source/app/platform/win/WndProc.cpp) | 6 | 0 | 1 | 0 | 0 |
-| [WinInput](implementaciones/detalle-073.md#grupo-1458) · [source/app/platform/win/WinInput.cpp](../source/app/platform/win/WinInput.cpp) | 2 | 0 | 13 | 0 | 0 |
-| [cBuoyancy](implementaciones/detalle-073.md#grupo-1459) · [source/game_sa/Buoyancy.cpp](../source/game_sa/Buoyancy.cpp), [source/game_sa/Buoyancy.h](../source/game_sa/Buoyancy.h) | 11 | 0 | 1 | 0 | 0 |
-| [cHandlingDataMgr](implementaciones/detalle-073.md#grupo-1460) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 11 | 0 | 4 | 0 | 0 |
-| [cTransmission](implementaciones/detalle-074.md#grupo-1461) · [source/game_sa/cTransmission.cpp](../source/game_sa/cTransmission.cpp) | 4 | 0 | 1 | 0 | 0 |
-| [detail](implementaciones/detalle-074.md#grupo-1462) · [source/game_sa/PathFind.cpp](../source/game_sa/PathFind.cpp) | 0 | 0 | 5 | 0 | 0 |
-| [details](implementaciones/detalle-074.md#grupo-1463) · [source/game_sa/Core/PtrNodeDoubleLink.cpp](../source/game_sa/Core/PtrNodeDoubleLink.cpp), [source/game_sa/Core/PtrNodeSingleLink.cpp](../source/game_sa/Core/PtrNodeSingleLink.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [details::PtrListIterator](implementaciones/detalle-074.md#grupo-1464) · [source/game_sa/Core/PtrList.h](../source/game_sa/Core/PtrList.h) | 0 | 0 | 6 | 0 | 0 |
-| [notsa](implementaciones/detalle-074.md#grupo-1465) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp), [source/game_sa/Pools/Pools.h](../source/game_sa/Pools/Pools.h) | 0 | 0 | 15 | 0 | 0 |
-| [notsa::Logging](implementaciones/detalle-074.md#grupo-1466) · [source/app/app_debug.cpp](../source/app/app_debug.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [notsa::Route](implementaciones/detalle-074.md#grupo-1467) · [source/game_sa/Route.hpp](../source/game_sa/Route.hpp) | 0 | 0 | 13 | 0 | 0 |
-| [notsa::SDLWrapper](implementaciones/detalle-074.md#grupo-1468) · [source/app/platform/SDLWrapper.cpp](../source/app/platform/SDLWrapper.cpp) | 0 | 0 | 6 | 0 | 0 |
-| [notsa::WindowedMode](implementaciones/detalle-074.md#grupo-1469) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 5 | 14 | 1 |
-| [notsa::WindowedMode::D3D9ProxyDevice](implementaciones/detalle-074.md#grupo-1470) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 3 | 0 | 0 |
-| [notsa::WindowedMode::PosChangeNoRecursion](implementaciones/detalle-074.md#grupo-1471) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 2 | 0 | 0 |
-| [notsa::WindowedMode::ScopedRestoreWindowInfo](implementaciones/detalle-074.md#grupo-1472) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 2 | 0 | 0 |
-| [notsa::detail](implementaciones/detalle-074.md#grupo-1473) · [source/app/app_debug.h](../source/app/app_debug.h), [source/game_sa/Scripts/CommandParser/Parser.hpp](../source/game_sa/Scripts/CommandParser/Parser.hpp) | 0 | 0 | 3 | 0 | 0 |
-| [notsa::details::PtrListDoubleLinkTraits](implementaciones/detalle-074.md#grupo-1474) · [source/game_sa/Core/PtrListDoubleLink.h](../source/game_sa/Core/PtrListDoubleLink.h) | 0 | 0 | 3 | 0 | 0 |
-| [notsa::details::PtrListSingleLinkTraits](implementaciones/detalle-074.md#grupo-1475) · [source/game_sa/Core/PtrListSingleLink.h](../source/game_sa/Core/PtrListSingleLink.h) | 0 | 0 | 3 | 0 | 0 |
-| [notsa::envmap](implementaciones/detalle-074.md#grupo-1476) · [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h](../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h) | 0 | 0 | 2 | 0 | 0 |
-| [notsa::script](implementaciones/detalle-074.md#grupo-1477) · [source/game_sa/Enums/eScriptCommands.h](../source/game_sa/Enums/eScriptCommands.h), [source/game_sa/Scripts/CommandParser/LUTGenerator.hpp](../source/game_sa/Scripts/CommandParser/LUTGenerator.hpp), [source/game_sa/Scripts/CommandParser/ReadArg.hpp](../source/game_sa/Scripts/CommandParser/ReadArg.hpp), [source/game_sa/Scripts/CommandParser/StoreArg.hpp](../source/game_sa/Scripts/CommandParser/StoreArg.hpp), [source/game_sa/Scripts/CommandParser/Utility.hpp](../source/game_sa/Scripts/CommandParser/Utility.hpp) | 0 | 0 | 18 | 0 | 0 |
-| [notsa::script::commands::basic](implementaciones/detalle-074.md#grupo-1478) · [source/game_sa/Scripts/Commands/BasicCommands.cpp](../source/game_sa/Scripts/Commands/BasicCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::camera](implementaciones/detalle-074.md#grupo-1479) · [source/game_sa/Scripts/Commands/CameraCommands.cpp](../source/game_sa/Scripts/Commands/CameraCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::character](implementaciones/detalle-074.md#grupo-1480) · [source/game_sa/Scripts/Commands/CharacterCommands.cpp](../source/game_sa/Scripts/Commands/CharacterCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::cleo::audiostream](implementaciones/detalle-075.md#grupo-1481) · [source/game_sa/Scripts/Commands/CLEO/CLEOAudioStreamCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOAudioStreamCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::cleo::character](implementaciones/detalle-075.md#grupo-1482) · [source/game_sa/Scripts/Commands/CLEO/CLEOCharacterCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOCharacterCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::cleo::dynamiclibrary](implementaciones/detalle-075.md#grupo-1483) · [source/game_sa/Scripts/Commands/CLEO/CLEODynamicLibraryCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEODynamicLibraryCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::cleo::fs](implementaciones/detalle-075.md#grupo-1484) · [source/game_sa/Scripts/Commands/CLEO/CLEOFsCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOFsCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::cleo::game](implementaciones/detalle-075.md#grupo-1485) · [source/game_sa/Scripts/Commands/CLEO/CLEOGameCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOGameCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::cleo::generic](implementaciones/detalle-075.md#grupo-1486) · [source/game_sa/Scripts/Commands/CLEO/CLEOGenericCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOGenericCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::cleo::memory](implementaciones/detalle-075.md#grupo-1487) · [source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::cleo::pad](implementaciones/detalle-075.md#grupo-1488) · [source/game_sa/Scripts/Commands/CLEO/CLEOPadCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOPadCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::cleo::script](implementaciones/detalle-075.md#grupo-1489) · [source/game_sa/Scripts/Commands/CLEO/CLEOScriptCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOScriptCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::cleo::vehicle](implementaciones/detalle-075.md#grupo-1490) · [source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::cleo::world](implementaciones/detalle-075.md#grupo-1491) · [source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::clock](implementaciones/detalle-075.md#grupo-1492) · [source/game_sa/Scripts/Commands/ClockCommands.cpp](../source/game_sa/Scripts/Commands/ClockCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::comparasion](implementaciones/detalle-075.md#grupo-1493) · [source/game_sa/Scripts/Commands/ComparasionCommands.cpp](../source/game_sa/Scripts/Commands/ComparasionCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::conversation](implementaciones/detalle-075.md#grupo-1494) · [source/game_sa/Scripts/Commands/ConversationCommands.cpp](../source/game_sa/Scripts/Commands/ConversationCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::draw](implementaciones/detalle-075.md#grupo-1495) · [source/game_sa/Scripts/Commands/DrawCommands.cpp](../source/game_sa/Scripts/Commands/DrawCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::game](implementaciones/detalle-075.md#grupo-1496) · [source/game_sa/Scripts/Commands/GameCommands.cpp](../source/game_sa/Scripts/Commands/GameCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::generic](implementaciones/detalle-075.md#grupo-1497) · [source/game_sa/Scripts/Commands/GenericCommands.cpp](../source/game_sa/Scripts/Commands/GenericCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::math](implementaciones/detalle-075.md#grupo-1498) · [source/game_sa/Scripts/Commands/MathCommands.cpp](../source/game_sa/Scripts/Commands/MathCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::mission](implementaciones/detalle-075.md#grupo-1499) · [source/game_sa/Scripts/Commands/MissionCommands.cpp](../source/game_sa/Scripts/Commands/MissionCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::object](implementaciones/detalle-075.md#grupo-1500) · [source/game_sa/Scripts/Commands/ObjectCommands.cpp](../source/game_sa/Scripts/Commands/ObjectCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::pad](implementaciones/detalle-076.md#grupo-1501) · [source/game_sa/Scripts/Commands/PadCommands.cpp](../source/game_sa/Scripts/Commands/PadCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::path](implementaciones/detalle-076.md#grupo-1502) · [source/game_sa/Scripts/Commands/PathCommands.cpp](../source/game_sa/Scripts/Commands/PathCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::ped](implementaciones/detalle-076.md#grupo-1503) · [source/game_sa/Scripts/Commands/PedCommands.cpp](../source/game_sa/Scripts/Commands/PedCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::player](implementaciones/detalle-076.md#grupo-1504) · [source/game_sa/Scripts/Commands/PlayerCommands.cpp](../source/game_sa/Scripts/Commands/PlayerCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::script](implementaciones/detalle-076.md#grupo-1505) · [source/game_sa/Scripts/Commands/ScriptCommands.cpp](../source/game_sa/Scripts/Commands/ScriptCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::sequence](implementaciones/detalle-076.md#grupo-1506) · [source/game_sa/Scripts/Commands/SequenceCommands.cpp](../source/game_sa/Scripts/Commands/SequenceCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::stat](implementaciones/detalle-076.md#grupo-1507) · [source/game_sa/Scripts/Commands/StatCommands.cpp](../source/game_sa/Scripts/Commands/StatCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::text](implementaciones/detalle-076.md#grupo-1508) · [source/game_sa/Scripts/Commands/TextCommands.cpp](../source/game_sa/Scripts/Commands/TextCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::unused](implementaciones/detalle-076.md#grupo-1509) · [source/game_sa/Scripts/Commands/UnusedCommands.cpp](../source/game_sa/Scripts/Commands/UnusedCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::utility](implementaciones/detalle-076.md#grupo-1510) · [source/game_sa/Scripts/Commands/UtilityCommands.cpp](../source/game_sa/Scripts/Commands/UtilityCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::vehicle](implementaciones/detalle-076.md#grupo-1511) · [source/game_sa/Scripts/Commands/VehicleCommands.cpp](../source/game_sa/Scripts/Commands/VehicleCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::commands::zone](implementaciones/detalle-076.md#grupo-1512) · [source/game_sa/Scripts/Commands/ZoneCommands.cpp](../source/game_sa/Scripts/Commands/ZoneCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::detail](implementaciones/detalle-076.md#grupo-1513) · [source/game_sa/Scripts/CommandParser/LUTGenerator.hpp](../source/game_sa/Scripts/CommandParser/LUTGenerator.hpp), [source/game_sa/Scripts/CommandParser/Parser.hpp](../source/game_sa/Scripts/CommandParser/Parser.hpp), [source/game_sa/Scripts/CommandParser/ReadArg.hpp](../source/game_sa/Scripts/CommandParser/ReadArg.hpp) | 0 | 0 | 6 | 0 | 0 |
-| [notsa::script::detail::StrongAlias](implementaciones/detalle-076.md#grupo-1514) · [source/game_sa/Scripts/CommandParser/ReadArg.hpp](../source/game_sa/Scripts/CommandParser/ReadArg.hpp) | 0 | 0 | 1 | 0 | 0 |
-| [notsa::script::detail::scriptthing](implementaciones/detalle-076.md#grupo-1515) · [source/game_sa/Scripts/CommandParser/ReadArg.hpp](../source/game_sa/Scripts/CommandParser/ReadArg.hpp) | 0 | 0 | 10 | 0 | 0 |
-| [sItemDefinitionFlags](implementaciones/detalle-076.md#grupo-1516) · [source/game_sa/Enums/eItemDefinitionFlags.h](../source/game_sa/Enums/eItemDefinitionFlags.h) | 0 | 0 | 1 | 0 | 0 |
-| [sVehAnimGroupGeneralTiming](implementaciones/detalle-076.md#grupo-1517) · [source/game_sa/VehicleAnimGroupData.h](../source/game_sa/VehicleAnimGroupData.h) | 0 | 0 | 1 | 0 | 0 |
-| [sVehAnimGroupInOutTiming](implementaciones/detalle-076.md#grupo-1518) · [source/game_sa/VehicleAnimGroupData.h](../source/game_sa/VehicleAnimGroupData.h) | 0 | 0 | 1 | 0 | 0 |
-| [scm::ArrayAccess](implementaciones/detalle-076.md#grupo-1519) · [source/game_sa/Scripts/RunningScript.h](../source/game_sa/Scripts/RunningScript.h) | 0 | 0 | 1 | 0 | 0 |
-| [scm::StringRef](implementaciones/detalle-076.md#grupo-1520) · [source/game_sa/Scripts/RunningScript.h](../source/game_sa/Scripts/RunningScript.h) | 0 | 0 | 4 | 0 | 0 |
-| [tAudioZoneBox](implementaciones/detalle-077.md#grupo-1521) · [source/game_sa/Audio/AudioZones.h](../source/game_sa/Audio/AudioZones.h) | 0 | 0 | 1 | 0 | 0 |
-| [tBikeHandlingData](implementaciones/detalle-077.md#grupo-1522) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [tBinaryIplFile](implementaciones/detalle-077.md#grupo-1523) · [source/game_sa/tBinaryIplFile.h](../source/game_sa/tBinaryIplFile.h) | 0 | 0 | 2 | 0 | 0 |
-| [tBoatHandlingData](implementaciones/detalle-077.md#grupo-1524) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [tBrightLight](implementaciones/detalle-077.md#grupo-1525) · [source/game_sa/BrightLights.cpp](../source/game_sa/BrightLights.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [tBuildingSwap](implementaciones/detalle-077.md#grupo-1526) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 3 | 0 | 0 |
-| [tColLighting](implementaciones/detalle-077.md#grupo-1527) · [source/game_sa/Collision/ColPoint.cpp](../source/game_sa/Collision/ColPoint.cpp), [source/game_sa/Collision/ColPoint.h](../source/game_sa/Collision/ColPoint.h) | 1 | 0 | 1 | 0 | 0 |
-| [tCompSearchStructById](implementaciones/detalle-077.md#grupo-1528) · [source/game_sa/Models/ClumpModelInfo.h](../source/game_sa/Models/ClumpModelInfo.h) | 0 | 0 | 1 | 0 | 0 |
-| [tCompSearchStructByName](implementaciones/detalle-077.md#grupo-1529) · [source/game_sa/Models/ClumpModelInfo.h](../source/game_sa/Models/ClumpModelInfo.h) | 0 | 0 | 1 | 0 | 0 |
-| [tDirectionArrow](implementaciones/detalle-077.md#grupo-1530) · [source/game_sa/3dMarkers.cpp](../source/game_sa/3dMarkers.cpp), [source/game_sa/3dMarkers.h](../source/game_sa/3dMarkers.h) | 0 | 0 | 3 | 0 | 0 |
-| [tFlyingHandlingData](implementaciones/detalle-077.md#grupo-1531) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [tHandlingData](implementaciones/detalle-077.md#grupo-1532) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp), [source/game_sa/tHandlingData.h](../source/game_sa/tHandlingData.h) | 0 | 0 | 3 | 0 | 0 |
-| [tHeliLight](implementaciones/detalle-077.md#grupo-1533) · [source/game_sa/Entity/Vehicle/Heli.h](../source/game_sa/Entity/Vehicle/Heli.h) | 0 | 0 | 1 | 0 | 0 |
-| [tMessage](implementaciones/detalle-077.md#grupo-1534) · [source/game_sa/Messages.h](../source/game_sa/Messages.h) | 0 | 0 | 4 | 0 | 0 |
-| [tMissionCleanupEntity](implementaciones/detalle-077.md#grupo-1535) · [source/game_sa/MissionCleanup.h](../source/game_sa/MissionCleanup.h) | 0 | 0 | 1 | 0 | 0 |
-| [tPickupReference](implementaciones/detalle-077.md#grupo-1536) · [source/game_sa/Pickups.h](../source/game_sa/Pickups.h) | 0 | 0 | 4 | 0 | 0 |
-| [tRadarTrace](implementaciones/detalle-077.md#grupo-1537) · [source/game_sa/Radar.cpp](../source/game_sa/Radar.cpp), [source/game_sa/Radar.h](../source/game_sa/Radar.h) | 0 | 0 | 4 | 0 | 0 |
-| [tRadioIndexHistory](implementaciones/detalle-077.md#grupo-1538) · [source/game_sa/Audio/Managers/AERadioTrackManager.h](../source/game_sa/Audio/Managers/AERadioTrackManager.h) | 0 | 0 | 2 | 0 | 0 |
-| [tRadioSettings](implementaciones/detalle-077.md#grupo-1539) · [source/game_sa/Audio/Managers/AERadioTrackManager.h](../source/game_sa/Audio/Managers/AERadioTrackManager.h) | 0 | 0 | 3 | 0 | 0 |
-| [tRadioState](implementaciones/detalle-077.md#grupo-1540) · [source/game_sa/Audio/Managers/AERadioTrackManager.h](../source/game_sa/Audio/Managers/AERadioTrackManager.h) | 0 | 0 | 1 | 0 | 0 |
-| [tReplayBikeBlock](implementaciones/detalle-078.md#grupo-1541) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 2 | 0 | 0 |
-| [tReplayBlockBase](implementaciones/detalle-078.md#grupo-1542) · [source/game_sa/ReplayBlockType.h](../source/game_sa/ReplayBlockType.h) | 0 | 0 | 1 | 0 | 0 |
-| [tReplayBmxBlock](implementaciones/detalle-078.md#grupo-1543) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 2 | 0 | 0 |
-| [tReplayCameraBlock](implementaciones/detalle-078.md#grupo-1544) · [source/game_sa/ReplayBlockType.h](../source/game_sa/ReplayBlockType.h) | 0 | 0 | 1 | 0 | 0 |
-| [tReplayTrainBlock](implementaciones/detalle-078.md#grupo-1545) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 2 | 0 | 0 |
-| [tReplayVehicleBlock](implementaciones/detalle-078.md#grupo-1546) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 2 | 0 | 0 |
-| [tSCMChunkHeader](implementaciones/detalle-078.md#grupo-1547) · [source/game_sa/Scripts/SCMChunks.hpp](../source/game_sa/Scripts/SCMChunks.hpp) | 0 | 0 | 2 | 0 | 0 |
-| [tSCMGlobalVarChunk](implementaciones/detalle-078.md#grupo-1548) · [source/game_sa/Scripts/SCMChunks.hpp](../source/game_sa/Scripts/SCMChunks.hpp) | 0 | 0 | 1 | 0 | 0 |
-| [tSCMScriptFileInfoChunk](implementaciones/detalle-078.md#grupo-1549) · [source/game_sa/Scripts/SCMChunks.hpp](../source/game_sa/Scripts/SCMChunks.hpp) | 0 | 0 | 1 | 0 | 0 |
-| [tSCMStreamedScriptFileInfoChunk](implementaciones/detalle-078.md#grupo-1550) · [source/game_sa/Scripts/SCMChunks.hpp](../source/game_sa/Scripts/SCMChunks.hpp) | 0 | 0 | 1 | 0 | 0 |
-| [tSCMUsedObjectsChunk](implementaciones/detalle-078.md#grupo-1551) · [source/game_sa/Scripts/SCMChunks.hpp](../source/game_sa/Scripts/SCMChunks.hpp) | 0 | 0 | 1 | 0 | 0 |
-| [tScanLists](implementaciones/detalle-078.md#grupo-1552) · [source/game_sa/Renderer.h](../source/game_sa/Renderer.h) | 0 | 0 | 1 | 0 | 0 |
-| [tScannerSlot](implementaciones/detalle-078.md#grupo-1553) · [source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h](../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h) | 0 | 0 | 1 | 0 | 0 |
-| [tScriptAttachedAnimGroup](implementaciones/detalle-078.md#grupo-1554) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 1 | 0 | 0 |
-| [tScriptBrainWaitEntity](implementaciones/detalle-078.md#grupo-1555) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 1 | 0 | 0 |
-| [tScriptCheckpoint](implementaciones/detalle-078.md#grupo-1556) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 3 | 0 | 0 |
-| [tScriptConnectLodsObject](implementaciones/detalle-078.md#grupo-1557) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 1 | 0 | 0 |
-| [tScriptEffectSystem](implementaciones/detalle-078.md#grupo-1558) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 3 | 0 | 0 |
-| [tScriptRectangle](implementaciones/detalle-078.md#grupo-1559) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 1 | 0 | 0 |
-| [tScriptResource](implementaciones/detalle-078.md#grupo-1560) · [source/game_sa/ScriptResourceManager.h](../source/game_sa/ScriptResourceManager.h) | 0 | 0 | 1 | 0 | 0 |
-| [tScriptSearchlight](implementaciones/detalle-079.md#grupo-1561) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 2 | 0 | 0 |
-| [tScriptSequence](implementaciones/detalle-079.md#grupo-1562) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 3 | 0 | 0 |
-| [tScriptSphere](implementaciones/detalle-079.md#grupo-1563) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 3 | 0 | 0 |
-| [tSpecificSpeechContextInfo](implementaciones/detalle-079.md#grupo-1564) · [source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h](../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h) | 0 | 0 | 2 | 0 | 0 |
-| [tStreamingChannel](implementaciones/detalle-079.md#grupo-1565) · [source/game_sa/Streaming.h](../source/game_sa/Streaming.h) | 0 | 0 | 3 | 0 | 0 |
-| [tStreamingFileDesc](implementaciones/detalle-079.md#grupo-1566) · [source/game_sa/Streaming.h](../source/game_sa/Streaming.h) | 0 | 0 | 2 | 0 | 0 |
-| [tUser3dMarker](implementaciones/detalle-079.md#grupo-1567) · [source/game_sa/3dMarkers.cpp](../source/game_sa/3dMarkers.cpp), [source/game_sa/3dMarkers.h](../source/game_sa/3dMarkers.h) | 0 | 0 | 3 | 0 | 0 |
-| [tVehicleAudioSettings](implementaciones/detalle-079.md#grupo-1568) · [source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h) | 0 | 0 | 9 | 0 | 0 |
-| [tVirtualChannelSettings](implementaciones/detalle-079.md#grupo-1569) · [source/game_sa/Audio/Loaders/AEMP3BankLoader.h](../source/game_sa/Audio/Loaders/AEMP3BankLoader.h) | 0 | 0 | 1 | 0 | 0 |
-| [traits::fx_field_scanf_format&lt;char\[size\]&gt;](implementaciones/detalle-079.md#grupo-1570) · [source/game_sa/Fx/FxTools.h](../source/game_sa/Fx/FxTools.h) | 0 | 0 | 2 | 0 | 0 |
-| [traits::fx_field_scanf_format&lt;float&gt;](implementaciones/detalle-079.md#grupo-1571) · [source/game_sa/Fx/FxTools.h](../source/game_sa/Fx/FxTools.h) | 0 | 0 | 2 | 0 | 0 |
-| [traits::fx_field_scanf_format&lt;int32&gt;](implementaciones/detalle-079.md#grupo-1572) · [source/game_sa/Fx/FxTools.h](../source/game_sa/Fx/FxTools.h) | 0 | 0 | 2 | 0 | 0 |
+| [Globales y helpers: source/game_sa/Zone.cpp](implementaciones/detalle-070.md#grupo-1393) · [source/game_sa/Zone.cpp](../source/game_sa/Zone.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-070.md#grupo-1394) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [Globales y helpers: source/game_sa/common.cpp](implementaciones/detalle-070.md#grupo-1395) · [source/game_sa/common.cpp](../source/game_sa/common.cpp) | 6 | 0 | 9 | 0 | 0 |
+| [Globales y helpers: source/game_sa/common.h](implementaciones/detalle-070.md#grupo-1396) · [source/game_sa/common.h](../source/game_sa/common.h) | 0 | 0 | 25 | 0 | 0 |
+| [HeapBlockDesc](implementaciones/detalle-070.md#grupo-1397) · [source/game_sa/Memory/HeapBlockDesc.cpp](../source/game_sa/Memory/HeapBlockDesc.cpp) | 0 | 0 | 5 | 0 | 0 |
+| [HeapBlockFlags](implementaciones/detalle-070.md#grupo-1398) · [source/game_sa/Memory/HeapBlockDesc.h](../source/game_sa/Memory/HeapBlockDesc.h) | 0 | 0 | 1 | 0 | 0 |
+| [HeapFreeBlockDesc](implementaciones/detalle-070.md#grupo-1399) · [source/game_sa/Memory/HeapFreeBlockDesc.cpp](../source/game_sa/Memory/HeapFreeBlockDesc.cpp) | 0 | 0 | 6 | 0 | 0 |
+| [IKChainManager_c](implementaciones/detalle-070.md#grupo-1400) · [source/game_sa/Ragdoll/IKChainManager.cpp](../source/game_sa/Ragdoll/IKChainManager.cpp) | 17 | 0 | 3 | 0 | 0 |
+| [IKChain_c](implementaciones/detalle-071.md#grupo-1401) · [source/game_sa/Ragdoll/IKChain.cpp](../source/game_sa/Ragdoll/IKChain.cpp), [source/game_sa/Ragdoll/IKChain.h](../source/game_sa/Ragdoll/IKChain.h) | 19 | 0 | 6 | 0 | 0 |
+| [Input](implementaciones/detalle-071.md#grupo-1402) · [source/app/app_input.cpp](../source/app/app_input.cpp) | 5 | 0 | 0 | 0 | 0 |
+| [InteriorGroup_c](implementaciones/detalle-071.md#grupo-1403) · [source/game_sa/Interior/InteriorGroup_c.cpp](../source/game_sa/Interior/InteriorGroup_c.cpp), [source/game_sa/Interior/InteriorGroup_c.h](../source/game_sa/Interior/InteriorGroup_c.h) | 24 | 0 | 6 | 0 | 0 |
+| [InteriorManager_c](implementaciones/detalle-071.md#grupo-1404) · [source/game_sa/Interior/InteriorManager_c.cpp](../source/game_sa/Interior/InteriorManager_c.cpp), [source/game_sa/Interior/InteriorManager_c.h](../source/game_sa/Interior/InteriorManager_c.h) | 21 | 0 | 3 | 0 | 0 |
+| [Interior_c](implementaciones/detalle-071.md#grupo-1405) · [source/game_sa/Interior/Interior_c.cpp](../source/game_sa/Interior/Interior_c.cpp), [source/game_sa/Interior/Interior_c.h](../source/game_sa/Interior/Interior_c.h) | 52 | 0 | 4 | 0 | 0 |
+| [IplDef](implementaciones/detalle-071.md#grupo-1406) · [source/game_sa/IplDef.h](../source/game_sa/IplDef.h) | 0 | 0 | 1 | 0 | 0 |
+| [JPegPlugin](implementaciones/detalle-071.md#grupo-1407) · [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp](../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp) | 5 | 0 | 1 | 0 | 0 |
+| [Light](implementaciones/detalle-071.md#grupo-1408) · [source/app/app_light.cpp](../source/app/app_light.cpp) | 25 | 0 | 0 | 0 | 0 |
+| [LimbOrientation](implementaciones/detalle-071.md#grupo-1409) · [source/game_sa/PedIK.h](../source/game_sa/PedIK.h) | 0 | 0 | 1 | 0 | 0 |
+| [Model](implementaciones/detalle-071.md#grupo-1410) · [source/game_sa/Scripts/Commands/ObjectCommands.cpp](../source/game_sa/Scripts/Commands/ObjectCommands.cpp) | 0 | 0 | 5 | 0 | 0 |
+| [ModelIndices](implementaciones/detalle-071.md#grupo-1411) · [source/game_sa/ModelIndices.cpp](../source/game_sa/ModelIndices.cpp), [source/game_sa/ModelIndices.h](../source/game_sa/ModelIndices.h) | 2 | 0 | 25 | 0 | 0 |
+| [MovementInfo_t](implementaciones/detalle-071.md#grupo-1412) · [source/game_sa/Fx/MovementInfo.h](../source/game_sa/Fx/MovementInfo.h) | 0 | 0 | 1 | 0 | 0 |
+| [NodeNamePlugin](implementaciones/detalle-071.md#grupo-1413) · [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp](../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp) | 3 | 0 | 1 | 0 | 0 |
+| [OALBase](implementaciones/detalle-071.md#grupo-1414) · [source/game_sa/Audio/OpenAL/OALBase.cpp](../source/game_sa/Audio/OpenAL/OALBase.cpp) | 0 | 0 | 4 | 0 | 0 |
+| [OALBuffer](implementaciones/detalle-071.md#grupo-1415) · [source/game_sa/Audio/OpenAL/OALBuffer.cpp](../source/game_sa/Audio/OpenAL/OALBuffer.cpp) | 0 | 0 | 3 | 0 | 0 |
+| [OALSource](implementaciones/detalle-071.md#grupo-1416) · [source/game_sa/Audio/OpenAL/OALSource.cpp](../source/game_sa/Audio/OpenAL/OALSource.cpp), [source/game_sa/Audio/OpenAL/OALSource.h](../source/game_sa/Audio/OpenAL/OALSource.h) | 0 | 0 | 14 | 0 | 0 |
+| [Object](implementaciones/detalle-071.md#grupo-1417) · [source/game_sa/Scripts/Commands/ObjectCommands.cpp](../source/game_sa/Scripts/Commands/ObjectCommands.cpp) | 0 | 0 | 14 | 0 | 0 |
+| [Particle_c](implementaciones/detalle-071.md#grupo-1418) · [source/game_sa/Fx/Particle.h](../source/game_sa/Fx/Particle.h) | 0 | 0 | 1 | 0 | 0 |
+| [PipelinePlugin](implementaciones/detalle-071.md#grupo-1419) · [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp](../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp) | 3 | 0 | 1 | 0 | 0 |
+| [PlayerRelationship](implementaciones/detalle-071.md#grupo-1420) · [source/game_sa/PlayerRelationshipRecorder.h](../source/game_sa/PlayerRelationshipRecorder.h) | 0 | 0 | 2 | 0 | 0 |
+| [PointLightsShadow](implementaciones/detalle-072.md#grupo-1421) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 8 | 0 | 0 | 0 | 0 |
+| [ProcObjectMan_c](implementaciones/detalle-072.md#grupo-1422) · [source/game_sa/Plant/ProcObjectMan.cpp](../source/game_sa/Plant/ProcObjectMan.cpp) | 8 | 0 | 1 | 0 | 0 |
+| [ProcSurfaceInfo_c](implementaciones/detalle-072.md#grupo-1423) · [source/game_sa/Plant/ProcSurfaceInfo.cpp](../source/game_sa/Plant/ProcSurfaceInfo.cpp) | 4 | 0 | 2 | 0 | 0 |
+| [Ps](implementaciones/detalle-072.md#grupo-1424) · [source/app/platform/win/WinPs.cpp](../source/app/platform/win/WinPs.cpp) | 23 | 0 | 0 | 0 | 0 |
+| [RandomCarLift](implementaciones/detalle-072.md#grupo-1425) · [source/game_sa/CarCtrl.cpp](../source/game_sa/CarCtrl.cpp) | 0 | 0 | 7 | 0 | 0 |
+| [RenderBuffer](implementaciones/detalle-072.md#grupo-1426) · [source/game_sa/RenderBuffer.cpp](../source/game_sa/RenderBuffer.cpp) | 5 | 0 | 7 | 0 | 0 |
+| [RenderInfo_t](implementaciones/detalle-072.md#grupo-1427) · [source/game_sa/Fx/RenderInfo.h](../source/game_sa/Fx/RenderInfo.h) | 0 | 0 | 3 | 0 | 0 |
+| [RenderWare](implementaciones/detalle-072.md#grupo-1428) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 8 | 0 | 0 |
+| [ResidueEcx](implementaciones/detalle-072.md#grupo-1429) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1 | 0 | 0 | 0 | 0 |
+| [RpAnimBlend](implementaciones/detalle-072.md#grupo-1430) · [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 38 | 0 | 0 | 0 | 0 |
+| [RpAnimBlendPlugin](implementaciones/detalle-072.md#grupo-1431) · [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [RpAnisot](implementaciones/detalle-072.md#grupo-1432) · [source/game_sa/RenderWare/rw/rpanisot.cpp](../source/game_sa/RenderWare/rw/rpanisot.cpp) | 3 | 0 | 0 | 0 | 0 |
+| [RpHAnim](implementaciones/detalle-072.md#grupo-1433) · [source/game_sa/RenderWare/rw/rphanim.cpp](../source/game_sa/RenderWare/rw/rphanim.cpp) | 1 | 0 | 0 | 0 | 0 |
+| [RpSkin](implementaciones/detalle-072.md#grupo-1434) · [source/game_sa/RenderWare/rw/rpskin.cpp](../source/game_sa/RenderWare/rw/rpskin.cpp) | 1 | 0 | 0 | 0 | 0 |
+| [RpUVAnim](implementaciones/detalle-072.md#grupo-1435) · [source/game_sa/RenderWare/rw/rpuvanim.cpp](../source/game_sa/RenderWare/rw/rpuvanim.cpp) | 2 | 0 | 0 | 0 | 0 |
+| [RpWorld](implementaciones/detalle-072.md#grupo-1436) · [source/game_sa/RenderWare/rw/rpworld.cpp](../source/game_sa/RenderWare/rw/rpworld.cpp) | 25 | 0 | 0 | 0 | 0 |
+| [Rs](implementaciones/detalle-072.md#grupo-1437) · [source/app/platform/platform.cpp](../source/app/platform/platform.cpp), [source/app/platform/preset_view.cpp](../source/app/platform/preset_view.cpp) | 30 | 0 | 0 | 0 | 0 |
+| [RtAnim](implementaciones/detalle-072.md#grupo-1438) · [source/game_sa/RenderWare/rw/rtanim.cpp](../source/game_sa/RenderWare/rw/rtanim.cpp) | 3 | 0 | 1 | 0 | 0 |
+| [RtDict](implementaciones/detalle-072.md#grupo-1439) · [source/game_sa/RenderWare/rw/rtdict.cpp](../source/game_sa/RenderWare/rw/rtdict.cpp) | 2 | 0 | 0 | 0 | 0 |
+| [RwCore](implementaciones/detalle-072.md#grupo-1440) · [source/game_sa/RenderWare/rw/rwcore.cpp](../source/game_sa/RenderWare/rw/rwcore.cpp) | 29 | 0 | 0 | 0 | 0 |
+| [RwHelper](implementaciones/detalle-073.md#grupo-1441) · [source/game_sa/RenderWare/rw/rwtexdict.cpp](../source/game_sa/RenderWare/rw/rwtexdict.cpp), [source/game_sa/RwHelper.cpp](../source/game_sa/RwHelper.cpp) | 40 | 0 | 0 | 0 | 0 |
+| [RwObjectNameIdAssocation](implementaciones/detalle-073.md#grupo-1442) · [source/game_sa/RwObjectNameIdAssocation.h](../source/game_sa/RwObjectNameIdAssocation.h) | 0 | 0 | 1 | 0 | 0 |
+| [RwPlCore](implementaciones/detalle-073.md#grupo-1443) · [source/game_sa/RenderWare/rw/rwplcore.cpp](../source/game_sa/RenderWare/rw/rwplcore.cpp) | 14 | 0 | 0 | 0 | 0 |
+| [SArray](implementaciones/detalle-073.md#grupo-1444) · [source/game_sa/Core/SArray.h](../source/game_sa/Core/SArray.h) | 0 | 0 | 20 | 0 | 0 |
+| [Securom](implementaciones/detalle-073.md#grupo-1445) · [source/app/securom/Securom.cpp](../source/app/securom/Securom.cpp) | 2 | 0 | 1 | 0 | 0 |
+| [SurfaceInfo](implementaciones/detalle-073.md#grupo-1446) · [source/game_sa/SurfaceInfo_c.h](../source/game_sa/SurfaceInfo_c.h) | 0 | 0 | 1 | 0 | 0 |
+| [SurfaceInfos_c](implementaciones/detalle-073.md#grupo-1447) · [source/game_sa/SurfaceInfos_c.cpp](../source/game_sa/SurfaceInfos_c.cpp), [source/game_sa/SurfaceInfos_c.h](../source/game_sa/SurfaceInfos_c.h) | 47 | 0 | 5 | 0 | 0 |
+| [TList_c](implementaciones/detalle-073.md#grupo-1448) · [source/game_sa/Core/List_c.cpp](../source/game_sa/Core/List_c.cpp), [source/game_sa/Core/List_c.h](../source/game_sa/Core/List_c.h) | 3 | 0 | 21 | 0 | 0 |
+| [TList_c::BaseIterator](implementaciones/detalle-073.md#grupo-1449) · [source/game_sa/Core/List_c.h](../source/game_sa/Core/List_c.h) | 0 | 0 | 9 | 0 | 0 |
+| [UpgradePosnDesc](implementaciones/detalle-073.md#grupo-1450) · [source/game_sa/Models/VehicleModelInfo.h](../source/game_sa/Models/VehicleModelInfo.h) | 0 | 0 | 2 | 0 | 0 |
+| [UpsideDownCar](implementaciones/detalle-073.md#grupo-1451) · [source/game_sa/UpsideDownCarCheck.h](../source/game_sa/UpsideDownCarCheck.h) | 0 | 0 | 2 | 0 | 0 |
+| [UserTracksLegacyVector](implementaciones/detalle-073.md#grupo-1452) · [source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp](../source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp) | 1 | 0 | 0 | 0 | 0 |
+| [VectorConstructorIterator](implementaciones/detalle-073.md#grupo-1453) · [source/game_sa/RuntimeHelpers.cpp](../source/game_sa/RuntimeHelpers.cpp) | 1 | 0 | 0 | 0 | 0 |
+| [VideoMode](implementaciones/detalle-073.md#grupo-1454) · [source/app/platform/win/VideoMode.cpp](../source/app/platform/win/VideoMode.cpp) | 4 | 0 | 0 | 0 | 0 |
+| [VideoPlayer](implementaciones/detalle-073.md#grupo-1455) · [source/app/platform/win/VideoPlayer/VideoPlayer.cpp](../source/app/platform/win/VideoPlayer/VideoPlayer.cpp) | 6 | 0 | 2 | 0 | 0 |
+| [WaterCreatureManager_c](implementaciones/detalle-073.md#grupo-1456) · [source/game_sa/WaterCreatureManager_c.cpp](../source/game_sa/WaterCreatureManager_c.cpp), [source/game_sa/WaterCreatureManager_c.h](../source/game_sa/WaterCreatureManager_c.h) | 7 | 0 | 3 | 0 | 0 |
+| [WaterCreature_c](implementaciones/detalle-073.md#grupo-1457) · [source/game_sa/WaterCreature_c.cpp](../source/game_sa/WaterCreature_c.cpp), [source/game_sa/WaterCreature_c.h](../source/game_sa/WaterCreature_c.h) | 3 | 0 | 5 | 0 | 0 |
+| [Win](implementaciones/detalle-073.md#grupo-1458) · [source/app/platform/win/WinMain.cpp](../source/app/platform/win/WinMain.cpp), [source/app/platform/win/WinPlatform.cpp](../source/app/platform/win/WinPlatform.cpp), [source/app/platform/win/WndProc.cpp](../source/app/platform/win/WndProc.cpp) | 6 | 0 | 1 | 0 | 0 |
+| [WinInput](implementaciones/detalle-073.md#grupo-1459) · [source/app/platform/win/WinInput.cpp](../source/app/platform/win/WinInput.cpp) | 2 | 0 | 13 | 0 | 0 |
+| [cBuoyancy](implementaciones/detalle-073.md#grupo-1460) · [source/game_sa/Buoyancy.cpp](../source/game_sa/Buoyancy.cpp), [source/game_sa/Buoyancy.h](../source/game_sa/Buoyancy.h) | 11 | 0 | 1 | 0 | 0 |
+| [cHandlingDataMgr](implementaciones/detalle-074.md#grupo-1461) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 11 | 0 | 4 | 0 | 0 |
+| [cTransmission](implementaciones/detalle-074.md#grupo-1462) · [source/game_sa/cTransmission.cpp](../source/game_sa/cTransmission.cpp) | 4 | 0 | 1 | 0 | 0 |
+| [detail](implementaciones/detalle-074.md#grupo-1463) · [source/game_sa/PathFind.cpp](../source/game_sa/PathFind.cpp) | 0 | 0 | 5 | 0 | 0 |
+| [details](implementaciones/detalle-074.md#grupo-1464) · [source/game_sa/Core/PtrNodeDoubleLink.cpp](../source/game_sa/Core/PtrNodeDoubleLink.cpp), [source/game_sa/Core/PtrNodeSingleLink.cpp](../source/game_sa/Core/PtrNodeSingleLink.cpp) | 0 | 0 | 4 | 0 | 0 |
+| [details::PtrListIterator](implementaciones/detalle-074.md#grupo-1465) · [source/game_sa/Core/PtrList.h](../source/game_sa/Core/PtrList.h) | 0 | 0 | 6 | 0 | 0 |
+| [notsa](implementaciones/detalle-074.md#grupo-1466) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp), [source/game_sa/Pools/Pools.h](../source/game_sa/Pools/Pools.h) | 0 | 0 | 15 | 0 | 0 |
+| [notsa::Logging](implementaciones/detalle-074.md#grupo-1467) · [source/app/app_debug.cpp](../source/app/app_debug.cpp) | 0 | 0 | 4 | 0 | 0 |
+| [notsa::Route](implementaciones/detalle-074.md#grupo-1468) · [source/game_sa/Route.hpp](../source/game_sa/Route.hpp) | 0 | 0 | 13 | 0 | 0 |
+| [notsa::SDLWrapper](implementaciones/detalle-074.md#grupo-1469) · [source/app/platform/SDLWrapper.cpp](../source/app/platform/SDLWrapper.cpp) | 0 | 0 | 6 | 0 | 0 |
+| [notsa::WindowedMode](implementaciones/detalle-074.md#grupo-1470) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 5 | 14 | 1 |
+| [notsa::WindowedMode::D3D9ProxyDevice](implementaciones/detalle-074.md#grupo-1471) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 3 | 0 | 0 |
+| [notsa::WindowedMode::PosChangeNoRecursion](implementaciones/detalle-074.md#grupo-1472) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 2 | 0 | 0 |
+| [notsa::WindowedMode::ScopedRestoreWindowInfo](implementaciones/detalle-074.md#grupo-1473) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 2 | 0 | 0 |
+| [notsa::detail](implementaciones/detalle-074.md#grupo-1474) · [source/app/app_debug.h](../source/app/app_debug.h), [source/game_sa/Scripts/CommandParser/Parser.hpp](../source/game_sa/Scripts/CommandParser/Parser.hpp) | 0 | 0 | 3 | 0 | 0 |
+| [notsa::details::PtrListDoubleLinkTraits](implementaciones/detalle-074.md#grupo-1475) · [source/game_sa/Core/PtrListDoubleLink.h](../source/game_sa/Core/PtrListDoubleLink.h) | 0 | 0 | 3 | 0 | 0 |
+| [notsa::details::PtrListSingleLinkTraits](implementaciones/detalle-074.md#grupo-1476) · [source/game_sa/Core/PtrListSingleLink.h](../source/game_sa/Core/PtrListSingleLink.h) | 0 | 0 | 3 | 0 | 0 |
+| [notsa::envmap](implementaciones/detalle-074.md#grupo-1477) · [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h](../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h) | 0 | 0 | 2 | 0 | 0 |
+| [notsa::script](implementaciones/detalle-074.md#grupo-1478) · [source/game_sa/Enums/eScriptCommands.h](../source/game_sa/Enums/eScriptCommands.h), [source/game_sa/Scripts/CommandParser/LUTGenerator.hpp](../source/game_sa/Scripts/CommandParser/LUTGenerator.hpp), [source/game_sa/Scripts/CommandParser/ReadArg.hpp](../source/game_sa/Scripts/CommandParser/ReadArg.hpp), [source/game_sa/Scripts/CommandParser/StoreArg.hpp](../source/game_sa/Scripts/CommandParser/StoreArg.hpp), [source/game_sa/Scripts/CommandParser/Utility.hpp](../source/game_sa/Scripts/CommandParser/Utility.hpp) | 0 | 0 | 18 | 0 | 0 |
+| [notsa::script::commands::basic](implementaciones/detalle-074.md#grupo-1479) · [source/game_sa/Scripts/Commands/BasicCommands.cpp](../source/game_sa/Scripts/Commands/BasicCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::camera](implementaciones/detalle-074.md#grupo-1480) · [source/game_sa/Scripts/Commands/CameraCommands.cpp](../source/game_sa/Scripts/Commands/CameraCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::character](implementaciones/detalle-075.md#grupo-1481) · [source/game_sa/Scripts/Commands/CharacterCommands.cpp](../source/game_sa/Scripts/Commands/CharacterCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::cleo::audiostream](implementaciones/detalle-075.md#grupo-1482) · [source/game_sa/Scripts/Commands/CLEO/CLEOAudioStreamCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOAudioStreamCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::cleo::character](implementaciones/detalle-075.md#grupo-1483) · [source/game_sa/Scripts/Commands/CLEO/CLEOCharacterCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOCharacterCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::cleo::dynamiclibrary](implementaciones/detalle-075.md#grupo-1484) · [source/game_sa/Scripts/Commands/CLEO/CLEODynamicLibraryCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEODynamicLibraryCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::cleo::fs](implementaciones/detalle-075.md#grupo-1485) · [source/game_sa/Scripts/Commands/CLEO/CLEOFsCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOFsCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::cleo::game](implementaciones/detalle-075.md#grupo-1486) · [source/game_sa/Scripts/Commands/CLEO/CLEOGameCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOGameCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::cleo::generic](implementaciones/detalle-075.md#grupo-1487) · [source/game_sa/Scripts/Commands/CLEO/CLEOGenericCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOGenericCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::cleo::memory](implementaciones/detalle-075.md#grupo-1488) · [source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::cleo::pad](implementaciones/detalle-075.md#grupo-1489) · [source/game_sa/Scripts/Commands/CLEO/CLEOPadCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOPadCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::cleo::script](implementaciones/detalle-075.md#grupo-1490) · [source/game_sa/Scripts/Commands/CLEO/CLEOScriptCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOScriptCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::cleo::vehicle](implementaciones/detalle-075.md#grupo-1491) · [source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::cleo::world](implementaciones/detalle-075.md#grupo-1492) · [source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::clock](implementaciones/detalle-075.md#grupo-1493) · [source/game_sa/Scripts/Commands/ClockCommands.cpp](../source/game_sa/Scripts/Commands/ClockCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::comparasion](implementaciones/detalle-075.md#grupo-1494) · [source/game_sa/Scripts/Commands/ComparasionCommands.cpp](../source/game_sa/Scripts/Commands/ComparasionCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::conversation](implementaciones/detalle-075.md#grupo-1495) · [source/game_sa/Scripts/Commands/ConversationCommands.cpp](../source/game_sa/Scripts/Commands/ConversationCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::draw](implementaciones/detalle-075.md#grupo-1496) · [source/game_sa/Scripts/Commands/DrawCommands.cpp](../source/game_sa/Scripts/Commands/DrawCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::game](implementaciones/detalle-075.md#grupo-1497) · [source/game_sa/Scripts/Commands/GameCommands.cpp](../source/game_sa/Scripts/Commands/GameCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::generic](implementaciones/detalle-075.md#grupo-1498) · [source/game_sa/Scripts/Commands/GenericCommands.cpp](../source/game_sa/Scripts/Commands/GenericCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::math](implementaciones/detalle-075.md#grupo-1499) · [source/game_sa/Scripts/Commands/MathCommands.cpp](../source/game_sa/Scripts/Commands/MathCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::mission](implementaciones/detalle-075.md#grupo-1500) · [source/game_sa/Scripts/Commands/MissionCommands.cpp](../source/game_sa/Scripts/Commands/MissionCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::object](implementaciones/detalle-076.md#grupo-1501) · [source/game_sa/Scripts/Commands/ObjectCommands.cpp](../source/game_sa/Scripts/Commands/ObjectCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::pad](implementaciones/detalle-076.md#grupo-1502) · [source/game_sa/Scripts/Commands/PadCommands.cpp](../source/game_sa/Scripts/Commands/PadCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::path](implementaciones/detalle-076.md#grupo-1503) · [source/game_sa/Scripts/Commands/PathCommands.cpp](../source/game_sa/Scripts/Commands/PathCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::ped](implementaciones/detalle-076.md#grupo-1504) · [source/game_sa/Scripts/Commands/PedCommands.cpp](../source/game_sa/Scripts/Commands/PedCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::player](implementaciones/detalle-076.md#grupo-1505) · [source/game_sa/Scripts/Commands/PlayerCommands.cpp](../source/game_sa/Scripts/Commands/PlayerCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::script](implementaciones/detalle-076.md#grupo-1506) · [source/game_sa/Scripts/Commands/ScriptCommands.cpp](../source/game_sa/Scripts/Commands/ScriptCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::sequence](implementaciones/detalle-076.md#grupo-1507) · [source/game_sa/Scripts/Commands/SequenceCommands.cpp](../source/game_sa/Scripts/Commands/SequenceCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::stat](implementaciones/detalle-076.md#grupo-1508) · [source/game_sa/Scripts/Commands/StatCommands.cpp](../source/game_sa/Scripts/Commands/StatCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::text](implementaciones/detalle-076.md#grupo-1509) · [source/game_sa/Scripts/Commands/TextCommands.cpp](../source/game_sa/Scripts/Commands/TextCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::unused](implementaciones/detalle-076.md#grupo-1510) · [source/game_sa/Scripts/Commands/UnusedCommands.cpp](../source/game_sa/Scripts/Commands/UnusedCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::utility](implementaciones/detalle-076.md#grupo-1511) · [source/game_sa/Scripts/Commands/UtilityCommands.cpp](../source/game_sa/Scripts/Commands/UtilityCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::vehicle](implementaciones/detalle-076.md#grupo-1512) · [source/game_sa/Scripts/Commands/VehicleCommands.cpp](../source/game_sa/Scripts/Commands/VehicleCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::commands::zone](implementaciones/detalle-076.md#grupo-1513) · [source/game_sa/Scripts/Commands/ZoneCommands.cpp](../source/game_sa/Scripts/Commands/ZoneCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::detail](implementaciones/detalle-076.md#grupo-1514) · [source/game_sa/Scripts/CommandParser/LUTGenerator.hpp](../source/game_sa/Scripts/CommandParser/LUTGenerator.hpp), [source/game_sa/Scripts/CommandParser/Parser.hpp](../source/game_sa/Scripts/CommandParser/Parser.hpp), [source/game_sa/Scripts/CommandParser/ReadArg.hpp](../source/game_sa/Scripts/CommandParser/ReadArg.hpp) | 0 | 0 | 6 | 0 | 0 |
+| [notsa::script::detail::StrongAlias](implementaciones/detalle-076.md#grupo-1515) · [source/game_sa/Scripts/CommandParser/ReadArg.hpp](../source/game_sa/Scripts/CommandParser/ReadArg.hpp) | 0 | 0 | 1 | 0 | 0 |
+| [notsa::script::detail::scriptthing](implementaciones/detalle-076.md#grupo-1516) · [source/game_sa/Scripts/CommandParser/ReadArg.hpp](../source/game_sa/Scripts/CommandParser/ReadArg.hpp) | 0 | 0 | 10 | 0 | 0 |
+| [sItemDefinitionFlags](implementaciones/detalle-076.md#grupo-1517) · [source/game_sa/Enums/eItemDefinitionFlags.h](../source/game_sa/Enums/eItemDefinitionFlags.h) | 0 | 0 | 1 | 0 | 0 |
+| [sVehAnimGroupGeneralTiming](implementaciones/detalle-076.md#grupo-1518) · [source/game_sa/VehicleAnimGroupData.h](../source/game_sa/VehicleAnimGroupData.h) | 0 | 0 | 1 | 0 | 0 |
+| [sVehAnimGroupInOutTiming](implementaciones/detalle-076.md#grupo-1519) · [source/game_sa/VehicleAnimGroupData.h](../source/game_sa/VehicleAnimGroupData.h) | 0 | 0 | 1 | 0 | 0 |
+| [scm::ArrayAccess](implementaciones/detalle-076.md#grupo-1520) · [source/game_sa/Scripts/RunningScript.h](../source/game_sa/Scripts/RunningScript.h) | 0 | 0 | 1 | 0 | 0 |
+| [scm::StringRef](implementaciones/detalle-077.md#grupo-1521) · [source/game_sa/Scripts/RunningScript.h](../source/game_sa/Scripts/RunningScript.h) | 0 | 0 | 4 | 0 | 0 |
+| [tAudioZoneBox](implementaciones/detalle-077.md#grupo-1522) · [source/game_sa/Audio/AudioZones.h](../source/game_sa/Audio/AudioZones.h) | 0 | 0 | 1 | 0 | 0 |
+| [tBikeHandlingData](implementaciones/detalle-077.md#grupo-1523) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [tBinaryIplFile](implementaciones/detalle-077.md#grupo-1524) · [source/game_sa/tBinaryIplFile.h](../source/game_sa/tBinaryIplFile.h) | 0 | 0 | 2 | 0 | 0 |
+| [tBoatHandlingData](implementaciones/detalle-077.md#grupo-1525) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [tBrightLight](implementaciones/detalle-077.md#grupo-1526) · [source/game_sa/BrightLights.cpp](../source/game_sa/BrightLights.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [tBuildingSwap](implementaciones/detalle-077.md#grupo-1527) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 3 | 0 | 0 |
+| [tColLighting](implementaciones/detalle-077.md#grupo-1528) · [source/game_sa/Collision/ColPoint.cpp](../source/game_sa/Collision/ColPoint.cpp), [source/game_sa/Collision/ColPoint.h](../source/game_sa/Collision/ColPoint.h) | 1 | 0 | 1 | 0 | 0 |
+| [tCompSearchStructById](implementaciones/detalle-077.md#grupo-1529) · [source/game_sa/Models/ClumpModelInfo.h](../source/game_sa/Models/ClumpModelInfo.h) | 0 | 0 | 1 | 0 | 0 |
+| [tCompSearchStructByName](implementaciones/detalle-077.md#grupo-1530) · [source/game_sa/Models/ClumpModelInfo.h](../source/game_sa/Models/ClumpModelInfo.h) | 0 | 0 | 1 | 0 | 0 |
+| [tDirectionArrow](implementaciones/detalle-077.md#grupo-1531) · [source/game_sa/3dMarkers.cpp](../source/game_sa/3dMarkers.cpp), [source/game_sa/3dMarkers.h](../source/game_sa/3dMarkers.h) | 0 | 0 | 3 | 0 | 0 |
+| [tFlyingHandlingData](implementaciones/detalle-077.md#grupo-1532) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
+| [tHandlingData](implementaciones/detalle-077.md#grupo-1533) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp), [source/game_sa/tHandlingData.h](../source/game_sa/tHandlingData.h) | 0 | 0 | 3 | 0 | 0 |
+| [tHeliLight](implementaciones/detalle-077.md#grupo-1534) · [source/game_sa/Entity/Vehicle/Heli.h](../source/game_sa/Entity/Vehicle/Heli.h) | 0 | 0 | 1 | 0 | 0 |
+| [tMessage](implementaciones/detalle-077.md#grupo-1535) · [source/game_sa/Messages.h](../source/game_sa/Messages.h) | 0 | 0 | 4 | 0 | 0 |
+| [tMissionCleanupEntity](implementaciones/detalle-077.md#grupo-1536) · [source/game_sa/MissionCleanup.h](../source/game_sa/MissionCleanup.h) | 0 | 0 | 1 | 0 | 0 |
+| [tPickupReference](implementaciones/detalle-077.md#grupo-1537) · [source/game_sa/Pickups.h](../source/game_sa/Pickups.h) | 0 | 0 | 4 | 0 | 0 |
+| [tRadarTrace](implementaciones/detalle-077.md#grupo-1538) · [source/game_sa/Radar.cpp](../source/game_sa/Radar.cpp), [source/game_sa/Radar.h](../source/game_sa/Radar.h) | 0 | 0 | 4 | 0 | 0 |
+| [tRadioIndexHistory](implementaciones/detalle-077.md#grupo-1539) · [source/game_sa/Audio/Managers/AERadioTrackManager.h](../source/game_sa/Audio/Managers/AERadioTrackManager.h) | 0 | 0 | 2 | 0 | 0 |
+| [tRadioSettings](implementaciones/detalle-077.md#grupo-1540) · [source/game_sa/Audio/Managers/AERadioTrackManager.h](../source/game_sa/Audio/Managers/AERadioTrackManager.h) | 0 | 0 | 3 | 0 | 0 |
+| [tRadioState](implementaciones/detalle-078.md#grupo-1541) · [source/game_sa/Audio/Managers/AERadioTrackManager.h](../source/game_sa/Audio/Managers/AERadioTrackManager.h) | 0 | 0 | 1 | 0 | 0 |
+| [tReplayBikeBlock](implementaciones/detalle-078.md#grupo-1542) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 2 | 0 | 0 |
+| [tReplayBlockBase](implementaciones/detalle-078.md#grupo-1543) · [source/game_sa/ReplayBlockType.h](../source/game_sa/ReplayBlockType.h) | 0 | 0 | 1 | 0 | 0 |
+| [tReplayBmxBlock](implementaciones/detalle-078.md#grupo-1544) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 2 | 0 | 0 |
+| [tReplayCameraBlock](implementaciones/detalle-078.md#grupo-1545) · [source/game_sa/ReplayBlockType.h](../source/game_sa/ReplayBlockType.h) | 0 | 0 | 1 | 0 | 0 |
+| [tReplayTrainBlock](implementaciones/detalle-078.md#grupo-1546) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 2 | 0 | 0 |
+| [tReplayVehicleBlock](implementaciones/detalle-078.md#grupo-1547) · [source/game_sa/ReplayBlockType.cpp](../source/game_sa/ReplayBlockType.cpp) | 0 | 0 | 2 | 0 | 0 |
+| [tSCMChunkHeader](implementaciones/detalle-078.md#grupo-1548) · [source/game_sa/Scripts/SCMChunks.hpp](../source/game_sa/Scripts/SCMChunks.hpp) | 0 | 0 | 2 | 0 | 0 |
+| [tSCMGlobalVarChunk](implementaciones/detalle-078.md#grupo-1549) · [source/game_sa/Scripts/SCMChunks.hpp](../source/game_sa/Scripts/SCMChunks.hpp) | 0 | 0 | 1 | 0 | 0 |
+| [tSCMScriptFileInfoChunk](implementaciones/detalle-078.md#grupo-1550) · [source/game_sa/Scripts/SCMChunks.hpp](../source/game_sa/Scripts/SCMChunks.hpp) | 0 | 0 | 1 | 0 | 0 |
+| [tSCMStreamedScriptFileInfoChunk](implementaciones/detalle-078.md#grupo-1551) · [source/game_sa/Scripts/SCMChunks.hpp](../source/game_sa/Scripts/SCMChunks.hpp) | 0 | 0 | 1 | 0 | 0 |
+| [tSCMUsedObjectsChunk](implementaciones/detalle-078.md#grupo-1552) · [source/game_sa/Scripts/SCMChunks.hpp](../source/game_sa/Scripts/SCMChunks.hpp) | 0 | 0 | 1 | 0 | 0 |
+| [tScanLists](implementaciones/detalle-078.md#grupo-1553) · [source/game_sa/Renderer.h](../source/game_sa/Renderer.h) | 0 | 0 | 1 | 0 | 0 |
+| [tScannerSlot](implementaciones/detalle-078.md#grupo-1554) · [source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h](../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h) | 0 | 0 | 1 | 0 | 0 |
+| [tScriptAttachedAnimGroup](implementaciones/detalle-078.md#grupo-1555) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 1 | 0 | 0 |
+| [tScriptBrainWaitEntity](implementaciones/detalle-078.md#grupo-1556) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 1 | 0 | 0 |
+| [tScriptCheckpoint](implementaciones/detalle-078.md#grupo-1557) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 3 | 0 | 0 |
+| [tScriptConnectLodsObject](implementaciones/detalle-078.md#grupo-1558) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 1 | 0 | 0 |
+| [tScriptEffectSystem](implementaciones/detalle-078.md#grupo-1559) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 3 | 0 | 0 |
+| [tScriptRectangle](implementaciones/detalle-078.md#grupo-1560) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 1 | 0 | 0 |
+| [tScriptResource](implementaciones/detalle-079.md#grupo-1561) · [source/game_sa/ScriptResourceManager.h](../source/game_sa/ScriptResourceManager.h) | 0 | 0 | 1 | 0 | 0 |
+| [tScriptSearchlight](implementaciones/detalle-079.md#grupo-1562) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 2 | 0 | 0 |
+| [tScriptSequence](implementaciones/detalle-079.md#grupo-1563) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 3 | 0 | 0 |
+| [tScriptSphere](implementaciones/detalle-079.md#grupo-1564) · [source/game_sa/Scripts/TheScripts.h](../source/game_sa/Scripts/TheScripts.h) | 0 | 0 | 3 | 0 | 0 |
+| [tSpecificSpeechContextInfo](implementaciones/detalle-079.md#grupo-1565) · [source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h](../source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h) | 0 | 0 | 2 | 0 | 0 |
+| [tStreamingChannel](implementaciones/detalle-079.md#grupo-1566) · [source/game_sa/Streaming.h](../source/game_sa/Streaming.h) | 0 | 0 | 3 | 0 | 0 |
+| [tStreamingFileDesc](implementaciones/detalle-079.md#grupo-1567) · [source/game_sa/Streaming.h](../source/game_sa/Streaming.h) | 0 | 0 | 2 | 0 | 0 |
+| [tUser3dMarker](implementaciones/detalle-079.md#grupo-1568) · [source/game_sa/3dMarkers.cpp](../source/game_sa/3dMarkers.cpp), [source/game_sa/3dMarkers.h](../source/game_sa/3dMarkers.h) | 0 | 0 | 3 | 0 | 0 |
+| [tVehicleAudioSettings](implementaciones/detalle-079.md#grupo-1569) · [source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.VehicleAudioSettings.h) | 0 | 0 | 9 | 0 | 0 |
+| [tVirtualChannelSettings](implementaciones/detalle-079.md#grupo-1570) · [source/game_sa/Audio/Loaders/AEMP3BankLoader.h](../source/game_sa/Audio/Loaders/AEMP3BankLoader.h) | 0 | 0 | 1 | 0 | 0 |
+| [traits::fx_field_scanf_format&lt;char\[size\]&gt;](implementaciones/detalle-079.md#grupo-1571) · [source/game_sa/Fx/FxTools.h](../source/game_sa/Fx/FxTools.h) | 0 | 0 | 2 | 0 | 0 |
+| [traits::fx_field_scanf_format&lt;float&gt;](implementaciones/detalle-079.md#grupo-1572) · [source/game_sa/Fx/FxTools.h](../source/game_sa/Fx/FxTools.h) | 0 | 0 | 2 | 0 | 0 |
+| [traits::fx_field_scanf_format&lt;int32&gt;](implementaciones/detalle-079.md#grupo-1573) · [source/game_sa/Fx/FxTools.h](../source/game_sa/Fx/FxTools.h) | 0 | 0 | 2 | 0 | 0 |
 
 ## Datos y reproducción
 

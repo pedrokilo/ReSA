@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,554** funciones en 496 clases/módulos (rango 0x401000–0x74FFFF): 2,532 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,541** funciones en 483 clases/módulos (rango 0x401000–0x74FFFF): 2,519 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,19 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| BoneNode_c | 1 | 12 |
-| CUserDisplay | 1 | 15 |
-| CGenericGameStorage | 1 | 16 |
-| CTaskSimpleChat | 1 | 18 |
-| CFileMgr | 1 | 19 |
-| CTaskSimpleCarWaitToSlowDown | 1 | 21 |
-| CCarAI | 1 | 22 |
-| CTimeCycle | 1 | 26 |
-| BreakObject_c | 1 | 27 |
-| CAEVorbisDecoder | 1 | 27 |
-| CAEWaveDecoder | 1 | 27 |
-| CPlayerPedData | 1 | 27 |
-| CRealTimeShadowManager | 1 | 27 |
 | CBoat | 1 | 30 |
 | CCutsceneObject | 1 | 30 |
 | CDummyObject | 1 | 30 |
@@ -506,84 +493,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxInfoManager_c | 116 | 6591 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## BoneNode_c (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00617850 | 12 | D |  | 0 | 0 |  | baja |
-
-## CUserDisplay (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005720C0 | 15 | A |  | 2 | 2 |  | baja |
-
-## CGenericGameStorage (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005D0F40 | 16 | A |  | 1 | 1 |  | alta |
-
-## CTaskSimpleChat (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F6660 | 18 | D |  | 0 | 0 |  | baja |
-
-## CFileMgr (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00538AD0 | 19 | A |  | 1 | 1 |  | baja |
-
-## CTaskSimpleCarWaitToSlowDown (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00646AB0 | 21 | B |  | 0 | 0 | sí | alta |
-
-## CCarAI (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00420860 | 22 | D |  | 0 | 0 |  | baja |
-
-## CTimeCycle (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005617A0 | 26 | A |  | 1 | 1 |  | baja |
-
-## BreakObject_c (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0059E620 | 27 | C |  | 1 | 0 |  | baja |
-
-## CAEVorbisDecoder (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00502700 | 27 | B |  | 0 | 0 | sí | baja |
-
-## CAEWaveDecoder (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00503430 | 27 | B |  | 0 | 0 | sí | baja |
-
-## CPlayerPedData (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0056F850 | 27 | D |  | 0 | 0 |  | alta |
-
-## CRealTimeShadowManager (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00706850 | 27 | D |  | 0 | 0 |  | alta |
 
 ## CBoat (1)
 
@@ -2101,7 +2010,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x0056F200 | 11 | A |  | 3 | 2 |  | baja |
+| 0x0056F200 | 11 | A |  | 3 | 3 |  | baja |
 | 0x00571970 | 5 | C |  | 1 | 0 |  | baja |
 | 0x00571980 | 5 | C |  | 1 | 0 |  | baja |
 
@@ -5386,7 +5295,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004A8D50 | 27 | D |  | 0 | 0 |  | baja |
 | 0x004A8D70 | 27 | D |  | 0 | 0 |  | baja |
 | 0x004A8D90 | 27 | D |  | 0 | 0 |  | baja |
-| 0x004A8DB0 | 16 | A |  | 15 | 3 |  | baja |
+| 0x004A8DB0 | 16 | A |  | 15 | 4 |  | baja |
 | 0x004A8DC0 | 1 | A |  | 18 | 2 |  | baja |
 | 0x004A8DD0 | 13 | A |  | 20 | 5 |  | baja |
 | 0x004A8DE0 | 1 | A |  | 35 | 5 |  | baja |

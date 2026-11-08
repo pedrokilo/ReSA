@@ -443,7 +443,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0041D660,973,reemplazada,CCarAI,exacta,CCarAI::MakeWayForCarWithSiren,1,1,,
 0x0041DA30,11327,reemplazada,CCarAI,exacta,CCarAI::UpdateCarAI,8,8,,
 0x00420800,25,reemplazada,CCarAI,baja,,54,54,,
-0x00420860,22,D,CCarAI,baja,,0,0,,
+0x00420860,22,reemplazada,CCarAI,baja,,0,0,,
 0x00420920,35,reemplazada,CCarAI,baja,,14,14,,
 0x00420950,35,reemplazada,CCarAI,baja,,4,4,,
 0x00420980,43,reemplazada,CCarAI,baja,,4,4,,
@@ -1776,7 +1776,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004A8D50,27,D,FxInfoManager_c,baja,,0,0,,
 0x004A8D70,27,D,FxInfoManager_c,baja,,0,0,,
 0x004A8D90,27,D,FxInfoManager_c,baja,,0,0,,
-0x004A8DB0,16,A,FxInfoManager_c,baja,,15,3,,
+0x004A8DB0,16,A,FxInfoManager_c,baja,,15,4,,
 0x004A8DC0,1,A,FxInfoManager_c,baja,,18,2,,
 0x004A8DD0,13,A,FxInfoManager_c,baja,,20,5,,
 0x004A8DE0,1,A,FxInfoManager_c,baja,,35,5,,
@@ -3602,7 +3602,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00501C50,351,reemplazada,CAEVehicleAudioEntity,exacta,CAEVehicleAudioEntity::ProcessAircraft,3,3,,
 0x00501E10,1081,reemplazada,CAEVehicleAudioEntity,exacta,CAEVehicleAudioEntity::ProcessVehicle,1,1,,
 0x00502280,363,reemplazada,CAEVehicleAudioEntity,exacta,CAEVehicleAudioEntity::Service,4,4,,
-0x005023F0,96,reemplazada,CAEVorbisDecoder,exacta,CAEVorbisDecoder::Destructor,1,0,,
+0x005023F0,96,reemplazada,CAEVorbisDecoder,exacta,CAEVorbisDecoder::Destructor,1,1,,
 0x00502460,7,reemplazada,CAEVorbisDecoder,exacta,CAEVorbisDecoder::GetStreamID,0,0,,sí
 0x00502470,84,reemplazada,CAEVorbisDecoder,exacta,CAEVorbisDecoder::FillBuffer,0,0,,sí
 0x005024D0,132,reemplazada,CAEVorbisDecoder,exacta,CAEVorbisDecoder::Initialise,0,0,,sí
@@ -3615,7 +3615,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00502640,36,reemplazada,CAEVorbisDecoder,exacta,CAEVorbisDecoder::GetStreamPlayTimeMs,0,0,,sí
 0x00502670,52,reemplazada,CAEVorbisDecoder,exacta,CAEVorbisDecoder::SetCursor,0,0,,sí
 0x005026B0,76,reemplazada,CAEVorbisDecoder,exacta,CAEVorbisDecoder::Constructor,3,3,,
-0x00502700,27,B,CAEVorbisDecoder,baja,,0,0,,sí
+0x00502700,27,reemplazada,CAEVorbisDecoder,baja,,0,0,,sí
 0x00502720,36,reemplazada,CAEWMADecoder,exacta,CAEWMADecoder::Constructor,1,1,,
 0x00502750,7,reemplazada,CAEWMADecoder,exacta,CAEWMADecoder::GetStreamID,0,0,,sí
 0x00502760,105,reemplazada,CAEWMADecoder,exacta,CAEWMADecoder::Destructor,1,0,,
@@ -3638,14 +3638,14 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005030D0,381,reemplazada,CAEWaterCannonAudioEntity,exacta,CAEWaterCannonAudioEntity::Service,1,1,,
 0x00503250,34,reemplazada,CAEWaveDecoder,exacta,CAEWaveDecoder::Constructor,1,1,,
 0x00503280,7,reemplazada,CAEWaveDecoder,exacta,CAEWaveDecoder::GetStreamID,0,0,,sí
-0x00503290,11,reemplazada,CAEWaveDecoder,exacta,CAEWaveDecoder::Destructor,1,0,,
+0x00503290,11,reemplazada,CAEWaveDecoder,exacta,CAEWaveDecoder::Destructor,1,1,,
 0x005032A0,8,reemplazada,CAEWaveDecoder,exacta,CAEWaveDecoder::FillBuffer,0,0,,sí
 0x005032B0,67,reemplazada,CAEWaveDecoder,exacta,CAEWaveDecoder::Initialise,0,0,,sí
 0x00503300,15,reemplazada,CAEWaveDecoder,exacta,CAEWaveDecoder::GetSampleRate,0,0,,sí
 0x00503310,69,reemplazada,CAEWaveDecoder,exacta,CAEWaveDecoder::GetStreamLengthMs,0,0,,sí
 0x00503360,87,reemplazada,CAEWaveDecoder,exacta,CAEWaveDecoder::GetStreamPlayTimeMs,0,0,,sí
 0x005033C0,103,reemplazada,CAEWaveDecoder,exacta,CAEWaveDecoder::SetCursor,0,0,,sí
-0x00503430,27,B,CAEWaveDecoder,baja,,0,0,,sí
+0x00503430,27,reemplazada,CAEWaveDecoder,baja,,0,0,,sí
 0x00503450,43,reemplazada,CAEWeaponAudioEntity,exacta,CAEWeaponAudioEntity::Initialise,2,2,,
 0x00503480,14,reemplazada,CAEWeaponAudioEntity,exacta,CAEWeaponAudioEntity::Terminate,1,1,,
 0x00503490,71,reemplazada,CAEWeaponAudioEntity,exacta,CAEWeaponAudioEntity::Reset,1,1,,
@@ -4163,7 +4163,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005389E0,63,reemplazada,CFileMgr,exacta,CFileMgr::GetTotalSize,6,6,,
 0x00538A20,8,reemplazada,CFileMgr,exacta,CFileMgr::Tell,0,0,,
 0x00538A50,11,reemplazada,CFileMgr,exacta,CFileMgr::GetErrorReadWrite,2,2,,
-0x00538AD0,19,A,CFileMgr,baja,,1,1,,
+0x00538AD0,19,reemplazada,CFileMgr,baja,,1,1,,
 0x00538B30,99,reemplazada,CFire,exacta,CFire::Initialise,1,1,,
 0x00538BB0,16,reemplazada,CFireManager,exacta,CFireManager::Destructor,1,0,,
 0x00538BC0,841,reemplazada,CFireManager,exacta,CFireManager::Init,2,2,,
@@ -4737,7 +4737,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005603D0,4863,reemplazada,CTimeCycle,exacta,CTimeCycle::CalcColoursForPoint,2,2,,
 0x005616E0,125,reemplazada,CTimeCycle,exacta,CTimeCycle::FindFarClipForCoors,2,2,,
 0x00561760,54,reemplazada,CTimeCycle,exacta,CTimeCycle::Update,1,1,,
-0x005617A0,26,A,CTimeCycle,baja,,1,1,,
+0x005617A0,26,reemplazada,CTimeCycle,baja,,1,1,,
 0x005617C0,8,reemplazada,CTimeCycle,baja,,1,1,,
 0x005617E0,213,reemplazada,CTimer,exacta,CTimer::Initialise,5,5,,
 0x005618C0,8,reemplazada,CTimer,exacta,CTimer::Shutdown,1,1,,
@@ -4925,13 +4925,13 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0056EC40,49,reemplazada,CPlayerInfo,exacta,CPlayerInfo::GivePlayerParachute,1,1,,
 0x0056EC80,776,reemplazada,CPlayerInfo,baja,,1,1,,
 0x0056EF90,608,reemplazada,CPlayerInfo,baja,,1,1,,
-0x0056F200,11,A,CPlayerInfo,baja,,3,2,,
+0x0056F200,11,A,CPlayerInfo,baja,,3,3,,
 0x0056F210,259,reemplazada,CPlayerPedData,exacta,CPlayerPedData::SetInitialState,3,3,,
 0x0056F330,422,reemplazada,CPlayerInfo,exacta,CPlayerInfo::Clear,4,4,,
 0x0056F4E0,735,reemplazada,CPlayerInfo,exacta,CPlayerInfo::FindClosestCarSectorList,1,1,,
 0x0056F7D0,55,reemplazada,CPlayerInfo,exacta,CPlayerInfo::LoadPlayerSkin,1,1,,
 0x0056F810,52,reemplazada,CPlayerPedData,exacta,CPlayerPedData::Constructor,0,0,,
-0x0056F850,27,D,CPlayerPedData,alta,,0,0,,
+0x0056F850,27,reemplazada,CPlayerPedData,alta,,0,0,,
 0x0056F890,52,reemplazada,CPlayerPedData,exacta,CPlayerPedData::DeAllocateData,2,2,,
 0x0056F8D0,7920,reemplazada,CPlayerInfo,exacta,CPlayerInfo::Process,1,1,,
 0x005717F0,75,reemplazada,CPlayerInfo,exacta,CPlayerInfo::SetPlayerSkin,0,0,,
@@ -4954,7 +4954,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00571F20,262,reemplazada,CPlaceName,exacta,CPlaceName::Process,1,1,,
 0x00572040,93,reemplazada,CCurrentVehicle,exacta,CCurrentVehicle::Process,1,1,,
 0x005720A0,30,reemplazada,CUserDisplay,exacta,CUserDisplay::Process,1,1,,
-0x005720C0,15,A,CUserDisplay,baja,,2,2,,
+0x005720C0,15,reemplazada,CUserDisplay,baja,,2,2,,
 0x005720D0,63,reemplazada,CTheZones,exacta,CTheZones::InitZonesPopulationSettings,2,1,,
 0x00572110,27,reemplazada,CTheZones,exacta,CTheZones::ResetZonesRevealed,1,1,,
 0x00572130,69,A,CTheZones,alta,,3,2,,
@@ -5380,7 +5380,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0059E1F0,42,reemplazada,BreakObject_c,exacta,BreakObject_c::DoCollision,0,0,,
 0x0059E220,596,reemplazada,BreakObject_c,exacta,BreakObject_c::Update,1,1,,
 0x0059E480,407,reemplazada,BreakObject_c,exacta,BreakObject_c::Render,1,1,,
-0x0059E620,27,C,BreakObject_c,baja,,1,0,,
+0x0059E620,27,reemplazada,BreakObject_c,baja,,1,0,,
 0x0059E650,3,reemplazada,BreakManager_c,exacta,BreakManager_c::Init,1,1,,
 0x0059E660,1,reemplazada,BreakManager_c,exacta,BreakManager_c::Exit,1,1,,
 0x0059E670,43,reemplazada,BreakManager_c,exacta,BreakManager_c::Update,1,1,,
@@ -5855,7 +5855,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005D0DD0,83,reemplazada,CGenericGameStorage,exacta,CGenericGameStorage::OpenFileForWriting,1,1,,
 0x005D0E30,36,reemplazada,CGenericGameStorage,exacta,CGenericGameStorage::CloseFile,1,1,,
 0x005D0E90,174,reemplazada,CGenericGameStorage,exacta,CGenericGameStorage::MakeValidSaveName,1,1,,
-0x005D0F40,16,A,CGenericGameStorage,alta,,1,1,,
+0x005D0F40,16,reemplazada,CGenericGameStorage,alta,,1,1,,
 0x005D0F50,42,reemplazada,CGenericGameStorage,exacta,CGenericGameStorage::GetCurrentVersionNumber,2,2,,
 0x005D0F80,284,reemplazada,CGenericGameStorage,exacta,CGenericGameStorage::SaveWorkBuffer,5,5,,
 0x005D10B0,180,reemplazada,CGenericGameStorage,exacta,CGenericGameStorage::LoadWorkBuffer,4,4,,
@@ -6170,7 +6170,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005DF560,874,reemplazada,CPed,exacta,CPed::ShoulderBoneRotation,2,2,,
 0x005DF8D0,28,reemplazada,CPed,exacta,CPed::SetLookTimer,2,2,,
 0x005DF8F0,21,reemplazada,CPed,exacta,CPed::IsPlayer,436,398,,
-0x005DF910,970,reemplazada,CPed,exacta,CPed::SetPedPositionInCar,12,11,,
+0x005DF910,970,reemplazada,CPed,exacta,CPed::SetPedPositionInCar,12,12,,
 0x005DFD60,16,reemplazada,CPed,exacta,CPed::RestoreHeadingRate,11,11,,
 0x005DFD70,20,reemplazada,CPed,exacta,CPed::RestoreHeadingRateCB,0,0,,
 0x005DFD90,96,reemplazada,CPed,exacta,CPed::SetRadioStation,3,3,,
@@ -6500,7 +6500,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005F65A0,51,A,CPedGroupDefaultTaskAllocatorSitInLeaderCar,baja,,6,6,,
 0x005F65E0,112,reemplazada,CTaskSimpleChat,exacta,CTaskSimpleChat::Clone,0,0,,sí
 0x005F6650,5,reemplazada,CTaskSimpleChat,exacta,CTaskSimpleChat::IsInterruptable,0,0,,sí
-0x005F6660,18,D,CTaskSimpleChat,baja,,0,0,,
+0x005F6660,18,reemplazada,CTaskSimpleChat,baja,,0,0,,
 0x005F6680,80,reemplazada,CTaskComplexBeStill,exacta,CTaskComplexBeStill::Clone,0,0,,sí
 0x005F66D0,6,reemplazada,CTaskComplexBeStill,exacta,CTaskComplexBeStill::GetTaskType,0,0,,sí
 0x005F66E0,30,B,CTaskComplexBeStill,alta,,0,0,,sí
@@ -7070,7 +7070,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006175D0,114,reemplazada,BoneNode_c,exacta,BoneNode_c::ClampLimitsCurrent,1,1,,
 0x00617650,347,reemplazada,BoneNode_c,exacta,BoneNode_c::Limit,1,1,,
 0x006177B0,106,reemplazada,BoneNode_c,exacta,BoneNode_c::Init,1,1,,
-0x00617850,12,D,BoneNode_c,baja,,0,0,,
+0x00617850,12,reemplazada,BoneNode_c,baja,,0,0,,
 0x00617870,50,reemplazada,IKChain_c,exacta,IKChain_c::Exit,1,1,,
 0x006178B0,852,reemplazada,IKChain_c,exacta,IKChain_c::MoveBonesToTarget,1,1,,
 0x00617C10,10,reemplazada,IKChain_c,exacta,IKChain_c::SetBlend,4,4,,
@@ -7160,7 +7160,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061A360,41,reemplazada,CPlayerRelationshipRecorder,baja,,29,27,,
 0x0061A390,16,reemplazada,CPlayerRelationshipRecorder,baja,,234,205,,
 0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,104,,
-0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,203,,
+0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,204,,
 0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,114,,
 0x0061A430,40,B,CPlayerRelationshipRecorder,baja,,0,0,,sí
 0x0061A4B0,73,reemplazada,CTask,exacta,CTask::IsTaskPtr,2,2,,
@@ -8315,7 +8315,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006469F0,6,reemplazada,CTaskSimpleCarWaitToSlowDown,exacta,CTaskSimpleCarWaitToSlowDown::GetTaskType,0,0,,sí
 0x00646A00,90,reemplazada,CTaskSimpleCarWaitToSlowDown,exacta,CTaskSimpleCarWaitToSlowDown::Destructor,1,0,,
 0x00646A60,79,reemplazada,CTaskSimpleCarWaitToSlowDown,exacta,CTaskSimpleCarWaitToSlowDown::MakeAbortable,0,0,,sí
-0x00646AB0,21,B,CTaskSimpleCarWaitToSlowDown,alta,,0,0,,sí
+0x00646AB0,21,reemplazada,CTaskSimpleCarWaitToSlowDown,alta,,0,0,,sí
 0x00646AD0,155,reemplazada,CTaskSimpleCarWaitToSlowDown,exacta,CTaskSimpleCarWaitToSlowDown::ProcessPed,0,0,,sí
 0x00646B70,101,reemplazada,CTaskSimpleCarWaitForDoorNotToBeInUse,exacta,CTaskSimpleCarWaitForDoorNotToBeInUse::Constructor,5,5,,
 0x00646BE0,6,reemplazada,CTaskSimpleCarWaitForDoorNotToBeInUse,exacta,CTaskSimpleCarWaitForDoorNotToBeInUse::GetTaskType,0,0,,sí
@@ -10049,7 +10049,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0069FFA0,24,D,CText,baja,,0,0,,
 0x0069FFD0,24,D,CText,baja,,0,0,,
 0x006A0000,67,reemplazada,CKeyArray,exacta,CKeyArray::Search,2,2,,
-0x006A0050,157,reemplazada,CText,exacta,CText::Get,992,956,,
+0x006A0050,157,reemplazada,CText,exacta,CText::Get,992,957,,
 0x006A00F0,68,reemplazada,CText,exacta,CText::Constructor,1,0,,
 0x006A0140,72,reemplazada,CText,exacta,CText::Destructor,1,0,,
 0x006A01A0,672,reemplazada,CText,exacta,CText::Load,6,6,,
@@ -10898,14 +10898,14 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00706170,443,reemplazada,CShadowCamera,exacta,CShadowCamera::RasterBlur,1,1,,
 0x00706330,224,reemplazada,CShadowCamera,exacta,CShadowCamera::DrawBlurryRaster2,1,1,,
 0x00706410,44,reemplazada,CRealTimeShadow,exacta,CRealTimeShadow::Constructor,0,0,,
-0x00706440,25,reemplazada,CRealTimeShadow,exacta,CRealTimeShadow::Destructor,2,1,,
+0x00706440,25,reemplazada,CRealTimeShadow,exacta,CRealTimeShadow::Destructor,2,2,,
 0x00706460,187,reemplazada,CRealTimeShadow,exacta,CRealTimeShadow::Create,1,1,,
 0x00706520,222,reemplazada,CRealTimeShadow,alta,,1,1,,
 0x00706600,194,reemplazada,CRealTimeShadow,exacta,CRealTimeShadow::Update,1,1,,
 0x00706770,36,C,CRealTimeShadow,baja,,1,0,,
 0x007067A0,20,C,CRealTimeShadow,baja,,1,0,,
 0x007067C0,137,reemplazada,CRealTimeShadowManager,exacta,CRealTimeShadowManager::Init,2,2,,
-0x00706850,27,D,CRealTimeShadowManager,alta,,0,0,,
+0x00706850,27,reemplazada,CRealTimeShadowManager,alta,,0,0,,
 0x00706870,248,reemplazada,CRealTimeShadowManager,exacta,CRealTimeShadowManager::ReInit,1,1,,
 0x00706970,238,reemplazada,CRealTimeShadowManager,exacta,CRealTimeShadowManager::GetRealTimeShadow,1,1,,
 0x00706A60,76,reemplazada,CRealTimeShadowManager,exacta,CRealTimeShadowManager::Exit,2,2,,
