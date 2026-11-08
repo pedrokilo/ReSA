@@ -30,7 +30,7 @@ void CTaskSimpleCarWaitToSlowDown::InjectHooks() {
     RH_ScopedVMTInstall(GetTaskType, 0x6469F0);
     RH_ScopedVMTInstall(MakeAbortable, 0x646A60);
     RH_ScopedVMTInstall(ProcessPed, 0x646AD0);
-    // crash RH_ScopedVMTInstall(SetPedPosition, 0x646AB0);
+    RH_ScopedVMTInstall(SetPedPosition, 0x646AB0); // lote 124A (banco Fn124A): ranura 8 de la vtable 0x86EDB8; el "crash" antiguo era de CPed::SetPedPositionInCar (0x5DF910), ya corregida y validada
 }
 
 // 0x646990
@@ -92,7 +92,7 @@ bool CTaskSimpleCarWaitToSlowDown::ProcessPed(CPed* ped) {
     return false;
 }
 
-// 0x646AB0
+// 0x646AB0 (thiscall, un argumento de pila, `ret 4`, 21 bytes): con vehiculo objetivo (+8) no nulo llama a CPed::SetPedPositionInCar (0x5DF910, ECX = ped); devuelve true (AL = 1)
 bool CTaskSimpleCarWaitToSlowDown::SetPedPosition(CPed* ped) {
     if (m_TargetVehicle) {
         ped->SetPedPositionInCar();

@@ -22,10 +22,24 @@ END GENERATED HOOK STATUS */
 
 auto& g_breakMan = StaticRef<BreakManager_c>(0xBB4240);
 
+namespace {
+// 0x59E620 (lote 124A, banco Fn124A): constructor de BreakManager_c del EXE (el listado de pendientes decia BreakObject_c; la clase es BreakManager_c, de 0x800 bytes: 64 BreakObject_c de 0x20).
+// thiscall, sin argumentos de pila, `ret`, 27 bytes: `eh_vector_constructor_iterator(this, 0x20, 0x40, 0x59D170, 0x59D180)` (0x821D30) y devuelve this. 0x59D170 es el constructor de
+// BreakObject_c: pone a 0 los bytes +0 (m_JustFaces) y +1 (m_bActive) y el dword +8 (m_BreakGroups); no toca el resto del elemento. 0x59D180 solo desenrolla si un constructor lanzara.
+// Lo llama el inicializador estatico de g_breakMan (0x84FA85, ECX = 0xBB4240). Aqui se construyen los 64 elementos con el constructor de la clase, en orden, sin tocar el resto.
+BreakManager_c* __fastcall BreakManagerConstructorBody(BreakManager_c* self, void* /*edx*/) {
+    for (BreakObject_c& object : self->m_aObjects) {
+        new (&object) BreakObject_c();
+    }
+    return self;
+}
+} // namespace
+
 void BreakManager_c::InjectHooks() {
     RH_ScopedClass(BreakManager_c);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedNamedGlobalInstall(BreakManagerConstructorBody, "Constructor", 0x59E620);
     RH_ScopedInstall(Init, 0x59E650);
     RH_ScopedInstall(Exit, 0x59E660);
     RH_ScopedInstall(ResetAll, 0x59E720);

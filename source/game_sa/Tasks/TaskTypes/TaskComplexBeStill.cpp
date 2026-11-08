@@ -22,10 +22,26 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleCarDrive.h"
 #include "TaskSimpleStandStill.h"
 
+namespace CTaskComplexBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
+}
+
+namespace {
+// 0x5F6660 (lote 124A, banco Fn124A): cuerpo del constructor de CTaskComplexBeStill del EXE (el listado de pendientes decia CTaskSimpleChat; la clase sale de la vtable 0x86C7BC y del tipo 0x112
+// = TASK_COMPLEX_BE_STILL de su GetTaskType 0x5F66D0). thiscall, sin argumentos de pila, `ret`, 18 bytes: `push esi; mov esi,ecx; call 0x61A3B0; mov [esi],86C7BCh; mov eax,esi; pop esi; ret`.
+// Base CTaskComplex (0x61A3B0) y vtable propia; devuelve this. Sin llamadores directos en el EXE: Clone (0x5F6680) lo lleva expandido en linea, asi que es codigo sin uso.
+CTaskComplexBeStill* __fastcall BeStillConstructorBody(CTaskComplexBeStill* self, void* /*edx*/) {
+    CTaskComplexBody::Constructor(self, nullptr);
+    *reinterpret_cast<uint32*>(self) = 0x86C7BC;
+    return self;
+}
+} // namespace
+
 void CTaskComplexBeStill::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexBeStill, 0x86C7BC, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(BeStillConstructorBody, "Constructor", 0x5F6660);
     RH_ScopedInstall(Destructor, 0x5F6700);
 
     RH_ScopedVMTInstall(Clone, 0x5F6680);

@@ -80,6 +80,13 @@ int32 ObjFtol(float f) {
     return static_cast<int32>(static_cast<int64>(f));
 }
 
+// 0x538AD0 (lote 124A, banco Fn124A): ceilf del CRT del EXE (el listado de pendientes decia CFileMgr), cdecl con un float en la pila: `fld dword [esp+4]; sub esp,8; fstp qword [esp]`
+// lo amplia a double (exacto, NaN silenciados) y llama al ceil del CRT (0x823820, sin reconstruir, cdecl con un double), cuyo resultado queda en ST0 y se devuelve sin tocar (double: ni se
+// redondea a float ni se pasa por SSE), como FloorFloat (0x406CE0) de CHud con floor. Su unico llamador es CObject::SpecialEntityCalcCollisionSteps (0x5A0463).
+double CeilFloat(float value) {
+    return reinterpret_cast<double(__cdecl*)(double)>(0x823820)(static_cast<double>(value));
+}
+
 // Como el original: ceil del CRT sobre el valor convertido a double y _ftol2 (0x823820/0x538AD0 + 0x821B40)
 uint8 ObjCeilSteps(float f) {
     return static_cast<uint8>(static_cast<int64>(std::ceil(static_cast<double>(f))));
@@ -103,6 +110,7 @@ void CObject::InjectHooks()
     RH_ScopedVMTInstall(RemoveLighting, 0x553E10);
     RH_ScopedVMTInstall(SpecialEntityPreCollisionStuff, 0x59FEE0);
     RH_ScopedVMTInstall(SpecialEntityCalcCollisionSteps, 0x5A02E0);
+    RH_ScopedGlobalInstall(CeilFloat, 0x538AD0);
     RH_ScopedInstall(Init, 0x59F840);
     RH_ScopedInstall(ProcessGarageDoorBehaviour, 0x44A4D0);
     RH_ScopedInstall(CanBeDeleted, 0x59F120);

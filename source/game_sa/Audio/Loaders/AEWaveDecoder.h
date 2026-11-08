@@ -56,6 +56,7 @@ private:
 
     CAEWaveDecoder* Constructor(CAEDataStream* dataStream);
     void            Destructor();
+    CAEWaveDecoder* ScalarDeletingDestructor(uint8 flags); // 0x503430 (lote 124A, banco Fn124A): ranura 6 de la vtable 0x862DE8 del EXE, `ret 4`
 };
 
 VALIDATE_SIZE(CAEWaveDecoder, 0x3c);

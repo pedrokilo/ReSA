@@ -39,6 +39,14 @@ END GENERATED HOOK STATUS */
 extern "C" double __cdecl sqrt(double);
 #pragma intrinsic(sqrt)
 
+// 0x420860 (lote 124A, banco Fn124A): copia fuera de linea de CVector2D::Magnitude del EXE (thiscall, sin argumentos de pila, `ret`, 22 bytes, sin llamadores ni vtable visibles): raiz de
+// x*x + y*y en la x87 (24 bits de mantisa por la palabra de control del juego, exponente ampliado). Mismo cuerpo que CVector::Magnitude2D (0x406D50). Los valores intermedios quedan en
+// registros, asi que son `double`; el resultado sale en ST0 sin redondear a float (devuelve `double`). ECX y EDX no se tocan.
+static double __fastcall Vector2DMagnitudeExe(const CVector2D* self, void* /*edx*/)
+{
+    return sqrt((double)self->x * self->x + (double)self->y * self->y);
+}
+
 void CVector::InjectHooks()
 {
     RH_ScopedClass(CVector);
@@ -65,6 +73,14 @@ void CVector::InjectHooksExactMath()
     RH_ScopedInstall(SquaredMagnitudeExe, 0x406DA0);
     RH_ScopedInstall(Normalise, 0x59C910);
     RH_ScopedInstall(NormaliseAndMag, 0x59C970);
+
+    // Lote 124A (banco Fn124A): CVector2D::Magnitude fuera de linea del EXE (0x420860); el listado de pendientes lo atribuia a CCarAI.
+    {
+        RH_ScopedClass(CVector2D);
+        RH_ScopedCategory("Core");
+
+        RH_ScopedNamedGlobalInstall(Vector2DMagnitudeExe, "Magnitude", 0x420860);
+    }
 }
 
 CVector* VectorDividedByFloat(CVector* out, const CVector* vector, float divisor); // 0x4119D0 (lote 105A), definida mas abajo

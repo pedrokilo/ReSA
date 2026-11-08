@@ -74,6 +74,7 @@ public:
 
 private:
     friend void InjectHooksMain();
+    friend class CWanted; // lote 124A: CWanted::ScalarDeletingDestructor llama a la envoltura Destructor() (0x4E6E00), como el EXE
     static void InjectHooks();
 
     CAEPoliceScannerAudioEntity* Constructor();

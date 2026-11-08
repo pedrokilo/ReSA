@@ -99,8 +99,20 @@ CAEWaveDecoder* CAEWaveDecoder::Constructor(CAEDataStream* dataStream) {
     return this;
 }
 
-void CAEWaveDecoder::Destructor() {
+__declspec(noinline) void CAEWaveDecoder::Destructor() {
     this->CAEWaveDecoder::~CAEWaveDecoder();
+}
+
+// 0x503430 (lote 124A, banco Fn124A): destructor con borrado de CAEWaveDecoder del EXE (ranura 6 de su vtable 0x862DE8; thiscall, un argumento de pila, `ret 4`, 27 bytes:
+// `push esi; mov esi,ecx; call 0x503290; test byte [esp+8],1; je ..; push esi; call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el
+// destructor de la clase (0x503290, con hook; aqui su envoltura Destructor()), libera `this` solo si el bit 0 del byte de banderas esta puesto y devuelve `this`. Se engancha como Simple
+// (entrada del EXE) igual que el de la clase base (0x4F2860): RH_ScopedVMTInstall no puede nombrar la ranura del destructor virtual.
+CAEWaveDecoder* CAEWaveDecoder::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        ::operator delete(this);
+    }
+    return this;
 }
 
 /**
@@ -114,6 +126,7 @@ void CAEWaveDecoder::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x503250);
     RH_ScopedInstall(Destructor, 0x503290);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x503430);
     RH_ScopedVMTInstall(Initialise, 0x5032B0);
     RH_ScopedVMTInstall(FillBuffer, 0x5032A0);
     RH_ScopedVMTInstall(GetStreamLengthMs, 0x503310);

@@ -76,10 +76,13 @@ private:
     }
 
     // 0x706440
-    CRealTimeShadow* Destructor() {
+    __declspec(noinline) CRealTimeShadow* Destructor() {
         this->CRealTimeShadow::~CRealTimeShadow();
         return this;
     }
+
+    // 0x706850 (lote 124A, banco Fn124A): destructor con borrado del EXE (`ret 4`)
+    CRealTimeShadow* ScalarDeletingDestructor(uint8 flags);
 };
 
 VALIDATE_SIZE(CRealTimeShadow, 0x4C);

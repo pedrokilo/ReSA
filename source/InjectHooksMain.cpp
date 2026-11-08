@@ -602,6 +602,7 @@ void tColLightingInjectHooksLote116A(); // ColPoint.cpp (lote 116A)
 void CompressedVectorInjectHooksLote105A(); // CompressedVector.cpp (lote 105A)
 void TListInjectHooksLote105A(); // List_c.cpp (lote 105A)
 void RuntimeHelpersInjectHooksLote105A(); // RuntimeHelpers.cpp (lote 105A)
+void CZoneInjectHooksLote124A(); // Zone.cpp (lote 124A)
 void CPedScannerInjectHooksLote109A(); // PedScanner.cpp (lote 109A)
 void CVehicleScannerInjectHooksLote109A(); // VehicleScanner.cpp (lote 109A)
 void CPointRouteInjectHooksLote109A(); // PedGeometryAnalyser.cpp (lote 109A)
@@ -853,6 +854,7 @@ void InjectHooksMain() {
     CStats::InjectHooks();
     CCarCtrl::InjectHooks();
     CTheZones::InjectHooks();
+    CZoneInjectHooksLote124A(); // Only CZone::GetTranslatedName 0x5720C0.
     CMenuManager::InjectHooks();
     CSprite2d::InjectHooks();
     CCheat::InjectHooks();

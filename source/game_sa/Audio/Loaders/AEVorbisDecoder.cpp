@@ -184,6 +184,7 @@ void CAEVorbisDecoder::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x5026B0);
     RH_ScopedInstall(Destructor, 0x5023F0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x502700);
     RH_ScopedVMTInstall(Initialise, 0x5024D0);
     RH_ScopedVMTInstall(FillBuffer, 0x502470);
     RH_ScopedVMTInstall(GetStreamLengthMs, 0x502610);
@@ -202,7 +203,19 @@ CAEVorbisDecoder* CAEVorbisDecoder::Constructor(CAEDataStream* dataStream, int32
     return this;
 }
 
-CAEVorbisDecoder* CAEVorbisDecoder::Destructor() {
+__declspec(noinline) CAEVorbisDecoder* CAEVorbisDecoder::Destructor() {
     this->CAEVorbisDecoder::~CAEVorbisDecoder();
+    return this;
+}
+
+// 0x502700 (lote 124A, banco Fn124A): destructor con borrado de CAEVorbisDecoder del EXE (ranura 6 de su vtable 0x862D70; thiscall, un argumento de pila, `ret 4`, 27 bytes:
+// `push esi; mov esi,ecx; call 0x5023F0; test byte [esp+8],1; je ..; push esi; call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el
+// destructor de la clase (0x5023F0, con hook; aqui su envoltura Destructor()), libera `this` solo si el bit 0 del byte de banderas esta puesto y devuelve `this`. Se engancha como
+// Simple (entrada del EXE) igual que el de la clase base (0x4F2860): RH_ScopedVMTInstall no puede nombrar la ranura del destructor virtual.
+CAEVorbisDecoder* CAEVorbisDecoder::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        ::operator delete(this);
+    }
     return this;
 }

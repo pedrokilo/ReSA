@@ -117,6 +117,9 @@ private:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+
+    // 0x56F850 (lote 124A, banco Fn124A): destructor con borrado del EXE (`ret 4`)
+    CWanted* ScalarDeletingDestructor(uint8 flags);
 };
 
 VALIDATE_SIZE(CWanted, 0x29C);

@@ -44,6 +44,7 @@ private:
 
     CAEVorbisDecoder* Constructor(CAEDataStream* dataStream, int32 unknown);
     CAEVorbisDecoder* Destructor();
+    CAEVorbisDecoder* ScalarDeletingDestructor(uint8 flags); // 0x502700 (lote 124A, banco Fn124A): ranura 6 de la vtable 0x862D70 del EXE, `ret 4`
 };
 
 VALIDATE_SIZE(CAEVorbisDecoder, 0x28);

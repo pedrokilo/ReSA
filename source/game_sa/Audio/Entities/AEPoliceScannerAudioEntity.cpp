@@ -421,7 +421,7 @@ CAEPoliceScannerAudioEntity* CAEPoliceScannerAudioEntity::Constructor() {
     return this;
 }
 
-CAEPoliceScannerAudioEntity* CAEPoliceScannerAudioEntity::Destructor() {
+__declspec(noinline) CAEPoliceScannerAudioEntity* CAEPoliceScannerAudioEntity::Destructor() {
     this->CAEPoliceScannerAudioEntity::~CAEPoliceScannerAudioEntity();
     return this;
 }

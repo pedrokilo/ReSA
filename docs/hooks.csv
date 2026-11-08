@@ -9366,3 +9366,16 @@ CTaskSimpleAchieveHeading,Destructor,0x00667E70,1,0,1,S
 CTaskSimpleGoTo,DestructorBody,0x00667A00,1,0,1,S
 CTaskSimpleSetStayInSamePlace,Destructor,0x0062F5D0,1,0,1,S
 CTaskComplexPartner,Destructor,0x00683A40,1,0,1,S
+BoneNode_c,ArrayElementConstructor,0x00617850,1,0,1,S
+CZone,GetTranslatedName,0x005720C0,1,0,1,S
+CGenericGameStorage,GetNameOfSavedGame,0x005D0F40,1,0,1,S
+CTaskComplexBeStill,Constructor,0x005F6660,1,0,1,S
+CObject,CeilFloat,0x00538AD0,1,0,1,S
+CTaskSimpleCarWaitToSlowDown,SetPedPosition,0x00000000,1,0,1,V
+CVector2D,Magnitude,0x00420860,1,0,1,S
+CTimer,GetOSWPerformanceTime,0x005617A0,1,0,1,S
+BreakManager_c,Constructor,0x0059E620,1,0,1,S
+CAEVorbisDecoder,ScalarDeletingDestructor,0x00502700,1,0,1,S
+CAEWaveDecoder,ScalarDeletingDestructor,0x00503430,1,0,1,S
+CWanted,ScalarDeletingDestructor,0x0056F850,1,0,1,S
+CRealTimeShadow,ScalarDeletingDestructor,0x00706850,1,0,1,S

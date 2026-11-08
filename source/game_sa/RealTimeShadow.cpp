@@ -27,6 +27,7 @@ void CRealTimeShadow::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x706410);
     RH_ScopedInstall(Destructor, 0x706440);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x706850);
 
     RH_ScopedInstall(SetLightProperties, 0x705900);
     RH_ScopedInstall(GetShadowRwTexture, 0x7059F0);
@@ -39,6 +40,18 @@ void CRealTimeShadow::InjectHooks() {
 
 CRealTimeShadow::~CRealTimeShadow() {
     Destroy();
+}
+
+// 0x706850 (lote 124A, banco Fn124A): destructor con borrado de CRealTimeShadow del EXE (el listado de pendientes decia CRealTimeShadowManager; la clase sale de 0x706440, que llama a
+// Destroy 0x705990 y destruye las dos CShadowCamera). thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x706440; test byte [esp+8],1; je ..; push esi;
+// call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`. Como el original: destruye con el destructor de la clase (0x706440, con hook; aqui su envoltura Destructor()),
+// libera `this` solo si el bit 0 del byte de banderas esta puesto y devuelve `this`. Sin llamadores directos en el EXE: solo se alcanza por la direccion.
+CRealTimeShadow* CRealTimeShadow::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        ::operator delete(this);
+    }
+    return this;
 }
 
 // 0x705900

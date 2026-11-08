@@ -1,0 +1,3 @@
+FALLO: Fn124A
+Funciones con diferencias: BoneNode_c::ArrayElementConstructor: 12288/16384; CZone::GetTranslatedName: 4126/16384; CGenericGameStorage::GetNameOfSavedGame: 5430/16384; CTaskComplexBeStill::Constructor: 14772/16384; CObject::CeilFloat: 849/16384; CTaskSimpleCarWaitToSlowDown::SetPedPosition: 3299/16384; CVector2D::Magnitude: 13044/16384; CTimer::GetOSWPerformanceTime: 14342/16384; BreakManager_c::Constructor: 3176/16384; CAEVorbisDecoder::ScalarDeletingDestructor: 9062/16384; CWanted::ScalarDeletingDestructor: 4801/16384; CRealTimeShadow::ScalarDeletingDestructor: 232/16384
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn124a\20261108-041359-931714

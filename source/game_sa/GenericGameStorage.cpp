@@ -71,6 +71,13 @@ void LOG_HEX_SPAN(uint8* start, size_t size) {}
 
 constexpr uint32 SIZE_OF_ONE_GAME_IN_BYTES = 202748;
 
+// 0x5D0F40 (lote 124A, banco Fn124A): GetNameOfSavedGame del EXE (cdecl, un int en la pila, EAX = resultado, 16 bytes: `mov eax,[esp+4]; imul eax,eax,104h; add eax,0C16368h; ret`; el
+// listado de pendientes decia CGenericGameStorage). Devuelve la direccion del nombre de la ranura: 0xC16368 + slot * 0x104 en aritmetica de 32 bits (sin comprobar el rango: el assert de
+// GetNameOfSavedGame de la cabecera es de la DLL y el EXE no lo tiene). Solo la llama CMenuManager::DrawStandardMenus (0x579BE4).
+static const GxtChar* GetNameOfSavedGameExe(int32 slot) {
+    return reinterpret_cast<const GxtChar*>(uintptr_t(uint32(reinterpret_cast<uintptr_t>(CGenericGameStorage::ms_SlotFileName.data())) + uint32(slot) * uint32(sizeof(CGenericGameStorage::ms_SlotFileName[0]))));
+}
+
 void CGenericGameStorage::InjectHooks() {
     RH_ScopedClass(CGenericGameStorage);
     RH_ScopedCategoryGlobal();
@@ -85,6 +92,7 @@ void CGenericGameStorage::InjectHooks() {
     RH_ScopedInstall(DoGameSpecificStuffAfterSucessLoad, 0x618E90);
     RH_ScopedInstall(InitRadioStationPositionList, 0x618E70);
     RH_ScopedGlobalInstall(GetSavedGameDateAndTime, 0x618D00);
+    RH_ScopedNamedGlobalInstall(GetNameOfSavedGameExe, "GetNameOfSavedGame", 0x5D0F40);
     RH_ScopedInstall(GenericLoad, 0x5D17B0);
     RH_ScopedInstall(GenericSave, 0x5D13E0, {.enabled = true });
     RH_ScopedInstall(CheckSlotDataValid, 0x5D1380);

@@ -47,6 +47,7 @@ void CTimer::InjectHooks()
     RH_ScopedInstall(UpdateVariables, 0x5618D0);
     RH_ScopedInstall(Update, 0x561B10);
     RH_ScopedGlobalInstall(GetMillisecondTime, 0x5617C0);
+    RH_ScopedGlobalInstall(GetOSWPerformanceTime, 0x5617A0); // lote 124A (banco Fn124A): oswrapper_win.cpp; el listado de pendientes decia CTimeCycle (la clase real es CTimer: es el temporizador que elige CTimer::Initialise)
 }
 
 // 64-bit RsTimer wrapper

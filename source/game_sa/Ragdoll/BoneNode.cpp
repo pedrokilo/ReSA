@@ -25,6 +25,18 @@ END GENERATED HOOK STATUS */
 
 #include "X87Math.h"
 
+namespace {
+// 0x617850 (lote 124A, banco Fn124A): constructor de elemento de BoneNode_c que el EXE pasa a `eh_vector_constructor_iterator` (0x821D30) al construir el almacen de
+// BoneNodeManager_c (0x617FC0). thiscall, sin argumentos de pila, `ret`, 12 bytes: `push esi; mov esi,ecx; call 0x4A8DB0; mov eax,esi; pop esi; ret`. 0x4A8DB0 es
+// `ListItem_c::ListItem_c` (pone a 0 m_pPrev y m_pNext, en ese orden, y devuelve this); aqui se escribe en linea, igual que lo hace el C++ de la clase. Devuelve this.
+// No inicializa ningun otro campo (el resto del nodo queda como estaba) ni escribe vtable (la clase no tiene).
+BoneNode_c* __fastcall BoneNodeArrayElementConstructor(BoneNode_c* self, void* /*edx*/) {
+    self->m_pPrev = nullptr;
+    self->m_pNext = nullptr;
+    return self;
+}
+} // namespace
+
 /**
  * Registra las operaciones de nodos óseos usadas por IK/ragdoll.
  */
@@ -33,6 +45,7 @@ void BoneNode_c::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Constructor, 0x616B30);
+    RH_ScopedNamedGlobalInstall(BoneNodeArrayElementConstructor, "ArrayElementConstructor", 0x617850);
     RH_ScopedInstall(Destructor, 0x616B80);
 
     RH_ScopedInstall(Init, 0x6177B0);
