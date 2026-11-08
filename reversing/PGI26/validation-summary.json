@@ -41,7 +41,7 @@
   "log_sha256": "af7ccb0e8dc9d49d071dd71e0b1eb34e811a7edbfb466ef55718d2177d48f02a",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-pgi26\\20261106-202625-671179",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-pgi26\\20261108-004053-582013",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPedGroupIntelligence::Constructor": true,
@@ -72,11 +72,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "5584b9c93c849cd961c0bdf876f5a5ee0e33b94cb674cd0e2aabf5985101c829",
-      "pdb": "659f7fe68bab5ca4552979614034ea3781be14b2f0c952d2f50250ec0496418f"
+      "asi": "26e162579d6aa8de08454d71dcb1853035962ce6b932b6b3db158e310517c174",
+      "pdb": "1a25bbd8e6b29c800378044e36a20dc0052d02c120c6c4ba49205f47fa3776bf"
     },
     "sources": {
-      "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+      "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
       "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",

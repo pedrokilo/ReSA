@@ -135401,7 +135401,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::Constructor"
@@ -135410,7 +135410,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135427,7 +135427,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::Flush"
@@ -135436,7 +135436,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135453,7 +135453,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::AddEvent-"
@@ -135462,7 +135462,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135479,7 +135479,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::SetTask"
@@ -135488,7 +135488,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135505,7 +135505,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::ReportFinishedTask-Impl"
@@ -135514,7 +135514,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135531,7 +135531,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::ReportAllTasksFinished"
@@ -135540,7 +135540,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135557,7 +135557,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::IsGroupResponding"
@@ -135566,7 +135566,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135583,7 +135583,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::IsCurrentEventValid"
@@ -135592,7 +135592,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135609,7 +135609,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::SetGroupDecisionMakerType"
@@ -135618,7 +135618,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135635,7 +135635,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::SetPrimaryTaskAllocator"
@@ -135644,7 +135644,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135661,7 +135661,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::SetEventResponseTaskAllocator"
@@ -135670,7 +135670,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135687,7 +135687,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::SetScriptCommandTask"
@@ -135696,7 +135696,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135713,7 +135713,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::GetTaskMain"
@@ -135722,7 +135722,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135739,7 +135739,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::GetTaskSecondary"
@@ -135748,7 +135748,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135765,7 +135765,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::GetTaskSecondarySlot"
@@ -135774,7 +135774,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135791,7 +135791,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::GetTaskScriptCommand"
@@ -135800,7 +135800,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135817,7 +135817,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::GetTaskDefault"
@@ -135826,7 +135826,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135843,7 +135843,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::ReportFinishedTask-Wrapper"
@@ -135852,7 +135852,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135869,7 +135869,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::ReportAllBarScriptTasksFinished"
@@ -135878,7 +135878,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135895,7 +135895,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::ProcessIgnorePlayerGroup"
@@ -135904,7 +135904,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135921,7 +135921,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::ComputeDefaultTasks"
@@ -135930,7 +135930,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135947,7 +135947,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::SetDefaultTaskAllocator"
@@ -135956,7 +135956,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135973,7 +135973,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::SetDefaultTaskAllocatorType"
@@ -135982,7 +135982,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -135999,7 +135999,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::ComputeEventResponseTasks"
@@ -136008,7 +136008,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
@@ -136025,7 +136025,7 @@
       },
       "evidence": {
         "path": "reversing/PGI26/validation-summary.json",
-        "sha256": "29309e4255fc02e98c4a77d939649d81f6b719f14bfe372ba1df9cef23bee6ee",
+        "sha256": "8d8a48060e01064351f69ed24c885440a16d5bfa1ee990682a8b99ec0e07d89e",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::Process"
@@ -136034,7 +136034,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/PedGroupIntelligence.cpp": "2822287618d68ab19005d53ba294556aaf9bc270fe536986b0302d9ce47ed21d",
+        "source/game_sa/PedGroupIntelligence.cpp": "3be40c2bcf77aa5806b0db7a91e7ffa4632e6187d7853b821c5f0f459abf95fe",
         "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093057-663242).",
