@@ -16,24 +16,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main 6e80ef26d con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: ScanForPedAcquaintances: 0x603A30 y 0x607A90 (sin hook; la DLL los llama por direccion del EXE); ScanForNearbyFires: CTaskManager::GetSimplestActiveTask 0x6819D0, GetActiveTask 0x681720, CFireManager::FindNearestFire 0x538F40 y CEventGroup::Add 0x4AB420; ScanForSexyPeds: CWorld::GetIsLineOfSightClear 0x56A490, CInterestingEvents::Add 0x602590, CEventGroup::Add 0x4AB420, CEntity::RegisterReference 0x571B70 y CEntity::CleanUpOldReference 0x571A00. Registran sus argumentos en orden con el contenido de los vectores y, en Add, los campos definidos del evento (tipo por GetEventType virtual). NO se sustituyen y corren de verdad en ambos lados: el temporizador en linea, CTask::IsGoToTask 0x61A360 y las llamadas virtuales GetTaskType sobre arenas con vtabla propia, los constructores y destructores de CEventFireNearby (0x4B1F10), CEventPotentialWalkIntoFire (0x4B1E20, hook activo) y CEventSexyPed (0x4AEDF0), y toda la aritmetica x87 del EXE frente al C++ de la DLL, con CTimer::m_snTimeInMilliseconds (0xB7CB84) y el dword 0x8D2358 como memoria real del juego restaurada tras cada lado. El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: ped sin matriz en ScanForSexyPeds (el EXE la desreferencia), numero de entidades mayor que 16, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y valores de retorno de los falsos. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn92A-20261105-105513-337405",
-  "summary_sha256": "c0eca9c8744ac35505546258b5089858d07c05b6518937e8100d74a434f847e2",
-  "result_txt_sha256": "926efca81562bf31bc53c8e466b084fbea762a93347adb9825322d098f721407",
-  "log_sha256": "103a9496e9b15ec01eb64ea79fb8a740d450a2b8814476fb23e25b5886a0f478",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn92A-20261107-193517-046351",
+  "summary_sha256": "d9f7faad5a698ebc8e1e3bdcbf737cb42744d67fbff3f511411671503bf67dc9",
+  "result_txt_sha256": "440a7345ca37a672abdb8a2ff8e26d643caeeaed4c0ba31346e067c86a3f7473",
+  "log_sha256": "a14215b684307401db166a9422b8049e1942b9c1c2b0bf673e635e6cf9e61972",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "a882d4d3f0bccc688ec7876e637b6b3f5b1f8677ef847b237597f2b9a8be545b",
+  "executed_probe_sha256": "a205ddfec360086cdd8f2e04cf138f1540b43e3897730d6446435d9f2c2933f4",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "1978274bce29389afebf0ef744aab2aee199c8551d2dc59673ea83e44d9fdbe7",
-      "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-      "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc",
-      "source/game_sa/Events/EventScanner.cpp": "6f32096b36b933e4bd6c1925e190c12e0e048eb248cb9cb7f454c03cdb51074b",
-      "source/game_sa/Events/EventScanner.h": "89b1738801e4ad0ad5b63f7523773a8d00133a7d8a4550aa17c31ccf74f7e58b",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+      "source/game_sa/Events/EventScanner.cpp": "78455ae533c66f5a884374d854054006f9efb7b8f2c0c3a7e54047f051b305d4",
+      "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Fn92A/LiveComparison.hpp": "9f6afb2ffa91cf5491e6507764985c073b871fd58f7fd3c852261748c70ee7b6",
       "reversing/Fn92A/Core.hpp": "d545dd95ec7c4e8a3dec308d68be2ebccf5e6538c9d1a6a91897fdbb8e60583d",
@@ -43,10 +43,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn92A-20261105-105513-337405/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn92A-20261107-193517-046351/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "0dd198bd0c917603d6531e258ed7a68ecb0706ad3475d592e6da3e90538db661",
-    "uncompressed_sha256": "103a9496e9b15ec01eb64ea79fb8a740d450a2b8814476fb23e25b5886a0f478"
+    "compressed_sha256": "cc3bc3d4065bcc8dd2a33d14bb39318db29f0855ea27f7232a323ebf09a02434",
+    "uncompressed_sha256": "a14215b684307401db166a9422b8049e1942b9c1c2b0bf673e635e6cf9e61972"
   }
 }
