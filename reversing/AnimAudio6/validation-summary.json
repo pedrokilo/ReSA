@@ -58,7 +58,7 @@
   "log_sha256": "7038c2458c57a2a1d15bf48f7f13c417f9bc4fdbbcf9411593d08a6365cd0ec5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-animaudio6\\20261106-142413-850720",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-animaudio6\\20261107-201648-470279",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEBankLoader::CalculateBankSlotsInfosOffsets": true,
@@ -106,8 +106,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "9cd0acb404ff22adc0b5cf4e7ba918ff0337f1ae6739f49086246e4abe7d5171",
-      "pdb": "5fe33faa456f82f91ebd664fd688e3387c38ff543e89d14e70e62fada159851d"
+      "asi": "77a7207fadd362f2509076b37cc7ea415a21ac6ad94c08eb60e13d0bda0564a4",
+      "pdb": "5e44c2e8324881d9c9cb59da6e190141b97a398996840770ca81782848dd650a"
     },
     "sources": {
       "source/game_sa/Door.cpp": "9ab19067eca1b52d798327f7b9e82ad83abd276589b5d7e36fae071afffbb607",

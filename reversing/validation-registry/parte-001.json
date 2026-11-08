@@ -61626,7 +61626,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEBankLoader::CalculateBankSlotsInfosOffsets"
@@ -61664,7 +61664,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEBankLoader::Deconstructor"
@@ -61702,7 +61702,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEBankLoader::GetBankLookup"
@@ -61740,7 +61740,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEBankLoader::LoadBankLookupFile"
@@ -61778,7 +61778,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEBankLoader::LoadBankSlotFile"
@@ -61816,7 +61816,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEBankLoader::LoadSFXPakLookupFile"
@@ -61854,7 +61854,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEGlobalWeaponAudioEntity::AddAudioEvent"
@@ -61892,7 +61892,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEGlobalWeaponAudioEntity::Constructor"
@@ -61930,7 +61930,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEGlobalWeaponAudioEntity::Destructor"
@@ -61968,7 +61968,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEGlobalWeaponAudioEntity::ProjectileFire"
@@ -62006,7 +62006,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire"
@@ -62044,7 +62044,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAEGlobalWeaponAudioEntity::UpdateParameters"
@@ -62082,7 +62082,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendClumpData::Constructor"
@@ -62120,7 +62120,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendClumpData::Destructor"
@@ -62158,7 +62158,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendClumpData::ForAllFrames"
@@ -62196,7 +62196,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendClumpData::ForAllFramesInSPR"
@@ -62234,7 +62234,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendClumpData::LoadFramesIntoSPR"
@@ -62272,7 +62272,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendClumpData::SetNumberOfBones"
@@ -62310,7 +62310,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendStaticAssociation::AllocateSequenceArray"
@@ -62348,7 +62348,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendStaticAssociation::Constructor1"
@@ -62386,7 +62386,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendStaticAssociation::Constructor2"
@@ -62424,7 +62424,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendStaticAssociation::Destructor"
@@ -62462,7 +62462,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendStaticAssociation::FreeSequenceArray"
@@ -62500,7 +62500,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CAnimBlendStaticAssociation::Init"
@@ -62538,7 +62538,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CCutsceneObject::PreRender"
@@ -62576,7 +62576,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CCutsceneObject::ProcessControl"
@@ -62614,7 +62614,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CCutsceneObject::RemoveLighting"
@@ -62652,7 +62652,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CCutsceneObject::SetModelIndex"
@@ -62690,7 +62690,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CCutsceneObject::SetupCarPipeAtomicsForClump"
@@ -62728,7 +62728,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CCutsceneObject::SetupLighting"
@@ -62766,7 +62766,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CDoor::GetAngleOpenRatio"
@@ -62804,7 +62804,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CDoor::IsClosed"
@@ -62842,7 +62842,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CDoor::IsFullyOpen"
@@ -62880,7 +62880,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CDoor::Open"
@@ -62918,7 +62918,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CDoor::Process"
@@ -62956,7 +62956,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "CDoor::ProcessImpact"
@@ -62994,7 +62994,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "VideoPlayer::OnGraphNotify"
@@ -63032,7 +63032,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "VideoPlayer::Play"
@@ -63070,7 +63070,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "VideoPlayer::Release"
@@ -63108,7 +63108,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "VideoPlayer::Shutdown"
@@ -63146,7 +63146,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "VideoPlayer::UpdateWindow"
@@ -63184,7 +63184,7 @@
       },
       "evidence": {
         "path": "reversing/AnimAudio6/validation-summary.json",
-        "sha256": "831d84bc0f31212d8f5bcc682803ec31f3fd17e1fc4a011f9f9d4e0118076abf",
+        "sha256": "13870ba027ac5e0aff81505effb50a01ccaeca54bb15cac2e8023d19c9fa78e5",
         "passed_path": [
           "covered_functions",
           "VideoPlayer::WaitState"
