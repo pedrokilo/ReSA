@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (07/11/2026). Total: **2,597** funciones en 517 clases/módulos (rango 0x401000–0x74FFFF): 2,575 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,580** funciones en 517 clases/módulos (rango 0x401000–0x74FFFF): 2,558 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -271,6 +271,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | SurfaceInfos_c | 2 | 2174 |
 | CEventCarUpsideDown | 3 | 15 |
 | CEventCopCarBeingStolen | 3 | 15 |
+| CEventInAir | 3 | 15 |
 | CEventPedCollisionWithPed | 3 | 15 |
 | CEventVehicleToSteal | 3 | 15 |
 | CPlayerInfo | 3 | 21 |
@@ -340,7 +341,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CEventSeenPanickedPed | 4 | 19 |
 | CEventPotentialWalkIntoVehicle | 4 | 20 |
 | CEventVehicleDied | 4 | 20 |
-| CEventInAir | 4 | 22 |
 | CEventVehicleDamage | 4 | 23 |
 | CMemoryMgr | 4 | 26 |
 | CEventDanger | 4 | 43 |
@@ -422,6 +422,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskSimpleCarJumpOut | 6 | 156 |
 | CFileLoader | 6 | 158 |
 | CTaskComplexEnterCar | 6 | 177 |
+| CEventHitByWaterCannon | 6 | 194 |
 | CEventNewGangMember | 6 | 230 |
 | CEventLeanOnVehicle | 6 | 234 |
 | CTaskSimpleRunNamedAnim | 6 | 235 |
@@ -470,11 +471,11 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskSimpleUninterruptable | 9 | 154 |
 | CAEAudioEntity | 9 | 176 |
 | CEventPassObject | 9 | 201 |
-| CEventHitByWaterCannon | 9 | 234 |
 | CEventLeaderEnteredCarAsDriver | 9 | 244 |
 | CTaskComplexWalkRoundFire | 9 | 385 |
 | CGame | 9 | 428 |
 | Fx_c | 9 | 434 |
+| CEventPotentialWalkIntoFire | 9 | 440 |
 | CTaskComplexWanderCop | 9 | 442 |
 | CTaskComplexPartnerGreet | 9 | 458 |
 | CTaskComplexRoadRage | 9 | 585 |
@@ -488,7 +489,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CPad | 11 | 895 |
 | CTaskComplexStuckInAir | 11 | 1075 |
 | CAutomobile | 11 | 3922 |
-| CEventPotentialWalkIntoFire | 12 | 514 |
 | CPedAttractorPool | 12 | 530 |
 | CTaskSimpleRunTimedAnim | 12 | 1175 |
 | CEventScriptedAttractor | 13 | 527 |
@@ -504,6 +504,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskComplexTurnToFaceEntityOrCoord | 14 | 2607 |
 | CTheScripts | 14 | 9864 |
 | CTaskComplexUseWaterCannon | 15 | 769 |
+| CEventVehicleHitAndRun | 15 | 1037 |
 | CEventVehicleCollision | 15 | 1149 |
 | CVehicleModelInfo | 15 | 1356 |
 | RpAnimBlend | 16 | 6102 |
@@ -514,7 +515,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CModelInfo | 22 | 814 |
 | CEventDamage | 22 | 1596 |
 | CPlaceable | 25 | 1157 |
-| CEventVehicleHitAndRun | 25 | 1806 |
 | CCustomCarEnvMapPipeline | 25 | 3547 |
 | CPedAttractor | 28 | 1774 |
 | CAEUserRadioTrackManager | 30 | 2533 |
@@ -2206,6 +2206,14 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004B17D0 | 3 | B |  | 0 | 0 | sí | alta |
 | 0x004B17E0 | 6 | B |  | 0 | 0 | sí | alta |
 
+## CEventInAir (3)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004B0CD0 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x004B0CE0 | 3 | B |  | 0 | 0 | sí | baja |
+| 0x004B0CF0 | 6 | B |  | 0 | 0 | sí | baja |
+
 ## CEventPedCollisionWithPed (3)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -2763,15 +2771,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004B0D80 | 3 | B |  | 0 | 0 | sí | alta |
 | 0x004B0D90 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x004B0EE0 | 5 | B |  | 0 | 0 | sí | baja |
-
-## CEventInAir (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B0CD0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B0CE0 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004B0CF0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B0D00 | 7 | A |  | 3 | 1 |  | baja |
 
 ## CEventVehicleDamage (4)
 
@@ -3542,6 +3541,17 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00643CC0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00643CE0 | 30 | B |  | 0 | 0 | sí | baja |
 
+## CEventHitByWaterCannon (6)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004B12E0 | 6 | B |  | 0 | 0 | sí | alta |
+| 0x004B12F0 | 3 | B |  | 0 | 0 | sí | alta |
+| 0x004B1300 | 7 | B |  | 0 | 0 | sí | alta |
+| 0x004B1310 | 6 | B |  | 0 | 0 | sí | alta |
+| 0x004B13D0 | 75 | D |  | 0 | 0 |  | baja |
+| 0x004B1420 | 97 | D |  | 0 | 0 |  | baja |
+
 ## CEventNewGangMember (6)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4118,20 +4128,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0065DE60 | 36 | A |  | 1 | 1 |  | baja |
 | 0x0065DE90 | 7 | C |  | 5 | 0 |  | baja |
 
-## CEventHitByWaterCannon (9)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B12E0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B12F0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B1300 | 7 | B |  | 0 | 0 | sí | alta |
-| 0x004B1310 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B1320 | 7 | A |  | 3 | 1 |  | alta |
-| 0x004B1370 | 26 | A |  | 2 | 2 |  | baja |
-| 0x004B13C0 | 7 | A |  | 5 | 2 |  | baja |
-| 0x004B13D0 | 75 | D |  | 0 | 0 |  | baja |
-| 0x004B1420 | 97 | D |  | 0 | 0 |  | baja |
-
 ## CEventLeaderEnteredCarAsDriver (9)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4187,6 +4183,20 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004A1280 | 67 | A |  | 1 | 1 |  | baja |
 | 0x004A12D0 | 57 | A |  | 1 | 0 |  | baja |
 | 0x004A1320 | 26 | A |  | 1 | 1 |  | baja |
+
+## CEventPotentialWalkIntoFire (9)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004B1ED0 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x004B1EE0 | 3 | B |  | 0 | 0 | sí | baja |
+| 0x004B1EF0 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x004B1F90 | 45 | D |  | 0 | 0 |  | baja |
+| 0x004B6990 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B69E0 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B6A30 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B6A80 | 76 | B |  | 0 | 0 | sí | baja |
+| 0x004B6AD0 | 76 | B |  | 0 | 0 | sí | baja |
 
 ## CTaskComplexWanderCop (9)
 
@@ -4384,23 +4394,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006A6590 | 49 | B |  | 0 | 0 | sí | alta |
 | 0x006B0690 | 1018 | A |  | 2 | 2 |  | alta |
 | 0x006B1330 | 30 | B |  | 0 | 0 | sí | alta |
-
-## CEventPotentialWalkIntoFire (12)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B1ED0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B1EE0 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004B1EF0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B1F00 | 7 | A |  | 3 | 1 |  | baja |
-| 0x004B1F10 | 60 | A |  | 1 | 1 |  | baja |
-| 0x004B1F80 | 7 | A |  | 3 | 1 |  | baja |
-| 0x004B1F90 | 45 | D |  | 0 | 0 |  | baja |
-| 0x004B6990 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B69E0 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B6A30 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B6A80 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x004B6AD0 | 76 | B |  | 0 | 0 | sí | baja |
 
 ## CPedAttractorPool (12)
 
@@ -4678,6 +4671,26 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0065A700 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x0065A720 | 155 | B |  | 0 | 0 | sí | baja |
 
+## CEventVehicleHitAndRun (15)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004AEA00 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x004AEA10 | 3 | B |  | 0 | 0 | sí | baja |
+| 0x004AEA20 | 12 | B |  | 0 | 0 | sí | baja |
+| 0x004AEA30 | 7 | B |  | 0 | 0 | sí | baja |
+| 0x004AEA40 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x004AEC00 | 65 | D |  | 0 | 0 |  | baja |
+| 0x004AEDC0 | 35 | D |  | 0 | 0 |  | baja |
+| 0x004AEF00 | 272 | D |  | 0 | 0 |  | baja |
+| 0x004AF100 | 35 | D |  | 0 | 0 |  | baja |
+| 0x004B7170 | 105 | D |  | 0 | 0 |  | baja |
+| 0x004B7210 | 103 | D |  | 0 | 0 |  | baja |
+| 0x004B7280 | 97 | D |  | 0 | 0 |  | baja |
+| 0x004B72F0 | 97 | D |  | 0 | 0 |  | baja |
+| 0x004B7360 | 97 | D |  | 0 | 0 |  | baja |
+| 0x004B73D0 | 97 | D |  | 0 | 0 |  | baja |
+
 ## CEventVehicleCollision (15)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -4919,36 +4932,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0054FE70 | 54 | D |  | 0 | 0 |  | baja |
 | 0x0054FEC0 | 54 | D |  | 0 | 0 |  | baja |
 | 0x0054FF10 | 54 | D |  | 0 | 0 |  | baja |
-
-## CEventVehicleHitAndRun (25)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AEA00 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA10 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA20 | 12 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA30 | 7 | B |  | 0 | 0 | sí | baja |
-| 0x004AEA40 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004AEAC0 | 124 | A |  | 3 | 2 |  | baja |
-| 0x004AEB90 | 97 | A |  | 5 | 2 |  | baja |
-| 0x004AEC00 | 65 | D |  | 0 | 0 |  | baja |
-| 0x004AEC50 | 17 | A |  | 1 | 1 |  | baja |
-| 0x004AECA0 | 7 | A |  | 3 | 1 |  | baja |
-| 0x004AECD0 | 93 | A |  | 3 | 2 |  | baja |
-| 0x004AED60 | 81 | A |  | 5 | 2 |  | baja |
-| 0x004AEDC0 | 35 | D |  | 0 | 0 |  | baja |
-| 0x004AEDF0 | 102 | A |  | 3 | 2 |  | baja |
-| 0x004AEEA0 | 81 | A |  | 5 | 2 |  | baja |
-| 0x004AEF00 | 272 | D |  | 0 | 0 |  | baja |
-| 0x004AF010 | 86 | A |  | 2 | 1 |  | baja |
-| 0x004AF0A0 | 81 | A |  | 3 | 1 |  | baja |
-| 0x004AF100 | 35 | D |  | 0 | 0 |  | baja |
-| 0x004B7170 | 105 | D |  | 0 | 0 |  | baja |
-| 0x004B7210 | 103 | D |  | 0 | 0 |  | baja |
-| 0x004B7280 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B72F0 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B7360 | 97 | D |  | 0 | 0 |  | baja |
-| 0x004B73D0 | 97 | D |  | 0 | 0 |  | baja |
 
 ## CCustomCarEnvMapPipeline (25)
 
