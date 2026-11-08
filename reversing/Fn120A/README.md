@@ -32,7 +32,9 @@ Sin colaboradores, sin falsos y sin memoria real del juego: cada caso llama a la
 Objetos reales construidos por el EXE (ninguna de las cinco lee el objeto) y que la clase real sea la que dice la vtable (se confirmo por la vtable y el desensamblado, no por un banco con objetos reales).
 
 ## Bancos repetidos
-`grep` de las cinco direcciones (con y sin ceros, en `.hpp/.cpp/.h/.py` de `reversing/`): **ningun banco antiguo cita 0x4E6080, 0x661710, 0x620EE0, 0x681F10 ni 0x681DF0**, asi que por la regla (repetir solo los que citan la direccion) no se repite ni se adapta ninguno por direccion.
+`grep` de las cinco direcciones (con y sin ceros, en `.hpp/.cpp/.h/.py` de `reversing/`): **ningun banco antiguo cita 0x4E6080, 0x661710, 0x620EE0, 0x681F10 ni 0x681DF0**, asi que por la regla (repetir solo los que citan la direccion) no se repite ni se adapta ninguno por direccion; el registro de esos bancos no se toca.
+Como comprobacion de cortesia (el hook V de `GetTaskType` cambia la ranura 4 de las vtables de tareas que los bancos de tareas usan con objetos del EXE) se repitieron con el codigo final dos bancos de tareas de las clases afectadas, ambos **aprobados** sin cambios en el banco: `PartnerControl60` (`CTaskComplexPartner`, 4096 pares, `20261107-234120-951670`) y `KillPedOnFoot62` (`CTaskComplexKillPedOnFoot`, 5120 pares, `20261107-234216-504823`).
+Tras las dos rondas negativas se repitio tambien `Fn120A` con las fuentes buenas restauradas: **APROBADO** de nuevo (81920 pares, cero diferencias, `20261107-233828-985446`, sonda `d445d6a6...`).
 
 ## Prueba negativa
 Copias buenas (SHA256, las de la corrida aprobada; `mutate.py` las guarda en `artifacts/good/` y restaura comprobando el SHA256 justo despues de compilar la sonda; el resumen de cada corrida esta en `negative-runs/`): `AEPedlessSpeechAudioEntity.h` 2d714918..., `TaskComplexGangJoinRespond.h` 02a6c7b4..., `TaskComplexKillPedOnFoot.h` f7920d71..., `TaskComplexPartner.h` f9c87f36..., `TaskComplexPartnerDeal.h` df877a5e... (los cuerpos de las cinco funciones estan en linea en las cabeceras).
