@@ -37,8 +37,9 @@ private: // Wrappers for hooks
     }
 
     // 0x63B4A0
-    CTaskComplexLeaveCarAsPassengerWait* Destructor() {
+    __declspec(noinline) CTaskComplexLeaveCarAsPassengerWait* Destructor() {
         this->CTaskComplexLeaveCarAsPassengerWait::~CTaskComplexLeaveCarAsPassengerWait();
         return this;
     }
+    CTaskComplexLeaveCarAsPassengerWait* ScalarDeletingDestructor(uint8 flags); // 0x640BC0 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x86E7A4), `ret 4`
 };

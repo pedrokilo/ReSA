@@ -32,6 +32,7 @@ void CTaskComplexHitPedWithCar::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x6539A0);
     RH_ScopedInstall(Destructor, 0x653A30);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6560C0);
 
     RH_ScopedGlobalInstall(ComputeEvasiveStepMoveDir, 0x653B40);
 
@@ -129,4 +130,15 @@ CTask* CTaskComplexHitPedWithCar::CreateFirstSubTask(CPed* ped) {
 // 0x653A90
 CTask* CTaskComplexHitPedWithCar::ControlSubTask(CPed* ped) {
     return m_pSubTask;
+}
+
+// 0x6560C0 (lote 126A, banco Fn126A) : destructor con borrado de CTaskComplexHitPedWithCar del EXE (ranura 0 de su vtable 0x86F294; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x653A30; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x653A30), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexHitPedWithCar* CTaskComplexHitPedWithCar::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

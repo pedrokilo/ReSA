@@ -26,6 +26,7 @@ void CTaskSimpleStealthKill::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x6225F0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6296B0);
 
     RH_ScopedInstall(ManageAnim, 0x6296D0);
     RH_ScopedInstall(FinishAnimStealthKillCB, 0x622790);
@@ -203,4 +204,25 @@ void CTaskSimpleStealthKill::FinishAnimStealthKillCB(CAnimBlendAssociation* pAni
         self->m_bIsAborting = true;
     }
     self->m_anim = nullptr;
+}
+
+namespace {
+// 0x622680 (lote 126A, banco Fn126A): cuerpo del destructor de CTaskSimpleStealthKill del EXE; sin hook propio (el destructor de la clase). Funcion propia sin expansion en linea para que el banco pueda
+// sustituirla; la llama ScalarDeletingDestructor como el `call 0x622680` del EXE.
+__declspec(noinline) void __fastcall StealthKillDestructorBody(CTaskSimpleStealthKill* self, void* /*edx*/) {
+    self->CTaskSimpleStealthKill::~CTaskSimpleStealthKill();
+}
+} // namespace
+
+uintptr_t Lote126AStealthKillDestructorBody() { return reinterpret_cast<uintptr_t>(&StealthKillDestructorBody); } // para el banco Fn126A
+
+// 0x6296B0 (lote 126A, banco Fn126A) : destructor con borrado de CTaskSimpleStealthKill del EXE (ranura 0 de su vtable 0x86DA74; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x622680; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x622680), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleStealthKill* CTaskSimpleStealthKill::ScalarDeletingDestructor(uint8 flags) {
+    StealthKillDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

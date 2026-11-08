@@ -36,6 +36,7 @@ void CTaskComplexKillPedOnFootArmed::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x621190);
     RH_ScopedInstall(Destructor, 0x621250);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x626FA0);
 
     RH_ScopedInstall(LineOfSightClearForAttack, 0x621500);
     RH_ScopedInstall(IsPedInLeaderFiringLine, 0x621300);
@@ -713,4 +714,15 @@ CTask* CTaskComplexKillPedOnFootArmed::ControlSubTask(CPed* ped) {
     }
 
     return ogSubTask; // Como el original: 0x62D253 devuelve la subtarea del principio
+}
+
+// 0x626FA0 (lote 126A, banco Fn126A) : destructor con borrado de CTaskComplexKillPedOnFootArmed del EXE (ranura 0 de su vtable 0x86D918; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x621250; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x621250), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexKillPedOnFootArmed* CTaskComplexKillPedOnFootArmed::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

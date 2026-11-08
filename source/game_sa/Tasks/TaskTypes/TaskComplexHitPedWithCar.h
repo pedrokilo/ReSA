@@ -34,10 +34,11 @@ private: // Wrappers for hooks
     }
 
     // 0x653A30
-    CTaskComplexHitPedWithCar* Destructor() {
+    __declspec(noinline) CTaskComplexHitPedWithCar* Destructor() {
         this->CTaskComplexHitPedWithCar::~CTaskComplexHitPedWithCar();
         return this;
     }
+    CTaskComplexHitPedWithCar* ScalarDeletingDestructor(uint8 flags); // 0x6560C0 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x86F294), `ret 4`
 
 public:
     CVehicle* m_Veh{};

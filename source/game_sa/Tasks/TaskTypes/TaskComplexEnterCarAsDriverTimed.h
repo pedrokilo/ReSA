@@ -48,8 +48,9 @@ private: // Wrappers for hooks
     }
 
     // 0x63AE00
-    CTaskComplexEnterCarAsDriverTimed* Destructor() {
+    __declspec(noinline) CTaskComplexEnterCarAsDriverTimed* Destructor() {
         this->CTaskComplexEnterCarAsDriverTimed::~CTaskComplexEnterCarAsDriverTimed();
         return this;
     }
+    CTaskComplexEnterCarAsDriverTimed* ScalarDeletingDestructor(uint8 flags); // 0x640590 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x86E720), `ret 4`
 };

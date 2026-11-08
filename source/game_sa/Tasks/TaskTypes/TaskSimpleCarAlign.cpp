@@ -26,6 +26,7 @@ void CTaskSimpleCarAlign::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x645B40);
     RH_ScopedInstall(Destructor, 0x645BE0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x64ABE0);
 
     RH_ScopedGlobalInstall(FinishAnimCarAlignCB, 0x645E40);
 
@@ -164,4 +165,15 @@ bool CTaskSimpleCarAlign::SetPedPosition(CPed* ped) {
     std::ignore = CCarEnterExit::GetPositionToOpenCarDoor(m_veh, m_door); // Como el original: se calcula y no se usa
     m_lineUpTask->ProcessPed(ped, m_veh, m_anim);
     return true;
+}
+
+// 0x64ABE0 (lote 126A, banco Fn126A) : destructor con borrado de CTaskSimpleCarAlign del EXE (ranura 0 de su vtable 0x86EC78; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x645BE0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x645BE0), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleCarAlign* CTaskSimpleCarAlign::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

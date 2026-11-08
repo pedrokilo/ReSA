@@ -42,8 +42,9 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x696E80
-    CTaskComplexInvestigateDeadPed* Destructor() {
+    __declspec(noinline) CTaskComplexInvestigateDeadPed* Destructor() {
         this->CTaskComplexInvestigateDeadPed::~CTaskComplexInvestigateDeadPed();
         return this;
     }
+    CTaskComplexInvestigateDeadPed* ScalarDeletingDestructor(uint8 flags); // 0x697820 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x870D3C), `ret 4`
 };

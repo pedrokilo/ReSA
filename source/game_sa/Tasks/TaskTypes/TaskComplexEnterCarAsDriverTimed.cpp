@@ -27,6 +27,7 @@ void CTaskComplexEnterCarAsDriverTimed::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x63AD70);
     RH_ScopedInstall(Destructor, 0x63AE00);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x640590);
 
     RH_ScopedVMTInstall(Clone, 0x63D780);
     RH_ScopedVMTInstall(GetTaskType, 0x63ADF0);
@@ -105,4 +106,15 @@ CTask* CTaskComplexEnterCarAsDriverTimed::ControlSubTask(CPed* ped) {
 
     // Noep, still not in th evehicle, warp them into it
     return new CTaskSimpleCarSetPedInAsDriver{ m_veh, true };
+}
+
+// 0x640590 (lote 126A, banco Fn126A) : destructor con borrado de CTaskComplexEnterCarAsDriverTimed del EXE (ranura 0 de su vtable 0x86E720; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x63AE00; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x63AE00), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexEnterCarAsDriverTimed* CTaskComplexEnterCarAsDriverTimed::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

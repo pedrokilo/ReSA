@@ -9392,3 +9392,16 @@ CTaskComplexClimb,ScalarDeletingDestructor,0x0046A6C0,1,0,1,S
 CTaskComplexDestroyCarMelee,ScalarDeletingDestructor,0x006289D0,1,0,1,S
 CTaskComplexDestroyCarArmed,ScalarDeletingDestructor,0x00628C60,1,0,1,S
 CTaskComplexRoadRage,ScalarDeletingDestructor,0x00629060,1,0,1,S
+CTaskComplexEnterCarAsDriverTimed,ScalarDeletingDestructor,0x00640590,1,0,1,S
+CTaskComplexStealCar,ScalarDeletingDestructor,0x00640F10,1,0,1,S
+CTaskComplexEnterCarAsPassengerTimed,ScalarDeletingDestructor,0x00640640,1,0,1,S
+CTaskComplexEnterCarAsPassengerWait,ScalarDeletingDestructor,0x00640710,1,0,1,S
+CTaskComplexLeaveCarAsPassengerWait,ScalarDeletingDestructor,0x00640BC0,1,0,1,S
+CTaskComplexHitPedWithCar,ScalarDeletingDestructor,0x006560C0,1,0,1,S
+CTaskComplexInvestigateDeadPed,ScalarDeletingDestructor,0x00697820,1,0,1,S
+CTaskComplexGangFollower,ScalarDeletingDestructor,0x006629F0,1,0,1,S
+CTaskSimpleCarAlign,ScalarDeletingDestructor,0x0064ABE0,1,0,1,S
+CTaskComplexReactToGunAimedAt,ScalarDeletingDestructor,0x00697B50,1,0,1,S
+CTaskComplexCopInCar,ScalarDeletingDestructor,0x0068F9F0,1,0,1,S
+CTaskSimpleStealthKill,ScalarDeletingDestructor,0x006296B0,1,0,1,S
+CTaskComplexKillPedOnFootArmed,ScalarDeletingDestructor,0x00626FA0,1,0,1,S

@@ -43,6 +43,7 @@ void CTaskComplexGangFollower::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x65EAA0);
     RH_ScopedInstall(Destructor, 0x65EBB0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6629F0);
     //RH_ScopedInstall(CalculateOffsetPosition, 0x65ED40, { .reversed = false }); // not hooked because i want to keep CVector return, but original function took a CVector&
     RH_ScopedInstall(SetCanEnterLeadersCar, 0x65EE90);
     RH_ScopedVMTInstall(Clone, 0x65ECB0);
@@ -305,4 +306,15 @@ CTask* CTaskComplexGangFollower::ControlSubTask(CPed* ped) {
     CEventPassObject event(ped, false);
     receiver->GetEventGroup().Add(&event, false);
     return new CTaskComplexPassObject(receiver, true);
+}
+
+// 0x6629F0 (lote 126A, banco Fn126A) : destructor con borrado de CTaskComplexGangFollower del EXE (ranura 0 de su vtable 0x86F938; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x65EBB0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x65EBB0), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexGangFollower* CTaskComplexGangFollower::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

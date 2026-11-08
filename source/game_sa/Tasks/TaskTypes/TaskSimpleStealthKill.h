@@ -44,6 +44,7 @@ public:
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
 
 private:
+    CTaskSimpleStealthKill* ScalarDeletingDestructor(uint8 flags); // 0x6296B0 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x86DA74), `ret 4`
     auto Constructor(bool keepTargetAlive, CPed* target, AssocGroupId groupId) {
         this->CTaskSimpleStealthKill::CTaskSimpleStealthKill(keepTargetAlive, target, groupId);
         return this;

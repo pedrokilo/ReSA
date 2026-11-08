@@ -78,9 +78,10 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x621250
-    CTaskComplexKillPedOnFootArmed* Destructor() {
+    __declspec(noinline) CTaskComplexKillPedOnFootArmed* Destructor() {
         this->CTaskComplexKillPedOnFootArmed::~CTaskComplexKillPedOnFootArmed();
         return this;
     }
+    CTaskComplexKillPedOnFootArmed* ScalarDeletingDestructor(uint8 flags); // 0x626FA0 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x86D918), `ret 4`
 };
 VALIDATE_SIZE(CTaskComplexKillPedOnFootArmed, 0x5C);

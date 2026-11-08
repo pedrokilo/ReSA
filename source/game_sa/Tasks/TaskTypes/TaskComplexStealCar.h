@@ -39,8 +39,9 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x63B850
-    CTaskComplexStealCar* Destructor() {
+    __declspec(noinline) CTaskComplexStealCar* Destructor() {
         this->CTaskComplexStealCar::~CTaskComplexStealCar();
         return this;
     }
+    CTaskComplexStealCar* ScalarDeletingDestructor(uint8 flags); // 0x640F10 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x86E7FC), `ret 4`
 };

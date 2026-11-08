@@ -32,6 +32,7 @@ void CTaskComplexInvestigateDeadPed::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x696DF0);
     RH_ScopedInstall(Destructor, 0x696E80);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x697820);
 
     RH_ScopedInstall(ComputeTargetPos, 0x696EE0);
     RH_ScopedInstall(CreateSubTask, 0x696F90);
@@ -154,4 +155,15 @@ CTask* CTaskComplexInvestigateDeadPed::ControlSubTask(CPed* ped) {
         ped->Say(CTX_GLOBAL_SHOCKED);
     }
     return m_pSubTask;
+}
+
+// 0x697820 (lote 126A, banco Fn126A) : destructor con borrado de CTaskComplexInvestigateDeadPed del EXE (ranura 0 de su vtable 0x870D3C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x696E80; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x696E80), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexInvestigateDeadPed* CTaskComplexInvestigateDeadPed::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

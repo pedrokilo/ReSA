@@ -33,10 +33,11 @@ private: // Wrappers for hooks
     }
 
     // 0x63B0C0
-    CTaskComplexEnterCarAsPassengerTimed* Destructor() {
+    __declspec(noinline) CTaskComplexEnterCarAsPassengerTimed* Destructor() {
         this->CTaskComplexEnterCarAsPassengerTimed::~CTaskComplexEnterCarAsPassengerTimed();
         return this;
     }
+    CTaskComplexEnterCarAsPassengerTimed* ScalarDeletingDestructor(uint8 flags); // 0x640640 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x86E74C), `ret 4`
 
 private:
     CVehicle::Ref m_TargetCar{};

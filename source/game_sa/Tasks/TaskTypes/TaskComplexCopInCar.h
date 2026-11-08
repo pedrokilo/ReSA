@@ -46,7 +46,8 @@ private:
     static void InjectHooks();
 
     CTaskComplexCopInCar* Constructor(CVehicle* vehicle, CPed* cop1, CPed* cop2, bool flag_0x1) { this->CTaskComplexCopInCar::CTaskComplexCopInCar(vehicle, cop1, cop2, flag_0x1); return this; }
-    CTaskComplexCopInCar* Destructor() { this->CTaskComplexCopInCar::~CTaskComplexCopInCar(); return this; }
+    __declspec(noinline) CTaskComplexCopInCar* Destructor() { this->CTaskComplexCopInCar::~CTaskComplexCopInCar(); return this; }
+    CTaskComplexCopInCar* ScalarDeletingDestructor(uint8 flags); // 0x68F9F0 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x870A2C), `ret 4`
 
                         };
 VALIDATE_SIZE(CTaskComplexCopInCar, 0x34);

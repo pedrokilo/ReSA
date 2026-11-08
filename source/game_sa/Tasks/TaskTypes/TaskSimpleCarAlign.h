@@ -45,8 +45,9 @@ private: // Wrappers for hooks
     }
 
     // 0x645BE0
-    CTaskSimpleCarAlign* Destructor() {
+    __declspec(noinline) CTaskSimpleCarAlign* Destructor() {
         this->CTaskSimpleCarAlign::~CTaskSimpleCarAlign();
         return this;
     }
+    CTaskSimpleCarAlign* ScalarDeletingDestructor(uint8 flags); // 0x64ABE0 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x86EC78), `ret 4`
 };

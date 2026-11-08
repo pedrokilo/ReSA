@@ -36,6 +36,7 @@ void CTaskComplexEnterCarAsPassengerWait::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x63B320);
     RH_ScopedInstall(Destructor, 0x63B3C0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x640710);
 
     RH_ScopedInstall(CreateSubTask, 0x6408D0);
     RH_ScopedVMTInstall(Clone, 0x63D850);
@@ -211,4 +212,15 @@ CTask* CTaskComplexEnterCarAsPassengerWait::ControlSubTask(CPed* ped) {
         }
     }
     return m_pSubTask;
+}
+
+// 0x640710 (lote 126A, banco Fn126A) : destructor con borrado de CTaskComplexEnterCarAsPassengerWait del EXE (ranura 0 de su vtable 0x86E778; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x63B3C0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x63B3C0), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexEnterCarAsPassengerWait* CTaskComplexEnterCarAsPassengerWait::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

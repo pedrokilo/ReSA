@@ -36,6 +36,7 @@ void CTaskComplexCopInCar::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x68C7F0);
     RH_ScopedInstall(Destructor, 0x68C8C0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x68F9F0);
     RH_ScopedInstall(CreateSubTask, 0x68C9E0);
     RH_ScopedVMTInstall(Clone, 0x68CEC0);
     RH_ScopedVMTInstall(GetTaskType, 0x68C8B0);
@@ -341,4 +342,15 @@ CTask* CTaskComplexCopInCar::ControlSubTask(CPed* ped) {
         break;
     }
     return subTask;
+}
+
+// 0x68F9F0 (lote 126A, banco Fn126A) : destructor con borrado de CTaskComplexCopInCar del EXE (ranura 0 de su vtable 0x870A2C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x68C8C0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x68C8C0), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexCopInCar* CTaskComplexCopInCar::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

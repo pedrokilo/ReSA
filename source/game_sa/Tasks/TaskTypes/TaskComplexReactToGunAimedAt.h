@@ -36,8 +36,9 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x697230
-    auto Destructor() {
+    __declspec(noinline) auto Destructor() {
         this->CTaskComplexReactToGunAimedAt::~CTaskComplexReactToGunAimedAt();
         return this;
     }
+    CTaskComplexReactToGunAimedAt* ScalarDeletingDestructor(uint8 flags); // 0x697B50 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x870D78), `ret 4`
 };
