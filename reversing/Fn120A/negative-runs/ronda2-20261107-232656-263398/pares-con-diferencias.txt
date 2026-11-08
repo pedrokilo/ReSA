@@ -1,0 +1,5 @@
+CAEPedlessSpeechAudioEntity::AddScriptSayEvent 504 / 16384
+CTaskComplexGangJoinRespond::GetTaskType 154 / 16384
+CTaskComplexKillPedOnFoot::GetTaskType 162 / 16384
+CTaskComplexPartner::GetTaskType 1561 / 16384
+CTaskComplexPartnerDeal::GetTaskType 1011 / 16384

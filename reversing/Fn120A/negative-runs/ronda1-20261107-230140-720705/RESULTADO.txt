@@ -1,0 +1,3 @@
+FALLO: Fn120A
+Funciones con diferencias: CAEPedlessSpeechAudioEntity::AddScriptSayEvent: 1684/16384; CTaskComplexGangJoinRespond::GetTaskType: 6257/16384; CTaskComplexKillPedOnFoot::GetTaskType: 162/16384; CTaskComplexPartner::GetTaskType: 516/16384; CTaskComplexPartnerDeal::GetTaskType: 1413/16384
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn120a\20261107-230140-720705

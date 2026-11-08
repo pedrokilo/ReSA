@@ -22,12 +22,13 @@ PED_NEW = '    void AddScriptSayEvent(eAudioEvents audioEvent, eAudioEvents scri
 GT = 'source/game_sa/Tasks/TaskTypes/%s.h'
 GT_OLD = 'eTaskType GetTaskType() const override { return Type; }'
 GT_NEW = 'eTaskType GetTaskType() const override { return %s; }'
+# AddScriptSayEvent escribe en `this` solo si IsBadWritePtr lo permite (el banco pasa punteros crudos: la primera tentativa sin esa guarda tumbo el juego con un acceso invalido).
 # Las mutaciones solo difieren con valores del banco (this desalineado, nulo o crudo, banderas que el juego no combina): los hooks de produccion estan activos durante el arranque
 # y una mutacion que cambie el comportamiento normal tumbaria el juego antes de llegar al banco (leccion de 100A). Los objetos del juego estan alineados a 4 y por debajo de 0xC0000000.
 ROUNDS = {
     1: [
         # AddScriptSayEvent: con this desalineado y las banderas overrideSilence e isFrontEnd escribe un byte en el objeto
-        (PED, PED_OLD, PED_NEW % 'if ((reinterpret_cast<uintptr_t>(this) & 3) != 0 && isFrontEnd && overrideSilence) *reinterpret_cast<uint8*>(this) = 1;'),
+        (PED, PED_OLD, PED_NEW % 'if ((reinterpret_cast<uintptr_t>(this) & 3) != 0 && isFrontEnd && overrideSilence && !IsBadWritePtr(this, 1)) *reinterpret_cast<uint8*>(this) = 1;'),
         # GangJoinRespond: con this desalineado devuelve el tipo mas uno
         (GT % 'TaskComplexGangJoinRespond', GT_OLD, GT_NEW % '(reinterpret_cast<uintptr_t>(this) & 3) != 0 ? static_cast<eTaskType>(Type + 1) : Type'),
         # KillPedOnFoot: con this = 0xCDCDCDCD devuelve el tipo mas uno
@@ -39,11 +40,11 @@ ROUNDS = {
     ],
     2: [
         # AddScriptSayEvent: con this desalineado, isForceAudible e !overrideSilence invierte un byte del objeto
-        (PED, PED_OLD, PED_NEW % 'if ((reinterpret_cast<uintptr_t>(this) & 3) != 0 && isForceAudible && !overrideSilence) *reinterpret_cast<uint8*>(this) ^= 0xFF;'),
+        (PED, PED_OLD, PED_NEW % 'if ((reinterpret_cast<uintptr_t>(this) & 3) != 0 && isForceAudible && !overrideSilence && !IsBadWritePtr(this, 1)) *reinterpret_cast<uint8*>(this) ^= 0xFF;'),
         # GangJoinRespond: con this = 0xFFFFFFFF devuelve 0
         (GT % 'TaskComplexGangJoinRespond', GT_OLD, GT_NEW % 'reinterpret_cast<uintptr_t>(this) == 0xFFFFFFFFu ? static_cast<eTaskType>(0) : Type'),
-        # KillPedOnFoot: con this >= 0xC0000000 y < 0xD0000000 devuelve el tipo mas uno
-        (GT % 'TaskComplexKillPedOnFoot', GT_OLD, GT_NEW % '(reinterpret_cast<uintptr_t>(this) >> 28) == 0xC ? static_cast<eTaskType>(Type + 1) : Type'),
+        # KillPedOnFoot: con this entre 0xCDCDCDC0 y 0xCDCDCDCF devuelve el tipo mas uno
+        (GT % 'TaskComplexKillPedOnFoot', GT_OLD, GT_NEW % '(reinterpret_cast<uintptr_t>(this) | 0xF) == 0xCDCDCDCFu ? static_cast<eTaskType>(Type + 1) : Type'),
         # Partner: con this desalineado de resto 2 devuelve el tipo con el bit 0 invertido
         (GT % 'TaskComplexPartner', GT_OLD, GT_NEW % '(reinterpret_cast<uintptr_t>(this) & 3) == 2 ? static_cast<eTaskType>(Type ^ 1) : Type'),
         # PartnerDeal: con this impar y bit 31 puesto devuelve el tipo mas uno
