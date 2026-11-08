@@ -15132,7 +15132,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::AddGogglesModel"
@@ -15141,7 +15141,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15158,7 +15158,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::RemoveGogglesModel"
@@ -15167,7 +15167,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15184,7 +15184,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::PutOnGoggles"
@@ -15193,7 +15193,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15210,7 +15210,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::TakeOffGoggles"
@@ -15219,7 +15219,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15236,7 +15236,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::IsWearingGoggles"
@@ -15245,7 +15245,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15262,7 +15262,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::Dress"
@@ -15271,7 +15271,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15288,7 +15288,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::Undress"
@@ -15297,7 +15297,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15314,7 +15314,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::CreateDeadPedMoney"
@@ -15323,7 +15323,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15340,7 +15340,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::CreateDeadPedPickupCoors-"
@@ -15349,7 +15349,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15366,7 +15366,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::CreateDeadPedWeaponPickups"
@@ -15375,7 +15375,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15392,7 +15392,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::DeadPedMakesTyresBloody"
@@ -15401,7 +15401,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15418,7 +15418,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::RemoveBodyPart"
@@ -15427,7 +15427,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15444,7 +15444,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::SpawnFlyingComponent"
@@ -15453,7 +15453,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15470,7 +15470,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::PedCanPickUpPickUp"
@@ -15479,7 +15479,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15496,7 +15496,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::SetPedAtomicVisibilityCB"
@@ -15505,7 +15505,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15522,7 +15522,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::SetupLighting"
@@ -15531,7 +15531,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15548,7 +15548,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::RemoveLighting"
@@ -15557,7 +15557,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15574,7 +15574,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::Render"
@@ -15583,7 +15583,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15600,7 +15600,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::PreRender"
@@ -15609,7 +15609,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15626,7 +15626,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::PreRenderAfterTest"
@@ -15635,7 +15635,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15652,7 +15652,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::DeleteRwObject"
@@ -15661,7 +15661,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15678,7 +15678,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::SetModelIndex"
@@ -15687,7 +15687,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15704,7 +15704,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::SetCharCreatedBy"
@@ -15713,7 +15713,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15730,7 +15730,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::UseGroundColModel"
@@ -15739,7 +15739,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
@@ -15756,7 +15756,7 @@
       },
       "evidence": {
         "path": "reversing/CPedB/validation-summary.json",
-        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "sha256": "2917b1bb39b95b0148bde84a1420130e2ce82492f56df6e4e0cc3afc10482b65",
         "passed_path": [
           "covered_functions",
           "CPed::ProcessBuoyancy"
@@ -15765,7 +15765,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",

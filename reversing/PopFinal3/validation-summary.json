@@ -178,22 +178,22 @@
     "CPopulation::UpdatePedCount": "Corpus 256; source reviewed against the EXE and corrected before the run where needed (see git diff). Limites del banco: pools de peds (0x7C4), objetos (0x19C) y dummies (0x38) de 16 ranuras y model infos falsos intercambiados solo durante la ejecucion; colaboradores doblados con traza y sin credito; fixtures sin objetos de cristal sin dummy (0x6146F0)."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PopFinal3-20261106-043858-560672",
-  "summary_sha256": "5f7131738ed16f296b292251210bf6dffcac2dca8e59f2e2e60dcba57c47fea0",
-  "result_txt_sha256": "23a1b9ac1be02c4d3b7ccb286a92bab3ec383e6863cd0aea3b355760ec745e71",
-  "log_sha256": "f8946122fc691b9abcb8008cd2b704b4e4df7938ef589bb565043e012aeff3c2",
+  "run": "reversing/CppTwelveLevel6Final/runs/PopFinal3-20261107-194447-616880",
+  "summary_sha256": "8d98be4e58801565a1317953179204a5939b5f3ecfa5e6745fcbef32019c905b",
+  "result_txt_sha256": "df70ee529c9f402c927ec92c1947666aa88cf991a948ca8c3171d2586ee80f3a",
+  "log_sha256": "30305e464a24a09eef0a45641f7fc715935bec8ea7d0f588d5b429e99c3a3bfc",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PopFinal3-20261106-043858-560672/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PopFinal3-20261107-194447-616880/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "60fdfb519eb714baa95a8188fb2fe6c0d13c98afc2986b05bb7783bd884dcf68",
-    "uncompressed_sha256": "f8946122fc691b9abcb8008cd2b704b4e4df7938ef589bb565043e012aeff3c2"
+    "compressed_sha256": "17d8078a31557d3efa5b71e09d4a6a96e43de65376e00d6b98419516fdef7f36",
+    "uncompressed_sha256": "30305e464a24a09eef0a45641f7fc715935bec8ea7d0f588d5b429e99c3a3bfc"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "49fc6314a584cebad1f3ce92f5f6c31939b4f111756965d6c28e9596260bf8b2",
+  "executed_probe_sha256": "097cb6dc225a7437bdd5e51dd846e45e1262e830a6160ac64459a204ba6bbad7",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
