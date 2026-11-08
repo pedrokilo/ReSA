@@ -18,5 +18,10 @@ public:
     int32 GetLifeTime() override { return 0; }
     CEventChatPartner* Clone() const noexcept override { return new CEventChatPartner(m_leadSpeaker, m_partner); }
     bool AffectsPed(CPed* ped)  override;
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    CEventChatPartner* Constructor(bool leadSpeaker, CPed* partner);
 };
 VALIDATE_SIZE(CEventChatPartner, 0x14);

@@ -21,5 +21,10 @@ public:
     CPed*       m_PedThatEntered;
     CVehicle*   m_Vehicle;
     eTargetDoor m_TargetDoor;
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    CEventPedEnteredMyVehicle* Constructor(CPed* pedThatEntered, CVehicle* vehicle, eTargetDoor targetDoor);
 };
 VALIDATE_SIZE(CEventPedEnteredMyVehicle, 0x20);

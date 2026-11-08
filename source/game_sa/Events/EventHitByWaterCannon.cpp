@@ -19,11 +19,19 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "EventHitByWaterCannon.h"
 
+namespace {
+// Cuerpo no virtual de ~CEventHitByWaterCannon del EXE (thiscall, sin argumentos de pila, `ret`): solo deja la vtable de CEvent del EXE (0x85AB38) (la clase no libera referencias). (Lote 119A, banco Fn119A.)
+void __fastcall HitByWaterCannonDestructorBody(CEventHitByWaterCannon* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 
 void CEventHitByWaterCannon::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventHitByWaterCannon, 0x85B488, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(HitByWaterCannonDestructorBody, "Destructor", 0x4B1320);
 
     RH_ScopedInstall(Constructor, 0x4B1290);
     RH_ScopedVMTInstall(AffectsPed, 0x4B1330);

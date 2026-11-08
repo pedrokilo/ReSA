@@ -15,5 +15,10 @@ public:
     int32 GetLifeTime() override { return 0; }
     CEventRevived* Clone() const noexcept override { return new CEventRevived(); }
     bool AffectsPed(CPed* ped) override;
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    CEventRevived* Constructor();
 };
 VALIDATE_SIZE(CEventRevived, 0xC);

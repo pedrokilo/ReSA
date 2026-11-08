@@ -1,0 +1,49 @@
+{
+  "binaries": {
+    "asi": "9fd25e336a77c0ec75d4f34d0ff8637a184f4b25aae9ad0fadbc75dac70dfaa3",
+    "pdb": "dc50fa48d55c40f3858ee26c3a34ae49c78884ac59f9cad403a539b630a13b3d"
+  },
+  "sources": {
+    "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+    "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
+    "source/game_sa/Events/EventPedEnteredMyVehicle.cpp": "69fb07fe38bd93783324afcae6be48d2ac8e3aca52ce8bbcd72bc19ba76dfa1d",
+    "source/game_sa/Events/EventRevived.cpp": "84ee40c41bde2064ba7db7fbbf4af0d0cc15ad2881d18e1a152c88858a61aa59",
+    "source/game_sa/Events/EventChatPartner.cpp": "b2f083d358c89b27f2def6b182b2b3bf63547874ca79357fe977f36ebab9eb65",
+    "source/game_sa/Events/EventSexyPed.cpp": "17be3f5afa9c71e60f604bb0500144878ac0cd555dd1a93a03f91a69a28a2eab",
+    "source/game_sa/Events/EventSexyVehicle.cpp": "1bbd46f30c84e6d5db62e1c7677f996dc20e6a4f04d269630a3135ab5d955aad",
+    "source/game_sa/Events/EventInWater.cpp": "021b0edd312ebefbbc5421ffced8e2b2d0fa30e8aa095a4211b18c87eae1eb67",
+    "source/game_sa/Events/EventFireNearby.cpp": "23584af0e3df4ca1246f556f2c63ce354a692928c5f1297aba595912d7203166",
+    "source/game_sa/Events/EventInAir.cpp": "2990dbdae6ce61cd1d2ead89a09fbebc31b5ecd1a3ee77e2c23e7bb819b7db57",
+    "source/game_sa/Events/EventHitByWaterCannon.cpp": "b766e5e474ad37b8de4323cd197a516c53703a69e71e5f47dd83b59a970e1c5e",
+    "source/game_sa/Events/EventPotentialWalkIntoFire.cpp": "2f8f925a9fe289fc653f49a438bdd4383e23ffeffbf0a46cf352eef07aa22204",
+    "source/game_sa/Events/EventPedEnteredMyVehicle.h": "1fef05a9438564ba0d6470639c8245a2d69713a7c528ae2c7f0d91669a6a4f4d",
+    "source/game_sa/Events/EventRevived.h": "cd71430edf4cec79ef3cabda202c30ac8052a9ca600a4bc7ddfa6b97591b1cb4",
+    "source/game_sa/Events/EventChatPartner.h": "61afcba34376a7f715dffcbe89473cb81e95cbba4b42514973fe7cca47c9f10e",
+    "source/game_sa/Events/EventSexyPed.h": "b4b21f5490bab235f086dd7cb03e38aff6a6bbb7271b31b8e66e24932a2d7f1f",
+    "source/game_sa/Events/EventSexyVehicle.h": "f34a91209ec9eac81dc776bb6f6c1aa24afe9867c9188e4f8e356b27f6a02a5a",
+    "source/game_sa/Events/EventInWater.h": "3270300e4f8a386ff8b10767d490fffda48bd9ccf0e542f50fc7ed41cc46a30e",
+    "source/game_sa/Events/EventFireNearby.h": "fee78df26e5a111973ed455ad28a9a0f460a9046b3023ec8d6601b9d8019ad58",
+    "source/game_sa/Events/EventInAir.h": "c004933f0b3899f9f1d47b7d58b2871811d70271ee49bcc223d4a8b50608d399",
+    "source/game_sa/Events/EventHitByWaterCannon.h": "21650a9f92bbe3439f8fc74b25102db269042a6ba14bd5592abba528193a29b9",
+    "source/game_sa/Events/EventPotentialWalkIntoFire.h": "d5c57c10f81c92d52ae56df5d3b1b63ac4633513a9213abbad5eae37b7a64fe8",
+    "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+    "reversing/Fn119A/LiveComparison.hpp": "d77230df881631af68d790148008df2c3099df1a15caf436332e7072e5ab5c67",
+    "reversing/Fn119A/Core.hpp": "9285e52225e1c33fcc58bc505d63e80e870048b77c70996d44215d9d355e6412",
+    "reversing/Fn119A/Fixtures.hpp": "6db103d7e925f3a473c405057039452da148452b275295b5f7ffe54d82d14680",
+    "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+    "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+  },
+  "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+  "instrumentation": {
+    "Core.hpp": "9285e52225e1c33fcc58bc505d63e80e870048b77c70996d44215d9d355e6412",
+    "Fixtures.hpp": "6db103d7e925f3a473c405057039452da148452b275295b5f7ffe54d82d14680",
+    "LiveComparison.hpp": "d77230df881631af68d790148008df2c3099df1a15caf436332e7072e5ab5c67",
+    "build_probe.py": "fa3c12f5916536fcbfdd902a032ca3fc590fe3716ce44a6768bc6dfadd8549cc",
+    "fixture_oracle.py": "3f440f6bc31a8f145cba1d16d364ddd8646b6393ea9cd37a715b5cba572e46e4",
+    "fixture_selfcheck.py": "9499105f888d207e55ebbeb7ed3cbeb0e6132b529fac560191f5740b67348d42",
+    "mutate.py": "a78185f00fdb7d9d91fc11a15019b4ea1d6fc9faf400547a2612790088239ca0",
+    "negative_run.py": "67ea1a7c4b9d82b86c87a1d50864435e4aeeef45d19360268e5b88f5f9ac12c8",
+    "register_hook.py": "b7b9bf081590caa0acdb004066062db90de929e4102a10b00baacab4f06f79f7",
+    "run_local.py": "61da7b647570cd40c7a7e78e1b7391f50f04bb7a5588fd122c3eea2c18e524e9"
+  }
+}

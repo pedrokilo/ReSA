@@ -19,11 +19,19 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "EventPotentialWalkIntoFire.h"
 
+namespace {
+// Cuerpo no virtual de ~CEventPotentialWalkIntoFire del EXE (thiscall, sin argumentos de pila, `ret`): solo deja la vtable de CEvent del EXE (0x85AB38) (la clase no libera referencias). (Lote 119A, banco Fn119A.)
+void __fastcall PotentialWalkIntoFireDestructorBody(CEventPotentialWalkIntoFire* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 
 void CEventPotentialWalkIntoFire::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventPotentialWalkIntoFire, 0x85B6A0, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(PotentialWalkIntoFireDestructorBody, "Destructor", 0x4B1F00);
 
     RH_ScopedInstall(Constructor, 0x4B1E20);
     RH_ScopedVMTInstall(AffectsPed, 0x4B6890);

@@ -19,11 +19,19 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "EventInAir.h"
 
+namespace {
+// Cuerpo no virtual de ~CEventInAir del EXE (thiscall, sin argumentos de pila, `ret`): solo deja la vtable de CEvent del EXE (0x85AB38) (la clase no libera referencias). (Lote 119A, banco Fn119A.)
+void __fastcall InAirDestructorBody(CEventInAir* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85AB38;
+}
+} // namespace
+
 
 void CEventInAir::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventInAir, 0x85B3C0, 16);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(InAirDestructorBody, "Destructor", 0x4B0D00);
 
     RH_ScopedInstall(Constructor, 0x4B0CB0);
     RH_ScopedVMTInstall(AffectsPed, 0x4B0C00);

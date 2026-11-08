@@ -18,5 +18,10 @@ public:
     CEvent* Clone() const noexcept override { return new CEventInWater(m_acceleration); }
     bool AffectsPed(CPed* ped) override;
     bool TakesPriorityOver(const CEvent& refEvent) override;
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    CEventInWater* Constructor(float acceleration);
 };
 VALIDATE_SIZE(CEventInWater, 0x10);
