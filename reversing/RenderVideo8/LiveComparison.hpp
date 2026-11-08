@@ -14,8 +14,10 @@
 //   (+0xF0) es el real y escribe en los buferes falsos. Scene.m_pRwCamera apunta a una camara falsa en SetVideoMode.
 // Todo el estado global tocado se guarda y se restaura en cada ejecucion y al final.
 #include <fstream>
+#include <optional>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Simple.h>
 #include "RenderBuffer.hpp"
 #include "PostEffects.h"
 #include "../ProbeRuntime.hpp"
@@ -116,6 +118,15 @@ inline void Update() {
         saved.push_back({a,std::vector<uint8>(reinterpret_cast<uint8*>(a),reinterpret_cast<uint8*>(a)+n)});
     auto RestoreAll=[&]{ for(auto& s:saved)std::memcpy(reinterpret_cast<void*>(s.a),s.v.data(),s.v.size()); };
 
+    // Lote 118A: CMemoryMgr::Calloc (0x72F460) ya tiene hook. El hook se apaga durante el banco (la entrada del EXE vuelve a ser codigo original, donde va el falso) y el mismo
+    // falso se instala tambien en el cuerpo de la DLL, que es lo que llama VideoMode::GetVideoModeList (patron MakeCollab de 112A/114A/116A/Fn119A).
+    ReversibleHooks::ReversibleHook::Base* callocHook{}; bool callocEnabled{},callocLocked{}; uintptr_t callocBody{};
+    ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c){ for(auto& h:c.Items())
+        if(h->Type()==ReversibleHooks::ReversibleHook::Base::HookType::Simple&&reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookGTAAddress())==0x72F460)callocHook=h.get(); });
+    if(callocHook){ callocEnabled=callocHook->Hooked(); callocLocked=callocHook->Locked(); callocHook->LockState(false); callocHook->State(false);
+        callocBody=reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Simple*>(callocHook)->GetHookOurAddress());
+        for(int k=0;k<16&&*reinterpret_cast<uint8*>(callocBody)==0xE9;++k)callocBody+=5+*reinterpret_cast<int32*>(callocBody+1); }
+
     bool passed=true; int pair=0;
     {
         using ReversingProbe::EntryPatch; using std::bit_cast;
@@ -123,6 +134,7 @@ inline void Update() {
         EntryPatch i1(0x7EF450,FakeIm3DTransform), i2(0x7EF550,FakeIm3DRender), i3(0x7EF520,FakeIm3DEnd), i4(0x7EF6B0,FakeIm3DRenderPrim);
         EntryPatch sr(0x7FB1A0,FakeShowRaster);
         EntryPatch v1(0x7F2CC0,FakeNumModes), v2(0x7F2CF0,FakeModeInfo), v3(0x7F2C60,FakeCurSubSystem), v4(0x7F8640,FakeChangeVideoMode), v5(0x72F460,FakeCalloc);
+        std::optional<EntryPatch> v5dll; if(callocBody)v5dll.emplace(callocBody,FakeCalloc);
         EntryPatch bb(bit_cast<uintptr_t>(&CPostEffects::SetupBackBufferVertex),FakeSetupBackBuffer), bbe(0x7043D0,FakeSetupBackBuffer);
         auto& nv=*reinterpret_cast<int32*>(TEMP_NV); auto& ni=*reinterpret_cast<int32*>(TEMP_NI);
         auto& tbsI=*reinterpret_cast<int32*>(TO_STORE); auto& tbsV=*reinterpret_cast<int32*>(TO_STORE+4);
@@ -243,6 +255,7 @@ inline void Update() {
         }
     }
     for(size_t f=0;f<fns.size();++f){hooks[f]->State(enabled[f]);hooks[f]->LockState(locked[f]);}
+    if(callocHook){callocHook->State(callocEnabled);callocHook->LockState(callocLocked);}
     RestoreAll();
     bool restored=true; for(auto& s:saved)restored&=std::memcmp(reinterpret_cast<void*>(s.a),s.v.data(),s.v.size())==0;
     Write({{"event",passed ? "complete":"error"},{"pairs",pair},{"state_restored",restored}});

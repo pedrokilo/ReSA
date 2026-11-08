@@ -28,7 +28,7 @@
   "log_sha256": "f2b3fcc69aaca164ef5bbce61dea36b1b8539398c061bac092429d912632ab19",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-rendervideo8\\20261002-183030-255319",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-rendervideo8\\20261107-212630-986488",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "RenderBuffer::ClearRenderBuffer": true,
@@ -46,26 +46,27 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "7f151cc3dc6cebe9a240c4fddcb3a46d10effdeab98e7ee070d2d70a04ab8528",
-      "pdb": "ba6c955e51c6f94a03050ec810a915428bc7416b5a61f6d9f1a200fd522be01b"
+      "asi": "a77189dc18fdcb82c2e10a500e26be4b9a701f531ce4adbc9c799b70b25c7a50",
+      "pdb": "3f63b161577aa569685c86b0a28f406676d6287b75ec8742cd7e41ab975ad217"
     },
     "sources": {
-      "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+      "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
       "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-      "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-      "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-      "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+      "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+      "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+      "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
       "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "1c4a583606d250e20e9db4298aef391954205e202a27b9e0de4efacfc35b26d0",
+      "LiveComparison.hpp": "e340d65c6a6eef26dc2f9412ff799c4aeffee0e602de6cd3d75fdcaadb4cc8ef",
       "build_probe.py": "c3f1d11aa247e25d2d8949b21e0087f65552f75e5a261a6ad73890a3118fcbb0",
       "run_local.py": "144895a77cdab46b8bd755be103274e1bde841ce97732a9960a510fe742b799a"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Nunca cambia el modo de video ni toca la camara o el dispositivo reales; funciones del dispositivo falsas."
+    "Nunca cambia el modo de video ni toca la camara o el dispositivo reales; funciones del dispositivo falsas.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

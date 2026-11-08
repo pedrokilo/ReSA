@@ -43026,7 +43026,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "RenderBuffer::ClearRenderBuffer"
@@ -43035,11 +43035,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",
@@ -43056,7 +43056,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "RenderBuffer::RenderStuffInBuffer"
@@ -43065,11 +43065,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",
@@ -43086,7 +43086,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "RenderBuffer::StartStoring"
@@ -43095,11 +43095,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",
@@ -43116,7 +43116,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "RenderBuffer::StopStoring"
@@ -43125,11 +43125,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",
@@ -43146,7 +43146,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "RwCore::RwCameraBeginUpdate"
@@ -43155,11 +43155,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",
@@ -43176,7 +43176,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "RwCore::RwCameraClear"
@@ -43185,11 +43185,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",
@@ -43206,7 +43206,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "RwCore::RwCameraEndUpdate"
@@ -43215,11 +43215,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",
@@ -43236,7 +43236,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "RwCore::RwCameraShowRaster"
@@ -43245,11 +43245,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",
@@ -43266,7 +43266,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "VideoMode::FreeVideoModeList"
@@ -43275,11 +43275,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",
@@ -43296,7 +43296,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "VideoMode::GetVideoModeList"
@@ -43305,11 +43305,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",
@@ -43326,7 +43326,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "VideoMode::IsVideoModeExclusive"
@@ -43335,11 +43335,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",
@@ -43356,7 +43356,7 @@
       },
       "evidence": {
         "path": "reversing/RenderVideo8/validation-summary.json",
-        "sha256": "4438e9a7e4e0b22a6fe5f7f2de0cf14af8123c22b8e3da8456451286840a421f",
+        "sha256": "890489b1df9877e4d2dcf5fdad7c687c6a2219ea0b6f6a6171efcaa784fdd81e",
         "passed_path": [
           "covered_functions",
           "VideoMode::SetVideoMode"
@@ -43365,11 +43365,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/RenderBuffer.cpp": "6ec48d0f4bf57fbfeb2b4ffb441632f4b225c66c483336c9c250943f5157ce35",
+        "source/game_sa/RenderBuffer.cpp": "955c5163a46335fe0400ea0be06dfdad9b4e959f82a5f50e63fb9c836cbf1a0c",
         "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
-        "source/game_sa/RenderWare/rw/rwcore.cpp": "685480c0ef4c2afbd3edf04aaa0549ab18c817b537460e3c1540167581fc8a3b",
-        "source/game_sa/RenderWare/rw/rwplcore.h": "1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362",
-        "source/app/platform/win/VideoMode.cpp": "848316f2cb5bd6553d76cb752c0101905619fc28c2718ca918583f00a06120dd",
+        "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+        "source/game_sa/RenderWare/rw/rwplcore.h": "b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa",
+        "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
         "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-183030-255319).",

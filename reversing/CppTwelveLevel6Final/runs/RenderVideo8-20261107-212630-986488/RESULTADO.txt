@@ -1,0 +1,3 @@
+APROBADO: Búfer de render, cámara RW y modos de vídeo (lista de 8)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-rendervideo8\20261107-212630-986488

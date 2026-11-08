@@ -39,3 +39,7 @@ Validadas el 02/10/2026 con **6.912 pares original/candidato dentro de GTA**, to
 - Todo el estado global tocado se guarda y se restaura en cada ejecución y al final.
 
 Repetir: `python reversing/RenderVideo8/build_probe.py` y `python reversing/run.py --case rendervideo8`. Evidencia: [validation-summary.json](validation-summary.json).
+
+## Actualizacion del lote 118A (07/11/2026)
+
+Banco repetido con los hooks actuales y aprobado de nuevo (6912 pares, cero diferencias). Adaptacion del banco (solo banco, sin cambios de produccion): `CMemoryMgr::Calloc` (0x72F460) ya tiene hook, asi que `GetVideoModeList` en la DLL llamaba al `Calloc` real y no al falso (748/1024 pares distintos). Ahora el hook se apaga durante el banco (la entrada del EXE vuelve a ser codigo original, donde ya iba el falso) y el mismo `FakeCalloc` se instala tambien en el cuerpo de la DLL; el estado del hook se restaura al final.
