@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 08/11/2026 (Ciudad de México):** 866 grupos / 9366 funciones reconstruidas; 9366 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 08/11/2026 (Ciudad de México):** 866 grupos / 9367 funciones reconstruidas; 9367 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,49 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-901"></a>
+
+## CVehicleRecording
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CVehicleRecording::Init() | [source/game_sa/VehicleRecording.cpp:80](../../source/game_sa/VehicleRecording.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::Init 0x00459390 | 0 / 0 | Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880); Posible dato fijo bPlaybackGoingOn: source/game_sa/VehicleRecording.h:70 (0x0097D6F0); Posible dato fijo bPlaybackPaused: source/game_sa/VehicleRecording.h:72 (0x0097D6D0); Posible dato fijo pPlaybackBuffer: source/game_sa/VehicleRecording.h:65 (0x0097D800); Posible dato fijo pVehicleForPlayback: source/game_sa/VehicleRecording.h:64 (0x0097D840) |
+| CVehicleRecording::InitAtStartOfGame() | [source/game_sa/VehicleRecording.cpp:95](../../source/game_sa/VehicleRecording.cpp#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::InitAtStartOfGame 0x0045A1B0 | 0 / 0 | Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880) |
+| CVehicleRecording::ShutDown() | [source/game_sa/VehicleRecording.cpp:103](../../source/game_sa/VehicleRecording.cpp#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::ShutDown 0x00459400 | 0 / 0 | Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880) |
+| CVehicleRecording::Render() | [source/game_sa/VehicleRecording.cpp:108](../../source/game_sa/VehicleRecording.cpp#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::Render 0x00459F70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehicleRecording::ChangeCarPlaybackToUseAI(CVehicle* vehicle) | [source/game_sa/VehicleRecording.cpp:112](../../source/game_sa/VehicleRecording.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::ChangeCarPlaybackToUseAI 0x0045A360 | 0 / 0 | Posible dato fijo bUseCarAI: source/game_sa/VehicleRecording.h:73 (0x0097D6C0) |
+| CVehicleRecording::FindIndexWithFileNameNumber(int32 fileNumber) | [source/game_sa/VehicleRecording.cpp:126](../../source/game_sa/VehicleRecording.cpp#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::FindIndexWithFileNameNumber 0x00459FF0 | 0 / 0 | Posible dato fijo NumPlayBackFiles: source/game_sa/VehicleRecording.h:62 (0x0097F630); Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880) |
+| CVehicleRecording::InterpolateInfoForCar(CVehicle* vehicle, const CVehicleStateEachFrame& frame, float interpValue) | [source/game_sa/VehicleRecording.cpp:136](../../source/game_sa/VehicleRecording.cpp#L136) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::InterpolateInfoForCar 0x00459B30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehicleRecording::HasRecordingFileBeenLoaded(int32 fileNumber) | [source/game_sa/VehicleRecording.cpp:162](../../source/game_sa/VehicleRecording.cpp#L162) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::HasRecordingFileBeenLoaded 0x0045A060 | 0 / 0 | Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880) |
+| CVehicleRecording::Load(RwStream* stream, int32 recordId, int32 totalSize) | [source/game_sa/VehicleRecording.cpp:168](../../source/game_sa/VehicleRecording.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::Load 0x0045A8F0 | 0 / 0 | Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880) |
+| CVehicleRecording::SmoothRecording(int32 recordId) | [source/game_sa/VehicleRecording.cpp:187](../../source/game_sa/VehicleRecording.cpp#L187) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::SmoothRecording 0x0045A0F0 | 0 / 0 | Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880) |
+| CVehicleRecording::RegisterRecordingFile(const char* name) | [source/game_sa/VehicleRecording.cpp:204](../../source/game_sa/VehicleRecording.cpp#L204) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::RegisterRecordingFile 0x00459F80 | 0 / 0 | Posible dato fijo NumPlayBackFiles: source/game_sa/VehicleRecording.h:62 (0x0097F630); Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880) |
+| CVehicleRecording::RemoveRecordingFile(int32 fileNumber) | [source/game_sa/VehicleRecording.cpp:218](../../source/game_sa/VehicleRecording.cpp#L218) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::RemoveRecordingFile 0x0045A0A0 | 0 / 0 | Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880) |
+| CVehicleRecording::RequestRecordingFile(int32 fileNumber) | [source/game_sa/VehicleRecording.cpp:228](../../source/game_sa/VehicleRecording.cpp#L228) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::RequestRecordingFile 0x0045A020 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehicleRecording::StopPlaybackWithIndex(int32 playbackId) | [source/game_sa/VehicleRecording.cpp:234](../../source/game_sa/VehicleRecording.cpp#L234) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::StopPlaybackWithIndex 0x00459440 | 0 / 0 | Posible dato fijo PlayBackStreamingIndex: source/game_sa/VehicleRecording.h:74 (0x0097D670); Posible dato fijo PlaybackBufferSize: source/game_sa/VehicleRecording.h:67 (0x0097D780); Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880); Posible dato fijo bPlaybackGoingOn: source/game_sa/VehicleRecording.h:70 (0x0097D6F0); Posible dato fijo pPlaybackBuffer: source/game_sa/VehicleRecording.h:65 (0x0097D800); Posible dato fijo pVehicleForPlayback: source/game_sa/VehicleRecording.h:64 (0x0097D840) |
+| CVehicleRecording::StartPlaybackRecordedCar(CVehicle* vehicle, int32 fileNumber, bool useCarAI, bool looped) | [source/game_sa/VehicleRecording.cpp:248](../../source/game_sa/VehicleRecording.cpp#L248) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::StartPlaybackRecordedCar 0x0045A980 | 0 / 0 | Posible dato fijo PlayBackStreamingIndex: source/game_sa/VehicleRecording.h:74 (0x0097D670); Posible dato fijo PlaybackBufferSize: source/game_sa/VehicleRecording.h:67 (0x0097D780); Posible dato fijo PlaybackIndex: source/game_sa/VehicleRecording.h:66 (0x0097D7C0); Posible dato fijo PlaybackRunningTime: source/game_sa/VehicleRecording.h:68 (0x0097D740); Posible dato fijo PlaybackSpeed: source/game_sa/VehicleRecording.h:69 (0x0097D700); Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880); Posible dato fijo bPlaybackGoingOn: source/game_sa/VehicleRecording.h:70 (0x0097D6F0); Posible dato fijo bPlaybackLooped: source/game_sa/VehicleRecording.h:71 (0x0097D6E0); Posible dato fijo bPlaybackPaused: source/game_sa/VehicleRecording.h:72 (0x0097D6D0); Posible dato fijo bUseCarAI: source/game_sa/VehicleRecording.h:73 (0x0097D6C0); Posible dato fijo pPlaybackBuffer: source/game_sa/VehicleRecording.h:65 (0x0097D800); Posible dato fijo pVehicleForPlayback: source/game_sa/VehicleRecording.h:64 (0x0097D840) |
+| CVehicleRecording::StopPlaybackRecordedCar(CVehicle* vehicle) | [source/game_sa/VehicleRecording.cpp:284](../../source/game_sa/VehicleRecording.cpp#L284) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::StopPlaybackRecordedCar 0x0045A280 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehicleRecording::PausePlaybackRecordedCar(CVehicle* vehicle) | [source/game_sa/VehicleRecording.cpp:291](../../source/game_sa/VehicleRecording.cpp#L291) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::PausePlaybackRecordedCar 0x00459740 | 0 / 0 | Posible dato fijo bPlaybackPaused: source/game_sa/VehicleRecording.h:72 (0x0097D6D0) |
+| CVehicleRecording::UnpausePlaybackRecordedCar(CVehicle* vehicle) | [source/game_sa/VehicleRecording.cpp:297](../../source/game_sa/VehicleRecording.cpp#L297) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::UnpausePlaybackRecordedCar 0x00459850 | 0 / 0 | Posible dato fijo bPlaybackPaused: source/game_sa/VehicleRecording.h:72 (0x0097D6D0) |
+| CVehicleRecording::SetPlaybackSpeed(CVehicle* vehicle, float speed) | [source/game_sa/VehicleRecording.cpp:303](../../source/game_sa/VehicleRecording.cpp#L303) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::SetPlaybackSpeed 0x00459660 | 0 / 0 | Posible dato fijo PlaybackSpeed: source/game_sa/VehicleRecording.h:69 (0x0097D700) |
+| CVehicleRecording::RenderLineSegment(int32& numVertices) | [source/game_sa/VehicleRecording.cpp:311](../../source/game_sa/VehicleRecording.cpp#L311) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::RenderLineSegment 0x00459F00 | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958) |
+| CVehicleRecording::RemoveAllRecordingsThatArentUsed() | [source/game_sa/VehicleRecording.cpp:326](../../source/game_sa/VehicleRecording.cpp#L326) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::RemoveAllRecordingsThatArentUsed 0x0045A160 | 0 / 0 | Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880) |
+| CVehicleRecording::RestoreInfoForCar(CVehicle* vehicle, const CVehicleStateEachFrame& frame, bool pause) | [source/game_sa/VehicleRecording.cpp:336](../../source/game_sa/VehicleRecording.cpp#L336) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::RestoreInfoForCar 0x00459A30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehicleRecording::RestoreInfoForMatrix(CMatrix& matrix, const CVehicleStateEachFrame& frame) | [source/game_sa/VehicleRecording.cpp:362](../../source/game_sa/VehicleRecording.cpp#L362) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::RestoreInfoForMatrix 0x00459960 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehicleRecording::SaveOrRetrieveDataForThisFrame() | [source/game_sa/VehicleRecording.cpp:437](../../source/game_sa/VehicleRecording.cpp#L437) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::SaveOrRetrieveDataForThisFrame 0x0045A610 | 0 / 0 | Posible dato fijo PlaybackBufferSize: source/game_sa/VehicleRecording.h:67 (0x0097D780); Posible dato fijo PlaybackIndex: source/game_sa/VehicleRecording.h:66 (0x0097D7C0); Posible dato fijo PlaybackRunningTime: source/game_sa/VehicleRecording.h:68 (0x0097D740); Posible dato fijo PlaybackSpeed: source/game_sa/VehicleRecording.h:69 (0x0097D700); Posible dato fijo bPlaybackGoingOn: source/game_sa/VehicleRecording.h:70 (0x0097D6F0); Posible dato fijo bPlaybackLooped: source/game_sa/VehicleRecording.h:71 (0x0097D6E0); Posible dato fijo bPlaybackPaused: source/game_sa/VehicleRecording.h:72 (0x0097D6D0); Posible dato fijo bUseCarAI: source/game_sa/VehicleRecording.h:73 (0x0097D6C0); Posible dato fijo m_snPPPPreviousTimeInMilliseconds: source/game_sa/Timer.h:50 (0x00B7CB6C); Posible dato fijo pPlaybackBuffer: source/game_sa/VehicleRecording.h:65 (0x0097D800); Posible dato fijo pVehicleForPlayback: source/game_sa/VehicleRecording.h:64 (0x0097D840) |
+| CVehicleRecording::SetRecordingToPointClosestToCoors(int32 playbackId, CVector posn) | [source/game_sa/VehicleRecording.cpp:515](../../source/game_sa/VehicleRecording.cpp#L515) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::SetRecordingToPointClosestToCoors 0x0045A1E0 | 0 / 0 | Posible dato fijo PlaybackBufferSize: source/game_sa/VehicleRecording.h:67 (0x0097D780); Posible dato fijo PlaybackIndex: source/game_sa/VehicleRecording.h:66 (0x0097D7C0); Posible dato fijo pPlaybackBuffer: source/game_sa/VehicleRecording.h:65 (0x0097D800) |
+| CVehicleRecording::IsPlaybackGoingOnForCar(CVehicle* vehicle) | [source/game_sa/VehicleRecording.cpp:533](../../source/game_sa/VehicleRecording.cpp#L533) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::IsPlaybackGoingOnForCar 0x004594C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehicleRecording::IsPlaybackPausedForCar(CVehicle* vehicle) | [source/game_sa/VehicleRecording.cpp:538](../../source/game_sa/VehicleRecording.cpp#L538) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::IsPlaybackPausedForCar 0x004595A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehicleRecording::SkipForwardInRecording(CVehicle* vehicle, float distance) | [source/game_sa/VehicleRecording.cpp:545](../../source/game_sa/VehicleRecording.cpp#L545) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::SkipForwardInRecording 0x00459D10 | 0 / 0 | Posible dato fijo PlaybackBufferSize: source/game_sa/VehicleRecording.h:67 (0x0097D780); Posible dato fijo PlaybackIndex: source/game_sa/VehicleRecording.h:66 (0x0097D7C0); Posible dato fijo PlaybackRunningTime: source/game_sa/VehicleRecording.h:68 (0x0097D740); Posible dato fijo bUseCarAI: source/game_sa/VehicleRecording.h:73 (0x0097D6C0); Posible dato fijo pPlaybackBuffer: source/game_sa/VehicleRecording.h:65 (0x0097D800); Posible dato fijo pVehicleForPlayback: source/game_sa/VehicleRecording.h:64 (0x0097D840) |
+| CVehicleRecording::SkipToEndAndStopPlaybackRecordedCar(CVehicle* vehicle) | [source/game_sa/VehicleRecording.cpp:596](../../source/game_sa/VehicleRecording.cpp#L596) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleRecording::SkipToEndAndStopPlaybackRecordedCar 0x0045A4A0 | 0 / 0 | Posible dato fijo PlayBackStreamingIndex: source/game_sa/VehicleRecording.h:74 (0x0097D670); Posible dato fijo PlaybackBufferSize: source/game_sa/VehicleRecording.h:67 (0x0097D780); Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880); Posible dato fijo bPlaybackGoingOn: source/game_sa/VehicleRecording.h:70 (0x0097D6F0); Posible dato fijo pPlaybackBuffer: source/game_sa/VehicleRecording.h:65 (0x0097D800); Posible dato fijo pVehicleForPlayback: source/game_sa/VehicleRecording.h:64 (0x0097D840) |
+| CVehicleRecording::InjectHooks() | [source/game_sa/VehicleRecording.cpp:615](../../source/game_sa/VehicleRecording.cpp#L615) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetRecordings() | [source/game_sa/VehicleRecording.h:118](../../source/game_sa/VehicleRecording.h#L118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo NumPlayBackFiles: source/game_sa/VehicleRecording.h:62 (0x0097F630); Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880) |
+| GetActivePlaybackIndices() | [source/game_sa/VehicleRecording.h:122](../../source/game_sa/VehicleRecording.h#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo bPlaybackGoingOn: source/game_sa/VehicleRecording.h:70 (0x0097D6F0) |
+| * FindRecording(int32 number) | [source/game_sa/VehicleRecording.h:126](../../source/game_sa/VehicleRecording.h#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo NumPlayBackFiles: source/game_sa/VehicleRecording.h:62 (0x0097F630); Posible dato fijo StreamingArray: source/game_sa/VehicleRecording.h:63 (0x0097D880) |
+| FindVehicleRecordingIndex(CVehicle* vehicle) | [source/game_sa/VehicleRecording.h:139](../../source/game_sa/VehicleRecording.h#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo pVehicleForPlayback: source/game_sa/VehicleRecording.h:64 (0x0097D840) |
+| GetFramesFromPlaybackBuffer(size_t bufferIdx) | [source/game_sa/VehicleRecording.h:148](../../source/game_sa/VehicleRecording.h#L148) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo PlaybackBufferSize: source/game_sa/VehicleRecording.h:67 (0x0097D780); Posible dato fijo pPlaybackBuffer: source/game_sa/VehicleRecording.h:65 (0x0097D800) |
+| GetCurrentFrameIndex(size_t bufferIdx) | [source/game_sa/VehicleRecording.h:152](../../source/game_sa/VehicleRecording.h#L152) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo PlaybackIndex: source/game_sa/VehicleRecording.h:66 (0x0097D7C0) |
+
+<a id="grupo-902"></a>
 
 ## CVehicleSaveStructure
 
@@ -16,7 +59,7 @@
 | CVehicleSaveStructure::Construct(CVehicle* v) | [source/game_sa/VehicleSaveStructure.cpp:32](../../source/game_sa/VehicleSaveStructure.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleSaveStructure::Construct 0x005D2330 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CVehicleSaveStructure::Extract(CVehicle* v) | [source/game_sa/VehicleSaveStructure.cpp:48](../../source/game_sa/VehicleSaveStructure.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicleSaveStructure::Extract 0x005D23B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-902"></a>
+<a id="grupo-903"></a>
 
 ## CVehicleScanner
 
@@ -25,7 +68,7 @@
 | CVehicleScanner::ScanForVehiclesInRange(const CPed& ped) | [source/game_sa/VehicleScanner.cpp:32](../../source/game_sa/VehicleScanner.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CVehicleScanner::GetClosestVehicleInRange() const | [source/game_sa/VehicleScanner.cpp:48](../../source/game_sa/VehicleScanner.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CVehicleScanner::GetClosestVehicleInRange 0x005FFEE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-903"></a>
+<a id="grupo-904"></a>
 
 ## CVisibilityPlugins
 
@@ -129,7 +172,7 @@
 | ResetWeaponPedsForPC() | [source/game_sa/VisibilityPlugins.h:210](../../source/game_sa/VisibilityPlugins.h#L210) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_weaponPedsForPC: source/game_sa/VisibilityPlugins.h:115 (0x00C88224) |
 | AddWeaponPedForPC(CPed* ped) | [source/game_sa/VisibilityPlugins.h:211](../../source/game_sa/VisibilityPlugins.h#L211) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVisibilityPlugins::AddWeaponPedForPC 0x005E46D0 | 0 / 0 | Posible dato fijo ms_weaponPedsForPC: source/game_sa/VisibilityPlugins.h:115 (0x00C88224) |
 
-<a id="grupo-904"></a>
+<a id="grupo-905"></a>
 
 ## CWanted
 
@@ -175,7 +218,7 @@
 | SetArmyRequired(bool s) | [source/game_sa/Wanted.h:87](../../source/game_sa/Wanted.h#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PoliceBackOff() const | [source/game_sa/Wanted.h:95](../../source/game_sa/Wanted.h#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-905"></a>
+<a id="grupo-906"></a>
 
 ## CWaterCannon
 
@@ -191,7 +234,7 @@
 | & CWaterCannon::GetSectionPosn(size_t idx) | [source/game_sa/WaterCannon.cpp:292](../../source/game_sa/WaterCannon.cpp#L292) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & CWaterCannon::GetSectionMoveSpeed(size_t idx) | [source/game_sa/WaterCannon.cpp:296](../../source/game_sa/WaterCannon.cpp#L296) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-906"></a>
+<a id="grupo-907"></a>
 
 ## CWaterCannons
 
@@ -203,7 +246,7 @@
 | CWaterCannons::Update() | [source/game_sa/WaterCannons.cpp:68](../../source/game_sa/WaterCannons.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterCannons::Update 0x0072A3C0 | 0 / 0 | Posible dato fijo aCannons: source/game_sa/WaterCannons.h:10 (0x00C80740) |
 | CWaterCannons::Render() | [source/game_sa/WaterCannons.cpp:82](../../source/game_sa/WaterCannons.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterCannons::Render 0x00729B30 | 0 / 0 | Posible dato fijo aCannons: source/game_sa/WaterCannons.h:10 (0x00C80740) |
 
-<a id="grupo-907"></a>
+<a id="grupo-908"></a>
 
 ## CWaterLevel
 
@@ -268,7 +311,7 @@
 | CWaterLevel::GetWaterLevelNoWavesForTriangle(const CWaterTriangle* triangle, float x, float y, float z, float* outLevel, float* outBigWaves, float* outSmallWaves) | [source/game_sa/WaterLevel.cpp:2042](../../source/game_sa/WaterLevel.cpp#L2042) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWaterLevel::GetWaterLevelNoWavesForTriangle 0x006E5E90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CalculateWavesOnlyForCoordinate2_Direct( // TODO: Once the OG function is reversed, we should use this instead of it (once we've verified that the reversed version works as expected) int32 x, int32 y, float waterLevel, // "water level" from `GetWaterLevelNoWaves` float bigWavesAmpl, float smallWavesAmpl ) | [source/game_sa/WaterLevel.h:290](../../source/game_sa/WaterLevel.h#L290) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-908"></a>
+<a id="grupo-909"></a>
 
 ## CWaterLevel::PolyInfo
 
@@ -277,7 +320,7 @@
 | Id() const | [source/game_sa/WaterLevel.h:159](../../source/game_sa/WaterLevel.h#L159) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_id: source/game_sa/MemoryMgr.h:101 (0x00C87B1C) |
 | Type() const | [source/game_sa/WaterLevel.h:160](../../source/game_sa/WaterLevel.h#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-909"></a>
+<a id="grupo-910"></a>
 
 ## CWaterPolygon
 
@@ -287,7 +330,7 @@
 | IsInInterior() const | [source/game_sa/WaterLevel.h:42](../../source/game_sa/WaterLevel.h#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DoMarkToBeRendered(bool isInInterior) | [source/game_sa/WaterLevel.h:44](../../source/game_sa/WaterLevel.h#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-910"></a>
+<a id="grupo-911"></a>
 
 ## CWaterPolygon&lt;NumVerts&gt;
 
@@ -295,7 +338,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CWaterPolygon&lt;NumVerts&gt;::GetVertex(uint16 idx) const | [source/game_sa/WaterLevel.cpp:2013](../../source/game_sa/WaterLevel.cpp#L2013) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:96 (0x00C22910) |
 
-<a id="grupo-911"></a>
+<a id="grupo-912"></a>
 
 ## CWeapon
 
@@ -353,7 +396,7 @@
 | GetTotalAmmo() const noexcept | [source/game_sa/Weapon.h:133](../../source/game_sa/Weapon.h#L133) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(eWeaponType weaponType, uint32 ammo) | [source/game_sa/Weapon.h:147](../../source/game_sa/Weapon.h#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeapon::Constructor 0x0073B430 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-912"></a>
+<a id="grupo-913"></a>
 
 ## CWeaponEffects
 
@@ -371,7 +414,7 @@
 | CWeaponEffects::Render() | [source/game_sa/WeaponEffects.cpp:128](../../source/game_sa/WeaponEffects.cpp#L128) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponEffects::Render 0x00742CF0 | 0 / 0 | Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo gCrossHair: source/game_sa/WeaponEffects.h:54 (0x00C8A838); Posible dato fijo gpCrossHairTex: source/game_sa/WeaponEffects.h:55 (0x00C8A818); Posible dato fijo gpCrossHairTexFlight: source/game_sa/WeaponEffects.h:56 (0x00C8A810); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | CWeaponEffects::RenderPlayerCrosshair(CPlayerInfo& info, int32 playerIndex) | [source/game_sa/WeaponEffects.cpp:351](../../source/game_sa/WeaponEffects.cpp#L351) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWeaponEffects::RenderPlayerCrosshair 0x0056EF90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x00B9B8F8, 0x00B9B920, 0x00B9B92C, 0x00B9B948, 0x00C3E000; Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84) |
 
-<a id="grupo-913"></a>
+<a id="grupo-914"></a>
 
 ## CWeaponInfo
 
@@ -401,7 +444,7 @@
 | GetWeaponInfo(CPed* ped, std::optional&lt;eWeaponSkill&gt; skill = {}) | [source/game_sa/WeaponInfo.h:147](../../source/game_sa/WeaponInfo.h#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::GetWeaponInfo-original 0x00743C60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetAimingOffset() const | [source/game_sa/WeaponInfo.h:151](../../source/game_sa/WeaponInfo.h#L151) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_WeaponAimOffsets: source/game_sa/WeaponInfo.h:45 (0x00C8A8A8) |
 
-<a id="grupo-914"></a>
+<a id="grupo-915"></a>
 
 ## CWeaponModelInfo
 
@@ -415,7 +458,7 @@
 | SetWeaponInfo(eWeaponType weapon) | [source/game_sa/Models/WeaponModelInfo.h:33](../../source/game_sa/Models/WeaponModelInfo.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetWeaponInfo() | [source/game_sa/Models/WeaponModelInfo.h:34](../../source/game_sa/Models/WeaponModelInfo.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-915"></a>
+<a id="grupo-916"></a>
 
 ## CWeather
 
@@ -439,7 +482,7 @@
 | CWeather::IsRainy() | [source/game_sa/Weather.cpp:1013](../../source/game_sa/Weather.cpp#L1013) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeather::IsRainy 0x004ABF50 | 0 / 0 | Posible dato fijo Rain: source/game_sa/Weather.h:46 (0x00C81324) |
 | IsUnderWater() | [source/game_sa/Weather.h:95](../../source/game_sa/Weather.h#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo UnderWaterness: source/game_sa/Weather.h:49 (0x00C8132C) |
 
-<a id="grupo-916"></a>
+<a id="grupo-917"></a>
 
 ## CWindModifiers
 
@@ -449,7 +492,7 @@
 | CWindModifiers::RegisterOne(CVector vecPos, int32 iActive, float fPower) | [source/game_sa/WindModifiers.cpp:32](../../source/game_sa/WindModifiers.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWindModifiers::RegisterOne 0x0072C8B0 | 0 / 0 | Posible dato fijo Array: source/game_sa/WindModifiers.h:14 (0x00C81458); Posible dato fijo Number: source/game_sa/WindModifiers.h:13 (0x00C81450); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | CWindModifiers::FindWindModifier(CVector vecPos, float* outX, float* outY) | [source/game_sa/WindModifiers.cpp:52](../../source/game_sa/WindModifiers.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWindModifiers::FindWindModifier 0x0072C950 | 0 / 0 | Posible dato fijo Array: source/game_sa/WindModifiers.h:14 (0x00C81458); Posible dato fijo Number: source/game_sa/WindModifiers.h:13 (0x00C81450) |
 
-<a id="grupo-917"></a>
+<a id="grupo-918"></a>
 
 ## CWorld
 
@@ -584,7 +627,7 @@
 | FindPlayerHeading(int32 playerId) | [source/game_sa/World_Helper.cpp:129](../../source/game_sa/World_Helper.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorld::FindPlayerHeading 0x0056E450 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | * FindPlayerWanted(int32 playerId) | [source/game_sa/World_Helper.cpp:153](../../source/game_sa/World_Helper.cpp#L153) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWorld::FindPlayerWanted 0x0056E230 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-918"></a>
+<a id="grupo-919"></a>
 
 ## CWorldScan
 
@@ -594,7 +637,7 @@
 | CWorldScan::ScanWorld(CVector2D* points, int32 pointsCount, tScanFunction scanFunction) | [source/game_sa/Renderer.cpp:141](../../source/game_sa/Renderer.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorldScan::ScanWorld 0x0072CAE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo WsExtraCount: source/game_sa/Renderer.cpp:133 (0x00C815B8); Posible dato fijo WsExtraX: source/game_sa/Renderer.cpp:132 (0x00C815A8); Posible dato fijo WsExtraY: source/game_sa/Renderer.cpp:131 (0x00C81598) |
 | CWorldScan::SetExtraRectangleToScan(float minX, float maxX, float minY, float maxY) | [source/game_sa/Renderer.cpp:408](../../source/game_sa/Renderer.cpp#L408) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorldScan::SetExtraRectangleToScan 0x0072D5E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo WsExtraCount: source/game_sa/Renderer.cpp:133 (0x00C815B8); Posible dato fijo WsExtraX: source/game_sa/Renderer.cpp:132 (0x00C815A8); Posible dato fijo WsExtraY: source/game_sa/Renderer.cpp:131 (0x00C81598) |
 
-<a id="grupo-919"></a>
+<a id="grupo-920"></a>
 
 ## CZone
 
@@ -605,13 +648,3 @@
 | GetNaviLabel() const | [source/game_sa/Zone.h:23](../../source/game_sa/Zone.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetRect() const | [source/game_sa/Zone.h:24](../../source/game_sa/Zone.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetBB() const | [source/game_sa/Zone.h:25](../../source/game_sa/Zone.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-920"></a>
-
-## CZoneDef
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * CZoneDef::GetCenter(CVector& out) const | [source/game_sa/CullZones.cpp:73](../../source/game_sa/CullZones.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CZoneDef::GetCenter 0x0072D6D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Init( const CVector& pos, float vec1X, float vec1Y, float minZ, float vec2X, float vec2Y, float maxZ ) | [source/game_sa/CullZones.h:82](../../source/game_sa/CullZones.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsPointWithin(const CVector& point) const | [source/game_sa/CullZones.h:104](../../source/game_sa/CullZones.h#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

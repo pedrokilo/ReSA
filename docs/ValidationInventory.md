@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,366 entradas reversed=1**, de 9,366 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,367 entradas reversed=1**, de 9,367 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9366 |
+| `validated=1` · evidencia aprobada vinculada | 9367 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9366 |
+| Evidencia histórica vinculada; revisión pendiente | 9367 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -6322,6 +6322,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexPartner | `ControlSubTask` | [Resumen](../reversing/PartnerControl60/validation-summary.json) |
 | CTaskComplexPartner | `CreateFirstSubTask` | [Resumen](../reversing/PartnerFirstSub31/validation-summary.json) |
 | CTaskComplexPartner | `CreateNextSubTask` | [Resumen](../reversing/PartnerNext60/validation-summary.json) |
+| CTaskComplexPartner | `Destructor` | [Resumen](../reversing/Fn123A/validation-summary.json) |
 | CTaskComplexPartner | `GetStateOfPartnerTask` | [Resumen](../reversing/Fn113A/validation-summary.json) |
 | CTaskComplexPartner | `GetTaskType` | [Resumen](../reversing/Fn120A/validation-summary.json) |
 | CTaskComplexPartner | `RemoveStreamedAnims` | [Resumen](../reversing/PartnerRemove60/validation-summary.json) |
@@ -9945,7 +9946,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexOnFire` | 9 | 0 | 9 | 0 |
 | `CTaskComplexOpenDriverDoor` | 4 | 0 | 4 | 0 |
 | `CTaskComplexOpenPassengerDoor` | 4 | 0 | 4 | 0 |
-| `CTaskComplexPartner` | 9 | 0 | 9 | 0 |
+| `CTaskComplexPartner` | 10 | 0 | 10 | 0 |
 | `CTaskComplexPartnerChat` | 3 | 0 | 3 | 0 |
 | `CTaskComplexPartnerDeal` | 6 | 0 | 6 | 0 |
 | `CTaskComplexPartnerGreet` | 7 | 0 | 7 | 0 |

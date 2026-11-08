@@ -2860,7 +2860,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004D34F0,644,reemplazada,RpAnimBlend,exacta,RpAnimBlend::RpAnimBlendClumpUpdateAnimations,1,1,,
 0x004D37A0,11,reemplazada,CAnimBlendAssocGroup,exacta,CAnimBlendAssocGroup::IsCreated,0,0,,
 0x004D3940,70,reemplazada,CAnimManager,exacta,CAnimManager::GetAnimationBlock-,25,22,,
-0x004D3990,30,reemplazada,CAnimManager,exacta,CAnimManager::GetAnimationBlockIndex-by-name,62,57,,
+0x004D3990,30,reemplazada,CAnimManager,exacta,CAnimManager::GetAnimationBlockIndex-by-name,62,58,,
 0x004D39B0,57,reemplazada,CAnimManager,exacta,CAnimManager::GetFirstAssocGroup,3,3,,
 0x004D39F0,48,reemplazada,CAnimManager,exacta,CAnimManager::GetAnimation-0,1,0,,
 0x004D3A20,16,reemplazada,CAnimManager,exacta,CAnimManager::GetAnimGroupName,8,7,,
@@ -2877,7 +2877,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004D3ED0,102,reemplazada,CAnimManager,exacta,CAnimManager::RemoveLastAnimFile,1,1,,
 0x004D3F40,111,reemplazada,CAnimManager,exacta,CAnimManager::RemoveAnimBlock,2,2,,
 0x004D3FB0,17,reemplazada,CAnimManager,exacta,CAnimManager::AddAnimBlockRef,36,36,,
-0x004D3FD0,17,reemplazada,CAnimManager,alta,,45,38,,
+0x004D3FD0,17,reemplazada,CAnimManager,alta,,45,39,,
 0x004D3FF0,17,reemplazada,CAnimManager,exacta,CAnimManager::RemoveAnimBlockRefWithoutDelete,2,2,,
 0x004D4010,15,reemplazada,CAnimManager,exacta,CAnimManager::GetNumRefsToAnimBlock,1,1,,
 0x004D40A0,12,D,CAnimManager,alta,,0,0,,
@@ -4942,7 +4942,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00571980,5,C,CPlayerInfo,baja,,1,0,,
 0x005719B0,44,reemplazada,CReferences,exacta,CReferences::Init,1,1,,
 0x005719E0,24,reemplazada,CReferences,exacta,CReferences::ListSize,0,0,,
-0x00571A00,59,reemplazada,CEntity,exacta,CEntity::CleanUpOldReference-,407,356,,
+0x00571A00,59,reemplazada,CEntity,exacta,CEntity::CleanUpOldReference-,407,357,,
 0x00571A40,78,reemplazada,CEntity,exacta,CEntity::ResolveReferences,4,4,,
 0x00571A90,62,reemplazada,CEntity,exacta,CEntity::PruneReferences,12,12,,
 0x00571AD0,151,reemplazada,CReferences,exacta,CReferences::RemoveReferencesToPlayer,5,5,,
@@ -7161,7 +7161,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061A390,16,reemplazada,CPlayerRelationshipRecorder,baja,,234,205,,
 0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,104,,
 0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,203,,
-0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,113,,
+0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,114,,
 0x0061A430,40,B,CPlayerRelationshipRecorder,baja,,0,0,,sí
 0x0061A4B0,73,reemplazada,CTask,exacta,CTask::IsTaskPtr,2,2,,
 0x0061A500,103,reemplazada,CTaskPool,exacta,CTaskPool::New,1,1,,
@@ -9628,7 +9628,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006838E0,100,reemplazada,CTaskComplexWalkAlongsidePed,exacta,CTaskComplexWalkAlongsidePed::Clone,0,0,,sí
 0x00683950,110,D,CTaskComplexWalkAlongsidePed,baja,,0,0,,
 0x006839C0,118,reemplazada,CTaskComplexBeInCouple,exacta,CTaskComplexBeInCouple::Clone,0,0,,sí
-0x00683A40,142,A,CTaskComplexBeInCouple,baja,,6,2,,
+0x00683A40,142,reemplazada,CTaskComplexBeInCouple,baja,,6,2,,
 0x00683AD0,1521,reemplazada,CTaskComplexBeInCouple,baja,,0,0,,sí
 0x006840D0,192,reemplazada,CTaskComplexBeInCouple,baja,,0,0,,sí
 0x00684190,100,reemplazada,CTaskComplexPartnerDeal,exacta,CTaskComplexPartnerDeal::Constructor,3,2,,

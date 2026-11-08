@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,555** funciones en 496 clases/módulos (rango 0x401000–0x74FFFF): 2,533 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,554** funciones en 496 clases/módulos (rango 0x401000–0x74FFFF): 2,532 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -125,6 +125,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CScripted2dEffects | 1 | 116 |
 | CCoronas | 1 | 117 |
 | CTaskSimpleDead | 1 | 127 |
+| CTaskComplexBeInCouple | 1 | 137 |
 | CLoadedCarGroup | 1 | 152 |
 | CDecision | 1 | 157 |
 | CMouseControllerState | 1 | 208 |
@@ -239,7 +240,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CCheat | 2 | 246 |
 | CTaskSimpleGangDriveBy | 2 | 254 |
 | CDecisionMakerTypes | 2 | 278 |
-| CTaskComplexBeInCouple | 2 | 279 |
 | Input | 2 | 302 |
 | CAEWaterCannonAudioEntity | 2 | 309 |
 | CStats | 2 | 320 |
@@ -1197,6 +1197,12 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x00636180 | 127 | B |  | 0 | 0 | sí | baja |
 
+## CTaskComplexBeInCouple (1)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00684D10 | 137 | B |  | 0 | 0 | sí | baja |
+
 ## CLoadedCarGroup (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -1979,13 +1985,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x00605300 | 204 | A |  | 1 | 1 |  | baja |
 | 0x006070F0 | 74 | C |  | 3 | 0 |  | baja |
-
-## CTaskComplexBeInCouple (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00683A40 | 142 | A |  | 6 | 2 |  | baja |
-| 0x00684D10 | 137 | B |  | 0 | 0 | sí | baja |
 
 ## Input (2)
 
