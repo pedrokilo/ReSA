@@ -53557,7 +53557,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::AddWeightToBoneVertex"
@@ -53570,10 +53570,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53589,7 +53589,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::BlendTextures-Dst-Src"
@@ -53602,10 +53602,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53621,7 +53621,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::BlendTextures-Dst-Src1-Src2"
@@ -53634,10 +53634,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53653,7 +53653,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::BlendTextures-Dst-Src1-Src2-Tat"
@@ -53666,10 +53666,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53685,7 +53685,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::BuildBoneIndexConversionTable"
@@ -53698,10 +53698,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53717,7 +53717,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::CopyTexture"
@@ -53730,10 +53730,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53749,7 +53749,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::DestroySkinArrays"
@@ -53762,10 +53762,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53781,7 +53781,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::GetAtomicWithName"
@@ -53794,10 +53794,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53813,7 +53813,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::GetTextureFromTxdAndLoadNextTxd"
@@ -53826,10 +53826,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53845,7 +53845,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::LoadCdDirectory"
@@ -53858,10 +53858,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53877,7 +53877,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::PlaceTextureOnTopOfTexture"
@@ -53890,10 +53890,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53909,7 +53909,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::RequestGeometry"
@@ -53922,10 +53922,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53941,7 +53941,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::RequestTexture"
@@ -53954,10 +53954,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -53973,7 +53973,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CClothesBuilder::StoreBoneArray"
@@ -53986,10 +53986,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54005,7 +54005,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::Init"
@@ -54018,10 +54018,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54037,7 +54037,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::Shutdown"
@@ -54050,10 +54050,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54069,7 +54069,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::TidyUpShadows"
@@ -54082,10 +54082,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54101,7 +54101,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::StoreShadowToBeRendered-Texture"
@@ -54114,10 +54114,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54133,7 +54133,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::StoreShadowToBeRendered-Type"
@@ -54146,10 +54146,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54165,7 +54165,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::SetRenderModeForShadowType"
@@ -54178,10 +54178,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54197,7 +54197,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::RemoveOilInArea"
@@ -54210,10 +54210,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54229,7 +54229,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::GunShotSetsOilOnFire"
@@ -54242,10 +54242,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54261,7 +54261,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::PrintDebugPoly"
@@ -54274,10 +54274,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54293,7 +54293,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::CalcPedShadowValues"
@@ -54306,10 +54306,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54325,7 +54325,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::AffectColourWithLighting"
@@ -54338,10 +54338,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54357,7 +54357,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::StoreShadowForPedObject"
@@ -54370,10 +54370,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54389,7 +54389,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::StoreRealTimeShadow"
@@ -54402,10 +54402,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54421,7 +54421,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::UpdateStaticShadows"
@@ -54434,10 +54434,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54453,7 +54453,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::RenderExtraPlayerShadows"
@@ -54466,10 +54466,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54485,7 +54485,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::RenderStaticShadows"
@@ -54498,10 +54498,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54517,7 +54517,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::RenderIndicatorShadow"
@@ -54530,10 +54530,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54549,7 +54549,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::StoreCarLightShadow"
@@ -54562,10 +54562,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54581,7 +54581,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CShadows::StoreShadowForPole"
@@ -54594,10 +54594,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54613,7 +54613,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::Shutdown"
@@ -54626,10 +54626,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54645,7 +54645,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::AddWaterLevelVertex"
@@ -54658,10 +54658,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54677,7 +54677,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::AddWaterLevelTriangle"
@@ -54690,10 +54690,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54709,7 +54709,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::BlockHit"
@@ -54722,10 +54722,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54741,7 +54741,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::CalculateWavesOnlyForCoordinate"
@@ -54754,10 +54754,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54773,7 +54773,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::GetWaterLevel-"
@@ -54786,10 +54786,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54805,7 +54805,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::MarkQuadsAndPolysToBeRendered"
@@ -54818,10 +54818,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54837,7 +54837,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::PreRenderWater"
@@ -54850,10 +54850,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54869,7 +54869,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::RenderFlatWaterRectangle_OneLayer"
@@ -54882,10 +54882,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54901,7 +54901,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::RenderFlatWaterTriangle"
@@ -54914,10 +54914,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54933,7 +54933,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::RenderFlatWaterTriangle_OneLayer"
@@ -54946,10 +54946,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54965,7 +54965,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::RenderWakeSegment"
@@ -54978,10 +54978,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -54997,7 +54997,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::RenderWaterRectangle"
@@ -55010,10 +55010,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -55029,7 +55029,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::RenderWaterTriangle"
@@ -55042,10 +55042,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -55061,7 +55061,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::ScanThroughBlocks"
@@ -55074,10 +55074,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -55093,7 +55093,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::SetCameraRange"
@@ -55106,10 +55106,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -55125,7 +55125,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::SetUpWaterFog"
@@ -55138,10 +55138,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -55157,7 +55157,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::SplitWaterRectangleAlongXLine"
@@ -55170,10 +55170,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,
@@ -55189,7 +55189,7 @@
       },
       "evidence": {
         "path": "reversing/GfxWave2/validation-summary.json",
-        "sha256": "3e1de540b62713c2e4d36578a9f5908d45b01ac9766bbe08e47844b0a6c3602e",
+        "sha256": "57c4c620ef50ecdd857bb3094e6e286e87f7792a54f49696ac625754fc419387",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::SplitWaterRectangleAlongYLine"
@@ -55202,10 +55202,10 @@
         "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
         "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
         "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
         "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-        "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-        "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled GfxWave2 probe (ASI/PDB hashes in build-manifest.json); the class sources are hashed from the probe build manifest; full 27616-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal. The three class sources were corrected to the EXE before the run (uncommitted at the time).",
       "dependency_review": null,

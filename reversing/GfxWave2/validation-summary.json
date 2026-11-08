@@ -202,22 +202,22 @@
     "CWaterLevel::SplitWaterRectangleAlongYLine": "Corpus 512; source corrected: t = (split-Y1)/(Y2-Y1) over Y1,Y2 as they are."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/GfxWave2-20261105-112306-246332",
-  "summary_sha256": "41ff5f19cfbd573ba422787405cd921b381811cb824d5acb6b8c9ee4eaa35d29",
-  "result_txt_sha256": "e15a9299e91ba036e8cc18c90e59fb1e3d37b02b82be56c5488e667d19107e2d",
-  "log_sha256": "79972dd17a81c05efba030d313ba66b76da0058b2785331aa319680552252753",
+  "run": "reversing/CppTwelveLevel6Final/runs/GfxWave2-20261107-195920-202854",
+  "summary_sha256": "6389d1b8b2a9816aa8d4bf85cb83b56580b75d084725c00c2282006fb5980bea",
+  "result_txt_sha256": "2b1a194d0981e5e7e5cdc0ff718332059383de4dfa8548259226d037a9806309",
+  "log_sha256": "4085092677c0c82be66d10710396f7d933ad9ea99ce302f4fad830c6ae49822d",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/GfxWave2-20261105-112306-246332/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/GfxWave2-20261107-195920-202854/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "8ef483f49491408850ebbba893108af0b80968e6363611f6d036c1617e8aae51",
-    "uncompressed_sha256": "79972dd17a81c05efba030d313ba66b76da0058b2785331aa319680552252753"
+    "compressed_sha256": "e479dee5344775cd5c3b5e87dc6e4b7928d73ae64761036c93aae96e3bbf0a51",
+    "uncompressed_sha256": "4085092677c0c82be66d10710396f7d933ad9ea99ce302f4fad830c6ae49822d"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "32eee5124d897f77179549976612218e1984a1327691c6762a2c8ac46d1c8304",
+  "executed_probe_sha256": "eb56eda3dd0997ff36d0d2e5281fa04d6fa9a75a61d67272964ad7911680afb0",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
@@ -225,10 +225,10 @@
       "source/game_sa/ClothesBuilder.h": "4a190a6f73fc2a331c984d672464e2172b586bb923c3ac2f0b25fd198a208a7e",
       "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
       "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-      "source/game_sa/WaterLevel.cpp": "e215f1a2e379ac0db5f30439b7200411f12400244a8b6a43a8c68ac4052c66d9",
+      "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
       "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
-      "source/game_sa/X87Math.cpp": "9c179204ec533c3a64c10bf9afa56b6f39c0b49b9e2a414e3e2afca91f383a5b",
-      "source/game_sa/X87Math.h": "df45818b6efcb1e7487a2a9986a41726f96042850773b470aa953dff0edfecbc"
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
     }
   },
   "source_corrections_before_run": {
