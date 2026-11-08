@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,571** funciones en 512 clases/módulos (rango 0x401000–0x74FFFF): 2,549 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,565** funciones en 506 clases/módulos (rango 0x401000–0x74FFFF): 2,543 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,12 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CFormation | 1 | 7 |
-| CTaskSimpleSetCharDecisionMaker | 1 | 7 |
-| CPedGroupDefaultTaskAllocatorFollowAnyMeans | 1 | 9 |
-| CPedGroupDefaultTaskAllocatorFollowLimited | 1 | 9 |
-| CPedGroupDefaultTaskAllocatorRandom | 1 | 9 |
-| CPedGroupDefaultTaskAllocatorStandStill | 1 | 9 |
 | CCrime | 1 | 10 |
 | CCivilianPed | 1 | 11 |
 | CDamageManager | 1 | 11 |
@@ -522,42 +516,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxInfoManager_c | 116 | 6591 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CFormation (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0069BB40 | 7 | C |  | 8 | 0 |  | baja |
-
-## CTaskSimpleSetCharDecisionMaker (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0046A610 | 7 | C |  | 3 | 0 |  | baja |
-
-## CPedGroupDefaultTaskAllocatorFollowAnyMeans (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F6480 | 9 | C |  | 1 | 0 |  | baja |
-
-## CPedGroupDefaultTaskAllocatorFollowLimited (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F64B0 | 9 | C |  | 1 | 0 |  | baja |
-
-## CPedGroupDefaultTaskAllocatorRandom (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F6540 | 9 | C |  | 1 | 0 |  | baja |
-
-## CPedGroupDefaultTaskAllocatorStandStill (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F64E0 | 9 | C |  | 1 | 0 |  | baja |
 
 ## CCrime (1)
 

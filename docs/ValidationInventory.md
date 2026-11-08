@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,350 entradas reversed=1**, de 9,350 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,356 entradas reversed=1**, de 9,356 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9350 |
+| `validated=1` · evidencia aprobada vinculada | 9356 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9350 |
+| Evidencia histórica vinculada; revisión pendiente | 9356 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2395,6 +2395,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEntityScanner | `Constructor` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CEntityScanner | `Destructor` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CEntityScanner | `ScanForEntitiesInRange` | [Resumen](../reversing/Events23/validation-summary.json) |
+| CEntitySeekPosCalculator | `Destructor` | [Resumen](../reversing/Fn121A/validation-summary.json) |
 | CEntitySeekPosCalculatorFixedPos | `ComputeEntitySeekPos` | [Resumen](../reversing/Misc56/validation-summary.json) |
 | CEntitySeekPosCalculatorRadiusAngleOffset | `ComputeEntitySeekPos` | [Resumen](../reversing/Misc56/validation-summary.json) |
 | CEntitySeekPosCalculatorStandard | `ComputeEntitySeekPos` | [Resumen](../reversing/Misc56/validation-summary.json) |
@@ -4122,16 +4123,20 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedGroup | `RemoveAllFollowers` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CPedGroup | `Teleport` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorChat | `AllocateDefaultTasks` | [Resumen](../reversing/Tasks70/validation-summary.json) |
+| CPedGroupDefaultTaskAllocatorChat | `Constructor` | [Resumen](../reversing/Fn121A/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorChat | `GetType` | [Resumen](../reversing/Tasks70/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorFollowAnyMeans | `AllocateDefaultTasks` | [Resumen](../reversing/FixBugs/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorFollowAnyMeans | `GetType` | [Resumen](../reversing/Tasks70/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorFollowLimited | `AllocateDefaultTasks` | [Resumen](../reversing/FixBugs/validation-summary.json) |
+| CPedGroupDefaultTaskAllocatorFollowLimited | `Constructor` | [Resumen](../reversing/Fn121A/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorFollowLimited | `GetType` | [Resumen](../reversing/Tasks70/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorRandom | `AllocateDefaultTasks` | [Resumen](../reversing/GroupTasksCompletion/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorRandom | `GetType` | [Resumen](../reversing/Tasks70/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorSitInLeaderCar | `AllocateDefaultTasks` | [Resumen](../reversing/GroupTasksCompletion/validation-summary.json) |
+| CPedGroupDefaultTaskAllocatorSitInLeaderCar | `Constructor` | [Resumen](../reversing/Fn121A/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorSitInLeaderCar | `GetType` | [Resumen](../reversing/Tasks70/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorStandStill | `AllocateDefaultTasks` | [Resumen](../reversing/FixBugs/validation-summary.json) |
+| CPedGroupDefaultTaskAllocatorStandStill | `Constructor` | [Resumen](../reversing/Fn121A/validation-summary.json) |
 | CPedGroupDefaultTaskAllocatorStandStill | `GetType` | [Resumen](../reversing/Tasks70/validation-summary.json) |
 | CPedGroupIntelligence | `AddEvent-` | [Resumen](../reversing/PGI26/validation-summary.json) |
 | CPedGroupIntelligence | `ComputeDefaultTasks` | [Resumen](../reversing/PGI26/validation-summary.json) |
@@ -5518,6 +5523,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTask | `operator delete` | [Resumen](../reversing/CTasks19/validation-summary.json) |
 | CTask | `operator new` | [Resumen](../reversing/CTasks19/validation-summary.json) |
 | CTaskAllocator | `Abort` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
+| CTaskAllocator | `Destructor` | [Resumen](../reversing/Fn121A/validation-summary.json) |
 | CTaskAllocator | `IsFinished` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CTaskAllocator | `ProcessGroup` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CTaskAllocator | `operator delete` | [Resumen](../reversing/Fn113A/validation-summary.json) |
@@ -9534,6 +9540,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CDummyPool` | 1 | 0 | 1 | 0 |
 | `CEntity` | 70 | 0 | 70 | 0 |
 | `CEntityScanner` | 4 | 0 | 4 | 0 |
+| `CEntitySeekPosCalculator` | 1 | 0 | 1 | 0 |
 | `CEntitySeekPosCalculatorFixedPos` | 1 | 0 | 1 | 0 |
 | `CEntitySeekPosCalculatorRadiusAngleOffset` | 1 | 0 | 1 | 0 |
 | `CEntitySeekPosCalculatorStandard` | 1 | 0 | 1 | 0 |
@@ -9710,12 +9717,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedDamageResponseCalculator` | 7 | 0 | 7 | 0 |
 | `CPedGeometryAnalyser` | 38 | 0 | 38 | 0 |
 | `CPedGroup` | 12 | 0 | 12 | 0 |
-| `CPedGroupDefaultTaskAllocatorChat` | 2 | 0 | 2 | 0 |
+| `CPedGroupDefaultTaskAllocatorChat` | 3 | 0 | 3 | 0 |
 | `CPedGroupDefaultTaskAllocatorFollowAnyMeans` | 2 | 0 | 2 | 0 |
-| `CPedGroupDefaultTaskAllocatorFollowLimited` | 2 | 0 | 2 | 0 |
+| `CPedGroupDefaultTaskAllocatorFollowLimited` | 3 | 0 | 3 | 0 |
 | `CPedGroupDefaultTaskAllocatorRandom` | 2 | 0 | 2 | 0 |
-| `CPedGroupDefaultTaskAllocatorSitInLeaderCar` | 2 | 0 | 2 | 0 |
-| `CPedGroupDefaultTaskAllocatorStandStill` | 2 | 0 | 2 | 0 |
+| `CPedGroupDefaultTaskAllocatorSitInLeaderCar` | 3 | 0 | 3 | 0 |
+| `CPedGroupDefaultTaskAllocatorStandStill` | 3 | 0 | 3 | 0 |
 | `CPedGroupIntelligence` | 28 | 0 | 28 | 0 |
 | `CPedGroupMembership` | 18 | 0 | 18 | 0 |
 | `CPedGroupPlacer` | 4 | 0 | 4 | 0 |
@@ -9821,7 +9828,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CStuntJumpManager` | 7 | 0 | 7 | 0 |
 | `CTagManager` | 19 | 0 | 19 | 0 |
 | `CTask` | 6 | 0 | 6 | 0 |
-| `CTaskAllocator` | 5 | 0 | 5 | 0 |
+| `CTaskAllocator` | 6 | 0 | 6 | 0 |
 | `CTaskAllocatorAttack` | 5 | 0 | 5 | 0 |
 | `CTaskAllocatorKillOnFoot` | 4 | 0 | 4 | 0 |
 | `CTaskAllocatorKillThreatsBasic` | 6 | 0 | 6 | 0 |

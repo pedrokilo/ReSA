@@ -1251,7 +1251,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0046A490,90,reemplazada,CTaskSimpleSetCharDecisionMaker,exacta,CTaskSimpleSetCharDecisionMaker::Clone,0,0,,sí
 0x0046A4F0,6,reemplazada,CTaskSimpleSetCharDecisionMaker,exacta,CTaskSimpleSetCharDecisionMaker::GetTaskType,0,0,,sí
 0x0046A500,5,reemplazada,CTaskSimpleSetCharDecisionMaker,exacta,CTaskSimpleSetCharDecisionMaker::MakeAbortable,0,0,,sí
-0x0046A610,7,C,CTaskSimpleSetCharDecisionMaker,baja,,3,0,,
+0x0046A610,7,reemplazada,CTaskSimpleSetCharDecisionMaker,baja,,3,0,,
 0x0046A630,20,reemplazada,CTaskComplexClimb,exacta,CTaskComplexClimb::Constructor,1,0,,
 0x0046A650,82,reemplazada,CTaskComplexClimb,exacta,CTaskComplexClimb::Clone,0,0,,sí
 0x0046A6B0,6,reemplazada,CTaskComplexClimb,exacta,CTaskComplexClimb::GetTaskType,0,0,,sí
@@ -6487,15 +6487,15 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005F6400,6,B,CEventPlayerCommandToGroupAttack,baja,,0,0,,sí
 0x005F6450,9,C,CEventPlayerCommandToGroupAttack,baja,,1,0,,
 0x005F6470,3,reemplazada,CPedGroupDefaultTaskAllocatorFollowAnyMeans,exacta,CPedGroupDefaultTaskAllocatorFollowAnyMeans::GetType,0,0,,sí
-0x005F6480,9,C,CPedGroupDefaultTaskAllocatorFollowAnyMeans,baja,,1,0,,
+0x005F6480,9,reemplazada,CPedGroupDefaultTaskAllocatorFollowAnyMeans,baja,,1,0,,
 0x005F64A0,6,reemplazada,CPedGroupDefaultTaskAllocatorFollowLimited,exacta,CPedGroupDefaultTaskAllocatorFollowLimited::GetType,0,0,,sí
-0x005F64B0,9,C,CPedGroupDefaultTaskAllocatorFollowLimited,baja,,1,0,,
+0x005F64B0,9,reemplazada,CPedGroupDefaultTaskAllocatorFollowLimited,baja,,1,0,,
 0x005F64D0,6,reemplazada,CPedGroupDefaultTaskAllocatorStandStill,exacta,CPedGroupDefaultTaskAllocatorStandStill::GetType,0,0,,sí
-0x005F64E0,9,C,CPedGroupDefaultTaskAllocatorStandStill,baja,,1,0,,
+0x005F64E0,9,reemplazada,CPedGroupDefaultTaskAllocatorStandStill,baja,,1,0,,
 0x005F6500,6,reemplazada,CPedGroupDefaultTaskAllocatorChat,exacta,CPedGroupDefaultTaskAllocatorChat::GetType,0,0,,sí
 0x005F6510,9,C,CPedGroupDefaultTaskAllocatorChat,baja,,1,0,,
 0x005F6530,6,reemplazada,CPedGroupDefaultTaskAllocatorRandom,exacta,CPedGroupDefaultTaskAllocatorRandom::GetType,0,0,,sí
-0x005F6540,9,C,CPedGroupDefaultTaskAllocatorRandom,baja,,1,0,,
+0x005F6540,9,reemplazada,CPedGroupDefaultTaskAllocatorRandom,baja,,1,0,,
 0x005F6560,6,reemplazada,CPedGroupDefaultTaskAllocatorSitInLeaderCar,exacta,CPedGroupDefaultTaskAllocatorSitInLeaderCar::GetType,0,0,,sí
 0x005F65A0,51,A,CPedGroupDefaultTaskAllocatorSitInLeaderCar,baja,,6,6,,
 0x005F65E0,112,reemplazada,CTaskSimpleChat,exacta,CTaskSimpleChat::Clone,0,0,,sí
@@ -9966,7 +9966,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0069B5B0,330,reemplazada,CFormation,exacta,CFormation::DistributeDestinations_CoverPoints,1,1,,
 0x0069B700,344,reemplazada,CFormation,exacta,CFormation::DistributeDestinations_PedsToAttack,1,1,,
 0x0069B860,702,reemplazada,CFormation,exacta,CFormation::FindCoverPoints,1,1,,
-0x0069BB40,7,C,CFormation,baja,,8,0,,
+0x0069BB40,7,reemplazada,CFormation,baja,,8,0,,
 0x0069BB50,5,reemplazada,CTaskAllocator,exacta,CTaskAllocator::ProcessGroup,0,0,,sí
 0x0069BB80,89,reemplazada,CTaskAllocatorKillOnFoot,exacta,CTaskAllocatorKillOnFoot::Constructor,1,1,,
 0x0069BBE0,6,reemplazada,CTaskAllocatorKillOnFoot,exacta,CTaskAllocatorKillOnFoot::GetType,0,0,,sí
