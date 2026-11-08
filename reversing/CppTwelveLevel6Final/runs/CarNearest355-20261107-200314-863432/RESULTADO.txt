@@ -1,0 +1,3 @@
+APROBADO: CarNearest355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-car-nearest355\20261107-200314-863432
