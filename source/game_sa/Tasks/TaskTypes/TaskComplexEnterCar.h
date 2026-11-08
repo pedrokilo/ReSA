@@ -66,16 +66,17 @@ protected:
     float                         m_CruiseSpeed{-1.f};                //< How fast to go after we've entered. Only used when `m_bAsDriver` is set
     int32                         m_EnterCarStartTime;                //< Como el original: el constructor (0x63A220) no lo escribe. When we started entering the vehicle (`CTimer::GetTimeMs()`)
 
+public:
+    // 0x63DFA0: cuerpo no virtual de ~CTaskComplexEnterCar (hook); lo llaman los cuerpos de destructor de las subclases (0x640330, 0x640380) como en el EXE
+    CTaskComplexEnterCar* Destructor() {
+        this->CTaskComplexEnterCar::~CTaskComplexEnterCar();
+        return this;
+    }
+
 private:
     // 0x63A220
     CTaskComplexEnterCar* Constructor(CVehicle* vehicle, bool bAsDriver, bool bQuitAfterOpeningDoor, bool bQuitAfterDraggingPedOut, bool bCarryOnAfterFallingOff) {
         this->CTaskComplexEnterCar::CTaskComplexEnterCar(vehicle, bAsDriver, bQuitAfterOpeningDoor, bQuitAfterDraggingPedOut, bCarryOnAfterFallingOff);
-        return this;
-    }
-
-    // 0x63DFA0
-    CTaskComplexEnterCar* Destructor() {
-        this->CTaskComplexEnterCar::~CTaskComplexEnterCar();
         return this;
     }
 };

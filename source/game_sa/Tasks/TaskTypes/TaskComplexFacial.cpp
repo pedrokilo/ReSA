@@ -21,10 +21,24 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexFacial.h"
 #include "TaskSimplePause.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+// 0x690D90 (lote 122A, banco Fn122A): cuerpo no virtual de ~CTaskComplexFacial del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx], 0x870ADC ; jmp 0x61A3D0`).
+// Deja la vtable de CTaskComplexFacial del EXE (0x870ADC) y salta a CTaskComplex::Destructor (0x61A3D0). Lo llaman el funclet de limpieza (SEH) y el destructor con borrado.
+void __fastcall FacialDestructorBody(CTaskComplexFacial* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870ADC;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexFacial::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFacial, 0x870ADC, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(FacialDestructorBody, "Destructor", 0x690D90);
     RH_ScopedInstall(Constructor, 0x690D20);
 
     RH_ScopedInstall(SetRequest, 0x691230);

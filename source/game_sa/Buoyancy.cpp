@@ -52,6 +52,7 @@ void cBuoyancy::InjectHooks()
     RH_ScopedClass(cBuoyancy);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedInstall(Constructor, 0x6C2740);
     RH_ScopedInstall(ProcessBuoyancy, 0x6C3EF0);
     RH_ScopedInstall(ProcessBuoyancyBoat, 0x6C3030);
     RH_ScopedInstall(CalcBuoyancyForce, 0x6C2750);
@@ -61,6 +62,14 @@ void cBuoyancy::InjectHooks()
     RH_ScopedInstall(SimpleSumBuoyancyData, 0x6C2970);
     RH_ScopedInstall(FindWaterLevel, 0x6C2810);
     RH_ScopedInstall(FindWaterLevelNorm, 0x6C28C0);
+}
+
+// 0x6C2740
+// Como el original (lote 122A, banco Fn122A): `mov eax,ecx ; xor ecx,ecx ; mov [eax+4Ch],ecx ; mov [eax+50h],ecx ; ret` (11 bytes). Es el constructor por defecto: lo unico que escribe es la parte
+// de m_EntityMatrix que el EXE inicializa (CMatrix::m_pAttachMatrix en +0x4C y la bandera m_bOwnsAttachedMatrix en +0x50, esta ultima como dword completo). Lo llama el inicializador estatico de mod_Buoyancy.
+cBuoyancy::cBuoyancy() {
+    *reinterpret_cast<uint32*>(&m_EntityMatrix.m_pAttachMatrix) = 0;
+    *reinterpret_cast<uint32*>(&m_EntityMatrix.m_bOwnsAttachedMatrix) = 0;
 }
 
 // 0x6C3EF0

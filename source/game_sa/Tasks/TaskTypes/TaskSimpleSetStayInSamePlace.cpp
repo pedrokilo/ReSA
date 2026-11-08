@@ -20,10 +20,20 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleSetStayInSamePlace.h"
 
+namespace {
+// 0x62F5D0 (lote 122A, banco Fn122A): cuerpo no virtual de ~CTaskSimpleSetStayInSamePlace del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx], 0x86DD50 ; jmp 0x61A3A0`).
+// Deja la vtable de CTaskSimpleSetStayInSamePlace del EXE (0x86DD50) y salta a CTask::Destructor (0x61A3A0), que deja la vtable de CTask (0x86D48C). Lo llaman el funclet de limpieza (SEH) y el destructor con borrado.
+void __fastcall SetStayInSamePlaceDestructorBody(CTaskSimpleSetStayInSamePlace* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86DD50;
+    self->CTask::Destructor();
+}
+} // namespace
+
 void CTaskSimpleSetStayInSamePlace::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleSetStayInSamePlace, 0x86DD50, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(SetStayInSamePlaceDestructorBody, "Destructor", 0x62F5D0);
     RH_ScopedInstall(Constructor, 0x62F590);
 
     RH_ScopedVMTInstall(Clone, 0x635BD0);

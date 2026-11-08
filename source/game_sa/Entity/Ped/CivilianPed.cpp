@@ -19,6 +19,15 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "CivilianPed.h"
 
+namespace {
+// 0x5DDBE0 (lote 122A, banco Fn122A): cuerpo no virtual de ~CCivilianPed del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx], 0x86C0A8 ; jmp 0x5E8620`).
+// Deja la vtable de CCivilianPed del EXE (0x86C0A8) y salta a CPed::Destructor (0x5E8620). Lo llama el destructor con borrado (0x5DDC30). Los llamadores solo conservan ESI.
+void __fastcall CivilianPedDestructorBody(CCivilianPed* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86C0A8;
+    self->CPed::Destructor();
+}
+} // namespace
+
 /**
  * Registra construcción y control de peatones civiles.
  */
@@ -28,6 +37,7 @@ void CCivilianPed::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x5DDB70);
     RH_ScopedInstall(Destructor, 0x5DDC30);
+    RH_ScopedNamedGlobalInstall(CivilianPedDestructorBody, "DestructorBody", 0x5DDBE0);
     RH_ScopedVMTInstall(ProcessControl, 0x5DDBF0);
 }
 

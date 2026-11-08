@@ -9355,3 +9355,13 @@ CPedGroupDefaultTaskAllocatorFollowLimited,Constructor,0x005F6480,1,0,1,S
 CPedGroupDefaultTaskAllocatorStandStill,Constructor,0x005F64B0,1,0,1,S
 CPedGroupDefaultTaskAllocatorChat,Constructor,0x005F64E0,1,0,1,S
 CPedGroupDefaultTaskAllocatorSitInLeaderCar,Constructor,0x005F6540,1,0,1,S
+CDebug,DebugInitTextBuffer,0x00532240,1,0,1,S
+CCivilianPed,DestructorBody,0x005DDBE0,1,0,1,S
+cBuoyancy,Constructor,0x006C2740,1,0,1,S
+CTaskComplexEnterCarAsDriver,Destructor,0x00640330,1,0,1,S
+CTaskComplexEnterCarAsPassenger,Destructor,0x00640380,1,0,1,S
+CTaskComplexFacial,Destructor,0x00690D90,1,0,1,S
+CTaskComplexPartnerDeal,Destructor,0x00684200,1,0,1,S
+CTaskSimpleAchieveHeading,Destructor,0x00667E70,1,0,1,S
+CTaskSimpleGoTo,DestructorBody,0x00667A00,1,0,1,S
+CTaskSimpleSetStayInSamePlace,Destructor,0x0062F5D0,1,0,1,S

@@ -67,7 +67,7 @@ public:
 public:
     static void InjectHooks();
 
-    cBuoyancy() = default; // 0x6C2740
+    cBuoyancy(); // 0x6C2740
     ~cBuoyancy() = default; // 0x6C2B80
 
     bool ProcessBuoyancy(CPhysical* entity, float fBuoyancy, CVector* vecTurnSpeed, CVector* buoyancy);
@@ -79,6 +79,13 @@ public:
     float SimpleSumBuoyancyData(CVector* vecPointRelativeToSurface, tWaterLevel ePointState);
     void FindWaterLevel(const CVector& vecInitialZPos, CVector* outVecOffset, tWaterLevel* outInWaterState);
     void FindWaterLevelNorm(const CVector& vecInitialZPos, CVector* outVecOffset, tWaterLevel* outInWaterState, CVector* outVecNormal);
+
+private:
+    // 0x6C2740
+    cBuoyancy* Constructor() {
+        this->cBuoyancy::cBuoyancy();
+        return this;
+    }
 };
 
 VALIDATE_SIZE(cBuoyancy, 0xD0);

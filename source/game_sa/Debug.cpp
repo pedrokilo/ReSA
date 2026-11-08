@@ -27,13 +27,15 @@ void CDebug::InjectHooks()
     RH_ScopedClass(CDebug);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedInstall(DebugInitTextBuffer, 0x532240);
     RH_ScopedInstall(DebugDisplayTextBuffer, 0x532260);
 }
 
+// 0x532240
+// Como el original (lote 122A, banco Fn122A): `mov word ptr ds:[0B71508h], 0 ; ret` (10 bytes). Pone a 0 la palabra de 16 bits del buffer de textos de depuracion del EXE (0xB71508);
+// no toca nada mas. Lo llama CGame::Init1. La reserva de 500 textos de la version anterior era solo una optimizacion NOTSA (el vector crece solo en DebugAddText).
 void CDebug::DebugInitTextBuffer() {
-    ZoneScoped;
-
-    m_debugStrings.reserve(500);
+    StaticRef<uint16>(0xB71508) = 0;
 }
 
 void CDebug::DebugAddText(const char* str)

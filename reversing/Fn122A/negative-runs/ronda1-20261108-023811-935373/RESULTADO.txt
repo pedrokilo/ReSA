@@ -1,0 +1,3 @@
+FALLO: Fn122A
+Funciones con diferencias: CDebug::DebugInitTextBuffer: 15997/16384; CCivilianPed::DestructorBody: 16384/16384; CTaskComplexEnterCarAsDriver::Destructor: 16384/16384; CTaskComplexEnterCarAsPassenger::Destructor: 16384/16384; CTaskComplexFacial::Destructor: 16384/16384; CTaskComplexPartnerDeal::Destructor: 16384/16384; CTaskSimpleAchieveHeading::Destructor: 16384/16384; CTaskSimpleGoTo::DestructorBody: 16384/16384; CTaskSimpleSetStayInSamePlace::Destructor: 16384/16384
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn122a\20261108-023811-935373

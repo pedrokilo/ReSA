@@ -22,10 +22,20 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleAchieveHeading.h"
 #include "Ragdoll/IKChainManager.h"
 
+namespace {
+// 0x667E70 (lote 122A, banco Fn122A): cuerpo no virtual de ~CTaskSimpleAchieveHeading del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx], 0x86FD74 ; jmp 0x61A3A0`).
+// Deja la vtable de CTaskSimpleAchieveHeading del EXE (0x86FD74) y salta a CTask::Destructor (0x61A3A0), que deja la vtable de CTask (0x86D48C). Lo llaman el funclet de limpieza (SEH) y el destructor con borrado.
+void __fastcall AchieveHeadingDestructorBody(CTaskSimpleAchieveHeading* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86FD74;
+    self->CTask::Destructor();
+}
+} // namespace
+
 void CTaskSimpleAchieveHeading::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleAchieveHeading, 0x86fd74, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(AchieveHeadingDestructorBody, "Destructor", 0x667E70);
     RH_ScopedInstall(Constructor, 0x667E20);
     RH_ScopedInstall(SetUpIK, 0x667F20);
     RH_ScopedVMTInstall(Clone, 0x66CCF0);

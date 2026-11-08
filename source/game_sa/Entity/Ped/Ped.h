@@ -649,10 +649,13 @@ private:
     void RenderThinBody() const;
     void RenderBigHead() const;
 
+public:
+    // 0x5E8620: cuerpo no virtual de ~CPed (hook); lo llama el cuerpo de ~CCivilianPed (0x5DDBE0) como en el EXE
+    auto Destructor() { this->CPed::~CPed(); return this; }
+
 private:
     // Virtual method wrappers
     auto Constructor(ePedType pt) { this->CPed::CPed(pt); return this; }
-    auto Destructor() { this->CPed::~CPed(); return this; }
 };
 VALIDATE_SIZE(CPed, 0x79C);
 

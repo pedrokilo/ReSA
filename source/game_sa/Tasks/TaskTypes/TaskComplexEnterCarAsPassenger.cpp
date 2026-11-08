@@ -20,10 +20,20 @@ END GENERATED HOOK STATUS */
 
 #include "TaskComplexEnterCarAsPassenger.h"
 
+namespace {
+// 0x640380 (lote 122A, banco Fn122A): cuerpo no virtual de ~CTaskComplexEnterCarAsPassenger del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx], 0x86EADC ; jmp 0x63DFA0`).
+// Deja la vtable de CTaskComplexEnterCarAsPassenger del EXE (0x86EADC) y salta a CTaskComplexEnterCar::Destructor (0x63DFA0). Lo llaman los funclets de limpieza (SEH) y el destructor con borrado.
+void __fastcall EnterCarAsPassengerDestructorBody(CTaskComplexEnterCarAsPassenger* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86EADC;
+    self->CTaskComplexEnterCar::Destructor();
+}
+} // namespace
+
 void CTaskComplexEnterCarAsPassenger::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexEnterCarAsPassenger, 0x86EADC, 12);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(EnterCarAsPassengerDestructorBody, "Destructor", 0x640380);
     RH_ScopedInstall(Constructor, 0x640340);
 
     RH_ScopedVMTInstall(Clone, 0x6437F0);

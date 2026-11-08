@@ -23,7 +23,7 @@ END GENERATED HOOK STATUS */
 #include "Ragdoll/IKChainManager.h"
 
 namespace {
-// 0x667D50 (lote 115A, banco Fn115A): cuerpo no virtual de ~CTaskSimpleGoTo del EXE (thiscall, sin argumentos de pila, `ret`)
+// 0x667D50 (lote 115A, banco Fn115A) y 0x667A00 (lote 122A, banco Fn122A): los dos cuerpos no virtuales de ~CTaskSimpleGoTo del EXE son identicos (thiscall, sin argumentos de pila, `ret`)
 // Deja la vtable de CTaskSimpleGoTo del EXE (0x86FD1C) y salta a CTask::Destructor (0x61A3A0), que deja la vtable de CTask (0x86D48C). El EXE lo envuelve en un marco SEH que solo desenrolla.
 void __fastcall GoToDestructorBody(CTaskSimpleGoTo* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x86FD1C;
@@ -35,6 +35,7 @@ void CTaskSimpleGoTo::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleGoTo, 0x86fd1c, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(GoToDestructorBody, "Destructor", 0x667D50);
+    RH_ScopedNamedGlobalInstall(GoToDestructorBody, "DestructorBody", 0x667A00); // lote 122A (banco Fn122A): segundo cuerpo identico del EXE (`mov [ecx], 0x86FD1C ; jmp 0x61A3A0`, 11 bytes), llamado por el destructor con borrado
 
     RH_ScopedInstall(Constructor, 0x6679C0);
 

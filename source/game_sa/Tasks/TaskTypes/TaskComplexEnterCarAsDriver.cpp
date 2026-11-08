@@ -20,10 +20,20 @@ END GENERATED HOOK STATUS */
 
 #include "TaskComplexEnterCarAsDriver.h"
 
+namespace {
+// 0x640330 (lote 122A, banco Fn122A): cuerpo no virtual de ~CTaskComplexEnterCarAsDriver del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx], 0x86EAAC ; jmp 0x63DFA0`).
+// Deja la vtable de CTaskComplexEnterCarAsDriver del EXE (0x86EAAC) y salta a CTaskComplexEnterCar::Destructor (0x63DFA0). Lo llaman los funclets de limpieza (SEH) y el destructor con borrado.
+void __fastcall EnterCarAsDriverDestructorBody(CTaskComplexEnterCarAsDriver* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86EAAC;
+    self->CTaskComplexEnterCar::Destructor();
+}
+} // namespace
+
 void CTaskComplexEnterCarAsDriver::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexEnterCarAsDriver, 0x86EAAC, 12);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(EnterCarAsDriverDestructorBody, "Destructor", 0x640330);
     RH_ScopedInstall(Constructor, 0x6402F0);
 
     RH_ScopedVMTInstall(Clone, 0x643780);
