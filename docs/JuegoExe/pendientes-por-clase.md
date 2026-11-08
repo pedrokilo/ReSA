@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,493** funciones en 435 clases/módulos (rango 0x401000–0x74FFFF): 2,471 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,472** funciones en 414 clases/módulos (rango 0x401000–0x74FFFF): 2,450 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,27 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CTaskSimpleCarCloseDoorFromOutside | 1 | 30 |
-| CTaskSimpleCarDrive | 1 | 30 |
-| CTaskSimpleCarDriveTimed | 1 | 30 |
-| CTaskSimpleCarGetIn | 1 | 30 |
-| CTaskSimpleCarOpenDoorFromOutside | 1 | 30 |
-| CTaskSimpleCarOpenLockedDoorFromOutside | 1 | 30 |
-| CTaskSimpleCarSetPedInAsDriver | 1 | 30 |
-| CTaskSimpleCarSetPedInAsPassenger | 1 | 30 |
-| CTaskSimpleCarSlowDragPedOut | 1 | 30 |
-| CTaskSimpleEvasiveDive | 1 | 30 |
-| CTaskSimpleGunControl | 1 | 30 |
-| CTaskSimpleJetPack | 1 | 30 |
-| CTaskSimpleKillPedWithCar | 1 | 30 |
-| CTaskSimpleNone | 1 | 30 |
-| CTaskSimplePickUpBike | 1 | 30 |
-| CTaskSimplePlayerOnFire | 1 | 30 |
-| CTaskSimpleSay | 1 | 30 |
-| CTaskSimpleShakeFist | 1 | 30 |
-| CTaskSimpleSitDown | 1 | 30 |
-| CTaskSimpleSitIdle | 1 | 30 |
-| CTaskSimpleStandUp | 1 | 30 |
 | CRoadBlocks | 1 | 31 |
 | CEventEscalator | 1 | 32 |
 | CAECollisionAudioEntity | 1 | 33 |
@@ -445,132 +424,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxInfoManager_c | 116 | 6591 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CTaskSimpleCarCloseDoorFromOutside (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064B2B0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleCarDrive (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00642F80 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleCarDriveTimed (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0046F670 | 30 | B |  | 0 | 0 | sí | alta |
-
-## CTaskSimpleCarGetIn (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064B3C0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleCarOpenDoorFromOutside (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064ADE0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleCarOpenLockedDoorFromOutside (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064AE70 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleCarSetPedInAsDriver (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064BDC0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleCarSetPedInAsPassenger (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064B930 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleCarSlowDragPedOut (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064C060 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleEvasiveDive (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00655FE0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleGunControl (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006259C0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleJetPack (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0067FA60 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleKillPedWithCar (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00656AE0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleNone (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004635F0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimplePickUpBike (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064AF30 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimplePlayerOnFire (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00636F00 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleSay (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0048E4C0 | 30 | B |  | 0 | 0 | sí | alta |
-
-## CTaskSimpleShakeFist (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00692E30 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleSitDown (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00637A40 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleSitIdle (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00637D40 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleStandUp (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00637D90 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CRoadBlocks (1)
 
@@ -2289,7 +2142,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x00690CB0 | 11 | C |  | 1 | 0 |  | alta |
+| 0x00690CB0 | 11 | A |  | 1 | 1 |  | alta |
 | 0x00692F90 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00692FB0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00692FD0 | 30 | B |  | 0 | 0 | sí | baja |
@@ -3788,7 +3641,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x0067BA70 | 11 | C |  | 1 | 0 |  | alta |
+| 0x0067BA70 | 11 | A |  | 1 | 1 |  | alta |
 | 0x0067C0C0 | 110 | B |  | 0 | 0 | sí | baja |
 | 0x0067C130 | 80 | B |  | 0 | 0 | sí | baja |
 | 0x0067C180 | 120 | B |  | 0 | 0 | sí | baja |
