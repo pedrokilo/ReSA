@@ -60,7 +60,7 @@
   "log_sha256": "069e82d6bb8265a0c3e97ba0a28fafe4375e777139f3486333ddf94f219254e5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx43\\20261107-140637-663631",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx43\\20261107-200826-580481",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEWeatherAudioEntity::Service": true,
@@ -110,8 +110,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "58af85a4f49d6f1aed752fe258d302af2b7ca60966fd7ad644a323e6ef47a6c3",
-      "pdb": "d7050227038dab4d4df3b44ca6196efd6b66f11f506373181d55e0b307147c72"
+      "asi": "3d70a9774c4fa52573e47f85f79e7cdaa9ec76d9c23db69891bc1cf155049ef8",
+      "pdb": "058971fd251f123094aaa73cce66f9334693042d21b4dbd8baeaf3585ff3fa8c"
     },
     "sources": {
       "source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp": "518da0d6f3d0d26bebbc253afaa9b74c43d31d2b2b90f9e4a2dfc4bd3e890ee4",

@@ -48756,7 +48756,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CAEWeatherAudioEntity::Service"
@@ -48798,7 +48798,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CAEWeatherAudioEntity::StaticInitialise"
@@ -48840,7 +48840,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CAEWeatherAudioEntity::StaticReset"
@@ -48882,7 +48882,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CAEWeatherAudioEntity::UpdateParameters"
@@ -48924,7 +48924,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CBulletTraces::AddTrace-"
@@ -48966,7 +48966,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CBulletTraces::AddTrace-Wrapper"
@@ -49008,7 +49008,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CBulletTraces::Init"
@@ -49050,7 +49050,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CBulletTraces::Render"
@@ -49092,7 +49092,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CBulletTraces::Update"
@@ -49134,7 +49134,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CFire::Constructor"
@@ -49176,7 +49176,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CFire::CreateFxSysForStrength"
@@ -49218,7 +49218,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CFire::Extinguish"
@@ -49260,7 +49260,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CFire::Initialise"
@@ -49302,7 +49302,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CFire::ProcessFire"
@@ -49344,7 +49344,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CMovingThings::Init"
@@ -49386,7 +49386,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CMovingThings::Render"
@@ -49428,7 +49428,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CMovingThings::Render_BeforeClouds"
@@ -49470,7 +49470,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CMovingThings::Shutdown"
@@ -49512,7 +49512,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CMovingThings::Update"
@@ -49554,7 +49554,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CShotInfo::AddShot"
@@ -49596,7 +49596,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CShotInfo::GetFlameThrowerShotPosn"
@@ -49638,7 +49638,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CShotInfo::Initialise"
@@ -49680,7 +49680,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CShotInfo::Shutdown"
@@ -49722,7 +49722,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CShotInfo::Update"
@@ -49764,7 +49764,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CWaterCannon::Init"
@@ -49806,7 +49806,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CWaterCannon::PushPeds"
@@ -49848,7 +49848,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CWaterCannon::Render"
@@ -49890,7 +49890,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CWaterCannon::Update_NewInput"
@@ -49932,7 +49932,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "CWaterCannon::Update_OncePerFrame"
@@ -49974,7 +49974,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "FxMemoryPool_c::Exit"
@@ -50016,7 +50016,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "FxMemoryPool_c::GetMem"
@@ -50058,7 +50058,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "FxMemoryPool_c::Init"
@@ -50100,7 +50100,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "FxMemoryPool_c::Optimise"
@@ -50142,7 +50142,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "FxMemoryPool_c::Reset"
@@ -50184,7 +50184,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "Input::AttachInputDevices"
@@ -50226,7 +50226,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "Input::HandleKeyDown"
@@ -50268,7 +50268,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "Input::HandleKeyUp"
@@ -50310,7 +50310,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "Input::KeyboardHandler"
@@ -50352,7 +50352,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "Input::PadHandler"
@@ -50394,7 +50394,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "JPegPlugin::JPegCompressScreen"
@@ -50436,7 +50436,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "JPegPlugin::JPegCompressScreenToBuffer"
@@ -50478,7 +50478,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "JPegPlugin::JPegCompressScreenToFile"
@@ -50520,7 +50520,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "JPegPlugin::JPegDecompressToRaster"
@@ -50562,7 +50562,7 @@
       },
       "evidence": {
         "path": "reversing/Fx43/validation-summary.json",
-        "sha256": "4f9391f82c2f69777219516c57efa1e5497a9781a401fab884d213e987538425",
+        "sha256": "4aff5d39cb0bafac866df80a234aac3d20aa53aa1cbc9aa5ec64a3587c28cdd5",
         "passed_path": [
           "covered_functions",
           "JPegPlugin::JPegDecompressToVramFromBuffer"
