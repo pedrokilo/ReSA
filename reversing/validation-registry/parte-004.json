@@ -55383,7 +55383,7 @@
       },
       "evidence": {
         "path": "reversing/ShadowsWave3/validation-summary.json",
-        "sha256": "05bcf5adf40e471c42b09ac3c6674a553e9dfd0cb28e6e6a4194ab9b58021a80",
+        "sha256": "f0e3efa569e49c75267b599048da309bf773ed6394b3935aefd8666d184db3ba",
         "passed_path": [
           "covered_functions",
           "CShadows::CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>"
@@ -55392,8 +55392,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Shadows.cpp": "01bc3a332d97f31162fcf53c91f747bcace46d90eb2def37c79c4ccb0b1918c6",
-        "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce"
+        "source/game_sa/Shadows.cpp": "d5e398fd21816250645d99c8cd3c2c5d43782bfb7720be43bef9df50ddd540f2",
+        "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae"
       },
       "source_provenance": "Exact compiled ShadowsWave3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 1536-row log reaudited offline in streaming and preserved gzipped with the original hash. PARTIAL approval: per function, only functions with all pairs equal.",
       "dependency_review": null,
