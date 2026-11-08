@@ -19082,6 +19082,721 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 2aa6439dcf con los cambios del lote (ver artifacts/build-manifest.json). Veintiun destructores virtuales con borrado de 30 bytes (ranura 0 de la vtable de cada clase; ret 4): CTaskSimpleCarGetIn 0x64B2B0 (el listado decia CTaskSimpleCarCloseDoorFromOutside), CTaskComplexCarDrive 0x642F80 (decia CTaskSimpleCarDrive), CTaskSimpleCarDriveTimed 0x46F670, CTaskSimpleCarShuffle 0x64B3C0 (decia CTaskSimpleCarGetIn), CTaskSimpleCarOpenLockedDoorFromOutside 0x64ADE0 (decia CTaskSimpleCarOpenDoorFromOutside), CTaskSimplePickUpBike 0x64AE70 (decia CTaskSimpleCarOpenLockedDoorFromOutside), CTaskSimpleCarGetOut 0x64BDC0 (decia CTaskSimpleCarSetPedInAsDriver), CTaskSimpleCarSetPedInAsDriver 0x64B930 (decia CTaskSimpleCarSetPedInAsPassenger), CTaskSimpleCarSlowBeDraggedOut 0x64C060 (decia CTaskSimpleCarSlowDragPedOut), CTaskComplexEvasiveDiveAndGetUp 0x655FE0 (decia CTaskSimpleEvasiveDive), CTaskSimpleThrowProjectile 0x6259C0 (decia CTaskSimpleGunControl), CTaskComplexStuckInAir 0x67FA60 (decia CTaskSimpleJetPack), CTaskSimpleHurtPedWithCar 0x656AE0 (decia CTaskSimpleKillPedWithCar), CTaskSimpleNone 0x4635F0, CTaskSimpleCarCloseDoorFromInside 0x64AF30 (decia CTaskSimplePickUpBike), CTaskSimpleIKChain 0x636F00 (decia CTaskSimplePlayerOnFire), CTaskSimpleSay 0x48E4C0, CTaskSimpleFacial 0x692E30 (decia CTaskSimpleShakeFist), CTaskSimpleSitIdle 0x637A40 (decia CTaskSimpleSitDown), CTaskSimpleStandUp 0x637D40 (decia CTaskSimpleSitIdle) y CTaskComplexSitDownThenIdleThenStandUp 0x637D90 (decia CTaskSimpleStandUp); clases por desensamblado, vtable que escribe el cuerpo y ranura 0. Todos hook S (RH_ScopedInstall del miembro ScalarDeletingDestructor): RH_ScopedVMTInstall no puede nombrar la ranura del destructor, igual que 0x4F2860, 0x5DDC30, 0x502700 y los del lote 126A. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: el cuerpo del destructor (con hook RH apagado durante el banco en 18 clases: envoltura Destructor() de 17 y la funcion global CarSetPedInAsDriverDestructorBody de CTaskSimpleCarSetPedInAsDriver; sin hook y como funcion propia noinline exportada por el .cpp en CTaskComplexStuckInAir 0x67BA70, CTaskSimpleFacial 0x690CB0 y CTaskSimpleNone 0x463560; este ultimo cuerpo lo comparte el EXE con CTaskSimpleLeaveGroup, que ya tiene el hook RH en 0x463560, apagado por el banco) y CTask::operator delete 0x61A5B0 (con hook). El cuerpo falso deja un dword del caso en [this] y devuelve un EAX que no es this; el falso de borrado registra el dword de [this] (prueba que se borra despues de destruir). Se observan bytes cambiados de la arena, eventos de los falsos, EAX como etiqueta de arena, x87 vacia, pila, no volatiles, DF, SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos: los llamadores del EXE solo usan EAX = this). Fuera de los fixtures: objetos reales construidos por el EXE (y el cuerpo real de los destructores base y de CTask::operator delete, falseados), this nulo o crudo y los registros volatiles tras la llamada.",
       "review_reference": "reversing/Fn128A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CRGBA",
+        "fn_name": "Copy",
+        "address": "0x00463370",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CRGBA::Copy"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventEscalator",
+        "fn_name": "TakesPriorityOver",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CEventEscalator::TakesPriorityOver"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B25E0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEPedAudioEntity",
+        "fn_name": "SurfaceVolumeDb",
+        "address": "0x004DA510",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CAEPedAudioEntity::SurfaceVolumeDb"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetEngineOn",
+        "address": "0x0041BDD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetEngineOn"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEMP3BankLoader",
+        "fn_name": "GetLoopOffset",
+        "address": "0x004E0380",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CAEMP3BankLoader::GetLoopOffset"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAccidentManager",
+        "fn_name": "Constructor",
+        "address": "0x0056CE30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CAccidentManager::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAESmoothFadeThread",
+        "fn_name": "Constructor",
+        "address": "0x004EE9A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CAESmoothFadeThread::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColModel",
+        "fn_name": "Destructor",
+        "address": "0x0040F700",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CColModel::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlane",
+        "fn_name": "SetHeadingMatrix",
+        "address": "0x006C4130",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CPlane::SetHeadingMatrix"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPools",
+        "fn_name": "PoolDestructorBody",
+        "address": "0x004049C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CPools::PoolDestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CConversations",
+        "fn_name": "EnableConversation",
+        "address": "0x0043AA40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CConversations::EnableConversation"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CShadowCamera",
+        "fn_name": "RecreateRaster",
+        "address": "0x00705480",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CShadowCamera::RecreateRaster"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVector",
+        "fn_name": "Cross_OG",
+        "address": "0x0070F890",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CVector::Cross_OG"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCollisionData",
+        "fn_name": "Constructor",
+        "address": "0x0040F030",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn129A/validation-summary.json",
+        "sha256": "35b55048d04c8f0696ad18d464d890ad933b9444da2a9c5fff1c560faa013c81",
+        "passed_path": [
+          "covered_functions",
+          "CCollisionData::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "87ac11a2fb83e79fed3c0305776af6298f261566be893697fd435633d6f6b002",
+        "source/game_sa/RGBA.cpp": "466777de758b4c96f240b9a3acbe9681ab235dc77a93c7bff3a3becb066e67db",
+        "source/game_sa/Events/EventEscalator.cpp": "b679286e7b81e1beeaac0b3e162905700645e9f9a645287741ad22e465961cbc",
+        "source/game_sa/Events/EventEscalator.h": "7f9d713e638cdfa4e8e1f2bea166473bc058f580e432da54ec940f5d2a538b73",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "daa196ed5de757af20732a6b7503811fdda2af997939f9fb1c809db0980d56b1",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "84f76f2ddd4bdbf0797a444b6303dc8cf15ba2dd8aca79acb2b69837460054e0",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "a3fec82e77966033b89e116a2038b86c1728d4bb8b70c09304e459de2c8e0e7c",
+        "source/game_sa/AccidentManager.cpp": "ab6000f8099028398b4c75047c879e6a5bf7c37461fd0fbf694e4e39db0af9a1",
+        "source/game_sa/Audio/AESmoothFadeThread.cpp": "c42f7b877a8d164b6a7a03125a424323515c69d09730fdae2789b0ab86b5353d",
+        "source/game_sa/Collision/ColModel.cpp": "56dbadd64b3eff05adf48799c23d8b0260b430183c49ab17566359de9912b7b5",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "3027da935f09bfc264d4e77fc02dcc1e49e86481980c467b78043fab748c8fba",
+        "source/game_sa/Pools.cpp": "3494f92fdca065155dd9d3ba3a600e5d30900ad6099597e06f71f20a11df2d82",
+        "source/game_sa/Conversations/Conversations.cpp": "71f179c8d8dbbd1997bc80297edd47a6463502dc2cd9f76b01d8e7a4e516a982",
+        "source/game_sa/ShadowCamera.cpp": "c03b4026e002303e59a9ac2b4fc4f51ba2ca7119d50fdbdb2b1b2bde1769ba8b",
+        "source/game_sa/Core/Vector.cpp": "94e6c8e5402274da7dde39a3e1702c4abe375cafad6bea875a116879ea9bbaa5",
+        "source/game_sa/Collision/CollisionData.cpp": "42f0da1a66efa2bc6dd8a7010f9c950ef5b87a5974a3353aa16799cbfe7cd586",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn129A/LiveComparison.hpp": "77d314e58bc3e92a3e46240e81af2e6b15fe3921246419dcee58b2288b72a8b5",
+        "reversing/Fn129A/Core.hpp": "cfe0c678d244d960fdcc8689e03db492e441eba0ede5713de498ad862d866c46",
+        "reversing/Fn129A/Fixtures.hpp": "01db955355cef5b01ae64c1cfaae4925033b28568795ca793e4f0d1a541e582c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Catorce funciones del EXE (31 a 58 bytes) en C++ con hook: CRGBA::Copy 0x463370 (el listado decia CRoadBlocks), CEventEscalator::TakesPriorityOver 0x4B25E0 (V, ranura 11 de 0x86CD00), CAEPedAudioEntity::SurfaceVolumeDb 0x4DA510 (decia CAECollisionAudioEntity), CVehicle::SetEngineOn 0x41BDD0 (decia CGeneral), CAEMP3BankLoader::GetLoopOffset 0x4E0380, CAccidentManager::Constructor 0x56CE30 (decia CWorld), CAESmoothFadeThread::Constructor 0x4EE9A0 (decia CAEScriptAudioEntity), CColModel::Destructor 0x40F700 (decia CCollisionData), CPlane::SetHeadingMatrix 0x6C4130 (decia cBuoyancy), CPools::PoolDestructorBody 0x4049C0 (decia CPedPool), CConversations::EnableConversation 0x43AA40, CShadowCamera::RecreateRaster 0x705480, CVector::Cross_OG 0x70F890 (decia CSprite) y CCollisionData::Constructor 0x40F030 (decia CColLine). Colaboradores con falsos identicos en la direccion del EXE y en el cuerpo de la DLL cuando tienen hook (0x416400, 0x72F430, 0x40F070) y falsos de 0x8214BD, 0x8213AE y RenderWare 0x7FB020/0x7FB230/0x7F35D0; reales 0x821D30 y 0x56CDE0. Fuera de los fixtures: EnableConversation sin conversacion del ped (el EXE y la DLL escriben en la direccion 0x18), angulos de 2^20 a 2^63 en SetHeadingMatrix (reduccion de fsin con pi de 66 bits que el oraculo no reproduce), indices de slot/sonido fuera de la arena en GetLoopOffset, punteros de matriz o camara nulos y registros volatiles tras la llamada.",
+      "review_reference": "reversing/Fn129A/README.md"
     }
   ]
 }

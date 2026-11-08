@@ -15,7 +15,7 @@ public:
     int32 GetLifeTime() override { return 0; }
     CEventEscalator* Clone() const noexcept override { return new CEventEscalator(); }
     bool AffectsPed(CPed* ped) override;
-    bool TakesPriorityOver(const CEvent& refEvent) override { return GetEventType() != refEvent.GetEventType(); }
+    bool TakesPriorityOver(const CEvent& refEvent) override;
 
 private:
     friend void InjectHooksMain();

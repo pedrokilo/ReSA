@@ -94,6 +94,32 @@ void CVector::InjectHooksExactMath()
 
 CVector* VectorDividedByFloat(CVector* out, const CVector* vector, float divisor); // 0x4119D0 (lote 105A), definida mas abajo
 
+// 0x70F890 (lote 129A, banco Fn129A): producto vectorial con resultado en `this` (el listado de pendientes decia CSprite; es CVector::Cross_OG), thiscall, dos punteros en la pila, `ret 8`, 57
+// bytes, sin llamadores en el EXE. A diferencia de CrossProduct (0x59C730, que lee las seis componentes antes de escribir), guarda cada componente antes de calcular la siguiente, asi que
+// si `out` se solapa con a o b las siguientes lecturas ven la escritura. x = b.z*a.y - a.z*b.y, y = a.z*b.x - a.x*b.z, z = a.x*b.y - b.x*a.y; cada par de productos queda en la x87 (24
+// bits de mantisa, exponente ampliado) y solo el resultado se guarda como float.
+static void __fastcall CrossProductInPlaceExe(CVector* out, void* /*edx*/, const CVector* a, const CVector* b)
+{
+    volatile CVector* const o = out;
+    const volatile CVector* const va = a;
+    const volatile CVector* const vb = b;
+    {
+        const double p = vb->z; const double t = p * va->y;
+        const double q = va->z; const double u = q * vb->y;
+        o->x = float(t - u);
+    }
+    {
+        const double p = va->z; const double t = p * vb->x;
+        const double q = va->x; const double u = q * vb->z;
+        o->y = float(t - u);
+    }
+    {
+        const double p = va->x; const double t = p * vb->y;
+        const double q = vb->x; const double u = q * va->y;
+        o->z = float(t - u);
+    }
+}
+
 // Operadores y productos del EXE con la x87 exacta (lote 97A), validados por el banco Fn97A: DotProduct (0x40FDB0), CrossProduct (0x59C730), Multiply3x3 matriz * vector (0x59C790),
 // la suma (0x40FE30) y la resta (0x40FE60) de vectores, los productos escalar * vector (0x40FE90) y vector * escalar (0x40FEC0), operator+= (0x411A00) y operator*=(float) (0x40FEF0).
 void CVector::InjectHooksExactOperators()
@@ -103,6 +129,7 @@ void CVector::InjectHooksExactOperators()
 
     RH_ScopedGlobalOverloadedInstall(DotProduct, "v3d*v3d*", 0x40FDB0, float(*)(CVector*, CVector*));
     RH_ScopedGlobalOverloadedInstall(CrossProduct, "out", 0x59C730, CVector*(*)(CVector*, CVector*, CVector*));
+    RH_ScopedNamedGlobalInstall(CrossProductInPlaceExe, "Cross_OG", 0x70F890);
     RH_ScopedGlobalInstall(Multiply3x3Exe, 0x59C790);
     RH_ScopedGlobalInstall(Multiply3x3VMExe, 0x59C810);
     RH_ScopedInstall(Difference, 0x40FE00);

@@ -546,9 +546,25 @@ RwRaster* CShadowCamera::DrawBlurryRaster2(RwRaster* srcRaster) {
     return srcRaster;
 }
 
+// 0x705480 (lote 129A, banco Fn129A; el listado de pendientes decia CShadowCamera y lo es, aunque sin llamadores): thiscall, sin argumentos de pila, `ret`, 57 bytes. Vuelve a crear el raster
+// de la camara con el mismo tamano: lee el raster actual (RwCamera::frameBuffer, +0x60) y su ancho (+0xC), pone el frameBuffer a nulo sin pasar por RwCameraSetRaster, destruye el raster
+// (0x7FB020), crea uno cuadrado de ese ancho, profundidad 0 y tipo camara-textura (0x7FB230), lo guarda en el frameBuffer (volviendo a leer m_pRwCamera) y lo asigna a la textura de
+// renderizado (0x7F35D0, que se lee tras la creacion). No comprueba punteros nulos.
+static void __fastcall ShadowCameraRecreateRasterExe(CShadowCamera* self, void* /*edx*/) {
+    RwRaster* const old = self->m_pRwCamera->frameBuffer;
+    const RwInt32 size = old->width;
+    self->m_pRwCamera->frameBuffer = nullptr;
+    RwRasterDestroy(old);
+    RwRaster* const raster = RwRasterCreate(size, size, 0, rwRASTERTYPECAMERATEXTURE);
+    self->m_pRwCamera->frameBuffer = raster;
+    RwTextureSetRaster(self->m_pRwRenderTexture, raster);
+}
+
 void CShadowCamera::InjectHooks() {
     RH_ScopedClass(CShadowCamera);
     RH_ScopedCategory("Shadows");
+
+    RH_ScopedNamedGlobalInstall(ShadowCameraRecreateRasterExe, "RecreateRaster", 0x705480);
 
     RH_ScopedInstall(Constructor, 0x7053F0);
     RH_ScopedInstall(Destructor, 0x705B50);

@@ -40,9 +40,9 @@ void CConversations::InjectHooks() {
     RH_ScopedInstall(IsConversationGoingOn, 0x43AAC0);
     RH_ScopedInstall(IsConversationAtNode, 0x43B000);
     RH_ScopedInstall(AwkwardSay, 0x43A810);
-    // EnableConversation no existe como función propia en el EXE (está inlineada, igual que
-    // FindConversationForPed). La dirección anterior, 0x43A7F0, caía dentro del bucle de
-    // CConversations::Clear (0x43A7B0) y el salto del hook lo corrompía; no se instala.
+    // EnableConversation sí es una función propia del EXE en 0x43AA40 (cdecl, ped y byte en la pila, `ret`; lote 129A, banco Fn129A); la dirección
+    // anterior, 0x43A7F0, caía dentro del bucle de CConversations::Clear (0x43A7B0) y el salto del hook lo corrompía.
+    RH_ScopedInstall(EnableConversation, 0x43AA40);
     RH_ScopedInstall(StartSettingUpConversation, 0x43A840);
     RH_ScopedInstall(DoneSettingUpConversation, 0x43ADB0); // Validada: 2.048 pares (reversing/CConversations)
 }

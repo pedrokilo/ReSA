@@ -9448,3 +9448,17 @@ CTaskSimpleFacial,ScalarDeletingDestructor,0x00692E30,1,0,1,S
 CTaskSimpleSitIdle,ScalarDeletingDestructor,0x00637A40,1,0,1,S
 CTaskSimpleStandUp,ScalarDeletingDestructor,0x00637D40,1,0,1,S
 CTaskComplexSitDownThenIdleThenStandUp,ScalarDeletingDestructor,0x00637D90,1,0,1,S
+CRGBA,Copy,0x00463370,1,0,1,S
+CEventEscalator,TakesPriorityOver,0x00000000,1,0,1,V
+CAEPedAudioEntity,SurfaceVolumeDb,0x004DA510,1,0,1,S
+CVehicle,SetEngineOn,0x0041BDD0,1,0,1,S
+CAEMP3BankLoader,GetLoopOffset,0x004E0380,1,0,1,S
+CAccidentManager,Constructor,0x0056CE30,1,0,1,S
+CAESmoothFadeThread,Constructor,0x004EE9A0,1,0,1,S
+CColModel,Destructor,0x0040F700,1,0,1,S
+CPlane,SetHeadingMatrix,0x006C4130,1,0,1,S
+CPools,PoolDestructorBody,0x004049C0,1,0,1,S
+CConversations,EnableConversation,0x0043AA40,1,0,1,S
+CShadowCamera,RecreateRaster,0x00705480,1,0,1,S
+CVector,Cross_OG,0x0070F890,1,0,1,S
+CCollisionData,Constructor,0x0040F030,1,0,1,S

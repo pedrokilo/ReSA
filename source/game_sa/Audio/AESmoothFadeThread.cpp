@@ -36,6 +36,15 @@ float DsVolumeToDb(int32 dsVolume) {
 LONG DbToDsVolume(float volume) {
     return (LONG)(int64)(volume * 100.0f);
 }
+
+// 0x4EE9A0 (lote 129A, banco Fn129A; el listado de pendientes decia CAEScriptAudioEntity): constructor de CAESmoothFadeThread del EXE (thiscall, `ret`, 52 bytes; unico llamador el
+// inicializador estatico 0x84C295 de la instancia global 0xB608D0, que registra despues el destructor 0x4EE9E0). Escribe m_threadHandle = INVALID_HANDLE_VALUE (+0), m_dwThreadId (+4),
+// m_bInitialized (+0x808), m_bActive (+0x809), m_numRequests (+0x80A), m_lastRequest (+0x80C), m_currentTime (+0x810) y m_nNumAvailableBuffers (+0x818); no toca las entradas, m_oldestRequest
+// (+0x80E) ni m_bSmoothFadesDisabled (+0x814). Devuelve this.
+CAESmoothFadeThread* __fastcall SmoothFadeThreadConstructorExe(CAESmoothFadeThread* self, void* /*edx*/) {
+    ::new (static_cast<void*>(self)) CAESmoothFadeThread();
+    return self;
+}
 } // namespace
 
 /**
@@ -45,6 +54,7 @@ void CAESmoothFadeThread::InjectHooks() {
     RH_ScopedClass(CAESmoothFadeThread);
     RH_ScopedCategory("Audio");
 
+    RH_ScopedNamedGlobalInstall(SmoothFadeThreadConstructorExe, "Constructor", 0x4EE9A0);
     RH_ScopedInstall(Start, 0x4EEA10);
     RH_ScopedInstall(Stop, 0x4EEA30);
     RH_ScopedInstall(WaitForExit, 0x4EEA40);

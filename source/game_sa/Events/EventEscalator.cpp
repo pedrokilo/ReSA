@@ -25,6 +25,14 @@ void CEventEscalator::InjectHooks() {
     RH_ScopedCategory("Events");
 
     RH_ScopedVMTInstall(AffectsPed, 0x4B2580);
+    RH_ScopedVMTInstall(TakesPriorityOver, 0x4B25E0);
+}
+
+// 0x4B25E0 (lote 129A, banco Fn129A; el listado de pendientes lo atribuia a CEventEscalator y lo es: ranura 11 de la vtable 0x86CD00): thiscall, `ret 4`, 32 bytes. Como el original, pide
+// primero el tipo del otro evento (ranura 1 de refEvent) y despues el propio (ranura 1 de this), y devuelve `propio != otro` (AL; el resto de EAX queda sin definir).
+bool CEventEscalator::TakesPriorityOver(const CEvent& refEvent) {
+    const eEventType other = refEvent.GetEventType();
+    return GetEventType() != other;
 }
 
 // 0x4B2580

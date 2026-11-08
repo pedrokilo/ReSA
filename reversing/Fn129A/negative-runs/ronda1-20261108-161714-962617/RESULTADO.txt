@@ -1,0 +1,3 @@
+FALLO: Fn129A
+Funciones con diferencias: CRGBA::Copy: 3327/16384; CEventEscalator::TakesPriorityOver: 16384/16384; CAEPedAudioEntity::SurfaceVolumeDb: 15880/16384; CVehicle::SetEngineOn: 4131/16384; CAccidentManager::Constructor: 5765/16384; CAESmoothFadeThread::Constructor: 16384/16384; CColModel::Destructor: 8075/16384; CPlane::SetHeadingMatrix: 16384/16384; CPools::PoolDestructorBody: 4871/16384; CConversations::EnableConversation: 6868/16384; CShadowCamera::RecreateRaster: 16384/16384; CVector::Cross_OG: 9002/16384; CCollisionData::Constructor: 10539/16384
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn129a\20261108-161714-962617

@@ -35,6 +35,7 @@ void CAEMP3BankLoader::InjectHooks() {
     RH_ScopedInstall(IsSoundBankLoaded, 0x4E0220);
     RH_ScopedInstall(GetSoundBankLoadingStatus, 0x4E0250);
     RH_ScopedInstall(GetSoundBuffer, 0x4E0280);
+    RH_ScopedInstall(GetLoopOffset, 0x4E0380);
     RH_ScopedInstall(IsSoundLoaded, 0x4E03B0);
     RH_ScopedInstall(GetSoundLoadingStatus, 0x4E0400);
     RH_ScopedInstall(UpdateVirtualChannels, 0x4E0450);
@@ -132,16 +133,14 @@ uint8* CAEMP3BankLoader::GetSoundBuffer(eSoundID soundId, eSoundBankSlot bankSlo
     return &m_Buffer[sounds[sfx].BankOffsetBytes + slot.OffsetBytes];
 }
 
-// 0x4E0380
+// 0x4E0380 (lote 129A, banco Fn129A): thiscall, `ret 8`, 48 bytes. Como el EXE no comprueba ningun indice: el sonido se toma como entero de 16 bits sin signo (movzx) y el slot como
+// entero de 16 bits con signo (movsx), y el resultado es el dword LoopStartOffset de esa muestra (`Sounds.data()` evita la comprobacion de rango de std::array).
 int32 CAEMP3BankLoader::GetLoopOffset(eSoundID soundId, eSoundBankSlot bankSlot) {
     if (!m_IsInitialised) {
         return -1;
     }
 
-    auto& slot = GetBankSlot(bankSlot);
-
-    assert(slot.IsSingleSound() ? m_BankSlotSound[bankSlot] == soundId : soundId < slot.NumSounds);
-    return slot.Sounds[soundId].LoopStartOffset;
+    return m_BankSlots[int16(bankSlot)].Sounds.data()[uint16(soundId)].LoopStartOffset;
 }
 
 // 0x4E03B0

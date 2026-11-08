@@ -173,9 +173,22 @@ float VehENormaliseAndMag(CVector& v) {
 }
 } // namespace
 
+// 0x41BDD0 (lote 129A, banco Fn129A; el listado de pendientes decia CGeneral): thiscall, un argumento de pila, `ret 4`, 47 bytes. Si el vehiculo tiene el motor roto (bit 1 del byte +0x42D,
+// bEngineBroken) apaga el motor (bit 4 del byte +0x428, bEngineOn); si no, lo pone al bit 0 del byte que recibe. No toca ningun otro bit. Lo llaman las rutinas de generacion de coches
+// (0x467C45, 0x46D391, 0x476877, 0x498E4B...) y CPlane::DoPlaneGenerationAndRemoval (0x6CD486, 0x6CD7D5).
+static void __fastcall VehicleSetEngineOnExe(CVehicle* self, void* /*edx*/, uint8 on) {
+    if (self->vehicleFlags.bEngineBroken) {
+        self->vehicleFlags.bEngineOn = false;
+    } else {
+        self->vehicleFlags.bEngineOn = (on & 1) != 0;
+    }
+}
+
 void CVehicle::InjectHooks() {
     RH_ScopedVirtualClass(CVehicle, 0x871e80, 66);
     RH_ScopedCategory("Vehicle");
+
+    RH_ScopedNamedGlobalInstall(VehicleSetEngineOnExe, "SetEngineOn", 0x41BDD0);
 
     RH_ScopedOverloadedInstall(operator new, "anon", 0x6E2D50, void* (*)(unsigned));
     RH_ScopedOverloadedInstall(operator new, "poolRef", 0x6E2D60, void* (*)(unsigned, int32));

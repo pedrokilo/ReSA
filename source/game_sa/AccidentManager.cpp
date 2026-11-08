@@ -20,10 +20,26 @@ END GENERATED HOOK STATUS */
 
 #include "AccidentManager.h"
 
+namespace {
+// 0x56CE30 (lote 129A, banco Fn129A; el listado de pendientes decia CWorld): constructor de CAccidentManager del EXE (thiscall, `ret`, 51 bytes; lo llama GetInstance, 0x56CF5E, sobre la memoria
+// recien reservada). Construye las 16 entradas de CAccident con el iterador del CRT (0x821D30, que llama 16 veces a 0x56CDE0) y despues vuelve a poner a cero en linea los mismos campos de cada
+// entrada (m_pPed, m_bIsTreated, m_bIsRevived); los bytes de relleno +6 y +7 de cada entrada no se tocan. Devuelve this.
+CAccidentManager* __fastcall AccidentManagerConstructorExe(CAccidentManager* self, void* /*edx*/) {
+    for (auto& accident : self->m_Accidents) {
+        accident.m_pPed = nullptr;
+        accident.m_bIsTreated = false;
+        accident.m_bIsRevived = false;
+    }
+    return self;
+}
+} // namespace
+
 void CAccidentManager::InjectHooks()
 {
     RH_ScopedClass(CAccidentManager);
     RH_ScopedCategoryGlobal();
+
+    RH_ScopedNamedGlobalInstall(AccidentManagerConstructorExe, "Constructor", 0x56CE30);
 
     RH_ScopedInstall(GetInstance, 0x56CF20);
     RH_ScopedInstall(ReportAccident, 0x56CE80);

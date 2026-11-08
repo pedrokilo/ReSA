@@ -43,9 +43,19 @@ auto& PLANE_DAMAGE_SCALE_MASS = StaticRef<float>(0x8D33E8);         // 10000.0f
 auto& PLANE_DAMAGE_DESTROY_THRESHHOLD = StaticRef<float>(0x8D33EC); // 5000.0f
 auto& vecRCBaronGunPos = StaticRef<CVector>(0x8D33F0);            // <0.0f, 0.45f, 0.0f>
 
+static void PlaneGenerationHeading355(CVehicle* vehicle, float heading); // definida mas abajo
+
+// 0x6C4130 (lote 129A, banco Fn129A; el listado de pendientes decia cBuoyancy): thiscall, un float en la pila, `ret 4`, 54 bytes. Pone la matriz del vehiculo (puntero en +0x14) en la
+// rotacion alrededor de Z que usa CPlane::DoPlaneGenerationAndRemoval (ver PlaneGenerationHeading355); lo llaman 0x6CD3EC y 0x6CD707.
+static void __fastcall PlaneHeadingMatrixExe(CVehicle* self, void* /*edx*/, float heading) {
+    PlaneGenerationHeading355(self, heading);
+}
+
 void CPlane::InjectHooks() {
     RH_ScopedVirtualClass(CPlane, 0x871948, 71);
     RH_ScopedCategory("Vehicle");
+
+    RH_ScopedNamedGlobalInstall(PlaneHeadingMatrixExe, "SetHeadingMatrix", 0x6C4130);
 
     RH_ScopedInstall(Constructor, 0x6C8E20);
     RH_ScopedInstall(InitPlaneGenerationAndRemoval, 0x6CAD90);

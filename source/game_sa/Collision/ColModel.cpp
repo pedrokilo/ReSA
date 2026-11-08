@@ -28,6 +28,12 @@ END GENERATED HOOK STATUS */
 #define DEV_LOG_COL(...)
 #endif
 
+// 0x40F700 (lote 129A, banco Fn129A; el listado de pendientes decia CCollisionData): cuerpo del destructor de CColModel del EXE (thiscall, sin argumentos de pila, `ret`, 52 bytes; lo llaman
+// los destructores de los modelos por saltos como 0x856035). Es el destructor reconstruido de la clase: este envoltorio lo enlaza al hook sin tocar ColModel.h.
+static void __fastcall ColModelDestructorExe(CColModel* self, void* /*edx*/) {
+    self->~CColModel();
+}
+
 /**
  * Registra las operaciones de ciclo de vida y almacenamiento de CColModel.
  */
@@ -36,6 +42,7 @@ void CColModel::InjectHooks() {
     RH_ScopedCategory("Collision");
 
     RH_ScopedInstall(Constructor, 0x40FB60);
+    RH_ScopedNamedGlobalInstall(ColModelDestructorExe, "Destructor", 0x40F700);
     RH_ScopedInstall(operator new, 0x40FC30);
     RH_ScopedInstall(operator delete, 0x40FC40);
     RH_ScopedInstall(operator=, 0x40F7C0);

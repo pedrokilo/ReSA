@@ -79,10 +79,15 @@ auto& ms_pNodeRoutePool         = StaticRef<CNodeRoutePool*>(0xB744B8);
 auto& ms_pTaskAllocatorPool     = StaticRef<CTaskAllocatorPool*>(0xB744BC);
 auto& ms_pPedAttractorPool      = StaticRef<CPedAttractorPool*>(0xB744C4);
 
+namespace {
+void __fastcall PoolDestructorBodyExe(void* poolPtr, void* edx); // 0x4049C0 (lote 129A), definida mas abajo
+}
+
 void CPools::InjectHooks() {
     RH_ScopedClass(CPools);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedNamedGlobalInstall(PoolDestructorBodyExe, "PoolDestructorBody", 0x4049C0);
     RH_ScopedInstall(Initialise, 0x550F10);
     RH_ScopedInstall(ShutDown, 0x5519F0);
     RH_ScopedInstall(CheckBuildingAtomics, 0x550170);
@@ -151,11 +156,11 @@ PoolT* ConstructPool(int32 capacity, uint32 elementSize) {
 // Si el puntero es null no hace nada; si el tamano (con signo) es > 0: libera con delete[] (0x8213AE) el almacenamiento
 // y luego los estados SOLO si el byte +0x10 (propietario) no es cero, y pone a 0 +0, +4, +8 y +0xC; en todos los casos
 // termina con operator delete escalar (0x8214BD) sobre el objeto. El puntero global NO se pone a cero.
-void DestroyPool(void* poolPtr) {
+//
+// 0x4049C0 (lote 129A, banco Fn129A; el listado de pendientes decia CPedPool): copia fuera de linea de la parte de liberacion de ese destructor, sin comprobar el puntero nulo ni borrar el
+// objeto (thiscall, `ret`, 54 bytes, sin llamadores): lo comun de DestroyPool, que ahora la usa. Mismo cuerpo para cualquier tipo de pool (solo ve +0, +4, +8, +0xC y +0x10).
+void __fastcall PoolDestructorBodyExe(void* poolPtr, void* /*edx*/) {
     auto* const pool = static_cast<uint8*>(poolPtr);
-    if (!pool) {
-        return;
-    }
     if (*reinterpret_cast<int32*>(pool + 0x8) > 0) {
         if (*(pool + 0x10) != 0) {
             ::operator delete[](*reinterpret_cast<void**>(pool + 0x0));
@@ -166,7 +171,14 @@ void DestroyPool(void* poolPtr) {
         *reinterpret_cast<int32*>(pool + 0x8) = 0;
         *reinterpret_cast<int32*>(pool + 0xC) = 0;
     }
-    ::operator delete(pool);
+}
+
+void DestroyPool(void* poolPtr) {
+    if (!poolPtr) {
+        return;
+    }
+    PoolDestructorBodyExe(poolPtr, nullptr);
+    ::operator delete(poolPtr);
 }
 } // namespace
 

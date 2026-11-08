@@ -21,12 +21,22 @@ END GENERATED HOOK STATUS */
 #include "CollisionData.h"
 #include "ColHelpers.h"
 
+// 0x40F030 (lote 129A, banco Fn129A): constructor de CCollisionData del EXE (thiscall, sin argumentos de pila, `ret`, 58 bytes; lo llaman 0x53760D, 0x56618B, 0x566F39 y 0x852015/0x853E15 por
+// salto). Es el constructor reconstruido de la clase (apaga los tres bits bajos del byte +7 sin tocar los demas y pone a cero el resto hasta +0x2F); este envoltorio lo enlaza al hook
+// sin tocar CollisionData.h. Devuelve this.
+static CCollisionData* __fastcall CollisionDataConstructorExe(CCollisionData* self, void* /*edx*/) {
+    ::new (static_cast<void*>(self)) CCollisionData();
+    return self;
+}
+
 /**
  * Registra las operaciones de administración y consulta de los datos de colisión.
  */
 void CCollisionData::InjectHooks() {
     RH_ScopedClass(CCollisionData);
     RH_ScopedCategory("Collision");
+
+    RH_ScopedNamedGlobalInstall(CollisionDataConstructorExe, "Constructor", 0x40F030);
 
     RH_ScopedInstall(RemoveCollisionVolumes, 0x40F070);
     RH_ScopedInstall(RemoveTrianglePlanes, 0x40F6A0);

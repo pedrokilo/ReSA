@@ -24,6 +24,14 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 #include <bit>
 
+// 0x4DA510 (lote 129A, banco Fn129A; el listado de pendientes decia CAECollisionAudioEntity): cdecl con el byte de superficie en la pila (`movzx eax, byte [esp+4]`), `ret`, 33 bytes. Lee el
+// entero de la tabla 0x8AD914 (16 bytes por superficie), lo multiplica por 0.01f (0x858C58) con la x87 a 24 bits, y devuelve en ST0 20 * log10 de ese valor (fldlg2 + fyl2x y fmul 20.0f
+// (0x858BA4), un solo redondeo). Es el calculo que CAEPedAudioEntity::HandlePedHit llevaba en linea; el EXE tambien la usa desde 0x4E1FE5 y 0x4E2077.
+static float __cdecl SurfaceVolumeDb(uint8 surfaceId) {
+    const float value = IntTimesFloatCpp(reinterpret_cast<const int32*>(0x8AD914)[size_t(surfaceId) * 4], StaticRef<float>(0x858C58));
+    return AudioLog10Times20Cpp(value);
+}
+
 void CAEPedAudioEntity::InjectHooks() {
     // Como el original: vtable 0x86C2A8 con una sola entrada (UpdateParameters 0x4E1180).
     RH_ScopedVirtualClass(CAEPedAudioEntity, 0x86C2A8, 1);
@@ -31,6 +39,7 @@ void CAEPedAudioEntity::InjectHooks() {
 
     //RH_ScopedInstall(Constructor, 0x5DE8D0, { .reversed = false });
 
+    RH_ScopedGlobalInstall(SurfaceVolumeDb, 0x4DA510);
     RH_ScopedInstall(Initialise, 0x4E0E80);
     RH_ScopedInstall(StaticInitialise, 0x5B98A0);
     RH_ScopedInstall(Terminate, 0x4E1360);
@@ -618,10 +627,8 @@ void CAEPedAudioEntity::HandlePedHit(eAudioEvents event, CPhysical* physical, ui
         switch (event) {
         case 64: case 68: collision(); return;
         case 61: case 62: case 63: case 65: case 66: case 67: {
-            const float value = static_cast<float>(reinterpret_cast<const int32*>(0x8AD914)[size_t(surfaceId) * 4]) * StaticRef<float>(0x858C58);
             // 0x4DA510: fild * 0.01f, fldlg2/fyl2x y fmul 20.0f con un solo redondeo a float (fstp) = AudioLog10Times20Cpp.
-            const float result = AudioLog10Times20Cpp(value);
-            mainOffset = result;
+            mainOffset = SurfaceVolumeDb(static_cast<uint8>(surfaceId));
             if (event >= 65) mainID = 58;
             collision(); break;
         }
