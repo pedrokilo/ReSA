@@ -1,0 +1,9 @@
+CMemoryMgr::Malloc 3628 / 16384
+CMemoryMgr::Realloc 3621 / 16384
+CMemoryMgr::Calloc 16247 / 16384
+CMemoryMgr::MallocAlign 8144 / 16384
+CMemoryMgr::FreeAlign 9202 / 16384
+CDecision::CDecision 6257 / 16384
+CTaskComplexLeaveCar::ComputeTargetDoor 2401 / 16384
+CWaterLevel::CalculateWavesOnlyForCoordinate2 245 / 16384
+eventos de error {'error': 1}
