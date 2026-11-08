@@ -1,0 +1,5 @@
+# Banco retirado (07/11/2026)
+
+Este banco (con sus propuestas `CrtProof.hpp` y `source-proposal.patch`) validaba `CMemoryMgr::Malloc-SizeHint` 0x72F420, `Realloc-MemorySizeHint` 0x72F440, `MallocAlign-SizeAlignHint` 0x72F4C0 y `FreeAlign` 0x72F4F0 bajo la premisa de que la DLL era un simple reenvio al CRT (puentes `PUSH direccion / RET`). Desde el lote 100A esas funciones son C++ real con el prologo de depuracion de 0xC0 bytes del EXE, asi que la premisa ya no vale y el banco no se ejecuta ni se usa como evidencia; se conserva solo como historial.
+
+Las cuatro funciones se revalidaron en el lote 118A con `reversing/Fn118A` (16384 pares EXE/DLL por funcion, cero diferencias, colaboradores `malloc`/`realloc`/`free` del CRT del EXE sustituidos por falsos y oraculo Python independiente). El registro de validacion (`reversing/validation-registry/`) y `reversing/CppOnlyMigration/approvals.json` apuntan ahora a esa evidencia: las entradas que citaban `reversing/DependenciesMemory9/validation-summary.json` se reemplazaron (no se duplicaron). `validation-summary.json` de este banco queda sin referencias en el registro.

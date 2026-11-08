@@ -69,6 +69,7 @@ void CTaskComplexLeaveCar::InjectHooks() {
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x641FC0);
     RH_ScopedVMTInstall(ControlSubTask, 0x6421B0);
     RH_ScopedInstall(CreateSubTask, 0x641530);
+    RH_ScopedInstall(ComputeTargetDoor, 0x63BAB0);
     RH_ScopedGlobalInstall(IsDoorInUse, 0x646CF0);
 }
 
@@ -133,10 +134,7 @@ bool CTaskComplexLeaveCar::MakeAbortable(CPed* ped, eAbortPriority priority, con
     if (priority == ABORT_PRIORITY_IMMEDIATE) {
         m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_IMMEDIATE, event); // Como el original: sin comprobar la subtarea ni el resultado
         if (ped->bInVehicle) {
-            // Como el original (0x63BAB0): la puerta se calcula solo si aun no hay
-            if (!m_nTargetDoor) {
-                m_nTargetDoor = CCarEnterExit::ComputeTargetDoorToExit(m_pTargetVehicle, ped);
-            }
+            ComputeTargetDoor(ped); // 0x63BAB0: la puerta se calcula solo si aun no hay
             // Como el original: dos tareas temporales en la pila; se aborta la de cerrar la puerta y la de sacar al ped corre una vez. Llamadas directas (no virtuales), se destruyen en orden inverso
             CTaskSimpleCarCloseDoorFromOutside closeDoor{ m_pTargetVehicle, static_cast<uint32>(m_nTargetDoor), nullptr };
             closeDoor.CTaskSimpleCarCloseDoorFromOutside::MakeAbortable(ped, ABORT_PRIORITY_IMMEDIATE, event);
@@ -250,14 +248,14 @@ static_assert(offsetof(CVehicle, m_pDriver) == 0x460 && offsetof(CVehicle, m_nNu
 static_assert(offsetof(CAutomobile, m_damageManager) == 0x5A0 && offsetof(CAutomobile, m_aCarNodes) == 0x648);
 static_assert(offsetof(tHandlingData, m_nModelFlags) == 0xCC);
 
-namespace {
-// 0x63BAB0: puerta por defecto del que se baja.
-void ComputeTargetDoor(CTaskComplexLeaveCar* task, CPed* ped) {
-    if (task->m_nTargetDoor == 0) {
-        task->m_nTargetDoor = CCarEnterExit::ComputeTargetDoorToExit(task->m_pTargetVehicle, ped);
+// 0x63BAB0: puerta por defecto del que se baja (thiscall, `ret 4`): solo si aun no hay puerta (0) la calcula con CCarEnterExit::ComputeTargetDoorToExit (0x64F110).
+void CTaskComplexLeaveCar::ComputeTargetDoor(CPed* ped) {
+    if (m_nTargetDoor == 0) {
+        m_nTargetDoor = CCarEnterExit::ComputeTargetDoorToExit(m_pTargetVehicle, ped);
     }
 }
 
+namespace {
 // 0x63BA00: reserva la puerta y el hueco de salida en el vehículo.
 void RegisterPedLeaving(CTaskComplexLeaveCar* task, CPed* ped) {
     const auto doorFlags = static_cast<uint8>(CCarEnterExit::ComputeDoorFlag(task->m_pTargetVehicle, task->m_nTargetDoor, true));
@@ -320,7 +318,7 @@ CTask* CTaskComplexLeaveCar::CreateNextSubTask(CPed* ped) {
             ped->bInVehicle = false;
             return CreateSubTask(TASK_FINISHED, ped);
         }
-        ComputeTargetDoor(this, ped);
+        ComputeTargetDoor(ped);
         bool gettingIn  = false;
         bool gettingOut = false;
         IsDoorInUse(m_pTargetVehicle, m_nTargetDoor, gettingIn, gettingOut);

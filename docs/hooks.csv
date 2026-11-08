@@ -9340,3 +9340,7 @@ CEventFireNearby,Destructor,0x004B1F80,1,0,1,S
 CEventInAir,Destructor,0x004B0D00,1,0,1,S
 CEventHitByWaterCannon,Destructor,0x004B1320,1,0,1,S
 CEventPotentialWalkIntoFire,Destructor,0x004B1F00,1,0,1,S
+CMemoryMgr,Calloc-NumSizeHint,0x0072F460,1,0,1,S
+CDecision,Constructor,0x006040C0,1,0,1,S
+CTaskComplexLeaveCar,ComputeTargetDoor,0x0063BAB0,1,0,1,S
+CWaterLevel,CalculateWavesOnlyForCoordinate2,0x006E8550,1,0,1,S

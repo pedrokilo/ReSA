@@ -42,6 +42,7 @@ public:
     CTask* CreateFirstSubTask(CPed* ped) override;
     CTask* ControlSubTask(CPed* ped) override;
     CTask* CreateSubTask(eTaskType taskType, CPed* ped);
+    void   ComputeTargetDoor(CPed* ped);
 
 private:
     friend void InjectHooksMain();

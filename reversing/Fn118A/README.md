@@ -1,0 +1,55 @@
+# Fn118A: ocho funciones de memoria, decisiones, tareas y agua (lote 118A)
+
+Estado: **APROBADO dentro del juego** (07/11/2026, worktree `wv-3` sobre main e6e53b1125 + los cambios del lote). Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn118a/20261107-190030-049436` (archivada en `reversing/CppTwelveLevel6Final/runs/Fn118A-20261107-190030-049436`; ASI de la sonda `bfd1de81420bc83a7ea5e4cce2d98c989d797e65ce79ab2986eae41f4e01d4b3`). Banco par a par dentro del juego, 8 x 16384 = 131072 pares EXE/DLL, cero diferencias, compuertas de ABI/ruta/SEH/restauracion en ambos lados, x87 igual (pila vacia en las ocho), y cada lado coincide con el oraculo Python independiente (`fixture_oracle.py`).
+
+Plantilla del banco: `Fn100A` (falsos del CRT del EXE con trampolin para hilos ajenos, arenas, colaboradores reales); el lote lo pidio sobre `Fn94A`, pero `Fn100A` es la misma familia y la que ya valida `CMemoryMgr::Free`.
+
+| Funcion | Direccion | Bytes | Fuente | Llamadores del EXE |
+|---|---|---|---|---|
+| `CMemoryMgr::Malloc(size, hint)` (sobrecarga `SizeHint`) | 0x72F420 | 14 | `MemoryMgr.cpp` | revalidacion (sin cambio de codigo) |
+| `CMemoryMgr::Realloc(ptr, size, hint)` (`MemorySizeHint`) | 0x72F440 | 19 | `MemoryMgr.cpp` | revalidacion |
+| `CMemoryMgr::Calloc(num, size, hint)` (`NumSizeHint`; el listado decia `CMemoryMgr` tambien) | 0x72F460 | 19 | `MemoryMgr.cpp` | 3 (menu, `VideoMode`) |
+| `CMemoryMgr::MallocAlign(size, align, hint)` (`SizeAlignHint`) | 0x72F4C0 | 35 | `MemoryMgr.cpp` | revalidacion |
+| `CMemoryMgr::FreeAlign(ptr)` | 0x72F4F0 | 16 | `MemoryMgr.cpp` | revalidacion |
+| `CDecision::CDecision()` (el listado decia `CEntityScanner`) | 0x6040C0 | 8 | `DecisionMakers/Decision.cpp` | 41 llamadas en el constructor de `CDecisionMakerTypes` (0x4650A0) y el cargador de decision makers |
+| `CTaskComplexLeaveCar::ComputeTargetDoor(ped)` (el listado decia `CTaskComplexStealCar`) | 0x63BAB0 | 32 | `Tasks/TaskTypes/TaskComplexLeaveCar.cpp` | `MakeAbortable` (0x641100) y `CreateNextSubTask` (0x6419F0) |
+| `CWaterLevel::CalculateWavesOnlyForCoordinate2` | 0x6E8550 | 34 | `WaterLevel.cpp` | `CShadows::RenderStoredShadows` |
+
+Cuatro funciones son la **revalidacion** pedida de forma prioritaria (Malloc, Realloc, MallocAlign, FreeAlign): su unica evidencia era `reversing/DependenciesMemory9`, con la premisa obsoleta de que la DLL reenviaba al CRT; desde el lote 100A son C++ real con el prologo de depuracion de 0xC0 bytes. El registro de validacion y `approvals.json` ahora citan este banco (las entradas se **reemplazaron**, no se duplicaron: 9328 entradas registradas, ninguna identidad repetida) y `reversing/DependenciesMemory9/RETIRADO.md` deja constancia. Las otras cuatro son nuevas: ninguna tenia hook ni estaba en `docs/hooks.csv`, ni en `docs/JuegoExe/lotes-en-curso.csv`; ninguna pasa de 1200 bytes ni depende de mas de dos funciones sin hook (las llamadas a colaboradores van todas a funciones con hook RH o a rutinas del CRT). Se dejaron fuera, por clase dudosa o por ser ctor/dtor con vtable sin archivo propio, las demas candidatas pequenas del rango (p. ej. 0x65DE60, 0x6586A0, 0x6D0B10, 0x699F00).
+
+Filas anadidas a `docs/hooks.csv` (formato `Clase,Fn,0x........,1,0,1,S`): `CMemoryMgr,Calloc-NumSizeHint`, `CDecision,Constructor`, `CTaskComplexLeaveCar,ComputeTargetDoor`, `CWaterLevel,CalculateWavesOnlyForCoordinate2` (las cuatro de memoria ya estaban).
+
+## Cambios de produccion
+- `MemoryMgr.cpp`: `Calloc` dejaba el reenvio como `plugin::CallAndReturn<0x72F460>` (con el hook habria sido una recursion infinita) y tenia codigo muerto detras del `return`; ahora llama a `calloc` del CRT del EXE por su direccion (0x824416, `ExeCrtCalloc`, como `Malloc`, `Realloc` y `Free`) y se engancha con `RH_ScopedOverloadedInstall(Calloc, "NumSizeHint", ...)`. La rama `MEMORY_MGR_USE_MEMORY_HEAP` (no definida) queda coherente (`Malloc(num * size, hint)`).
+- `Decision.h/.cpp`: la envoltura `Constructor()` (`this->CDecision::CDecision(); return this;`) y su `RH_ScopedInstall`. El constructor ya era `SetDefault()`.
+- `TaskComplexLeaveCar.h/.cpp`: la funcion libre anonima `ComputeTargetDoor(task, ped)` pasa a ser el miembro `CTaskComplexLeaveCar::ComputeTargetDoor(CPed*)` (thiscall, `ret 4`) y se engancha; `MakeAbortable` ya no repite en linea la misma comprobacion, la llama.
+- `WaterLevel.cpp`: `CalculateWavesOnlyForCoordinate2` (ya existia, sin hook) se engancha en 0x6E8550.
+- No cambia `source/CMakeLists.txt`: ninguna de las ocho necesita x87 ni contrato de registros propio (aritmetica entera, comparaciones y llamadas; el ctor de `CDecision` y el reenvio de las ondas no tocan la FPU).
+
+## Revision contra el EXE
+- **Malloc (0x72F420, cdecl)**: `mov eax,[esp+4]; push eax; call 0x824257; add esp,4; ret`: `malloc` del CRT del EXE con el tamano tal cual; el hint no se lee; devuelve EAX del CRT.
+- **Realloc (0x72F440)**: apila (tamano = [esp+8]) y (puntero = [esp+4]) y llama a 0x824269 (`realloc` del CRT): puntero nulo y tamano cero pasan sin tocar.
+- **Calloc (0x72F460)**: igual con (num = [esp+4], size = [esp+8]) hacia 0x824416; el hint no se lee.
+- **MallocAlign (0x72F4C0)**: ESI = align; `malloc(size + align)` (suma de 32 bits con desborde); r = `(base + align) & ~(align - 1)` (`dec esi; not esi; and`), `[r - 4] = base`; devuelve r. Sin comprobar fallo de `malloc` ni alineamientos que no sean potencia de dos (la mascara es la que sale).
+- **FreeAlign (0x72F4F0)**: `ecx = [ptr - 4]`; sobrescribe el argumento de pila `[esp+4]` con ECX y salta a `free` del CRT (0x82413F): libera la base guardada, no el puntero recibido.
+- **CDecision::CDecision (0x6040C0, thiscall)**: `call 0x600530` (`SetDefault`: seis dwords de tareas a -1 en +0..0x17, seis dwords de probabilidades a 0 en +0x18..0x2F, seis words de banderas a 0 en +0x30..0x3B; conserva ECX) y `mov eax,ecx; ret`: devuelve this.
+- **ComputeTargetDoor (0x63BAB0, thiscall, `ret 4`)**: ESI = this; si `[this+0x10]` (puerta) es cero llama a `CCarEnterExit::ComputeTargetDoorToExit` (0x64F110, cdecl) con (`[this+0xC]` = vehiculo, ped) y guarda EAX en `[this+0x10]`; si no, no hace nada.
+- **CalculateWavesOnlyForCoordinate2 (0x6E8550, cdecl)**: toma (x, y, altura*, grandes, pequenas) y llama a 0x6E7210 (`CalculateWavesOnlyForCoordinate2Native`, cdecl) con (x, y, grandes, pequenas, altura*); no toca memoria por si misma ni devuelve valor util.
+- Ningun llamador del EXE lee registros tras estas llamadas (salvo EAX en las de memoria y en el ctor de `CDecision`, que si se comparan).
+
+## Banco
+Falsos en la direccion del EXE: `malloc` 0x824257, `realloc` 0x824269, `calloc` 0x824416 y `free` 0x82413F del CRT del EXE (sin hook RH salvo 0x824257, que tiene `CrtMalloc` en `VehicleRecording.cpp`; las rutas de colaboradores lo apagan y el falso va tambien en el cuerpo de la DLL). Los hilos ajenos al banco (audio, streaming) pasan por un trampolin (copia de las primeras instrucciones comprobadas y salto al resto) al CRT real. Falsos identicos en la direccion del EXE y en el cuerpo de la DLL (colaboradores con hook RH, apagado durante el banco): `CCarEnterExit::ComputeTargetDoorToExit` 0x64F110 (devuelve el valor del caso) y `CWaterLevel::CalculateWavesOnlyForCoordinate2Native` 0x6E7210. **Corre de verdad** en ambos lados (colaborador REAL): `CDecision::SetDefault` 0x600530 (EXE: sus bytes; DLL: su cuerpo).
+**Leccion nueva (el operator new del ASI)**: el `operator new`/`delete` del ASI llaman a `CMemoryMgr::Malloc`/`Free`, es decir a los puntos parcheados por este banco; `Patches` de `Core.hpp` creaba cada `EntryPatch` con `new` mientras el primer parche ya estaba activo, asi que la propia reserva pasaba por el falso (la corrida 4 se cayo con un acceso invalido: el objeto se construia en una arena y, con retorno nulo, en el puntero nulo). Ahora los parches viven en almacenamiento propio (`placement new`) y no hay reservas con parches activos. Ademas, los trampolines se construyen despues de las rutas de colaboradores (con el hook `CrtMalloc` activo los bytes de 0x824257 eran un salto a la DLL y no coincidian).
+Arenas alineadas a 4096 (las direcciones absolutas de `MallocAlign` quedan deterministas: `(base + align) & ~(align - 1)` solo depende de los 12 bits bajos para alineamientos de hasta 0x400). No se sustituye: toda la aritmetica de las ocho funciones. Memoria real del juego: ninguna (las ocho solo tocan arenas).
+Se observa: eventos de los falsos con todos sus argumentos (punteros como etiquetas de arena o su valor crudo), bytes cambiados de las tres arenas (en `MallocAlign` sin los cuatro bytes de `[r - 4]`, que contienen la direccion absoluta de la base y se comparan como etiqueta), valor devuelto (EAX como etiqueta de arena) y el estado x87 final (vacio).
+16 familias de 1024 casos por funcion (ver `Fixtures.hpp` y `validation-summary.json`): tamanos 0, 1..16, potencias de dos y sus vecinos, multiplos de pagina, 0x7FFFFFFF, 0xFFFFFFFF y 0xFFFFFFE0 (desbordes de `size + align` y de `num * size`), tamanos tipicos del juego y aleatorios; hints especiales (0, 1, -1, bit 31); punteros de arena, nulos y crudos (con valores como 0xCDCDCDCD, 1, 0x80000000) tanto en la entrada como en el retorno de los falsos; alineamientos 1..0x400 (potencia de dos y no) y bases de 0 a 0x100; objetos de `CDecision` en 36 desplazamientos (alineados y no) con cuatro rellenos y 15 dwords iniciales (ya finales, parciales, aleatorios); puerta inicial 0, 1..8, extremos y aleatoria, vehiculo y ped de arena, nulos o crudos y retornos del falso de signo y magnitud variados; (x, y) con 0, signos, INT_MIN, rangos de agua y aleatorios, amplitudes normales, especiales, enormes y NaN con cargas distintas.
+
+## Fuera de los fixtures
+`MallocAlign` con base nula o cruda (el EXE escribiria en `[r - 4]` fuera de las arenas) y alineamientos 0 o mayores de 0x400; `FreeAlign` con punteros no mapeados; el comportamiento real del CRT (contenido de la memoria devuelta por `malloc`, `realloc` y `calloc`, y la exactitud de `free`); `CDecision` sobre memoria no escribible; la exactitud de los colaboradores sustituidos (`ComputeTargetDoorToExit`, `CalculateWavesOnlyForCoordinate2Native`, que tienen sus propios bancos) y de `SetDefault` frente al CRT.
+
+## Comandos
+```
+CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1 bash reversing/_handoff/bench_here.sh Fn118A   # compila la sonda y corre en el juego (candado global)
+python -I reversing/Fn118A/mutate.py apply 1                                          # prueba negativa (restore tras compilar)
+python -I reversing/Fn118A/fixture_selfcheck.py                                       # autoprueba sin juego: cobertura de familias y ramas
+```

@@ -48,6 +48,7 @@ void CMemoryMgr::InjectHooks() {
     RH_ScopedOverloadedInstall(Realloc, "MemorySizeHint", 0x72F440, uint8*(*)(void*,uint32,uint32));
     RH_ScopedOverloadedInstall(MallocAlign, "SizeAlignHint", 0x72F4C0, uint8*(*)(uint32,uint32,uint32));
     RH_ScopedInstall(Free, 0x72F430);
+    RH_ScopedOverloadedInstall(Calloc, "NumSizeHint", 0x72F460, uint8*(*)(uint32,uint32,uint32));
     RH_ScopedInstall(FreeAlign, 0x72F4F0);
 
 }
@@ -275,6 +276,7 @@ namespace {
 // Se llaman por dirección directamente desde cada función (sin ayudante intermedio) para que la dirección de retorno caiga dentro del cuerpo.
 using ExeCrtMalloc  = void*  (__cdecl*)(uint32);
 using ExeCrtRealloc = uint8* (__cdecl*)(void*, uint32);
+using ExeCrtCalloc  = uint8* (__cdecl*)(uint32, uint32);
 using ExeCrtFree    = void   (__cdecl*)(void*);
 }
 
@@ -377,12 +379,11 @@ uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
 
 // 0x72F460
 uint8* CMemoryMgr::Calloc(uint32 numObj, uint32 sizeObj, uint32 hint) {
-    return plugin::CallAndReturn<uint8*, 0x72F460, uint32, uint32>(numObj, sizeObj);
-
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
-    return Malloc(hint * size, hint);
+    return static_cast<uint8*>(Malloc(numObj * sizeObj, hint));
 #else
-    return static_cast<uint8*>(::calloc(numObj, sizeObj));
+    // 0x72F460: sólo reenvía (numObj, sizeObj) a calloc del CRT del EXE (0x824416); el hint se ignora.
+    return reinterpret_cast<ExeCrtCalloc>(uintptr_t{0x824416})(numObj, sizeObj);
 #endif
 }
 

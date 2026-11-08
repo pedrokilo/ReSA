@@ -93463,30 +93463,39 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/DependenciesMemory9/validation-summary.json",
-        "sha256": "97287f735e00165e00a9d7a027021f75ede65d27537193edec72edc8293ffe3f",
+        "path": "reversing/Fn118A/validation-summary.json",
+        "sha256": "168f2bacbe3afb44c354bbf8ac8444b852c1faf6b1d9d3251ac139fc5fa5041b",
         "passed_path": [
           "covered_functions",
-          "CMemoryMgr::Malloc-SizeHint"
+          "CMemoryMgr::Malloc"
         ],
-        "pairs": 2048,
+        "pairs": 16384,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MemoryMgr.cpp": "645dd362627fb014a2acd4fdc95798b0caca8ae35c617762a5285a05053a162c",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/MemoryMgr.cpp": "9bb86218dc079b229bcb2839a1f884d1aa5ee0841aff769856f04037c34e17a9",
         "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
-        "source/game_sa/Memory/MemoryHeap.cpp": "c4506127e3efab85a4aed399357e2fa3900019686765dbd2252e816dc11131dc",
-        "source/game_sa/Memory/MemoryHeap.h": "2bb60d57ad75d69bf38c3ab901c894b4245022ac2607a35c20c32d74c95014c6",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/game_sa/DecisionMakers/Decision.cpp": "15ffa0411ac19f444687bd09af73a3039e44a4fbfca39b1c6fad46dfc68f7e84",
+        "source/game_sa/DecisionMakers/Decision.h": "38e2547f828569a281e373042e64087c471b329448ec764b74660fe8ae1b0359",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "464ac327a78869354c2111e954741a9eec3f11fabaff8995e8ef3cd8e863205d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "048f20bde645f158139eb659a67acf9e3b8c077629370cffc9fb2c58677ee6f5",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
+        "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn118A/LiveComparison.hpp": "710212e2106e60e78f04abfda013e22fbbd904d61e9b8bdcf06e496f072bd36a",
+        "reversing/Fn118A/Core.hpp": "984be26d6b8d3db40847dbcadf24c897e23b68b45c190ab094815aecbd169060",
+        "reversing/Fn118A/Fixtures.hpp": "0762f7e7cb55c377ce533ea303b459b1236ea9f89d057d6fd244ae1e8398bb20",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
-        "reversing/DependenciesMemory9/CrtProof.hpp": "e6761c33e2386316cb17d4fd19a9ca9dea3ee0ec6e3a32aee3d40afc0c3c0bf9"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia hist\u00f3rica limitada a fixtures, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
-      "review_reference": "reversing/DependenciesMemory9/README.md"
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e6e53b1125 con los cambios del lote (ver artifacts/build-manifest.json). Los cuatro CMemoryMgr (Malloc, Realloc, MallocAlign, FreeAlign) sustituyen la evidencia anterior de DependenciesMemory9 (premisa obsoleta: la DLL ya no es un reenvio al CRT; desde 100A es C++ real). Colaboradores sustituidos por falsos en la direccion del EXE: malloc 0x824257, realloc 0x824269, calloc 0x824416 y free 0x82413F del CRT del EXE (con trampolin para hilos ajenos), y por falsos identicos en la direccion del EXE y en su cuerpo del ASI (tienen hook RH): CCarEnterExit::ComputeTargetDoorToExit 0x64F110 y CWaterLevel::CalculateWavesOnlyForCoordinate2Native 0x6E7210. Corre de verdad en ambos lados CDecision::SetDefault 0x600530 (EXE: sus bytes; DLL: su cuerpo). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: base nula o cruda y alineamientos 0 o mayores de 0x400 en MallocAlign, punteros no mapeados en FreeAlign, el comportamiento real del CRT (memoria devuelta por malloc, realloc, calloc y free) y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn118A/README.md"
     },
     {
       "hook": {
@@ -93496,30 +93505,39 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/DependenciesMemory9/validation-summary.json",
-        "sha256": "97287f735e00165e00a9d7a027021f75ede65d27537193edec72edc8293ffe3f",
+        "path": "reversing/Fn118A/validation-summary.json",
+        "sha256": "168f2bacbe3afb44c354bbf8ac8444b852c1faf6b1d9d3251ac139fc5fa5041b",
         "passed_path": [
           "covered_functions",
-          "CMemoryMgr::Realloc-MemorySizeHint"
+          "CMemoryMgr::Realloc"
         ],
-        "pairs": 2048,
+        "pairs": 16384,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MemoryMgr.cpp": "645dd362627fb014a2acd4fdc95798b0caca8ae35c617762a5285a05053a162c",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/MemoryMgr.cpp": "9bb86218dc079b229bcb2839a1f884d1aa5ee0841aff769856f04037c34e17a9",
         "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
-        "source/game_sa/Memory/MemoryHeap.cpp": "c4506127e3efab85a4aed399357e2fa3900019686765dbd2252e816dc11131dc",
-        "source/game_sa/Memory/MemoryHeap.h": "2bb60d57ad75d69bf38c3ab901c894b4245022ac2607a35c20c32d74c95014c6",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/game_sa/DecisionMakers/Decision.cpp": "15ffa0411ac19f444687bd09af73a3039e44a4fbfca39b1c6fad46dfc68f7e84",
+        "source/game_sa/DecisionMakers/Decision.h": "38e2547f828569a281e373042e64087c471b329448ec764b74660fe8ae1b0359",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "464ac327a78869354c2111e954741a9eec3f11fabaff8995e8ef3cd8e863205d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "048f20bde645f158139eb659a67acf9e3b8c077629370cffc9fb2c58677ee6f5",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
+        "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn118A/LiveComparison.hpp": "710212e2106e60e78f04abfda013e22fbbd904d61e9b8bdcf06e496f072bd36a",
+        "reversing/Fn118A/Core.hpp": "984be26d6b8d3db40847dbcadf24c897e23b68b45c190ab094815aecbd169060",
+        "reversing/Fn118A/Fixtures.hpp": "0762f7e7cb55c377ce533ea303b459b1236ea9f89d057d6fd244ae1e8398bb20",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
-        "reversing/DependenciesMemory9/CrtProof.hpp": "e6761c33e2386316cb17d4fd19a9ca9dea3ee0ec6e3a32aee3d40afc0c3c0bf9"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia hist\u00f3rica limitada a fixtures, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
-      "review_reference": "reversing/DependenciesMemory9/README.md"
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e6e53b1125 con los cambios del lote (ver artifacts/build-manifest.json). Los cuatro CMemoryMgr (Malloc, Realloc, MallocAlign, FreeAlign) sustituyen la evidencia anterior de DependenciesMemory9 (premisa obsoleta: la DLL ya no es un reenvio al CRT; desde 100A es C++ real). Colaboradores sustituidos por falsos en la direccion del EXE: malloc 0x824257, realloc 0x824269, calloc 0x824416 y free 0x82413F del CRT del EXE (con trampolin para hilos ajenos), y por falsos identicos en la direccion del EXE y en su cuerpo del ASI (tienen hook RH): CCarEnterExit::ComputeTargetDoorToExit 0x64F110 y CWaterLevel::CalculateWavesOnlyForCoordinate2Native 0x6E7210. Corre de verdad en ambos lados CDecision::SetDefault 0x600530 (EXE: sus bytes; DLL: su cuerpo). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: base nula o cruda y alineamientos 0 o mayores de 0x400 en MallocAlign, punteros no mapeados en FreeAlign, el comportamiento real del CRT (memoria devuelta por malloc, realloc, calloc y free) y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn118A/README.md"
     },
     {
       "hook": {
@@ -93529,30 +93547,39 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/DependenciesMemory9/validation-summary.json",
-        "sha256": "97287f735e00165e00a9d7a027021f75ede65d27537193edec72edc8293ffe3f",
+        "path": "reversing/Fn118A/validation-summary.json",
+        "sha256": "168f2bacbe3afb44c354bbf8ac8444b852c1faf6b1d9d3251ac139fc5fa5041b",
         "passed_path": [
           "covered_functions",
-          "CMemoryMgr::MallocAlign-SizeAlignHint"
+          "CMemoryMgr::MallocAlign"
         ],
-        "pairs": 2048,
+        "pairs": 16384,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MemoryMgr.cpp": "645dd362627fb014a2acd4fdc95798b0caca8ae35c617762a5285a05053a162c",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/MemoryMgr.cpp": "9bb86218dc079b229bcb2839a1f884d1aa5ee0841aff769856f04037c34e17a9",
         "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
-        "source/game_sa/Memory/MemoryHeap.cpp": "c4506127e3efab85a4aed399357e2fa3900019686765dbd2252e816dc11131dc",
-        "source/game_sa/Memory/MemoryHeap.h": "2bb60d57ad75d69bf38c3ab901c894b4245022ac2607a35c20c32d74c95014c6",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/game_sa/DecisionMakers/Decision.cpp": "15ffa0411ac19f444687bd09af73a3039e44a4fbfca39b1c6fad46dfc68f7e84",
+        "source/game_sa/DecisionMakers/Decision.h": "38e2547f828569a281e373042e64087c471b329448ec764b74660fe8ae1b0359",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "464ac327a78869354c2111e954741a9eec3f11fabaff8995e8ef3cd8e863205d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "048f20bde645f158139eb659a67acf9e3b8c077629370cffc9fb2c58677ee6f5",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
+        "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn118A/LiveComparison.hpp": "710212e2106e60e78f04abfda013e22fbbd904d61e9b8bdcf06e496f072bd36a",
+        "reversing/Fn118A/Core.hpp": "984be26d6b8d3db40847dbcadf24c897e23b68b45c190ab094815aecbd169060",
+        "reversing/Fn118A/Fixtures.hpp": "0762f7e7cb55c377ce533ea303b459b1236ea9f89d057d6fd244ae1e8398bb20",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
-        "reversing/DependenciesMemory9/CrtProof.hpp": "e6761c33e2386316cb17d4fd19a9ca9dea3ee0ec6e3a32aee3d40afc0c3c0bf9"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia hist\u00f3rica limitada a fixtures, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
-      "review_reference": "reversing/DependenciesMemory9/README.md"
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e6e53b1125 con los cambios del lote (ver artifacts/build-manifest.json). Los cuatro CMemoryMgr (Malloc, Realloc, MallocAlign, FreeAlign) sustituyen la evidencia anterior de DependenciesMemory9 (premisa obsoleta: la DLL ya no es un reenvio al CRT; desde 100A es C++ real). Colaboradores sustituidos por falsos en la direccion del EXE: malloc 0x824257, realloc 0x824269, calloc 0x824416 y free 0x82413F del CRT del EXE (con trampolin para hilos ajenos), y por falsos identicos en la direccion del EXE y en su cuerpo del ASI (tienen hook RH): CCarEnterExit::ComputeTargetDoorToExit 0x64F110 y CWaterLevel::CalculateWavesOnlyForCoordinate2Native 0x6E7210. Corre de verdad en ambos lados CDecision::SetDefault 0x600530 (EXE: sus bytes; DLL: su cuerpo). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: base nula o cruda y alineamientos 0 o mayores de 0x400 en MallocAlign, punteros no mapeados en FreeAlign, el comportamiento real del CRT (memoria devuelta por malloc, realloc, calloc y free) y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn118A/README.md"
     },
     {
       "hook": {
@@ -93562,30 +93589,39 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/DependenciesMemory9/validation-summary.json",
-        "sha256": "97287f735e00165e00a9d7a027021f75ede65d27537193edec72edc8293ffe3f",
+        "path": "reversing/Fn118A/validation-summary.json",
+        "sha256": "168f2bacbe3afb44c354bbf8ac8444b852c1faf6b1d9d3251ac139fc5fa5041b",
         "passed_path": [
           "covered_functions",
           "CMemoryMgr::FreeAlign"
         ],
-        "pairs": 2048,
+        "pairs": 16384,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MemoryMgr.cpp": "645dd362627fb014a2acd4fdc95798b0caca8ae35c617762a5285a05053a162c",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+        "source/game_sa/MemoryMgr.cpp": "9bb86218dc079b229bcb2839a1f884d1aa5ee0841aff769856f04037c34e17a9",
         "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
-        "source/game_sa/Memory/MemoryHeap.cpp": "c4506127e3efab85a4aed399357e2fa3900019686765dbd2252e816dc11131dc",
-        "source/game_sa/Memory/MemoryHeap.h": "2bb60d57ad75d69bf38c3ab901c894b4245022ac2607a35c20c32d74c95014c6",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/game_sa/DecisionMakers/Decision.cpp": "15ffa0411ac19f444687bd09af73a3039e44a4fbfca39b1c6fad46dfc68f7e84",
+        "source/game_sa/DecisionMakers/Decision.h": "38e2547f828569a281e373042e64087c471b329448ec764b74660fe8ae1b0359",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "464ac327a78869354c2111e954741a9eec3f11fabaff8995e8ef3cd8e863205d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "048f20bde645f158139eb659a67acf9e3b8c077629370cffc9fb2c58677ee6f5",
+        "source/game_sa/WaterLevel.cpp": "a3654c27a88205b10371891762692494e1706e7f42045ec5c69e85825b4b9333",
+        "source/game_sa/WaterLevel.h": "ba2810651e0c9ffe23c05de99748655ae2d312d23a35ff5292491a78aea56678",
+        "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+        "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn118A/LiveComparison.hpp": "710212e2106e60e78f04abfda013e22fbbd904d61e9b8bdcf06e496f072bd36a",
+        "reversing/Fn118A/Core.hpp": "984be26d6b8d3db40847dbcadf24c897e23b68b45c190ab094815aecbd169060",
+        "reversing/Fn118A/Fixtures.hpp": "0762f7e7cb55c377ce533ea303b459b1236ea9f89d057d6fd244ae1e8398bb20",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf",
-        "reversing/DependenciesMemory9/CrtProof.hpp": "e6761c33e2386316cb17d4fd19a9ca9dea3ee0ec6e3a32aee3d40afc0c3c0bf9"
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia hist\u00f3rica limitada a fixtures, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
-      "review_reference": "reversing/DependenciesMemory9/README.md"
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e6e53b1125 con los cambios del lote (ver artifacts/build-manifest.json). Los cuatro CMemoryMgr (Malloc, Realloc, MallocAlign, FreeAlign) sustituyen la evidencia anterior de DependenciesMemory9 (premisa obsoleta: la DLL ya no es un reenvio al CRT; desde 100A es C++ real). Colaboradores sustituidos por falsos en la direccion del EXE: malloc 0x824257, realloc 0x824269, calloc 0x824416 y free 0x82413F del CRT del EXE (con trampolin para hilos ajenos), y por falsos identicos en la direccion del EXE y en su cuerpo del ASI (tienen hook RH): CCarEnterExit::ComputeTargetDoorToExit 0x64F110 y CWaterLevel::CalculateWavesOnlyForCoordinate2Native 0x6E7210. Corre de verdad en ambos lados CDecision::SetDefault 0x600530 (EXE: sus bytes; DLL: su cuerpo). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: base nula o cruda y alineamientos 0 o mayores de 0x400 en MallocAlign, punteros no mapeados en FreeAlign, el comportamiento real del CRT (memoria devuelta por malloc, realloc, calloc y free) y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn118A/README.md"
     },
     {
       "hook": {
@@ -107550,94 +107586,6 @@
         "passed_path": [
           "covered_functions",
           "RwHelper::RpClumpGetBoundingSphere"
-        ],
-        "pairs": 4096,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
-        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
-        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
-        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
-        "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
-        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
-        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
-        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
-        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
-        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "7fb9f40a53cec600f75041a1b3c0b596ac27be17b86c02be28c276f59cc1184d",
-        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers66D/LiveComparison.hpp": "3689567fd48fd4fe05291368704ed1b48eaf3fc1dad733053525d6f01cf3d407",
-        "reversing/Helpers66D/Core.hpp": "5c8d5b7ba805c1407c69ea24c30975ca9a9108e0dc21c0abe3f83f023f6365e3",
-        "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
-        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
-      },
-      "dependency_review": null,
-      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wu-4 (HEAD 5765c0b5f + source.patch del lote 66D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: RpClumpGetNumAtomics 0x7498E0, RpClumpForAllAtomics 0x749B70 (los callbacks 0x734970 y 0x734ED0 siguen siendo codigo del EXE y no se ejecutan: el falso escribe lo que dicta el caso), RwFrameGetLTM 0x7F0990, RwMatrixInvert 0x7F2070, RwV3dTransformPoints 0x7EDD90; CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::FindGroundZFor3DCoord 0x5696C0; CAutomobile::CAutomobile 0x6B0A90, CDamageManager::SetDoorStatus 0x6C21C0 y el rand() del CRT del EXE 0x821B1E. El pool de objetos (0xB7449C), el byte bUseLTM (0x8D60BC) y el temporizador (0xB7CB84) se fijan por caso y se restauran. Ningun llamador del EXE lee ECX/EDX; EAX = this (constructor), EAX = clump (esfera) y AL (camara) se exigen. createdBy del constructor solo se prueba en 0..255 (eVehicleCreatedBy es uint8: el EXE reenvia el dword completo al constructor base).",
-      "review_reference": "reversing/Helpers66D/README.md"
-    },
-    {
-      "hook": {
-        "class": "CGarage",
-        "fn_name": "FindDoorsWithGarage",
-        "address": "0x00449FF0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Helpers66D/validation-summary.json",
-        "sha256": "e9877b48ab46027f7813e9c77c150353106fe1ce3aba278b518e7fba735f4ca1",
-        "passed_path": [
-          "covered_functions",
-          "CGarage::FindDoorsWithGarage"
-        ],
-        "pairs": 4096,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-        "source/InjectHooksMain.cpp": "fb135c330fcadeac1b95f5a8c8f29e838766fb7892e6d9a1b1e1ac043ddf9a55",
-        "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
-        "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
-        "source/game_sa/RwHelper.cpp": "f57815f88fc83a168f50ef498b215e708b5e67553dbad59c539690776d1114f6",
-        "source/game_sa/RwHelper.h": "ccabc165019462dc05c6508f02376a10a5031b3c03ffd61c5aec4d142579083f",
-        "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
-        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
-        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
-        "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
-        "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "7fb9f40a53cec600f75041a1b3c0b596ac27be17b86c02be28c276f59cc1184d",
-        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
-        "source/game_sa/Entity/Vehicle/Plane.cpp": "43d58484229cc8922e8e5827cc69ca36d08332b5bb5af9c7aa1d62a50d19eb61",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Helpers66D/LiveComparison.hpp": "3689567fd48fd4fe05291368704ed1b48eaf3fc1dad733053525d6f01cf3d407",
-        "reversing/Helpers66D/Core.hpp": "5c8d5b7ba805c1407c69ea24c30975ca9a9108e0dc21c0abe3f83f023f6365e3",
-        "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
-        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
-      },
-      "dependency_review": null,
-      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wu-4 (HEAD 5765c0b5f + source.patch del lote 66D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: RpClumpGetNumAtomics 0x7498E0, RpClumpForAllAtomics 0x749B70 (los callbacks 0x734970 y 0x734ED0 siguen siendo codigo del EXE y no se ejecutan: el falso escribe lo que dicta el caso), RwFrameGetLTM 0x7F0990, RwMatrixInvert 0x7F2070, RwV3dTransformPoints 0x7EDD90; CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::FindGroundZFor3DCoord 0x5696C0; CAutomobile::CAutomobile 0x6B0A90, CDamageManager::SetDoorStatus 0x6C21C0 y el rand() del CRT del EXE 0x821B1E. El pool de objetos (0xB7449C), el byte bUseLTM (0x8D60BC) y el temporizador (0xB7CB84) se fijan por caso y se restauran. Ningun llamador del EXE lee ECX/EDX; EAX = this (constructor), EAX = clump (esfera) y AL (camara) se exigen. createdBy del constructor solo se prueba en 0..255 (eVehicleCreatedBy es uint8: el EXE reenvia el dword completo al constructor base).",
-      "review_reference": "reversing/Helpers66D/README.md"
-    },
-    {
-      "hook": {
-        "class": "CCam",
-        "fn_name": "GetArrestCamCopSourceSide",
-        "address": "0x00516010",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Helpers66D/validation-summary.json",
-        "sha256": "e9877b48ab46027f7813e9c77c150353106fe1ce3aba278b518e7fba735f4ca1",
-        "passed_path": [
-          "covered_functions",
-          "CCam::GetArrestCamCopSourceSide"
         ],
         "pairs": 4096,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"

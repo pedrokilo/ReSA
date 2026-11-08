@@ -41,6 +41,7 @@ public:
 
     CDecision();
     CDecision(const CDecision&) = default;
+    CDecision* Constructor() { this->CDecision::CDecision(); return this; } // 0x6040C0
 
     void SetDefault();
     void From(const CDecision& rhs);

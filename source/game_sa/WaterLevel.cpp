@@ -69,6 +69,7 @@ void CWaterLevel::InjectHooks() {
     RH_ScopedGlobalInstall(LerpRenPar, 0x6E5280);
     RH_ScopedGlobalInstall(FlushWaterRenderBuffer, 0x6E7680);
     RH_ScopedInstall(CalculateWavesOnlyForCoordinate2Native, 0x6E7210);
+    RH_ScopedInstall(CalculateWavesOnlyForCoordinate2, 0x6E8550);
 
     RH_ScopedGlobalInstall(WaterLevelInitialise, 0x6EAE80);
     RH_ScopedGlobalInstall(Shutdown, 0x6E59E0);
@@ -1220,6 +1221,7 @@ __declspec(safebuffers) void CWaterLevel::CalculateWavesOnlyForCoordinate2Native
     (void)ResidueRegsCpp(regs.ecx, regs.edx, regs.eax);
 }
 #pragma runtime_checks("", restore)
+// 0x6E8550: cdecl (x, y, altura*, grandes, pequenas); el EXE reordena los argumentos y llama a ...2Native (0x6E7210) con (x, y, grandes, pequenas, altura*).
 void CWaterLevel::CalculateWavesOnlyForCoordinate2(int32 x,int32 y,float* height,float bigWavesAmpl,float smallWavesAmpl) {
     CalculateWavesOnlyForCoordinate2Native(x,y,bigWavesAmpl,smallWavesAmpl,height);
 }
