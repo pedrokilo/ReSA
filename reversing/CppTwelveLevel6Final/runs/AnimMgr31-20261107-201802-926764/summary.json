@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "bc8b95a5385f991c2452738d00f899734ad8c526e511ef39b7636431a170a919",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 11072,
+  "pairs_per_function": {
+    "CAnimManager::AddAnimAssocDefinition": 512,
+    "CAnimManager::AddAnimBlockRef": 128,
+    "CAnimManager::AddAnimToAssocDefinition": 256,
+    "CAnimManager::AddAnimation-hier": 512,
+    "CAnimManager::AddAnimation-id": 512,
+    "CAnimManager::AddAnimationAndSync": 512,
+    "CAnimManager::BlendAnimation-hier": 1024,
+    "CAnimManager::BlendAnimation-id": 1024,
+    "CAnimManager::CreateAnimAssocGroups": 512,
+    "CAnimManager::CreateAnimAssociation": 128,
+    "CAnimManager::GetAnimAssociation-by-id": 128,
+    "CAnimManager::GetAnimAssociation-by-name": 256,
+    "CAnimManager::GetAnimBlockName": 64,
+    "CAnimManager::GetAnimGroupName": 64,
+    "CAnimManager::GetAnimation-0": 256,
+    "CAnimManager::GetAnimation-1": 256,
+    "CAnimManager::GetAnimationBlock-": 256,
+    "CAnimManager::GetAnimationBlockIndex-by-name": 256,
+    "CAnimManager::GetFirstAssocGroup": 256,
+    "CAnimManager::GetNumRefsToAnimBlock": 128,
+    "CAnimManager::Initialise": 256,
+    "CAnimManager::LoadAnimFile": 1024,
+    "CAnimManager::LoadAnimFiles": 256,
+    "CAnimManager::ReadAnimAssociationDefinitions": 256,
+    "CAnimManager::RegisterAnimBlock": 256,
+    "CAnimManager::RemoveAnimBlock": 256,
+    "CAnimManager::RemoveAnimBlockRefWithoutDelete": 128,
+    "CAnimManager::RemoveFromUncompressedCache": 256,
+    "CAnimManager::RemoveLastAnimFile": 256,
+    "CAnimManager::Shutdown": 64,
+    "CAnimManager::UncompressAnimation": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "a549998178677b3f8a1bc2c299d061c862ae395f615a90258f2bce5d2b539060",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -1,0 +1,3 @@
+APROBADO: Gestor de animaciones (lista de 31)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-animmgr31\20261107-201802-926764
