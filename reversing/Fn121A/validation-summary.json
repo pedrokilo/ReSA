@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "pairs": 98304,
+  "differences": 0,
+  "registered_pairs": 98304,
+  "registered_functions": 6,
+  "functions": {
+    "CTaskAllocator::Destructor": 16384,
+    "CEntitySeekPosCalculator::Destructor": 16384,
+    "CPedGroupDefaultTaskAllocatorFollowLimited::Constructor": 16384,
+    "CPedGroupDefaultTaskAllocatorStandStill::Constructor": 16384,
+    "CPedGroupDefaultTaskAllocatorChat::Constructor": 16384,
+    "CPedGroupDefaultTaskAllocatorSitInLeaderCar::Constructor": 16384
+  },
+  "covered_functions": {
+    "CTaskAllocator::Destructor": true,
+    "CEntitySeekPosCalculator::Destructor": true,
+    "CPedGroupDefaultTaskAllocatorFollowLimited::Constructor": true,
+    "CPedGroupDefaultTaskAllocatorStandStill::Constructor": true,
+    "CPedGroupDefaultTaskAllocatorChat::Constructor": true,
+    "CPedGroupDefaultTaskAllocatorSitInLeaderCar::Constructor": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main fcff7a4473 con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: las seis funciones solo escriben la vtable del EXE en [this] (y los constructores devuelven this); cada caso se ejecuta por la entrada del EXE con un objeto sintetico en una arena propia, con imagen previa conocida de [this]; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los cuerpos de la DLL escriben la direccion literal de la vtable del EXE (no la del ASI), asi que los objetos que construye el EXE conservan su vtable. Fuera de los fixtures: objetos reales construidos por el EXE (los inicializadores estaticos de 0x851290 y los funclets SEH), this nulo o crudo (escribiria en memoria no mapeada en ambos lados), y los registros volatiles tras la llamada (ningun llamador los lee).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn121A-20261108-002548-628493",
+  "summary_sha256": "a1a259090bd5043a7c48f8d3e7a220c0edf0dee08b8344fe31882cd43b7bf4f1",
+  "result_txt_sha256": "9baa8a9443b1ab1ed82ac10626c6b25d8f4722f73d917916fe7e6577e9e5acd5",
+  "log_sha256": "ffe97c7400a49622ea600cf13cce0969a92540242cc0adb19ff5bc61d8c521db",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "3182a0e59f80e1396148c38a4857c67ae29dbf588e0490c17f52a31546853ef4",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "2d619ac8ed8bc02a4e5d9b872891564b6edae9900ab526a7e7abd3967a3da4a8",
+      "source/game_sa/Tasks/Allocators/TaskAllocator.cpp": "86f9692d68d6d071b269cd306590d248b47a7e9e221d4c50dd32c561d4c98085",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp": "3ccd20475225184d700eb5b9d8aefaf010b64e06a11dc0753f2b1465cab6743d",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h": "a131c5ca5b3166fd5e5d5fdfa04ae5d979270d072ace8d9df553d1d39a797e5e",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.cpp": "88bb91700448a9cbcc6e15700f4d7dbe9d1b74d698551f4de774005a8015ab16",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h": "4c2ea7192c04f4080764019f74600caacd08a0a3b7ef557599feb345e2d3a99f",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.cpp": "83dd903d90da7368b6f89282d7838e118f7babcd5cdd2bdfdbf1354d1e53bbc2",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.h": "a3d180664a45eaf546c3617640254f884dbc43e3cc1cb2bebfacfa7bd2074eb9",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.cpp": "bb79b5647713bf27929a7a27954aafb0c4c4ebaf2a2bf1442713d3817da0268c",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h": "feece618b60d0689716b8b33029b65b8316845aa5cb753ef6213d9607a762b3c",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.cpp": "3fe01c10ebf298e49321c8c2678634d1b515c1c35dc57dcc0e67744a237f691e",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h": "76dc345ca2c7a14cb151180a49406a6b3f4862a78c1b025ee59397a7cadc2c26",
+      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
+      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn121A/LiveComparison.hpp": "bca3dc0d9dfe595dd7dbb8c476624eae85567a5b05394429fb4306068056f6e9",
+      "reversing/Fn121A/Core.hpp": "3b733b1d9a989a07a5973ff31fea80a2c01550728a9eda6d6e38143afabc0d63",
+      "reversing/Fn121A/Fixtures.hpp": "3643e5e5a43c44952ad535e2f47b7c39b5a25b47aa750ceeccee763d5110bfb5",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

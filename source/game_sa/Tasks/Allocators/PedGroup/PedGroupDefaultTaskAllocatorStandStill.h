@@ -46,10 +46,15 @@ public:
         }
     };
 
+private:
+    CPedGroupDefaultTaskAllocatorStandStill* Constructor(); // 0x5F64B0
+
 public:
     static inline void InjectHooks() {
         RH_ScopedVirtualClass(CPedGroupDefaultTaskAllocatorStandStill, 0x86C76C, 2);
         RH_ScopedCategory("Tasks/Allocators/PedGroup");
+
+        RH_ScopedInstall(Constructor, 0x5F64B0);
 
         RH_ScopedVMTInstall(AllocateDefaultTasks, 0x5F6DA0);
         RH_ScopedVMTInstall(GetType, 0x5F64D0);

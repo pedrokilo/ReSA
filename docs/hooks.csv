@@ -9349,3 +9349,9 @@ CMemoryMgr,Calloc-NumSizeHint,0x0072F460,1,0,1,S
 CDecision,Constructor,0x006040C0,1,0,1,S
 CTaskComplexLeaveCar,ComputeTargetDoor,0x0063BAB0,1,0,1,S
 CWaterLevel,CalculateWavesOnlyForCoordinate2,0x006E8550,1,0,1,S
+CTaskAllocator,Destructor,0x0069BB40,1,0,1,S
+CEntitySeekPosCalculator,Destructor,0x0046A610,1,0,1,S
+CPedGroupDefaultTaskAllocatorFollowLimited,Constructor,0x005F6480,1,0,1,S
+CPedGroupDefaultTaskAllocatorStandStill,Constructor,0x005F64B0,1,0,1,S
+CPedGroupDefaultTaskAllocatorChat,Constructor,0x005F64E0,1,0,1,S
+CPedGroupDefaultTaskAllocatorSitInLeaderCar,Constructor,0x005F6540,1,0,1,S

@@ -20,6 +20,13 @@ END GENERATED HOOK STATUS */
 
 #include "TaskAllocator.h"
 
+namespace {
+// Cuerpo no virtual de ~CTaskAllocator del EXE (thiscall, sin argumentos de pila, `ret`, 7 bytes): solo deja la vtable de CTaskAllocator del EXE (0x870E30). Lo llaman por salto directo los destructores de limpieza (SEH) de los constructores de los asignadores derivados. (Lote 121A, banco Fn121A.)
+void __fastcall TaskAllocatorDestructorBody(CTaskAllocator* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870E30;
+}
+} // namespace
+
 // 0x69D980
 void* CTaskAllocator::operator new(size_t size) {
     return GetTaskAllocatorPool()->New();
@@ -40,6 +47,8 @@ bool CTaskAllocator::IsFinished(CPedGroupIntelligence* intel) {
 void CTaskAllocator::InjectHooks() {
     RH_ScopedVirtualClass(CTaskAllocator, 0x870E30, 6);
     RH_ScopedCategory("Tasks/Allocators/TaskAllocator");
+
+    RH_ScopedNamedGlobalInstall(TaskAllocatorDestructorBody, "Destructor", 0x69BB40);
 
     RH_ScopedInstall(operator new, 0x69D980);
     RH_ScopedInstall(operator delete, 0x69D990);

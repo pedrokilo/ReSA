@@ -1,0 +1,3 @@
+APROBADO: Fn121A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn121a\20261108-002548-628493

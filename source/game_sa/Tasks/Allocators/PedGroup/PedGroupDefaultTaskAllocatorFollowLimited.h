@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include <reversiblehooks/ReversibleHooks.h>
 
 #include "./PedGroupDefaultTaskAllocator.h"
+#include "TaskComplexWanderGang.h"
 #include "TaskComplexFollowLeaderInFormation.h"
 
 class NOTSA_EXPORT_VTABLE CPedGroupDefaultTaskAllocatorFollowLimited final : public CPedGroupDefaultTaskAllocator {
@@ -63,10 +64,15 @@ public:
         }
     };
 
+private:
+    CPedGroupDefaultTaskAllocatorFollowLimited* Constructor(); // 0x5F6480
+
 public:
     static inline void InjectHooks() {
         RH_ScopedVirtualClass(CPedGroupDefaultTaskAllocatorFollowLimited, 0x86C764, 2);
         RH_ScopedCategory("Tasks/Allocators/PedGroup");
+
+        RH_ScopedInstall(Constructor, 0x5F6480);
 
         RH_ScopedVMTInstall(AllocateDefaultTasks, 0x5F6C70);
         RH_ScopedVMTInstall(GetType, 0x5F64A0);

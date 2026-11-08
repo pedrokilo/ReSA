@@ -8,7 +8,7 @@ class CPed;
 
 class NOTSA_EXPORT_VTABLE CEntitySeekPosCalculator {
 public:
-    static void InjectHooks() {}
+    static void InjectHooks();
 
     CEntitySeekPosCalculator() = default;
     CEntitySeekPosCalculator(const CEntitySeekPosCalculator&) = default;
