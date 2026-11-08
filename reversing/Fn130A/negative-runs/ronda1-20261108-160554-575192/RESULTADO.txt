@@ -1,0 +1,3 @@
+FALLO: Fn130A
+Funciones con diferencias: CPointRoute::CopyFrom: 31/2048; CAEBankLoader::ResetRequests: 2048/2048; LoadingScreenLoadingFile: 2048/2048; CompressVectorExe: 2048/2048; CRadar::HasThisBlipBeenRevealed: 86/2048; CIplDefPool::ScalarDeletingDestructor: 636/2048; CTaskSequences::GetAvailableSlot: 229/2048; CTagManager::ResetAlpha: 1634/2048; CBoundingBox::Constructor: 2048/2048; CDummy::ScalarDeletingDestructor: 256/2048; CTaskSimpleAffectSecondaryBehaviour::Destructor: 2048/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn130a\20261108-160554-575192

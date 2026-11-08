@@ -105,6 +105,9 @@ public:
 
     void CalculateBankSlotsInfosOffsets();
 
+    // 0x4DFB60 (lote 130A, banco Fn130A): vacia la cola de solicitudes (banco, slot y sonido a -1, SlotInfo y estado a 0) y los tres contadores.
+    void ResetRequests();
+
     auto GetBankLookups() const noexcept { assert(m_IsInitialised); return std::span{ m_BankLkups, (size_t)(m_BankLkupCnt) }; }
     AEBankLookup& GetBankLookup(uint16 bankId) const;
 

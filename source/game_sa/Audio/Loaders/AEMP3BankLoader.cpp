@@ -47,18 +47,9 @@ void CAEMP3BankLoader::InjectHooks() {
 // 0x4E08F0
 // Reinicia la cola y carga todas las tablas requeridas antes de aceptar solicitudes.
 bool CAEMP3BankLoader::Initialise() {
-    // Como el original (0x4DFB60, inline): de cada solicitud solo se escriben banco, slot y sonido (-1),
+    // Como el original (0x4DFB60): de cada solicitud solo se escriben banco, slot y sonido (-1),
     // SlotInfo y Status; offsets, tamaños, punteros de stream y PakFileNo quedan como estaban.
-    for (auto& req : m_Requests) {
-        req.Bank     = SND_BANK_UNK;
-        req.Slot     = SND_BANK_SLOT_NONE;
-        req.SoundID  = -1;
-        req.SlotInfo = nullptr;
-        req.Status   = eSoundRequestStatus::INACTIVE;
-    }
-    m_NextOneSoundReqIdx = 0;
-    m_RequestCnt         = 0;
-    m_NextRequestIdx     = 0;
+    ResetRequests();
 
     if (!LoadBankSlotFile() || !LoadBankLookupFile() || !LoadSFXPakLookupFile()) {
         return false;

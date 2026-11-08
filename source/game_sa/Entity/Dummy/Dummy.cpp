@@ -28,6 +28,35 @@ void CDummy::InjectHooks() {
     RH_ScopedCategory("Entity/Dummy");
 
     RH_ScopedGlobalInstall(IsDummyPointerValid, 0x532730);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x532770); // lote 130A (banco Fn130A)
+}
+
+namespace {
+// 0x532560 (lote 130A, banco Fn130A): cuerpo del destructor de CDummy del EXE, sin hook propio (`mov dword [ecx],0x8638C0; jmp CEntity::Destructor (0x535E90)`, thiscall sin argumentos). Funcion propia
+// sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x532560` del EXE.
+__declspec(noinline) void __fastcall DummyDestructorBody(CDummy* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x8638C0;
+    self->CEntity::~CEntity();
+}
+} // namespace
+
+uintptr_t Lote130ADummyDestructorBody() { return reinterpret_cast<uintptr_t>(&DummyDestructorBody); } // para el banco Fn130A
+
+// 0x532770 (lote 130A, banco Fn130A): destructor con borrado de CDummy del EXE (ranura 0 de su vtable 0x8638C0; thiscall, un argumento de pila, `ret 4`, 78 bytes). Como el original: destruye con el
+// cuerpo de la clase (0x532560) y, solo si el bit 0 del BYTE de banderas esta puesto, libera `this` en linea (CDummy::operator delete 0x5326F0 expandido, sin asserts): indice = (this - almacenamiento)
+// / 56 (division con signo, truncada hacia cero) sobre CPools::ms_pDummyPool (0xB744A0); estados[indice] |= 0x80 y, si indice < +0xC (con signo), +0xC = indice. Devuelve this.
+CDummy* CDummy::ScalarDeletingDestructor(uint8 flags) {
+    DummyDestructorBody(this, nullptr);
+    if (flags & 1) {
+        auto* const pool    = reinterpret_cast<uint8*>(GetDummyPool());
+        auto* const storage = *reinterpret_cast<uint8**>(pool + 0x0);
+        const int32 idx     = int32(reinterpret_cast<uintptr_t>(this) - reinterpret_cast<uintptr_t>(storage)) / int32(sizeof(CDummy));
+        *(*reinterpret_cast<uint8**>(pool + 0x4) + idx) |= 0x80;
+        if (idx < *reinterpret_cast<int32*>(pool + 0xC)) {
+            *reinterpret_cast<int32*>(pool + 0xC) = idx;
+        }
+    }
+    return this;
 }
 
 // 0x5326E0

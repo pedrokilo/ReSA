@@ -47,10 +47,7 @@ CTaskComplexDrivePointRoute::CTaskComplexDrivePointRoute(CVehicle* vehicle, CPoi
     // las entradas usadas (bucle con signo); `new CPointRoute{route}` copiaba los 8 puntos
     auto* const newRoute = static_cast<CPointRoute*>(CPointRoute::operator new(sizeof(CPointRoute)));
     if (newRoute) {
-        newRoute->m_NumEntries = route.m_NumEntries;
-        for (int32 i = 0; i < (int32)newRoute->m_NumEntries; i++) {
-            newRoute->m_Entries.data()[i] = route.m_Entries.data()[i];
-        }
+        newRoute->CopyFrom(route); // 0x63A040
     }
     m_route = newRoute;
     // CEntity::SafeRegisterRef(m_veh); // NOTE: Missing from OG code

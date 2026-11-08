@@ -24,6 +24,7 @@ void CTaskSimpleAffectSecondaryBehaviour::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x691270);
+    RH_ScopedInstall(Destructor, 0x6912C0); // lote 130A (banco Fn130A)
 
     RH_ScopedVMTInstall(Clone, 0x692910);
     RH_ScopedVMTInstall(GetTaskType, 0x6912A0);
@@ -48,6 +49,17 @@ CTaskSimpleAffectSecondaryBehaviour::CTaskSimpleAffectSecondaryBehaviour(const C
 // 0x6912C0
 CTaskSimpleAffectSecondaryBehaviour::~CTaskSimpleAffectSecondaryBehaviour() {
     delete m_task; // Como el original: la tarea guardada se borra con su destructor virtual
+}
+
+// 0x6912C0 (lote 130A, banco Fn130A): cuerpo del destructor del EXE, thiscall sin argumentos, `ret`, con marco SEH (solo desenrolla; aqui se omite). Como el original: deja la vtable de la clase del EXE
+// (0x870B08), llama a la ranura 0 de la vtable de la tarea guardada (+0x10; destructor con borrado, `push 1`) si no es nula (sin ponerla a cero) y termina con CTask::Destructor (0x61A3A0).
+CTaskSimpleAffectSecondaryBehaviour* CTaskSimpleAffectSecondaryBehaviour::Destructor() {
+    *reinterpret_cast<uint32*>(this) = 0x870B08;
+    if (m_task) {
+        delete m_task;
+    }
+    CTask::Destructor();
+    return this;
 }
 
 // 0x692910

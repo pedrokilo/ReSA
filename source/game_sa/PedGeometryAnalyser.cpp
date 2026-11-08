@@ -847,6 +847,7 @@ void CPointRouteInjectHooksLote109A() {
     RH_ScopedInstall(operator delete, 0x41B7D0);
     RH_ScopedInstall(AddPoint, 0x48E180);   // lote 114A (banco Fn114A)
     RH_ScopedInstall(RemovePoint, 0x5F13A0); // lote 114A (banco Fn114A)
+    RH_ScopedInstall(CopyFrom, 0x63A040);    // lote 130A (banco Fn130A)
 }
 
 // 0x41B7C0
@@ -878,4 +879,26 @@ void CPointRoute::RemovePoint(int32 index) {
         std::memcpy(&m_Entries.data()[i], &m_Entries.data()[i + 1], sizeof(CVector));
     }
     m_NumEntries--;
+}
+
+// 0x63A040: thiscall (`ret 4`), void. Como el original: lee el contador del origen (UNA vez, con signo), lo guarda en this y, si es > 0, copia las entradas una a una: cada entrada son tres
+// dwords que se leen y escriben UNO A UNO en crudo (sin pasar por la x87; el destino puede solapar el origen) y despues de cada entrada se relee el contador del DESTINO (con signo) para decidir si sigue.
+void CPointRoute::CopyFrom(const CPointRoute& src) {
+    const volatile int32* const srcCount = reinterpret_cast<const volatile int32*>(&src.m_NumEntries);
+    volatile int32* const dstCount = reinterpret_cast<volatile int32*>(&m_NumEntries);
+    const int32 count = *srcCount;
+    *dstCount = count;
+    if (count > 0) {
+        const volatile uint32* s = reinterpret_cast<const volatile uint32*>(src.m_Entries.data());
+        volatile uint32* d = reinterpret_cast<volatile uint32*>(m_Entries.data());
+        int32 i = 0;
+        do {
+            d[0] = s[0];
+            d[1] = s[1];
+            d[2] = s[2];
+            ++i;
+            s += 3;
+            d += 3;
+        } while (i < *dstCount);
+    }
 }

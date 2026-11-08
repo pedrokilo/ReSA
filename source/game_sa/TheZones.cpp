@@ -105,6 +105,11 @@ bool CTheZones::GetCurrentZoneLockedOrUnlocked(CVector2D pos) {
     return GetZoneWasVisited(pos);
 }
 
+// Direccion de la funcion propia de la DLL (sin hook) para el banco Fn130A (el EXE la tiene en 0x572130): el cuerpo de CRadar::HasThisBlipBeenRevealed la llama.
+uintptr_t Lote130ATheZonesLockedOrUnlockedAddress() {
+    return reinterpret_cast<uintptr_t>(static_cast<bool (*)(CVector2D)>(&CTheZones::GetCurrentZoneLockedOrUnlocked));
+}
+
 // 0x572180
 // Como el original: compara los 8 bytes de la etiqueta en bruto, indices de 16 bits sin signo. Si el indice
 // propio es menor que el total y no hay coincidencia antes, el bucle del EXE no termina (CreateZone lo llama

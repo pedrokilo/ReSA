@@ -9462,3 +9462,14 @@ CConversations,EnableConversation,0x0043AA40,1,0,1,S
 CShadowCamera,RecreateRaster,0x00705480,1,0,1,S
 CVector,Cross_OG,0x0070F890,1,0,1,S
 CCollisionData,Constructor,0x0040F030,1,0,1,S
+CPointRoute,CopyFrom,0x0063A040,1,0,1,S
+CAEBankLoader,ResetRequests,0x004DFB60,1,0,1,S
+CFileLoader,LoadingScreenLoadingFile,0x005B3680,1,0,1,S
+CompressedVector,CompressVectorExe,0x00536E90,1,0,1,S
+CRadar,HasThisBlipBeenRevealed,0x00583AF0,1,0,1,S
+CIplDefPool,ScalarDeletingDestructor,0x00405A60,1,0,1,S
+CTaskSequences,GetAvailableSlot,0x00632E00,1,0,1,S
+CTagManager,ResetAlpha,0x0049CD50,1,0,1,S
+CBoundingBox,Constructor,0x0040FAF0,1,0,1,S
+CDummy,ScalarDeletingDestructor,0x00532770,1,0,1,S
+CTaskSimpleAffectSecondaryBehaviour,Destructor,0x006912C0,1,0,1,S

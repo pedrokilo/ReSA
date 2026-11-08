@@ -18666,3 +18666,12 @@ __declspec(noinline) double __cdecl ColLightingCurrentCpp(unsigned int day, unsi
     return dayPart + nightPart;
 }
 #pragma float_control(pop)
+
+// Lote 130A (Fn130A).
+#pragma float_control(precise, on, push)
+// CompressVector (0x536E90): `fld dword [src]; fmul dword [128.0f]; call _ftol2 (0x821B40)`; devuelve los 32 bits bajos del entero de 64 bits truncado (el EXE guarda el word bajo). El producto por 128 es exacto
+// (potencia de dos); fuera del rango de int64 (y con NaN o infinito) _ftol2 devuelve 0x8000000000000000.
+__declspec(noinline) int __cdecl CompressVectorWordCpp(float v) {
+    return static_cast<int>(static_cast<long long>(v * 128.0f));
+}
+#pragma float_control(pop)

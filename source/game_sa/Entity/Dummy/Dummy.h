@@ -22,6 +22,8 @@ public:
     static void* operator new(size_t size);
     static void  operator delete(void* obj);
 
+    CDummy* ScalarDeletingDestructor(uint8 flags); // 0x532770 (lote 130A, banco Fn130A): destructor con borrado (ranura 0 de la vtable 0x8638C0), `ret 4`
+
 public:
     static void InjectHooks();
 };

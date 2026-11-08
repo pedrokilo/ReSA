@@ -105,6 +105,7 @@ void CFileLoader::InjectHooks() {
     RH_ScopedInstall(LoadObjectTypes, 0x5B8400);
 
     RH_ScopedGlobalInstall(LinkLods, 0x5B51E0); 
+    RH_ScopedGlobalInstall(LoadingScreenLoadingFile, 0x5B3680); // lote 130A (banco Fn130A)
 }
 
 // copy textures from dictionary to baseDictionary
@@ -2652,9 +2653,10 @@ const char* GetFilename(const char* filepath) {
     return pch ? pch + 1 : filepath;
 }
 
-// 0x5B3680
+// 0x5B3680 (lote 130A, banco Fn130A): cdecl, un argumento, `ret`. Como el original: strrchr de la CRT del EXE (0x821490) sobre la ultima barra invertida (o la ruta entera), sprintf de la CRT
+// (0x821BB5; sprintf_s rellenaria con 0xFE el resto del buffer en Debug) sobre gString y LoadingScreen("Loading the Game", gString, nullptr).
 void LoadingScreenLoadingFile(const char* str) {
     const char* screenName = GetFilename(str);
-    sprintf_s(gString, "Loading %s", screenName);
-    LoadingScreen("Loading the Game", gString);
+    sprintf(gString, "Loading %s", screenName);
+    LoadingScreen("Loading the Game", gString, nullptr);
 }

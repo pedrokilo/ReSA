@@ -33,6 +33,9 @@ public:
     bool      ProcessPed(CPed* ped) override;
 
 private: // Wrappers for hooks
+    // 0x6912C0 (lote 130A, banco Fn130A): cuerpo del destructor del EXE (thiscall sin argumentos); sin expansion en linea para que el banco pueda sustituir sus colaboradores
+    __declspec(noinline) CTaskSimpleAffectSecondaryBehaviour* Destructor();
+
     // 0x691270
     CTaskSimpleAffectSecondaryBehaviour* Constructor(bool add, eSecondaryTask secondaryTaskType, CTask* a4) {
         this->CTaskSimpleAffectSecondaryBehaviour::CTaskSimpleAffectSecondaryBehaviour(add, secondaryTaskType, a4);

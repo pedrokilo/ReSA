@@ -32,6 +32,22 @@ void CAEBankLoader::InjectHooks() {
     RH_ScopedInstall(LoadBankSlotFile, 0x4E0590);
     RH_ScopedInstall(LoadSFXPakLookupFile, 0x4DFC70, {.reversed = true});
     RH_ScopedInstall(CalculateBankSlotsInfosOffsets, 0x4DFBA0);
+    RH_ScopedInstall(ResetRequests, 0x4DFB60); // lote 130A (banco Fn130A)
+}
+
+// 0x4DFB60 (lote 130A, banco Fn130A): thiscall sin argumentos, `ret`. Como el original: de cada una de las 50 solicitudes solo se escriben banco, slot y sonido (-1, tres words), SlotInfo y estado
+// (0, dos dwords); offsets, tamanos, punteros de flujo y PakFileNo quedan como estaban. Despues los contadores m_NextOneSoundReqIdx, m_RequestCnt y m_NextRequestIdx (words) a cero.
+void CAEBankLoader::ResetRequests() {
+    for (auto& req : m_Requests) {
+        req.Bank     = SND_BANK_UNK;
+        req.Slot     = SND_BANK_SLOT_NONE;
+        req.SoundID  = -1;
+        req.SlotInfo = nullptr;
+        req.Status   = eSoundRequestStatus::INACTIVE;
+    }
+    m_NextOneSoundReqIdx = 0;
+    m_RequestCnt         = 0;
+    m_NextRequestIdx     = 0;
 }
 
 // 0x4DFB20

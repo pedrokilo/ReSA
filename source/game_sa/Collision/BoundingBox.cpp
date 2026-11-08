@@ -24,6 +24,20 @@ void CBoundingBox::InjectHooks() {
     RH_ScopedCategory("Collision");
 
     RH_ScopedInstall(IsPointWithin, 0x49C300); // Lote 116A, banco Fn116A
+    RH_ScopedInstall(Constructor, 0x40FAF0);   // Lote 130A, banco Fn130A
+}
+
+// 0x40FAF0 (lote 130A, banco Fn130A): thiscall sin argumentos, `ret`, 96 bytes. Como el original: escribe los seis dwords del cuadro (1.0f, 1.0f, 1.0f, -1.0f, -1.0f, -1.0f; el EXE los pasa por la pila,
+// sin x87) y devuelve this en EAX. No toca nada mas.
+CBoundingBox* CBoundingBox::Constructor() {
+    auto* const raw = reinterpret_cast<uint32*>(this);
+    raw[0] = 0x3F800000u;
+    raw[1] = 0x3F800000u;
+    raw[2] = 0x3F800000u;
+    raw[3] = 0xBF800000u;
+    raw[4] = 0xBF800000u;
+    raw[5] = 0xBF800000u;
+    return this;
 }
 
 // 0x49C300

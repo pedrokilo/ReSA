@@ -2280,3 +2280,7 @@ int __cdecl PartnerSideCpp(const float* right, const float* partnerPos, const fl
 int __cdecl ApproxEqualCpp(float f1, float f2, float epsilon);
 // tColLighting::GetCurrentLighting (0x59F0C0): mezcla dia/noche segun `balance`, devuelta en ST0 sin guardar como float (ver X87Math.cpp).
 double __cdecl ColLightingCurrentCpp(unsigned int day, unsigned int night, float scale, float balance);
+
+// Lote 130A (Fn130A).
+// CompressVector (0x536E90): 32 bits bajos del _ftol2 de v * 128.0f (el EXE escribe el word bajo en el vector comprimido).
+int __cdecl CompressVectorWordCpp(float v);

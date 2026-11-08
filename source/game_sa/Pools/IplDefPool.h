@@ -41,6 +41,7 @@ public:
 
         //RH_ScopedInstall(Constructor, 0x405900);
         RH_ScopedInstall(New, 0x004059B0);
+        RH_ScopedInstall(ScalarDeletingDestructor, 0x00405A60); // lote 130A (banco Fn130A)
     }
 
 public:
@@ -49,5 +50,26 @@ public:
     // 0x4059B0: the original policy (search after the cursor, storage left untouched)
     IplDef* New() {
         return NewLegacy();
+    }
+
+    // 0x405A60 (lote 130A, banco Fn130A): destructor con borrado del pool del EXE (thiscall, un argumento de pila, `ret 4`). Como el original: si el tamano (+8, con signo) es > 0 libera con delete[]
+    // (0x8213AE) el almacenamiento (+0) y despues los estados (+4) SOLO si el byte propietario (+0x10) no es cero, y pone a 0 +0, +4, +8 y +0xC (el byte propietario NO se toca); despues, si el bit 0 del
+    // BYTE de banderas esta puesto, operator delete (0x8214BD) sobre this. Devuelve this.
+    CIplDefPool* ScalarDeletingDestructor(uint8 flags) {
+        auto* const raw = reinterpret_cast<uint8*>(this);
+        if (*reinterpret_cast<int32*>(raw + 0x8) > 0) {
+            if (*(raw + 0x10) != 0) {
+                ::operator delete[](*reinterpret_cast<void**>(raw + 0x0));
+                ::operator delete[](*reinterpret_cast<void**>(raw + 0x4));
+            }
+            *reinterpret_cast<void**>(raw + 0x0) = nullptr;
+            *reinterpret_cast<void**>(raw + 0x4) = nullptr;
+            *reinterpret_cast<int32*>(raw + 0x8) = 0;
+            *reinterpret_cast<int32*>(raw + 0xC) = 0;
+        }
+        if (flags & 1) {
+            ::operator delete(this);
+        }
+        return this;
     }
 };

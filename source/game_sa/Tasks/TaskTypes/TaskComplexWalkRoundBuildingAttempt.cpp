@@ -71,10 +71,7 @@ void AddPointUnlessFull(CPointRoute& route, const CVector& pt) {
 
 // Como el original (0x63A040): copia el contador y solo los puntos usados
 void CopyPointRoute(CPointRoute& dst, const CPointRoute& src) {
-    dst.m_NumEntries = src.m_NumEntries;
-    for (int32 i = 0; i < (int32)dst.m_NumEntries; i++) {
-        dst.m_Entries.data()[i] = src.m_Entries.data()[i];
-    }
+    dst.CopyFrom(src);
 }
 
 // Como el original (0x59C670): matriz * punto con el orden de sumas del EXE

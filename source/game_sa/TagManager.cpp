@@ -43,6 +43,7 @@ void CTagManager::InjectHooks() {
     RH_ScopedInstall(SetAlphaInArea, 0x49CFE0);
     RH_ScopedInstall(GetNearestTag, 0x49D160);
     RH_ScopedInstall(SetupAtomic, 0x49CE10);
+    RH_ScopedInstall(ResetAlpha, 0x49CD50); // lote 130A (banco Fn130A)
     RH_ScopedInstall(RenderTagForPC, 0x49CE40);
     RH_ScopedInstall(Save, 0x5D3D60);
     RH_ScopedInstall(Load, 0x5D3DA0);
@@ -198,10 +199,10 @@ void CTagManager::SetAlpha(CEntity& entity, uint8 alphaToSet) {
     }
 }
 
+// Lote 130A (banco Fn130A): cdecl, un argumento, `ret`. Como el original: lee el puntero RenderWare (+0x18) sin comprobar su tipo (las comprobaciones de tipo y de IsTag eran asserts del port) y, si
+// no es nulo, busca la entrada del tag de la ultima a la primera y pasa su alfa (word) a CVisibilityPlugins::SetUserValue (0x732380). Sin entrada el EXE lee la direccion 4 (se cae).
 void CTagManager::ResetAlpha(const CEntity& entity) {
-    assert(IsTag(entity));
-
-    auto* const atomicOfEntity = entity.GetRpAtomic();
+    auto* const atomicOfEntity = reinterpret_cast<RpAtomic*>(entity.GetRwObject());
     if (!atomicOfEntity) {
         return;
     }

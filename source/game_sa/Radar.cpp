@@ -147,6 +147,7 @@ void CRadar::InjectHooks() {
     RH_ScopedInstall(SetBlipAlwaysDisplayInZoom, 0x583DB0);
     RH_ScopedInstall(DrawYouAreHereSprite, 0x584960);
     RH_ScopedInstall(ChangeBlipColour, 0x583AB0);
+    RH_ScopedInstall(HasThisBlipBeenRevealed, 0x583AF0); // lote 130A (banco Fn130A)
     RH_ScopedOverloadedInstall(ClearActualBlip, "OG", 0x587C10, void (*)(int32));
     RH_ScopedInstall(ClearBlip, 0x587CE0);
     RH_ScopedOverloadedInstall(ClearBlipForEntity, "OG", 0x587C60, void(*)(eBlipType, int32));
@@ -679,11 +680,19 @@ void CRadar::ChangeBlipColour(tBlipHandle blip, eBlipColour color) {
  */
 bool CRadar::HasThisBlipBeenRevealed(int32 blipIndex) {
     // Como el original (0x583B0C cmp dword ptr [0BA372Ch],50h / jae): ZonesRevealed >= 80 (sin signo)
+    // Lote 130A (banco Fn130A): la posicion viaja al colaborador como los dos dwords crudos (el EXE los carga con mov y los empuja: un NaN senalizante no se vuelve silencioso).
     if (!FrontEndMenuManager.m_bDrawingMap
         || !ms_RadarTrace[blipIndex].m_bShortRange
         || uint32(CTheZones::ZonesRevealed) >= 80u
-        || CTheZones::GetCurrentZoneLockedOrUnlocked(ms_RadarTrace[blipIndex].m_vPosition)
     ) {
+        return true;
+    }
+    uint32 posBits[2];
+    std::memcpy(posBits, &ms_RadarTrace[blipIndex].m_vPosition, sizeof(posBits));
+    CVector2D pos;
+    std::memcpy(&pos, posBits, sizeof(posBits));
+    // Como el original (0x583B2D test al,al / jne -> mov al,1): AL se normaliza a 0 o 1
+    if (CTheZones::GetCurrentZoneLockedOrUnlocked(pos)) {
         return true;
     }
     return false;
