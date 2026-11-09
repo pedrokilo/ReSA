@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,495 entradas reversed=1**, de 9,495 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,498 entradas reversed=1**, de 9,498 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9495 |
+| `validated=1` · evidencia aprobada vinculada | 9498 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9495 |
+| Evidencia histórica vinculada; revisión pendiente | 9498 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1895,6 +1895,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCollision | `DistToMathematicalLine` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
 | CCollision | `DistToMathematicalLine2D` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
 | CCollision | `GetBoundingBoxFromTwoSpheres` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `GetNearestDistanceOfPedSphereToCameraNearClip` | [Resumen](../reversing/Fn135A/validation-summary.json) |
 | CCollision | `GetPrincipleAxis` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
 | CCollision | `Init` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
 | CCollision | `IsStoredPolyStillValidVerticalLine` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
@@ -9030,6 +9031,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | IKChain_c | `UpdateOffset` | [Resumen](../reversing/IK20/validation-summary.json) |
 | IKChain_c | `UpdateTarget` | [Resumen](../reversing/IK20/validation-summary.json) |
 | Input | `AttachInputDevices` | [Resumen](../reversing/Fx43/validation-summary.json) |
+| Input | `GetMouseSetUpExe` | [Resumen](../reversing/Fn135A/validation-summary.json) |
 | Input | `HandleKeyDown` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | Input | `HandleKeyUp` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | Input | `KeyboardHandler` | [Resumen](../reversing/Fx43/validation-summary.json) |
@@ -9488,6 +9490,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Win | `IsForegroundApp` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | Win | `MessageLoop` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | Win | `__MainWndProc` | [Resumen](../reversing/Dependencies24A/validation-summary.json) |
+| Win | `getDvdGamePath` | [Resumen](../reversing/Fn135A/validation-summary.json) |
 | cBuoyancy | `AddSplashParticles` | [Resumen](../reversing/Buoy9/validation-summary.json) |
 | cBuoyancy | `CalcBuoyancyForce` | [Resumen](../reversing/Buoy9/validation-summary.json) |
 | cBuoyancy | `Constructor` | [Resumen](../reversing/Fn122A/validation-summary.json) |
@@ -9632,7 +9635,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CColSphere` | 5 | 0 | 5 | 0 |
 | `CColStore` | 23 | 0 | 23 | 0 |
 | `CColTrianglePlane` | 2 | 0 | 2 | 0 |
-| `CCollision` | 61 | 0 | 61 | 0 |
+| `CCollision` | 62 | 0 | 62 | 0 |
 | `CCollisionData` | 9 | 0 | 9 | 0 |
 | `CCollisionEventScanner` | 1 | 0 | 1 | 0 |
 | `CCollisionPlugin` | 2 | 0 | 2 | 0 |
@@ -10353,7 +10356,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `Game` | 12 | 0 | 12 | 0 |
 | `IKChainManager_c` | 17 | 0 | 17 | 0 |
 | `IKChain_c` | 20 | 0 | 20 | 0 |
-| `Input` | 7 | 0 | 7 | 0 |
+| `Input` | 8 | 0 | 8 | 0 |
 | `InteriorGroup_c` | 24 | 0 | 24 | 0 |
 | `InteriorManager_c` | 21 | 0 | 21 | 0 |
 | `Interior_c` | 52 | 0 | 52 | 0 |
@@ -10387,7 +10390,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `VideoPlayer` | 6 | 0 | 6 | 0 |
 | `WaterCreatureManager_c` | 7 | 0 | 7 | 0 |
 | `WaterCreature_c` | 3 | 0 | 3 | 0 |
-| `Win` | 6 | 0 | 6 | 0 |
+| `Win` | 7 | 0 | 7 | 0 |
 | `cBuoyancy` | 10 | 0 | 10 | 0 |
 | `cHandlingDataMgr` | 11 | 0 | 11 | 0 |
 | `cTransmission` | 4 | 0 | 4 | 0 |

@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,426** funciones en 370 clases/módulos (rango 0x401000–0x74FFFF): 2,404 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,423** funciones en 367 clases/módulos (rango 0x401000–0x74FFFF): 2,401 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -208,8 +208,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CCutsceneMgr | 3 | 204 |
 | IKChain_c | 2 | 205 |
 | CVisibilityPlugins | 7 | 205 |
-| CMouseControllerState | 1 | 208 |
-| CGamma | 1 | 210 |
 | CDamageAtomicModelInfo | 5 | 210 |
 | WaterCreature_c | 2 | 211 |
 | CMenuManager | 5 | 214 |
@@ -303,7 +301,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CPlayerPed | 3 | 496 |
 | CTaskSimpleDuck | 8 | 496 |
 | CTaskSimpleIKPointArm | 6 | 516 |
-| CCamera | 1 | 527 |
 | CEventScriptedAttractor | 13 | 527 |
 | CPedAttractorPool | 12 | 530 |
 | CStreaming | 17 | 535 |
@@ -2023,18 +2020,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00733F40 | 63 | A |  | 5 | 5 |  | alta |
 | 0x00733910 | 115 | A |  | 13 | 13 |  | alta |
 
-## CMouseControllerState (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0053F2D0 | 208 | A |  | 2 | 1 |  | baja |
-
-## CGamma (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00747300 | 210 | A |  | 2 | 2 |  | baja |
-
 ## CDamageAtomicModelInfo (5)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -2956,12 +2941,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00634500 | 90 | C |  | 1 | 0 |  | baja |
 | 0x00634440 | 163 | C |  | 5 | 0 |  | baja |
 | 0x00634560 | 176 | B |  | 0 | 0 | sí | baja |
-
-## CCamera (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0050D590 | 527 | A |  | 1 | 1 |  | baja |
 
 ## CEventScriptedAttractor (13)
 
@@ -4470,7 +4449,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0074DA20 | 94 | A |  | 14 | 7 |  | baja |
 | 0x007486A0 | 99 | C |  | 1 | 0 |  | baja |
 | 0x0074E970 | 99 | envoltura |  | 2 | 0 |  | baja |
-| 0x007469A0 | 109 | A |  | 6 | 4 |  | baja |
+| 0x007469A0 | 109 | A |  | 6 | 5 |  | baja |
 | 0x0074EAD0 | 110 | C |  | 1 | 0 |  | baja |
 | 0x0074A290 | 113 | A |  | 8 | 5 |  | baja |
 | 0x0074D6D0 | 117 | A |  | 1 | 0 |  | baja |
