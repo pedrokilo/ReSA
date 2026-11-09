@@ -32,6 +32,18 @@ public:
     constexpr static auto MAX_NUM_CHOICES   = 0x6;  // 6
 
 public:
+    //! Opciones validas de una decision con sus probabilidades acumuladas (el diseno que el EXE arma en la pila de MakeDecision y que lee 0x6007A0)
+    struct Choices {
+        int32 Tasks[MAX_NUM_CHOICES];      //!< +0x00: tarea de cada opcion
+        float Cumulative[MAX_NUM_CHOICES]; //!< +0x18: probabilidades acumuladas normalizadas
+        int32 Count;                       //!< +0x30: numero de opciones validas
+
+        //! 0x6007A0 (thiscall, tres argumentos de pila, `ret 0Ch`): elige una tarea (200 = ninguna) y su indice (-1 = ninguno)
+        void Pick(int32 taskToSeek, int16* taskSlot, int32* index);
+    };
+    VALIDATE_SIZE(Choices, 0x34);
+
+public:
     notsa::mdarray<eTaskType, MAX_NUM_CHOICES>    m_Tasks;
     notsa::mdarray<uint8, MAX_NUM_CHOICES, 4>     m_Probs; // 4 different relationships : see eDecisionRelationship
     notsa::mdarray<bool, MAX_NUM_CHOICES, 2>      m_Bools; // Per choice, indexed by eDecisionTypes.

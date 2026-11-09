@@ -41,6 +41,7 @@ void CTaskComplexPartnerDeal::InjectHooks()
     RH_ScopedNamedGlobalInstall(PartnerDealDestructorBody, "Destructor", 0x684200);
     RH_ScopedInstall(Constructor, 0x684190);
     RH_ScopedVMTInstall(GetTaskType, 0x681DF0);
+    RH_ScopedVMTInstall(Clone, 0x684D10); // lote 132A (banco Fn132A)
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x6823B0);
     RH_ScopedVMTInstall(StreamRequiredAnims, 0x6823C0);
     RH_ScopedVMTInstall(GetPartnerSequence, 0x682440);
@@ -52,6 +53,17 @@ CTaskComplexPartnerDeal::CTaskComplexPartnerDeal(const char* commandName, CPed* 
     m_taskId = TASK_COMPLEX_PARTNER_DEAL;
     // Como el original: copia los 6 bytes de "gangs" (dword + word desde 0x86F92C) sin tocar el resto del búfer
     strcpy(m_animBlockName, "gangs");
+}
+
+// 0x684D10 (lote 132A, banco Fn132A): Clone del EXE (thiscall, sin argumentos, `ret`, marco SEH que solo libera la memoria si el constructor lanza: se omite). Reserva 0x74 bytes con CTask::operator new
+// (0x61A5A0); si devuelve nulo, devuelve nulo. Si no, llama al constructor (0x684190) sobre la memoria con (nombre de comando +0x14, companero +0x38, lider +0x58 sin signo, multiplicador +0x3C y el punto
+// +0x40 por valor) y devuelve lo que el constructor deja en EAX.
+CTask* CTaskComplexPartnerDeal::Clone() const {
+    auto* const memory = static_cast<CTaskComplexPartnerDeal*>(CTask::operator new(sizeof(CTaskComplexPartnerDeal)));
+    if (!memory) {
+        return nullptr;
+    }
+    return memory->Constructor(m_commandName, m_partner, m_leadSpeaker, m_distanceMultiplier, m_point);
 }
 
 CTaskComplexPartnerDeal* CTaskComplexPartnerDeal::Constructor(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, CVector point)

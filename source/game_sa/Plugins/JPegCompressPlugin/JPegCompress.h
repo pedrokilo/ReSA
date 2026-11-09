@@ -32,6 +32,13 @@ void JPegCompressScreenToFile(RwCamera* camera, const char* path);
 void JPegCompressScreenToBuffer(RwCamera* cam, uint8** buffer, size_t& bufferSizeInOut);
 
 /**
+ * Convierte los pixeles first..last-1 de la scanline decodificada (0xBD0170) al formato del raster y los escribe en el cursor global; cdecl, `scanline` no se usa.
+ *
+ * @addr  0x5D0570
+ */
+void JPegScanlineToRaster(RwRaster* raster, int32 scanline, uint32 first, uint32 last);
+
+/**
  * Decodifica una fuente JPEG sobre un RwRaster; ruta heredada de la galería de PS2.
  *
  * @addr  0x5D05F0

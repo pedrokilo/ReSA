@@ -1010,7 +1010,7 @@ void InjectHooksMain() {
         CPtrNodeDoubleLinkPool::InjectHooks();
         CEntryInfoNodePool::InjectHooks();
         CPointRoutePool::InjectHooks();
-        //CPatrolRoutePool::InjectHooks();
+        CPatrolRoutePool::InjectHooks();
         CEventPool::InjectHooks();
         CNodeRoutePool::InjectHooks();
         CTaskAllocatorPool::InjectHooks();

@@ -26,6 +26,7 @@ void CTaskComplexWaitForPed::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x683340);
+    RH_ScopedInstall(CloneBody, 0x683950); // lote 132A (banco Fn132A)
 }
 
 namespace {
@@ -83,3 +84,14 @@ CTaskComplexWaitForPed* CTaskComplexWaitForPed::Constructor(CPed* ped, float rad
 }
 #pragma runtime_checks("", restore)
 #pragma warning(pop)
+
+// 0x683950 (lote 132A, banco Fn132A): cuerpo del Clone del EXE (thiscall, sin argumentos, `ret`, marco SEH que solo libera la memoria si el constructor lanza: se omite). Reserva 0x2C bytes con
+// CTask::operator new (0x61A5A0); si devuelve nulo, devuelve nulo. Si no, llama al constructor (0x683340) sobre la memoria con (ped +0xC, radio +0x10, tiempo +0x14, byte +0x18 sin signo) y devuelve lo
+// que el constructor deja en EAX (el EXE no lo sustituye por la direccion reservada).
+CTask* CTaskComplexWaitForPed::CloneBody() const {
+    auto* const memory = static_cast<CTaskComplexWaitForPed*>(CTask::operator new(sizeof(CTaskComplexWaitForPed)));
+    if (!memory) {
+        return nullptr;
+    }
+    return memory->Constructor(m_ped, m_radius, m_timeInMs, m_bRotateOtherPedsToWaitingPed);
+}

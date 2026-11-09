@@ -18761,3 +18761,24 @@ __declspec(noinline) bool __cdecl AngledAreaCpp(const float* pt, float x1, float
     const double proj2 = double(qy) * double(uy) + double(qx) * double(ux);
     return proj2 >= 0.0 && proj2 <= double(lenSide);
 }
+
+// Lote 132A (Fn132A).
+#pragma float_control(precise, on, push)
+// 0x6FBA20 (CCoronas, factor de atenuacion del reflejo del sol; cdecl, el punto y el radio en la pila, `ret`, resultado en ST0 sin guardar): con la camara (cam = x, y), dx = cx - x y dy = cy - y restados por la
+// x87 (24 bits de mantisa, exponente ampliado, sin guardar), distancia = sqrt(dy*dy + dx*dx) GUARDADA como float (`fstp dword`) y releida; devuelve 1.0f si !(radio + 100.0f > distancia) (con NaN tambien),
+// 0.0f si distancia <= radio (comparacion ordenada: con NaN sigue la formula) y (distancia - radio) * 0.01f sin guardar. Devuelve double para conservar el exponente ampliado de ST0.
+__declspec(noinline) double __cdecl SunReflectionFactorCpp(const float* cam, float x, float y, float radius) {
+    const double dx = double(cam[0]) - double(x);
+    const double dy = double(cam[1]) - double(y);
+    volatile float stored = float(ShadowsSqrtDblCpp(dy * dy + dx * dx));
+    const double distance = stored;
+    const double reach = double(radius) + double(std::bit_cast<float>(0x42C80000u)); // 100.0f (0x858628)
+    if (!(reach > distance)) {
+        return double(std::bit_cast<float>(0x3F800000u)); // 1.0f (0x858624)
+    }
+    if (distance <= double(radius)) {
+        return 0.0; // 0x858B50
+    }
+    return (distance - double(radius)) * double(std::bit_cast<float>(0x3C23D70Au)); // 0.01f (0x858C58)
+}
+#pragma float_control(pop)

@@ -33,6 +33,7 @@ void CDecision::InjectHooks() {
     RH_ScopedInstall(From, 0x6006B0);
     //RH_ScopedInstall(HasResponse, 0x600710, { .reversed = false });
     RH_ScopedInstall(MakeDecision, 0x6040D0);
+    RH_ScopedNamedInstall(Choices::Pick, "Pick", 0x6007A0); // lote 132A (banco Fn132A)
 }
 
 // 0x6040C0
@@ -79,26 +80,33 @@ void CDecision::Set(
     }
 }
 
-// 0x6007A0 (colaborador de 0x6040D0, sin otro llamador): elige una tarea de las `tasks` (6 entradas) con las probabilidades acumuladas `cumul`.
-// Primero busca `taskToSeek` (si no es -1); si no la encuentra, tira rand() del EXE (0x821B1E) * (1/32767, 0x858C7C) y toma la primera entrada con roll <= cumul[i].
-// Deja en `taskSlot` la tarea (200 = ninguna). El EXE tambien escribe -1/indice en un tercer puntero que nadie lee.
-static void PickTaskFromCumulative(const int32* tasks, const float* cumul, int32 taskToSeek, int16& taskSlot) {
-    taskSlot = 200;
+// 0x6007A0 (lote 132A, banco Fn132A; antes un ayudante estatico de MakeDecision): elige una tarea de las `Count` opciones de la estructura (tareas en +0, probabilidades acumuladas en +0x18, numero en +0x30).
+// Deja `*taskSlot` = 200 (ninguna) y `*index` = -1; si `taskToSeek` no es -1 la busca entre las tareas (con signo, solo las `Count` primeras) y, si la encuentra, deja su word bajo y su indice. Si no,
+// tira rand() del EXE (0x821B1E) * (1/32767, 0x858C7C), guardado como float, y toma la primera opcion con roll <= acumulada (FCOMP + TEST AH,41h: falso con NaN), dejando su word bajo y su indice.
+// Los accesos van sobre la memoria cruda de la estructura (como el EXE, que no comprueba `Count`).
+void CDecision::Choices::Pick(int32 taskToSeek, int16* taskSlot, int32* index) {
+    const auto* const raw = reinterpret_cast<const uint8*>(this);
+    *taskSlot = 200;
+    *index    = -1;
     if (taskToSeek != -1) {
-        for (int32 i = 0; i < CDecision::MAX_NUM_CHOICES; i++) {
-            if (taskToSeek == tasks[i]) {
-                taskSlot = static_cast<int16>(tasks[i]);
+        const int32 count = *reinterpret_cast<const int32*>(raw + 0x30);
+        for (int32 i = 0; i < count; i++) {
+            if (taskToSeek == reinterpret_cast<const int32*>(raw)[i]) {
+                *taskSlot = *reinterpret_cast<const int16*>(raw + i * 4);
+                *index    = i;
                 break;
             }
         }
     }
-    if (taskSlot != 200) {
+    if (*taskSlot != 200) {
         return;
     }
     const float roll = static_cast<float>(reinterpret_cast<int(__cdecl*)()>(0x821B1E)()) * std::bit_cast<float>(0x38000100u); // 0x858C7C
-    for (int32 i = 0; i < CDecision::MAX_NUM_CHOICES; i++) {
-        if (roll <= cumul[i]) { // FCOMP + TEST AH,41h: falso con NaN
-            taskSlot = static_cast<int16>(tasks[i]);
+    const int32 count = *reinterpret_cast<const int32*>(raw + 0x30);
+    for (int32 i = 0; i < count; i++) {
+        if (roll <= *reinterpret_cast<const float*>(raw + 0x18 + i * 4)) { // FCOMP + TEST AH,41h: falso con NaN
+            *taskSlot = *reinterpret_cast<const int16*>(raw + i * 4);
+            *index    = i;
             return;
         }
     }
@@ -106,7 +114,7 @@ static void PickTaskFromCumulative(const int32* tasks, const float* cumul, int32
 
 // 0x6040D0
 // Reune las opciones validas (probabilidad del tipo de fuente > 0, tarea != -1 y distinta de las tres a evitar, permitida segun vaya o no en vehiculo),
-// construye sus probabilidades acumuladas normalizadas y elige una (PickTaskFromCumulative). `facialSlot` siempre queda en -1.
+// construye sus probabilidades acumuladas normalizadas y elige una (Choices::Pick). `facialSlot` siempre queda en -1.
 void CDecision::MakeDecision(int32 eventSourceType, bool bIsPedInVehicle, int32 taskIdToAvoid1, int32 taskIdToAvoid2, int32 taskIdToAvoid3, int32 taskIdToSeek, int16& taskSlot, int16& facialSlot) {
     int32 tasks[MAX_NUM_CHOICES];
     uint8 probs[MAX_NUM_CHOICES] = {};
@@ -150,7 +158,14 @@ void CDecision::MakeDecision(int32 eventSourceType, bool bIsPedInVehicle, int32 
         cumul[i] = inverse * cumul[i]; // fmul m32 + fstp m32: un unico redondeo
     }
 
-    PickTaskFromCumulative(tasks, cumul, taskIdToSeek, taskSlot);
+    Choices choices;
+    for (int32 i = 0; i < MAX_NUM_CHOICES; i++) {
+        choices.Tasks[i]      = tasks[i];
+        choices.Cumulative[i] = cumul[i];
+    }
+    choices.Count = count;
+    int32 pickedIndex;
+    choices.Pick(taskIdToSeek, &taskSlot, &pickedIndex);
     facialSlot = -1;
 }
 

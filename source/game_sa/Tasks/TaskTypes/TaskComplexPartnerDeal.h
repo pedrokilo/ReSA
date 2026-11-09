@@ -13,7 +13,7 @@ public:
     ~CTaskComplexPartnerDeal() override = default;
 
     eTaskType GetTaskType() const override { return Type; }
-    CTask* Clone() const override { return new CTaskComplexPartnerDeal(m_commandName, m_partner, m_leadSpeaker, m_distanceMultiplier, m_point); }
+    CTask* Clone() const override; // 0x684D10
     CTask* CreateFirstSubTask(CPed* ped) override;
     void StreamRequiredAnims() override;
     virtual CTaskComplexSequence* GetPartnerSequence();

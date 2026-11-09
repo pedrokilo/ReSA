@@ -118,6 +118,10 @@ constexpr std::array<uint16, MAX_NUM_CORONAS> RandomWindowVals = {
     56555, 60249, 39303, 10234, 39405, 19949, 19045, 32624
 }; // 0x8D4FA8, unused
 
+namespace {
+double SunReflectionDistanceFactor(CVector point, float radius); // 0x6FBA20, definida mas abajo
+}
+
 void CCoronas::InjectHooks() {
     RH_ScopedClass(CCoronas);
     RH_ScopedCategoryGlobal();
@@ -128,6 +132,7 @@ void CCoronas::InjectHooks() {
     RH_ScopedInstall(Update, 0x6FADF0);
     RH_ScopedInstall(Render, 0x6FAEC0);
     RH_ScopedInstall(RenderReflections, 0x6FB630);
+    RH_ScopedNamedGlobalInstall(SunReflectionDistanceFactor, "SunReflectionDistanceFactor", 0x6FBA20); // lote 132A (banco Fn132A)
     RH_ScopedInstall(RenderSunReflection, 0x6FBAA0);
     RH_ScopedOverloadedInstall(RegisterCorona, "type", 0x6FC180, void(*)(uint32, CEntity*, uint8, uint8, uint8, uint8, const CVector&, float, float, RwTexture*, eCoronaFlareType, eCoronaReflType, eCoronaLOSCheck, eCoronaTrail, float, bool, float, bool, float, bool, bool));
     RH_ScopedOverloadedInstall(RegisterCorona, "texture", 0x6FC580, void(*)(uint32, CEntity*, uint8, uint8, uint8, uint8, const CVector&, float, float, eCoronaType, eCoronaFlareType, eCoronaReflType, eCoronaLOSCheck, eCoronaTrail, float, bool, float, bool, float, bool, bool));
@@ -203,19 +208,11 @@ void SetSunReflectionVertex(uint32 index, float x, float y, float z, uint32 colo
     *reinterpret_cast<float*>(vertex + 0x20)  = v;
 }
 
-// 0x6FBA20: factor de atenuacion por cercania a un punto (distancia 2D a la camara)
-float SunReflectionDistanceFactor(CVector point, float radius) {
+// 0x6FBA20 (lote 132A, banco Fn132A): factor de atenuacion por cercania a un punto (distancia 2D a la camara; cdecl, el punto y el radio en la pila, resultado en ST0 sin guardar). La cuenta va
+// en X87Math (SunReflectionFactorCpp: la x87 a 24 bits con exponente ampliado, la distancia guardada como float) y se devuelve double para conservar el exponente ampliado de ST0.
+double SunReflectionDistanceFactor(CVector point, float radius) {
     const auto& camPos = TheCamera.GetPosition();
-    const float dx     = camPos.x - point.x;
-    const float dy     = camPos.y - point.y;
-    const float dist   = std::sqrt(dy * dy + dx * dx);
-    if (!(radius + 100.0f > dist)) {
-        return 1.0f;
-    }
-    if (dist <= radius) { // Como el original: con NaN se usa la formula
-        return 0.0f;
-    }
-    return (dist - radius) * 0.01f;
+    return SunReflectionFactorCpp(&camPos.x, point.x, point.y, radius);
 }
 } // namespace
 
@@ -605,11 +602,11 @@ void CCoronas::RenderSunReflection() {
     }
 
     // Como el original: cinco zonas (la cuarta con radio 350) y factor = (d - radio) * 0.01 hasta radio + 100
-    t = SunReflectionDistanceFactor({  611.0f,   875.0f, 0.0f }, 250.0f) * t;
-    t = SunReflectionDistanceFactor({ -929.0f,  2364.0f, 0.0f }, 250.0f) * t;
-    t = SunReflectionDistanceFactor({ -1034.0f, 2640.0f, 0.0f }, 250.0f) * t;
-    t = SunReflectionDistanceFactor({ 2372.0f, -1854.0f, 0.0f }, 350.0f) * t;
-    t = SunReflectionDistanceFactor({ -1633.0f,  106.0f, 0.0f }, 250.0f) * t;
+    t = static_cast<float>(SunReflectionDistanceFactor({  611.0f,   875.0f, 0.0f }, 250.0f)) * t;
+    t = static_cast<float>(SunReflectionDistanceFactor({ -929.0f,  2364.0f, 0.0f }, 250.0f)) * t;
+    t = static_cast<float>(SunReflectionDistanceFactor({ -1034.0f, 2640.0f, 0.0f }, 250.0f)) * t;
+    t = static_cast<float>(SunReflectionDistanceFactor({ 2372.0f, -1854.0f, 0.0f }, 350.0f)) * t;
+    t = static_cast<float>(SunReflectionDistanceFactor({ -1633.0f,  106.0f, 0.0f }, 250.0f)) * t;
     t *= 0.25f;
 
     const auto& cc = CTimeCycle::m_CurrentColours;

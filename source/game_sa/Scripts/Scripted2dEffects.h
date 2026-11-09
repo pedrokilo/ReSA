@@ -28,6 +28,9 @@ public:
 
     int32 NumPairs{};
     CScriptedEffectPair Pairs[MAX_NUM_EFFECT_PAIRS]{};
+
+    //! 0x6F9EB0 (thiscall, sin argumentos, `ret`): deja los cuatro pares vacios y NumPairs a 0, sin tocar el PartnerTask del segundo efecto ni el relleno
+    void Reset();
 };
 VALIDATE_SIZE(CScriptedEffectPairs, 148);
 

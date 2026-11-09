@@ -34,6 +34,7 @@ void CTaskComplexFollowLeaderInFormation::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x6949A0);
     RH_ScopedInstall(Destructor, 0x694A40);
     RH_ScopedInstall(Offsets::Constructor, 0x694850);
+    RH_ScopedNamedInstall(Offsets::GetFormationOffset, "GetFormationOffset", 0x611F20); // lote 132A (banco Fn132A)
 
     RH_ScopedVMTInstall(Clone, 0x695740);
     RH_ScopedVMTInstall(GetTaskType, 0x694A30);
@@ -55,6 +56,34 @@ CTaskComplexFollowLeaderInFormation::Offsets* CTaskComplexFollowLeaderInFormatio
         { 1.25f, -1.25f}, {0.0f, -2.5f}, {-1.0f, -2.5f}, { 1.0f,  -2.5f},
     }};
     return this;
+}
+
+// 0x611F20 (lote 132A, banco Fn132A): indice 0..7 (sobre la base de la tabla, entradas de 8 bytes) segun el par (dx, dy): dx = -1: dy -1 -> 5, 0 -> 3; dx = 0: dy -1 -> 6, 1 -> 1; dx = 1: dy -1 -> 7,
+// 0 -> 4, 1 -> 2; cualquier otro par (incluido (0, 0), (-1, 1) y valores fuera de -1..1) -> 0. Devuelve base + indice * 8.
+CVector2D* CTaskComplexFollowLeaderInFormation::Offsets::GetFormationOffset(int32 dx, int32 dy) {
+    uint32 index = 0;
+    if (dx == -1) {
+        if (dy == -1) {
+            index = 5;
+        } else if (dy == 0) {
+            index = 3;
+        }
+    } else if (dx == 0) {
+        if (dy == -1) {
+            index = 6;
+        } else if (dy == 1) {
+            index = 1;
+        }
+    } else if (dx == 1) {
+        if (dy == -1) {
+            index = 7;
+        } else if (dy == 0) {
+            index = 4;
+        } else if (dy == 1) {
+            index = 2;
+        }
+    }
+    return reinterpret_cast<CVector2D*>(reinterpret_cast<uint8*>(this) + index * sizeof(CVector2D));
 }
 
 // 0x6949A0

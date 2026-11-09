@@ -22,6 +22,8 @@ public:
         float                                          Scale;
 
         struct Offsets* Constructor(); // 0x694850 (el EXE lo llama una sola vez, desde el inicializador estatico 0x852F10; el catalogo decia CEntitySeekPosCalculatorFixedPos)
+        //! 0x611F20 (thiscall con dos enteros de pila, `ret 8`; sin simbolo en el EXE): direccion de la entrada de `Offsets` para el par de signos (dx, dy) de -1 a 1 (cualquier otro valor da la entrada 0)
+        CVector2D* GetFormationOffset(int32 dx, int32 dy);
     };
     static inline auto& ms_offsets = StaticRef<Offsets>(0xC196E8);
 

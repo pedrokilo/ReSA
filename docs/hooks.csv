@@ -9483,3 +9483,12 @@ CTaskComplexFollowLeaderInFormation,Offsets::Constructor,0x00694850,1,0,1,S
 CPedPlacement,FindZCoorForPed-Ptr,0x00616920,1,0,1,S
 CTaskComplexSmartFleeEntity,CreateSubTask,0x0065C530,1,0,1,S
 CTheScripts,IsPointInAngledArea,0x00477DA0,1,0,1,S
+CPatrolRoutePool,New,0x0041B660,1,0,1,S
+CTaskComplexFollowLeaderInFormation,GetFormationOffset,0x00611F20,1,0,1,S
+CScripted2dEffects,ResetEffectPairs,0x006F9EB0,1,0,1,S
+JPegPlugin,JPegScanlineToRaster,0x005D0570,1,0,1,S
+CCoronas,SunReflectionDistanceFactor,0x006FBA20,1,0,1,S
+CDecision,Pick,0x006007A0,1,0,1,S
+CTaskComplexWaitForPed,CloneBody,0x00683950,1,0,1,S
+CTaskComplexPartnerDeal,Clone,0x00000000,1,0,1,V
+CTaskSimpleTired,Clone,0x00000000,1,0,1,V

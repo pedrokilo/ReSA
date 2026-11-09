@@ -20,10 +20,15 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleTired.h"
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
 void CTaskSimpleTired::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleTired, 0x86DED0, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedVMTInstall(Clone, 0x636180); // lote 132A (banco Fn132A)
     RH_ScopedInstall(Constructor, 0x630F20);
     RH_ScopedInstall(Destructor, 0x630F60);
     RH_ScopedInstall(StartAnim, 0x630F70);
@@ -39,6 +44,26 @@ CTaskSimpleTired::CTaskSimpleTired(uint32 tiredDurationMs) :
     m_AnimHasStarted = false;
     m_NeedsToStartAnim = false;
     m_TiredAnim = nullptr;
+}
+
+// 0x636180 (lote 132A, banco Fn132A): Clone del EXE (thiscall, sin argumentos, `ret`, marco SEH que solo libera la memoria: se omite). Reserva 0x1C bytes con CTask::operator new (0x61A5A0); si devuelve
+// nulo, devuelve nulo. Si no, lee la duracion (+8) de esta tarea ANTES de llamar al constructor base de CTaskSimple (0x61A390: +4 = 0, vtable 0x86D4A8) y construye la tarea con la vtable del EXE
+// (0x86DED0): +8 = duracion, +0xC = 0, +0x10 = 0, bytes +0x14 y +0x15 = 0 y +0x18 = 0. Devuelve la direccion reservada.
+CTask* CTaskSimpleTired::Clone() const {
+    auto* const memory = static_cast<uint8*>(CTask::operator new(sizeof(CTaskSimpleTired)));
+    if (!memory) {
+        return nullptr;
+    }
+    const uint32 duration = m_TiredDurationMs;
+    CTaskSimpleBody::Constructor(memory, nullptr);
+    *reinterpret_cast<uint32*>(memory + 0x8) = duration;
+    *reinterpret_cast<uint32*>(memory + 0x0) = 0x86DED0;
+    *reinterpret_cast<uint32*>(memory + 0xC) = 0;
+    *reinterpret_cast<uint32*>(memory + 0x10) = 0;
+    *(memory + 0x14) = 0;
+    *(memory + 0x15) = 0;
+    *reinterpret_cast<uint32*>(memory + 0x18) = 0;
+    return reinterpret_cast<CTask*>(memory);
 }
 
 // 0x630F70

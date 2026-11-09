@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Scripted2dEffects.h"
+#include "X87Math.h"
 
 void CScripted2dEffects::InjectHooks() {
     RH_ScopedClass(CScripted2dEffects);
@@ -29,7 +30,30 @@ void CScripted2dEffects::InjectHooks() {
     RH_ScopedInstall(GetIndex, 0x6F9F60);
     RH_ScopedInstall(AddScripted2DEffect, 0x6FA7C0);
     RH_ScopedInstall(ReturnScripted2DEffect, 0x6F9E80);
+
+    // lote 132A (banco Fn132A)
+    RH_ScopedNamedGlobalInstall(CScriptedEffectPairs::Reset, "ResetEffectPairs", 0x6F9EB0);
 }
+
+// 0x6F9EB0 (lote 132A, banco Fn132A): en cada uno de los cuatro pares, Effect, WaitingTask y PartnerUseMode de los dos efectos a -1, el PartnerTask del PRIMER efecto a -1 (el del segundo no se
+// toca) y UsePartnerImmediately a 0 (solo ese byte: el relleno no se toca); al final NumPairs = 0. Como el original (el EXE no usa un par inicializado por valor). Contrato de registros: el bucle de
+// `Init` del EXE (0x6FA740) conserva ECX = this entre pares (`add ecx, 0x94` tras la llamada), asi que la funcion sale con ECX = this, EDX = 0 y EAX = -1, como la del EXE (ResidueRegsCpp, sin
+// comprobaciones de ejecucion para que nada toque los registros tras la ultima llamada).
+#pragma runtime_checks("", off)
+void CScriptedEffectPairs::Reset() {
+    for (auto& pair : Pairs) {
+        for (auto& effect : pair.Effects) {
+            effect.Effect         = -1;
+            effect.WaitingTask    = -1;
+            effect.PartnerUseMode = CScriptedEffectPair::eMode::NONE;
+        }
+        pair.Effects[0].PartnerTask = -1;
+        pair.UsePartnerImmediately  = false;
+    }
+    NumPairs = 0;
+    ResidueRegsCpp(static_cast<unsigned int>(reinterpret_cast<uintptr_t>(this)), 0u, 0xFFFFFFFFu);
+}
+#pragma runtime_checks("", restore)
 
 // 0x6FA6F0
 void CScripted2dEffects::Init() {
@@ -42,19 +66,7 @@ void CScripted2dEffects::Init() {
         ms_radii[i]                 = -1.0f;
         rng::fill(ms_userLists[i].m_UserTypes, -1);
         rng::fill(ms_userLists[i].m_UserTypesByPedType, -1);
-        auto& pairs = ms_effectPairs[i];
-        pairs.NumPairs = 0;
-        for (auto& pair : pairs.Pairs) {
-            for (auto& effect : pair.Effects) {
-                effect.Effect = -1;
-                effect.WaitingTask = -1;
-                effect.PartnerUseMode = CScriptedEffectPair::eMode::NONE;
-            }
-            // The original reset (0x6F9EB0) preserves the second PartnerTask
-            // and structure padding. Do not assign a value-initialized pair.
-            pair.Effects[0].PartnerTask = -1;
-            pair.UsePartnerImmediately = false;
-        }
+        ms_effectPairs[i].Reset();
     }
 }
 
@@ -92,17 +104,7 @@ int32 CScripted2dEffects::AddScripted2DEffect(float radius) {
             list.m_UserTypesByPedType[i] = -1;
         }
         list.m_bUseList = false;
-        auto& pairs = ms_effectPairs[slot];
-        for (auto& pair : pairs.Pairs) {
-            for (auto& e : pair.Effects) {
-                e.Effect         = -1;
-                e.WaitingTask    = -1;
-                e.PartnerUseMode = CScriptedEffectPair::eMode::NONE;
-            }
-            pair.Effects[0].PartnerTask = -1;
-            pair.UsePartnerImmediately  = false;
-        }
-        pairs.NumPairs         = 0;
+        ms_effectPairs[slot].Reset();
         ms_useAgainFlags[slot] = false;
         ms_radii[slot]         = radius;
         return slot;

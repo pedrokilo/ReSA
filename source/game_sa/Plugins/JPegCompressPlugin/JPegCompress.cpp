@@ -42,6 +42,7 @@ void JPegPlugin::InjectHooks() {
     RH_ScopedGlobalInstall(JPegCompressScreen, 0x5D0470);
     RH_ScopedGlobalInstall(JPegCompressScreenToFile, 0x5D0820);
     RH_ScopedGlobalInstall(JPegCompressScreenToBuffer, 0x5D0740);
+    RH_ScopedGlobalInstall(JPegScanlineToRaster, 0x5D0570); // lote 132A (banco Fn132A)
     RH_ScopedGlobalInstall(JPegDecompressToRaster, 0x5D05F0);
     RH_ScopedGlobalInstall(JPegDecompressToVramFromBuffer, 0x5D07A0); // Como el original: 0x5D0320 es su callback fill_input_buffer
 }
@@ -180,6 +181,24 @@ void JPegCompressScreenToBuffer(RwCamera* cam, uint8** buffer, size_t& bufferSiz
     bufferSizeInOut = TotalProcessed;
 }
 
+// 0x5D0570 (lote 132A, banco Fn132A; antes un bucle en linea de JPegDecompressToRaster): convierte los pixeles `first`..`last - 1` (comparacion SIN signo) de la scanline decodificada (el buffer del EXE en
+// 0xBD0170, 4 bytes por pixel; se toman R, G y B por ese orden) al formato del raster y los escribe consecutivamente en el cursor global g_JpegDecodingToRaster (0xBD0160), que avanza 4 bytes por pixel.
+// cdecl, cuatro argumentos de pila (raster, el numero de scanline -no se usa-, primer y ultimo pixel). Como el original: el formato es el byte cFormat (+0x23) << 8 (sin la mascara de rwRASTERFORMATMASK),
+// el pixel se pide a RwRGBAToPixel (0x803740) con alfa 255 y se escribe el dword tal cual (el cursor se relee tras la llamada, como el EXE: nada lo toca).
+void JPegScanlineToRaster(RwRaster* raster, int32 /*scanline*/, uint32 first, uint32 last) {
+    auto* const scan = reinterpret_cast<uint8*>(0xBD0170);
+    for (uint32 i = first; i < last; i++) {
+        const uint8 r = scan[i * 4 + 0];
+        const uint8 g = scan[i * 4 + 1];
+        const uint8 b = scan[i * 4 + 2];
+        RwRGBA color{ r, g, b, 255 };
+        const RwInt32  format = static_cast<RwInt32>(static_cast<uint32>(raster->cFormat) << 8);
+        const RwUInt32 pixel  = RwRGBAToPixel(&color, format);
+        *reinterpret_cast<RwUInt32*>(g_JpegDecodingToRaster) = pixel;
+        g_JpegDecodingToRaster++;
+    }
+}
+
 // 0x5D05F0 -- PS2 leftover
 // Decodifica scanlines JPEG y las convierte al formato de píxel del RwRaster bloqueado.
 bool JPegDecompressToRaster(RwRaster* raster, jpeg_source_mgr& src) {
@@ -214,13 +233,7 @@ bool JPegDecompressToRaster(RwRaster* raster, jpeg_source_mgr& src) {
         }
         success = true;
 
-        // 0x5D0570: pixeles 0x40..0x23F de la scanline
-        for (auto i = 0x40; i < 0x240; i++) {
-            RwRGBA color{ scan[i * 4 + 0], scan[i * 4 + 1], scan[i * 4 + 2], 255 };
-            // Como el original: se escribe el dword del pixel tal cual (CRGBA(uint32) reordenaria los bytes)
-            *reinterpret_cast<RwUInt32*>(g_JpegDecodingToRaster) = RwRGBAToPixel(&color, RwRasterGetFormat(raster));
-            g_JpegDecodingToRaster++;
-        }
+        JPegScanlineToRaster(raster, static_cast<int32>(cinfo.output_scanline), 0x40, 0x240);
     }
     RwRasterUnlock(raster);
     g_JpegDecodingToRaster = nullptr;

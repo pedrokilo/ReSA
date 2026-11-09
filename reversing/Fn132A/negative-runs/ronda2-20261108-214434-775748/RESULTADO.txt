@@ -1,0 +1,3 @@
+FALLO: Fn132A
+Funciones con diferencias: CPatrolRoutePool::New: 1012/2048; CTaskComplexFollowLeaderInFormation::GetFormationOffset: 72/2048; CScripted2dEffects::ResetEffectPairs: 2048/2048; JPegPlugin::JPegScanlineToRaster: 1447/2048; CCoronas::SunReflectionDistanceFactor: 565/2048; CDecision::Pick: 1536/2048; CTaskComplexWaitForPed::CloneBody: 892/2048; CTaskComplexPartnerDeal::Clone: 2048/2048; CTaskSimpleTired::Clone: 1764/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn132a\20261108-214434-775748

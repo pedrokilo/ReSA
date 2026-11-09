@@ -20882,6 +20882,476 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Seis funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CClothes::GetClothesModelFromName 0x5A7A20 (decia CPedClothesDesc), CameraSize 0x72FC70 (decia PipelinePlugin), CTaskComplexFollowLeaderInFormation::Offsets::Constructor 0x694850 (decia CEntitySeekPosCalculatorFixedPos; inicializador estatico de ms_offsets), CPedPlacement::FindZCoorForPed 0x616920 (hook sobre la version en el sitio con puntero; la version con par queda como envoltura NOTSA), CTaskComplexSmartFleeEntity::CreateSubTask 0x65C530 y CTheScripts::IsPointInAngledArea 0x477DA0 (decia CTaskSimpleSetCharIgnoreWeaponRangeFlag). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CWorld::ProcessVerticalLine 0x5674E0, CTask::operator new 0x61A5A0, CGeneral::GetRadianAngleBetweenPoints 0x53CBE0 y CTheScripts::DrawDebugAngledSquare 0x486990 (con hook, apagados durante el banco), CGeneral::GetRandomNumber / rand() 0x821B1E (funcion propia de la DLL sin hook); RwEngineGetCurrentVideoMode 0x7F2D20, RwEngineGetVideoModeInfo 0x7F2CF0 y RwCameraSetViewWindow 0x7EE410 (falsos solo en la direccion del EXE: la DLL las llama por esa direccion). Los constructores de CTaskSimpleStandStill (0x62F310) y CTaskComplexSmartFleePoint (0x65BD20) corren reales en ambos lados con su hook del ASI (se observan los bytes del objeto creado, salvo la vtable que solo se anota como escrita) y CVector2D::Normalise 0x44E480 corre real en el EXE frente al codigo en linea de la DLL. Fuera de los fixtures: la rama NOTSA de CameraSize con la camara de la escena (limpia la camara y descarta rectangulos vacios; el banco usa una camara sintetica distinta de Scene.m_pRwCamera), rectangulos que solapan los rasters, camara o raster z nulos, operator new nulo en la tarea de huida con vtables no registradas, angulos con miles de vueltas, y la exactitud de los colaboradores sustituidos.",
       "review_reference": "reversing/Fn133A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPatrolRoutePool",
+        "fn_name": "New",
+        "address": "0x0041B660",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn132A/validation-summary.json",
+        "sha256": "f3316d70f5e8371727ac4eaa598e42ad413d355cbdfb88eae062cc6a7fd08ee5",
+        "passed_path": [
+          "covered_functions",
+          "CPatrolRoutePool::New"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/Pools/PatrolRoutePool.h": "b9d5f35436c6d3c626236f4862ece6e881702bb2cae2f2ee7ceed38550e7f051",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "de704f2084ac59015f8f3c102891380c945164f052d3fc6d7af3b07224de2802",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "dc0d1f7528f6a76b129c431660b38c42cd0f17c5ea2c9e405a6e0161658153ec",
+        "source/game_sa/Scripts/Scripted2dEffects.cpp": "34e2fa52be45c3dfeb3d86dc5aedcc18553cfc18d775f007a101ead66c22c973",
+        "source/game_sa/Scripts/Scripted2dEffects.h": "cce940c16a84e6f5e8eb64ab7ce0931ac479983eedacfacc6db0932b90f4fb00",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "8b1931ae7f909a38f96bcb0112de9f7e277a5690532e3ea2ee0a7bd700689a24",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "a02d932209b00f39f90409600b164d87e587ef3e33f44afb786ddbe95c3d5aff",
+        "source/game_sa/Coronas.cpp": "23372c0c32fc413f23a8d70207a4ea2c938fe6b00966931db218bb45f75764d5",
+        "source/game_sa/X87Math.cpp": "e4ff41dc2e9674707ba7bf072c96a970cb8172bdbaeebce4344a822cbbb0bb17",
+        "source/game_sa/X87Math.h": "436f464ad0098943e10ce2d79443470d1d777d16f50d918acfaf40f4f30f2d2c",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "4c0e3a1c92366172feb8dc3b5aaeda64c9a4c1838609fedc5a3cd7879f2f65ac",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "fcfe489a9bfad53268446ee4831d0eaa3b898fb8de7b997b7729ee7be0a5746f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "211232ed82b30db335ad68e30dad7f6bdcfcd8a48206dc4203519a34b8433392",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "f0d6a4b942c170a81016a705dd95165b18eee26c5a702029f0fbea02c15bdb0b",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp": "fc4ec872530154c7235faacc326765e614517757aefaf1ed9b59dd14548cb3eb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.h": "aca7adaff7e4765d17a6aaae22b0af600451de1ce110eed6e78c9b16352c7cc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn132A/LiveComparison.hpp": "584a7518c8fc720ea7a7f8b3302e42f46c3edc86c69b69eef3c0286c9a9d4548",
+        "reversing/Fn132A/Core.hpp": "bc94d358015a31b47ee56de1d8b3c4e1997b57ae264cf7e3be8603e5f92764e9",
+        "reversing/Fn132A/Fixtures.hpp": "b6aadcf4636d24131d6e119de6ba4e700acd6bffb82548544e32c72cb7c03237",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Nueve funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CPatrolRoutePool::New 0x41B660 (decia CPointRoutePool), CTaskComplexFollowLeaderInFormation::GetFormationOffset 0x611F20 (decia CLoadedCarGroup), CScriptedEffectPairs::Reset 0x6F9EB0 (CScripted2dEffects), JPegScanlineToRaster 0x5D0570, SunReflectionDistanceFactor 0x6FBA20 (CCoronas; la cuenta va en X87Math), CDecision::Choices::Pick 0x6007A0, CTaskComplexWaitForPed (cuerpo de Clone) 0x683950 (decia CTaskComplexWalkAlongsidePed), CTaskComplexPartnerDeal::Clone 0x684D10 (decia CTaskComplexBeInCouple; hook V) y CTaskSimpleTired::Clone 0x636180 (decia CTaskSimpleDead; hook V). Las demas son hook S. Marcos SEH de los tres Clone: solo liberan la memoria si el constructor lanza; la DLL los omite. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con hook, apagados durante el banco): RwRGBAToPixel 0x803740, CTask::operator new 0x61A5A0, los constructores de CTaskComplexWaitForPed 0x683340 y de CTaskComplexPartnerDeal 0x684190 y el constructor de CTaskSimple 0x61A390; rand 0x821B1E (CRT del EXE; falso solo en la direccion del EXE: la DLL lo llama por esa direccion). Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos con sus argumentos, valor devuelto (EAX, etiqueta de la memoria devuelta), ST0 de 80 bits en SunReflectionDistanceFactor (modelo exacto con racionales) o x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos) salvo en CScriptedEffectPairs::Reset, donde se comparan (EAX = -1, ECX = this, EDX = 0: el bucle de Init del EXE usa ECX tras la llamada) y en las funciones cuyo llamador lee EAX (se comparan el valor devuelto o la etiqueta). Fuera de los fixtures: contadores de Choices::Pick que leen mas alla de la estructura de 0x34 bytes con valores de rand fuera de 0..32767, el pool de patrullas con cursor mayor o igual que el tamano (el EXE no termina), objetos reales construidos por el EXE, this nulo o crudo, los registros volatiles tras la llamada y la exactitud de los colaboradores sustituidos. No se reconstruyen 0x53F2D0 (ya tenia hook en el codigo: GetMouseSetUp en WinInput.cpp) ni 0x747300 (getDvdGamePath: llamadas a la IAT de kernel32 y repe cmpsb): ver README.md.",
+      "review_reference": "reversing/Fn132A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexFollowLeaderInFormation",
+        "fn_name": "GetFormationOffset",
+        "address": "0x00611F20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn132A/validation-summary.json",
+        "sha256": "f3316d70f5e8371727ac4eaa598e42ad413d355cbdfb88eae062cc6a7fd08ee5",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexFollowLeaderInFormation::GetFormationOffset"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/Pools/PatrolRoutePool.h": "b9d5f35436c6d3c626236f4862ece6e881702bb2cae2f2ee7ceed38550e7f051",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "de704f2084ac59015f8f3c102891380c945164f052d3fc6d7af3b07224de2802",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "dc0d1f7528f6a76b129c431660b38c42cd0f17c5ea2c9e405a6e0161658153ec",
+        "source/game_sa/Scripts/Scripted2dEffects.cpp": "34e2fa52be45c3dfeb3d86dc5aedcc18553cfc18d775f007a101ead66c22c973",
+        "source/game_sa/Scripts/Scripted2dEffects.h": "cce940c16a84e6f5e8eb64ab7ce0931ac479983eedacfacc6db0932b90f4fb00",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "8b1931ae7f909a38f96bcb0112de9f7e277a5690532e3ea2ee0a7bd700689a24",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "a02d932209b00f39f90409600b164d87e587ef3e33f44afb786ddbe95c3d5aff",
+        "source/game_sa/Coronas.cpp": "23372c0c32fc413f23a8d70207a4ea2c938fe6b00966931db218bb45f75764d5",
+        "source/game_sa/X87Math.cpp": "e4ff41dc2e9674707ba7bf072c96a970cb8172bdbaeebce4344a822cbbb0bb17",
+        "source/game_sa/X87Math.h": "436f464ad0098943e10ce2d79443470d1d777d16f50d918acfaf40f4f30f2d2c",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "4c0e3a1c92366172feb8dc3b5aaeda64c9a4c1838609fedc5a3cd7879f2f65ac",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "fcfe489a9bfad53268446ee4831d0eaa3b898fb8de7b997b7729ee7be0a5746f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "211232ed82b30db335ad68e30dad7f6bdcfcd8a48206dc4203519a34b8433392",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "f0d6a4b942c170a81016a705dd95165b18eee26c5a702029f0fbea02c15bdb0b",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp": "fc4ec872530154c7235faacc326765e614517757aefaf1ed9b59dd14548cb3eb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.h": "aca7adaff7e4765d17a6aaae22b0af600451de1ce110eed6e78c9b16352c7cc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn132A/LiveComparison.hpp": "584a7518c8fc720ea7a7f8b3302e42f46c3edc86c69b69eef3c0286c9a9d4548",
+        "reversing/Fn132A/Core.hpp": "bc94d358015a31b47ee56de1d8b3c4e1997b57ae264cf7e3be8603e5f92764e9",
+        "reversing/Fn132A/Fixtures.hpp": "b6aadcf4636d24131d6e119de6ba4e700acd6bffb82548544e32c72cb7c03237",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Nueve funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CPatrolRoutePool::New 0x41B660 (decia CPointRoutePool), CTaskComplexFollowLeaderInFormation::GetFormationOffset 0x611F20 (decia CLoadedCarGroup), CScriptedEffectPairs::Reset 0x6F9EB0 (CScripted2dEffects), JPegScanlineToRaster 0x5D0570, SunReflectionDistanceFactor 0x6FBA20 (CCoronas; la cuenta va en X87Math), CDecision::Choices::Pick 0x6007A0, CTaskComplexWaitForPed (cuerpo de Clone) 0x683950 (decia CTaskComplexWalkAlongsidePed), CTaskComplexPartnerDeal::Clone 0x684D10 (decia CTaskComplexBeInCouple; hook V) y CTaskSimpleTired::Clone 0x636180 (decia CTaskSimpleDead; hook V). Las demas son hook S. Marcos SEH de los tres Clone: solo liberan la memoria si el constructor lanza; la DLL los omite. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con hook, apagados durante el banco): RwRGBAToPixel 0x803740, CTask::operator new 0x61A5A0, los constructores de CTaskComplexWaitForPed 0x683340 y de CTaskComplexPartnerDeal 0x684190 y el constructor de CTaskSimple 0x61A390; rand 0x821B1E (CRT del EXE; falso solo en la direccion del EXE: la DLL lo llama por esa direccion). Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos con sus argumentos, valor devuelto (EAX, etiqueta de la memoria devuelta), ST0 de 80 bits en SunReflectionDistanceFactor (modelo exacto con racionales) o x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos) salvo en CScriptedEffectPairs::Reset, donde se comparan (EAX = -1, ECX = this, EDX = 0: el bucle de Init del EXE usa ECX tras la llamada) y en las funciones cuyo llamador lee EAX (se comparan el valor devuelto o la etiqueta). Fuera de los fixtures: contadores de Choices::Pick que leen mas alla de la estructura de 0x34 bytes con valores de rand fuera de 0..32767, el pool de patrullas con cursor mayor o igual que el tamano (el EXE no termina), objetos reales construidos por el EXE, this nulo o crudo, los registros volatiles tras la llamada y la exactitud de los colaboradores sustituidos. No se reconstruyen 0x53F2D0 (ya tenia hook en el codigo: GetMouseSetUp en WinInput.cpp) ni 0x747300 (getDvdGamePath: llamadas a la IAT de kernel32 y repe cmpsb): ver README.md.",
+      "review_reference": "reversing/Fn132A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CScripted2dEffects",
+        "fn_name": "ResetEffectPairs",
+        "address": "0x006F9EB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn132A/validation-summary.json",
+        "sha256": "f3316d70f5e8371727ac4eaa598e42ad413d355cbdfb88eae062cc6a7fd08ee5",
+        "passed_path": [
+          "covered_functions",
+          "CScripted2dEffects::ResetEffectPairs"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/Pools/PatrolRoutePool.h": "b9d5f35436c6d3c626236f4862ece6e881702bb2cae2f2ee7ceed38550e7f051",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "de704f2084ac59015f8f3c102891380c945164f052d3fc6d7af3b07224de2802",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "dc0d1f7528f6a76b129c431660b38c42cd0f17c5ea2c9e405a6e0161658153ec",
+        "source/game_sa/Scripts/Scripted2dEffects.cpp": "34e2fa52be45c3dfeb3d86dc5aedcc18553cfc18d775f007a101ead66c22c973",
+        "source/game_sa/Scripts/Scripted2dEffects.h": "cce940c16a84e6f5e8eb64ab7ce0931ac479983eedacfacc6db0932b90f4fb00",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "8b1931ae7f909a38f96bcb0112de9f7e277a5690532e3ea2ee0a7bd700689a24",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "a02d932209b00f39f90409600b164d87e587ef3e33f44afb786ddbe95c3d5aff",
+        "source/game_sa/Coronas.cpp": "23372c0c32fc413f23a8d70207a4ea2c938fe6b00966931db218bb45f75764d5",
+        "source/game_sa/X87Math.cpp": "e4ff41dc2e9674707ba7bf072c96a970cb8172bdbaeebce4344a822cbbb0bb17",
+        "source/game_sa/X87Math.h": "436f464ad0098943e10ce2d79443470d1d777d16f50d918acfaf40f4f30f2d2c",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "4c0e3a1c92366172feb8dc3b5aaeda64c9a4c1838609fedc5a3cd7879f2f65ac",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "fcfe489a9bfad53268446ee4831d0eaa3b898fb8de7b997b7729ee7be0a5746f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "211232ed82b30db335ad68e30dad7f6bdcfcd8a48206dc4203519a34b8433392",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "f0d6a4b942c170a81016a705dd95165b18eee26c5a702029f0fbea02c15bdb0b",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp": "fc4ec872530154c7235faacc326765e614517757aefaf1ed9b59dd14548cb3eb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.h": "aca7adaff7e4765d17a6aaae22b0af600451de1ce110eed6e78c9b16352c7cc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn132A/LiveComparison.hpp": "584a7518c8fc720ea7a7f8b3302e42f46c3edc86c69b69eef3c0286c9a9d4548",
+        "reversing/Fn132A/Core.hpp": "bc94d358015a31b47ee56de1d8b3c4e1997b57ae264cf7e3be8603e5f92764e9",
+        "reversing/Fn132A/Fixtures.hpp": "b6aadcf4636d24131d6e119de6ba4e700acd6bffb82548544e32c72cb7c03237",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Nueve funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CPatrolRoutePool::New 0x41B660 (decia CPointRoutePool), CTaskComplexFollowLeaderInFormation::GetFormationOffset 0x611F20 (decia CLoadedCarGroup), CScriptedEffectPairs::Reset 0x6F9EB0 (CScripted2dEffects), JPegScanlineToRaster 0x5D0570, SunReflectionDistanceFactor 0x6FBA20 (CCoronas; la cuenta va en X87Math), CDecision::Choices::Pick 0x6007A0, CTaskComplexWaitForPed (cuerpo de Clone) 0x683950 (decia CTaskComplexWalkAlongsidePed), CTaskComplexPartnerDeal::Clone 0x684D10 (decia CTaskComplexBeInCouple; hook V) y CTaskSimpleTired::Clone 0x636180 (decia CTaskSimpleDead; hook V). Las demas son hook S. Marcos SEH de los tres Clone: solo liberan la memoria si el constructor lanza; la DLL los omite. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con hook, apagados durante el banco): RwRGBAToPixel 0x803740, CTask::operator new 0x61A5A0, los constructores de CTaskComplexWaitForPed 0x683340 y de CTaskComplexPartnerDeal 0x684190 y el constructor de CTaskSimple 0x61A390; rand 0x821B1E (CRT del EXE; falso solo en la direccion del EXE: la DLL lo llama por esa direccion). Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos con sus argumentos, valor devuelto (EAX, etiqueta de la memoria devuelta), ST0 de 80 bits en SunReflectionDistanceFactor (modelo exacto con racionales) o x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos) salvo en CScriptedEffectPairs::Reset, donde se comparan (EAX = -1, ECX = this, EDX = 0: el bucle de Init del EXE usa ECX tras la llamada) y en las funciones cuyo llamador lee EAX (se comparan el valor devuelto o la etiqueta). Fuera de los fixtures: contadores de Choices::Pick que leen mas alla de la estructura de 0x34 bytes con valores de rand fuera de 0..32767, el pool de patrullas con cursor mayor o igual que el tamano (el EXE no termina), objetos reales construidos por el EXE, this nulo o crudo, los registros volatiles tras la llamada y la exactitud de los colaboradores sustituidos. No se reconstruyen 0x53F2D0 (ya tenia hook en el codigo: GetMouseSetUp en WinInput.cpp) ni 0x747300 (getDvdGamePath: llamadas a la IAT de kernel32 y repe cmpsb): ver README.md.",
+      "review_reference": "reversing/Fn132A/README.md"
+    },
+    {
+      "hook": {
+        "class": "JPegPlugin",
+        "fn_name": "JPegScanlineToRaster",
+        "address": "0x005D0570",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn132A/validation-summary.json",
+        "sha256": "f3316d70f5e8371727ac4eaa598e42ad413d355cbdfb88eae062cc6a7fd08ee5",
+        "passed_path": [
+          "covered_functions",
+          "JPegPlugin::JPegScanlineToRaster"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/Pools/PatrolRoutePool.h": "b9d5f35436c6d3c626236f4862ece6e881702bb2cae2f2ee7ceed38550e7f051",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "de704f2084ac59015f8f3c102891380c945164f052d3fc6d7af3b07224de2802",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "dc0d1f7528f6a76b129c431660b38c42cd0f17c5ea2c9e405a6e0161658153ec",
+        "source/game_sa/Scripts/Scripted2dEffects.cpp": "34e2fa52be45c3dfeb3d86dc5aedcc18553cfc18d775f007a101ead66c22c973",
+        "source/game_sa/Scripts/Scripted2dEffects.h": "cce940c16a84e6f5e8eb64ab7ce0931ac479983eedacfacc6db0932b90f4fb00",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "8b1931ae7f909a38f96bcb0112de9f7e277a5690532e3ea2ee0a7bd700689a24",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "a02d932209b00f39f90409600b164d87e587ef3e33f44afb786ddbe95c3d5aff",
+        "source/game_sa/Coronas.cpp": "23372c0c32fc413f23a8d70207a4ea2c938fe6b00966931db218bb45f75764d5",
+        "source/game_sa/X87Math.cpp": "e4ff41dc2e9674707ba7bf072c96a970cb8172bdbaeebce4344a822cbbb0bb17",
+        "source/game_sa/X87Math.h": "436f464ad0098943e10ce2d79443470d1d777d16f50d918acfaf40f4f30f2d2c",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "4c0e3a1c92366172feb8dc3b5aaeda64c9a4c1838609fedc5a3cd7879f2f65ac",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "fcfe489a9bfad53268446ee4831d0eaa3b898fb8de7b997b7729ee7be0a5746f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "211232ed82b30db335ad68e30dad7f6bdcfcd8a48206dc4203519a34b8433392",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "f0d6a4b942c170a81016a705dd95165b18eee26c5a702029f0fbea02c15bdb0b",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp": "fc4ec872530154c7235faacc326765e614517757aefaf1ed9b59dd14548cb3eb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.h": "aca7adaff7e4765d17a6aaae22b0af600451de1ce110eed6e78c9b16352c7cc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn132A/LiveComparison.hpp": "584a7518c8fc720ea7a7f8b3302e42f46c3edc86c69b69eef3c0286c9a9d4548",
+        "reversing/Fn132A/Core.hpp": "bc94d358015a31b47ee56de1d8b3c4e1997b57ae264cf7e3be8603e5f92764e9",
+        "reversing/Fn132A/Fixtures.hpp": "b6aadcf4636d24131d6e119de6ba4e700acd6bffb82548544e32c72cb7c03237",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Nueve funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CPatrolRoutePool::New 0x41B660 (decia CPointRoutePool), CTaskComplexFollowLeaderInFormation::GetFormationOffset 0x611F20 (decia CLoadedCarGroup), CScriptedEffectPairs::Reset 0x6F9EB0 (CScripted2dEffects), JPegScanlineToRaster 0x5D0570, SunReflectionDistanceFactor 0x6FBA20 (CCoronas; la cuenta va en X87Math), CDecision::Choices::Pick 0x6007A0, CTaskComplexWaitForPed (cuerpo de Clone) 0x683950 (decia CTaskComplexWalkAlongsidePed), CTaskComplexPartnerDeal::Clone 0x684D10 (decia CTaskComplexBeInCouple; hook V) y CTaskSimpleTired::Clone 0x636180 (decia CTaskSimpleDead; hook V). Las demas son hook S. Marcos SEH de los tres Clone: solo liberan la memoria si el constructor lanza; la DLL los omite. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con hook, apagados durante el banco): RwRGBAToPixel 0x803740, CTask::operator new 0x61A5A0, los constructores de CTaskComplexWaitForPed 0x683340 y de CTaskComplexPartnerDeal 0x684190 y el constructor de CTaskSimple 0x61A390; rand 0x821B1E (CRT del EXE; falso solo en la direccion del EXE: la DLL lo llama por esa direccion). Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos con sus argumentos, valor devuelto (EAX, etiqueta de la memoria devuelta), ST0 de 80 bits en SunReflectionDistanceFactor (modelo exacto con racionales) o x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos) salvo en CScriptedEffectPairs::Reset, donde se comparan (EAX = -1, ECX = this, EDX = 0: el bucle de Init del EXE usa ECX tras la llamada) y en las funciones cuyo llamador lee EAX (se comparan el valor devuelto o la etiqueta). Fuera de los fixtures: contadores de Choices::Pick que leen mas alla de la estructura de 0x34 bytes con valores de rand fuera de 0..32767, el pool de patrullas con cursor mayor o igual que el tamano (el EXE no termina), objetos reales construidos por el EXE, this nulo o crudo, los registros volatiles tras la llamada y la exactitud de los colaboradores sustituidos. No se reconstruyen 0x53F2D0 (ya tenia hook en el codigo: GetMouseSetUp en WinInput.cpp) ni 0x747300 (getDvdGamePath: llamadas a la IAT de kernel32 y repe cmpsb): ver README.md.",
+      "review_reference": "reversing/Fn132A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCoronas",
+        "fn_name": "SunReflectionDistanceFactor",
+        "address": "0x006FBA20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn132A/validation-summary.json",
+        "sha256": "f3316d70f5e8371727ac4eaa598e42ad413d355cbdfb88eae062cc6a7fd08ee5",
+        "passed_path": [
+          "covered_functions",
+          "CCoronas::SunReflectionDistanceFactor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/Pools/PatrolRoutePool.h": "b9d5f35436c6d3c626236f4862ece6e881702bb2cae2f2ee7ceed38550e7f051",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "de704f2084ac59015f8f3c102891380c945164f052d3fc6d7af3b07224de2802",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "dc0d1f7528f6a76b129c431660b38c42cd0f17c5ea2c9e405a6e0161658153ec",
+        "source/game_sa/Scripts/Scripted2dEffects.cpp": "34e2fa52be45c3dfeb3d86dc5aedcc18553cfc18d775f007a101ead66c22c973",
+        "source/game_sa/Scripts/Scripted2dEffects.h": "cce940c16a84e6f5e8eb64ab7ce0931ac479983eedacfacc6db0932b90f4fb00",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "8b1931ae7f909a38f96bcb0112de9f7e277a5690532e3ea2ee0a7bd700689a24",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "a02d932209b00f39f90409600b164d87e587ef3e33f44afb786ddbe95c3d5aff",
+        "source/game_sa/Coronas.cpp": "23372c0c32fc413f23a8d70207a4ea2c938fe6b00966931db218bb45f75764d5",
+        "source/game_sa/X87Math.cpp": "e4ff41dc2e9674707ba7bf072c96a970cb8172bdbaeebce4344a822cbbb0bb17",
+        "source/game_sa/X87Math.h": "436f464ad0098943e10ce2d79443470d1d777d16f50d918acfaf40f4f30f2d2c",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "4c0e3a1c92366172feb8dc3b5aaeda64c9a4c1838609fedc5a3cd7879f2f65ac",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "fcfe489a9bfad53268446ee4831d0eaa3b898fb8de7b997b7729ee7be0a5746f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "211232ed82b30db335ad68e30dad7f6bdcfcd8a48206dc4203519a34b8433392",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "f0d6a4b942c170a81016a705dd95165b18eee26c5a702029f0fbea02c15bdb0b",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp": "fc4ec872530154c7235faacc326765e614517757aefaf1ed9b59dd14548cb3eb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.h": "aca7adaff7e4765d17a6aaae22b0af600451de1ce110eed6e78c9b16352c7cc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn132A/LiveComparison.hpp": "584a7518c8fc720ea7a7f8b3302e42f46c3edc86c69b69eef3c0286c9a9d4548",
+        "reversing/Fn132A/Core.hpp": "bc94d358015a31b47ee56de1d8b3c4e1997b57ae264cf7e3be8603e5f92764e9",
+        "reversing/Fn132A/Fixtures.hpp": "b6aadcf4636d24131d6e119de6ba4e700acd6bffb82548544e32c72cb7c03237",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Nueve funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CPatrolRoutePool::New 0x41B660 (decia CPointRoutePool), CTaskComplexFollowLeaderInFormation::GetFormationOffset 0x611F20 (decia CLoadedCarGroup), CScriptedEffectPairs::Reset 0x6F9EB0 (CScripted2dEffects), JPegScanlineToRaster 0x5D0570, SunReflectionDistanceFactor 0x6FBA20 (CCoronas; la cuenta va en X87Math), CDecision::Choices::Pick 0x6007A0, CTaskComplexWaitForPed (cuerpo de Clone) 0x683950 (decia CTaskComplexWalkAlongsidePed), CTaskComplexPartnerDeal::Clone 0x684D10 (decia CTaskComplexBeInCouple; hook V) y CTaskSimpleTired::Clone 0x636180 (decia CTaskSimpleDead; hook V). Las demas son hook S. Marcos SEH de los tres Clone: solo liberan la memoria si el constructor lanza; la DLL los omite. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con hook, apagados durante el banco): RwRGBAToPixel 0x803740, CTask::operator new 0x61A5A0, los constructores de CTaskComplexWaitForPed 0x683340 y de CTaskComplexPartnerDeal 0x684190 y el constructor de CTaskSimple 0x61A390; rand 0x821B1E (CRT del EXE; falso solo en la direccion del EXE: la DLL lo llama por esa direccion). Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos con sus argumentos, valor devuelto (EAX, etiqueta de la memoria devuelta), ST0 de 80 bits en SunReflectionDistanceFactor (modelo exacto con racionales) o x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos) salvo en CScriptedEffectPairs::Reset, donde se comparan (EAX = -1, ECX = this, EDX = 0: el bucle de Init del EXE usa ECX tras la llamada) y en las funciones cuyo llamador lee EAX (se comparan el valor devuelto o la etiqueta). Fuera de los fixtures: contadores de Choices::Pick que leen mas alla de la estructura de 0x34 bytes con valores de rand fuera de 0..32767, el pool de patrullas con cursor mayor o igual que el tamano (el EXE no termina), objetos reales construidos por el EXE, this nulo o crudo, los registros volatiles tras la llamada y la exactitud de los colaboradores sustituidos. No se reconstruyen 0x53F2D0 (ya tenia hook en el codigo: GetMouseSetUp en WinInput.cpp) ni 0x747300 (getDvdGamePath: llamadas a la IAT de kernel32 y repe cmpsb): ver README.md.",
+      "review_reference": "reversing/Fn132A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDecision",
+        "fn_name": "Pick",
+        "address": "0x006007A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn132A/validation-summary.json",
+        "sha256": "f3316d70f5e8371727ac4eaa598e42ad413d355cbdfb88eae062cc6a7fd08ee5",
+        "passed_path": [
+          "covered_functions",
+          "CDecision::Pick"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/Pools/PatrolRoutePool.h": "b9d5f35436c6d3c626236f4862ece6e881702bb2cae2f2ee7ceed38550e7f051",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "de704f2084ac59015f8f3c102891380c945164f052d3fc6d7af3b07224de2802",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "dc0d1f7528f6a76b129c431660b38c42cd0f17c5ea2c9e405a6e0161658153ec",
+        "source/game_sa/Scripts/Scripted2dEffects.cpp": "34e2fa52be45c3dfeb3d86dc5aedcc18553cfc18d775f007a101ead66c22c973",
+        "source/game_sa/Scripts/Scripted2dEffects.h": "cce940c16a84e6f5e8eb64ab7ce0931ac479983eedacfacc6db0932b90f4fb00",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "8b1931ae7f909a38f96bcb0112de9f7e277a5690532e3ea2ee0a7bd700689a24",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "a02d932209b00f39f90409600b164d87e587ef3e33f44afb786ddbe95c3d5aff",
+        "source/game_sa/Coronas.cpp": "23372c0c32fc413f23a8d70207a4ea2c938fe6b00966931db218bb45f75764d5",
+        "source/game_sa/X87Math.cpp": "e4ff41dc2e9674707ba7bf072c96a970cb8172bdbaeebce4344a822cbbb0bb17",
+        "source/game_sa/X87Math.h": "436f464ad0098943e10ce2d79443470d1d777d16f50d918acfaf40f4f30f2d2c",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "4c0e3a1c92366172feb8dc3b5aaeda64c9a4c1838609fedc5a3cd7879f2f65ac",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "fcfe489a9bfad53268446ee4831d0eaa3b898fb8de7b997b7729ee7be0a5746f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "211232ed82b30db335ad68e30dad7f6bdcfcd8a48206dc4203519a34b8433392",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "f0d6a4b942c170a81016a705dd95165b18eee26c5a702029f0fbea02c15bdb0b",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp": "fc4ec872530154c7235faacc326765e614517757aefaf1ed9b59dd14548cb3eb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.h": "aca7adaff7e4765d17a6aaae22b0af600451de1ce110eed6e78c9b16352c7cc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn132A/LiveComparison.hpp": "584a7518c8fc720ea7a7f8b3302e42f46c3edc86c69b69eef3c0286c9a9d4548",
+        "reversing/Fn132A/Core.hpp": "bc94d358015a31b47ee56de1d8b3c4e1997b57ae264cf7e3be8603e5f92764e9",
+        "reversing/Fn132A/Fixtures.hpp": "b6aadcf4636d24131d6e119de6ba4e700acd6bffb82548544e32c72cb7c03237",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Nueve funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CPatrolRoutePool::New 0x41B660 (decia CPointRoutePool), CTaskComplexFollowLeaderInFormation::GetFormationOffset 0x611F20 (decia CLoadedCarGroup), CScriptedEffectPairs::Reset 0x6F9EB0 (CScripted2dEffects), JPegScanlineToRaster 0x5D0570, SunReflectionDistanceFactor 0x6FBA20 (CCoronas; la cuenta va en X87Math), CDecision::Choices::Pick 0x6007A0, CTaskComplexWaitForPed (cuerpo de Clone) 0x683950 (decia CTaskComplexWalkAlongsidePed), CTaskComplexPartnerDeal::Clone 0x684D10 (decia CTaskComplexBeInCouple; hook V) y CTaskSimpleTired::Clone 0x636180 (decia CTaskSimpleDead; hook V). Las demas son hook S. Marcos SEH de los tres Clone: solo liberan la memoria si el constructor lanza; la DLL los omite. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con hook, apagados durante el banco): RwRGBAToPixel 0x803740, CTask::operator new 0x61A5A0, los constructores de CTaskComplexWaitForPed 0x683340 y de CTaskComplexPartnerDeal 0x684190 y el constructor de CTaskSimple 0x61A390; rand 0x821B1E (CRT del EXE; falso solo en la direccion del EXE: la DLL lo llama por esa direccion). Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos con sus argumentos, valor devuelto (EAX, etiqueta de la memoria devuelta), ST0 de 80 bits en SunReflectionDistanceFactor (modelo exacto con racionales) o x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos) salvo en CScriptedEffectPairs::Reset, donde se comparan (EAX = -1, ECX = this, EDX = 0: el bucle de Init del EXE usa ECX tras la llamada) y en las funciones cuyo llamador lee EAX (se comparan el valor devuelto o la etiqueta). Fuera de los fixtures: contadores de Choices::Pick que leen mas alla de la estructura de 0x34 bytes con valores de rand fuera de 0..32767, el pool de patrullas con cursor mayor o igual que el tamano (el EXE no termina), objetos reales construidos por el EXE, this nulo o crudo, los registros volatiles tras la llamada y la exactitud de los colaboradores sustituidos. No se reconstruyen 0x53F2D0 (ya tenia hook en el codigo: GetMouseSetUp en WinInput.cpp) ni 0x747300 (getDvdGamePath: llamadas a la IAT de kernel32 y repe cmpsb): ver README.md.",
+      "review_reference": "reversing/Fn132A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWaitForPed",
+        "fn_name": "CloneBody",
+        "address": "0x00683950",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn132A/validation-summary.json",
+        "sha256": "f3316d70f5e8371727ac4eaa598e42ad413d355cbdfb88eae062cc6a7fd08ee5",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexWaitForPed::CloneBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/Pools/PatrolRoutePool.h": "b9d5f35436c6d3c626236f4862ece6e881702bb2cae2f2ee7ceed38550e7f051",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "de704f2084ac59015f8f3c102891380c945164f052d3fc6d7af3b07224de2802",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "dc0d1f7528f6a76b129c431660b38c42cd0f17c5ea2c9e405a6e0161658153ec",
+        "source/game_sa/Scripts/Scripted2dEffects.cpp": "34e2fa52be45c3dfeb3d86dc5aedcc18553cfc18d775f007a101ead66c22c973",
+        "source/game_sa/Scripts/Scripted2dEffects.h": "cce940c16a84e6f5e8eb64ab7ce0931ac479983eedacfacc6db0932b90f4fb00",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "8b1931ae7f909a38f96bcb0112de9f7e277a5690532e3ea2ee0a7bd700689a24",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "a02d932209b00f39f90409600b164d87e587ef3e33f44afb786ddbe95c3d5aff",
+        "source/game_sa/Coronas.cpp": "23372c0c32fc413f23a8d70207a4ea2c938fe6b00966931db218bb45f75764d5",
+        "source/game_sa/X87Math.cpp": "e4ff41dc2e9674707ba7bf072c96a970cb8172bdbaeebce4344a822cbbb0bb17",
+        "source/game_sa/X87Math.h": "436f464ad0098943e10ce2d79443470d1d777d16f50d918acfaf40f4f30f2d2c",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "4c0e3a1c92366172feb8dc3b5aaeda64c9a4c1838609fedc5a3cd7879f2f65ac",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "fcfe489a9bfad53268446ee4831d0eaa3b898fb8de7b997b7729ee7be0a5746f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "211232ed82b30db335ad68e30dad7f6bdcfcd8a48206dc4203519a34b8433392",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "f0d6a4b942c170a81016a705dd95165b18eee26c5a702029f0fbea02c15bdb0b",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp": "fc4ec872530154c7235faacc326765e614517757aefaf1ed9b59dd14548cb3eb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.h": "aca7adaff7e4765d17a6aaae22b0af600451de1ce110eed6e78c9b16352c7cc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn132A/LiveComparison.hpp": "584a7518c8fc720ea7a7f8b3302e42f46c3edc86c69b69eef3c0286c9a9d4548",
+        "reversing/Fn132A/Core.hpp": "bc94d358015a31b47ee56de1d8b3c4e1997b57ae264cf7e3be8603e5f92764e9",
+        "reversing/Fn132A/Fixtures.hpp": "b6aadcf4636d24131d6e119de6ba4e700acd6bffb82548544e32c72cb7c03237",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Nueve funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CPatrolRoutePool::New 0x41B660 (decia CPointRoutePool), CTaskComplexFollowLeaderInFormation::GetFormationOffset 0x611F20 (decia CLoadedCarGroup), CScriptedEffectPairs::Reset 0x6F9EB0 (CScripted2dEffects), JPegScanlineToRaster 0x5D0570, SunReflectionDistanceFactor 0x6FBA20 (CCoronas; la cuenta va en X87Math), CDecision::Choices::Pick 0x6007A0, CTaskComplexWaitForPed (cuerpo de Clone) 0x683950 (decia CTaskComplexWalkAlongsidePed), CTaskComplexPartnerDeal::Clone 0x684D10 (decia CTaskComplexBeInCouple; hook V) y CTaskSimpleTired::Clone 0x636180 (decia CTaskSimpleDead; hook V). Las demas son hook S. Marcos SEH de los tres Clone: solo liberan la memoria si el constructor lanza; la DLL los omite. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con hook, apagados durante el banco): RwRGBAToPixel 0x803740, CTask::operator new 0x61A5A0, los constructores de CTaskComplexWaitForPed 0x683340 y de CTaskComplexPartnerDeal 0x684190 y el constructor de CTaskSimple 0x61A390; rand 0x821B1E (CRT del EXE; falso solo en la direccion del EXE: la DLL lo llama por esa direccion). Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos con sus argumentos, valor devuelto (EAX, etiqueta de la memoria devuelta), ST0 de 80 bits en SunReflectionDistanceFactor (modelo exacto con racionales) o x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos) salvo en CScriptedEffectPairs::Reset, donde se comparan (EAX = -1, ECX = this, EDX = 0: el bucle de Init del EXE usa ECX tras la llamada) y en las funciones cuyo llamador lee EAX (se comparan el valor devuelto o la etiqueta). Fuera de los fixtures: contadores de Choices::Pick que leen mas alla de la estructura de 0x34 bytes con valores de rand fuera de 0..32767, el pool de patrullas con cursor mayor o igual que el tamano (el EXE no termina), objetos reales construidos por el EXE, this nulo o crudo, los registros volatiles tras la llamada y la exactitud de los colaboradores sustituidos. No se reconstruyen 0x53F2D0 (ya tenia hook en el codigo: GetMouseSetUp en WinInput.cpp) ni 0x747300 (getDvdGamePath: llamadas a la IAT de kernel32 y repe cmpsb): ver README.md.",
+      "review_reference": "reversing/Fn132A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexPartnerDeal",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn132A/validation-summary.json",
+        "sha256": "f3316d70f5e8371727ac4eaa598e42ad413d355cbdfb88eae062cc6a7fd08ee5",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexPartnerDeal::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00684D10"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/Pools/PatrolRoutePool.h": "b9d5f35436c6d3c626236f4862ece6e881702bb2cae2f2ee7ceed38550e7f051",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "de704f2084ac59015f8f3c102891380c945164f052d3fc6d7af3b07224de2802",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "dc0d1f7528f6a76b129c431660b38c42cd0f17c5ea2c9e405a6e0161658153ec",
+        "source/game_sa/Scripts/Scripted2dEffects.cpp": "34e2fa52be45c3dfeb3d86dc5aedcc18553cfc18d775f007a101ead66c22c973",
+        "source/game_sa/Scripts/Scripted2dEffects.h": "cce940c16a84e6f5e8eb64ab7ce0931ac479983eedacfacc6db0932b90f4fb00",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "8b1931ae7f909a38f96bcb0112de9f7e277a5690532e3ea2ee0a7bd700689a24",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "a02d932209b00f39f90409600b164d87e587ef3e33f44afb786ddbe95c3d5aff",
+        "source/game_sa/Coronas.cpp": "23372c0c32fc413f23a8d70207a4ea2c938fe6b00966931db218bb45f75764d5",
+        "source/game_sa/X87Math.cpp": "e4ff41dc2e9674707ba7bf072c96a970cb8172bdbaeebce4344a822cbbb0bb17",
+        "source/game_sa/X87Math.h": "436f464ad0098943e10ce2d79443470d1d777d16f50d918acfaf40f4f30f2d2c",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "4c0e3a1c92366172feb8dc3b5aaeda64c9a4c1838609fedc5a3cd7879f2f65ac",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "fcfe489a9bfad53268446ee4831d0eaa3b898fb8de7b997b7729ee7be0a5746f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "211232ed82b30db335ad68e30dad7f6bdcfcd8a48206dc4203519a34b8433392",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "f0d6a4b942c170a81016a705dd95165b18eee26c5a702029f0fbea02c15bdb0b",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp": "fc4ec872530154c7235faacc326765e614517757aefaf1ed9b59dd14548cb3eb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.h": "aca7adaff7e4765d17a6aaae22b0af600451de1ce110eed6e78c9b16352c7cc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn132A/LiveComparison.hpp": "584a7518c8fc720ea7a7f8b3302e42f46c3edc86c69b69eef3c0286c9a9d4548",
+        "reversing/Fn132A/Core.hpp": "bc94d358015a31b47ee56de1d8b3c4e1997b57ae264cf7e3be8603e5f92764e9",
+        "reversing/Fn132A/Fixtures.hpp": "b6aadcf4636d24131d6e119de6ba4e700acd6bffb82548544e32c72cb7c03237",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Nueve funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CPatrolRoutePool::New 0x41B660 (decia CPointRoutePool), CTaskComplexFollowLeaderInFormation::GetFormationOffset 0x611F20 (decia CLoadedCarGroup), CScriptedEffectPairs::Reset 0x6F9EB0 (CScripted2dEffects), JPegScanlineToRaster 0x5D0570, SunReflectionDistanceFactor 0x6FBA20 (CCoronas; la cuenta va en X87Math), CDecision::Choices::Pick 0x6007A0, CTaskComplexWaitForPed (cuerpo de Clone) 0x683950 (decia CTaskComplexWalkAlongsidePed), CTaskComplexPartnerDeal::Clone 0x684D10 (decia CTaskComplexBeInCouple; hook V) y CTaskSimpleTired::Clone 0x636180 (decia CTaskSimpleDead; hook V). Las demas son hook S. Marcos SEH de los tres Clone: solo liberan la memoria si el constructor lanza; la DLL los omite. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con hook, apagados durante el banco): RwRGBAToPixel 0x803740, CTask::operator new 0x61A5A0, los constructores de CTaskComplexWaitForPed 0x683340 y de CTaskComplexPartnerDeal 0x684190 y el constructor de CTaskSimple 0x61A390; rand 0x821B1E (CRT del EXE; falso solo en la direccion del EXE: la DLL lo llama por esa direccion). Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos con sus argumentos, valor devuelto (EAX, etiqueta de la memoria devuelta), ST0 de 80 bits en SunReflectionDistanceFactor (modelo exacto con racionales) o x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos) salvo en CScriptedEffectPairs::Reset, donde se comparan (EAX = -1, ECX = this, EDX = 0: el bucle de Init del EXE usa ECX tras la llamada) y en las funciones cuyo llamador lee EAX (se comparan el valor devuelto o la etiqueta). Fuera de los fixtures: contadores de Choices::Pick que leen mas alla de la estructura de 0x34 bytes con valores de rand fuera de 0..32767, el pool de patrullas con cursor mayor o igual que el tamano (el EXE no termina), objetos reales construidos por el EXE, this nulo o crudo, los registros volatiles tras la llamada y la exactitud de los colaboradores sustituidos. No se reconstruyen 0x53F2D0 (ya tenia hook en el codigo: GetMouseSetUp en WinInput.cpp) ni 0x747300 (getDvdGamePath: llamadas a la IAT de kernel32 y repe cmpsb): ver README.md.",
+      "review_reference": "reversing/Fn132A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleTired",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn132A/validation-summary.json",
+        "sha256": "f3316d70f5e8371727ac4eaa598e42ad413d355cbdfb88eae062cc6a7fd08ee5",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleTired::Clone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00636180"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/Pools/PatrolRoutePool.h": "b9d5f35436c6d3c626236f4862ece6e881702bb2cae2f2ee7ceed38550e7f051",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "de704f2084ac59015f8f3c102891380c945164f052d3fc6d7af3b07224de2802",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "dc0d1f7528f6a76b129c431660b38c42cd0f17c5ea2c9e405a6e0161658153ec",
+        "source/game_sa/Scripts/Scripted2dEffects.cpp": "34e2fa52be45c3dfeb3d86dc5aedcc18553cfc18d775f007a101ead66c22c973",
+        "source/game_sa/Scripts/Scripted2dEffects.h": "cce940c16a84e6f5e8eb64ab7ce0931ac479983eedacfacc6db0932b90f4fb00",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "8b1931ae7f909a38f96bcb0112de9f7e277a5690532e3ea2ee0a7bd700689a24",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "a02d932209b00f39f90409600b164d87e587ef3e33f44afb786ddbe95c3d5aff",
+        "source/game_sa/Coronas.cpp": "23372c0c32fc413f23a8d70207a4ea2c938fe6b00966931db218bb45f75764d5",
+        "source/game_sa/X87Math.cpp": "e4ff41dc2e9674707ba7bf072c96a970cb8172bdbaeebce4344a822cbbb0bb17",
+        "source/game_sa/X87Math.h": "436f464ad0098943e10ce2d79443470d1d777d16f50d918acfaf40f4f30f2d2c",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp": "4c0e3a1c92366172feb8dc3b5aaeda64c9a4c1838609fedc5a3cd7879f2f65ac",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h": "fcfe489a9bfad53268446ee4831d0eaa3b898fb8de7b997b7729ee7be0a5746f",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "211232ed82b30db335ad68e30dad7f6bdcfcd8a48206dc4203519a34b8433392",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "f0d6a4b942c170a81016a705dd95165b18eee26c5a702029f0fbea02c15bdb0b",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp": "fc4ec872530154c7235faacc326765e614517757aefaf1ed9b59dd14548cb3eb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.h": "aca7adaff7e4765d17a6aaae22b0af600451de1ce110eed6e78c9b16352c7cc7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn132A/LiveComparison.hpp": "584a7518c8fc720ea7a7f8b3302e42f46c3edc86c69b69eef3c0286c9a9d4548",
+        "reversing/Fn132A/Core.hpp": "bc94d358015a31b47ee56de1d8b3c4e1997b57ae264cf7e3be8603e5f92764e9",
+        "reversing/Fn132A/Fixtures.hpp": "b6aadcf4636d24131d6e119de6ba4e700acd6bffb82548544e32c72cb7c03237",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Nueve funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CPatrolRoutePool::New 0x41B660 (decia CPointRoutePool), CTaskComplexFollowLeaderInFormation::GetFormationOffset 0x611F20 (decia CLoadedCarGroup), CScriptedEffectPairs::Reset 0x6F9EB0 (CScripted2dEffects), JPegScanlineToRaster 0x5D0570, SunReflectionDistanceFactor 0x6FBA20 (CCoronas; la cuenta va en X87Math), CDecision::Choices::Pick 0x6007A0, CTaskComplexWaitForPed (cuerpo de Clone) 0x683950 (decia CTaskComplexWalkAlongsidePed), CTaskComplexPartnerDeal::Clone 0x684D10 (decia CTaskComplexBeInCouple; hook V) y CTaskSimpleTired::Clone 0x636180 (decia CTaskSimpleDead; hook V). Las demas son hook S. Marcos SEH de los tres Clone: solo liberan la memoria si el constructor lanza; la DLL los omite. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con hook, apagados durante el banco): RwRGBAToPixel 0x803740, CTask::operator new 0x61A5A0, los constructores de CTaskComplexWaitForPed 0x683340 y de CTaskComplexPartnerDeal 0x684190 y el constructor de CTaskSimple 0x61A390; rand 0x821B1E (CRT del EXE; falso solo en la direccion del EXE: la DLL lo llama por esa direccion). Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos con sus argumentos, valor devuelto (EAX, etiqueta de la memoria devuelta), ST0 de 80 bits en SunReflectionDistanceFactor (modelo exacto con racionales) o x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos) salvo en CScriptedEffectPairs::Reset, donde se comparan (EAX = -1, ECX = this, EDX = 0: el bucle de Init del EXE usa ECX tras la llamada) y en las funciones cuyo llamador lee EAX (se comparan el valor devuelto o la etiqueta). Fuera de los fixtures: contadores de Choices::Pick que leen mas alla de la estructura de 0x34 bytes con valores de rand fuera de 0..32767, el pool de patrullas con cursor mayor o igual que el tamano (el EXE no termina), objetos reales construidos por el EXE, this nulo o crudo, los registros volatiles tras la llamada y la exactitud de los colaboradores sustituidos. No se reconstruyen 0x53F2D0 (ya tenia hook en el codigo: GetMouseSetUp en WinInput.cpp) ni 0x747300 (getDvdGamePath: llamadas a la IAT de kernel32 y repe cmpsb): ver README.md.",
+      "review_reference": "reversing/Fn132A/README.md"
     }
   ]
 }

@@ -2294,3 +2294,7 @@ void __cdecl CameraSizeWindowCpp(bool exclusive, int width, int height, unsigned
 // (sin, -cos) del angulo + pi/2 normalizado a [0, 2pi]; devuelve si pt (dos floats) cae dentro y las cuatro coordenadas que usa el dibujo de depuracion:
 // corners = {x2 + s, y2 - c, x1 + s, y1 - c}. Cada operacion a 24 bits (x87, exponente ampliado); las variables que el EXE guarda como float se guardan como float.
 bool __cdecl AngledAreaCpp(const float* pt, float x1, float y1, float x2, float y2, float width, float angle, float* corners);
+
+// Lote 132A (Fn132A).
+// 0x6FBA20 (CCoronas): factor de atenuacion del reflejo del sol por cercania a un punto (cam = x, y de la camara); devuelve double para conservar ST0 sin redondear (ver X87Math.cpp).
+double __cdecl SunReflectionFactorCpp(const float* cam, float x, float y, float radius);
