@@ -5,3 +5,4 @@ CTaskSimple,Constructor,0x0061A390,1,0,1,S,hooks.csv
 CTaskComplex,Constructor,0x0061A3B0,1,0,1,S,hooks.csv
 CTaskSimpleGoTo,DestructorBody,0x00667A00,1,0,1,S,hooks.csv
 CTimer,GetOSWPerformanceTime,0x005617A0,1,0,1,S,hooks.csv
+CDecision,Pick,0x006007A0,1,0,1,S,hooks.csv

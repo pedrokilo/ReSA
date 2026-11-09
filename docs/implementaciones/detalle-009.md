@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 08/11/2026 (Ciudad de México):** 869 grupos / 9484 funciones reconstruidas; 9484 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 08/11/2026 (Ciudad de México):** 870 grupos / 9493 funciones reconstruidas; 9493 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -72,15 +72,23 @@
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | CDecision::InjectHooks() | [source/game_sa/DecisionMakers/Decision.cpp:25](../../source/game_sa/DecisionMakers/Decision.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CDecision::CDecision() | [source/game_sa/DecisionMakers/Decision.cpp:39](../../source/game_sa/DecisionMakers/Decision.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecision::Constructor 0x006040C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CDecision::SetDefault() | [source/game_sa/DecisionMakers/Decision.cpp:44](../../source/game_sa/DecisionMakers/Decision.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDecision::SetDefault 0x00600530 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CDecision::From(const CDecision& rhs) | [source/game_sa/DecisionMakers/Decision.cpp:53](../../source/game_sa/DecisionMakers/Decision.cpp#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDecision::From 0x006006B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CDecision::Set( notsa::mdarray&lt;int32, MAX_NUM_CHOICES&gt;& tasks, notsa::mdarray&lt;float, MAX_NUM_CHOICES, 4&gt;& probs, notsa::mdarray&lt;int32, MAX_NUM_CHOICES, 2&gt;& bools, notsa::mdarray&lt;float, MAX_NUM_CHOICES, 6&gt;& facialProbs ) | [source/game_sa/DecisionMakers/Decision.cpp:63](../../source/game_sa/DecisionMakers/Decision.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDecision::Set 0x00600570 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CDecision::MakeDecision(int32 eventSourceType, bool bIsPedInVehicle, int32 taskIdToAvoid1, int32 taskIdToAvoid2, int32 taskIdToAvoid3, int32 taskIdToSeek, int16& taskSlot, int16& facialSlot) | [source/game_sa/DecisionMakers/Decision.cpp:110](../../source/game_sa/DecisionMakers/Decision.cpp#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecision::MakeDecision 0x006040D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CDecision::Add(eTaskType taskId, const float* chances, const int32* flags) | [source/game_sa/DecisionMakers/Decision.cpp:159](../../source/game_sa/DecisionMakers/Decision.cpp#L159) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecision::Add 0x00600600 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor() | [source/game_sa/DecisionMakers/Decision.h:44](../../source/game_sa/DecisionMakers/Decision.h#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDecision::Constructor 0x006040C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CDecision::CDecision() | [source/game_sa/DecisionMakers/Decision.cpp:40](../../source/game_sa/DecisionMakers/Decision.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecision::Constructor 0x006040C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CDecision::SetDefault() | [source/game_sa/DecisionMakers/Decision.cpp:45](../../source/game_sa/DecisionMakers/Decision.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDecision::SetDefault 0x00600530 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CDecision::From(const CDecision& rhs) | [source/game_sa/DecisionMakers/Decision.cpp:54](../../source/game_sa/DecisionMakers/Decision.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDecision::From 0x006006B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CDecision::Set( notsa::mdarray&lt;int32, MAX_NUM_CHOICES&gt;& tasks, notsa::mdarray&lt;float, MAX_NUM_CHOICES, 4&gt;& probs, notsa::mdarray&lt;int32, MAX_NUM_CHOICES, 2&gt;& bools, notsa::mdarray&lt;float, MAX_NUM_CHOICES, 6&gt;& facialProbs ) | [source/game_sa/DecisionMakers/Decision.cpp:64](../../source/game_sa/DecisionMakers/Decision.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDecision::Set 0x00600570 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CDecision::MakeDecision(int32 eventSourceType, bool bIsPedInVehicle, int32 taskIdToAvoid1, int32 taskIdToAvoid2, int32 taskIdToAvoid3, int32 taskIdToSeek, int16& taskSlot, int16& facialSlot) | [source/game_sa/DecisionMakers/Decision.cpp:118](../../source/game_sa/DecisionMakers/Decision.cpp#L118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecision::MakeDecision 0x006040D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CDecision::Add(eTaskType taskId, const float* chances, const int32* flags) | [source/game_sa/DecisionMakers/Decision.cpp:174](../../source/game_sa/DecisionMakers/Decision.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecision::Add 0x00600600 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor() | [source/game_sa/DecisionMakers/Decision.h:56](../../source/game_sa/DecisionMakers/Decision.h#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDecision::Constructor 0x006040C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-166"></a>
+
+## CDecision::Choices
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CDecision::Choices::Pick(int32 taskToSeek, int16* taskSlot, int32* index) | [source/game_sa/DecisionMakers/Decision.cpp:87](../../source/game_sa/DecisionMakers/Decision.cpp#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-167"></a>
 
 ## CDecisionMaker
 
@@ -90,14 +98,14 @@
 | CDecisionMaker::CDecisionMaker() | [source/game_sa/DecisionMakers/DecisionMaker.cpp:31](../../source/game_sa/DecisionMakers/DecisionMaker.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDecisionMaker::MakeDecision(int32 eventIndex, int32 eventSourceType, bool bIsPedInVehicle, int32 taskTypeToAvoid1, int32 taskTypeToAvoid2, int32 taskTypeToAvoid3, int32 taskTypeToSeek, int16& taskType, int16& facialTaskType) | [source/game_sa/DecisionMakers/DecisionMaker.cpp:40](../../source/game_sa/DecisionMakers/DecisionMaker.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecisionMaker::MakeDecision 0x00606060 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-167"></a>
+<a id="grupo-168"></a>
 
 ## CDecisionMakerTypes
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | CDecisionMakerTypes::InjectHooks() | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:31](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CDecisionMakerTypes::CDecisionMakerTypes() | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:107](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo ScriptReferenceIndex: source/game_sa/DecisionMakers/DecisionMakerTypes.h:45 (0x00C0AFF4), source/game_sa/PedGroups.h:16 (0x00C098D0), source/game_sa/Scripts/Scripted2dEffects.h:55 (0x00C3A120); Posible dato fijo m_IsActive: source/game_sa/DecisionMakers/DecisionMakerTypes.h:46 (0x00C0B01C) |
+| CDecisionMakerTypes::CDecisionMakerTypes() | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:107](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo ScriptReferenceIndex: source/game_sa/DecisionMakers/DecisionMakerTypes.h:45 (0x00C0AFF4), source/game_sa/PedGroups.h:16 (0x00C098D0), source/game_sa/Scripts/Scripted2dEffects.h:58 (0x00C3A120); Posible dato fijo m_IsActive: source/game_sa/DecisionMakers/DecisionMakerTypes.h:46 (0x00C0B01C) |
 | * CDecisionMakerTypes::Constructor() | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:117](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDecisionMakerTypes::Constructor 0x004650F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDecisionMakerTypes::AddDecisionMaker(CDecisionMaker* decisionMaker, eDecisionTypes decisionMakerType, bool bDecisionMakerForMission) | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:127](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L127) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecisionMakerTypes::AddDecisionMaker 0x00607050 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CDecisionMakerTypes::GetInstance() | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:182](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L182) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecisionMakerTypes::GetInstance 0x004684F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
@@ -109,7 +117,7 @@
 | CDecisionMakerTypes::LoadEventIndices() | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:344](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L344) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecisionMakerTypes::LoadEventIndices 0x00600840 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDecisionMakerTypes::ReadEventIndices(int32* indices, const char* fileName) | [source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:352](../../source/game_sa/DecisionMakers/DecisionMakerTypes.cpp#L352) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDecisionMakerTypes::ReadEventIndices 0x005BB9F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-168"></a>
+<a id="grupo-169"></a>
 
 ## CDecisionMakerTypesFileLoader
 
@@ -124,7 +132,7 @@
 | CDecisionMakerTypesFileLoader::LoadDecisionMaker(const char* filepath, CDecisionMaker* decisionMaker) | [source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp:113](../../source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp#L113) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CDecisionMakerTypesFileLoader::LoadDecisionMaker-ptr 0x006076B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CDecisionMakerTypesFileLoader::UnloadDecisionMaker(eDecisionTypes dm) | [source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp:167](../../source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp#L167) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDecisionMakerTypesFileLoader::UnloadDecisionMaker 0x00607A70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-169"></a>
+<a id="grupo-170"></a>
 
 ## CDefaultAnimCallback
 
@@ -132,7 +140,7 @@
 | --- | --- | --- | --- | --- | --- |
 | DefaultAnimCB(class CAnimBlendAssociation* animAssoc, void* something) | [source/game_sa/Animation/AnimBlendAssociation.h:45](../../source/game_sa/Animation/AnimBlendAssociation.h#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-170"></a>
+<a id="grupo-171"></a>
 
 ## CDirectory
 
@@ -156,7 +164,7 @@
 | HasLoaded() const | [source/game_sa/Directory.h:43](../../source/game_sa/Directory.h#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Clear() | [source/game_sa/Directory.h:44](../../source/game_sa/Directory.h#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-171"></a>
+<a id="grupo-172"></a>
 
 ## CDoor
 
@@ -183,7 +191,7 @@
 | OpenFully() | [source/game_sa/Door.h:105](../../source/game_sa/Door.h#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CloseFully() | [source/game_sa/Door.h:106](../../source/game_sa/Door.h#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-172"></a>
+<a id="grupo-173"></a>
 
 ## CDraw
 
@@ -201,7 +209,7 @@
 | SetAspectRatio(float ratio) | [source/game_sa/Draw.h:38](../../source/game_sa/Draw.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fAspectRatio: source/game_sa/Draw.h:18 (0x00C3EFA4) |
 | IsFading() | [source/game_sa/Draw.h:43](../../source/game_sa/Draw.h#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FadeValue: source/game_sa/Draw.h:23 (0x00C3EFAB) |
 
-<a id="grupo-173"></a>
+<a id="grupo-174"></a>
 
 ## CDummy
 
@@ -214,7 +222,7 @@
 | CDummy::CDummy() | [source/game_sa/Entity/Dummy/Dummy.cpp:74](../../source/game_sa/Entity/Dummy/Dummy.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsDummyPointerValid(CDummy* dummy) | [source/game_sa/Entity/Dummy/Dummy.cpp:81](../../source/game_sa/Entity/Dummy/Dummy.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDummy::IsDummyPointerValid 0x00532730 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-174"></a>
+<a id="grupo-175"></a>
 
 ## CDummyObject
 
@@ -227,7 +235,7 @@
 | CDummyObject::UpdateFromObject(CObject* obj) | [source/game_sa/Entity/Dummy/DummyObject.cpp:84](../../source/game_sa/Entity/Dummy/DummyObject.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDummyObject::UpdateFromObject 0x0059EB70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CDummyObject::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Entity/Dummy/DummyObject.cpp:117](../../source/game_sa/Entity/Dummy/DummyObject.cpp#L117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CDummyObject::ScalarDeletingDestructor 0x0059EB50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-175"></a>
+<a id="grupo-176"></a>
 
 ## CDummyPool
 
@@ -236,7 +244,7 @@
 | InjectHooks() | [source/game_sa/Pools/DummyPool.h:35](../../source/game_sa/Pools/DummyPool.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * New() | [source/game_sa/Pools/DummyPool.h:49](../../source/game_sa/Pools/DummyPool.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CDummyPool::New 0x00532630 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-176"></a>
+<a id="grupo-177"></a>
 
 ## CEmergencyPed
 
@@ -248,7 +256,7 @@
 | CEmergencyPed::ProcessControl() | [source/game_sa/Entity/Ped/EmergencyPed.cpp:20](../../source/game_sa/Entity/Ped/EmergencyPed.cpp#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CEmergencyPed::InRange(CPed* ped) | [source/game_sa/Entity/Ped/EmergencyPed.cpp:36](../../source/game_sa/Entity/Ped/EmergencyPed.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-177"></a>
+<a id="grupo-178"></a>
 
 ## CEntity
 
@@ -428,7 +436,7 @@
 | CEntity::IsInArea(int32 area) | [source/game_sa/Entity/Entity.h:442](../../source/game_sa/Entity/Entity.h#L442) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CEntity::GetRwMatrix() | [source/game_sa/Entity/Entity.h:446](../../source/game_sa/Entity/Entity.h#L446) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-178"></a>
+<a id="grupo-179"></a>
 
 ## CEntityScanner
 
@@ -445,7 +453,7 @@
 | * Destructor() | [source/game_sa/EntityScanner.h:63](../../source/game_sa/EntityScanner.h#L63) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CEntityScanner::Destructor 0x00603480 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetEntities() const | [source/game_sa/EntityScanner.h:71](../../source/game_sa/EntityScanner.h#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-179"></a>
+<a id="grupo-180"></a>
 
 ## CEntitySeekPosCalculator
 
@@ -453,13 +461,3 @@
 | --- | --- | --- | --- | --- | --- |
 | EntitySeekPosCalculatorDestructorBody(CEntitySeekPosCalculator* self, void* /*edx*/) | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp:25](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEntitySeekPosCalculator::Destructor 0x0046A610 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CEntitySeekPosCalculator::InjectHooks() | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp:30](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-180"></a>
-
-## CEntitySeekPosCalculatorFixedPos
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CEntitySeekPosCalculatorFixedPos::InjectHooks() | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp:24](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEntitySeekPosCalculatorFixedPos::CEntitySeekPosCalculatorFixedPos(const CVector& pos) | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp:31](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEntitySeekPosCalculatorFixedPos::ComputeEntitySeekPos(const CPed& seeker, const CEntity& target, CVector& outPos) | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp:37](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEntitySeekPosCalculatorFixedPos::ComputeEntitySeekPos 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,437** funciones en 381 clases/módulos (rango 0x401000–0x74FFFF): 2,415 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,428** funciones en 372 clases/módulos (rango 0x401000–0x74FFFF): 2,406 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,15 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CPointRoutePool | 1 | 106 |
-| JPegPlugin | 1 | 108 |
-| CTaskComplexWalkAlongsidePed | 1 | 110 |
-| CScripted2dEffects | 1 | 116 |
-| CCoronas | 1 | 117 |
-| CTaskSimpleDead | 1 | 127 |
-| CTaskComplexBeInCouple | 1 | 137 |
-| CLoadedCarGroup | 1 | 152 |
-| CDecision | 1 | 157 |
 | CMouseControllerState | 1 | 208 |
 | CGamma | 1 | 210 |
 | CCamera | 1 | 527 |
@@ -391,60 +382,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxInfoManager_c | 116 | 6591 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CPointRoutePool (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0041B660 | 106 | C |  | 1 | 0 |  | baja |
-
-## JPegPlugin (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005D0570 | 108 | A |  | 1 | 1 |  | alta |
-
-## CTaskComplexWalkAlongsidePed (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00683950 | 110 | D |  | 0 | 0 |  | baja |
-
-## CScripted2dEffects (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006F9EB0 | 116 | A |  | 3 | 2 |  | alta |
-
-## CCoronas (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006FBA20 | 117 | A |  | 5 | 5 |  | alta |
-
-## CTaskSimpleDead (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00636180 | 127 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexBeInCouple (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00684D10 | 137 | B |  | 0 | 0 | sí | baja |
-
-## CLoadedCarGroup (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00611F20 | 152 | C |  | 1 | 0 |  | baja |
-
-## CDecision (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006007A0 | 157 | A |  | 1 | 1 |  | baja |
 
 ## CMouseControllerState (1)
 

@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 08/11/2026 (Ciudad de México):** 869 grupos / 9484 funciones reconstruidas; 9484 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 08/11/2026 (Ciudad de México):** 870 grupos / 9493 funciones reconstruidas; 9493 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,6 +8,109 @@
 
 <a id="grupo-401"></a>
 
+## CPedIK
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CPedIK::InjectHooks() | [source/game_sa/PedIK.cpp:59](../../source/game_sa/PedIK.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIK::RotateTorso(AnimBlendFrameData* bone, LimbOrientation& orientation, bool changeRoll) | [source/game_sa/PedIK.cpp:75](../../source/game_sa/PedIK.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIK::RotateTorso 0x005FDDB0 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIK::RotateTorsoForArm(const CVector& direction) | [source/game_sa/PedIK.cpp:84](../../source/game_sa/PedIK.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIK::RotateTorsoForArm 0x005FDF90 | 0 / 0 | Posible dato fijo bRotateWithNeck: source/game_sa/PedIK.cpp:29 (0x008D2354); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIK::PointGunInDirection(float zAngle, float distance, bool flag, float normalize) | [source/game_sa/PedIK.cpp:117](../../source/game_sa/PedIK.cpp#L117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIK::PointGunInDirection 0x005FDC00 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0); Posible dato fijo ms_torsoInfo: source/game_sa/PedIK.h:59 (0x008D22E4) |
+| CPedIK::PointGunAtPosition(const CVector& aimAt, float normalize) | [source/game_sa/PedIK.cpp:167](../../source/game_sa/PedIK.cpp#L167) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIK::PointGunAtPosition 0x005FDE20 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIK::PitchForSlope() | [source/game_sa/PedIK.cpp:184](../../source/game_sa/PedIK.cpp#L184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIK::PitchForSlope 0x005FE0E0 | 0 / 0 | Posible dato fijo bPitchForSlopeAbsAsin: source/game_sa/PedIK.cpp:31 (0x00C0AFC0); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| * CPedIK::GetWorldMatrix(RwFrame* frame, RwMatrixTag* transformMat) | [source/game_sa/PedIK.cpp:332](../../source/game_sa/PedIK.cpp#L332) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIK::GetWorldMatrix 0x005FD8F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIK::MoveLimb(LimbOrientation& limb, float targetYaw, float targetPitch, LimbMovementInfo& moveInfo) | [source/game_sa/PedIK.cpp:341](../../source/game_sa/PedIK.cpp#L341) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIK::MoveLimb-non-normalized 0x005FDA60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIK::MoveLimb(LimbOrientation& limb, float targetYaw, float targetPitch, LimbMovementInfo& moveInfo, float normalize) | [source/game_sa/PedIK.cpp:387](../../source/game_sa/PedIK.cpp#L387) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIK::MoveLimb-normalized 0x005FDB60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor(CPed* ped) | [source/game_sa/PedIK.h:64](../../source/game_sa/PedIK.h#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIK::Constructor 0x005FD8C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIK(CPed* ped) | [source/game_sa/PedIK.h:71](../../source/game_sa/PedIK.h#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-402"></a>
+
+## CPedIntelligence
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CPedIntelligence::InjectHooks() | [source/game_sa/PedIntelligence.cpp:61](../../source/game_sa/PedIntelligence.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::CPedIntelligence(CPed* ped) | [source/game_sa/PedIntelligence.cpp:129](../../source/game_sa/PedIntelligence.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::Constructor 0x00607140 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::~CPedIntelligence() | [source/game_sa/PedIntelligence.cpp:160](../../source/game_sa/PedIntelligence.cpp#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::Destructor 0x00607300 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::SetPedDecisionMakerType(int32 newType) | [source/game_sa/PedIntelligence.cpp:165](../../source/game_sa/PedIntelligence.cpp#L165) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::SetPedDecisionMakerType 0x00600B50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::SetPedDecisionMakerTypeInGroup(int32 newType) | [source/game_sa/PedIntelligence.cpp:187](../../source/game_sa/PedIntelligence.cpp#L187) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::SetPedDecisionMakerTypeInGroup 0x00600BB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::RestorePedDecisionMakerType() | [source/game_sa/PedIntelligence.cpp:192](../../source/game_sa/PedIntelligence.cpp#L192) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::RestorePedDecisionMakerType 0x00600BC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::SetHearingRange(float range) | [source/game_sa/PedIntelligence.cpp:199](../../source/game_sa/PedIntelligence.cpp#L199) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::SetHearingRange 0x00600BE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::SetSeeingRange(float range) | [source/game_sa/PedIntelligence.cpp:204](../../source/game_sa/PedIntelligence.cpp#L204) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::SetSeeingRange 0x00600BF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::IsInHearingRange(const CVector& posn) | [source/game_sa/PedIntelligence.cpp:210](../../source/game_sa/PedIntelligence.cpp#L210) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedIntelligence::IsInHearingRange 0x00600C00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::IsInSeeingRange(const CVector& posn) const | [source/game_sa/PedIntelligence.cpp:217](../../source/game_sa/PedIntelligence.cpp#L217) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::IsInSeeingRange 0x00600C60 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::FindRespectedFriendInInformRange() | [source/game_sa/PedIntelligence.cpp:230](../../source/game_sa/PedIntelligence.cpp#L230) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::FindRespectedFriendInInformRange 0x00600CF0 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::IsRespondingToEvent(eEventType eventType) | [source/game_sa/PedIntelligence.cpp:248](../../source/game_sa/PedIntelligence.cpp#L248) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::IsRespondingToEvent 0x00600DB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::AddTaskPhysResponse(CTask* task, int32 unUsed) | [source/game_sa/PedIntelligence.cpp:254](../../source/game_sa/PedIntelligence.cpp#L254) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::AddTaskPhysResponse 0x00600DC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::AddTaskEventResponseTemp(CTask* task, int32 unUsed) | [source/game_sa/PedIntelligence.cpp:260](../../source/game_sa/PedIntelligence.cpp#L260) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::AddTaskEventResponseTemp 0x00600DE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::AddTaskEventResponseNonTemp(CTask* task, int32 unUsed) | [source/game_sa/PedIntelligence.cpp:266](../../source/game_sa/PedIntelligence.cpp#L266) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::AddTaskEventResponseNonTemp 0x00600E00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::AddTaskPrimaryMaybeInGroup(CTask* task, bool bAffectsPed) | [source/game_sa/PedIntelligence.cpp:271](../../source/game_sa/PedIntelligence.cpp#L271) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::AddTaskPrimaryMaybeInGroup 0x00600E20 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| * CPedIntelligence::FindTaskByType(eTaskType type) | [source/game_sa/PedIntelligence.cpp:282](../../source/game_sa/PedIntelligence.cpp#L282) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::FindTaskByType 0x00600EE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::GetTaskFighting() | [source/game_sa/PedIntelligence.cpp:292](../../source/game_sa/PedIntelligence.cpp#L292) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetTaskFighting 0x00600F30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::GetTaskUseGun() | [source/game_sa/PedIntelligence.cpp:297](../../source/game_sa/PedIntelligence.cpp#L297) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetTaskUseGun 0x00600F70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::GetTaskThrow() | [source/game_sa/PedIntelligence.cpp:302](../../source/game_sa/PedIntelligence.cpp#L302) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetTaskThrow 0x00600FB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::GetTaskHold(bool bIgnoreCheckingForSimplestActiveTask) | [source/game_sa/PedIntelligence.cpp:307](../../source/game_sa/PedIntelligence.cpp#L307) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetTaskHold 0x00600FF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::GetTaskSwim() | [source/game_sa/PedIntelligence.cpp:324](../../source/game_sa/PedIntelligence.cpp#L324) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetTaskSwim 0x00601070 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::GetTaskDuck(bool bIgnoreCheckingForSimplestActiveTask) | [source/game_sa/PedIntelligence.cpp:329](../../source/game_sa/PedIntelligence.cpp#L329) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetTaskDuck 0x006010A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::GetTaskJetPack() | [source/game_sa/PedIntelligence.cpp:342](../../source/game_sa/PedIntelligence.cpp#L342) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetTaskJetPack 0x00601110 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| * CPedIntelligence::GetTaskInAir() | [source/game_sa/PedIntelligence.cpp:350](../../source/game_sa/PedIntelligence.cpp#L350) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetTaskInAir 0x00601150 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::GetTaskClimb() | [source/game_sa/PedIntelligence.cpp:355](../../source/game_sa/PedIntelligence.cpp#L355) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetTaskClimb 0x00601180 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::GetTaskSecondaryDuck() | [source/game_sa/PedIntelligence.cpp:360](../../source/game_sa/PedIntelligence.cpp#L360) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::GetUsingParachute() | [source/game_sa/PedIntelligence.cpp:365](../../source/game_sa/PedIntelligence.cpp#L365) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetUsingParachute 0x006011B0 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::SetTaskDuckSecondary(uint16 nLengthOfDuck) | [source/game_sa/PedIntelligence.cpp:396](../../source/game_sa/PedIntelligence.cpp#L396) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::SetTaskDuckSecondary 0x00601230 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::ClearTaskDuckSecondary() | [source/game_sa/PedIntelligence.cpp:413](../../source/game_sa/PedIntelligence.cpp#L413) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::ClearTaskDuckSecondary 0x00601390 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::ClearTasks(bool bClearPrimaryTasks, bool bClearSecondaryTasks) | [source/game_sa/PedIntelligence.cpp:438](../../source/game_sa/PedIntelligence.cpp#L438) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::ClearTasks 0x00601420 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::FlushImmediately(bool bSetPrimaryDefaultTask) | [source/game_sa/PedIntelligence.cpp:491](../../source/game_sa/PedIntelligence.cpp#L491) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::FlushImmediately 0x00601640 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| * CPedIntelligence::GetEffectInUse() const | [source/game_sa/PedIntelligence.cpp:566](../../source/game_sa/PedIntelligence.cpp#L566) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetEffectInUse 0x006018D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::SetEffectInUse(C2dEffect* effect) | [source/game_sa/PedIntelligence.cpp:571](../../source/game_sa/PedIntelligence.cpp#L571) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::SetEffectInUse 0x006018E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::ProcessAfterProcCol() | [source/game_sa/PedIntelligence.cpp:576](../../source/game_sa/PedIntelligence.cpp#L576) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::ProcessAfterProcCol 0x006018F0 | 0 / 0 | Posible dato fijo g_LoadMonitor: source/game_sa/LoadMonitor.cpp:21 (0x00B72978); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::ProcessAfterPreRender() | [source/game_sa/PedIntelligence.cpp:601](../../source/game_sa/PedIntelligence.cpp#L601) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::ProcessAfterPreRender 0x006019B0 | 0 / 0 | Posible dato fijo g_LoadMonitor: source/game_sa/LoadMonitor.cpp:21 (0x00B72978); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::ProcessEventHandler() | [source/game_sa/PedIntelligence.cpp:653](../../source/game_sa/PedIntelligence.cpp#L653) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::ProcessEventHandler 0x00601BB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::IsFriendlyWith(const CPed& ped) const | [source/game_sa/PedIntelligence.cpp:658](../../source/game_sa/PedIntelligence.cpp#L658) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::IsFriendlyWith 0x00601BC0 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::IsThreatenedBy(const CPed& ped) const | [source/game_sa/PedIntelligence.cpp:666](../../source/game_sa/PedIntelligence.cpp#L666) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::IsThreatenedBy 0x00601C30 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::Respects(CPed* ped) const | [source/game_sa/PedIntelligence.cpp:674](../../source/game_sa/PedIntelligence.cpp#L674) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::Respects 0x00601C90 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| * CPedIntelligence::IsInACarOrEnteringOne() | [source/game_sa/PedIntelligence.cpp:682](../../source/game_sa/PedIntelligence.cpp#L682) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::IsInACarOrEnteringOne 0x00601CC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::AreFriends(const CPed& ped1, const CPed& ped2) | [source/game_sa/PedIntelligence.cpp:699](../../source/game_sa/PedIntelligence.cpp#L699) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::AreFriends 0x00601D10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::IsPedGoingSomewhereOnFoot() | [source/game_sa/PedIntelligence.cpp:705](../../source/game_sa/PedIntelligence.cpp#L705) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::GetMoveStateFromGoToTask() | [source/game_sa/PedIntelligence.cpp:711](../../source/game_sa/PedIntelligence.cpp#L711) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetMoveStateFromGoToTask 0x00601D70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::FlushIntelligence() | [source/game_sa/PedIntelligence.cpp:719](../../source/game_sa/PedIntelligence.cpp#L719) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::FlushIntelligence 0x00601DA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::TestForStealthKill(CPed* target, bool bFullTest) | [source/game_sa/PedIntelligence.cpp:731](../../source/game_sa/PedIntelligence.cpp#L731) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::TestForStealthKill 0x00601E00 | 0 / 0 | Posible dato fijo STEALTH_KILL_RANGE: source/game_sa/PedIntelligence.h:67 (0x008D2398); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::RecordEventForScript(int32 eventId, int32 eventPriority) | [source/game_sa/PedIntelligence.cpp:789](../../source/game_sa/PedIntelligence.cpp#L789) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::RecordEventForScript 0x00602050 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::HasInterestingEntites() | [source/game_sa/PedIntelligence.cpp:799](../../source/game_sa/PedIntelligence.cpp#L799) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedIntelligence::HasInterestingEntites 0x00602080 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::IsInterestingEntity(CEntity* entity) | [source/game_sa/PedIntelligence.cpp:809](../../source/game_sa/PedIntelligence.cpp#L809) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::IsInterestingEntity 0x006020A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::LookAtInterestingEntities() | [source/game_sa/PedIntelligence.cpp:819](../../source/game_sa/PedIntelligence.cpp#L819) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::LookAtInterestingEntities 0x006020D0 | 0 / 0 | Posible dato fijo g_ikChainMan: source/game_sa/Ragdoll/IKChainManager.cpp:29 (0x00C15448); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::RemoveAllInterestingEntities() | [source/game_sa/PedIntelligence.cpp:878](../../source/game_sa/PedIntelligence.cpp#L878) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedIntelligence::RemoveAllInterestingEntities 0x00602320 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::IsPedGoingForCarDoor() | [source/game_sa/PedIntelligence.cpp:888](../../source/game_sa/PedIntelligence.cpp#L888) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::IsPedGoingForCarDoor 0x00602350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::CanSeeEntityWithLights(CEntity* entity, int32 unUsed) | [source/game_sa/PedIntelligence.cpp:900](../../source/game_sa/PedIntelligence.cpp#L900) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::CanSeeEntityWithLights 0x00605550 | 0 / 0 | Posible dato fijo LIGHT_AI_LEVEL_MAX: source/game_sa/PedIntelligence.h:68 (0x008D2380); Posible dato fijo flt_8D2384: source/game_sa/PedIntelligence.h:69 (0x008D2384); Posible dato fijo flt_8D2388: source/game_sa/PedIntelligence.h:70 (0x008D2388); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::ProcessStaticCounter() | [source/game_sa/PedIntelligence.cpp:928](../../source/game_sa/PedIntelligence.cpp#L928) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::ProcessStaticCounter 0x00605650 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::ProcessFirst() | [source/game_sa/PedIntelligence.cpp:983](../../source/game_sa/PedIntelligence.cpp#L983) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::ProcessFirst 0x006073A0 | 0 / 0 | Posible dato fijo g_LoadMonitor: source/game_sa/LoadMonitor.cpp:21 (0x00B72978); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CPedIntelligence::Process() | [source/game_sa/PedIntelligence.cpp:1017](../../source/game_sa/PedIntelligence.cpp#L1017) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::Process 0x00608260 | 0 / 0 | Posible dato fijo g_LoadMonitor: source/game_sa/LoadMonitor.cpp:21 (0x00B72978); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| * CPedIntelligence::GetActivePrimaryTask() const | [source/game_sa/PedIntelligence.cpp:1032](../../source/game_sa/PedIntelligence.cpp#L1032) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetActivePrimaryTask 0x004B85B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::GetPedFOVRange() const | [source/game_sa/PedIntelligence.cpp:1044](../../source/game_sa/PedIntelligence.cpp#L1044) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedIntelligence::GetPedFOVRange 0x004ABEA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::IncrementAngerAtPlayer(uint8 anger) | [source/game_sa/PedIntelligence.cpp:1079](../../source/game_sa/PedIntelligence.cpp#L1079) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedIntelligence::IncrementAngerAtPlayer 0x00421050 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::operator new(unsigned size) | [source/game_sa/PedIntelligence.cpp:1084](../../source/game_sa/PedIntelligence.cpp#L1084) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedIntelligence::operator new 0x006074A0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CPedIntelligence::operator delete(void* object) | [source/game_sa/PedIntelligence.cpp:1089](../../source/game_sa/PedIntelligence.cpp#L1089) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedIntelligence::operator delete 0x006074E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::GetEnteringVehicle() | [source/game_sa/PedIntelligence.cpp:1094](../../source/game_sa/PedIntelligence.cpp#L1094) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::Constructor(CPed* ped) | [source/game_sa/PedIntelligence.cpp:1104](../../source/game_sa/PedIntelligence.cpp#L1104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::Constructor 0x00607140 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CPedIntelligence::Destructor() | [source/game_sa/PedIntelligence.cpp:1110](../../source/game_sa/PedIntelligence.cpp#L1110) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CPedIntelligence::Destructor 0x00607300 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetPedDecisionMakerType() const | [source/game_sa/PedIntelligence.h:82](../../source/game_sa/PedIntelligence.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetDmRadius(float r) | [source/game_sa/PedIntelligence.h:141](../../source/game_sa/PedIntelligence.h#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetNumPedsToScan(uint32 n) | [source/game_sa/PedIntelligence.h:142](../../source/game_sa/PedIntelligence.h#L142) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsUsingGun() | [source/game_sa/PedIntelligence.h:145](../../source/game_sa/PedIntelligence.h#L145) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetTaskManager() | [source/game_sa/PedIntelligence.h:160](../../source/game_sa/PedIntelligence.h#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetEventHandler() | [source/game_sa/PedIntelligence.h:161](../../source/game_sa/PedIntelligence.h#L161) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetEventGroup() | [source/game_sa/PedIntelligence.h:162](../../source/game_sa/PedIntelligence.h#L162) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetEventScanner() | [source/game_sa/PedIntelligence.h:163](../../source/game_sa/PedIntelligence.h#L163) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetPedScanner() | [source/game_sa/PedIntelligence.h:164](../../source/game_sa/PedIntelligence.h#L164) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetVehicleScanner() | [source/game_sa/PedIntelligence.h:165](../../source/game_sa/PedIntelligence.h#L165) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ** GetPedEntities() | [source/game_sa/PedIntelligence.h:166](../../source/game_sa/PedIntelligence.h#L166) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetPedEntities 0x004893E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetPedEntity(uint32 index) | [source/game_sa/PedIntelligence.h:167](../../source/game_sa/PedIntelligence.h#L167) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligence::GetPedEntities 0x004893E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ** GetVehicleEntities() | [source/game_sa/PedIntelligence.h:168](../../source/game_sa/PedIntelligence.h#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & GetStuckChecker(this auto&& self) | [source/game_sa/PedIntelligence.h:169](../../source/game_sa/PedIntelligence.h#L169) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-403"></a>
+
 ## CPedIntelligencePool
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -15,7 +118,7 @@
 | InjectHooks() | [source/game_sa/Pools/PedIntelligencePool.h:37](../../source/game_sa/Pools/PedIntelligencePool.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * New() | [source/game_sa/Pools/PedIntelligencePool.h:51](../../source/game_sa/Pools/PedIntelligencePool.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedIntelligencePool::New 0x00605EC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-402"></a>
+<a id="grupo-404"></a>
 
 ## CPedList
 
@@ -36,7 +139,7 @@
 | * CPedList::Get(int32 i) | [source/game_sa/PedList.cpp:140](../../source/game_sa/PedList.cpp#L140) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetPeds() const | [source/game_sa/PedList.h:38](../../source/game_sa/PedList.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-403"></a>
+<a id="grupo-405"></a>
 
 ## CPedLookAtAttractor
 
@@ -45,7 +148,7 @@
 | CPedLookAtAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedLookAtAttractor.h:10](../../source/game_sa/Attractors/PedLookAtAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedLookAtAttractor.h:28](../../source/game_sa/Attractors/PedLookAtAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-404"></a>
+<a id="grupo-406"></a>
 
 ## CPedModelInfo
 
@@ -69,7 +172,7 @@
 | CanPedDriveVehicleClass(eVehicleClass cls) const | [source/game_sa/Models/PedModelInfo.h:71](../../source/game_sa/Models/PedModelInfo.h#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsPedTypeFemale() const noexcept | [source/game_sa/Models/PedModelInfo.h:72](../../source/game_sa/Models/PedModelInfo.h#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-405"></a>
+<a id="grupo-407"></a>
 
 ## CPedParkAttractor
 
@@ -78,7 +181,7 @@
 | CPedParkAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedParkAttractor.h:10](../../source/game_sa/Attractors/PedParkAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedParkAttractor.h:28](../../source/game_sa/Attractors/PedParkAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-406"></a>
+<a id="grupo-408"></a>
 
 ## CPedPizzaAttractor
 
@@ -88,7 +191,7 @@
 | GetType() const override | [source/game_sa/Attractors/PedPizzaAttractor.h:28](../../source/game_sa/Attractors/PedPizzaAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetHeadOfQueueWaitTime() const | [source/game_sa/Attractors/PedPizzaAttractor.h:31](../../source/game_sa/Attractors/PedPizzaAttractor.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-407"></a>
+<a id="grupo-409"></a>
 
 ## CPedPlacement
 
@@ -102,7 +205,7 @@
 | * CPedPlacement::IsPositionClearOfCars(const CVector* pos) | [source/game_sa/PedPlacement.cpp:121](../../source/game_sa/PedPlacement.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedPlacement::IsPositionClearOfCars-Pos 0x006168E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CPedPlacement::IsPositionClearOfCars(const CPed* ped) | [source/game_sa/PedPlacement.cpp:126](../../source/game_sa/PedPlacement.cpp#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedPlacement::IsPositionClearOfCars-Ped 0x00616A40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-408"></a>
+<a id="grupo-410"></a>
 
 ## CPedPool
 
@@ -112,7 +215,7 @@
 | InjectHooks() | [source/game_sa/Pools/PedPool.h:37](../../source/game_sa/Pools/PedPool.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * New() | [source/game_sa/Pools/PedPool.h:53](../../source/game_sa/Pools/PedPool.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedPool::New 0x005E45E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-409"></a>
+<a id="grupo-411"></a>
 
 ## CPedSaveStructure
 
@@ -122,7 +225,7 @@
 | CPedSaveStructure::Construct(CPed* ped) | [source/game_sa/Entity/Ped/PedSaveStructure.cpp:75](../../source/game_sa/Entity/Ped/PedSaveStructure.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedSaveStructure::Construct 0x005D43D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPedSaveStructure::InjectHooks() | [source/game_sa/Entity/Ped/PedSaveStructure.cpp:114](../../source/game_sa/Entity/Ped/PedSaveStructure.cpp#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-410"></a>
+<a id="grupo-412"></a>
 
 ## CPedScanner
 
@@ -131,7 +234,7 @@
 | CPedScanner::ScanForPedsInRange(const CPed& ped) | [source/game_sa/PedScanner.cpp:31](../../source/game_sa/PedScanner.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CPedScanner::GetClosestPedInRange() const | [source/game_sa/PedScanner.cpp:37](../../source/game_sa/PedScanner.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedScanner::GetClosestPedInRange 0x005FFF20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-411"></a>
+<a id="grupo-413"></a>
 
 ## CPedScriptedAttractor
 
@@ -140,7 +243,7 @@
 | CPedScriptedAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedScriptedAttractor.h:10](../../source/game_sa/Attractors/PedScriptedAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedScriptedAttractor.h:28](../../source/game_sa/Attractors/PedScriptedAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-412"></a>
+<a id="grupo-414"></a>
 
 ## CPedScriptedTaskRecord
 
@@ -153,7 +256,7 @@
 | CPedScriptedTaskRecord::GetVacantSlot() | [source/game_sa/Tasks/PedScriptedTaskRecord.cpp:178](../../source/game_sa/Tasks/PedScriptedTaskRecord.cpp#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedScriptedTaskRecord::GetVacantSlot 0x00608540 | 0 / 0 | Posible dato fijo ms_scriptedTasks: source/game_sa/Tasks/PedScriptedTaskRecord.h:49 (0x00C0B1E8) |
 | CPedScriptedTaskRecord::Process() | [source/game_sa/Tasks/PedScriptedTaskRecord.cpp:189](../../source/game_sa/Tasks/PedScriptedTaskRecord.cpp#L189) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedScriptedTaskRecord::Process 0x006085E0 | 0 / 0 | Posible dato fijo ms_scriptedTasks: source/game_sa/Tasks/PedScriptedTaskRecord.h:49 (0x00C0B1E8) |
 
-<a id="grupo-413"></a>
+<a id="grupo-415"></a>
 
 ## CPedScriptedTaskRecordData
 
@@ -170,7 +273,7 @@
 | CPedScriptedTaskRecordData::SetAsAttractorScriptTask(CPed* ped, int32 opcode, CTask* task) | [source/game_sa/Tasks/PedScriptedTaskRecord.cpp:125](../../source/game_sa/Tasks/PedScriptedTaskRecord.cpp#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedScriptedTaskRecordData::SetAsAttractorScriptTask 0x00608440 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPedScriptedTaskRecordData::Flush() | [source/game_sa/Tasks/PedScriptedTaskRecord.cpp:137](../../source/game_sa/Tasks/PedScriptedTaskRecord.cpp#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedScriptedTaskRecordData::Flush 0x00608350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-414"></a>
+<a id="grupo-416"></a>
 
 ## CPedSeatAttractor
 
@@ -179,7 +282,7 @@
 | CPedSeatAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedSeatAttractor.h:10](../../source/game_sa/Attractors/PedSeatAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedSeatAttractor.h:28](../../source/game_sa/Attractors/PedSeatAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-415"></a>
+<a id="grupo-417"></a>
 
 ## CPedShelterAttractor
 
@@ -194,7 +297,7 @@
 | GetType() const override | [source/game_sa/Attractors/PedShelterAttractor.h:31](../../source/game_sa/Attractors/PedShelterAttractor.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsAtHeadOfQueue(CPed* ped) override | [source/game_sa/Attractors/PedShelterAttractor.h:34](../../source/game_sa/Attractors/PedShelterAttractor.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-416"></a>
+<a id="grupo-418"></a>
 
 ## CPedStats
 
@@ -209,7 +312,7 @@
 | * CPedStats::GetPedStatByArrayIndex(uint32 statIndex) | [source/game_sa/PedStats.cpp:141](../../source/game_sa/PedStats.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_apPedStats: source/game_sa/PedStats.h:25 (0x00C0BBEC) |
 | CPedStats::FindIndexWithPedStat(void* a1) | [source/game_sa/PedStats.cpp:147](../../source/game_sa/PedStats.cpp#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedStats::FindIndexWithPedStat 0x00608940 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo ms_apPedStats: source/game_sa/PedStats.h:25 (0x00C0BBEC) |
 
-<a id="grupo-417"></a>
+<a id="grupo-419"></a>
 
 ## CPedStepAttractor
 
@@ -218,7 +321,7 @@
 | CPedStepAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedStepAttractor.h:10](../../source/game_sa/Attractors/PedStepAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedStepAttractor.h:28](../../source/game_sa/Attractors/PedStepAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-418"></a>
+<a id="grupo-420"></a>
 
 ## CPedStopAttractor
 
@@ -226,23 +329,3 @@
 | --- | --- | --- | --- | --- | --- |
 | CPedStopAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedStopAttractor.h:10](../../source/game_sa/Attractors/PedStopAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedStopAttractor.h:28](../../source/game_sa/Attractors/PedStopAttractor.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-419"></a>
-
-## CPedStuckChecker
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPedStuckChecker::InjectHooks() | [source/game_sa/PedStuckChecker.cpp:29](../../source/game_sa/PedStuckChecker.cpp#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedStuckChecker::TestPedStuck(CPed* ped, CEventGroup* eventGroup) | [source/game_sa/PedStuckChecker.cpp:40](../../source/game_sa/PedStuckChecker.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedStuckChecker::TestPedStuck 0x00602C00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_FrameCounter: source/game_sa/Timer.h:31 (0x00B7CB4C); Posible dato fijo ms_fTimeStep: source/game_sa/Timer.h:33 (0x00B7CB5C) |
-| CPedStuckChecker() | [source/game_sa/PedStuckChecker.h:23](../../source/game_sa/PedStuckChecker.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetState() const | [source/game_sa/PedStuckChecker.h:30](../../source/game_sa/PedStuckChecker.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-420"></a>
-
-## CPedTaskPair
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPedTaskPair::InjectHooks() | [source/game_sa/PedTaskPair.cpp:23](../../source/game_sa/PedTaskPair.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedTaskPair::Flush() | [source/game_sa/PedTaskPair.cpp:31](../../source/game_sa/PedTaskPair.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedTaskPair::Flush 0x005E95B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

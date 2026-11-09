@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 08/11/2026 (Ciudad de México):** 869 grupos / 9484 funciones reconstruidas; 9484 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 08/11/2026 (Ciudad de México):** 870 grupos / 9493 funciones reconstruidas; 9493 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,38 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-301"></a>
+
+## CGenericGameStorage
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * GetNameOfSavedGameExe(int32 slot) | [source/game_sa/GenericGameStorage.cpp:77](../../source/game_sa/GenericGameStorage.cpp#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CGenericGameStorage::GetNameOfSavedGame 0x005D0F40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo ms_SlotFileName: source/game_sa/GenericGameStorage.h:73 (0x00C16368) |
+| CGenericGameStorage::InjectHooks() | [source/game_sa/GenericGameStorage.cpp:81](../../source/game_sa/GenericGameStorage.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CGenericGameStorage::ReportError(eBlocks nBlock, eSaveLoadError nError) | [source/game_sa/GenericGameStorage.cpp:113](../../source/game_sa/GenericGameStorage.cpp#L113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::ReportError 0x005D08C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CGenericGameStorage::GetBlockName(eBlocks block) | [source/game_sa/GenericGameStorage.cpp:138](../../source/game_sa/GenericGameStorage.cpp#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CGenericGameStorage::DoGameSpecificStuffBeforeSave() | [source/game_sa/GenericGameStorage.cpp:202](../../source/game_sa/GenericGameStorage.cpp#L202) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::DoGameSpecificStuffBeforeSave 0x00618F50 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| CGenericGameStorage::DoGameSpecificStuffAfterSucessLoad() | [source/game_sa/GenericGameStorage.cpp:219](../../source/game_sa/GenericGameStorage.cpp#L219) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::DoGameSpecificStuffAfterSucessLoad 0x00618E90 | 0 / 0 | Posible dato fijo JustLoadedDontFadeInYet: source/game_sa/Draw.h:9 (0x00C16EDC); Posible dato fijo StillToFadeOut: source/game_sa/Draw.h:10 (0x00C16EDD); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340); Posible dato fijo bGangWarsActive: source/game_sa/GangWars.h:72 (0x0096AB90); Posible dato fijo bTrainingMission: source/game_sa/GangWars.h:73 (0x0096AB91) |
+| CGenericGameStorage::InitRadioStationPositionList() | [source/game_sa/GenericGameStorage.cpp:240](../../source/game_sa/GenericGameStorage.cpp#L240) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::InitRadioStationPositionList 0x00618E70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CGenericGameStorage::GenericLoad(bool& out_bVariablesLoaded) | [source/game_sa/GenericGameStorage.cpp:260](../../source/game_sa/GenericGameStorage.cpp#L260) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::GenericLoad 0x005D17B0 | 0 / 0 | Posible dato fijo ThePaths: source/game_sa/PathFind.h:633 (0x0096F050); Posible dato fijo ms_CheckSum: source/game_sa/GenericGameStorage.h:63 (0x00C16134); Posible dato fijo ms_bFailed: source/game_sa/Core/OctTree.h:23 (0x00BC12DC), source/game_sa/GenericGameStorage.h:69 (0x00C16EFC); Posible dato fijo ms_bLoading: source/game_sa/GenericGameStorage.h:70 (0x00C16EFD) |
+| CGenericGameStorage::GenericSave() | [source/game_sa/GenericGameStorage.cpp:453](../../source/game_sa/GenericGameStorage.cpp#L453) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::GenericSave 0x005D13E0 | 0 / 0 | Posible dato fijo ThePaths: source/game_sa/PathFind.h:633 (0x0096F050); Posible dato fijo ms_CheckSum: source/game_sa/GenericGameStorage.h:63 (0x00C16134); Posible dato fijo ms_FilePos: source/game_sa/GenericGameStorage.h:67 (0x00C16EF4); Posible dato fijo ms_SaveFileName: source/game_sa/GenericGameStorage.h:60 (0x00C16DB8); Posible dato fijo ms_SaveFileNameJustSaved: source/game_sa/GenericGameStorage.h:59 (0x00C16030); Posible dato fijo ms_WorkBufferPos: source/game_sa/GenericGameStorage.h:65 (0x00C16EEC); Posible dato fijo ms_bFailed: source/game_sa/Core/OctTree.h:23 (0x00BC12DC), source/game_sa/GenericGameStorage.h:69 (0x00C16EFC) |
+| CGenericGameStorage::CheckSlotDataValid(int32 slot) | [source/game_sa/GenericGameStorage.cpp:620](../../source/game_sa/GenericGameStorage.cpp#L620) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::CheckSlotDataValid 0x005D1380 | 0 / 0 | Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
+| CGenericGameStorage::LoadDataFromWorkBuffer(void* data, int32 size) | [source/game_sa/GenericGameStorage.cpp:636](../../source/game_sa/GenericGameStorage.cpp#L636) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::LoadDataFromWorkBuffer-org 0x005D1300 | 0 / 0 | Posible dato fijo ms_WorkBuffer: source/game_sa/GenericGameStorage.h:64 (0x00C16EE8); Posible dato fijo ms_WorkBufferPos: source/game_sa/GenericGameStorage.h:65 (0x00C16EEC); Posible dato fijo ms_WorkBufferSize: source/game_sa/GenericGameStorage.h:58 (0x008D2BE0); Posible dato fijo ms_bFailed: source/game_sa/Core/OctTree.h:23 (0x00BC12DC), source/game_sa/GenericGameStorage.h:69 (0x00C16EFC) |
+| CGenericGameStorage::SaveDataToWorkBuffer(void* data, int32 size) | [source/game_sa/GenericGameStorage.cpp:672](../../source/game_sa/GenericGameStorage.cpp#L672) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::SaveDataToWorkBuffer-org 0x005D1270 | 0 / 0 | Posible dato fijo ms_WorkBuffer: source/game_sa/GenericGameStorage.h:64 (0x00C16EE8); Posible dato fijo ms_WorkBufferPos: source/game_sa/GenericGameStorage.h:65 (0x00C16EEC); Posible dato fijo ms_bFailed: source/game_sa/Core/OctTree.h:23 (0x00BC12DC), source/game_sa/GenericGameStorage.h:69 (0x00C16EFC) |
+| CGenericGameStorage::LoadWorkBuffer() | [source/game_sa/GenericGameStorage.cpp:708](../../source/game_sa/GenericGameStorage.cpp#L708) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::LoadWorkBuffer 0x005D10B0 | 0 / 0 | Posible dato fijo ms_FileHandle: source/game_sa/GenericGameStorage.h:66 (0x00C16EF0); Posible dato fijo ms_FilePos: source/game_sa/GenericGameStorage.h:67 (0x00C16EF4); Posible dato fijo ms_FileSize: source/game_sa/GenericGameStorage.h:68 (0x00C16EF8); Posible dato fijo ms_WorkBuffer: source/game_sa/GenericGameStorage.h:64 (0x00C16EE8); Posible dato fijo ms_WorkBufferPos: source/game_sa/GenericGameStorage.h:65 (0x00C16EEC); Posible dato fijo ms_WorkBufferSize: source/game_sa/GenericGameStorage.h:58 (0x008D2BE0); Posible dato fijo ms_bFailed: source/game_sa/Core/OctTree.h:23 (0x00BC12DC), source/game_sa/GenericGameStorage.h:69 (0x00C16EFC); Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
+| CGenericGameStorage::SaveWorkBuffer(bool bIncludeChecksum) | [source/game_sa/GenericGameStorage.cpp:749](../../source/game_sa/GenericGameStorage.cpp#L749) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::SaveWorkBuffer 0x005D0F80 | 0 / 0 | Posible dato fijo ms_CheckSum: source/game_sa/GenericGameStorage.h:63 (0x00C16134); Posible dato fijo ms_FileHandle: source/game_sa/GenericGameStorage.h:66 (0x00C16EF0); Posible dato fijo ms_FilePos: source/game_sa/GenericGameStorage.h:67 (0x00C16EF4); Posible dato fijo ms_SaveFileName: source/game_sa/GenericGameStorage.h:60 (0x00C16DB8); Posible dato fijo ms_SaveFileNameJustSaved: source/game_sa/GenericGameStorage.h:59 (0x00C16030); Posible dato fijo ms_WorkBuffer: source/game_sa/GenericGameStorage.h:64 (0x00C16EE8); Posible dato fijo ms_WorkBufferPos: source/game_sa/GenericGameStorage.h:65 (0x00C16EEC); Posible dato fijo ms_bFailed: source/game_sa/Core/OctTree.h:23 (0x00BC12DC), source/game_sa/GenericGameStorage.h:69 (0x00C16EFC); Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
+| CGenericGameStorage::GetCurrentVersionNumber() | [source/game_sa/GenericGameStorage.cpp:787](../../source/game_sa/GenericGameStorage.cpp#L787) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::GetCurrentVersionNumber 0x005D0F50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CGenericGameStorage::MakeValidSaveName(int32 slot) | [source/game_sa/GenericGameStorage.cpp:794](../../source/game_sa/GenericGameStorage.cpp#L794) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::MakeValidSaveName 0x005D0E90 | 0 / 0 | Posible dato fijo DefaultPCSaveFileName: source/game_sa/C_PcSave.h:27 (0x00C16F18); Posible dato fijo ms_SaveFileName: source/game_sa/GenericGameStorage.h:60 (0x00C16DB8) |
+| CGenericGameStorage::CloseFile() | [source/game_sa/GenericGameStorage.cpp:807](../../source/game_sa/GenericGameStorage.cpp#L807) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::CloseFile 0x005D0E30 | 0 / 0 | Posible dato fijo ms_FileHandle: source/game_sa/GenericGameStorage.h:66 (0x00C16EF0); Posible dato fijo ms_WorkBuffer: source/game_sa/GenericGameStorage.h:64 (0x00C16EE8) |
+| CGenericGameStorage::OpenFileForWriting() | [source/game_sa/GenericGameStorage.cpp:816](../../source/game_sa/GenericGameStorage.cpp#L816) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::OpenFileForWriting 0x005D0DD0 | 0 / 0 | Posible dato fijo ms_FileHandle: source/game_sa/GenericGameStorage.h:66 (0x00C16EF0); Posible dato fijo ms_FilePos: source/game_sa/GenericGameStorage.h:67 (0x00C16EF4); Posible dato fijo ms_SaveFileName: source/game_sa/GenericGameStorage.h:60 (0x00C16DB8); Posible dato fijo ms_WorkBuffer: source/game_sa/GenericGameStorage.h:64 (0x00C16EE8); Posible dato fijo ms_WorkBufferPos: source/game_sa/GenericGameStorage.h:65 (0x00C16EEC); Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
+| CGenericGameStorage::OpenFileForReading(const char* fileName, int32 slot) | [source/game_sa/GenericGameStorage.cpp:831](../../source/game_sa/GenericGameStorage.cpp#L831) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::OpenFileForReading 0x005D0D20 | 0 / 0 | Posible dato fijo DefaultPCSaveFileName: source/game_sa/C_PcSave.h:27 (0x00C16F18); Posible dato fijo ms_FileHandle: source/game_sa/GenericGameStorage.h:66 (0x00C16EF0); Posible dato fijo ms_FilePos: source/game_sa/GenericGameStorage.h:67 (0x00C16EF4); Posible dato fijo ms_FileSize: source/game_sa/GenericGameStorage.h:68 (0x00C16EF8); Posible dato fijo ms_LoadFileName: source/game_sa/GenericGameStorage.h:61 (0x00C15FC8); Posible dato fijo ms_LoadFileNameWithPath: source/game_sa/GenericGameStorage.h:62 (0x00C15F60); Posible dato fijo ms_WorkBuffer: source/game_sa/GenericGameStorage.h:64 (0x00C16EE8); Posible dato fijo ms_WorkBufferPos: source/game_sa/GenericGameStorage.h:65 (0x00C16EEC); Posible dato fijo ms_WorkBufferSize: source/game_sa/GenericGameStorage.h:58 (0x008D2BE0); Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
+| CGenericGameStorage::CheckDataNotCorrupt(int32 slot, const char* fileName) | [source/game_sa/GenericGameStorage.cpp:859](../../source/game_sa/GenericGameStorage.cpp#L859) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::CheckDataNotCorrupt 0x005D1170 | 0 / 0 | Posible dato fijo ms_WorkBuffer: source/game_sa/GenericGameStorage.h:64 (0x00C16EE8); Posible dato fijo ms_WorkBufferSize: source/game_sa/GenericGameStorage.h:58 (0x008D2BE0); Posible dato fijo ms_bFailed: source/game_sa/Core/OctTree.h:23 (0x00BC12DC), source/game_sa/GenericGameStorage.h:69 (0x00C16EFC); Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
+| CGenericGameStorage::RestoreForStartLoad() | [source/game_sa/GenericGameStorage.cpp:892](../../source/game_sa/GenericGameStorage.cpp#L892) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::RestoreForStartLoad 0x00619000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetSavedGameDateAndTime(int32 slot) | [source/game_sa/GenericGameStorage.cpp:897](../../source/game_sa/GenericGameStorage.cpp#L897) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::GetSavedGameDateAndTime 0x00618D00 | 0 / 0 | Posible dato fijo ms_SlotSaveDate: source/game_sa/GenericGameStorage.h:72 (0x00C16138) |
+| LoadDataFromWorkBuffer(T& data) | [source/game_sa/GenericGameStorage.h:100](../../source/game_sa/GenericGameStorage.h#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::LoadDataFromWorkBuffer-org 0x005D1300 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| LoadDataFromWorkBuffer() | [source/game_sa/GenericGameStorage.h:103](../../source/game_sa/GenericGameStorage.h#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::LoadDataFromWorkBuffer-org 0x005D1300 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SaveDataToWorkBuffer(const T& data) | [source/game_sa/GenericGameStorage.h:106](../../source/game_sa/GenericGameStorage.h#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGenericGameStorage::SaveDataToWorkBuffer-org 0x005D1270 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-302"></a>
 
 ## CGlass
 
@@ -33,7 +65,7 @@
 | CGlass::WindowRespondsToExplosion(CEntity* entity, CVector pos) | [source/game_sa/Glass.cpp:745](../../source/game_sa/Glass.cpp#L745) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGlass::WindowRespondsToExplosion 0x0071C1A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CGlass::IsObjectGlass(CEntity* entity) | [source/game_sa/Glass.cpp:762](../../source/game_sa/Glass.cpp#L762) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGlass::IsObjectGlass 0x0046A760 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-302"></a>
+<a id="grupo-303"></a>
 
 ## CGrassRenderer
 
@@ -53,7 +85,7 @@
 | CGrassRenderer::SetGlobalWindBending(float bending) | [source/game_sa/GrassRenderer.cpp:187](../../source/game_sa/GrassRenderer.cpp#L187) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGrassRenderer::SetGlobalWindBending 0x005DAC00 | 0 / 0 | Posible dato fijo m_windBending: source/game_sa/GrassRenderer.h:9 (0x00C02DB8) |
 | & CGrassRenderer::GenPointInTriangle(CVector& outPosn, const CVector& v1, const CVector& v2, const CVector& v3, float stepA, float stepB) | [source/game_sa/GrassRenderer.cpp:194](../../source/game_sa/GrassRenderer.cpp#L194) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGrassRenderer::GenPointInTriangle 0x005DAB00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-303"></a>
+<a id="grupo-304"></a>
 
 ## CGridRef
 
@@ -66,7 +98,7 @@
 | CGridRef::GetGridRefPositions(CVector pos, uint8* x, uint8* y) | [source/game_sa/GridRef.cpp:74](../../source/game_sa/GridRef.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGridRef::GetGridRefPositions-vec 0x0071D5A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CGridRef::GetGridRefPositions(uint8* x, uint8* y) | [source/game_sa/GridRef.cpp:82](../../source/game_sa/GridRef.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGridRef::GetGridRefPositions- 0x0071D5E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-304"></a>
+<a id="grupo-305"></a>
 
 ## CGroupEventHandler
 
@@ -106,7 +138,7 @@
 | * CGroupEventHandler::ComputeDrivebyResponse(CPedGroup* pg, CPed* threat, CPed* originator) | [source/game_sa/Events/GroupEventHandler.cpp:947](../../source/game_sa/Events/GroupEventHandler.cpp#L947) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGroupEventHandler::ComputeDrivebyResponse 0x005F7A00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CGroupEventHandler::ComputeEventResponseTasks(const CEventGroupEvent& ge, CPedGroup* g) | [source/game_sa/Events/GroupEventHandler.cpp:952](../../source/game_sa/Events/GroupEventHandler.cpp#L952) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGroupEventHandler::ComputeEventResponseTasks 0x005FC200 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-305"></a>
+<a id="grupo-306"></a>
 
 ## CHandObject
 
@@ -118,7 +150,7 @@
 | CHandObject::PreRender() | [source/game_sa/Entity/Object/HandObject.cpp:88](../../source/game_sa/Entity/Object/HandObject.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHandObject::PreRender 0x00000000 | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | CHandObject::Render() | [source/game_sa/Entity/Object/HandObject.cpp:128](../../source/game_sa/Entity/Object/HandObject.cpp#L128) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHandObject::Render 0x00000000 | 0 / 0 | Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88) |
 
-<a id="grupo-306"></a>
+<a id="grupo-307"></a>
 
 ## CHandShaker
 
@@ -130,7 +162,7 @@
 | CHandShaker::Process(float degree) | [source/game_sa/HandShaker.cpp:59](../../source/game_sa/HandShaker.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHandShaker::Process 0x0050D930 | 0 / 0 | Posible dato fijo ms_fTimeStepNonClipped: source/game_sa/Timer.h:32 (0x00B7CB58) |
 | CHandShaker() | [source/game_sa/HandShaker.h:20](../../source/game_sa/HandShaker.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-307"></a>
+<a id="grupo-308"></a>
 
 ## CHeli
 
@@ -166,7 +198,7 @@
 | GetRopeId() | [source/game_sa/Entity/Vehicle/Heli.h:126](../../source/game_sa/Entity/Vehicle/Heli.h#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Heli.h:158](../../source/game_sa/Entity/Vehicle/Heli.h#L158) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHeli::Constructor 0x006C4190 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-308"></a>
+<a id="grupo-309"></a>
 
 ## CHud
 
@@ -216,7 +248,7 @@
 | CHud::RenderBreathBar(int32 playerId, int32 x, int32 y) | [source/game_sa/Hud.cpp:2066](../../source/game_sa/Hud.cpp#L2066) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHud::RenderBreathBar 0x00589190 | 0 / 0 | Posible dato fijo HudColour: source/game_sa/HudColours.cpp:23 (0x00BAB22C); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo m_ItemToFlash: source/game_sa/Hud.h:60 (0x00BAB1DC) |
 | CHud::RenderHealthBar(int32 playerId, int32 x, int32 y) | [source/game_sa/Hud.cpp:2088](../../source/game_sa/Hud.cpp#L2088) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHud::RenderHealthBar 0x00589270 | 0 / 0 | Posible dato fijo HudColour: source/game_sa/HudColours.cpp:23 (0x00BAB22C); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo m_ItemToFlash: source/game_sa/Hud.h:60 (0x00BAB1DC) |
 
-<a id="grupo-309"></a>
+<a id="grupo-310"></a>
 
 ## CHudColours
 
@@ -230,7 +262,7 @@
 | CHudColours::GetRGB(eHudColours colorIndex) const | [source/game_sa/HudColours.cpp:76](../../source/game_sa/HudColours.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::GetRGB 0x0058FEA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CHudColours::GetRGBA(eHudColours index, uint8 alpha) const | [source/game_sa/HudColours.cpp:82](../../source/game_sa/HudColours.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CHudColours::GetRGBA 0x0058FEE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-310"></a>
+<a id="grupo-311"></a>
 
 ## CIdleCam
 
@@ -255,7 +287,7 @@
 | CIdleCam::Process() | [source/game_sa/IdleCam.cpp:471](../../source/game_sa/IdleCam.cpp#L471) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CIdleCam::Process 0x00522C80 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo g_InterestingEvents: source/game_sa/InterestingEvents.cpp:24 (0x00C0B058); Posible dato fijo gbCineyCamProcessedOnFrame: source/game_sa/IdleCam.cpp:27 (0x00B6EC40) |
 | VectorToAnglesRotXRotZ(const CVector& pos) | [source/game_sa/IdleCam.h:35](../../source/game_sa/IdleCam.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-311"></a>
+<a id="grupo-312"></a>
 
 ## CInformFriendsEventQueue
 
@@ -267,7 +299,7 @@
 | CInformFriendsEventQueue::Add(CPed* ped, CEvent* event) | [source/game_sa/InformFriendsEventQueue.cpp:51](../../source/game_sa/InformFriendsEventQueue.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Add 0x004AC1E0 | 0 / 0 | Posible dato fijo ms_informFriendsEvents: source/game_sa/InformFriendsEventQueue.h:15 (0x00A9AFB8) |
 | CInformFriendsEventQueue::Process() | [source/game_sa/InformFriendsEventQueue.cpp:76](../../source/game_sa/InformFriendsEventQueue.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformFriendsEventQueue::Process 0x004AC2E0 | 0 / 0 | Posible dato fijo ms_informFriendsEvents: source/game_sa/InformFriendsEventQueue.h:15 (0x00A9AFB8) |
 
-<a id="grupo-312"></a>
+<a id="grupo-313"></a>
 
 ## CInformGroupEvent
 
@@ -279,7 +311,7 @@
 | * Constructor() | [source/game_sa/InformGroupEvent.h:25](../../source/game_sa/InformGroupEvent.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformGroupEvent::Constructor 0x004AC350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/InformGroupEvent.h:30](../../source/game_sa/InformGroupEvent.h#L30) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CInformGroupEvent::Destructor 0x004B29A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-313"></a>
+<a id="grupo-314"></a>
 
 ## CInformGroupEventQueue
 
@@ -291,7 +323,7 @@
 | CInformGroupEventQueue::Flush() | [source/game_sa/InformGroupEventQueue.cpp:79](../../source/game_sa/InformGroupEventQueue.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformGroupEventQueue::Flush 0x004AC410 | 0 / 0 | Posible dato fijo ms_informGroupEvents: source/game_sa/InformGroupEventQueue.h:10 (0x00A9B018) |
 | CInformGroupEventQueue::Process() | [source/game_sa/InformGroupEventQueue.cpp:89](../../source/game_sa/InformGroupEventQueue.cpp#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInformGroupEventQueue::Process 0x004B2AE0 | 0 / 0 | Posible dato fijo ms_informGroupEvents: source/game_sa/InformGroupEventQueue.h:10 (0x00A9B018) |
 
-<a id="grupo-314"></a>
+<a id="grupo-315"></a>
 
 ## CIniFile
 
@@ -300,7 +332,7 @@
 | CIniFile::InjectHooks() | [source/game_sa/IniFile.cpp:24](../../source/game_sa/IniFile.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CIniFile::LoadIniFile() | [source/game_sa/IniFile.cpp:32](../../source/game_sa/IniFile.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CIniFile::LoadIniFile 0x0056D070 | 0 / 0 | Posible dato fijo CarNumberMultiplier: source/game_sa/IniFile.h:12 (0x008CDF18); Posible dato fijo MaxNumberOfCarsInUse: source/game_sa/CarCtrl.h:30 (0x008A5B24); Posible dato fijo MaxNumberOfPedsInUse: source/game_sa/Population.h:37 (0x008D2538); Posible dato fijo PedNumberMultiplier: source/game_sa/IniFile.h:11 (0x008CDF14); Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670) |
 
-<a id="grupo-315"></a>
+<a id="grupo-316"></a>
 
 ## CInterestingEvents
 
@@ -317,7 +349,7 @@
 | CInterestingEvents::InvalidateEvent(const TInterestingEvent* event) | [source/game_sa/InterestingEvents.cpp:292](../../source/game_sa/InterestingEvents.cpp#L292) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInterestingEvents::InvalidateEvent 0x00602960 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CInterestingEvents::InvalidateNonVisibleEvents() | [source/game_sa/InterestingEvents.cpp:307](../../source/game_sa/InterestingEvents.cpp#L307) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CInterestingEvents::InvalidateNonVisibleEvents 0x006029C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-316"></a>
+<a id="grupo-317"></a>
 
 ## CIplDefPool
 
@@ -327,7 +359,7 @@
 | * New() | [source/game_sa/Pools/IplDefPool.h:51](../../source/game_sa/Pools/IplDefPool.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CIplDefPool::New 0x004059B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Pools/IplDefPool.h:58](../../source/game_sa/Pools/IplDefPool.h#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CIplDefPool::ScalarDeletingDestructor 0x00405A60 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-317"></a>
+<a id="grupo-318"></a>
 
 ## CIplStore
 
@@ -372,7 +404,7 @@
 | CIplStore::InjectHooks() | [source/game_sa/IplStore.cpp:891](../../source/game_sa/IplStore.cpp#L891) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HasDynamicStreamingDisabled(int32 iplSlotIndex) | [source/game_sa/IplStore.h:53](../../source/game_sa/IplStore.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-318"></a>
+<a id="grupo-319"></a>
 
 ## CJoySticks
 
@@ -381,7 +413,7 @@
 | CJoySticks::CJoySticks() | [source/game_sa/ControllerConfigManager.cpp:1364](../../source/game_sa/ControllerConfigManager.cpp#L1364) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CJoySticks::ClearJoyInfo(int32 JoyNumber) | [source/game_sa/ControllerConfigManager.cpp:1371](../../source/game_sa/ControllerConfigManager.cpp#L1371) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-319"></a>
+<a id="grupo-320"></a>
 
 ## CKeyArray
 
@@ -394,17 +426,3 @@
 | CKeyArray::Update(char* offset) | [source/game_sa/Text/KeyArray.cpp:47](../../source/game_sa/Text/KeyArray.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CKeyArray::Search(const char* key, bool& found) | [source/game_sa/Text/KeyArray.cpp:54](../../source/game_sa/Text/KeyArray.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyArray::Search 0x006A0000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CKeyArray::BinarySearch(uint32 hash, CKeyEntry* entries, int16 firstIndex, int16 lastIndex) | [source/game_sa/Text/KeyArray.cpp:62](../../source/game_sa/Text/KeyArray.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyArray::BinarySearch 0x0069F570 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-320"></a>
-
-## CKeyGen
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CKeyGen::InjectHooks() | [source/game_sa/Core/KeyGen.cpp:35](../../source/game_sa/Core/KeyGen.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AppendStringToKey(uint32 key, const char* str) noexcept | [source/game_sa/Core/KeyGen.h:26](../../source/game_sa/Core/KeyGen.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyGen::AppendStringToKey 0x0053CF70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetKey(const char* str) noexcept | [source/game_sa/Core/KeyGen.h:35](../../source/game_sa/Core/KeyGen.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyGen::GetKey-null-terminated 0x0053CF00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetKey(const char* str, int32 size) noexcept | [source/game_sa/Core/KeyGen.h:46](../../source/game_sa/Core/KeyGen.h#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyGen::GetKey-sized 0x0053CED0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetUppercaseKey(const char* str) noexcept | [source/game_sa/Core/KeyGen.h:57](../../source/game_sa/Core/KeyGen.h#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyGen::GetUppercaseKey- 0x0053CF30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetUppercaseKey(const char* begin, const char* end) noexcept | [source/game_sa/Core/KeyGen.h:67](../../source/game_sa/Core/KeyGen.h#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyGen::GetUppercaseKey- 0x0053CF30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ToUppercase(char x) | [source/game_sa/Core/KeyGen.h:78](../../source/game_sa/Core/KeyGen.h#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

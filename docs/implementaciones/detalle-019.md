@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 08/11/2026 (Ciudad de México):** 869 grupos / 9484 funciones reconstruidas; 9484 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 08/11/2026 (Ciudad de México):** 870 grupos / 9493 funciones reconstruidas; 9493 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,16 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-361"></a>
+
+## CObjectSaveStructure
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CObjectSaveStructure::InjectHooks() | [source/game_sa/ObjectSaveStructure.cpp:23](../../source/game_sa/ObjectSaveStructure.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CObjectSaveStructure::Construct(CObject* obj) | [source/game_sa/ObjectSaveStructure.cpp:32](../../source/game_sa/ObjectSaveStructure.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CObjectSaveStructure::Construct 0x005D2160 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CObjectSaveStructure::Extract(CObject* obj) | [source/game_sa/ObjectSaveStructure.cpp:69](../../source/game_sa/ObjectSaveStructure.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CObjectSaveStructure::Extract 0x005D2220 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-362"></a>
 
 ## CObjectScanner
 
@@ -16,7 +26,7 @@
 | * CObjectScanner::GetClosestObjectInRange() const | [source/game_sa/ObjectScanner.cpp:14](../../source/game_sa/ObjectScanner.cpp#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CObjectScanner() | [source/game_sa/ObjectScanner.h:9](../../source/game_sa/ObjectScanner.h#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-362"></a>
+<a id="grupo-363"></a>
 
 ## COccluder
 
@@ -31,7 +41,7 @@
 | GetRotation() const noexcept | [source/game_sa/Occluder.h:29](../../source/game_sa/Occluder.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetSize() const noexcept | [source/game_sa/Occluder.h:30](../../source/game_sa/Occluder.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-363"></a>
+<a id="grupo-364"></a>
 
 ## COcclusion
 
@@ -45,7 +55,7 @@
 | COcclusion::ProcessBeforeRendering() | [source/game_sa/Occlusion.cpp:166](../../source/game_sa/Occlusion.cpp#L166) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: COcclusion::ProcessBeforeRendering 0x007201C0 | 0 / 0 | Posible dato fijo ActiveOccluders: source/game_sa/Occlusion.h:18 (0x00C78610); Posible dato fijo FarAwayList: source/game_sa/Occlusion.h:26 (0x008D5D68); Posible dato fijo InteriorOccluders: source/game_sa/Occlusion.h:16 (0x00C73CC8); Posible dato fijo ListWalkThroughFA: source/game_sa/Occlusion.h:27 (0x008D5D70); Posible dato fijo NearbyList: source/game_sa/Occlusion.h:24 (0x008D5D6C); Posible dato fijo NumActiveOccluders: source/game_sa/Occlusion.h:22 (0x00C73CC0); Posible dato fijo NumInteriorOccludersOnMap: source/game_sa/Occlusion.h:20 (0x00C73CC4); Posible dato fijo Occluders: source/game_sa/Occlusion.h:17 (0x00C73FA0); Posible dato fijo PreviousListWalkThroughFA: source/game_sa/Occlusion.h:28 (0x008D5D74); Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914) |
 | GetActiveOccluders() | [source/game_sa/Occlusion.h:39](../../source/game_sa/Occlusion.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ActiveOccluders: source/game_sa/Occlusion.h:18 (0x00C78610); Posible dato fijo NumActiveOccluders: source/game_sa/Occlusion.h:22 (0x00C73CC0) |
 
-<a id="grupo-364"></a>
+<a id="grupo-365"></a>
 
 ## COctTree
 
@@ -65,7 +75,7 @@
 | COctTree::RemoveChildren() | [source/game_sa/Core/OctTree.cpp:178](../../source/game_sa/Core/OctTree.cpp#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_octTreePool: source/game_sa/Core/OctTree.h:25 (0x00BC12E4) |
 | COctTree::empty() | [source/game_sa/Core/OctTree.cpp:190](../../source/game_sa/Core/OctTree.cpp#L190) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-365"></a>
+<a id="grupo-366"></a>
 
 ## COctTreeBase
 
@@ -78,7 +88,7 @@
 | COctTreeBase::ReduceBranches(int32 newBranchesCount) | [source/game_sa/Core/OctTreeBase.cpp:70](../../source/game_sa/Core/OctTreeBase.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | COctTreeBase::Reduce() | [source/game_sa/Core/OctTreeBase.cpp:81](../../source/game_sa/Core/OctTreeBase.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gpTmpOctTree: source/game_sa/Core/OctTree.cpp:4 (0x00BC12D8) |
 
-<a id="grupo-366"></a>
+<a id="grupo-367"></a>
 
 ## COnscreenCounterEntry
 
@@ -90,7 +100,7 @@
 | COnscreenCounterEntry::ProcessForDisplayCounter(eOnscreenCounter type) | [source/game_sa/OnscreenCounterEntry.cpp:47](../../source/game_sa/OnscreenCounterEntry.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: COnscreenCounterEntry::ProcessForDisplayCounter 0x0044CA90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | COnscreenCounterEntry::SetColourID(eHudColours colorId) | [source/game_sa/OnscreenCounterEntry.cpp:64](../../source/game_sa/OnscreenCounterEntry.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: COnscreenCounterEntry::SetColourID 0x0044CB00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-367"></a>
+<a id="grupo-368"></a>
 
 ## COnscreenTimer
 
@@ -111,7 +121,7 @@
 | COnscreenTimer::Process() | [source/game_sa/OnscreenTimer.cpp:166](../../source/game_sa/OnscreenTimer.cpp#L166) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_bPaused: source/game_sa/LoadingScreen.h:35 (0x00BAB31A) |
 | COnscreenTimer::ProcessForDisplay() | [source/game_sa/OnscreenTimer.cpp:174](../../source/game_sa/OnscreenTimer.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_Wants_To_Draw_Hud: source/game_sa/Hud.h:37 (0x00BAA45D) |
 
-<a id="grupo-368"></a>
+<a id="grupo-369"></a>
 
 ## COnscreenTimerEntry
 
@@ -121,7 +131,7 @@
 | COnscreenTimerEntry::Process() | [source/game_sa/OnscreenTimerEntry.cpp:17](../../source/game_sa/OnscreenTimerEntry.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | COnscreenTimerEntry::ProcessForDisplayClock() | [source/game_sa/OnscreenTimerEntry.cpp:52](../../source/game_sa/OnscreenTimerEntry.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-369"></a>
+<a id="grupo-370"></a>
 
 ## CPPTriPlantBuffer
 
@@ -140,7 +150,7 @@
 | SetType(int32 type) | [source/game_sa/PPTriPlantBuffer.h:58](../../source/game_sa/PPTriPlantBuffer.h#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CopyToActive(PPTriPlant* plant) | [source/game_sa/PPTriPlantBuffer.h:61](../../source/game_sa/PPTriPlantBuffer.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-370"></a>
+<a id="grupo-371"></a>
 
 ## CPad
 
@@ -350,7 +360,7 @@
 | CPad::ProcessJoyStickEvent(const SDL_Event& e, CControllerState& cs) | [source/game_sa/Pad_SDL.cpp:166](../../source/game_sa/Pad_SDL.cpp#L166) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CPad::ProcessEvent(const SDL_Event& e, bool ignoreMouseEvents, bool ignoreKeyboardEvents) | [source/game_sa/Pad_SDL.cpp:170](../../source/game_sa/Pad_SDL.cpp#L170) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo Pads: source/game_sa/Pad.h:111 (0x00B73458); Posible dato fijo TempKeyState: source/game_sa/Pad.h:107 (0x00B72CB0); Posible dato fijo TempMouseControllerState: source/game_sa/Pad.h:103 (0x00B73404) |
 
-<a id="grupo-371"></a>
+<a id="grupo-372"></a>
 
 ## CPath
 
@@ -363,7 +373,7 @@
 | Size() const | [source/game_sa/VehicleRecording.h:48](../../source/game_sa/VehicleRecording.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetFrames() | [source/game_sa/VehicleRecording.h:52](../../source/game_sa/VehicleRecording.h#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-372"></a>
+<a id="grupo-373"></a>
 
 ## CPathFind
 
@@ -466,7 +476,7 @@
 | IterAreasTouchingRect(CRect rect, T&& fn) const | [source/game_sa/PathFind.h:603](../../source/game_sa/PathFind.h#L603) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetNodeLinkedNodes(const CPathNode& node, bool checkLinksAreaIsLoaded = true) | [source/game_sa/PathFind.h:624](../../source/game_sa/PathFind.h#L624) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-373"></a>
+<a id="grupo-374"></a>
 
 ## CPathIntersectionInfo
 
@@ -474,7 +484,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Clear() | [source/game_sa/PathFind.h:79](../../source/game_sa/PathFind.h#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-374"></a>
+<a id="grupo-375"></a>
 
 ## CPathNode
 
@@ -487,7 +497,16 @@
 | operator!=(const CPathNode& lhs, const CPathNode& rhs) | [source/game_sa/PathFind.h:172](../../source/game_sa/PathFind.h#L172) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HasToBeSwitchedOff() const | [source/game_sa/PathFind.h:178](../../source/game_sa/PathFind.h#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-375"></a>
+<a id="grupo-376"></a>
+
+## CPatrolRoutePool
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| InjectHooks() | [source/game_sa/Pools/PatrolRoutePool.h:7](../../source/game_sa/Pools/PatrolRoutePool.h#L7) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * New() | [source/game_sa/Pools/PatrolRoutePool.h:21](../../source/game_sa/Pools/PatrolRoutePool.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPatrolRoutePool::New 0x0041B660 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-377"></a>
 
 ## CPed
 
@@ -720,7 +739,7 @@
 | Destructor() | [source/game_sa/Entity/Ped/Ped.h:654](../../source/game_sa/Entity/Ped/Ped.h#L654) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CPed::Destructor 0x005E8620 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Constructor(ePedType pt) | [source/game_sa/Entity/Ped/Ped.h:658](../../source/game_sa/Entity/Ped/Ped.h#L658) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPed::Constructor 0x005E8030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-376"></a>
+<a id="grupo-378"></a>
 
 ## CPedATMAttractor
 
@@ -729,7 +748,7 @@
 | CPedATMAttractor(C2dEffectPedAttractor* effect, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedAtmAttractor.h:10](../../source/game_sa/Attractors/PedAtmAttractor.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Attractors/PedAtmAttractor.h:27](../../source/game_sa/Attractors/PedAtmAttractor.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-377"></a>
+<a id="grupo-379"></a>
 
 ## CPedAcquaintanceScanner
 
@@ -740,7 +759,7 @@
 | SetOnlyScriptPedAllowed() | [source/game_sa/Events/EventScanner.h:23](../../source/game_sa/Events/EventScanner.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | TurnOffAllScanners() | [source/game_sa/Events/EventScanner.h:29](../../source/game_sa/Events/EventScanner.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-378"></a>
+<a id="grupo-380"></a>
 
 ## CPedAttractor
 
@@ -783,50 +802,3 @@
 | classof(const From* f) | [source/game_sa/Attractors/PedAttractor.h:83](../../source/game_sa/Attractors/PedAttractor.h#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(C2dEffectPedAttractor* fx, CEntity* entity, eMoveState moveState, size_t maxNoOfPeds, float spacing, float achieveQueueTime, float achieveQueueShuffleTime, float arriveRange, float headingRange, float deltaPos, float deltaHeading) | [source/game_sa/Attractors/PedAttractor.h:86](../../source/game_sa/Attractors/PedAttractor.h#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractor::Constructor 0x005EDFB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Attractors/PedAttractor.h:89](../../source/game_sa/Attractors/PedAttractor.h#L89) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CPedAttractor::Destructor 0x005EC410 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-379"></a>
-
-## CPedAttractorManager
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPedAttractorManager::InjectHooks() | [source/game_sa/PedAttractorManager.cpp:37](../../source/game_sa/PedAttractorManager.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetPedAttractorManager() | [source/game_sa/PedAttractorManager.cpp:72](../../source/game_sa/PedAttractorManager.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::GetPedAttractorManager 0x005EE190 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedAttractorManager::RestoreStuffFromMem() | [source/game_sa/PedAttractorManager.cpp:83](../../source/game_sa/PedAttractorManager.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::RestoreStuffFromMem 0x005EF710 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedAttractorManager::BroadcastArrival(CPed* ped, CPedAttractor* attractor) | [source/game_sa/PedAttractorManager.cpp:125](../../source/game_sa/PedAttractorManager.cpp#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::BroadcastArrival- 0x005EFE20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedAttractorManager::BroadcastDeparture(CPed* ped, CPedAttractor* attractor) | [source/game_sa/PedAttractorManager.cpp:136](../../source/game_sa/PedAttractorManager.cpp#L136) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::BroadcastDeparture- 0x005EC980 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedAttractorManager::DeRegisterPed(CPed* ped, CPedAttractor* attractor) | [source/game_sa/PedAttractorManager.cpp:147](../../source/game_sa/PedAttractorManager.cpp#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::DeRegisterPed- 0x005EC850 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedAttractorManager::RemoveEffect(const C2dEffectPedAttractor* fx) | [source/game_sa/PedAttractorManager.cpp:159](../../source/game_sa/PedAttractorManager.cpp#L159) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::RemoveEffect- 0x005EBA30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedAttractorManager::IsPedRegisteredWithEffect(CPed* ped) | [source/game_sa/PedAttractorManager.cpp:169](../../source/game_sa/PedAttractorManager.cpp#L169) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::IsPedRegisteredWithEffect-Ped 0x005EBCB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedAttractorManager::IsPedRegisteredWithEffect(CPed* ped, const C2dEffectPedAttractor* fx, const CEntity* entity) | [source/game_sa/PedAttractorManager.cpp:183](../../source/game_sa/PedAttractorManager.cpp#L183) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::IsPedRegisteredWithEffect-Effect 0x005EBD70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CPedAttractorManager::FindAssociatedAttractor(const C2dEffectPedAttractor* fx, const CEntity* entity) | [source/game_sa/PedAttractorManager.cpp:197](../../source/game_sa/PedAttractorManager.cpp#L197) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedAttractorManager::HasQueueTailArrivedAtSlot(const C2dEffectPedAttractor* fx, const CEntity* entity) | [source/game_sa/PedAttractorManager.cpp:204](../../source/game_sa/PedAttractorManager.cpp#L204) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::HasQueueTailArrivedAtSlot 0x005EBBA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedAttractorManager::HasEmptySlot(const C2dEffectPedAttractor* fx, const CEntity* entity) | [source/game_sa/PedAttractorManager.cpp:230](../../source/game_sa/PedAttractorManager.cpp#L230) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::HasEmptySlot 0x005EBB00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CPedAttractorManager::GetPedUsingEffect(const C2dEffectPedAttractor* fx, const CEntity* entity) | [source/game_sa/PedAttractorManager.cpp:243](../../source/game_sa/PedAttractorManager.cpp#L243) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::GetPedUsingEffect- 0x005EBE50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CPedAttractorManager::GetRelevantAttractor(const CPed* ped, const C2dEffectPedAttractor* fx, const CEntity* entity) | [source/game_sa/PedAttractorManager.cpp:253](../../source/game_sa/PedAttractorManager.cpp#L253) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::GetRelevantAttractor- 0x005EBF50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CPedAttractorManager::RegisterPedWithAttractor(CPed* ped, C2dEffectPedAttractor* fx, CEntity* entity, eMoveState ms) | [source/game_sa/PedAttractorManager.cpp:276](../../source/game_sa/PedAttractorManager.cpp#L276) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::RegisterPedWithAttractor 0x005EFCA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedAttractorManager::IsApproachable(C2dEffectPedAttractor* fx, const CMatrix& mat, int32 slot, CPed* ped) | [source/game_sa/PedAttractorManager.cpp:312](../../source/game_sa/PedAttractorManager.cpp#L312) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::IsApproachable 0x005EA220 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| BroadcastArrival(CPed* ped, CPedAttractor* attractor, SArray&lt;T*&gt;& attractors) | [source/game_sa/PedAttractorManager.h:44](../../source/game_sa/PedAttractorManager.h#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::BroadcastArrival- 0x005EFE20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| BroadcastDeparture(CPed* ped, CPedAttractor* attractor, SArray&lt;T*&gt;& attractors) | [source/game_sa/PedAttractorManager.h:55](../../source/game_sa/PedAttractorManager.h#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::BroadcastDeparture- 0x005EC980 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| DeRegisterPed(CPed* ped, CPedAttractor* attractor, SArray&lt;T*&gt;& attractors) | [source/game_sa/PedAttractorManager.h:75](../../source/game_sa/PedAttractorManager.h#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::DeRegisterPed- 0x005EC850 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RemoveEffect(const C2dEffectPedAttractor* fx, const SArray&lt;T*&gt;& attractors) | [source/game_sa/PedAttractorManager.h:94](../../source/game_sa/PedAttractorManager.h#L94) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::RemoveEffect- 0x005EBA30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsPedRegistered(CPed* ped, const SArray&lt;T*&gt;& attractors) | [source/game_sa/PedAttractorManager.h:106](../../source/game_sa/PedAttractorManager.h#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsPedRegisteredWithEffect(CPed* ped, const C2dEffectPedAttractor* fx, const CEntity* entity, const SArray&lt;T*&gt;& attractors) | [source/game_sa/PedAttractorManager.h:114](../../source/game_sa/PedAttractorManager.h#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FindAssociatedAttractor(const C2dEffectPedAttractor* fx, const CEntity* entity, const SArray&lt;T*&gt;& attractors) | [source/game_sa/PedAttractorManager.h:122](../../source/game_sa/PedAttractorManager.h#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetPedUsingEffect(const C2dEffectPedAttractor* fx, const CEntity* entity, const SArray&lt;T*&gt;& attractors) | [source/game_sa/PedAttractorManager.h:137](../../source/game_sa/PedAttractorManager.h#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::GetPedUsingEffect- 0x005EBE50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetRelevantAttractor(const CPed* ped, const C2dEffectPedAttractor* fx, const CEntity* entity, const SArray&lt;T*&gt;& attractors) | [source/game_sa/PedAttractorManager.h:149](../../source/game_sa/PedAttractorManager.h#L149) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorManager::GetRelevantAttractor- 0x005EBF50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RegisterPed(CPed* ped, C2dEffectPedAttractor* fx, CEntity* entity, eMoveState moveState, SArray&lt;T*&gt;& attractors) | [source/game_sa/PedAttractorManager.h:161](../../source/game_sa/PedAttractorManager.h#L161) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ComputeEffectPos(const C2dEffectPedAttractor* fx, const CMatrix& mat) | [source/game_sa/PedAttractorManager.h:178](../../source/game_sa/PedAttractorManager.h#L178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ComputeEffectUseDir(const C2dEffectPedAttractor* fx, const CMatrix& mat) | [source/game_sa/PedAttractorManager.h:183](../../source/game_sa/PedAttractorManager.h#L183) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ComputeEffectQueueDir(const C2dEffectPedAttractor* fx, const CMatrix& mat) | [source/game_sa/PedAttractorManager.h:188](../../source/game_sa/PedAttractorManager.h#L188) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ComputeEffectForwardDir(const C2dEffectPedAttractor* fx, const CMatrix& mat) | [source/game_sa/PedAttractorManager.h:193](../../source/game_sa/PedAttractorManager.h#L193) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| VisitAttractorsOfType(ePedAttractorType t, Callable&& visitor) | [source/game_sa/PedAttractorManager.h:202](../../source/game_sa/PedAttractorManager.h#L202) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-380"></a>
-
-## CPedAttractorPedPlacer
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CPedAttractorPedPlacer::InjectHooks() | [source/game_sa/Attractors/PedAttractorPedPlacer.cpp:26](../../source/game_sa/Attractors/PedAttractorPedPlacer.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPedAttractorPedPlacer::PlacePedAtEffect(C2dEffectPedAttractor const& fx, CEntity* entity, CPed* ped, float forwardOffsetMultiplier) | [source/game_sa/Attractors/PedAttractorPedPlacer.cpp:52](../../source/game_sa/Attractors/PedAttractorPedPlacer.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPedAttractorPedPlacer::PlacePedAtEffect 0x005EA390 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
