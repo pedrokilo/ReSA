@@ -10,6 +10,8 @@
 
 class CPointList {
 public:
+    static void InjectHooks();
+
     bool Empty() const noexcept;
     void AddPoint(CVector pt) noexcept;
     void MergeListsRemovingDoubles(CPointList* main, CPointList* toBeMerged) noexcept;
@@ -18,5 +20,8 @@ public:
     uint32                  m_Count{};
     std::array<CVector, 24> m_Points{};
     bool                    m_PointHasBeenClaimed[24]{};
+
+private:
+    CPointList* Constructor(); // 0x6986E0 (lote 142A, banco Fn142A)
 };
 VALIDATE_SIZE(CPointList, 0x13C);

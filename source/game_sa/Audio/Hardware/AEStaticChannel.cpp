@@ -22,9 +22,20 @@ END GENERATED HOOK STATUS */
 
 #include "AESmoothFadeThread.h"
 
+namespace {
+// 0x4F0B50 (lote 142A, banco Fn142A): cuerpo del destructor de CAEStaticChannel del EXE (marco SEH; deja la vtable de la clase, libera los buffers de DirectSound y sigue con el cuerpo de la base; sin hook:
+// el destructor de la clase es el generado por el compilador). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x4F0B50` del EXE.
+__declspec(noinline) void __fastcall StaticChannelDestructorBody(CAEStaticChannel* self, void* /*edx*/) {
+    self->CAEStaticChannel::~CAEStaticChannel();
+}
+} // namespace
+
+uintptr_t Lote142AStaticChannelDestructorBody() { return reinterpret_cast<uintptr_t>(&StaticChannelDestructorBody); } // para el banco Fn142A
+
 void CAEStaticChannel::InjectHooks() {
     RH_ScopedVirtualClass(CAEStaticChannel, 0x85F3CC, 9);
     RH_ScopedCategory("Audio/Hardware");
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4F1020);
 
     RH_ScopedVMTInstall(Service, 0x4F10D0);
     RH_ScopedVMTInstall(IsSoundPlaying, 0x4F0F40);
@@ -43,6 +54,17 @@ CAEStaticChannel::CAEStaticChannel(IDirectSound* pDirectSound, uint16 channelId,
     m_bNeedsSynch(false),
     m_IsHardwareMixAvailable(hardwareMixAvailable)
 {
+}
+
+// 0x4F1020 (lote 142A, banco Fn142A) : destructor con borrado de CAEStaticChannel del EXE (ranura 0 de su vtable 0x85F3CC; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx;
+// call 0x4F0B50; test byte [esp+8],1; je ..; push esi; call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x4F0B50),
+// libera `this` solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como Simple (entrada del EXE): RH_ScopedVMTInstall no puede nombrar la ranura del destructor virtual.
+CAEStaticChannel* CAEStaticChannel::ScalarDeletingDestructor(uint8 flags) {
+    StaticChannelDestructorBody(this, nullptr);
+    if (flags & 1) {
+        ::operator delete(this);
+    }
+    return this;
 }
 
 // 0x4F10D0

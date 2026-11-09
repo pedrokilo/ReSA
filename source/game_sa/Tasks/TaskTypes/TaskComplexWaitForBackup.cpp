@@ -29,6 +29,7 @@ void CTaskComplexWaitForBackup::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x697290);
     RH_ScopedInstall(Destructor, 0x697330);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x697EF0);
 
     RH_ScopedInstall(CreateSubTask, 0x6973B0);
 
@@ -60,6 +61,18 @@ CTaskComplexWaitForBackup::~CTaskComplexWaitForBackup() {
     // Como el original: limpia primero al agresor (+0x10) y luego al refuerzo (+0x14)
     CEntity::SafeCleanUpRef(m_aggressor);
     CEntity::SafeCleanUpRef(m_backup);
+}
+
+// 0x697EF0 (lote 142A, banco Fn142A) : destructor con borrado de CTaskComplexWaitForBackup del EXE (ranura 0 de su vtable 0x870DA4; el listado lo atribuia a CTaskComplexReactToGunAimedAt; thiscall, un
+// argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x697330; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye
+// con el destructor de la clase (0x697330, con hook; aqui su envoltura Destructor()), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto
+// y devuelve `this`.
+CTaskComplexWaitForBackup* CTaskComplexWaitForBackup::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x6973B0

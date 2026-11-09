@@ -20,9 +20,25 @@ END GENERATED HOOK STATUS */
 
 #include "Projectile.h"
 
+namespace CObjectBody {
+void __fastcall Destructor(CObject* self, void* edx); // Object.cpp: 0x59F660
+}
+
+namespace {
+// 0x5A40E0 (lote 142A, banco Fn142A; thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CProjectile del EXE (`mov [ecx],0x867030; jmp 0x59F660`). Deja la vtable de CProjectile del EXE
+// (0x867030; la de la DLL no vale: las subclases del EXE la sobrescriben) y sigue con el cuerpo de ~CObject (0x59F660, sin hook: aqui el destructor de CObject de la DLL). Sin expansion en linea
+// para que el banco pueda sustituirla.
+__declspec(noinline) void __fastcall ProjectileDestructorBody(CProjectile* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x867030;
+    CObjectBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CProjectile::InjectHooks() {
     RH_ScopedClass(CProjectile);
     RH_ScopedCategory("Entity/Object");
+    RH_ScopedNamedGlobalInstall(ProjectileDestructorBody, "Destructor", 0x5A40E0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x5A40F0);
 
     RH_ScopedInstall(Constructor, 0x5A4030);
 }
@@ -39,4 +55,15 @@ CProjectile::CProjectile(int32 modelId) : CObject() {
     physicalFlags.bExplosionProof = true;
     CEntity::SetModelIndex(modelId);
     m_nObjectType = eObjectType::OBJECT_TYPE_DECORATION;
+}
+
+// 0x5A40F0 (lote 142A, banco Fn142A) : destructor con borrado de CProjectile del EXE (ranura 0 de su vtable 0x867030; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx;
+// call 0x5A40E0; test byte [esp+8],1; je ..; push esi; call 0x5A1F20; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x5A40E0), libera `this` con
+// CObject::operator delete (0x5A1F20, sin hook: pool de objetos 0xB7449C) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CProjectile* CProjectile::ScalarDeletingDestructor(uint8 flags) {
+    ProjectileDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CObject::operator delete(this);
+    }
+    return this;
 }

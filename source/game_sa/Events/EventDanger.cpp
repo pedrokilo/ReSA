@@ -36,6 +36,9 @@ void CEventDanger::InjectHooks() {
     RH_ScopedNamedGlobalInstall(DangerDestructorBody, "Destructor", 0x4B26A0);
 
     RH_ScopedInstall(Constructor, 0x4B2600);
+    RH_ScopedVMTInstall(GetEventType, 0x4B2670);     // lote 142A (banco Fn142A): retorno de constante (75), ranura 1
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B2690); // lote 142A: 20, ranura 2
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B2680);      // lote 142A: 0, ranura 3
     RH_ScopedVMTInstall(AffectsPed, 0x4B5470);
     RH_ScopedVMTInstall(AffectsPedGroup, 0x4B54E0);
     RH_ScopedVMTInstall(GetSourceEntity, 0x4B2700);

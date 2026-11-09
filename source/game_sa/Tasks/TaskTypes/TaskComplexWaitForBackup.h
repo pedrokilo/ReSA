@@ -37,9 +37,10 @@ private: // Wrappers for hooks
         this->CTaskComplexWaitForBackup::CTaskComplexWaitForBackup(aggressor, backup, waitDist);
         return this;
     }
-    // 0x697330
-    CTaskComplexWaitForBackup* Destructor() {
+    // 0x697330 (sin expansion en linea: la llama ScalarDeletingDestructor y el banco Fn142A la sustituye)
+    __declspec(noinline) CTaskComplexWaitForBackup* Destructor() {
         this->CTaskComplexWaitForBackup::~CTaskComplexWaitForBackup();
         return this;
     }
+    CTaskComplexWaitForBackup* ScalarDeletingDestructor(uint8 flags); // 0x697EF0 (lote 142A, banco Fn142A): destructor con borrado (ranura 0 de la vtable 0x870DA4), `ret 4`
 };

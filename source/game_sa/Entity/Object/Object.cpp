@@ -192,6 +192,14 @@ CObject::CObject(CDummyObject* dummyObj) : CPhysical() {
     }
 }
 
+// Lote 142A (banco Fn142A): 0x59F660 sin hook; funcion propia sin expansion en linea para que el cuerpo de ~CProjectile (0x5A40E0, `mov [ecx],0x867030; jmp 0x59F660`) la llame como el `jmp` del EXE y el
+// banco pueda sustituirla.
+namespace CObjectBody {
+__declspec(noinline) void __fastcall Destructor(CObject* self, void* /*edx*/) {
+    self->CObject::~CObject();
+}
+} // namespace CObjectBody
+
 // 0x59F660
 // Libera referencias a script brains, modelos y texturas; retira registros del
 // radar y de listas de control, y extingue el fuego antes de liberar el objeto.

@@ -23,9 +23,24 @@ END GENERATED HOOK STATUS */
 #include "EventChatPartner.h"
 #include "EventAcquaintancePedDislike.h"
 
+namespace CTaskComplexWanderBody {
+void __fastcall Destructor(CTaskComplexWander* self, void* edx); // TaskComplexWander.cpp: 0x669D20
+}
+
+namespace {
+// 0x48E600 (lote 142A, banco Fn142A; thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CTaskComplexWanderStandard del EXE (`mov [ecx],0x85A200; jmp 0x669D20`). Deja la vtable de
+// CTaskComplexWanderStandard del EXE (0x85A200) y sigue con el cuerpo de ~CTaskComplexWander (0x669D20, con hook). Sin expansion en linea para que el banco pueda sustituirla.
+__declspec(noinline) void __fastcall WanderStandardDestructorBody(CTaskComplexWanderStandard* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85A200;
+    CTaskComplexWanderBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexWanderStandard::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWanderStandard, 0x85A200, 15);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(WanderStandardDestructorBody, "Destructor", 0x48E600);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x48E5E0);
 
     RH_ScopedInstall(Constructor, 0x48E4F0);
     RH_ScopedInstall(WillChat, 0x66AED0);
@@ -46,6 +61,17 @@ CTaskComplexWanderStandard::CTaskComplexWanderStandard(eMoveState MoveState, uin
     CTaskComplexWander(MoveState, Dir, bWanderSensibly),
     m_nMinNextScanTime{ 0 }
 {
+}
+
+// 0x48E5E0 (lote 142A, banco Fn142A) : destructor con borrado de CTaskComplexWanderStandard del EXE (ranura 0 de su vtable 0x85A200; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x48E600; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x48E600), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexWanderStandard* CTaskComplexWanderStandard::ScalarDeletingDestructor(uint8 flags) {
+    WanderStandardDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x66B150 (sin simbolo en el EXE): guarda el instante antes del cual no se vuelve a escanear

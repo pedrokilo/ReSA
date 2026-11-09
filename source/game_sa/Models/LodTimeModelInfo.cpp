@@ -26,6 +26,20 @@ namespace {
 void __fastcall LodTimeModelInfoDestructorBody(CLodTimeModelInfo* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x85BB9C;
 }
+
+// 0x4C5690 (lote 142A, banco Fn142A; thiscall, sin argumentos de pila, `ret`): constructor de CLodTimeModelInfo del EXE (lo llama el iterador de constructores de vectores, 0x4C5E30: 0x28 bytes por
+// elemento, sin leer el resultado; el listado lo atribuia a CTimeModelInfo). En el EXE llama al constructor de CBaseModelInfo (0x4C4A60: m_nRefCount (+8) = 0 y m_nTxdIndex (+0xA) = -1; sin hook), pone
+// a cero m_numChildren (+0x20) y m_numChildrenRendered (+0x22), deja la vtable de CLodTimeModelInfo del EXE (0x85BCF0; la de la DLL no vale: las subclases del EXE la sobrescriben) y pone
+// m_lodTimeInfo.m_nOtherTimeModel (+0x26) a -1 (m_nTimeOn/m_nTimeOff, +0x24 y +0x25, no se tocan). Devuelve this en EAX. Aqui el cuerpo de CBaseModelInfo va en linea: las mismas escrituras.
+CLodTimeModelInfo* __fastcall LodTimeModelInfoConstructorBody(CLodTimeModelInfo* self, void* /*edx*/) {
+    self->m_nRefCount = 0;
+    self->m_nTxdIndex = -1;
+    self->m_numChildren = 0;
+    self->m_numChildrenRendered = 0;
+    *reinterpret_cast<uint32*>(self) = 0x85BCF0;
+    self->m_lodTimeInfo.m_nOtherTimeModel = -1;
+    return self;
+}
 } // namespace
 
 void CLodTimeModelInfo::InjectHooks()
@@ -33,6 +47,7 @@ void CLodTimeModelInfo::InjectHooks()
     RH_ScopedVirtualClass(CLodTimeModelInfo, 0x85BCF0, 16);
     RH_ScopedCategory("Models");
     RH_ScopedNamedGlobalInstall(LodTimeModelInfoDestructorBody, "Destructor", 0x4C56E0);
+    RH_ScopedNamedGlobalInstall(LodTimeModelInfoConstructorBody, "Constructor", 0x4C5690);
 
     // Las direcciones anteriores (0x4C5660/0x4C5670) eran las de CTimeModelInfo; las
     // propias de esta clase están en las entradas [4] y [5] de su vtable 0x85BCF0.

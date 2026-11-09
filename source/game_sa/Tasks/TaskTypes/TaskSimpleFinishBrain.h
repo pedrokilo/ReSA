@@ -14,4 +14,7 @@ public:
 
     CTask*    Clone() const override { return new CTaskSimpleFinishBrain{ *this }; }
     eTaskType GetTaskType() const override { return Type; }
+
+private:
+    CTaskSimpleFinishBrain* ScalarDeletingDestructor(uint8 flags); // 0x4636C0 (lote 142A, banco Fn142A): destructor con borrado (ranura 0 de la vtable 0x859D20), `ret 4`
 };

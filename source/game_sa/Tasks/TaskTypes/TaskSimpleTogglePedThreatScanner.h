@@ -27,5 +27,6 @@ private: // Wrappers for hooks
         this->CTaskSimpleTogglePedThreatScanner::CTaskSimpleTogglePedThreatScanner(bScanAllowedScriptPed, bScanAllowedInVehicle, bScanAllowedScriptedTask);
         return this;
     }
+    CTaskSimpleTogglePedThreatScanner* ScalarDeletingDestructor(uint8 flags); // 0x492DF0 (lote 142A, banco Fn142A): destructor con borrado (ranura 0 de la vtable 0x85A334), `ret 4`
 };
 VALIDATE_SIZE(CTaskSimpleTogglePedThreatScanner, 0xC);

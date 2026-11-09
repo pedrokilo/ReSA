@@ -40,5 +40,6 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    CAEStaticChannel* ScalarDeletingDestructor(uint8 flags); // 0x4F1020 (lote 142A, banco Fn142A): ranura 0 de la vtable 0x85F3CC del EXE, `ret 4`
 };
 VALIDATE_SIZE(CAEStaticChannel, 0x90);

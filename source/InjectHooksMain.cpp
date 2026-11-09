@@ -572,6 +572,7 @@
 #include "EventLeaderEntryExit.h"
 #include "EventSpecial.h"
 #include "Formation.h"
+#include "PointList.h"
 #include "ProjectileInfo.h"
 
 #include "Plugins/BreakablePlugin/BreakablePlugin.h"
@@ -676,6 +677,7 @@ void InjectHooksMain() {
     CCheckpoints::InjectHooks();
     CWeaponEffects::InjectHooks();
     CPedList::InjectHooks();
+    CPointList::InjectHooks();
     CBouncingPanel::InjectHooks();
     CRope::InjectHooks();
     CRopes::InjectHooks();

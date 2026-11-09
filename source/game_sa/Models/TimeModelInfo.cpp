@@ -20,6 +20,15 @@ END GENERATED HOOK STATUS */
 
 #include "ModelInfo.h"
 
+namespace {
+// 0x4C5680 (lote 142A, banco Fn142A; thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CTimeModelInfo del EXE (la cadena de destructores hasta CBaseModelInfo se reduce a
+// `mov dword [ecx],0x85BB9C`: deja la vtable de CBaseModelInfo del EXE). Lo llaman el destructor con borrado (0x4C6270) y el iterador de destructores de vectores del EXE (`push 0x4C5680` en 0x4C58A0
+// y 0x4C5DD0, con elementos de 0x24 bytes = `CTimeModelInfo`).
+void __fastcall TimeModelInfoDestructorBody(CTimeModelInfo* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85BB9C;
+}
+} // namespace
+
 /**
  * Registra las operaciones específicas de los modelos con visibilidad por horario.
  */
@@ -39,6 +48,7 @@ __declspec(noinline) static CTimeModelInfo* __fastcall TimeModelInfoConstructorB
 void CTimeModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CTimeModelInfo, 0x85BCB0, 16);
     RH_ScopedCategory("Models");
+    RH_ScopedNamedGlobalInstall(TimeModelInfoDestructorBody, "Destructor", 0x4C5680);
 
     RH_ScopedNamedGlobalInstall(TimeModelInfoConstructorBody, "ConstructorBody", 0x4C5640); // lote 140A (banco Fn140A)
 

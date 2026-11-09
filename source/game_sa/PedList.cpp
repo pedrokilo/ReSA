@@ -25,6 +25,7 @@ void CPedList::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Empty, 0x699DB0);
+    RH_ScopedInstall(Constructor, 0x5F68A0);
     RH_ScopedInstall(BuildListFromGroup_NoLeader, 0x699DD0);
     RH_ScopedInstall(ExtractPedsWithGuns, 0x69A4C0);
     RH_ScopedInstall(BuildListFromGroup_NotInCar_NoLeader, 0x69A340);
@@ -36,6 +37,13 @@ void CPedList::InjectHooks() {
 // 0x699DB0
 void CPedList::Empty() {
     *this = {};
+}
+
+// 0x5F68A0 (lote 142A, banco Fn142A; thiscall, sin argumentos de pila, `ret`, 12 bytes: `push esi; mov esi,ecx; call 0x699DB0; mov eax,esi; pop esi; ret`; el listado lo atribuia a
+// CTaskSimpleWaitUntilLeaderAreaCodesMatch). El constructor del EXE pone la lista a cero con CPedList::Empty (0x699DB0, con hook) y devuelve this en EAX.
+CPedList* CPedList::Constructor() {
+    Empty();
+    return this;
 }
 
 // 0x699DD0

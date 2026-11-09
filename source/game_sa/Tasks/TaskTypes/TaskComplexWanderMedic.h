@@ -19,4 +19,5 @@ private: // Wrappers for hooks
         this->CTaskComplexWanderMedic::CTaskComplexWanderMedic(MoveState, Dir, bWanderSensibly);
         return this;
     }
+    CTaskComplexWanderMedic* ScalarDeletingDestructor(uint8 flags); // 0x658830 (lote 142A, banco Fn142A): destructor con borrado (ranura 0 de la vtable 0x86F48C), `ret 4`
 };

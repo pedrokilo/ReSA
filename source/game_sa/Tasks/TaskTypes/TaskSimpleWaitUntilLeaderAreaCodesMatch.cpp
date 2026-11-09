@@ -19,14 +19,36 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "TaskSimpleWaitUntilLeaderAreaCodesMatch.h"
 
+namespace {
+// 0x5F67E0 (lote 142A, banco Fn142A): cuerpo del destructor de CTaskSimpleWaitUntilLeaderAreaCodesMatch del EXE (`mov [ecx],0x86C7E8; jmp 0x6355E0` = ~CTaskSimpleWaitUntilAreaCodesMatch; sin hook propio: el
+// destructor de la clase es el generado por el compilador). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x5F67E0` del EXE.
+__declspec(noinline) void __fastcall LeaderAreaCodesMatchDestructorBody(CTaskSimpleWaitUntilLeaderAreaCodesMatch* self, void* /*edx*/) {
+    self->CTaskSimpleWaitUntilLeaderAreaCodesMatch::~CTaskSimpleWaitUntilLeaderAreaCodesMatch();
+}
+} // namespace
+
+uintptr_t Lote142ALeaderAreaCodesMatchDestructorBody() { return reinterpret_cast<uintptr_t>(&LeaderAreaCodesMatchDestructorBody); } // para el banco Fn142A
+
 void CTaskSimpleWaitUntilLeaderAreaCodesMatch::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleWaitUntilLeaderAreaCodesMatch, 0x86c7e8, 9);
     RH_ScopedCategory("Tasks/TaskTypes"); 
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x5F6880);
 
     RH_ScopedVMTInstall(Clone, 0x5F67F0);
     RH_ScopedVMTInstall(GetTaskType, 0x5F6870);
     RH_ScopedVMTInstall(MakeAbortable, 0x6356A0);
     RH_ScopedVMTInstall(ProcessPed, 0x6356C0);
+}
+
+// 0x5F6880 (lote 142A, banco Fn142A) : destructor con borrado de CTaskSimpleWaitUntilLeaderAreaCodesMatch del EXE (ranura 0 de su vtable 0x86C7E8; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi;
+// mov esi,ecx; call 0x5F67E0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x5F67E0), libera `this`
+// con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleWaitUntilLeaderAreaCodesMatch* CTaskSimpleWaitUntilLeaderAreaCodesMatch::ScalarDeletingDestructor(uint8 flags) {
+    LeaderAreaCodesMatchDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x6356A0

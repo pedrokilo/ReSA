@@ -36,5 +36,8 @@ public:
     void RemoveMemberNoFill(int32 i);
     CPed* Get(int32 i);
     auto GetPeds() const { return std::span{ m_peds.data(), m_count }; }
+
+private:
+    CPedList* Constructor(); // 0x5F68A0 (lote 142A, banco Fn142A): `Empty(); return this`
 };
 VALIDATE_SIZE(CPedList, 0x7C);

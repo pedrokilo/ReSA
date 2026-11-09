@@ -31,6 +31,7 @@ private: // Wrappers for hooks
         this->CTaskComplexWanderStandard::CTaskComplexWanderStandard(MoveState, Dir, bWanderSensibly);
         return this;
     }
+    CTaskComplexWanderStandard* ScalarDeletingDestructor(uint8 flags); // 0x48E5E0 (lote 142A, banco Fn142A): destructor con borrado (ranura 0 de la vtable 0x85A200), `ret 4`
 };
 
 VALIDATE_SIZE(CTaskComplexWanderStandard, 0x38);

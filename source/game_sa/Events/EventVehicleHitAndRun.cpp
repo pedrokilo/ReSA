@@ -39,6 +39,7 @@ void CEventVehicleHitAndRun::InjectHooks()
 
     RH_ScopedInstall(Constructor, 0x4AE990);
     RH_ScopedVMTInstall(Clone, 0x4B7100);
+    RH_ScopedVMTInstall(IsCriminalEvent, 0x4B27B0); // lote 142A (banco Fn142A): `m_vehicle->m_pDriver` no nulo y CPed::IsPlayer (el listado la atribuia a CEventDanger), ranura 7
     RH_ScopedVMTInstall(ReportCriminalEvent, 0x4B27D0);
 }
 

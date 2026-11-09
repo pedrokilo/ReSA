@@ -25,6 +25,9 @@ public:
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) override;
     bool      ProcessPed(CPed* ped) override;
+
+private:
+    CTaskSimpleWaitUntilLeaderAreaCodesMatch* ScalarDeletingDestructor(uint8 flags); // 0x5F6880 (lote 142A, banco Fn142A): destructor con borrado (ranura 0 de la vtable 0x86C7E8), `ret 4`
 };
 
 VALIDATE_SIZE(CTaskSimpleWaitUntilLeaderAreaCodesMatch, 0x38);

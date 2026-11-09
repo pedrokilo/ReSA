@@ -62,6 +62,18 @@ public:
 
     static DWORD WINAPI MainLoop(LPVOID);
     void Service();
+
+private: // Envolturas de los hooks (lote 142A, banco Fn142A)
+    // 0x4F11D0: `mov eax,ecx; ret` (el constructor no inicializa nada y devuelve this)
+    CAEStreamThread* Constructor() {
+        this->CAEStreamThread::CAEStreamThread();
+        return this;
+    }
+    // 0x4F11E0: `add ecx,38h; push ecx; call [0x8580E0]; ret`: DeleteCriticalSection sobre m_criticalSection. Sin expansion en linea para que el banco pueda sustituirla.
+    __declspec(noinline) CAEStreamThread* Destructor() {
+        this->CAEStreamThread::~CAEStreamThread();
+        return this;
+    }
 };
 
 VALIDATE_SIZE(CAEStreamThread, 0x50);

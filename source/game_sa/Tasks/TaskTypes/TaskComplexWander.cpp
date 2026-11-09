@@ -40,19 +40,20 @@ void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
 void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
 }
 
-namespace {
+// Espacio con nombre (no anonimo) para que CTaskComplexWanderMedic (0x658850) y CTaskComplexWanderStandard (0x48E600) (lote 142A) llamen a este mismo cuerpo sin duplicarlo.
+namespace CTaskComplexWanderBody {
 // 0x669D20 (lote 115A, banco Fn115A): cuerpo no virtual de ~CTaskComplexWander del EXE (thiscall, sin argumentos de pila, `ret`)
 // Deja la vtable de CTaskComplexWander del EXE (0x86FE84) y salta a CTaskComplex::Destructor (0x61A3D0). El EXE lo envuelve en un marco SEH que solo desenrolla.
-void __fastcall WanderDestructorBody(CTaskComplexWander* self, void* /*edx*/) {
+void __fastcall Destructor(CTaskComplexWander* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x86FE84;
     CTaskComplexBody::Destructor(self, nullptr);
 }
-} // namespace
+} // namespace CTaskComplexWanderBody
 
 void CTaskComplexWander::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWander, 0x86FE84, 15);
     RH_ScopedCategory("Tasks/TaskTypes");
-    RH_ScopedNamedGlobalInstall(WanderDestructorBody, "Destructor", 0x669D20);
+    RH_ScopedNamedGlobalInstall(CTaskComplexWanderBody::Destructor, "Destructor", 0x669D20);
 
     RH_ScopedInstall(Constructor, 0x66F450);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x674140);

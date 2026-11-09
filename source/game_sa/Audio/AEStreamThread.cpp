@@ -43,6 +43,8 @@ void CAEStreamThread::InjectHooks() {
     RH_ScopedClass(CAEStreamThread);
     RH_ScopedCategory("Audio");
 
+    RH_ScopedInstall(Constructor, 0x4F11D0);
+    RH_ScopedInstall(Destructor, 0x4F11E0);
     RH_ScopedInstall(Initialise, 0x4F1680);
     RH_ScopedInstall(Start, 0x4F11F0);
     RH_ScopedInstall(Stop, 0x4F1590);
