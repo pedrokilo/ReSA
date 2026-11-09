@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 09/11/2026 (Ciudad de México):** 872 grupos / 9609 funciones reconstruidas; 9609 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 09/11/2026 (Ciudad de México):** 872 grupos / 9633 funciones reconstruidas; 9633 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-471 funciones, 64,952 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+463 funciones, 64,790 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -209,7 +209,6 @@
 | `0x004C7410` | 85 | CVehicleModelInfo | alta | 2 (0) |  |
 | `0x00692680` | 85 | CTaskSimpleDuck | baja | 1 (0) |  |
 | `0x006BF9D0` | 85 | CBmx | alta | 1 (0) |  |
-| `0x006CDC30` | 85 | CPlane | baja | 1 (0) |  |
 | `0x006F54D0` | 85 | cHandlingDataMgr | baja | 1 (0) |  |
 | `0x005A7490` | 83 | CClothesBuilder | baja | 1 (0) |  |
 | `0x006591D0` | 83 | CTaskComplexMedicTreatInjuredPed | baja | 1 (0) |  |
@@ -379,7 +378,6 @@
 | `0x005EEBC0` | 11 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005EEC90` | 11 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005F63F0` | 11 | CEventPlayerCommandToGroupAttack | baja | 3 (0) |  |
-| `0x005F6920` | 11 | CTaskAllocatorKillThreatsBasicRandomGroup | baja | 1 (0) |  |
 | `0x005FED80` | 11 | CEventPedCollisionWithPlayer | baja | 3 (0) |  |
 | `0x005FEE80` | 11 | CEventPlayerCollisionWithPed | baja | 3 (0) |  |
 | `0x005FEF70` | 11 | CEventScriptedAttractor | baja | 2 (0) |  |
@@ -405,19 +403,13 @@
 | `0x0062FF60` | 11 | CTaskComplexDieInCar | baja | 1 (0) |  |
 | `0x00631980` | 11 | CTaskComplexObserveTrafficLightsAndAchieveHeading | alta | 1 (0) |  |
 | `0x00632B70` | 11 | CTaskSimpleWaitForBus | baja | 1 (0) |  |
-| `0x00633290` | 11 | CTaskComplexAttractorPartnerWait | alta | 1 (0) |  |
 | `0x006348E0` | 11 | CTaskComplexUseClosestFreeScriptedAttractor | baja | 1 (0) |  |
-| `0x00636850` | 11 | CTaskComplexUseEffectRunning | baja | 1 (0) |  |
-| `0x00636930` | 11 | CTaskComplexUseEffectSprinting | baja | 1 (0) |  |
 | `0x0063A1D0` | 11 | CEventLeaderQuitEnteringCarAsDriver | baja | 1 (0) |  |
-| `0x0063CE70` | 11 | CTaskComplexDriveToPoint | alta | 1 (0) |  |
-| `0x0063D100` | 11 | CTaskComplexEnterAnyCarAsDriver | alta | 1 (0) |  |
 | `0x00658AE0` | 11 | CTaskComplexTreatAccident | alta | 1 (0) |  |
 | `0x006597B0` | 11 | CTaskComplexUseWaterCannon | alta | 1 (0) |  |
 | `0x006598B0` | 11 | CTaskComplexUseWaterCannon | baja | 1 (0) |  |
 | `0x0065EEF0` | 11 | CTaskSimpleGoToPointFine | alta | 1 (0) |  |
 | `0x00668240` | 11 | CTaskComplexGoToPointAndStandStill | alta | 1 (0) |  |
-| `0x00668630` | 11 | CTaskComplexGoToPointAndStandStillTimed | alta | 1 (0) |  |
 | `0x0066C4C0` | 11 | CTaskComplexGotoDoorAndOpen | baja | 1 (0) |  |
 | `0x0066F670` | 11 | CTaskComplexWanderGang | baja | 1 (0) |  |
 | `0x006726F0` | 11 | CTaskComplexWanderProstitute | alta | 1 (0) |  |

@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,312** funciones en 328 clases/módulos (rango 0x401000–0x74FFFF): 2,290 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,288** funciones en 316 clases/módulos (rango 0x401000–0x74FFFF): 2,266 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,18 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CCustomBuildingDNPipeline | 2 | 39 |
-| CDirectory | 2 | 39 |
-| CPedType | 2 | 40 |
-| CTaskComplexObserveTrafficLights | 2 | 40 |
-| CQuadBike | 2 | 41 |
-| CTaskAllocatorKillThreatsBasicRandomGroup | 2 | 41 |
-| CTaskComplexAttractorPartnerWait | 2 | 41 |
-| CTaskComplexDriveToPoint | 2 | 41 |
-| CTaskComplexEnterAnyCarAsDriver | 2 | 41 |
-| CTaskComplexGoToPointAndStandStillTimed | 2 | 41 |
-| CTaskComplexUseEffectRunning | 2 | 41 |
-| CTaskComplexUseEffectSprinting | 2 | 41 |
 | RwHelper | 3 | 45 |
 | C2dEffect | 3 | 46 |
 | CEventGunShot | 7 | 46 |
@@ -338,90 +326,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CCustomBuildingDNPipeline (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005D6E90 | 14 | A |  | 2 | 2 |  | baja |
-| 0x005D6830 | 25 | A |  | 1 | 1 |  | alta |
-
-## CDirectory (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00532560 | 11 | A |  | 4 | 1 |  | baja |
-| 0x00532540 | 28 | A |  | 3 | 0 |  | baja |
-
-## CPedType (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00608F00 | 20 | A |  | 2 | 2 |  | baja |
-| 0x00608F20 | 20 | A |  | 1 | 1 |  | baja |
-
-## CTaskComplexObserveTrafficLights (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00631940 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00631910 | 34 | A |  | 1 | 1 |  | baja |
-
-## CQuadBike (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006CED10 | 11 | A |  | 1 | 1 |  | baja |
-| 0x006CE440 | 30 | B |  | 0 | 0 | sí | alta |
-
-## CTaskAllocatorKillThreatsBasicRandomGroup (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F6920 | 11 | C |  | 1 | 0 |  | baja |
-| 0x005F6900 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexAttractorPartnerWait (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00633290 | 11 | C |  | 1 | 0 |  | alta |
-| 0x00638FD0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexDriveToPoint (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0063CE70 | 11 | C |  | 1 | 0 |  | alta |
-| 0x00645350 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexEnterAnyCarAsDriver (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0063D100 | 11 | C |  | 1 | 0 |  | alta |
-| 0x006436E0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexGoToPointAndStandStillTimed (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00668630 | 11 | C |  | 1 | 0 |  | alta |
-| 0x0066DD50 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexUseEffectRunning (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00636850 | 11 | C |  | 1 | 0 |  | baja |
-| 0x00636830 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexUseEffectSprinting (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00636930 | 11 | C |  | 1 | 0 |  | baja |
-| 0x00636910 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## RwHelper (3)
 
@@ -2161,7 +2065,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x006CADB0 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x006CDC30 | 85 | C |  | 1 | 0 |  | baja |
+| 0x006CDC30 | 85 | A |  | 1 | 1 |  | baja |
 | 0x006C9160 | 231 | C |  | 1 | 0 |  | alta |
 
 ## CWeather (2)
@@ -2918,7 +2822,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006D63D0 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x006D3D50 | 9 | B |  | 0 | 0 | sí | alta |
 | 0x006D56B0 | 9 | B |  | 0 | 0 | sí | alta |
-| 0x006E2D90 | 49 | A |  | 72 | 3 |  | alta |
+| 0x006E2D90 | 49 | A |  | 72 | 4 |  | alta |
 | 0x006E2DD0 | 49 | C |  | 21 | 0 |  | alta |
 | 0x006D0BC0 | 62 | D |  | 0 | 0 |  | alta |
 | 0x006D5DD0 | 74 | A |  | 1 | 1 |  | alta |

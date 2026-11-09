@@ -4049,8 +4049,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00532450,77,reemplazada,CDirectory,exacta,CDirectory::FindItem-,1,1,,
 0x005324A0,42,reemplazada,CDirectory,exacta,CDirectory::FindItem-ByName,4,4,,
 0x005324D0,96,reemplazada,CDirectory,exacta,CDirectory::FindItem-ByHash,3,3,,
-0x00532540,28,A,CDirectory,baja,,3,0,,
-0x00532560,11,A,CDirectory,baja,,4,1,,
+0x00532540,28,reemplazada,CDirectory,baja,,3,0,,
+0x00532560,11,reemplazada,CDirectory,baja,,4,1,,
 0x00532630,103,reemplazada,CDummyPool,exacta,CDummyPool::New,1,0,,
 0x005326E0,11,A,CDummyPool,baja,,1,1,,
 0x005326F0,51,A,CDummyPool,baja,,3,1,,
@@ -4063,7 +4063,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005328F0,9,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::IsBackfaceCulled,0,0,,
 0x00532900,18,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::IncreaseAlpha,0,0,,
 0x005329A0,30,A,CBaseModelInfo,baja,,2,2,,
-0x00532A90,76,reemplazada,CEntity,exacta,CEntity::Constructor,3,1,,
+0x00532A90,76,reemplazada,CEntity,exacta,CEntity::Constructor,3,2,,
 0x00532AE0,26,reemplazada,CEntity,exacta,CEntity::SetModelIndex,6,5,,sí
 0x00532B00,18,reemplazada,CEntity,exacta,CEntity::UpdateRwFrame,63,55,,
 0x00532B20,69,reemplazada,CEntity,exacta,CEntity::UpdateRpHAnim,20,19,,
@@ -4110,7 +4110,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00535040,694,reemplazada,CEntity,exacta,CEntity::ModifyMatrixForBannerInWind,0,0,,
 0x00535300,49,reemplazada,CEntity,exacta,CEntity::GetColModel,180,174,,
 0x00535340,2896,reemplazada,CEntity,exacta,CEntity::CalculateBBProjection,0,0,,
-0x00535E90,98,reemplazada,CEntity,exacta,CEntity::Destructor,5,1,,
+0x00535E90,98,reemplazada,CEntity,exacta,CEntity::Destructor,5,2,,
 0x00535F00,158,reemplazada,CEntity,exacta,CEntity::UpdateAnim,3,3,,
 0x00535FA0,3093,reemplazada,CEntity,exacta,CEntity::PreRender,2,2,,sí
 0x00536BC0,22,reemplazada,CEntity,exacta,CEntity::IsVisible,10,10,,
@@ -5958,14 +5958,14 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005D5DB0,55,reemplazada,CVehicleModelInfo,exacta,CVehicleModelInfo::SetDirtTextures,1,1,,
 0x005D5FA0,29,reemplazada,CCustomBuildingDNPipeline,exacta,CCustomBuildingDNPipeline::DestroyPipe,1,1,,
 0x005D6750,209,reemplazada,CCustomBuildingDNPipeline,exacta,CCustomBuildingDNPipeline::CreateCustomObjPipe,1,1,,
-0x005D6830,25,A,CCustomBuildingDNPipeline,alta,,1,1,,
+0x005D6830,25,reemplazada,CCustomBuildingDNPipeline,alta,,1,1,,
 0x005D6850,1211,reemplazada,CCustomBuildingDNPipeline,exacta,CCustomBuildingDNPipeline::NVCPipelineProcess,1,1,,
 0x005D6D10,27,reemplazada,CCustomBuildingDNPipeline,exacta,CCustomBuildingDNPipeline::pluginExtraVertColourConstructorCB,0,0,,
 0x005D6D30,47,reemplazada,CCustomBuildingDNPipeline,exacta,CCustomBuildingDNPipeline::pluginExtraVertColourDestructorCB,0,0,,
 0x005D6D80,60,reemplazada,CCustomBuildingDNPipeline,exacta,CCustomBuildingDNPipeline::pluginExtraVertColourStreamWriteCB,0,0,,
 0x005D6DC0,20,reemplazada,CCustomBuildingDNPipeline,exacta,CCustomBuildingDNPipeline::pluginExtraVertColourStreamGetSizeCB,0,0,,
 0x005D6DE0,172,reemplazada,CCustomBuildingDNPipeline,exacta,CCustomBuildingDNPipeline::pluginExtraVertColourStreamReadCB,0,0,,
-0x005D6E90,14,A,CCustomBuildingDNPipeline,baja,,2,2,,
+0x005D6E90,14,reemplazada,CCustomBuildingDNPipeline,baja,,2,2,,
 0x005D6F40,65,reemplazada,CCustomCarEnvMapPipeline,exacta,CCustomCarEnvMapPipeline::SetFxEnvScale,0,0,,
 0x005D6F90,42,reemplazada,CCustomCarEnvMapPipeline,exacta,CCustomCarEnvMapPipeline::GetFxEnvScaleX,0,0,,
 0x005D6FC0,43,reemplazada,CCustomCarEnvMapPipeline,exacta,CCustomCarEnvMapPipeline::GetFxEnvScaleY,0,0,,
@@ -6513,8 +6513,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005F68A0,12,reemplazada,CTaskSimpleWaitUntilLeaderAreaCodesMatch,baja,,0,0,,
 0x005F68E0,1,reemplazada,CTaskAllocator,exacta,CTaskAllocator::Abort,0,0,,sí
 0x005F68F0,6,reemplazada,CTaskAllocatorKillThreatsBasicRandomGroup,exacta,CTaskAllocatorKillThreatsBasicRandomGroup::GetType,0,0,,sí
-0x005F6900,30,B,CTaskAllocatorKillThreatsBasicRandomGroup,baja,,0,0,,sí
-0x005F6920,11,C,CTaskAllocatorKillThreatsBasicRandomGroup,baja,,1,0,,
+0x005F6900,30,reemplazada,CTaskAllocatorKillThreatsBasicRandomGroup,baja,,0,0,,sí
+0x005F6920,11,reemplazada,CTaskAllocatorKillThreatsBasicRandomGroup,baja,,1,1,,
 0x005F6950,69,reemplazada,CPedGroupMembership,exacta,CPedGroupMembership::GetObjectForPedToHold,2,2,,
 0x005F69A0,4,reemplazada,CPedGroupMembership,exacta,CPedGroupMembership::GetLeader,50,38,,
 0x005F69B0,11,reemplazada,CPedGroupMembership,exacta,CPedGroupMembership::GetMember,36,34,,
@@ -6864,8 +6864,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00608DA0,127,reemplazada,CAcquaintance,exacta,CAcquaintance::SetAsAcquaintance,11,10,,
 0x00608E20,31,reemplazada,CPedType,exacta,CPedType::SetPedTypeAsAcquaintance,2,1,,
 0x00608E40,156,reemplazada,CPedType,exacta,CPedType::Initialise,1,1,,
-0x00608F00,20,A,CPedType,baja,,2,2,,
-0x00608F20,20,A,CPedType,baja,,1,1,,
+0x00608F00,20,reemplazada,CPedType,baja,,2,2,,
+0x00608F20,20,reemplazada,CPedType,baja,,1,1,,
 0x00608F70,87,reemplazada,CEventNewGangMember,exacta,CEventNewGangMember::Constructor,2,1,,
 0x00608FD0,6,B,CEventNewGangMember,baja,,0,0,,sí
 0x00608FE0,3,B,CEventNewGangMember,baja,,0,0,,sí
@@ -7160,13 +7160,13 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061A360,41,reemplazada,CPlayerRelationshipRecorder,baja,,29,27,,
 0x0061A390,16,reemplazada,CPlayerRelationshipRecorder,baja,,234,206,,
 0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,107,,
-0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,204,,
-0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,118,,
+0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,205,,
+0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,121,,
 0x0061A430,40,B,CPlayerRelationshipRecorder,baja,,0,0,,sí
 0x0061A4B0,73,reemplazada,CTask,exacta,CTask::IsTaskPtr,2,2,,
 0x0061A500,103,reemplazada,CTaskPool,exacta,CTaskPool::New,1,1,,
 0x0061A5A0,11,reemplazada,CTask,exacta,CTask::operator new,1788,1536,,
-0x0061A5B0,41,reemplazada,CTask,exacta,CTask::operator delete,2114,74,,
+0x0061A5B0,41,reemplazada,CTask,exacta,CTask::operator delete,2114,80,,
 0x0061A620,59,D,CTask,baja,,0,0,,
 0x0061A660,56,B,CTask,baja,,0,0,,sí
 0x0061A6C0,47,reemplazada,CTask,baja,,2,1,,
@@ -7615,8 +7615,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006317E0,232,reemplazada,CTaskComplexObserveTrafficLights,exacta,CTaskComplexObserveTrafficLights::CreateNextSubTask,0,0,,sí
 0x006318D0,5,reemplazada,CTaskComplexObserveTrafficLights,exacta,CTaskComplexObserveTrafficLights::CreateFirstSubTask,0,0,,sí
 0x006318E0,46,reemplazada,CTaskComplexObserveTrafficLights,exacta,CTaskComplexObserveTrafficLights::ControlSubTask,0,0,,sí
-0x00631910,34,A,CTaskComplexObserveTrafficLights,baja,,1,1,,
-0x00631940,6,B,CTaskComplexObserveTrafficLights,baja,,0,0,,sí
+0x00631910,34,reemplazada,CTaskComplexObserveTrafficLights,baja,,1,1,,
+0x00631940,6,reemplazada,CTaskComplexObserveTrafficLights,baja,,0,0,,sí
 0x00631950,43,reemplazada,CTaskComplexObserveTrafficLightsAndAchieveHeading,exacta,CTaskComplexObserveTrafficLightsAndAchieveHeading::MakeAbortable,0,0,,sí
 0x00631980,11,C,CTaskComplexObserveTrafficLightsAndAchieveHeading,alta,,1,0,,
 0x00631990,218,A,CTaskComplexObserveTrafficLightsAndAchieveHeading,alta,,3,3,,
@@ -7655,7 +7655,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00632190,90,A,CTaskComplexSunbathe,baja,,4,3,,
 0x006321F0,108,reemplazada,CTaskComplexUseEffect,exacta,CTaskComplexUseEffect::Constructor,10,7,,
 0x00632260,6,reemplazada,CTaskComplexUseEffect,exacta,CTaskComplexUseEffect::GetTaskType,0,0,,sí
-0x00632270,118,reemplazada,CTaskComplexUseEffect,exacta,CTaskComplexUseEffect::Destructor,3,0,,
+0x00632270,118,reemplazada,CTaskComplexUseEffect,exacta,CTaskComplexUseEffect::Destructor,3,2,,
 0x006322F0,291,reemplazada,CTaskComplexUseEffect,exacta,CTaskComplexUseEffect::MakeAbortable,0,0,,sí
 0x00632420,60,reemplazada,CTaskComplexUseEffect,exacta,CTaskComplexUseEffect::CreateNextSubTask,0,0,,sí
 0x00632460,270,reemplazada,CTaskComplexUseEffect,exacta,CTaskComplexUseEffect::CreateFirstSubTask,0,0,,sí
@@ -7718,12 +7718,12 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00633220,35,reemplazada,CTaskComplexUsePairedAttractor,exacta,CTaskComplexUsePairedAttractor::ClearPartnership,1,1,,
 0x00633250,34,reemplazada,CTaskComplexUsePairedAttractor,baja,,1,1,,
 0x00633280,6,reemplazada,CTaskComplexAttractorPartnerWait,exacta,CTaskComplexAttractorPartnerWait::GetTaskType,0,0,,sí
-0x00633290,11,C,CTaskComplexAttractorPartnerWait,alta,,1,0,,
+0x00633290,11,reemplazada,CTaskComplexAttractorPartnerWait,alta,,1,0,,
 0x006332A0,5,reemplazada,CTaskComplexAttractorPartnerWait,exacta,CTaskComplexAttractorPartnerWait::CreateNextSubTask,0,0,,sí
 0x006332B0,6,reemplazada,CTaskComplexAttractorPartnerWait,exacta,CTaskComplexAttractorPartnerWait::ControlSubTask,0,0,,sí
 0x006332C0,34,reemplazada,CTaskComplexUseAttractorPartner,exacta,CTaskComplexUseAttractorPartner::Constructor,1,1,,
 0x006332F0,6,reemplazada,CTaskComplexUseAttractorPartner,exacta,CTaskComplexUseAttractorPartner::GetTaskType,0,0,,sí
-0x00633300,11,reemplazada,CTaskComplexUseAttractorPartner,exacta,CTaskComplexUseAttractorPartner::Destructor,1,0,,
+0x00633300,11,reemplazada,CTaskComplexUseAttractorPartner,exacta,CTaskComplexUseAttractorPartner::Destructor,1,1,,
 0x00633310,5,reemplazada,CTaskComplexUseAttractorPartner,exacta,CTaskComplexUseAttractorPartner::CreateNextSubTask,0,0,,sí
 0x00633320,6,reemplazada,CTaskComplexUseAttractorPartner,exacta,CTaskComplexUseAttractorPartner::ControlSubTask,0,0,,sí
 0x00633330,27,reemplazada,CTaskComplexUseScriptedAttractor,exacta,CTaskComplexUseScriptedAttractor::Constructor,1,1,,
@@ -7860,13 +7860,13 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00636780,39,reemplazada,CTaskComplexUseEffect,baja,,1,1,,
 0x006367B0,6,reemplazada,CTaskComplexUseEffectRunning,exacta,CTaskComplexUseEffectRunning::GetTaskType,0,0,,sí
 0x006367C0,99,reemplazada,CTaskComplexUseEffectRunning,exacta,CTaskComplexUseEffectRunning::Clone,0,0,,sí
-0x00636830,30,B,CTaskComplexUseEffectRunning,baja,,0,0,,sí
-0x00636850,11,C,CTaskComplexUseEffectRunning,baja,,1,0,,
+0x00636830,30,reemplazada,CTaskComplexUseEffectRunning,baja,,0,0,,sí
+0x00636850,11,reemplazada,CTaskComplexUseEffectRunning,baja,,1,1,,
 0x00636860,39,reemplazada,CTaskComplexUseEffectRunning,baja,,1,1,,
 0x00636890,6,reemplazada,CTaskComplexUseEffectSprinting,exacta,CTaskComplexUseEffectSprinting::GetTaskType,0,0,,sí
 0x006368A0,99,reemplazada,CTaskComplexUseEffectSprinting,exacta,CTaskComplexUseEffectSprinting::Clone,0,0,,sí
-0x00636910,30,B,CTaskComplexUseEffectSprinting,baja,,0,0,,sí
-0x00636930,11,C,CTaskComplexUseEffectSprinting,baja,,1,0,,
+0x00636910,30,reemplazada,CTaskComplexUseEffectSprinting,baja,,0,0,,sí
+0x00636930,11,reemplazada,CTaskComplexUseEffectSprinting,baja,,1,1,,
 0x00636940,98,reemplazada,CTaskComplexWaitAtAttractor,exacta,CTaskComplexWaitAtAttractor::Clone,0,0,,sí
 0x006369B0,90,reemplazada,CTaskComplexUseAttractor,exacta,CTaskComplexUseAttractor::Clone,0,0,,sí
 0x00636A10,80,reemplazada,CTaskComplexWaitForDryWeather,exacta,CTaskComplexWaitForDryWeather::Clone,0,0,,sí
@@ -7964,7 +7964,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00638D30,460,reemplazada,CTaskComplexUsePairedAttractor,exacta,CTaskComplexUsePairedAttractor::CreateSubTask,6,6,,
 0x00638F00,30,B,CTaskComplexUsePairedAttractor,baja,,0,0,,sí
 0x00638F20,164,reemplazada,CTaskComplexAttractorPartnerWait,exacta,CTaskComplexAttractorPartnerWait::CreateFirstSubTask,0,0,,sí
-0x00638FD0,30,B,CTaskComplexAttractorPartnerWait,baja,,0,0,,sí
+0x00638FD0,30,reemplazada,CTaskComplexAttractorPartnerWait,baja,,0,0,,sí
 0x00638FF0,164,reemplazada,CTaskComplexUseAttractorPartner,exacta,CTaskComplexUseAttractorPartner::CreateFirstSubTask,0,0,,sí
 0x006390A0,30,reemplazada,CTaskComplexUseAttractorPartner,baja,,0,0,,sí
 0x006390C0,196,reemplazada,CTaskComplexUseScriptedAttractor,exacta,CTaskComplexUseScriptedAttractor::CreateFirstSubTask,0,0,,sí
@@ -8093,7 +8093,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0063C940,115,reemplazada,CTaskComplexCarDrive,exacta,CTaskComplexCarDrive::Constructor_1,5,5,,
 0x0063C9C0,6,reemplazada,CTaskComplexCarDrive,alta,,0,0,,sí
 0x0063C9D0,105,reemplazada,CTaskComplexCarDrive,exacta,CTaskComplexCarDrive::Constructor_0,2,2,,
-0x0063CA40,134,reemplazada,CTaskComplexCarDrive,exacta,CTaskComplexCarDrive::Destructor,6,2,,
+0x0063CA40,134,reemplazada,CTaskComplexCarDrive,exacta,CTaskComplexCarDrive::Destructor,6,3,,
 0x0063CAD0,6,reemplazada,CTaskComplexCarDrive,exacta,CTaskComplexCarDrive::Drive,0,0,,sí
 0x0063CAE0,35,reemplazada,CTaskComplexCarDrive,exacta,CTaskComplexCarDrive::SetUpCar,0,0,,sí
 0x0063CB10,39,reemplazada,CTaskComplexCarDriveWander,exacta,CTaskComplexCarDriveWander::Constructor,9,8,,
@@ -8106,7 +8106,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0063CD20,216,reemplazada,CTaskComplexCarDriveMission,exacta,CTaskComplexCarDriveMission::SetUpCar,0,0,,sí
 0x0063CE00,83,reemplazada,CTaskComplexDriveToPoint,exacta,CTaskComplexDriveToPoint::Constructor,8,7,,
 0x0063CE60,6,reemplazada,CTaskComplexDriveToPoint,exacta,CTaskComplexDriveToPoint::GetTaskType,0,0,,sí
-0x0063CE70,11,C,CTaskComplexDriveToPoint,alta,,1,0,,
+0x0063CE70,11,reemplazada,CTaskComplexDriveToPoint,alta,,1,0,,
 0x0063CE80,113,reemplazada,CTaskComplexDriveToPoint,exacta,CTaskComplexDriveToPoint::CreateSubTaskCannotGetInCar,0,0,,sí
 0x0063CF00,97,reemplazada,CTaskComplexDriveToPoint,exacta,CTaskComplexDriveToPoint::SetUpCar,0,0,,sí
 0x0063CF90,148,reemplazada,CTaskComplexDrivePointRoute,exacta,CTaskComplexDrivePointRoute::CreateNextSubTask,0,0,,sí
@@ -8114,12 +8114,12 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0063D0C0,6,reemplazada,CTaskComplexDrivePointRoute,exacta,CTaskComplexDrivePointRoute::ControlSubTask,0,0,,sí
 0x0063D0D0,18,D,CTaskComplexDrivePointRoute,baja,,0,0,,
 0x0063D0F0,6,reemplazada,CTaskComplexEnterAnyCarAsDriver,exacta,CTaskComplexEnterAnyCarAsDriver::GetTaskType,0,0,,sí
-0x0063D100,11,C,CTaskComplexEnterAnyCarAsDriver,alta,,1,0,,
+0x0063D100,11,reemplazada,CTaskComplexEnterAnyCarAsDriver,alta,,1,0,,
 0x0063D110,5,reemplazada,CTaskComplexEnterAnyCarAsDriver,exacta,CTaskComplexEnterAnyCarAsDriver::CreateNextSubTask,0,0,,sí
 0x0063D120,6,reemplazada,CTaskComplexEnterAnyCarAsDriver,exacta,CTaskComplexEnterAnyCarAsDriver::ControlSubTask,0,0,,sí
 0x0063D130,91,reemplazada,CTaskComplexShuffleSeats,exacta,CTaskComplexShuffleSeats::Constructor,2,1,,
 0x0063D190,6,reemplazada,CTaskComplexShuffleSeats,exacta,CTaskComplexShuffleSeats::GetTaskType,0,0,,sí
-0x0063D1A0,112,reemplazada,CTaskComplexShuffleSeats,exacta,CTaskComplexShuffleSeats::Destructor,1,0,,
+0x0063D1A0,112,reemplazada,CTaskComplexShuffleSeats,exacta,CTaskComplexShuffleSeats::Destructor,1,1,,
 0x0063D220,28,reemplazada,CTaskComplexShuffleSeats,exacta,CTaskComplexShuffleSeats::MakeAbortable,0,0,,sí
 0x0063D240,471,reemplazada,CTaskComplexShuffleSeats,exacta,CTaskComplexShuffleSeats::CreateSubTask,9,9,,
 0x0063D420,396,reemplazada,CTaskComplexShuffleSeats,exacta,CTaskComplexShuffleSeats::CreateNextSubTask,0,0,,sí
@@ -8215,10 +8215,10 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006432A0,305,reemplazada,CTaskComplexDriveToPoint,exacta,CTaskComplexDriveToPoint::IsTargetBlocked-entities,2,2,,
 0x006433E0,154,reemplazada,CTaskComplexDrivePointRoute,exacta,CTaskComplexDrivePointRoute::Constructor,3,1,,
 0x00643480,6,reemplazada,CTaskComplexDrivePointRoute,exacta,CTaskComplexDrivePointRoute::GetTaskType,0,0,,sí
-0x00643490,90,reemplazada,CTaskComplexDrivePointRoute,exacta,CTaskComplexDrivePointRoute::Destructor,1,0,,
+0x00643490,90,reemplazada,CTaskComplexDrivePointRoute,exacta,CTaskComplexDrivePointRoute::Destructor,1,1,,
 0x006434F0,30,B,CTaskComplexDrivePointRoute,baja,,0,0,,sí
 0x00643510,458,reemplazada,CTaskComplexEnterAnyCarAsDriver,exacta,CTaskComplexEnterAnyCarAsDriver::CreateFirstSubTask,0,0,,sí
-0x006436E0,30,B,CTaskComplexEnterAnyCarAsDriver,baja,,0,0,,sí
+0x006436E0,30,reemplazada,CTaskComplexEnterAnyCarAsDriver,baja,,0,0,,sí
 0x00643700,85,reemplazada,CTaskComplexShuffleSeats,exacta,CTaskComplexShuffleSeats::CreateFirstSubTask,0,0,,sí
 0x00643760,30,reemplazada,CTaskComplexShuffleSeats,baja,,0,0,,sí
 0x00643780,99,reemplazada,CTaskComplexEnterCarAsDriver,exacta,CTaskComplexEnterCarAsDriver::Clone,0,0,,sí
@@ -8251,7 +8251,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00645100,317,reemplazada,CTaskComplexCarDrive,exacta,CTaskComplexCarDrive::CreateFirstSubTask,0,0,,sí
 0x00645240,125,reemplazada,CTaskComplexCarDrive,exacta,CTaskComplexCarDrive::ControlSubTask,0,0,,sí
 0x006452C0,144,reemplazada,CTaskComplexDriveToPoint,exacta,CTaskComplexDriveToPoint::IsTargetBlocked-,1,1,,
-0x00645350,30,B,CTaskComplexDriveToPoint,baja,,0,0,,sí
+0x00645350,30,reemplazada,CTaskComplexDriveToPoint,baja,,0,0,,sí
 0x00645370,161,reemplazada,CTaskSimpleCarSetTempAction,exacta,CTaskSimpleCarSetTempAction::ProcessPed,0,0,,sí
 0x00645420,372,reemplazada,CTaskComplexDriveToPoint,exacta,CTaskComplexDriveToPoint::Drive,0,0,,sí
 0x00645600,36,reemplazada,CVehicleAnimGroupData,exacta,CVehicleAnimGroupData::GetAnimDoorOffset,0,0,,
@@ -9098,12 +9098,12 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006682D0,661,A,CTaskComplexGoToPointAndStandStill,alta,,8,8,,
 0x00668570,108,reemplazada,CTaskComplexGoToPointAndStandStill,exacta,CTaskComplexGoToPointAndStandStill::ControlSubTask,1,1,,sí
 0x006685E0,67,reemplazada,CTaskComplexGoToPointAndStandStillTimed,exacta,CTaskComplexGoToPointAndStandStillTimed::Constructor,2,0,,
-0x00668630,11,C,CTaskComplexGoToPointAndStandStillTimed,alta,,1,0,,
+0x00668630,11,reemplazada,CTaskComplexGoToPointAndStandStillTimed,alta,,1,0,,
 0x00668640,95,reemplazada,CTaskComplexGoToPointAndStandStillTimed,exacta,CTaskComplexGoToPointAndStandStillTimed::MakeAbortable,0,0,,sí
 0x006686A0,53,reemplazada,CTaskComplexGoToPointAndStandStillTimed,exacta,CTaskComplexGoToPointAndStandStillTimed::StopTimer,0,0,,sí
 0x00668790,208,reemplazada,CTaskComplexGoToPointAiming,exacta,CTaskComplexGoToPointAiming::Constructor,4,3,,
 0x00668860,6,reemplazada,CTaskComplexGoToPointAiming,exacta,CTaskComplexGoToPointAiming::GetTaskType,0,0,,sí
-0x00668870,90,reemplazada,CTaskComplexGoToPointAiming,exacta,CTaskComplexGoToPointAiming::Destructor,1,0,,
+0x00668870,90,reemplazada,CTaskComplexGoToPointAiming,exacta,CTaskComplexGoToPointAiming::Destructor,1,1,,
 0x006688D0,263,reemplazada,CTaskComplexGoToPointAiming,exacta,CTaskComplexGoToPointAiming::CreateSubTask,2,2,,
 0x006689E0,652,reemplazada,CTaskComplexGoToPointAiming,exacta,CTaskComplexGoToPointAiming::ControlSubTask,0,0,,sí
 0x00668C70,72,reemplazada,CTaskComplexGoToPointShooting,exacta,CTaskComplexGoToPointShooting::Constructor,2,1,,
@@ -9229,7 +9229,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0066DC70,30,B,CTaskComplexGoToPointAndStandStill,baja,,0,0,,sí
 0x0066DC90,69,reemplazada,CTaskComplexGoToPointAndStandStillTimed,exacta,CTaskComplexGoToPointAndStandStillTimed::CreateFirstSubTask,0,0,,sí
 0x0066DCE0,110,reemplazada,CTaskComplexGoToPointAndStandStillTimed,exacta,CTaskComplexGoToPointAndStandStillTimed::ControlSubTask,0,0,,sí
-0x0066DD50,30,B,CTaskComplexGoToPointAndStandStillTimed,baja,,0,0,,sí
+0x0066DD50,30,reemplazada,CTaskComplexGoToPointAndStandStillTimed,baja,,0,0,,sí
 0x0066DD70,50,reemplazada,CTaskComplexGoToPointAiming,exacta,CTaskComplexGoToPointAiming::CreateNextSubTask,0,0,,sí
 0x0066DDB0,454,reemplazada,CTaskComplexGoToPointAiming,exacta,CTaskComplexGoToPointAiming::CreateFirstSubTask,0,0,,sí
 0x0066DF80,30,B,CTaskComplexGoToPointAiming,baja,,0,0,,sí
@@ -9982,7 +9982,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0069C4D0,550,reemplazada,CTaskAllocatorPlayerCommandAttack,exacta,CTaskAllocatorPlayerCommandAttack::AllocateTasks,0,0,,sí
 0x0069C710,95,reemplazada,CTaskAllocatorKillThreatsBasic,exacta,CTaskAllocatorKillThreatsBasic::Constructor,2,2,,
 0x0069C770,6,reemplazada,CTaskAllocatorKillThreatsBasic,exacta,CTaskAllocatorKillThreatsBasic::GetType,0,0,,sí
-0x0069C780,81,reemplazada,CTaskAllocatorKillThreatsBasic,exacta,CTaskAllocatorKillThreatsBasic::Destructor,2,0,,
+0x0069C780,81,reemplazada,CTaskAllocatorKillThreatsBasic,exacta,CTaskAllocatorKillThreatsBasic::Destructor,2,1,,
 0x0069C7E0,105,reemplazada,CTaskAllocatorKillThreatsBasic,exacta,CTaskAllocatorKillThreatsBasic::ProcessGroup,0,0,,sí
 0x0069C850,657,reemplazada,CTaskAllocatorKillThreatsBasic,exacta,CTaskAllocatorKillThreatsBasic::ComputeClosestPeds,3,3,,
 0x0069CAF0,95,reemplazada,CTaskAllocatorKillThreatsDriveby,exacta,CTaskAllocatorKillThreatsDriveby::Constructor,1,1,,
@@ -9996,7 +9996,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0069D460,1141,reemplazada,CTaskAllocatorKillThreatsBasicRandomGroup,exacta,CTaskAllocatorKillThreatsBasicRandomGroup::AllocateTasks,0,0,,sí
 0x0069D8E0,103,reemplazada,CTaskAllocatorPool,exacta,CTaskAllocatorPool::New,1,1,,
 0x0069D980,11,reemplazada,CTaskAllocatorPool,baja,,4,4,,
-0x0069D990,41,reemplazada,CTaskAllocatorPool,baja,,5,0,,
+0x0069D990,41,reemplazada,CTaskAllocatorPool,baja,,5,1,,
 0x0069D9C0,59,B,CTaskAllocatorPool,baja,,0,0,,sí
 0x0069DA00,59,B,CTaskAllocatorPool,baja,,0,0,,sí
 0x0069DA40,59,B,CTaskAllocatorPool,baja,,0,0,,sí
@@ -10121,7 +10121,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006A6050,55,reemplazada,CAutomobile,exacta,CAutomobile::GetCarPitch,1,0,,
 0x006A6090,169,reemplazada,CAutomobile,exacta,CAutomobile::FindWheelWidth,0,0,,sí
 0x006A6140,147,reemplazada,CAutomobile,exacta,CAutomobile::IsInAir,2,2,,
-0x006A61E0,148,reemplazada,CAutomobile,exacta,CAutomobile::Destructor,14,0,,
+0x006A61E0,148,reemplazada,CAutomobile,exacta,CAutomobile::Destructor,14,1,,
 0x006A6280,3,B,CAutomobile,alta,,0,0,,sí
 0x006A6290,1,B,CAutomobile,alta,,0,0,,sí
 0x006A62A0,8,reemplazada,CAutomobile,exacta,CAutomobile::GetNumContactWheels,0,0,,sí
@@ -10350,7 +10350,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006CCCF0,918,reemplazada,CPlane,exacta,CPlane::BlowUpCar,0,0,,sí
 0x006CD090,604,reemplazada,CPlane,exacta,CPlane::FindPlaneCreationCoors,2,2,,
 0x006CD2F0,2329,reemplazada,CPlane,exacta,CPlane::DoPlaneGenerationAndRemoval,1,1,,
-0x006CDC30,85,C,CPlane,baja,,1,0,,
+0x006CDC30,85,A,CPlane,baja,,1,1,,
 0x006CDC90,7,reemplazada,CQuadBike,exacta,CQuadBike::GetRideAnimData,0,0,,sí
 0x006CDCA0,15,reemplazada,CQuadBike,exacta,CQuadBike::SetupSuspensionLines,0,0,,sí
 0x006CDCB0,5,reemplazada,CQuadBike,exacta,CQuadBike::ResetSuspension,0,0,sí,sí
@@ -10361,10 +10361,10 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006CE2B0,142,reemplazada,CQuadBike,exacta,CQuadBike::Fix,0,0,,sí
 0x006CE340,45,reemplazada,CQuadBike,exacta,CQuadBike::SetupDamageAfterLoad,0,0,,sí
 0x006CE370,198,reemplazada,CQuadBike,exacta,CQuadBike::Constructor,7,6,,
-0x006CE440,30,B,CQuadBike,alta,,0,0,,sí
+0x006CE440,30,reemplazada,CQuadBike,alta,,0,0,,sí
 0x006CE460,1647,reemplazada,CQuadBike,exacta,CQuadBike::ProcessAI,0,0,,sí
 0x006CEAD0,568,reemplazada,CQuadBike,exacta,CQuadBike::PreRender,0,0,,sí
-0x006CED10,11,A,CQuadBike,baja,,1,1,,
+0x006CED10,11,reemplazada,CQuadBike,baja,,1,1,,
 0x006CED20,303,reemplazada,CTrailer,exacta,CTrailer::ProcessControl,0,0,,sí
 0x006CEE50,74,reemplazada,CTrailer,exacta,CTrailer::ResetSuspension,0,0,,sí
 0x006CEEA0,261,reemplazada,CTrailer,exacta,CTrailer::GetTowHitchPos,0,0,,sí
@@ -10574,7 +10574,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006E2B40,515,reemplazada,CVehicle,exacta,CVehicle::Destructor,13,3,,
 0x006E2D50,11,reemplazada,CVehicle,exacta,CVehicle::operator new-anon,62,54,,
 0x006E2D60,36,reemplazada,CVehicle,alta,,21,21,,
-0x006E2D90,49,A,CVehicle,alta,,72,3,,
+0x006E2D90,49,A,CVehicle,alta,,72,4,,
 0x006E2DD0,49,C,CVehicle,alta,,21,0,,
 0x006E2E50,1058,reemplazada,CVehicle,exacta,CVehicle::DoBladeCollision,1,1,,
 0x006E3290,367,reemplazada,CVehicle,alta,,6,3,,
