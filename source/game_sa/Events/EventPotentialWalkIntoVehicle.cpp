@@ -37,6 +37,10 @@ void CEventPotentialWalkIntoVehicle::InjectHooks()
     RH_ScopedNamedGlobalInstall(PotentialWalkIntoVehicleDestructorBody, "Destructor", 0x4AE3C0);
 
     RH_ScopedInstall(Constructor, 0x4AE320);
+    RH_ScopedVMTInstall(GetEventType, 0x4AE390);       // lote 139A (banco Fn139A): retorno de constante (56)
+    RH_ScopedVMTInstall(GetLifeTime, 0x4AE3A0);        // lote 139A: 0
+    RH_ScopedVMTInstall(GetEventPriority, 0x4AE3B0);   // lote 139A: 29
+    RH_ScopedVMTInstall(TakesPriorityOver, 0x4AE5C0);  // lote 139A: siempre true (`mov al,1; ret 4`)
     RH_ScopedVMTInstall(AffectsPed, 0x4AE420);
 }
 

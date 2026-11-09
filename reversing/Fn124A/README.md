@@ -67,3 +67,6 @@ Fuente restaurada (SHA256 contra las copias buenas) y sonda recompilada con las 
 
 ## Tiempo
 Una corrida de los 212992 pares: unos 9 min (mas la compilacion de la sonda; con `Wanted.h` en el PCH la primera recompila todo: unos 15 min).
+
+## Actualizacion del lote 139A (09/11/2026)
+`CWanted` 0x56F200 (`add ecx,21Ch; jmp 0x4E6E00`, la que este banco daba por colaborador REAL) tiene hook RH y banco propio desde el lote 139A (`reversing/Fn139A`: `CWanted::DestructorBody`, 16384 pares contra el EXE, cero diferencias), y `CWanted::ScalarDeletingDestructor` (0x56F850) llama ahora a ese metodo en lugar de a `m_PoliceScannerAudioEntity.Destructor()` directamente. El banco se adapto como en la leccion de los colaboradores con hook: 0x56F200 pasa de `Real` (sin hook) a colaborador REAL con hook (`RealHooked`, via `MakeCollab`: el hook queda apagado durante el banco, el EXE corre sus bytes y la DLL su cuerpo `CWanted::DestructorBody`; `REAL` de `run_local.py` lleva ahora `(0x56F200, True)`). El falso de 0x4E6E00 sigue igual (EXE y cuerpo de la DLL). Repetido con el codigo final (`resultados-fn124a/20261109-143048-708870`, 13 x 16384 pares, cero diferencias, 13 filas del registro actualizadas con `refresh_bank.py`; evidencia archivada en `reversing/CppTwelveLevel6Final/runs/Fn124A-20261109-143048-708870`).

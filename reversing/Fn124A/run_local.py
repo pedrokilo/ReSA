@@ -29,7 +29,7 @@ SLOTS = ()
 STUBBED = {
     NAMES[0]: [], NAMES[1]: [(0x6A0050, True)], NAMES[2]: [], NAMES[3]: [(0x61A3B0, True)], NAMES[4]: [], NAMES[5]: [(0x5DF910, True)], NAMES[6]: [], NAMES[7]: [], NAMES[8]: [],
     NAMES[9]: [(0x5023F0, True), (0x8214BD, False)], NAMES[10]: [(0x503290, True), (0x8214BD, False)], NAMES[11]: [(0x4E6E00, True), (0x8214BD, False)], NAMES[12]: [(0x706440, True), (0x8214BD, False)]}
-REAL = {NAMES[0]: [(0x4A8DB0, False)], NAMES[4]: [(0x823820, False)], NAMES[8]: [(0x59D170, False), (0x821D30, False)], NAMES[11]: [(0x56F200, False)]}
+REAL = {NAMES[0]: [(0x4A8DB0, False)], NAMES[4]: [(0x823820, False)], NAMES[8]: [(0x59D170, False), (0x821D30, False)], NAMES[11]: [(0x56F200, True)]}   # 0x56F200: con hook RH desde el lote 139A (apagado durante el banco; la DLL corre CWanted::DestructorBody)
 DLL_BODY_WITHOUT_HOOK = set()
 WATCHED = set(HOOKS.values()) | set(SLOTS) | {a for lst in STUBBED.values() for a, _ in lst} | {a for lst in REAL.values() for a, _ in lst} | {0x8580C8}
 COVER_FLOOR = 50

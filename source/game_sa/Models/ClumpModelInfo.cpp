@@ -45,10 +45,23 @@ static uint32 __fastcall SetClumpModelInfoFlags_KeepEdx(void* /*ecx*/, uint32 en
 }
 #pragma runtime_checks("", restore)
 
+namespace {
+// 0x4C56F0 (lote 139A, banco Fn139A; thiscall, sin argumentos de pila, `ret`): constructor de CClumpModelInfo del EXE (lo llama el iterador de constructores de vectores, sin leer el resultado).
+// En el EXE llama al constructor de CBaseModelInfo (0x4C4A60: m_nRefCount (+8) = 0 y m_nTxdIndex (+0xA) = -1; sin hook) y deja la vtable de CClumpModelInfo del EXE (0x85BD30; la de la DLL no
+// vale: las subclases del EXE la sobrescriben). Devuelve this en EAX. Aqui el cuerpo de CBaseModelInfo va en linea: las mismas escrituras, en memoria el mismo resultado.
+CClumpModelInfo* __fastcall ClumpModelInfoConstructorBody(CClumpModelInfo* self, void* /*edx*/) {
+    self->m_nRefCount = 0;
+    self->m_nTxdIndex = -1;
+    *reinterpret_cast<uint32*>(self) = 0x85BD30;
+    return self;
+}
+} // namespace
+
 void CClumpModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CClumpModelInfo, 0x85BD30, 17);
     RH_ScopedCategory("Models");
+    RH_ScopedNamedGlobalInstall(ClumpModelInfoConstructorBody, "Constructor", 0x4C56F0);
 
     RH_ScopedVMTInstall(GetModelType, 0x4C5720);
     RH_ScopedVMTInstall(Init, 0x4C4E40);

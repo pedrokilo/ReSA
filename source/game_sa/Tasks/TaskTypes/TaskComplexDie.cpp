@@ -27,11 +27,27 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexLeaveCar.h"
 #include "TaskSimpleDrownInCar.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+// 0x6300C0 (lote 139A, banco Fn139A; thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CTaskComplexDie del EXE (`mov [ecx],0x86DE78; jmp 0x61A3D0`). Deja la vtable de
+// CTaskComplexDie del EXE (0x86DE78) y sigue con el cuerpo de ~CTaskComplex (0x61A3D0, con hook).
+void __fastcall DieDestructorBody(CTaskComplexDie* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86DE78;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexDie::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDie, 0x86DE78, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x630040);
+    RH_ScopedNamedGlobalInstall(DieDestructorBody, "Destructor", 0x6300C0);
+    RH_ScopedVMTInstall(GetTaskType, 0x6300B0);      // lote 139A (banco Fn139A): retorno de constante (217)
+    RH_ScopedVMTInstall(ControlSubTask, 0x630580);   // lote 139A: devuelve m_pSubTask (`mov eax,[ecx+8]; ret 4`)
     RH_ScopedVMTInstall(MakeAbortable, 0x6300D0);
     RH_ScopedInstall(SayDeathSample, 0x630100);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x6301E0);

@@ -120,6 +120,8 @@ private:
 
     // 0x56F850 (lote 124A, banco Fn124A): destructor con borrado del EXE (`ret 4`)
     CWanted* ScalarDeletingDestructor(uint8 flags);
+    // 0x56F200 (lote 139A, banco Fn139A): cuerpo no virtual de ~CWanted del EXE (`add ecx,21Ch; jmp 0x4E6E00`): destruye la entidad de audio del scanner de policia (m_PoliceScannerAudioEntity)
+    void DestructorBody();
 };
 
 VALIDATE_SIZE(CWanted, 0x29C);

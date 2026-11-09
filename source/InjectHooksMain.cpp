@@ -570,6 +570,7 @@
 #include "EventLeaderQuitEnteringCarAsDriver.h"
 #include "EventAreaCodes.h"
 #include "EventLeaderEntryExit.h"
+#include "EventSpecial.h"
 #include "Formation.h"
 #include "ProjectileInfo.h"
 
@@ -1523,7 +1524,7 @@ void InjectHooksMain() {
         CEventLeaderQuitEnteringCarAsDriver::InjectHooks();
         CEventAreaCodes::InjectHooks();
         CEventLeaderEntryExit::InjectHooks();
-        // + CEventSpecial::InjectHooks();
+        CEventSpecial::InjectHooks();
         CEventFireNearby::InjectHooks();
         CEventGroupEvent::InjectHooks();
         CEventGroup::InjectHooks();

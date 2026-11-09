@@ -37,6 +37,9 @@ void CEventVehicleDied::InjectHooks()
     RH_ScopedNamedGlobalInstall(VehicleDiedDestructorBody, "Destructor", 0x4B0DA0);
 
     RH_ScopedInstall(Constructor, 0x4B0D10);
+    RH_ScopedVMTInstall(GetEventType, 0x4B0D70);      // lote 139A (banco Fn139A): retorno de constante (35)
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B0D80);       // lote 139A: 0
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B0D90);  // lote 139A: 72
     RH_ScopedVMTInstall(Clone, 0x4B76D0);
     RH_ScopedVMTInstall(AffectsPed, 0x4B0E00);
 }

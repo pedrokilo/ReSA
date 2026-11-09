@@ -20,20 +20,21 @@ END GENERATED HOOK STATUS */
 
 #include "EventGunShot.h"
 
-namespace {
+// Espacio con nombre (no anonimo) para que CEventGunShotWhizzedBy (lote 139A, cuerpo 0x4B2070: `mov [ecx],0x85B730; jmp 0x4AC720`) llame a este mismo cuerpo sin duplicarlo.
+namespace CEventGunShotBody {
 // 0x4AC720 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventGunShot que usan los destructores del EXE. Deja la vtable de CEventGunShot del EXE (0x85ABE0), libera la referencia de m_firedBy (+0x14) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
 // y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
-void __fastcall GunShotDestructorBody(CEventGunShot* self, void* /*edx*/) {
+void __fastcall Destructor(CEventGunShot* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x85ABE0;
     CEntity::SafeCleanUpRef(self->m_firedBy);
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }
-} // namespace
+} // namespace CEventGunShotBody
 
 void CEventGunShot::InjectHooks() {
     RH_ScopedVirtualClass(CEventGunShot, 0x85ABE0, 17);
     RH_ScopedCategory("Events");
-    RH_ScopedNamedGlobalInstall(GunShotDestructorBody, "Destructor", 0x4AC720);
+    RH_ScopedNamedGlobalInstall(CEventGunShotBody::Destructor, "Destructor", 0x4AC720);
 
     RH_ScopedInstall(Constructor, 0x4AC610);
     RH_ScopedVMTInstall(AffectsPed, 0x4B2CD0);

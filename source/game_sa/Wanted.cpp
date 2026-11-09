@@ -32,6 +32,7 @@ void CWanted::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(ScalarDeletingDestructor, 0x56F850);
+    RH_ScopedInstall(DestructorBody, 0x56F200);
     RH_ScopedInstall(Initialise, 0x562390);
     RH_ScopedInstall(Reset, 0x562400);
     RH_ScopedInstall(InitialiseStaticVariables, 0x561C70);
@@ -845,13 +846,20 @@ bool CWanted::SetPursuitCop(CCopPed* cop) {
     return true;
 }
 
+// 0x56F200 (lote 139A, banco Fn139A; el listado la daba por de CPlayerInfo, el llamador es el destructor de CWanted): thiscall, sin argumentos de pila, 11 bytes: `add ecx,21Ch; jmp 0x4E6E00`.
+// Destruye la entidad de audio del scanner (m_PoliceScannerAudioEntity, +0x21C) con el destructor de la clase (0x4E6E00, con hook). Lo llaman ScalarDeletingDestructor (0x56F850),
+// CPlayerPedData::Destructor (0x571840) y el EXE directamente.
+void CWanted::DestructorBody() {
+    m_PoliceScannerAudioEntity.Destructor();
+}
+
 // 0x56F850 (lote 124A, banco Fn124A): destructor con borrado de CWanted del EXE (el listado de pendientes decia CPlayerPedData; la clase sale del llamador: 0x56F200 destruye el
 // CAEPoliceScannerAudioEntity de +0x21C y 0x571840 lo llama sobre m_pWanted). thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x56F200; test byte [esp+8],1;
 // je ..; push esi; call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`. 0x56F200 (sin hook, 11 bytes) es `add ecx,21Ch; jmp 0x4E6E00`: destruye la entidad de audio con
 // el destructor de la clase (0x4E6E00, con hook). Como el original: destruye, libera `this` solo si el bit 0 del byte de banderas esta puesto y devuelve `this`. Sin llamadores directos:
 // solo se alcanza por la direccion del EXE.
 CWanted* CWanted::ScalarDeletingDestructor(uint8 flags) {
-    m_PoliceScannerAudioEntity.Destructor();
+    DestructorBody();
     if (flags & 1) {
         ::operator delete(this);
     }

@@ -44,6 +44,9 @@ void CEventVehicleDamage::InjectHooks()
     RH_ScopedVMTInstall(IsCriminalEvent, 0x4B1A90);
     RH_ScopedVMTInstall(ReportCriminalEvent, 0x4B50B0);
     RH_ScopedVMTInstall(GetSourceEntity, 0x4B1A70);
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B1960);          // lote 139A (banco Fn139A): 0
+    RH_ScopedVMTInstall(GetLocalSoundLevel, 0x4B1970);   // lote 139A: 55.0f en ST0 (`fld dword [0x85ADBC]`)
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B1980);     // lote 139A: 49
 }
 
 // 0x4B18D0

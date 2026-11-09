@@ -42,6 +42,14 @@ END GENERATED HOOK STATUS */
 
 static void __fastcall ProcessCrosshair_Hook(uint32* crosshair, void* edx, uint32 playerIndex, CPad* pad);
 
+namespace {
+// 0x571970 y 0x571980 (lote 139A, banco Fn139A; el listado las daba por de CPlayerInfo por cercania, entre su constructor 0x571920 y CReferences::Init 0x5719B0): thiscall con tres
+// argumentos de pila (`ret 0Ch`), `xor al,al`: devuelven false siempre y no leen ECX ni los argumentos. Sus dos unicos llamadores son dos comandos de script del EXE (0x46DDED y 0x46DE32)
+// que las llaman con ECX = 0xB9B9A4 (un objeto global sin datos) y los argumentos (parametro de script de 16 bits, 1, "Used in script" 0x859E40) y solo usan AL. Clase real desconocida.
+bool __fastcall ScriptStub_571970(void* /*self*/, void* /*edx*/, uint32 /*arg0*/, int32 /*arg1*/, const char* /*arg2*/) { return false; }
+bool __fastcall ScriptStub_571980(void* /*self*/, void* /*edx*/, uint32 /*arg0*/, int32 /*arg1*/, const char* /*arg2*/) { return false; }
+} // namespace
+
 void CPlayerInfo::InjectHooks() {
     RH_ScopedClass(CPlayerInfo);
     RH_ScopedCategoryGlobal();
@@ -75,6 +83,8 @@ void CPlayerInfo::InjectHooks() {
     RH_ScopedInstall(SetLastTargetVehicle, 0x56DA80);
     RH_ScopedInstall(Load, 0x5D3B00);
     RH_ScopedInstall(Save, 0x5D3AC0);
+    RH_ScopedNamedGlobalInstall(ScriptStub_571970, "ScriptStub_571970", 0x571970);   // lote 139A (banco Fn139A): siempre false
+    RH_ScopedNamedGlobalInstall(ScriptStub_571980, "ScriptStub_571980", 0x571980);   // lote 139A
 }
 
 // 0x571920

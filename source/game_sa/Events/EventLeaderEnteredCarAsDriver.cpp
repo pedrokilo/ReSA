@@ -27,6 +27,7 @@ void CEventLeaderEnteredCarAsDriver::InjectHooks()
 
     RH_ScopedInstall(Constructor, 0x48E1C0);
     RH_ScopedVMTInstall(AffectsPedGroup, 0x4B0EF0);
+    RH_ScopedVMTInstall(TakesPriorityOver, 0x4B0EE0); // lote 139A (banco Fn139A): siempre true (`mov al,1; ret 4`); el listado la atribuia a CEventVehicleDied
 }
 
 // 0x48E1C0

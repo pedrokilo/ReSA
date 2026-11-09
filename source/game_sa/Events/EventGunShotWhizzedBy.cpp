@@ -19,13 +19,30 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "EventGunShotWhizzedBy.h"
 
+namespace CEventGunShotBody {
+void __fastcall Destructor(CEventGunShot* self, void* edx); // EventGunShot.cpp: 0x4AC720
+}
+
+namespace {
+// 0x4B2070 (lote 139A, banco Fn139A; thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventGunShotWhizzedBy del EXE (`mov [ecx],0x85B730; jmp 0x4AC720`). Deja la vtable de
+// CEventGunShotWhizzedBy del EXE (0x85B730) y sigue con el cuerpo de ~CEventGunShot (0x4AC720, con hook).
+void __fastcall GunShotWhizzedByDestructorBody(CEventGunShotWhizzedBy* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85B730;
+    CEventGunShotBody::Destructor(self, nullptr);
+}
+} // namespace
 
 void CEventGunShotWhizzedBy::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventGunShotWhizzedBy, 0x85B730, 17);
     RH_ScopedCategory("Events");
+    RH_ScopedNamedGlobalInstall(GunShotWhizzedByDestructorBody, "Destructor", 0x4B2070);
 
     RH_ScopedInstall(Constructor, 0x4B1FD0);
+    RH_ScopedVMTInstall(GetEventType, 0x4B2030);                // lote 139A (banco Fn139A): retorno de constante (49)
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B2040);                 // lote 139A: 0
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B2060);            // lote 139A: 36
+    RH_ScopedVMTInstall(CanBeInterruptedBySameEvent, 0x4B2050); // lote 139A: siempre true (`mov al,1; ret`)
     RH_ScopedVMTInstall(AffectsPed, 0x4B5120);
 }
 

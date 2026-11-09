@@ -3164,6 +3164,9 @@ CEventVehicleDied,AffectsPed,0x00000000,1,0,1,V
 CEventVehicleDied,Clone,0x00000000,1,0,1,V
 CEventVehicleDied,Constructor,0x004B0D10,1,0,1,S
 CEventVehicleDied,Destructor,0x004B0DA0,1,0,1,S
+CEventVehicleDied,GetEventType,0x00000000,1,0,1,V
+CEventVehicleDied,GetEventPriority,0x00000000,1,0,1,V
+CEventVehicleDied,GetLifeTime,0x00000000,1,0,1,V
 CEventVehicleDamageWeapon,CloneEditable,0x00000000,1,0,1,V
 CEventVehicleDamageWeapon,Constructor,0x0061C2E0,1,0,1,S
 CEventVehicleDamageCollision,CloneEditable,0x00000000,1,0,1,V
@@ -3174,6 +3177,9 @@ CEventVehicleDamage,GetSourceEntity,0x00000000,1,0,1,V
 CEventVehicleDamage,IsCriminalEvent,0x00000000,1,0,1,V
 CEventVehicleDamage,ReportCriminalEvent,0x00000000,1,0,1,V
 CEventVehicleDamage,Destructor,0x004B1990,1,0,1,S
+CEventVehicleDamage,GetEventPriority,0x00000000,1,0,1,V
+CEventVehicleDamage,GetLifeTime,0x00000000,1,0,1,V
+CEventVehicleDamage,GetLocalSoundLevel,0x00000000,1,0,1,V
 CEventVehicleCollision,AffectsPed,0x00000000,1,0,1,V
 CEventVehicleCollision,Clone,0x00000000,1,0,1,V
 CEventVehicleCollision,Constructor,0x004AC840,1,0,1,S
@@ -3206,6 +3212,10 @@ CEventScriptCommand,TakesPriorityOver,0x00000000,1,0,1,V
 CEventPotentialWalkIntoVehicle,AffectsPed,0x00000000,1,0,1,V
 CEventPotentialWalkIntoVehicle,Constructor,0x004AE320,1,0,1,S
 CEventPotentialWalkIntoVehicle,Destructor,0x004AE3C0,1,0,1,S
+CEventPotentialWalkIntoVehicle,GetEventType,0x00000000,1,0,1,V
+CEventPotentialWalkIntoVehicle,GetEventPriority,0x00000000,1,0,1,V
+CEventPotentialWalkIntoVehicle,GetLifeTime,0x00000000,1,0,1,V
+CEventPotentialWalkIntoVehicle,TakesPriorityOver,0x00000000,1,0,1,V
 CEventPotentialWalkIntoPed,AffectsPed,0x00000000,1,0,1,V
 CEventPotentialWalkIntoPed,Constructor,0x004AE6E0,1,0,1,S
 CEventPotentialWalkIntoPed,TakesPriorityOver,0x00000000,1,0,1,V
@@ -3246,8 +3256,10 @@ CEventLeaderQuitEnteringCarAsDriver,Constructor,0x0063A110,1,0,1,S
 CEventLeaderExitedCarAsDriver,AffectsPedGroup,0x00000000,1,0,1,V
 CEventLeaderExitedCarAsDriver,Constructor,0x004B8300,1,0,1,S
 CEventLeaderEntryExit,Constructor,0x0043E1C0,1,0,1,S
+CEventSpecial,Destructor,0x004B1B50,1,0,1,S
 CEventLeaderEnteredCarAsDriver,AffectsPedGroup,0x00000000,1,0,1,V
 CEventLeaderEnteredCarAsDriver,Constructor,0x0048E1C0,1,0,1,S
+CEventLeaderEnteredCarAsDriver,TakesPriorityOver,0x00000000,1,0,1,V
 CEventKnockOffBike,AffectsPed,0x00000000,1,0,1,V
 CEventKnockOffBike,CalcForcesAndAnims,0x004B0020,1,0,1,S
 CEventKnockOffBike,Constructor-first,0x004AFCF0,1,0,1,S
@@ -3345,6 +3357,11 @@ CEventHandler,RegisterKill,0x004B9340,1,0,1,S
 CEventHandler,SetEventResponseTask,0x004BC600,1,0,1,S
 CEventGunShotWhizzedBy,AffectsPed,0x00000000,1,0,1,V
 CEventGunShotWhizzedBy,Constructor,0x004B1FD0,1,0,1,S
+CEventGunShotWhizzedBy,Destructor,0x004B2070,1,0,1,S
+CEventGunShotWhizzedBy,GetEventType,0x00000000,1,0,1,V
+CEventGunShotWhizzedBy,GetEventPriority,0x00000000,1,0,1,V
+CEventGunShotWhizzedBy,GetLifeTime,0x00000000,1,0,1,V
+CEventGunShotWhizzedBy,CanBeInterruptedBySameEvent,0x00000000,1,0,1,V
 CEventGunShot,AffectsPed,0x00000000,1,0,1,V
 CEventGunShot,CloneEditable,0x00000000,1,0,1,V
 CEventGunShot,Constructor,0x004AC610,1,0,1,S
@@ -3624,6 +3641,7 @@ CClumpModelInfo,SetClumpModelInfoFlags,0x005B3C30,1,0,1,S
 CClumpModelInfo,SetFrameIds,0x004C5460,1,0,1,S
 CClumpModelInfo,SetHierarchyForSkinAtomic,0x004C4EF0,1,0,1,S
 CClumpModelInfo,Shutdown,0x00000000,1,0,1,V
+CClumpModelInfo,Constructor,0x004C56F0,1,0,1,S
 CBaseModelInfo,Add2dEffect,0x004C4D20,1,0,1,S
 CBaseModelInfo,AddRef,0x004C4BA0,1,0,1,S
 CBaseModelInfo,AddTexDictionaryRef,0x004C4B80,1,0,1,S
@@ -6540,6 +6558,9 @@ CTaskComplexDie,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexDie,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexDie,MakeAbortable,0x00000000,1,0,1,V
 CTaskComplexDie,SayDeathSample,0x00630100,1,0,1,S
+CTaskComplexDie,Destructor,0x006300C0,1,0,1,S
+CTaskComplexDie,GetTaskType,0x00000000,1,0,1,V
+CTaskComplexDie,ControlSubTask,0x00000000,1,0,1,V
 CTaskComplexDestroyCarMelee,CalculateSearchPositionAndRanges,0x006289F0,1,0,1,S
 CTaskComplexDestroyCarMelee,Clone,0x00000000,1,0,1,V
 CTaskComplexDestroyCarMelee,Constructor,0x00621D10,1,0,1,S
@@ -8549,6 +8570,7 @@ CTaskSequences,CleanUpForShutdown,0x00632DD0,1,0,1,S
 CTaskSequences,Init,0x00632D90,1,0,1,S
 CLodTimeModelInfo,GetModelType,0x004C56C0,1,0,1,V
 CLodTimeModelInfo,GetTimeInfo,0x004C56D0,1,0,1,V
+CLodTimeModelInfo,Destructor,0x004C56E0,1,0,1,S
 CVehicleSaveStructure,Construct,0x005D2330,1,0,1,S
 CVehicleSaveStructure,Extract,0x005D23B0,1,0,1,S
 CTaskTimer,IsOutOfTime,0x00420E30,1,0,1,S
@@ -9061,6 +9083,8 @@ CHeli,GenerateHeli,0x006C6520,1,0,1,S
 CHeli,SendDownSwat,0x006C69C0,1,0,1,S
 CHeli,BlowUpCar,0x00000000,1,0,1,V
 CPlayerInfo,ProcessCrosshair,0x0056EC80,1,0,1,S
+CPlayerInfo,ScriptStub_571970,0x00571970,1,0,1,S
+CPlayerInfo,ScriptStub_571980,0x00571980,1,0,1,S
 CWeaponEffects,RenderPlayerCrosshair,0x0056EF90,1,0,1,S
 Rs,RsLoadPresetViews,0x00619D60,1,0,1,S
 CHeli,ProcessFlyingCarStuff,0x00000000,1,0,1,V
@@ -9401,6 +9425,7 @@ BreakManager_c,Constructor,0x0059E620,1,0,1,S
 CAEVorbisDecoder,ScalarDeletingDestructor,0x00502700,1,0,1,S
 CAEWaveDecoder,ScalarDeletingDestructor,0x00503430,1,0,1,S
 CWanted,ScalarDeletingDestructor,0x0056F850,1,0,1,S
+CWanted,DestructorBody,0x0056F200,1,0,1,S
 CRealTimeShadow,ScalarDeletingDestructor,0x00706850,1,0,1,S
 CBoat,ScalarDeletingDestructor,0x006F1120,1,0,1,S
 CCutsceneObject,ScalarDeletingDestructor,0x005B1DE0,1,0,1,S

@@ -301,6 +301,13 @@ inline void Update() {
         return S(it->second, reinterpret_cast<void*>(fake));
     };
     auto Real = [](uintptr_t exe) { return Pair{exe, 0, false}; };
+    // Colaborador REAL con hook RH (apagado durante el banco; lote 139A: 0x56F200 tiene hook desde ese lote): el EXE corre sus bytes y la DLL su cuerpo
+    auto RealHooked = [&](uintptr_t exe) {
+        auto it = collabCache.find(exe);
+        if (it == collabCache.end()) it = collabCache.emplace(exe, MakeCollab(env, exe, hooksFound)).first;
+        if (!it->second.hooked || !it->second.dll) ready = false;
+        return it->second;
+    };
     env.stubs[0] = {};                          env.reals[0] = {Real(0x4A8DB0)};
     env.stubs[1] = {F(0x6A0050, &FkTextGet)};
     env.stubs[2] = {};
@@ -312,7 +319,7 @@ inline void Update() {
     env.stubs[8] = {};                          env.reals[8] = {Real(0x59D170), Real(0x821D30)};
     env.stubs[9] = {F(0x5023F0, &FkDtor<0x5023F0>), F(0x8214BD, &FkDelete)};
     env.stubs[10] = {F(0x503290, &FkDtor<0x503290>), F(0x8214BD, &FkDelete)};
-    env.stubs[11] = {F(0x4E6E00, &FkDtor<0x4E6E00>), F(0x8214BD, &FkDelete)};   env.reals[11] = {Real(0x56F200)};
+    env.stubs[11] = {F(0x4E6E00, &FkDtor<0x4E6E00>), F(0x8214BD, &FkDelete)};   env.reals[11] = {RealHooked(0x56F200)};
     env.stubs[12] = {F(0x706440, &FkDtor<0x706440>), F(0x8214BD, &FkDelete)};
     // QueryPerformanceCounter: casilla de la IAT del EXE (0x8580C8) y la de la DLL; las dos deben apuntar a la misma funcion del sistema
     uintptr_t* const exeSlot = reinterpret_cast<uintptr_t*>(kQpcExeSlot);
@@ -337,7 +344,7 @@ inline void Update() {
         "toda la funcion: 64 BreakObject_c en orden con el constructor de la clase (los campos +0, +1 y +8 a 0); el EXE llama al iterador CRT 0x821D30 y a 0x59D170 (reales)",
         "toda la funcion salvo el destructor CAEVorbisDecoder (0x5023F0, envoltura Destructor() con falso identico) y operator delete (0x8214BD, falso)",
         "toda la funcion salvo el destructor CAEWaveDecoder (0x503290, envoltura Destructor() con falso identico) y operator delete (0x8214BD, falso)",
-        "toda la funcion salvo el destructor de CAEPoliceScannerAudioEntity (0x4E6E00, envoltura Destructor() con falso identico; el EXE llega por 0x56F200 real) y operator delete (0x8214BD, falso)",
+        "toda la funcion salvo el destructor de CAEPoliceScannerAudioEntity (0x4E6E00, envoltura Destructor() con falso identico; el EXE llega por 0x56F200, que ahora tiene hook (lote 139A): corre sus bytes con el hook apagado y la DLL su cuerpo CWanted::DestructorBody) y operator delete (0x8214BD, falso)",
         "toda la funcion salvo el destructor de CRealTimeShadow (0x706440, envoltura Destructor() con falso identico) y operator delete (0x8214BD, falso)"};
     for (unsigned f = 0; f < kFunctions; ++f) {
         json stubbed = json::array(), real = json::array();
