@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,474 entradas reversed=1**, de 9,474 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,478 entradas reversed=1**, de 9,478 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9474 |
+| `validated=1` · evidencia aprobada vinculada | 9478 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9474 |
+| Evidencia histórica vinculada; revisión pendiente | 9478 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -322,6 +322,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEMP3TrackLoader | `LoadStreamPackTable` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CAEMP3TrackLoader | `LoadTrackLookupTable` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CAEPedAudioEntity | `AddAudioEvent` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
+| CAEPedAudioEntity | `Destructor` | [Resumen](../reversing/Fn131A/validation-summary.json) |
 | CAEPedAudioEntity | `HandleFootstepEvent` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEPedAudioEntity | `HandleLandingEvent` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEPedAudioEntity | `HandlePedHit` | [Resumen](../reversing/AudioPedPending/validation-summary.json) |
@@ -4825,7 +4826,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CProjectileInfo | `RemoveProjectile` | [Resumen](../reversing/ProjectileRemove355/validation-summary.json) |
 | CProjectileInfo | `Shutdown` | [Resumen](../reversing/ProjectileCore355/validation-summary.json) |
 | CProjectileInfo | `Update` | [Resumen](../reversing/ProjectileUpdate355/validation-summary.json) |
+| CPtrNodeDoubleLinkPool | `Flush` | [Resumen](../reversing/Fn131A/validation-summary.json) |
 | CPtrNodeDoubleLinkPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CPtrNodeSingleLinkPool | `Flush` | [Resumen](../reversing/Fn131A/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CQuadBike | `Constructor` | [Resumen](../reversing/VehCtor62/validation-summary.json) |
 | CQuadBike | `Fix` | [Resumen](../reversing/Misc61b/validation-summary.json) |
@@ -5153,6 +5156,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CScriptsForBrains | `StartOrRequestNewStreamedScriptBrain` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CScriptsForBrains | `StartOrRequestNewStreamedScriptBrainWithThisName` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CSearchLight | `IsSpottedEntity` | [Resumen](../reversing/Misc61/validation-summary.json) |
+| CSector | `Destructor` | [Resumen](../reversing/Fn131A/validation-summary.json) |
 | CSetPiece | `GetSpawnCoord1` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CSetPiece | `GetSpawnCoord2` | [Resumen](../reversing/Fn109A/validation-summary.json) |
 | CSetPiece | `GetTargetCoord1` | [Resumen](../reversing/Fn109A/validation-summary.json) |
@@ -9528,7 +9532,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEMFDecoder` | 12 | 0 | 12 | 0 |
 | `CAEMP3BankLoader` | 14 | 0 | 14 | 0 |
 | `CAEMP3TrackLoader` | 7 | 0 | 7 | 0 |
-| `CAEPedAudioEntity` | 21 | 0 | 21 | 0 |
+| `CAEPedAudioEntity` | 22 | 0 | 22 | 0 |
 | `CAEPedSpeechAudioEntity` | 58 | 0 | 58 | 0 |
 | `CAEPedWeaponAudioEntity` | 5 | 0 | 5 | 0 |
 | `CAEPedlessSpeechAudioEntity` | 12 | 0 | 12 | 0 |
@@ -9889,8 +9893,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPostEffects` | 38 | 0 | 38 | 0 |
 | `CProjectile` | 1 | 0 | 1 | 0 |
 | `CProjectileInfo` | 12 | 0 | 12 | 0 |
-| `CPtrNodeDoubleLinkPool` | 1 | 0 | 1 | 0 |
-| `CPtrNodeSingleLinkPool` | 1 | 0 | 1 | 0 |
+| `CPtrNodeDoubleLinkPool` | 2 | 0 | 2 | 0 |
+| `CPtrNodeSingleLinkPool` | 2 | 0 | 2 | 0 |
 | `CQuadBike` | 12 | 0 | 12 | 0 |
 | `CQuadTreeNode<T>` | 12 | 0 | 12 | 0 |
 | `CQuaternion` | 10 | 0 | 10 | 0 |
@@ -9918,6 +9922,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CScriptedBrainTaskStore` | 4 | 0 | 4 | 0 |
 | `CScriptsForBrains` | 11 | 0 | 11 | 0 |
 | `CSearchLight` | 1 | 0 | 1 | 0 |
+| `CSector` | 1 | 0 | 1 | 0 |
 | `CSetPiece` | 7 | 0 | 7 | 0 |
 | `CSetPieces` | 5 | 0 | 5 | 0 |
 | `CSexyPedScanner` | 1 | 0 | 1 | 0 |

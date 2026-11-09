@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (08/11/2026). Total: **2,447** funciones en 389 clases/módulos (rango 0x401000–0x74FFFF): 2,425 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,443** funciones en 387 clases/módulos (rango 0x401000–0x74FFFF): 2,421 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,8 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CWanted | 1 | 76 |
-| CGangs | 1 | 92 |
 | CPointRoutePool | 1 | 106 |
 | JPegPlugin | 1 | 108 |
 | CTaskComplexWalkAlongsidePed | 1 | 110 |
@@ -277,6 +275,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CLoadingScreen | 5 | 180 |
 | CDamageAtomicModelInfo | 5 | 210 |
 | CMenuManager | 5 | 214 |
+| CPtrNodeDoubleLinkPool | 5 | 225 |
 | CColStore | 5 | 373 |
 | CAEAmbienceTrackManager | 5 | 386 |
 | CTaskSimpleCarFallOut | 5 | 388 |
@@ -323,7 +322,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CVisibilityPlugins | 7 | 205 |
 | CTaskAllocatorPool | 7 | 362 |
 | CEventKnockOffBike | 7 | 395 |
-| CPtrNodeDoubleLinkPool | 7 | 436 |
 | CObject | 7 | 728 |
 | CCam | 7 | 1059 |
 | CPed | 7 | 1093 |
@@ -399,18 +397,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxInfoManager_c | 116 | 6591 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CWanted (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00563130 | 76 | D |  | 0 | 0 |  | baja |
-
-## CGangs (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005DE920 | 92 | A |  | 3 | 1 |  | baja |
 
 ## CPointRoutePool (1)
 
@@ -1151,7 +1137,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x004F2930 | 35 | D |  | 0 | 0 |  | alta |
-| 0x004F2B80 | 139 | A |  | 8 | 1 |  | alta |
+| 0x004F2B80 | 139 | A |  | 8 | 2 |  | alta |
 
 ## FxMemoryPool_c (2)
 
@@ -2465,6 +2451,16 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0057C460 | 24 | A |  | 1 | 1 |  | alta |
 | 0x0057C5E0 | 118 | A |  | 2 | 2 |  | alta |
 
+## CPtrNodeDoubleLinkPool (5)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00552380 | 11 | A |  | 2 | 1 |  | baja |
+| 0x00552390 | 41 | A |  | 3 | 1 |  | baja |
+| 0x005523C0 | 11 | A |  | 8 | 7 |  | baja |
+| 0x005523D0 | 48 | A |  | 7 | 6 |  | baja |
+| 0x00552520 | 114 | A |  | 5 | 3 |  | baja |
+
 ## CColStore (5)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -2967,18 +2963,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004B06F0 | 3 | B |  | 0 | 0 | sí | baja |
 | 0x004B0810 | 138 | D |  | 0 | 0 |  | baja |
 | 0x004B4EE0 | 232 | D |  | 0 | 0 |  | baja |
-
-## CPtrNodeDoubleLinkPool (7)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00552380 | 11 | A |  | 2 | 1 |  | baja |
-| 0x00552390 | 41 | A |  | 3 | 1 |  | baja |
-| 0x005523C0 | 11 | A |  | 8 | 7 |  | baja |
-| 0x005523D0 | 48 | A |  | 7 | 6 |  | baja |
-| 0x00552400 | 99 | A |  | 9 | 7 |  | baja |
-| 0x00552470 | 112 | A |  | 15 | 10 |  | baja |
-| 0x00552520 | 114 | A |  | 5 | 3 |  | baja |
 
 ## CObject (7)
 

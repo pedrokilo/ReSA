@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 08/11/2026 (Ciudad de México):** 868 grupos / 9474 funciones reconstruidas; 9474 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 08/11/2026 (Ciudad de México):** 869 grupos / 9478 funciones reconstruidas; 9478 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,21 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-881"></a>
+
+## CTimeInfo
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTimeInfo::InjectHooks() | [source/game_sa/Models/TimeInfo.cpp:26](../../source/game_sa/Models/TimeInfo.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTimeInfo::FindOtherTimeModel(const char* modelName) | [source/game_sa/Models/TimeInfo.cpp:45](../../source/game_sa/Models/TimeInfo.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimeInfo::FindOtherTimeModel 0x004C47E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetOtherTimeModel() const | [source/game_sa/Models/TimeInfo.h:24](../../source/game_sa/Models/TimeInfo.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimeInfo::GetOtherTimeModel 0x004C4A30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetOtherTimeModel(int16 otherTimeModel) | [source/game_sa/Models/TimeInfo.h:26](../../source/game_sa/Models/TimeInfo.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimeInfo::SetOtherTimeModel 0x005B3440 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTimeOn() const | [source/game_sa/Models/TimeInfo.h:28](../../source/game_sa/Models/TimeInfo.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimeInfo::GetTimeOn 0x00407320 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTimeOff() const | [source/game_sa/Models/TimeInfo.h:30](../../source/game_sa/Models/TimeInfo.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimeInfo::GetTimeOff 0x00407330 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetTimes(uint8 timeOn, uint8 timeOff) | [source/game_sa/Models/TimeInfo.h:32](../../source/game_sa/Models/TimeInfo.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimeInfo::SetTimes 0x005B3430 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsVisibleNow() const noexcept | [source/game_sa/Models/TimeInfo.h:35](../../source/game_sa/Models/TimeInfo.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-882"></a>
 
 ## CTimeModelInfo
 
@@ -16,7 +31,7 @@
 | CTimeModelInfo::GetModelType() | [source/game_sa/Models/TimeModelInfo.cpp:35](../../source/game_sa/Models/TimeModelInfo.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimeModelInfo::GetModelType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CTimeModelInfo::GetTimeInfo() | [source/game_sa/Models/TimeModelInfo.cpp:41](../../source/game_sa/Models/TimeModelInfo.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimeModelInfo::GetTimeInfo 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-882"></a>
+<a id="grupo-883"></a>
 
 ## CTimer
 
@@ -67,7 +82,7 @@
 | HasTimePointPassed(uint32 timeMs) | [source/game_sa/Timer.h:114](../../source/game_sa/Timer.h#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsTimeInRange(uint32 fromMs, uint32 toMs) | [source/game_sa/Timer.h:115](../../source/game_sa/Timer.h#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-883"></a>
+<a id="grupo-884"></a>
 
 ## CTrafficLights
 
@@ -87,7 +102,7 @@
 | CTrafficLights::LightForCars1_Visual() | [source/game_sa/TrafficLights.cpp:455](../../source/game_sa/TrafficLights.cpp#L455) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrafficLights::LightForCars1_Visual 0x0049D350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CTrafficLights::LightForCars2_Visual() | [source/game_sa/TrafficLights.cpp:467](../../source/game_sa/TrafficLights.cpp#L467) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrafficLights::LightForCars2_Visual 0x0049D3A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-884"></a>
+<a id="grupo-885"></a>
 
 ## CTrailer
 
@@ -109,7 +124,7 @@
 | CTrailer::BreakTowLink() | [source/game_sa/Entity/Vehicle/Trailer.cpp:641](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L641) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::BreakTowLink 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Trailer.h:89](../../source/game_sa/Entity/Vehicle/Trailer.h#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::Constructor 0x006D03A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-885"></a>
+<a id="grupo-886"></a>
 
 ## CTrain
 
@@ -159,7 +174,7 @@
 | CTrain::ProcessControl() | [source/game_sa/Entity/Vehicle/Train.cpp:913](../../source/game_sa/Entity/Vehicle/Train.cpp#L913) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::ProcessControl 0x00000000 | 0 / 0 | Posible dato fijo NumTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:36 (0x00C38014); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo arrTotalTrackLength: source/game_sa/Entity/Vehicle/Train.cpp:37 (0x00C37FEC); Posible dato fijo gbModelViewer: source/game_sa/Camera.cpp:42 (0x00BA6728); Posible dato fijo mod_Buoyancy: source/game_sa/Buoyancy.cpp:23 (0x00C1C890); Posible dato fijo pTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:35 (0x00C38024) |
 | * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Train.h:137](../../source/game_sa/Entity/Vehicle/Train.h#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::Constructor 0x006F6030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-886"></a>
+<a id="grupo-887"></a>
 
 ## CTrainNode
 
@@ -179,7 +194,7 @@
 | CTrainNode::GetLightingFromCollision() | [source/game_sa/TrainNode.cpp:90](../../source/game_sa/TrainNode.cpp#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTrainNode::GetLightingFromCollision 0x006F5F80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CTrainNode::GetLightingFromCollisionExeAbi() | [source/game_sa/TrainNode.cpp:109](../../source/game_sa/TrainNode.cpp#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTrainNode::GetLightingFromCollision 0x006F5F80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-887"></a>
+<a id="grupo-888"></a>
 
 ## CTxdStore
 
@@ -218,7 +233,7 @@
 | * CTxdStore::GetTxdParent(RwTexDictionary* txd) | [source/game_sa/TxdStore_Plugin.cpp:38](../../source/game_sa/TxdStore_Plugin.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_txdPluginOffset: source/game_sa/TxdStore.h:22 (0x00C88018) |
 | CTxdStore::SetTxdParent(RwTexDictionary* txd, RwTexDictionary* parent) | [source/game_sa/TxdStore_Plugin.cpp:42](../../source/game_sa/TxdStore_Plugin.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_txdPluginOffset: source/game_sa/TxdStore.h:22 (0x00C88018) |
 
-<a id="grupo-888"></a>
+<a id="grupo-889"></a>
 
 ## CTxdStore::ScopedTXDSlot
 
@@ -228,7 +243,7 @@
 | ScopedTXDSlot(const char* txd) | [source/game_sa/TxdStore.h:35](../../source/game_sa/TxdStore.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ~ScopedTXDSlot() | [source/game_sa/TxdStore.h:40](../../source/game_sa/TxdStore.h#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-889"></a>
+<a id="grupo-890"></a>
 
 ## CUpsideDownCarCheck
 
@@ -244,7 +259,7 @@
 | CUpsideDownCarCheck::RemoveCarFromCheck(int32 carHandle) | [source/game_sa/UpsideDownCarCheck.cpp:121](../../source/game_sa/UpsideDownCarCheck.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CUpsideDownCarCheck::RemoveCarFromCheck 0x00463910 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CUpsideDownCarCheck::HasCarBeenUpsideDownForAWhile(int32 carHandle) | [source/game_sa/UpsideDownCarCheck.cpp:130](../../source/game_sa/UpsideDownCarCheck.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CUpsideDownCarCheck::HasCarBeenUpsideDownForAWhile 0x00463940 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-890"></a>
+<a id="grupo-891"></a>
 
 ## CUserDisplay
 
@@ -254,7 +269,7 @@
 | CUserDisplay::Init() | [source/game_sa/UserDisplay.cpp:34](../../source/game_sa/UserDisplay.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CUserDisplay::Init 0x00571EE0 | 0 / 0 | Posible dato fijo CurrentVehicle: source/game_sa/UserDisplay.h:17 (0x00BA18FC); Posible dato fijo OnscnTimer: source/game_sa/UserDisplay.h:16 (0x00BA1788); Posible dato fijo PlaceName: source/game_sa/UserDisplay.h:15 (0x00BA18F4) |
 | CUserDisplay::Process() | [source/game_sa/UserDisplay.cpp:43](../../source/game_sa/UserDisplay.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CUserDisplay::Process 0x005720A0 | 0 / 0 | Posible dato fijo CurrentVehicle: source/game_sa/UserDisplay.h:17 (0x00BA18FC); Posible dato fijo OnscnTimer: source/game_sa/UserDisplay.h:16 (0x00BA1788); Posible dato fijo PlaceName: source/game_sa/UserDisplay.h:15 (0x00BA18F4) |
 
-<a id="grupo-891"></a>
+<a id="grupo-892"></a>
 
 ## CVector
 
@@ -317,7 +332,7 @@
 | Dist(CVector a, CVector b) | [source/game_sa/Core/Vector.h:213](../../source/game_sa/Core/Vector.h#L213) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DistSqr(CVector a, CVector b) | [source/game_sa/Core/Vector.h:223](../../source/game_sa/Core/Vector.h#L223) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-892"></a>
+<a id="grupo-893"></a>
 
 ## CVector2D
 
@@ -363,7 +378,7 @@
 | Dist(CVector2D a, CVector2D b) | [source/game_sa/Core/Vector2D.h:212](../../source/game_sa/Core/Vector2D.h#L212) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DistSqr(CVector2D a, CVector2D b) | [source/game_sa/Core/Vector2D.h:222](../../source/game_sa/Core/Vector2D.h#L222) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-893"></a>
+<a id="grupo-894"></a>
 
 ## CVehicle
 
@@ -642,7 +657,7 @@
 | Constructor(eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Vehicle.h:778](../../source/game_sa/Entity/Vehicle/Vehicle.h#L778) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehicle::Constructor 0x006D5F10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Destructor() | [source/game_sa/Entity/Vehicle/Vehicle.h:783](../../source/game_sa/Entity/Vehicle/Vehicle.h#L783) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CVehicle::Destructor 0x006E2B40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-894"></a>
+<a id="grupo-895"></a>
 
 ## CVehicleAnimGroup
 
@@ -661,7 +676,7 @@
 | & GetInOutTiming(const eInOutTiming timing) | [source/game_sa/VehicleAnimGroupData.h:138](../../source/game_sa/VehicleAnimGroupData.h#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetDoorOffset(const eVehAnimDoorOffset door) | [source/game_sa/VehicleAnimGroupData.h:139](../../source/game_sa/VehicleAnimGroupData.h#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-895"></a>
+<a id="grupo-896"></a>
 
 ## CVehicleAnimGroupData
 
@@ -678,7 +693,7 @@
 | CVehicleAnimGroupData::LoadAGroupFromData(const char* line) | [source/game_sa/VehicleAnimGroupData.cpp:330](../../source/game_sa/VehicleAnimGroupData.cpp#L330) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetVehicleAnimGroup(int32 iGroup) | [source/game_sa/VehicleAnimGroupData.h:164](../../source/game_sa/VehicleAnimGroupData.h#L164) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_vehicleAnimGroups: source/game_sa/VehicleAnimGroupData.h:146 (0x00C1CDC0) |
 
-<a id="grupo-896"></a>
+<a id="grupo-897"></a>
 
 ## CVehicleModelInfo
 
@@ -787,7 +802,7 @@
 | GetSizeOfWheel(eCarWheel wheel) const | [source/game_sa/Models/VehicleModelInfo.h:477](../../source/game_sa/Models/VehicleModelInfo.h#L477) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetVehicleStruct() const | [source/game_sa/Models/VehicleModelInfo.h:486](../../source/game_sa/Models/VehicleModelInfo.h#L486) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pVehicleStruct: source/game_sa/Models/VehicleModelInfo.h:170 (0x00B4E680) |
 
-<a id="grupo-897"></a>
+<a id="grupo-898"></a>
 
 ## CVehicleModelInfo::CLinkedUpgradeList
 
@@ -796,7 +811,7 @@
 | CVehicleModelInfo::CLinkedUpgradeList::AddUpgradeLink(int16 upgrade1, int16 upgrade2) | [source/game_sa/Models/VehicleModelInfo.cpp:1645](../../source/game_sa/Models/VehicleModelInfo.cpp#L1645) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLinkedUpgradeList::AddUpgradeLink 0x004C74B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CVehicleModelInfo::CLinkedUpgradeList::FindOtherUpgrade(int16 upgrade) | [source/game_sa/Models/VehicleModelInfo.cpp:1652](../../source/game_sa/Models/VehicleModelInfo.cpp#L1652) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CLinkedUpgradeList::FindOtherUpgrade 0x004C74D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-898"></a>
+<a id="grupo-899"></a>
 
 ## CVehicleModelInfo::CVehicleStructure
 
@@ -809,7 +824,7 @@
 | IsDummyActive(eVehicleDummy dummy) const | [source/game_sa/Models/VehicleModelInfo.h:193](../../source/game_sa/Models/VehicleModelInfo.h#L193) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsComponentDamageable(int32 nodeIndex) const | [source/game_sa/Models/VehicleModelInfo.h:197](../../source/game_sa/Models/VehicleModelInfo.h#L197) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-899"></a>
+<a id="grupo-900"></a>
 
 ## CVehiclePool
 
@@ -817,12 +832,3 @@
 | --- | --- | --- | --- | --- | --- |
 | InjectHooks() | [source/game_sa/Pools/VehiclePool.h:35](../../source/game_sa/Pools/VehiclePool.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * New() | [source/game_sa/Pools/VehiclePool.h:50](../../source/game_sa/Pools/VehiclePool.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVehiclePool::New 0x006E2A50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-900"></a>
-
-## CVehiclePotentialCollisionScanner
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CVehiclePotentialCollisionScanner::InjectHooks() | [source/game_sa/Events/EventScanner.cpp:264](../../source/game_sa/Events/EventScanner.cpp#L264) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents(const CPed& ped, CEntity** entities, int32 count) | [source/game_sa/Events/EventScanner.cpp:273](../../source/game_sa/Events/EventScanner.cpp#L273) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents 0x00603720 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
