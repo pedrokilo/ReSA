@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,356** funciones en 346 clases/módulos (rango 0x401000–0x74FFFF): 2,334 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,335** funciones en 338 clases/módulos (rango 0x401000–0x74FFFF): 2,313 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,14 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CLodAtomicModelInfo | 2 | 31 |
-| CPhysical | 2 | 32 |
-| CTrailer | 2 | 33 |
-| CAnimatedBuilding | 2 | 35 |
-| CBridge | 7 | 35 |
-| CTaskComplexArrestPed | 2 | 36 |
-| CTaskComplexCarDrive | 2 | 36 |
-| CTaskGangHassleVehicle | 2 | 36 |
 | CCustomBuildingDNPipeline | 2 | 39 |
 | CDirectory | 2 | 39 |
 | CPedType | 2 | 40 |
@@ -357,67 +349,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
 
-## CLodAtomicModelInfo (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004C5620 | 7 | C |  | 1 | 0 |  | baja |
-| 0x004C5640 | 24 | D |  | 0 | 0 |  | baja |
-
-## CPhysical (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0054E8E0 | 5 | C |  | 5 | 0 |  | baja |
-| 0x00544990 | 27 | B |  | 0 | 0 | sí | alta |
-
-## CTrailer (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006D0450 | 3 | C |  | 2 | 0 |  | baja |
-| 0x006CF180 | 30 | B |  | 0 | 0 | sí | alta |
-
-## CAnimatedBuilding (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00537A70 | 5 | C |  | 1 | 0 |  | baja |
-| 0x00537A50 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CBridge (7)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0041BCB0 | 3 | A |  | 1 | 1 |  | baja |
-| 0x0041BD00 | 3 | A |  | 1 | 1 |  | baja |
-| 0x0041BD10 | 4 | A |  | 2 | 2 |  | baja |
-| 0x0041BD80 | 4 | A |  | 3 | 3 |  | baja |
-| 0x0041BCE0 | 7 | A |  | 1 | 1 |  | baja |
-| 0x0041BCF0 | 7 | A |  | 1 | 1 |  | baja |
-| 0x0041BD50 | 7 | A |  | 6 | 6 |  | baja |
-
-## CTaskComplexArrestPed (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0068B9F0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x006908C0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexCarDrive (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0063C9C0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00643220 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskGangHassleVehicle (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0065FB50 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x006642A0 | 30 | B |  | 0 | 0 | sí | baja |
-
 ## CCustomBuildingDNPipeline (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -450,7 +381,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x006CED10 | 11 | C |  | 1 | 0 |  | baja |
+| 0x006CED10 | 11 | A |  | 1 | 1 |  | baja |
 | 0x006CE440 | 30 | B |  | 0 | 0 | sí | alta |
 
 ## CTaskAllocatorKillThreatsBasicRandomGroup (2)
@@ -589,7 +520,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x004C5920 | 7 | C |  | 1 | 0 |  | baja |
 | 0x004C5540 | 18 | D |  | 0 | 0 |  | baja |
-| 0x004C4A60 | 21 | A |  | 9 | 1 |  | baja |
+| 0x004C4A60 | 21 | A |  | 9 | 2 |  | baja |
 
 ## CEventGunShot (7)
 
@@ -823,7 +754,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00404090 | 11 | A |  | 4 | 4 |  | baja |
-| 0x004040A0 | 51 | C |  | 5 | 0 |  | baja |
+| 0x004040A0 | 51 | A |  | 5 | 1 |  | baja |
 
 ## CDummyPool (2)
 
@@ -933,7 +864,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x0063CB50 | 11 | C |  | 1 | 0 |  | alta |
+| 0x0063CB50 | 11 | A |  | 1 | 1 |  | alta |
 | 0x00643260 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00643280 | 30 | B |  | 0 | 0 | sí | baja |
 
@@ -3070,7 +3001,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006D63D0 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x006D3D50 | 9 | B |  | 0 | 0 | sí | alta |
 | 0x006D56B0 | 9 | B |  | 0 | 0 | sí | alta |
-| 0x006E2D90 | 49 | A |  | 72 | 2 |  | alta |
+| 0x006E2D90 | 49 | A |  | 72 | 3 |  | alta |
 | 0x006E2DD0 | 49 | C |  | 21 | 0 |  | alta |
 | 0x006D0BC0 | 62 | D |  | 0 | 0 |  | alta |
 | 0x006D5DD0 | 74 | A |  | 1 | 1 |  | alta |

@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 09/11/2026 (Ciudad de México):** 871 grupos / 9565 funciones reconstruidas; 9565 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 09/11/2026 (Ciudad de México):** 871 grupos / 9586 funciones reconstruidas; 9586 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-486 funciones, 65,245 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+479 funciones, 65,152 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -270,7 +270,6 @@
 | `0x0074EB40` | 58 | Win | baja | 2 (0) |  |
 | `0x00533670` | 54 | CEntity | alta | 1 (0) |  |
 | `0x0074A1C0` | 52 | Win | baja | 1 (0) |  |
-| `0x004040A0` | 51 | CBuildingPool | baja | 5 (0) |  |
 | `0x0041B820` | 51 | CNodeRoutePool | baja | 3 (0) |  |
 | `0x004CBDE0` | 51 | CWeaponModelInfo | baja | 35 (0) |  |
 | `0x0046A340` | 49 | CEntity | baja | 1 (0) |  |
@@ -417,7 +416,6 @@
 | `0x00636850` | 11 | CTaskComplexUseEffectRunning | baja | 1 (0) |  |
 | `0x00636930` | 11 | CTaskComplexUseEffectSprinting | baja | 1 (0) |  |
 | `0x0063A1D0` | 11 | CEventLeaderQuitEnteringCarAsDriver | baja | 1 (0) |  |
-| `0x0063CB50` | 11 | CTaskComplexCarDriveWander | alta | 1 (0) |  |
 | `0x0063CE70` | 11 | CTaskComplexDriveToPoint | alta | 1 (0) |  |
 | `0x0063D100` | 11 | CTaskComplexEnterAnyCarAsDriver | alta | 1 (0) |  |
 | `0x00658850` | 11 | CTaskComplexWanderMedic | baja | 1 (0) |  |
@@ -438,7 +436,6 @@
 | `0x006926F0` | 11 | CTaskSimpleDuck | baja | 1 (0) |  |
 | `0x0069DB40` | 11 | CTaskAllocatorPool | baja | 1 (0) |  |
 | `0x006A0650` | 11 | CEventVehicleDamageCollision | alta | 2 (0) |  |
-| `0x006CED10` | 11 | CQuadBike | baja | 1 (0) |  |
 | `0x006E76E0` | 11 | CWaterLevel | alta | 1 (0) |  |
 | `0x005CF810` | 10 | FxEmitterBP_c | baja | 2 (0) |  |
 | `0x005CF830` | 10 | FxEmitterBP_c | baja | 1 (0) |  |
@@ -453,7 +450,6 @@
 | `0x004A8B70` | 7 | FxInfoManager_c | baja | 4 (0) |  |
 | `0x004C5590` | 7 | CAtomicModelInfo | baja | 1 (0) |  |
 | `0x004C55D0` | 7 | CDamageAtomicModelInfo | baja | 1 (0) |  |
-| `0x004C5620` | 7 | CLodAtomicModelInfo | baja | 1 (0) |  |
 | `0x004C5680` | 7 | CTimeModelInfo | baja | 1 (0) |  |
 | `0x004C5750` | 7 | CClumpModelInfo | baja | 2 (0) |  |
 | `0x004C5790` | 7 | CWeaponModelInfo | baja | 1 (0) |  |
@@ -469,9 +465,7 @@
 | `0x0048E930` | 5 | CTaskSimpleCower | baja | 1 (0) |  |
 | `0x0048EA90` | 5 | CTaskSimpleHandsUp | baja | 1 (0) |  |
 | `0x004A2BB0` | 5 | FxEmitterBP_c | alta | 1 (0) |  |
-| `0x00537A70` | 5 | CAnimatedBuilding | baja | 1 (0) |  |
 | `0x00542080` | 5 | CEntity | baja | 2 (0) |  |
-| `0x0054E8E0` | 5 | CPhysical | baja | 5 (0) |  |
 | `0x0059F000` | 5 | CHandObject | baja | 1 (0) |  |
 | `0x005CF840` | 5 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005D28F0` | 5 | CObject | baja | 2 (0) |  |
@@ -491,7 +485,6 @@
 | `0x0066DFA0` | 5 | CTaskComplexGoToPointAiming | baja | 1 (0) |  |
 | `0x006935B0` | 5 | CTaskSimpleHoldEntity | baja | 1 (0) |  |
 | `0x006935E0` | 5 | CTaskSimpleHoldEntity | baja | 1 (0) |  |
-| `0x006D0450` | 3 | CTrailer | baja | 2 (0) |  |
 | `0x00403B7B` | 2 | CEntity | baja | 3 (0) |  |
 | `0x00486AE0` | 1 | CTheScripts | alta | 1 (0) |  |
 | `0x004A4950` | 1 | FxEmitterBP_c | baja | 1 (0) |  |
