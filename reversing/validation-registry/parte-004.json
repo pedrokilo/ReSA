@@ -38424,7 +38424,7 @@
       },
       "evidence": {
         "path": "reversing/PadMouse1/validation-summary.json",
-        "sha256": "4ec81a755e4abb471b9fa2d50df8c8fc442733f2b1ba9a745f987c3ecc4dbf0c",
+        "sha256": "2a1cbb0a5503e0a0be14318a1264a540ceda3b1b7fb49ce116bb02f943fe8a5c",
         "passed_path": [
           "passed"
         ],
@@ -38432,10 +38432,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "89badf36b91db868c0a9d41408db7b595bc116ce941a7864cd697af8a4bbaa4d",
-        "source/game_sa/Pad.h": "d18adb99148fe3fbdde2447a44699451f3afce97f29994bdf3bd29a3829889e2",
+        "source/game_sa/Pad.cpp": "4f99003909f0f7f4eb69f0aec50c2389c92c58f4faca4fc31c760e6add24a78f",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
-        "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3"
+        "source/game_sa/MouseControllerState.h": "9c22fe3408e4a89413bd310ec1208f0fd786a09b996240350a580afbc04adc7b"
       },
       "source_provenance": "Exact compiled PadMouse1 probe (ASI/PDB hashes in build-manifest.json); full 9216-row log reaudited offline and preserved gzipped with the original hash; bench noise from the earlier attempt (padding byte 7/27/47, foreign-thread traces) fixed in LiveComparison.hpp before this run.",
       "dependency_review": null,

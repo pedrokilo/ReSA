@@ -9494,3 +9494,6 @@ CTaskComplexPartnerDeal,Clone,0x00000000,1,0,1,V
 CTaskSimpleTired,Clone,0x00000000,1,0,1,V
 CCustomCarPlateMgr,GetCharacterPositionInCharSetExe,0x006FD7C0,1,0,1,S
 CCustomRoadsignMgr,RoadsignGetLineAndRowExe,0x006FE260,1,0,1,S
+Input,GetMouseSetUpExe,0x0053F2D0,1,0,1,S
+Win,getDvdGamePath,0x00747300,1,0,1,S
+CCollision,GetNearestDistanceOfPedSphereToCameraNearClip,0x0050D590,1,0,1,S

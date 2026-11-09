@@ -11113,7 +11113,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::AdditionalOptionInput"
@@ -11122,9 +11122,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11140,7 +11140,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::CentreMousePointer"
@@ -11149,9 +11149,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11167,7 +11167,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::CheckCodesForControls"
@@ -11176,9 +11176,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11194,7 +11194,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::CheckForMenuClosing"
@@ -11203,9 +11203,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11221,7 +11221,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::CheckFrontEndDownInput"
@@ -11230,9 +11230,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11248,7 +11248,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::CheckFrontEndLeftInput"
@@ -11257,9 +11257,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11275,7 +11275,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::CheckFrontEndRightInput"
@@ -11284,9 +11284,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11302,7 +11302,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::CheckFrontEndUpInput"
@@ -11311,9 +11311,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11329,7 +11329,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::CheckHover"
@@ -11338,9 +11338,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11356,7 +11356,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::CheckRedefineControlInput"
@@ -11365,9 +11365,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11383,7 +11383,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::CheckSliderMovement"
@@ -11392,9 +11392,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11410,7 +11410,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::ProcessUserInput"
@@ -11419,9 +11419,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11437,7 +11437,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::RedefineScreenUserInput"
@@ -11446,9 +11446,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11464,7 +11464,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::ScrollRadioStations"
@@ -11473,9 +11473,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,
@@ -11491,7 +11491,7 @@
       },
       "evidence": {
         "path": "reversing/MenuMgrB/validation-summary.json",
-        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "sha256": "49b98a27918184d24583297900c0a99274e57b699142ee870ed576e8f921019d",
         "passed_path": [
           "covered_functions",
           "CMenuManager::UserInput"
@@ -11500,9 +11500,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.cpp": "d26b735c4abb642c0367df0b5afc75c443392e1161c0dd7609ebeb9dd5cb4e5b",
         "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
-        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "d3c0c95048e63a8bdfce85fc983dffc15140a16e39e315cfbfc11b413b5b9edb"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
       "dependency_review": null,

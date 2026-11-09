@@ -1,0 +1,3 @@
+totales {'GetMouseSetUp': 2048, 'getDvdGamePath': 2048, 'CCollision::GetNearestDistanceOfPedSphereToCameraNearClip': 2048}
+EXE!=DLL {'GetMouseSetUp': 747, 'getDvdGamePath': 776, 'CCollision::GetNearestDistanceOfPedSphereToCameraNearClip': 81}
+lados != oraculo {'GetMouseSetUp': 747, 'getDvdGamePath': 776, 'CCollision::GetNearestDistanceOfPedSphereToCameraNearClip': 81}

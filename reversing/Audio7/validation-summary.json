@@ -58,7 +58,7 @@
   "log_sha256": "e5506493061a850005a96ac6065a0f7531542f54b35c18012fdfeabaecf4b44b",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio7\\20261106-143454-429097",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio7\\20261109-002601-759660",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEFireAudioEntity::Initialise": true,
@@ -106,8 +106,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "257e3e743517d5ca92b029819d5b6f58f20d78747edeb2d449f0b301b937fd40",
-      "pdb": "1ff9fb1007af0c99ac2b6d001205c2b656794db52172e9930e704fead07eccfd"
+      "asi": "4fd7a4326e919531e0ce85853852e990db7aedefb204184a64e03475dd927ab1",
+      "pdb": "c70244200416fce493962e79fa7d60def28313ef60b6c30b1d1369a5cdfa452d"
     },
     "sources": {
       "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",

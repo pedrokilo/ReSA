@@ -2298,3 +2298,7 @@ bool __cdecl AngledAreaCpp(const float* pt, float x1, float y1, float x2, float 
 // Lote 132A (Fn132A).
 // 0x6FBA20 (CCoronas): factor de atenuacion del reflejo del sol por cercania a un punto (cam = x, y de la camara); devuelve double para conservar ST0 sin redondear (ver X87Math.cpp).
 double __cdecl SunReflectionFactorCpp(const float* cam, float x, float y, float radius);
+
+// Lote 135A (Fn135A).
+// 0x50D590 (CCollision): distancia minima de las 12 esferas (5 dwords cada una) de golpe de un peaton al plano cercano de la camara (front y source = 3 floats); ver X87Math.cpp.
+float __cdecl PedSphereNearestCpp(const float* front, const float* source, const float* spheres, float nearClip);

@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include <numbers>
 
@@ -3130,37 +3131,26 @@ bool CCollision::IsThisVehicleSittingOnMe(CVehicle* veh, CVehicle* vehOnMe) {
     }
 }
 
-// Como el original: funcion 0x50D590 (sin hook propio). Anima la colision de golpe del modelo del peaton, calcula
-// offset = front.source con el orden de sumas z, y, x y recorre las 12 esferas (2 bloques de 6) con
-// val = ((dot - offset) - radio) - nearClip; el minimo empieza en 999999.0f (0x497423F0), no en FLT_MAX.
-// El producto escalar de las esferas 0 y 1 de cada bloque suma z, x, y; el de las otras cuatro suma z, y, x.
+// 0x50D590 (cdecl, un puntero al peaton, `ret`, resultado en ST0): anima la colision de golpe del modelo del peaton (CPedModelInfo::AnimatePedColModelSkinnedWorld, 0x4C7170, con el
+// vector del clump), calcula offset = front.source con el orden de sumas z, y, x (guardado como float) y recorre las 12 esferas (2 bloques de 6, paso 0x14) con
+// val = ((dot - offset) - radio) - nearClip; el minimo empieza en 999999.0f (0x497423F0), no en FLT_MAX. Sin comprobar el numero de esferas ni nulos. La aritmetica x87 (24 bits de mantisa,
+// exponente ampliado, el valor se compara SIN redondear a float y el minimo guarda el float) esta en PedSphereNearestCpp (X87Math.cpp).
 float GetNearestDistanceOfPedSphereToCameraNearClip(CPed* ped) {
-    const auto mi = ped->GetPedModelInfo();
+    // Como el original: indice de modelo con signo (movsx del word +0x22) y el clump en crudo (sin el assert de tipo de GetRpClump)
+    const auto mi = static_cast<CPedModelInfo*>(CModelInfo::GetModelInfo(static_cast<int16>(ped->m_nModelIndex)));
 
     // Calculate hit colmodel
-    mi->AnimatePedColModelSkinnedWorld(ped->GetRpClump());
+    mi->AnimatePedColModelSkinnedWorld(reinterpret_cast<RpClump*>(ped->GetRwObject()));
     const auto hitCM = mi->m_pHitColModel;
 
     // Calculate some other shite
     auto&       cam     = TheCamera.GetActiveCamera();
-    const auto& front   = cam.m_vecFront;
-    const auto  offset  = (front.z * cam.m_vecSource.z + front.y * cam.m_vecSource.y) + front.x * cam.m_vecSource.x;
     const auto  nearClp = RwCameraGetNearClipPlane(Scene.m_pRwCamera);
 
     // Como el original: 12 esferas fijas, sin comprobar el numero real (no hay assert ni comprobacion de nulo)
     const auto spheres = hitCM->m_pColData->m_pSpheres;
-    float ret = std::bit_cast<float>(0x497423F0u);
-    for (int32 i = 0; i < 12; i++) {
-        const auto& c = spheres[i].m_vecCenter;
-        const float dot = (i % 6) < 2
-            ? (c.z * front.z + c.x * front.x) + c.y * front.y
-            : (c.z * front.z + c.y * front.y) + c.x * front.x;
-        const float val = ((dot - offset) - spheres[i].m_fRadius) - nearClp;
-        if (val < ret) { // fcomp + test ah,5 + jp: solo cambia si es estrictamente menor (NaN no)
-            ret = val;
-        }
-    }
-    return ret;
+    static_assert(sizeof(CColSphere) == 0x14 && offsetof(CColSphere, m_fRadius) == 0xC);
+    return PedSphereNearestCpp(&cam.m_vecFront.x, &cam.m_vecSource.x, reinterpret_cast<const float*>(spheres), nearClp);
 }
 
 // 0x415320
@@ -4275,6 +4265,7 @@ void CCollision::InjectHooks() {
     RH_ScopedInstall(GetBoundingBoxFromTwoSpheres, 0x415230);
     RH_ScopedInstall(IsThisVehicleSittingOnMe, 0x4152C0);
     RH_ScopedInstall(CheckCameraCollisionPeds, 0x415320);
+    RH_ScopedGlobalInstall(GetNearestDistanceOfPedSphereToCameraNearClip, 0x50D590);
     RH_ScopedInstall(CheckPeds, 0x4154A0);
     RH_ScopedGlobalInstall(ResetMadeInvisibleObjects, 0x415540);
     RH_ScopedInstall(SphereCastVsBBox, 0x415590);

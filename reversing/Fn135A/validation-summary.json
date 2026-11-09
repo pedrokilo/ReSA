@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "pairs": 49152,
+  "differences": 0,
+  "registered_pairs": 49152,
+  "registered_functions": 3,
+  "functions": {
+    "GetMouseSetUp": 16384,
+    "getDvdGamePath": 16384,
+    "CCollision::GetNearestDistanceOfPedSphereToCameraNearClip": 16384
+  },
+  "covered_functions": {
+    "GetMouseSetUp": true,
+    "getDvdGamePath": true,
+    "CCollision::GetNearestDistanceOfPedSphereToCameraNearClip": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main e9fcf31dd4 con los cambios del lote (ver artifacts/build-manifest.json). Tres funciones del EXE sin hook validado (clases por desensamblado; el listado las atribuia por cercania): GetMouseSetUp 0x53F2D0 (hook GetMouseSetUpExe: ABI del EXE con el destino por la pila, `ret 4`; el hook sobre la version por valor desequilibraba la pila en 4 bytes y el banco lo detecto), getDvdGamePath 0x747300 y CCollision GetNearestDistanceOfPedSphereToCameraNearClip 0x50D590 (aritmetica x87 en PedSphereNearestCpp de X87Math.cpp). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: IsVideoModeExclusive 0x745CA0, diMouseInit 0x7469A0 (hook bloqueado) y CPedModelInfo::AnimatePedColModelSkinnedWorld 0x4C7170; GetCapabilities es una ranura de la vtable de un dispositivo falso; SetErrorMode, GetLogicalDriveStringsA, GetDriveTypeA y GetVolumeInformationA se sustituyen en la casilla de la IAT del EXE y en la de la DLL; operator new[] 0x821195 y delete[] 0x8213AE de la CRT del EXE (falsos solo en la direccion del EXE: la DLL los llama por esa direccion); lstrlenA y lstrcpyA reales. Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos, valor devuelto (EAX o ST0), x87, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: nombres de unidad de mas de 7 caracteres en getDvdGamePath (desbordan el buffer local del EXE), bytes de pila sin inicializar de GetMouseSetUp (el banco siembra la pila con ceros), indices de modelo fuera de [-2, 1023], camaras activas mayores de 2, esferas fuera de las 12 fijas y el valor de EAX/ECX/EDX tras la llamada. No se reconstruye 0x607A90 (CPedAcquaintanceScanner, escaneo de entidades con diez colaboradores): ver README.md.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn135A-20261109-001102-140325",
+  "summary_sha256": "76f83538487d1e43518e022729f37e9dee0443df10504b70b4bb34b39db9e683",
+  "result_txt_sha256": "0d2ffe9286ee686e446ea2d50935a273e1554dda95f9b45c313dafcea24999ad",
+  "log_sha256": "69eff5504252ad02d6fad1f704f4ed55884f5dcf85b2c610f3294bafbf0b3c19",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "3b0395242749e16076f04c1995e4fdcfa5912310ed1fbc483f4eb1462cab75b6",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+      "source/app/platform/win/WinInput.cpp": "f7b37fc039cd00b4a84698dba38a021b7958c06d8fef0ca542dffa036abbc607",
+      "source/app/platform/win/WinMain.cpp": "9ff4358ce3c1f3e06f0fcbec1d21a9f7ea0bd9d9b1886c31f6e32532d11152d3",
+      "source/game_sa/Collision/Collision.cpp": "04de2aed177bb16f5139f70ff2968b6964824e888d7c3f47fc3871d7478dd23d",
+      "source/game_sa/X87Math.cpp": "73100c0347908d2bf03a30232339f6f1a7b1f7d2e9610152371e5f1a44cbe4c7",
+      "source/game_sa/X87Math.h": "58cb4b7b80ae2377fb277878c042eb46951eb790c23c63588e77d11fcfc11978",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn135A/LiveComparison.hpp": "e6932605fa140e077c898b9006d83183393ada21da5a07404f56c1cbcdce9d55",
+      "reversing/Fn135A/Core.hpp": "c858666fd5e18b4a0f9ee6e2d976d9ca257e53efd5ea53c00c407bfe8bad131d",
+      "reversing/Fn135A/Fixtures.hpp": "1cabfed93d331a388bb5b1dc0a12a48cc57ddb0aebbf5c43d4836f1a0091a707",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

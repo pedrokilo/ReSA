@@ -18782,3 +18782,31 @@ __declspec(noinline) double __cdecl SunReflectionFactorCpp(const float* cam, flo
     return (distance - double(radius)) * double(std::bit_cast<float>(0x3C23D70Au)); // 0.01f (0x858C58)
 }
 #pragma float_control(pop)
+
+// Lote 135A (Fn135A).
+#pragma float_control(precise, on, push)
+// 0x50D590 (CCollision, distancia minima de las 12 esferas de golpe de un peaton al plano cercano de la camara activa; cdecl en el EXE, resultado en ST0): front y source = tres floats cada uno,
+// spheres = 12 esferas de 5 dwords (centro x, y, z; radio; resto), nearClip = float. offset = (fz*sz + fy*sy) + fx*sx (x87 de 24 bits con exponente ampliado, GUARDADO como float), cada esfera
+// dot = (cz*fz + cx*fx) + cy*fy para las esferas 0 y 1 de cada bloque de 6 y (cz*fz + cy*fy) + cx*fx para las otras cuatro; val = ((dot - offset) - radio) - nearClip SIN redondear a float; si
+// val < minimo (comparacion ordenada: con NaN no) el minimo pasa a ser el float guardado de val. El minimo inicial es 999999.0f (0x497423F0).
+__declspec(noinline) float __cdecl PedSphereNearestCpp(const float* front, const float* source, const float* spheres, float nearClip) {
+    volatile float offset = float((double(front[2]) * double(source[2]) + double(front[1]) * double(source[1])) + double(front[0]) * double(source[0]));
+    volatile float clip = nearClip;
+    float minimum = std::bit_cast<float>(0x497423F0u);
+    for (int i = 0; i < 12; ++i) {
+        const float* s = spheres + i * 5;
+        double dot;
+        if (i % 6 < 2) {
+            dot = (double(s[2]) * double(front[2]) + double(s[0]) * double(front[0])) + double(s[1]) * double(front[1]);
+        } else {
+            dot = (double(s[2]) * double(front[2]) + double(s[1]) * double(front[1])) + double(s[0]) * double(front[0]);
+        }
+        const double val = ((dot - double(offset)) - double(s[3])) - double(clip);
+        volatile float stored = float(val);
+        if (val < double(minimum)) {
+            minimum = stored;
+        }
+    }
+    return minimum;
+}
+#pragma float_control(pop)

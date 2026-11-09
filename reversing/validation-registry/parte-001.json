@@ -70347,7 +70347,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::Initialise"
@@ -70383,7 +70383,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::StaticInitialise"
@@ -70419,7 +70419,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::Terminate"
@@ -70455,7 +70455,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::AddAudioEvent"
@@ -70491,7 +70491,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::PlayFireSounds"
@@ -70527,7 +70527,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::PlayWaterSounds"
@@ -70563,7 +70563,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEFireAudioEntity::UpdateParameters"
@@ -70599,7 +70599,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::Initialise"
@@ -70635,7 +70635,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::UpdateTwinLoopSound"
@@ -70671,7 +70671,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::UpdateParameters"
@@ -70707,7 +70707,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::SwapSounds"
@@ -70743,7 +70743,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::StopSoundAndForget"
@@ -70779,7 +70779,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::DoSoundsSwitchThisFrame"
@@ -70815,7 +70815,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::PlayTwinLoopSound"
@@ -70851,7 +70851,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::Constructor"
@@ -70887,7 +70887,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::Initialise"
@@ -70923,7 +70923,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::Terminate"
@@ -70959,7 +70959,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::SetSplashInfo"
@@ -70995,7 +70995,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::ClearSplashInfo"
@@ -71031,7 +71031,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::Service"
@@ -71067,7 +71067,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEWaterCannonAudioEntity::UpdateParameters"
@@ -71103,7 +71103,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::Constructor"
@@ -71139,7 +71139,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::Deconstructor"
@@ -71175,7 +71175,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::Initialise"
@@ -71211,7 +71211,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::LoadStreamPackTable"
@@ -71247,7 +71247,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::LoadTrackLookupTable"
@@ -71283,7 +71283,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::GetTrackInfo"
@@ -71319,7 +71319,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::IsCurrentAudioStreamAvailable"
@@ -71355,7 +71355,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CreatePipe"
@@ -71391,7 +71391,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::DestroyPipe"
@@ -71427,7 +71427,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CustomPipeAtomicSetup"
@@ -71463,7 +71463,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CreateCustomObjPipe"
@@ -71499,7 +71499,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CustomPipeMaterialSetup"
@@ -71535,7 +71535,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CustomPipeRenderCB"
@@ -71571,7 +71571,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingPipeline::CustomPipeReinstanceCB"
@@ -71607,7 +71607,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::ReStart"
@@ -71643,7 +71643,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::GetPedDMName"
@@ -71679,7 +71679,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::GetGrpDMName"
@@ -71715,7 +71715,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::UnloadDecisionMaker"
@@ -71751,7 +71751,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::LoadDefaultDecisionMaker"
@@ -71787,7 +71787,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::LoadDecisionMaker-enum"
@@ -71823,7 +71823,7 @@
       },
       "evidence": {
         "path": "reversing/Audio7/validation-summary.json",
-        "sha256": "1cf39a2babac8483fd590011eed25f4dcc888201b889a3853619112831142eef",
+        "sha256": "d4e2afc013efdc32e0283c5ed9def31d0c07b12da39e6e051c4c1a289eec05d8",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypesFileLoader::LoadDecisionMaker-ptr"
@@ -165349,7 +165349,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::Constructor"
@@ -165358,7 +165358,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165375,7 +165375,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::LoadSettings"
@@ -165384,7 +165384,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165401,7 +165401,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::SaveSettings"
@@ -165410,7 +165410,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165427,7 +165427,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::InitDefaultControlConfiguration"
@@ -165436,7 +165436,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165453,7 +165453,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::InitDefaultControlConfigJoyPad"
@@ -165462,7 +165462,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165479,7 +165479,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::InitDefaultControlConfigMouse"
@@ -165488,7 +165488,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165505,7 +165505,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::InitialiseControllerActionNameArray"
@@ -165514,7 +165514,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165531,7 +165531,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::ReinitControls"
@@ -165540,7 +165540,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165557,7 +165557,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::SetMouseButtonAssociatedWithAction"
@@ -165566,7 +165566,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165583,7 +165583,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::StoreMouseButtonState"
@@ -165592,7 +165592,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165609,7 +165609,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectControllerStateOn_ButtonUp"
@@ -165618,7 +165618,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165635,7 +165635,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectControllerStateOn_ButtonDown_DebugStuff"
@@ -165644,7 +165644,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165661,7 +165661,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectControllerStateOn_ButtonUp_DebugStuff"
@@ -165670,7 +165670,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165687,7 +165687,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::ClearSimButtonPressCheckers"
@@ -165696,7 +165696,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165713,7 +165713,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetIsKeyboardKeyDown"
@@ -165722,7 +165722,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165739,7 +165739,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetIsKeyboardKeyJustDown"
@@ -165748,7 +165748,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165765,7 +165765,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetIsMouseButtonDown"
@@ -165774,7 +165774,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165791,7 +165791,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetIsMouseButtonUp"
@@ -165800,7 +165800,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165817,7 +165817,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetIsMouseButtonJustUp"
@@ -165826,7 +165826,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165843,7 +165843,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetIsKeyBlank"
@@ -165852,7 +165852,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165869,7 +165869,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetActionType"
@@ -165878,7 +165878,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165895,7 +165895,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetControllerKeyAssociatedWithAction"
@@ -165904,7 +165904,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165921,7 +165921,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::ResetSettingOrder"
@@ -165930,7 +165930,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165947,7 +165947,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectControllerStateOn_ButtonDown_Driving"
@@ -165956,7 +165956,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165973,7 +165973,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectControllerStateOn_ButtonDown_FirstPersonOnly"
@@ -165982,7 +165982,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -165999,7 +165999,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetControllerSettingTextMouse"
@@ -166008,7 +166008,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166025,7 +166025,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetControllerSettingTextJoystick"
@@ -166034,7 +166034,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166051,7 +166051,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetNumOfSettingsForAction"
@@ -166060,7 +166060,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166077,7 +166077,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetIsActionAButtonCombo"
@@ -166086,7 +166086,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166103,7 +166103,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetButtonComboText"
@@ -166112,7 +166112,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166129,7 +166129,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetMouseButtonAssociatedWithAction"
@@ -166138,7 +166138,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166155,7 +166155,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectControllerStateOn_ButtonDown_ThirdPersonOnly"
@@ -166164,7 +166164,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166181,7 +166181,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectControllerStateOn_ButtonDown_FirstAndThirdPersonOnly"
@@ -166190,7 +166190,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166207,7 +166207,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectControllerStateOn_ButtonDown_AllStates"
@@ -166216,7 +166216,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166233,7 +166233,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectControllerStateOn_ButtonDown_VehicleAndThirdPersonOnly"
@@ -166242,7 +166242,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166259,7 +166259,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectControllerStateOn_ButtonUp_All_Player_States"
@@ -166268,7 +166268,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166285,7 +166285,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::ClearSettingsAssociatedWithAction"
@@ -166294,7 +166294,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166311,7 +166311,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetControllerSettingTextKeyBoard"
@@ -166320,7 +166320,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166337,7 +166337,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::DeleteMatchingVehicle_3rdPersonControls"
@@ -166346,7 +166346,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166363,7 +166363,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::DeleteMatching1rstPersonControls"
@@ -166372,7 +166372,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166389,7 +166389,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::DeleteMatchingActionInitiators"
@@ -166398,7 +166398,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166415,7 +166415,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetControllerSettingTextWithOrderNumber"
@@ -166424,7 +166424,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166441,7 +166441,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetFirstKeyboardControllerText"
@@ -166450,7 +166450,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166467,7 +166467,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetGxtStringOfCommandKeys"
@@ -166476,7 +166476,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166493,7 +166493,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectPadFromMouse"
@@ -166502,7 +166502,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166519,7 +166519,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::DeleteMatching1rst3rdPersonControls"
@@ -166528,7 +166528,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166545,7 +166545,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::DeleteMatchingVehicleControls"
@@ -166554,7 +166554,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166571,7 +166571,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::SetControllerKeyAssociatedWithAction"
@@ -166580,7 +166580,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166597,7 +166597,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::MakeControllerActionsBlank"
@@ -166606,7 +166606,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166623,7 +166623,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::AffectPadFromKeyBoard"
@@ -166632,7 +166632,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166649,7 +166649,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::DeleteMatchingCommonControls"
@@ -166658,7 +166658,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166675,7 +166675,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::DeleteMatching3rdPersonControls"
@@ -166684,7 +166684,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166701,7 +166701,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::UpdateJoyInConfigMenus_ButtonDown"
@@ -166710,7 +166710,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166727,7 +166727,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::UpdateJoyInConfigMenus_ButtonUp"
@@ -166736,7 +166736,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166753,7 +166753,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetJoyButtonJustUp"
@@ -166762,7 +166762,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166779,7 +166779,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::GetJoyButtonJustDown"
@@ -166788,7 +166788,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166805,7 +166805,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::UpdateJoy_ButtonDown"
@@ -166814,7 +166814,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",
@@ -166831,7 +166831,7 @@
       },
       "evidence": {
         "path": "reversing/CtrlConfig58/validation-summary.json",
-        "sha256": "ec19088e13ec5d7e9819b1f73f3e73ed51bcd773fd2abbc458d301a18285fe08",
+        "sha256": "02400a8e3d61e6d5e5c6e82c81876cfc5fd1cd77290001cd171292ad7aaa1145",
         "passed_path": [
           "covered_functions",
           "CControllerConfigManager::UpdateJoyButtonState"
@@ -166840,7 +166840,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ControllerConfigManager.cpp": "385b7fe3ae81314677d65cde08a2127e7c7364073d803d017d64739923021f58",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
         "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-090606-313145).",

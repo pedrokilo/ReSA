@@ -1,0 +1,3 @@
+FALLO: Fn135A
+Funciones con diferencias: GetMouseSetUp: 747/2048; getDvdGamePath: 776/2048; CCollision::GetNearestDistanceOfPedSphereToCameraNearClip: 81/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn135a\20261109-000641-269137

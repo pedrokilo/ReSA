@@ -267,54 +267,62 @@ BOOL CALLBACK EnumDevicesCallback(LPCDIDEVICEINSTANCEA inst, LPVOID) {
     return snJoyCount != 2; // todo: CJoySticks, JOYPAD_COUNT
 }
 
-// 0x53F2D0
-CMouseControllerState GetMouseSetUp() {
+// 0x53F2D0 (ABI del EXE: el destino del CMouseControllerState por la pila, `ret 4` (stdcall) y EAX = destino; un `CMouseControllerState GetMouseSetUp()` de MSVC deja el puntero oculto en la
+// pila para el llamador (`ret`) y desequilibraria la pila de los llamadores del EXE: el banco Fn135A lo detecto con el hook sobre la version por valor)
+// Como el original: el estado local se pone a cero (todos los campos; el EXE deja sin inicializar el byte de relleno +7, aqui 0) y se copia entero (20 bytes, relleno incluido) al destino al
+// final. Si no hay raton se llama a diMouseInit con (menu inactivo && modo de video exclusivo) y se vuelve a leer; sin raton se devuelve el estado vacio. Con raton se pide GetCapabilities SIN
+// mirar el HRESULT; la tabla de botones es 1: izquierdo; 2: izquierdo y derecho; 3..8: los tres (0 o mas de 8 no marcan ninguno) y la rueda (+3 y +4) solo con EXACTAMENTE 3 ejes.
+// El EXE no marca nunca los botones X (+5, +6).
+CMouseControllerState* __stdcall GetMouseSetUpExe(CMouseControllerState* out) {
     CMouseControllerState state;
+    memset(&state, 0, sizeof(state)); // tambien el byte de relleno
 
     if (!PSGLOBAL(diMouse)) {
-        WinInput::diMouseInit(!FrontEndMenuManager.m_bMenuActive && IsVideoModeExclusive());
+        // El byte del menu se lee como byte (distinto de cero = activo)
+        const bool exclusive = *reinterpret_cast<const uint8*>(&FrontEndMenuManager.m_bMenuActive) == 0 && IsVideoModeExclusive();
+        WinInput::diMouseInit(exclusive);
     }
 
     if (!PSGLOBAL(diMouse)) {
-        return state; // No mouse device
+        memcpy(out, &state, sizeof(state)); // No mouse device
+        return out;
     }
-    
-    DIDEVCAPS devCaps;
+
+    DIDEVCAPS devCaps{};
     devCaps.dwSize = sizeof(DIDEVCAPS);
 
-    // Get device capabilities
-    if (SUCCEEDED(PSGLOBAL(diMouse)->GetCapabilities(&devCaps))) {
-        switch (devCaps.dwButtons) {
-        case 8:
-        case 7:
-        case 6:
-        case 5:
-        case 4:
-        case 3:
-            state.isMouseMiddleButtonPressed = true; // Assumes button 3+ implies MMB exists
-            [[fallthrough]];
-        case 2:
-            state.isMouseRightButtonPressed = true; // Assumes button 2+ implies RMB exists
-            [[fallthrough]];
-        case 1:
-            state.isMouseLeftButtonPressed = true; // Assumes button 1+ implies LMB exists
-            [[fallthrough]];
-        default:
-            break;
-        }
+    (void)PSGLOBAL(diMouse)->GetCapabilities(&devCaps);
 
-        if (devCaps.dwAxes >= 3) {
-            state.isMouseWheelMovedDown = true;
-            state.isMouseWheelMovedUp = true;
-        }
-
-        if (devCaps.dwButtons >= 4) {
-            state.isMouseFirstXPressed = true;
-        }
-        if (devCaps.dwButtons >= 5) {
-            state.isMouseSecondXPressed = true;
-        }
+    switch (devCaps.dwButtons) {
+    case 8:
+    case 7:
+    case 6:
+    case 5:
+    case 4:
+    case 3:
+        state.isMouseMiddleButtonPressed = true;
+        [[fallthrough]];
+    case 2:
+        state.isMouseRightButtonPressed = true;
+        [[fallthrough]];
+    case 1:
+        state.isMouseLeftButtonPressed = true;
+        [[fallthrough]];
+    default:
+        break;
     }
+
+    if (devCaps.dwAxes == 3) {
+        state.isMouseWheelMovedDown = true;
+        state.isMouseWheelMovedUp = true;
+    }
+    memcpy(out, &state, sizeof(state));
+    return out;
+}
+
+CMouseControllerState GetMouseSetUp() {
+    CMouseControllerState state;
+    GetMouseSetUpExe(&state);
     return state;
 }
 
@@ -326,6 +334,13 @@ void InjectPadHooks() {
 
     RH_ScopedGlobalInstall(diPadInit, 0x7485C0);
     RH_ScopedGlobalInstall(diPadEnumerate, 0x7477C0);
+
+#ifdef NOTSA_USE_SDL3
+    // Con SDL3 el resto de InjectHooks no se engancha: GetMouseSetUp y diMouseInit se registran ACTIVAS como sin SDL3 (diMouseInit bloqueada: con el enlace apagado el codigo de la DLL salta al del EXE
+    // y se cae con ACCESS DENIED) para que el banco Fn135A las encuentre. Los llamadores del EXE (0x531F67 y 0x74882C de GetMouseSetUp; 0x53F329, 0x53F3FD, 0x576CD5, 0x576EC2, 0x576F92 y 0x74880B de diMouseInit) pasan a la DLL, como sin SDL3.
+    RH_ScopedGlobalInstall(diMouseInit, 0x7469A0, {.locked = true});
+    RH_ScopedGlobalInstall(GetMouseSetUpExe, 0x53F2D0);
+#endif
 }
 
 void InjectHooks() {
@@ -336,7 +351,7 @@ void InjectHooks() {
     RH_ScopedGlobalInstall(diMouseInit, 0x7469A0, {.locked = true}); // Can't be hooked because it fails with ACCESS DENIED and crashes
     RH_ScopedGlobalInstall(EnumDevicesCallback, 0x747020);
     RH_ScopedGlobalInstall(diPadSetRanges, 0x746D80);
-    RH_ScopedGlobalInstall(GetMouseSetUp, 0x53F2D0);
+    RH_ScopedGlobalInstall(GetMouseSetUpExe, 0x53F2D0);
 }
 
 bool IsKeyPressed(unsigned int keyCode) {

@@ -45,40 +45,47 @@ END GENERATED HOOK STATUS */
 
 constexpr auto NO_FOREGROUND_PAUSE = true;
 
-// 0x747300
+// 0x747300 (cdecl, sin argumentos, `ret`; devuelve la ruta o nulo en EAX)
+// Como el original: SetErrorMode(1); GetLogicalDriveStringsA(0, 0) da el tamano del bloque (operator new[] 0x821195, sin comprobar cero) y la segunda llamada lo rellena y devuelve la longitud
+// SIN el ultimo nulo; se recorren exactamente esos `longitud` bytes copiando cada caracter (con su nulo) a un buffer local y, en cada nulo, el buffer se reinicia: solo se mira el tipo (5 =
+// DRIVE_CDROM) y, si lo es, GetVolumeInformationA con 0xFF y el resto a cero; la unidad vale si los 16 primeros bytes del nombre (con el nulo) son "GTA_SAN_ANDREAS". Entonces se reserva
+// strlen(ruta) + 0x21 bytes (no + 1; lstrlenA / lstrcpyA de kernel32), se copia y se libera el bloque con operator delete[] (0x8213AE). Sin unidad devuelve nulo (tambien se libera el bloque).
+// Los nombres de unidad de mas de 7 caracteres desbordan el buffer local del EXE (pisa el resultado y la longitud): fuera de contrato.
 char* getDvdGamePath() {
     SetErrorMode(SEM_FAILCRITICALERRORS);
 
-    size_t bufferSize = GetLogicalDriveStringsA(0, nullptr);
-    const auto drivesBuffer = new char[bufferSize];
+    const DWORD bufferSize   = GetLogicalDriveStringsA(0, nullptr);
+    char* const drivesBuffer = new char[bufferSize];
+    const DWORD length       = GetLogicalDriveStringsA(bufferSize, drivesBuffer);
 
-    GetLogicalDriveStringsA(bufferSize, drivesBuffer);
-    assert(bufferSize > 0);
+    char* result = nullptr;
+    char  drivePath[16]{};
+    char  volumeName[0x100]{};
+    uint32 pos = 0;
 
-    char drivePath[8] = {};
-    char volumeName[MAX_PATH + 1] = {};
-
-    for (const auto* drive = drivesBuffer; *drive; drive += strlen(drive) + 1) {
-        strcpy_s(drivePath, sizeof(drivePath), drive);
+    for (DWORD i = 0; i < length; i++) {
+        const char c = drivesBuffer[i];
+        drivePath[pos++] = c;
+        if (c != 0) {
+            continue;
+        }
+        pos = 0;
 
         if (GetDriveTypeA(drivePath) != DRIVE_CDROM) {
             continue;
         }
-
-        if (!GetVolumeInformationA(drivePath, volumeName, sizeof(volumeName), nullptr, nullptr, nullptr, nullptr, 0)) {
+        if (!GetVolumeInformationA(drivePath, volumeName, 0xFF, nullptr, nullptr, nullptr, nullptr, 0)) {
             continue;
         }
-
-        if (strcmp(volumeName, "GTA_SAN_ANDREAS") == 0) {
-            const auto result = new char[strlen(drivePath) + 1];
-            strcpy_s(result, strlen(drivePath) + 1, drivePath);
-            delete[] drivesBuffer;
-            return result;
+        if (memcmp(volumeName, "GTA_SAN_ANDREAS", 16) == 0) { // 15 caracteres y el nulo, como el `repe cmpsb` de 16 bytes del EXE
+            result = new char[lstrlenA(drivePath) + 0x21];
+            lstrcpyA(result, drivePath);
+            break;
         }
     }
 
     delete[] drivesBuffer;
-    return nullptr;
+    return result;
 }
 
 // 0x746870
@@ -530,6 +537,7 @@ void InjectWinMainStuff() {
 
     RH_ScopedGlobalInstall(IsForegroundApp, 0x746060);
     RH_ScopedGlobalInstall(IsAlreadyRunning, 0x7468E0);
+    RH_ScopedGlobalInstall(getDvdGamePath, 0x747300);
 
     // WinMain is selected at startup; MessageLoop can also be switched at runtime.
     RH_ScopedGlobalInstall(NOTSA_WinMain, 0x748710);

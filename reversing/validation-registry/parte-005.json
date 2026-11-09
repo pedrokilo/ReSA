@@ -19819,6 +19819,123 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main e9fcf31dd4 con los cambios del lote (ver artifacts/build-manifest.json). Dos funciones del EXE sin hook con contrato __usercall (caracter en AL, punteros de columna y fila en la pila, ret sin limpiar la pila): GetCharacterPositionInCharSet 0x6FD7C0 (CCustomCarPlateMgr; el listado ya la daba por esa clase) y RoadsignGetLineAndRow 0x6FE260 (CCustomRoadsignMgr; el listado decia RoadsignGenerateTextRaster, que es 0x6FEB70). Ambas son tablas puras sin colaboradores ni memoria global; se enganchan con RH_ScopedGlobalInstall leyendo el AL de entrada con EntryEaxCpp (X87Math). Se observan bytes cambiados de las tres arenas, x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py (tablas decodificadas del EXE con exe_tables.py). EAX/ECX/EDX tras la llamada quedan en los residuos (informativos: sus unicos llamadores del EXE, 0x6FDDDE y 0x6FEBF1, estan reemplazados). Fuera de los fixtures: punteros nulos o crudos. No se reconstruye 0x709CF0 (CShadows::ShadowRenderTriangleCB, usercall con EAX, EBX y EDI): ver README.md.",
       "review_reference": "reversing/Fn136A/README.md"
+    },
+    {
+      "hook": {
+        "class": "Input",
+        "fn_name": "GetMouseSetUpExe",
+        "address": "0x0053F2D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn135A/validation-summary.json",
+        "sha256": "bab3fa6994882e3b5322bf29abf17edee1500c0687b2606ffd0faa787dbddd89",
+        "passed_path": [
+          "covered_functions",
+          "GetMouseSetUp"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/app/platform/win/WinInput.cpp": "f7b37fc039cd00b4a84698dba38a021b7958c06d8fef0ca542dffa036abbc607",
+        "source/app/platform/win/WinMain.cpp": "9ff4358ce3c1f3e06f0fcbec1d21a9f7ea0bd9d9b1886c31f6e32532d11152d3",
+        "source/game_sa/Collision/Collision.cpp": "04de2aed177bb16f5139f70ff2968b6964824e888d7c3f47fc3871d7478dd23d",
+        "source/game_sa/X87Math.cpp": "73100c0347908d2bf03a30232339f6f1a7b1f7d2e9610152371e5f1a44cbe4c7",
+        "source/game_sa/X87Math.h": "58cb4b7b80ae2377fb277878c042eb46951eb790c23c63588e77d11fcfc11978",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn135A/LiveComparison.hpp": "e6932605fa140e077c898b9006d83183393ada21da5a07404f56c1cbcdce9d55",
+        "reversing/Fn135A/Core.hpp": "c858666fd5e18b4a0f9ee6e2d976d9ca257e53efd5ea53c00c407bfe8bad131d",
+        "reversing/Fn135A/Fixtures.hpp": "1cabfed93d331a388bb5b1dc0a12a48cc57ddb0aebbf5c43d4836f1a0091a707",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main e9fcf31dd4 con los cambios del lote (ver artifacts/build-manifest.json). Tres funciones del EXE sin hook validado (clases por desensamblado; el listado las atribuia por cercania): GetMouseSetUp 0x53F2D0 (hook GetMouseSetUpExe: ABI del EXE con el destino por la pila, `ret 4`; el hook sobre la version por valor desequilibraba la pila en 4 bytes y el banco lo detecto), getDvdGamePath 0x747300 y CCollision GetNearestDistanceOfPedSphereToCameraNearClip 0x50D590 (aritmetica x87 en PedSphereNearestCpp de X87Math.cpp). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: IsVideoModeExclusive 0x745CA0, diMouseInit 0x7469A0 (hook bloqueado) y CPedModelInfo::AnimatePedColModelSkinnedWorld 0x4C7170; GetCapabilities es una ranura de la vtable de un dispositivo falso; SetErrorMode, GetLogicalDriveStringsA, GetDriveTypeA y GetVolumeInformationA se sustituyen en la casilla de la IAT del EXE y en la de la DLL; operator new[] 0x821195 y delete[] 0x8213AE de la CRT del EXE (falsos solo en la direccion del EXE: la DLL los llama por esa direccion); lstrlenA y lstrcpyA reales. Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos, valor devuelto (EAX o ST0), x87, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: nombres de unidad de mas de 7 caracteres en getDvdGamePath (desbordan el buffer local del EXE), bytes de pila sin inicializar de GetMouseSetUp (el banco siembra la pila con ceros), indices de modelo fuera de [-2, 1023], camaras activas mayores de 2, esferas fuera de las 12 fijas y el valor de EAX/ECX/EDX tras la llamada. No se reconstruye 0x607A90 (CPedAcquaintanceScanner, escaneo de entidades con diez colaboradores): ver README.md.",
+      "review_reference": "reversing/Fn135A/README.md"
+    },
+    {
+      "hook": {
+        "class": "Win",
+        "fn_name": "getDvdGamePath",
+        "address": "0x00747300",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn135A/validation-summary.json",
+        "sha256": "bab3fa6994882e3b5322bf29abf17edee1500c0687b2606ffd0faa787dbddd89",
+        "passed_path": [
+          "covered_functions",
+          "getDvdGamePath"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/app/platform/win/WinInput.cpp": "f7b37fc039cd00b4a84698dba38a021b7958c06d8fef0ca542dffa036abbc607",
+        "source/app/platform/win/WinMain.cpp": "9ff4358ce3c1f3e06f0fcbec1d21a9f7ea0bd9d9b1886c31f6e32532d11152d3",
+        "source/game_sa/Collision/Collision.cpp": "04de2aed177bb16f5139f70ff2968b6964824e888d7c3f47fc3871d7478dd23d",
+        "source/game_sa/X87Math.cpp": "73100c0347908d2bf03a30232339f6f1a7b1f7d2e9610152371e5f1a44cbe4c7",
+        "source/game_sa/X87Math.h": "58cb4b7b80ae2377fb277878c042eb46951eb790c23c63588e77d11fcfc11978",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn135A/LiveComparison.hpp": "e6932605fa140e077c898b9006d83183393ada21da5a07404f56c1cbcdce9d55",
+        "reversing/Fn135A/Core.hpp": "c858666fd5e18b4a0f9ee6e2d976d9ca257e53efd5ea53c00c407bfe8bad131d",
+        "reversing/Fn135A/Fixtures.hpp": "1cabfed93d331a388bb5b1dc0a12a48cc57ddb0aebbf5c43d4836f1a0091a707",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main e9fcf31dd4 con los cambios del lote (ver artifacts/build-manifest.json). Tres funciones del EXE sin hook validado (clases por desensamblado; el listado las atribuia por cercania): GetMouseSetUp 0x53F2D0 (hook GetMouseSetUpExe: ABI del EXE con el destino por la pila, `ret 4`; el hook sobre la version por valor desequilibraba la pila en 4 bytes y el banco lo detecto), getDvdGamePath 0x747300 y CCollision GetNearestDistanceOfPedSphereToCameraNearClip 0x50D590 (aritmetica x87 en PedSphereNearestCpp de X87Math.cpp). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: IsVideoModeExclusive 0x745CA0, diMouseInit 0x7469A0 (hook bloqueado) y CPedModelInfo::AnimatePedColModelSkinnedWorld 0x4C7170; GetCapabilities es una ranura de la vtable de un dispositivo falso; SetErrorMode, GetLogicalDriveStringsA, GetDriveTypeA y GetVolumeInformationA se sustituyen en la casilla de la IAT del EXE y en la de la DLL; operator new[] 0x821195 y delete[] 0x8213AE de la CRT del EXE (falsos solo en la direccion del EXE: la DLL los llama por esa direccion); lstrlenA y lstrcpyA reales. Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos, valor devuelto (EAX o ST0), x87, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: nombres de unidad de mas de 7 caracteres en getDvdGamePath (desbordan el buffer local del EXE), bytes de pila sin inicializar de GetMouseSetUp (el banco siembra la pila con ceros), indices de modelo fuera de [-2, 1023], camaras activas mayores de 2, esferas fuera de las 12 fijas y el valor de EAX/ECX/EDX tras la llamada. No se reconstruye 0x607A90 (CPedAcquaintanceScanner, escaneo de entidades con diez colaboradores): ver README.md.",
+      "review_reference": "reversing/Fn135A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCollision",
+        "fn_name": "GetNearestDistanceOfPedSphereToCameraNearClip",
+        "address": "0x0050D590",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn135A/validation-summary.json",
+        "sha256": "bab3fa6994882e3b5322bf29abf17edee1500c0687b2606ffd0faa787dbddd89",
+        "passed_path": [
+          "covered_functions",
+          "CCollision::GetNearestDistanceOfPedSphereToCameraNearClip"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/app/platform/win/WinInput.cpp": "f7b37fc039cd00b4a84698dba38a021b7958c06d8fef0ca542dffa036abbc607",
+        "source/app/platform/win/WinMain.cpp": "9ff4358ce3c1f3e06f0fcbec1d21a9f7ea0bd9d9b1886c31f6e32532d11152d3",
+        "source/game_sa/Collision/Collision.cpp": "04de2aed177bb16f5139f70ff2968b6964824e888d7c3f47fc3871d7478dd23d",
+        "source/game_sa/X87Math.cpp": "73100c0347908d2bf03a30232339f6f1a7b1f7d2e9610152371e5f1a44cbe4c7",
+        "source/game_sa/X87Math.h": "58cb4b7b80ae2377fb277878c042eb46951eb790c23c63588e77d11fcfc11978",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn135A/LiveComparison.hpp": "e6932605fa140e077c898b9006d83183393ada21da5a07404f56c1cbcdce9d55",
+        "reversing/Fn135A/Core.hpp": "c858666fd5e18b4a0f9ee6e2d976d9ca257e53efd5ea53c00c407bfe8bad131d",
+        "reversing/Fn135A/Fixtures.hpp": "1cabfed93d331a388bb5b1dc0a12a48cc57ddb0aebbf5c43d4836f1a0091a707",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main e9fcf31dd4 con los cambios del lote (ver artifacts/build-manifest.json). Tres funciones del EXE sin hook validado (clases por desensamblado; el listado las atribuia por cercania): GetMouseSetUp 0x53F2D0 (hook GetMouseSetUpExe: ABI del EXE con el destino por la pila, `ret 4`; el hook sobre la version por valor desequilibraba la pila en 4 bytes y el banco lo detecto), getDvdGamePath 0x747300 y CCollision GetNearestDistanceOfPedSphereToCameraNearClip 0x50D590 (aritmetica x87 en PedSphereNearestCpp de X87Math.cpp). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: IsVideoModeExclusive 0x745CA0, diMouseInit 0x7469A0 (hook bloqueado) y CPedModelInfo::AnimatePedColModelSkinnedWorld 0x4C7170; GetCapabilities es una ranura de la vtable de un dispositivo falso; SetErrorMode, GetLogicalDriveStringsA, GetDriveTypeA y GetVolumeInformationA se sustituyen en la casilla de la IAT del EXE y en la de la DLL; operator new[] 0x821195 y delete[] 0x8213AE de la CRT del EXE (falsos solo en la direccion del EXE: la DLL los llama por esa direccion); lstrlenA y lstrcpyA reales. Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos, valor devuelto (EAX o ST0), x87, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: nombres de unidad de mas de 7 caracteres en getDvdGamePath (desbordan el buffer local del EXE), bytes de pila sin inicializar de GetMouseSetUp (el banco siembra la pila con ceros), indices de modelo fuera de [-2, 1023], camaras activas mayores de 2, esferas fuera de las 12 fijas y el valor de EAX/ECX/EDX tras la llamada. No se reconstruye 0x607A90 (CPedAcquaintanceScanner, escaneo de entidades con diez colaboradores): ver README.md.",
+      "review_reference": "reversing/Fn135A/README.md"
     }
   ]
 }
