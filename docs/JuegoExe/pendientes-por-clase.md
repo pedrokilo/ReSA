@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,423** funciones en 367 clases/módulos (rango 0x401000–0x74FFFF): 2,401 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,400** funciones en 359 clases/módulos (rango 0x401000–0x74FFFF): 2,378 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,20 +10,12 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CMemoryMgr | 3 | 7 |
 | CdStream | 2 | 13 |
-| CEventCarUpsideDown | 3 | 15 |
-| CEventCopCarBeingStolen | 3 | 15 |
 | CEventInAir | 3 | 15 |
 | CEventPedCollisionWithPed | 3 | 15 |
 | CEventVehicleToSteal | 3 | 15 |
-| CTaskComplexFallToDeath | 2 | 17 |
-| CTaskComplexGetUpAndStandStill | 2 | 17 |
-| CEventPlayerCommandToGroup | 4 | 17 |
 | CEventAcquaintancePedHate | 4 | 18 |
-| CTaskComplexUseGoggles | 2 | 19 |
 | CEventPotentialWalkIntoPed | 4 | 19 |
-| CEventSeenPanickedPed | 4 | 19 |
 | CEventPotentialWalkIntoVehicle | 4 | 20 |
 | CEventVehicleDied | 4 | 20 |
 | CPlayerInfo | 3 | 21 |
@@ -378,36 +370,12 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
 
-## CMemoryMgr (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0072F4A0 | 1 | A |  | 2 | 1 |  | alta |
-| 0x0072F4B0 | 1 | A |  | 2 | 1 |  | alta |
-| 0x0072F500 | 5 | A |  | 2 | 2 |  | baja |
-
 ## CdStream (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00406450 | 6 | A |  | 1 | 1 |  | alta |
 | 0x00406D10 | 7 | A |  | 5 | 5 |  | baja |
-
-## CEventCarUpsideDown (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B1D30 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B1D20 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B1D40 | 6 | B |  | 0 | 0 | sí | alta |
-
-## CEventCopCarBeingStolen (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B17D0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B17C0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B17E0 | 6 | B |  | 0 | 0 | sí | alta |
 
 ## CEventInAir (3)
 
@@ -433,29 +401,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004AF6D0 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x004AF6F0 | 6 | B |  | 0 | 0 | sí | alta |
 
-## CTaskComplexFallToDeath (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006790A0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x006790B0 | 11 | C |  | 1 | 0 |  | alta |
-
-## CTaskComplexGetUpAndStandStill (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00678150 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00678160 | 11 | C |  | 1 | 0 |  | alta |
-
-## CEventPlayerCommandToGroup (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B2440 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B2460 | 4 | B |  | 0 | 0 | sí | alta |
-| 0x004B2450 | 5 | B |  | 0 | 0 | sí | alta |
-| 0x004B2520 | 5 | B |  | 0 | 0 | sí | baja |
-
 ## CEventAcquaintancePedHate (4)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -465,13 +410,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00420EC0 | 5 | B |  | 0 | 0 | sí | baja |
 | 0x00420EB0 | 7 | B |  | 0 | 0 | sí | baja |
 
-## CTaskComplexUseGoggles (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00634F30 | 8 | B |  | 0 | 0 | sí | alta |
-| 0x00634F20 | 11 | C |  | 1 | 0 |  | alta |
-
 ## CEventPotentialWalkIntoPed (4)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -480,15 +418,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004AE780 | 4 | B |  | 0 | 0 | sí | alta |
 | 0x004AE760 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x004AE790 | 6 | B |  | 0 | 0 | sí | alta |
-
-## CEventSeenPanickedPed (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B2100 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004B2110 | 4 | B |  | 0 | 0 | sí | baja |
-| 0x004B20F0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B2120 | 6 | B |  | 0 | 0 | sí | baja |
 
 ## CEventPotentialWalkIntoVehicle (4)
 
