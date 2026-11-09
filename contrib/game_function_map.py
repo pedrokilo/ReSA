@@ -139,7 +139,7 @@ def write(root):
             m[2] += 1
             m[3] += r['size']
             m[4] += r['confidence'] == 'alta'
-    top = sorted((kv for kv in mods.items() if kv[1][2] > 0), key=lambda kv: (kv[1][2], kv[1][3], kv[0]))
+    top = sorted((kv for kv in mods.items() if kv[1][2] > 0), key=lambda kv: (kv[1][3], kv[1][2], kv[0]))
     L += _tbl(['Módulo', 'Funciones', 'Reemplazadas', 'Faltan', 'Bytes que faltan', 'Confianza alta'],
               [[m, f'{v[0]:,}', f'{v[1]:,}', f'{v[2]:,}', f'{v[3]:,}', f'{v[4]:,}'] for m, v in top])
     L += ['', f'{len(top):,} de {len(mods):,} módulos tienen algo pendiente.', '',
