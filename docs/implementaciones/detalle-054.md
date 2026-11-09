@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 08/11/2026 (Ciudad de México):** 869 grupos / 9478 funciones reconstruidas; 9478 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 08/11/2026 (Ciudad de México):** 869 grupos / 9484 funciones reconstruidas; 9484 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,13 +8,46 @@
 
 <a id="grupo-1061"></a>
 
+## Globales y helpers: source/game_sa/CarCtrl.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CarCtrlAirExeNormalise(CVector* v) | [source/game_sa/CarCtrl.cpp:89](../../source/game_sa/CarCtrl.cpp#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CarCtrlAirExeRand() | [source/game_sa/CarCtrl.cpp:90](../../source/game_sa/CarCtrl.cpp#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CarCtrlAirExeBoatSpecial(CVehicle* boat) | [source/game_sa/CarCtrl.cpp:92](../../source/game_sa/CarCtrl.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & Car75Raw(const void* base, uint32 offset) | [source/game_sa/CarCtrl.cpp:547](../../source/game_sa/CarCtrl.cpp#L547) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Car75Bits(const float& value) | [source/game_sa/CarCtrl.cpp:551](../../source/game_sa/CarCtrl.cpp#L551) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Car75ModelRadiusBits(const CVehicle* vehicle) | [source/game_sa/CarCtrl.cpp:557](../../source/game_sa/CarCtrl.cpp#L557) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_modelInfoPtrs: source/game_sa/Models/ModelInfo.h:30 (0x00A9B0C8) |
+| * Car75NewDriveWanderTask(CVehicle* vehicle) | [source/game_sa/CarCtrl.cpp:561](../../source/game_sa/CarCtrl.cpp#L561) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Car75SetDriverTask(CVehicle* vehicle, CTask* task) | [source/game_sa/CarCtrl.cpp:566](../../source/game_sa/CarCtrl.cpp#L566) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Car75FindGround(const CVector& point) | [source/game_sa/CarCtrl.cpp:570](../../source/game_sa/CarCtrl.cpp#L570) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Car75GroundTooHigh(uint32 groundBits) | [source/game_sa/CarCtrl.cpp:585](../../source/game_sa/CarCtrl.cpp#L585) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CarCtrlGc2Find2Nodes(const CVector& pos, CNodeAddress* first, CNodeAddress* second, bool lowTraffic) | [source/game_sa/CarCtrl.cpp:1720](../../source/game_sa/CarCtrl.cpp#L1720) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ThePaths: source/game_sa/PathFind.h:633 (0x0096F050) |
+| Car84FQuiet(uint32 bits) | [source/game_sa/CarCtrl.cpp:2051](../../source/game_sa/CarCtrl.cpp#L2051) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Car84FSetPosition(CVehicle* car, uint32 xBits, uint32 yBits, uint32 zBits) | [source/game_sa/CarCtrl.cpp:2055](../../source/game_sa/CarCtrl.cpp#L2055) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Car84FFindGround(const CVector& point) | [source/game_sa/CarCtrl.cpp:2069](../../source/game_sa/CarCtrl.cpp#L2069) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Car84FDelete(CVehicle* vehicle) | [source/game_sa/CarCtrl.cpp:2093](../../source/game_sa/CarCtrl.cpp#L2093) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Car84FNodeHeight(const CNodeAddress& node) | [source/game_sa/CarCtrl.cpp:2097](../../source/game_sa/CarCtrl.cpp#L2097) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ThePaths: source/game_sa/PathFind.h:633 (0x0096F050) |
+| & WvRaw(const void* base, uint32 offset) | [source/game_sa/CarCtrl.cpp:4025](../../source/game_sa/CarCtrl.cpp#L4025) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| WvMatrixTimesPoint(const CMatrix* matrix, const CVector& point) | [source/game_sa/CarCtrl.cpp:4030](../../source/game_sa/CarCtrl.cpp#L4030) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x0059C890: CMatrix::operator*-Vec; ruta efectiva sin resolver |
+| WvMatrixTimesVector(const CMatrix* matrix, const CVector& vector) | [source/game_sa/CarCtrl.cpp:4036](../../source/game_sa/CarCtrl.cpp#L4036) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x0059C790: CVector::Multiply3x3Exe; ruta efectiva sin resolver |
+| * ParkNewLeaveAnyCarTask() | [source/game_sa/CarCtrl.cpp:4592](../../source/game_sa/CarCtrl.cpp#L4592) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ParkSetPrimaryTask(CPed* ped, CTask* task) | [source/game_sa/CarCtrl.cpp:4598](../../source/game_sa/CarCtrl.cpp#L4598) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ParkOccupantsLeave(CVehicle* vehicle) | [source/game_sa/CarCtrl.cpp:4602](../../source/game_sa/CarCtrl.cpp#L4602) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * ParkNode(CNodeAddress address) | [source/game_sa/CarCtrl.cpp:4616](../../source/game_sa/CarCtrl.cpp#L4616) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ThePaths: source/game_sa/PathFind.h:633 (0x0096F050) |
+| SteerPhysicsDot(const CVector& a, const CVector& b) | [source/game_sa/CarCtrl.cpp:4840](../../source/game_sa/CarCtrl.cpp#L4840) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVector::DotProduct-v3d*v3d* 0x0040FDB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SteerPhysicsForward(const CPlaceable& placeable) | [source/game_sa/CarCtrl.cpp:4844](../../source/game_sa/CarCtrl.cpp#L4844) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlaceable::GetForwardVector 0x0041CCB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| WeaveVehicleMaxX(const void* vehicle) | [source/game_sa/CarCtrl.cpp:7260](../../source/game_sa/CarCtrl.cpp#L7260) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1062"></a>
+
 ## Globales y helpers: source/game_sa/CarEnterExit.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | ComputePassengerIndexFromCarDoor_KeepEdx(const CVehicle* vehicle, int32 doorId) | [source/game_sa/CarEnterExit.cpp:39](../../source/game_sa/CarEnterExit.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1062"></a>
+<a id="grupo-1063"></a>
 
 ## Globales y helpers: source/game_sa/CdStreamInfo.cpp
 
@@ -23,21 +56,13 @@
 | InjectCdStreamHooks() | [source/game_sa/CdStreamInfo.cpp:37](../../source/game_sa/CdStreamInfo.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CdStreamHandleToFileID(CdStreamHandle h) | [source/game_sa/CdStreamInfo.cpp:313](../../source/game_sa/CdStreamInfo.cpp#L313) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1063"></a>
+<a id="grupo-1064"></a>
 
 ## Globales y helpers: source/game_sa/CdStreamInfo.h
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | CdStreamGetLastPosn() | [source/game_sa/CdStreamInfo.h:94](../../source/game_sa/CdStreamInfo.h#L94) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gLastCdStreamPosn: source/game_sa/CdStreamInfo.cpp:33 (0x008E4898) |
-
-<a id="grupo-1064"></a>
-
-## Globales y helpers: source/game_sa/Clothes.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| GetClothesModelFromName(const char* name) | [source/game_sa/Clothes.cpp:68](../../source/game_sa/Clothes.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1065"></a>
 

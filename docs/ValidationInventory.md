@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,478 entradas reversed=1**, de 9,478 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,484 entradas reversed=1**, de 9,484 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9478 |
+| `validated=1` · evidencia aprobada vinculada | 9484 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9478 |
+| Evidencia histórica vinculada; revisión pendiente | 9484 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -20,6 +20,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Clase | Función registrada | Evidencia |
 | --- | --- | --- |
 | App | `AppEventHandler` | [Resumen](../reversing/AppBatch/validation-summary.json) |
+| App | `CameraSize` | [Resumen](../reversing/Fn133A/validation-summary.json) |
 | App | `DefinedState` | [Resumen](../reversing/AppBatch/validation-summary.json) |
 | App | `DefinedState2d` | [Resumen](../reversing/AppBatch/validation-summary.json) |
 | App | `DoRWStuffEndOfFrame` | [Resumen](../reversing/AppBatch/validation-summary.json) |
@@ -1736,6 +1737,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CClock | `StoreClock` | [Resumen](../reversing/Core9/validation-summary.json) |
 | CClock | `Update` | [Resumen](../reversing/Core9/validation-summary.json) |
 | CClothes | `ConstructPedModel` | [Resumen](../reversing/Audio11/validation-summary.json) |
+| CClothes | `GetClothesModelFromName` | [Resumen](../reversing/Fn133A/validation-summary.json) |
 | CClothes | `GetDefaultPlayerMotionGroup` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CClothes | `GetDependentTexture` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CClothes | `GetPlayerMotionGroupToLoad` | [Resumen](../reversing/Audio11/validation-summary.json) |
@@ -4311,6 +4313,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedModelInfo | `IncrementVoice` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CPedModelInfo | `SetClump` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CPedModelInfo | `SetFaceTexture` | [Resumen](../reversing/Models9/validation-summary.json) |
+| CPedPlacement | `FindZCoorForPed-Ptr` | [Resumen](../reversing/Fn133A/validation-summary.json) |
 | CPedPlacement | `IsPositionClearForPed-OG` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CPedPlacement | `IsPositionClearOfCars-Ped` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CPedPlacement | `IsPositionClearOfCars-Pos` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
@@ -5990,6 +5993,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexFollowLeaderInFormation | `CreateNextSubTask` | [Resumen](../reversing/FormationFollow355/validation-summary.json) |
 | CTaskComplexFollowLeaderInFormation | `Destructor` | [Resumen](../reversing/RequestedPreflightTasks/validation-summary.json) |
 | CTaskComplexFollowLeaderInFormation | `GetTaskType` | [Resumen](../reversing/FormationFollow355/validation-summary.json) |
+| CTaskComplexFollowLeaderInFormation | `Offsets::Constructor` | [Resumen](../reversing/Fn133A/validation-summary.json) |
 | CTaskComplexFollowNodeRoute | `CalcBlendRatio` | [Resumen](../reversing/Route19/validation-summary.json) |
 | CTaskComplexFollowNodeRoute | `CalcGoToTaskType` | [Resumen](../reversing/Route19/validation-summary.json) |
 | CTaskComplexFollowNodeRoute | `CanGoStraightThere` | [Resumen](../reversing/Route19/validation-summary.json) |
@@ -6573,6 +6577,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexSmartFleeEntity | `ControlSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
 | CTaskComplexSmartFleeEntity | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
 | CTaskComplexSmartFleeEntity | `CreateNextSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSmartFleeEntity | `CreateSubTask` | [Resumen](../reversing/Fn133A/validation-summary.json) |
 | CTaskComplexSmartFleeEntity | `Destructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
 | CTaskComplexSmartFleeEntity | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
 | CTaskComplexSmartFleePoint | `Clone` | [Resumen](../reversing/SmartFlee355/validation-summary.json) |
@@ -7888,6 +7893,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTheScripts | `InitialiseSpecialAnimGroupsAttachedToCharModels` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `IsPedStopped` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `IsPlayerOnAMission` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
+| CTheScripts | `IsPointInAngledArea` | [Resumen](../reversing/Fn133A/validation-summary.json) |
 | CTheScripts | `IsPointWithinSearchLight` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CTheScripts | `IsVehicleStopped` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
 | CTheScripts | `Load` | [Resumen](../reversing/ScriptsFinal3/validation-summary.json) |
@@ -9505,7 +9511,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 
 | Clase | Reconstruidas | Vigentes | Históricas por revisar | Sin vincular |
 | --- | ---: | ---: | ---: | ---: |
-| `App` | 7 | 0 | 7 | 0 |
+| `App` | 8 | 0 | 8 | 0 |
 | `BoneNodeManager_c` | 8 | 0 | 8 | 0 |
 | `BoneNode_c` | 18 | 0 | 18 | 0 |
 | `BreakManager_c` | 7 | 0 | 7 | 0 |
@@ -9602,7 +9608,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCheckpoints` | 8 | 0 | 8 | 0 |
 | `CCivilianPed` | 4 | 0 | 4 | 0 |
 | `CClock` | 9 | 0 | 9 | 0 |
-| `CClothes` | 11 | 0 | 11 | 0 |
+| `CClothes` | 12 | 0 | 12 | 0 |
 | `CClothesBuilder` | 23 | 0 | 23 | 0 |
 | `CClouds` | 21 | 0 | 21 | 0 |
 | `CClumpModelInfo` | 24 | 0 | 24 | 0 |
@@ -9854,7 +9860,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedIntelligencePool` | 1 | 0 | 1 | 0 |
 | `CPedList` | 7 | 0 | 7 | 0 |
 | `CPedModelInfo` | 9 | 0 | 9 | 0 |
-| `CPedPlacement` | 3 | 0 | 3 | 0 |
+| `CPedPlacement` | 4 | 0 | 4 | 0 |
 | `CPedPool` | 3 | 0 | 3 | 0 |
 | `CPedSaveStructure` | 2 | 0 | 2 | 0 |
 | `CPedScanner` | 1 | 0 | 1 | 0 |
@@ -10009,7 +10015,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexFleePoint` | 11 | 0 | 11 | 0 |
 | `CTaskComplexFleeShooting` | 8 | 0 | 8 | 0 |
 | `CTaskComplexFollowLeaderAnyMeans` | 8 | 0 | 8 | 0 |
-| `CTaskComplexFollowLeaderInFormation` | 7 | 0 | 7 | 0 |
+| `CTaskComplexFollowLeaderInFormation` | 8 | 0 | 8 | 0 |
 | `CTaskComplexFollowNodeRoute` | 19 | 0 | 19 | 0 |
 | `CTaskComplexFollowPedFootsteps` | 6 | 0 | 6 | 0 |
 | `CTaskComplexFollowPointRoute` | 13 | 0 | 13 | 0 |
@@ -10080,7 +10086,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexShuffleSeats` | 10 | 0 | 10 | 0 |
 | `CTaskComplexSignalAtPed` | 7 | 0 | 7 | 0 |
 | `CTaskComplexSitDownThenIdleThenStandUp` | 10 | 0 | 10 | 0 |
-| `CTaskComplexSmartFleeEntity` | 7 | 0 | 7 | 0 |
+| `CTaskComplexSmartFleeEntity` | 8 | 0 | 8 | 0 |
 | `CTaskComplexSmartFleePoint` | 12 | 0 | 12 | 0 |
 | `CTaskComplexStareAtPed` | 7 | 0 | 7 | 0 |
 | `CTaskComplexStealCar` | 9 | 0 | 9 | 0 |
@@ -10266,7 +10272,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTempColModels` | 2 | 0 | 2 | 0 |
 | `CText` | 9 | 0 | 9 | 0 |
 | `CTheCarGenerators` | 7 | 0 | 7 | 0 |
-| `CTheScripts` | 70 | 0 | 70 | 0 |
+| `CTheScripts` | 71 | 0 | 71 | 0 |
 | `CTheZones` | 22 | 0 | 22 | 0 |
 | `CTimeCycle` | 20 | 0 | 20 | 0 |
 | `CTimeInfo` | 6 | 0 | 6 | 0 |

@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,443** funciones en 387 clases/módulos (rango 0x401000–0x74FFFF): 2,421 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,437** funciones en 381 clases/módulos (rango 0x401000–0x74FFFF): 2,415 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -21,12 +21,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CDecision | 1 | 157 |
 | CMouseControllerState | 1 | 208 |
 | CGamma | 1 | 210 |
-| CPedClothesDesc | 1 | 263 |
-| PipelinePlugin | 1 | 273 |
-| CPedPlacement | 1 | 283 |
-| CTaskComplexSmartFleeEntity | 1 | 328 |
-| CEntitySeekPosCalculatorFixedPos | 1 | 335 |
-| CTaskSimpleSetCharIgnoreWeaponRangeFlag | 1 | 481 |
 | CCamera | 1 | 527 |
 | CDecisionMakerTypesFileLoader | 1 | 606 |
 | CCustomCarPlateMgr | 1 | 829 |
@@ -463,42 +457,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00747300 | 210 | A |  | 2 | 2 |  | baja |
-
-## CPedClothesDesc (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005A7A20 | 263 | A |  | 2 | 2 |  | baja |
-
-## PipelinePlugin (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0072FC70 | 273 | A |  | 6 | 6 |  | baja |
-
-## CPedPlacement (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00616920 | 283 | A |  | 15 | 14 |  | alta |
-
-## CTaskComplexSmartFleeEntity (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0065C530 | 328 | A |  | 3 | 3 |  | alta |
-
-## CEntitySeekPosCalculatorFixedPos (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00694850 | 335 | C |  | 1 | 0 |  | baja |
-
-## CTaskSimpleSetCharIgnoreWeaponRangeFlag (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00477DA0 | 481 | C |  | 1 | 0 |  | baja |
 
 ## CCamera (1)
 
@@ -3687,7 +3645,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0044D2D0 | 3 | A |  | 1 | 1 |  | alta |
 | 0x0044D2E0 | 3 | A |  | 1 | 1 |  | alta |
 | 0x0044D2F0 | 3 | A |  | 1 | 1 |  | alta |
-| 0x0044E480 | 62 | A |  | 12 | 10 |  | alta |
+| 0x0044E480 | 62 | A |  | 12 | 11 |  | alta |
 | 0x0044FA30 | 285 | A |  | 1 | 0 |  | alta |
 | 0x0044FB60 | 374 | D |  | 0 | 0 |  | alta |
 | 0x0044FEE0 | 1077 | C |  | 1 | 0 |  | alta |
