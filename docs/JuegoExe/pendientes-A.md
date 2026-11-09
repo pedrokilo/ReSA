@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 08/11/2026 (Ciudad de México):** 870 grupos / 9493 funciones reconstruidas; 9493 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 08/11/2026 (Ciudad de México):** 870 grupos / 9495 funciones reconstruidas; 9495 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-676 funciones, 97,503 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+674 funciones, 94,735 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -230,7 +230,6 @@
 | `0x00407AC0` | 1 | CStreaming | alta | 2 (2) |  |
 | `0x00407F20` | 1 | CStreaming | alta | 2 (2) |  |
 | `0x004A8DC0` | 1 | FxInfoManager_c | baja | 18 (2) |  |
-| `0x006FE260` | 1939 | CCustomRoadsignMgr | alta | 1 (1) |  |
 | `0x0055EB90` | 1814 | SurfaceInfos_c | alta | 1 (1) |  |
 | `0x004D1680` | 971 | RpAnimBlend | alta | 2 (1) |  |
 | `0x0074F760` | 923 | Win | baja | 1 (1) |  |
@@ -240,7 +239,6 @@
 | `0x004D2100` | 845 | RpAnimBlend | alta | 1 (1) |  |
 | `0x004D1DB0` | 843 | RpAnimBlend | alta | 1 (1) |  |
 | `0x00709CF0` | 837 | CShadows | alta | 1 (1) |  |
-| `0x006FD7C0` | 829 | CCustomCarPlateMgr | alta | 1 (1) |  |
 | `0x005DA790` | 804 | CCustomCarEnvMapPipeline | baja | 1 (1) |  |
 | `0x00606580` | 776 | CPedIntelligencePool | baja | 1 (1) |  |
 | `0x005D8590` | 723 | CCustomCarEnvMapPipeline | alta | 1 (1) |  |

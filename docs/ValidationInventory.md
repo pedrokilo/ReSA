@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,493 entradas reversed=1**, de 9,493 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,495 entradas reversed=1**, de 9,495 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9493 |
+| `validated=1` · evidencia aprobada vinculada | 9495 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9493 |
+| Evidencia histórica vinculada; revisión pendiente | 9495 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2179,6 +2179,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCustomCarPlateMgr | `AtomicUpgradeSetCarplateTextureCB` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CCustomCarPlateMgr | `CreatePlateTexture` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CCustomCarPlateMgr | `GeneratePlateText` | [Resumen](../reversing/Mix14/validation-summary.json) |
+| CCustomCarPlateMgr | `GetCharacterPositionInCharSetExe` | [Resumen](../reversing/Fn136A/validation-summary.json) |
 | CCustomCarPlateMgr | `GetMapRegionPlateDesign` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CCustomCarPlateMgr | `Initialise` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CCustomCarPlateMgr | `LoadPlatecharsetDat` | [Resumen](../reversing/PlateCharset69/validation-summary.json) |
@@ -2196,6 +2197,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCustomRoadsignMgr | `Initialise` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CCustomRoadsignMgr | `RenderRoadsignAtomic` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CCustomRoadsignMgr | `RoadsignGenerateTextRaster` | [Resumen](../reversing/Models9/validation-summary.json) |
+| CCustomRoadsignMgr | `RoadsignGetLineAndRowExe` | [Resumen](../reversing/Fn136A/validation-summary.json) |
 | CCustomRoadsignMgr | `SetAtomicAlpha` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CCustomRoadsignMgr | `SetupRoadsignAtomic` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CCustomRoadsignMgr | `Shutdown` | [Resumen](../reversing/Models9/validation-summary.json) |
@@ -9656,8 +9658,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCustomBuildingPipeline` | 7 | 0 | 7 | 0 |
 | `CCustomBuildingRenderer` | 7 | 0 | 7 | 0 |
 | `CCustomCarEnvMapPipeline` | 37 | 0 | 37 | 0 |
-| `CCustomCarPlateMgr` | 15 | 0 | 15 | 0 |
-| `CCustomRoadsignMgr` | 9 | 0 | 9 | 0 |
+| `CCustomCarPlateMgr` | 16 | 0 | 16 | 0 |
+| `CCustomRoadsignMgr` | 10 | 0 | 10 | 0 |
 | `CCutsceneMgr` | 36 | 0 | 36 | 0 |
 | `CCutsceneObject` | 7 | 0 | 7 | 0 |
 | `CDamageAtomicModelInfo` | 4 | 0 | 4 | 0 |

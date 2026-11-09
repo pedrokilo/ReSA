@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 08/11/2026 (Ciudad de México):** 870 grupos / 9493 funciones reconstruidas; 9493 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 08/11/2026 (Ciudad de México):** 870 grupos / 9495 funciones reconstruidas; 9495 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Código del juego en el EXE: mapa de las 11,804 funciones
@@ -14,10 +14,10 @@ Región **0x401000–0x74FFFF**: 11,804 funciones, 3,007,877 bytes. Es el códig
 | --- | ---: | ---: | ---: | ---: |
 | D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 409 | 3.5% | 58,872 | 2.0% |
 | C · Falta: solo la llaman funciones aún no reemplazadas | 495 | 4.2% | 65,334 | 2.2% |
-| A · Falta: llamada desde código ya reemplazado | 676 | 5.7% | 97,503 | 3.2% |
+| A · Falta: llamada desde código ya reemplazado | 674 | 5.7% | 94,735 | 3.1% |
 | B · Falta: método virtual | 826 | 7.0% | 38,293 | 1.3% |
 | Envoltura pendiente (la DLL aún llama al EXE) | 22 | 0.2% | 7,112 | 0.2% |
-| Reemplazada por C++ | 9,376 | 79.4% | 2,740,763 | 91.1% |
+| Reemplazada por C++ | 9,378 | 79.4% | 2,743,531 | 91.2% |
 
 Las funciones de A–D son **lo que falta**. El grupo A es el piso para la independencia (la DLL ya depende de ellas); es una cota inferior porque hay 6,004 llamadas indirectas sin resolver. Las envolturas pendientes (que ya tienen hook pero llaman al EXE) se cuentan aparte, por eso A–D suman menos que en la tabla de cobertura de ReversedClasses. Listas: [A](pendientes-A.md) · [B](pendientes-B.md) · [C](pendientes-C.md) · [D](pendientes-D.md).
 
@@ -36,7 +36,7 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x700000 | 138 | 96% | 5 | 1,004 | CRealTimeShadow (1), CShadows (1), CStencilShadows (1) |
 | 0x710000 | 158 | 95% | 8 | 763 | CFont (3), CStencilShadows (1), Common (1) |
 | 0x500000 | 305 | 94% | 17 | 1,673 | CAEWMADecoder (2), CAudioEngine (2), CAEWaterCannonAudioEntity (1) |
-| 0x6F0000 | 182 | 92% | 14 | 4,143 | CTrain (6), cHandlingDataMgr (1), CCustomCarPlateMgr (1) |
+| 0x6F0000 | 182 | 93% | 12 | 1,375 | CTrain (6), cHandlingDataMgr (1) |
 | 0x730000 | 278 | 92% | 22 | 1,011 | CTxdStore (6), CVisibilityPlugins (4) |
 | 0x510000 | 61 | 92% | 5 | 794 | CCam (2) |
 | 0x6E0000 | 92 | 91% | 8 | 623 | CVehicle (3), CWaterLevel (2) |
@@ -93,9 +93,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CGamma | 3 | 2 | 1 | 210 | 0 |
 | CCamera | 118 | 117 | 1 | 527 | 0 |
 | CDecisionMakerTypesFileLoader | 11 | 10 | 1 | 606 | 1 |
-| CCustomCarPlateMgr | 15 | 14 | 1 | 829 | 1 |
 | CShadows | 31 | 30 | 1 | 837 | 1 |
-| CCustomRoadsignMgr | 10 | 9 | 1 | 1,939 | 1 |
 | CdStream | 16 | 14 | 2 | 13 | 1 |
 | CTaskComplexFallToDeath | 8 | 6 | 2 | 17 | 2 |
 | CTaskComplexGetUpAndStandStill | 7 | 5 | 2 | 17 | 2 |
@@ -462,7 +460,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | FxInfoManager_c | 124 | 8 | 116 | 6,591 | 96 |
 | FxEmitterBP_c | 155 | 14 | 141 | 28,395 | 9 |
 
-372 de 782 módulos tienen algo pendiente.
+370 de 782 módulos tienen algo pendiente.
 
 ## Cómo usarlo
 

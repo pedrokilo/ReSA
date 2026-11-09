@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,428** funciones en 372 clases/módulos (rango 0x401000–0x74FFFF): 2,406 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,426** funciones en 370 clases/módulos (rango 0x401000–0x74FFFF): 2,404 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por funciones pendientes y, a igualdad, por tamaño (bytes pendientes). Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -14,9 +14,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CGamma | 1 | 210 |
 | CCamera | 1 | 527 |
 | CDecisionMakerTypesFileLoader | 1 | 606 |
-| CCustomCarPlateMgr | 1 | 829 |
 | CShadows | 1 | 837 |
-| CCustomRoadsignMgr | 1 | 1939 |
 | CdStream | 2 | 13 |
 | CTaskComplexFallToDeath | 2 | 17 |
 | CTaskComplexGetUpAndStandStill | 2 | 17 |
@@ -407,23 +405,11 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x00607A90 | 606 | A |  | 2 | 1 |  | alta |
 
-## CCustomCarPlateMgr (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006FD7C0 | 829 | A |  | 1 | 1 |  | alta |
-
 ## CShadows (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00709CF0 | 837 | A | CShadows::ShadowRenderTriangleCB | 1 | 1 |  | alta |
-
-## CCustomRoadsignMgr (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006FE260 | 1939 | A |  | 1 | 1 |  | alta |
 
 ## CdStream (2)
 
