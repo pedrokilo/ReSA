@@ -37,6 +37,10 @@ void CEventPlayerCommandToGroup::InjectHooks()
     RH_ScopedNamedGlobalInstall(PlayerCommandToGroupDestructorBody, "Destructor", 0x4B2470);
 
     RH_ScopedInstall(Constructor, 0x4B23D0);
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B2440);       // lote 138A (banco Fn138A): retorno de constante
+    RH_ScopedVMTInstall(AffectsPed, 0x4B2450);        // lote 138A: siempre false (`xor al,al; ret 4`)
+    RH_ScopedVMTInstall(GetSourceEntity, 0x4B2460);   // lote 138A: devuelve m_target (+0x18)
+    RH_ScopedVMTInstall(TakesPriorityOver, 0x4B2520); // lote 138A: siempre true (`mov al,1; ret 4`)
     RH_ScopedVMTInstall(AffectsPedGroup, 0x4B24D0);
 }
 

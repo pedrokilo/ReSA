@@ -36,6 +36,9 @@ void CEventCarUpsideDown::InjectHooks() {
     RH_ScopedNamedGlobalInstall(CarUpsideDownDestructorBody, "Destructor", 0x4B1D50);
 
     RH_ScopedInstall(Constructor, 0x4B1CC0);
+    RH_ScopedVMTInstall(GetEventType, 0x4B1D20);      // lote 138A (banco Fn138A): retorno de constante
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B1D30);       // lote 138A
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B1D40);  // lote 138A
     RH_ScopedVMTInstall(AffectsPed, 0x4B1DB0);
 }
 

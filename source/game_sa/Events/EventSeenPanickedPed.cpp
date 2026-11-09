@@ -36,6 +36,10 @@ void CEventSeenPanickedPed::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SeenPanickedPedDestructorBody, "Destructor", 0x4B2130);
 
     RH_ScopedInstall(Constructor, 0x4B2080);
+    RH_ScopedVMTInstall(GetEventType, 0x4B20F0);      // lote 138A (banco Fn138A): retorno de constante
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B2100);       // lote 138A
+    RH_ScopedVMTInstall(GetSourceEntity, 0x4B2110);   // lote 138A: devuelve m_ped (+0x14)
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B2120);  // lote 138A
     RH_ScopedVMTInstall(AffectsPed, 0x4B53C0);
 }
 

@@ -37,6 +37,9 @@ void CEventCopCarBeingStolen::InjectHooks() {
     RH_ScopedNamedGlobalInstall(CopCarBeingStolenDestructorBody, "Destructor", 0x4B17F0);
 
     RH_ScopedInstall(Constructor, 0x4B1740);
+    RH_ScopedVMTInstall(GetEventType, 0x4B17C0);      // lote 138A (banco Fn138A): retorno de constante
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B17D0);       // lote 138A
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B17E0);  // lote 138A
     RH_ScopedVMTInstall(AffectsPed, 0x4B1860);
 }
 

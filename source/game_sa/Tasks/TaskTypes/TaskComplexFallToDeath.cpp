@@ -24,11 +24,26 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleLand.h"
 #include "TaskSimpleDead.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+// 0x6790B0 (lote 138A, banco Fn138A; thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CTaskComplexFallToDeath del EXE (`mov [ecx],0x870520; jmp 0x61A3D0`).
+// Deja la vtable de CTaskComplexFallToDeath del EXE (0x870520) y sigue con el cuerpo de ~CTaskComplex (0x61A3D0, con hook).
+void __fastcall FallToDeathDestructorBody(CTaskComplexFallToDeath* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870520;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexFallToDeath::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFallToDeath, 0x870520, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x679040);
+    RH_ScopedNamedGlobalInstall(FallToDeathDestructorBody, "Destructor", 0x6790B0);
+    RH_ScopedVMTInstall(GetTaskType, 0x6790A0);   // lote 138A (banco Fn138A): retorno de constante
     RH_ScopedVMTInstall(MakeAbortable, 0x6790C0);
     RH_ScopedVMTInstall(ControlSubTask, 0x679510);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x679120);

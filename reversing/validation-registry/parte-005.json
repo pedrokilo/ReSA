@@ -19936,6 +19936,1173 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main e9fcf31dd4 con los cambios del lote (ver artifacts/build-manifest.json). Tres funciones del EXE sin hook validado (clases por desensamblado; el listado las atribuia por cercania): GetMouseSetUp 0x53F2D0 (hook GetMouseSetUpExe: ABI del EXE con el destino por la pila, `ret 4`; el hook sobre la version por valor desequilibraba la pila en 4 bytes y el banco lo detecto), getDvdGamePath 0x747300 y CCollision GetNearestDistanceOfPedSphereToCameraNearClip 0x50D590 (aritmetica x87 en PedSphereNearestCpp de X87Math.cpp). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: IsVideoModeExclusive 0x745CA0, diMouseInit 0x7469A0 (hook bloqueado) y CPedModelInfo::AnimatePedColModelSkinnedWorld 0x4C7170; GetCapabilities es una ranura de la vtable de un dispositivo falso; SetErrorMode, GetLogicalDriveStringsA, GetDriveTypeA y GetVolumeInformationA se sustituyen en la casilla de la IAT del EXE y en la de la DLL; operator new[] 0x821195 y delete[] 0x8213AE de la CRT del EXE (falsos solo en la direccion del EXE: la DLL los llama por esa direccion); lstrlenA y lstrcpyA reales. Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos, valor devuelto (EAX o ST0), x87, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: nombres de unidad de mas de 7 caracteres en getDvdGamePath (desbordan el buffer local del EXE), bytes de pila sin inicializar de GetMouseSetUp (el banco siembra la pila con ceros), indices de modelo fuera de [-2, 1023], camaras activas mayores de 2, esferas fuera de las 12 fijas y el valor de EAX/ECX/EDX tras la llamada. No se reconstruye 0x607A90 (CPedAcquaintanceScanner, escaneo de entidades con diez colaboradores): ver README.md.",
       "review_reference": "reversing/Fn135A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventCopCarBeingStolen",
+        "fn_name": "GetEventType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventCopCarBeingStolen::GetEventType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B17C0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventCopCarBeingStolen",
+        "fn_name": "GetLifeTime",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventCopCarBeingStolen::GetLifeTime"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B17D0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventCopCarBeingStolen",
+        "fn_name": "GetEventPriority",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventCopCarBeingStolen::GetEventPriority"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B17E0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventCarUpsideDown",
+        "fn_name": "GetEventType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventCarUpsideDown::GetEventType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B1D20"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventCarUpsideDown",
+        "fn_name": "GetLifeTime",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventCarUpsideDown::GetLifeTime"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B1D30"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventCarUpsideDown",
+        "fn_name": "GetEventPriority",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventCarUpsideDown::GetEventPriority"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B1D40"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventSeenPanickedPed",
+        "fn_name": "GetEventType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventSeenPanickedPed::GetEventType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B20F0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventSeenPanickedPed",
+        "fn_name": "GetLifeTime",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventSeenPanickedPed::GetLifeTime"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B2100"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventSeenPanickedPed",
+        "fn_name": "GetSourceEntity",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventSeenPanickedPed::GetSourceEntity"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B2110"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventSeenPanickedPed",
+        "fn_name": "GetEventPriority",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventSeenPanickedPed::GetEventPriority"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B2120"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventPlayerCommandToGroup",
+        "fn_name": "GetLifeTime",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventPlayerCommandToGroup::GetLifeTime"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B2440"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventPlayerCommandToGroup",
+        "fn_name": "AffectsPed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventPlayerCommandToGroup::AffectsPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B2450"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventPlayerCommandToGroup",
+        "fn_name": "GetSourceEntity",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventPlayerCommandToGroup::GetSourceEntity"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B2460"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventPlayerCommandToGroup",
+        "fn_name": "TakesPriorityOver",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CEventPlayerCommandToGroup::TakesPriorityOver"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004B2520"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseGoggles",
+        "fn_name": "Destructor",
+        "address": "0x00634F20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseGoggles::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseGoggles",
+        "fn_name": "MakeAbortable",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexUseGoggles::MakeAbortable"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00634F30"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGetUpAndStandStill",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexGetUpAndStandStill::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00678150"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGetUpAndStandStill",
+        "fn_name": "Destructor",
+        "address": "0x00678160",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexGetUpAndStandStill::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexFallToDeath",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexFallToDeath::GetTaskType"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006790A0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexFallToDeath",
+        "fn_name": "Destructor",
+        "address": "0x006790B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexFallToDeath::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMemoryMgr",
+        "fn_name": "PushMemId",
+        "address": "0x0072F4A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CMemoryMgr::PushMemId"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMemoryMgr",
+        "fn_name": "PopMemId",
+        "address": "0x0072F4B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CMemoryMgr::PopMemId"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMemoryMgr",
+        "fn_name": "MoveMemory-Pointer",
+        "address": "0x0072F500",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn138A/validation-summary.json",
+        "sha256": "515129e7a5eeb3cadf9718ec972a3cb8a3975b89f0210f8231cb68a28f9e8141",
+        "passed_path": [
+          "covered_functions",
+          "CMemoryMgr::MoveMemory"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Events/EventCopCarBeingStolen.cpp": "892877ad44cc08fa3b882f4335de732e026b40e9061bd920f2d4e3b02c22d368",
+        "source/game_sa/Events/EventCopCarBeingStolen.h": "c50dc7c3639949614758a3656086ccc8a3e0299ab4cb090d8f1c962936900ccf",
+        "source/game_sa/Events/EventCarUpsideDown.cpp": "fde2d4941238aaa3240055a0353170a29245c55201745a47dd3d3dd42468959f",
+        "source/game_sa/Events/EventCarUpsideDown.h": "f32d90402455582bad2f893f3bba3abf10ce46b005524ee15630166ae6eed22d",
+        "source/game_sa/Events/EventSeenPanickedPed.cpp": "713923735abd0361be08b276934dd2f62610bf1b958bb5a7302c275b8c9ae281",
+        "source/game_sa/Events/EventSeenPanickedPed.h": "b6823015b2e66de73d44ca6b9c51255b5434a0da0cc194bfac64e1a0956c0a64",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "bc2c2817861d2408803b46109eee13f3ae7a4f56dfa209b7208066db82bd6607",
+        "source/game_sa/Events/EventPlayerCommandToGroup.h": "61b2e9a2f3c3b48fcba9f5c0ce13612608dc2ed788270320878fc190887178b9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp": "8fddcb2ecb9aeb5face37e643be2d31a2776fed2e289191aa1372c4ea217d3d1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.h": "34a3bc8989e135bbedecd4c2c8dc129be2a2ac2d7483ecee65442d1574348881",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "4eb771d16673b9c43e5511b9789161efc6485ce5e96169ecb48660d461c1a88b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp": "e817c8c5036ea7bd4e0452bad18ceb35c3fbe2a23214161de170b0df1e26c5bc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h": "cc428790eb95b81fcb52f89ebf8795897d1a0cbe4c2938200082c1583a6289af",
+        "source/game_sa/MemoryMgr.cpp": "2118a96399db421320c037fcdd38657d38d881b8d787dad0e1540ccb9f68ff57",
+        "source/game_sa/MemoryMgr.h": "449696f8e361845d686cc3ef72c4062cc06b5d8dc30cf46022143b72718894c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn138A/LiveComparison.hpp": "4b3599a17d32471e87d91a797655dceb407e0b2780b6a8b18d781648c4493e84",
+        "reversing/Fn138A/Core.hpp": "355babfcaa9396a67bf8d93ae1c0130b8872f5cd4c546d9f6b1f054b448056be",
+        "reversing/Fn138A/Fixtures.hpp": "cca61de55bd69a6ed993aaaa76b7a71395eb709c0f8bd499d251edd4b954b019",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 3da385b4b3 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones diminutas del EXE sin hook (clases por desensamblado, vtables y llamadores): diez retornos de constante de eventos (GetEventType, GetLifeTime y GetEventPriority de CEventCopCarBeingStolen 0x4B17C0/0x4B17D0/0x4B17E0 y de CEventCarUpsideDown 0x4B1D20/0x4B1D30/0x4B1D40; GetEventType, GetLifeTime y GetEventPriority de CEventSeenPanickedPed 0x4B20F0/0x4B2100/0x4B2120; GetLifeTime de CEventPlayerCommandToGroup 0x4B2440), cuatro accesores o constantes booleanas de eventos (GetSourceEntity de CEventSeenPanickedPed 0x4B2110 y de CEventPlayerCommandToGroup 0x4B2460, AffectsPed 0x4B2450 y TakesPriorityOver 0x4B2520), dos GetTaskType (CTaskComplexGetUpAndStandStill 0x678150, CTaskComplexFallToDeath 0x6790A0), tres cuerpos no virtuales de destructor de tareas (CTaskComplexUseGoggles 0x634F20, CTaskComplexGetUpAndStandStill 0x678160, CTaskComplexFallToDeath 0x6790B0: escriben la vtable de la clase y saltan a ~CTaskComplex 0x61A3D0), el thunk virtual CTaskComplexUseGoggles::MakeAbortable 0x634F30 (reenvia a la ranura 6 de la subtarea) y tres funciones de CMemoryMgr (PushMemId 0x72F4A0 y PopMemId 0x72F4B0, que en el EXE son un `ret`, y MoveMemory(void*) 0x72F500, que devuelve el puntero). Hook V (RH_ScopedVMTInstall) para las 17 ranuras de vtable (el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende) y S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) para los tres destructores y las tres de CMemoryMgr. Colaborador sustituido por falso identico en la direccion del EXE y en el cuerpo de la DLL: ~CTaskComplex 0x61A3D0 (con hook, apagado durante el banco) en los tres destructores; la ranura 6 de la vtable de la subtarea de MakeAbortable es un falso de la arena C. Se observan bytes cambiados de las tres arenas y de la memoria global de CMemoryMgr (0xC87B14..0xC87BD0: contadores, punteros y los dos montones con su m_nMemId; 0xC87C18..0xC87C5C: pila de ids), eventos de los falsos, valor devuelto (EAX completo o AL segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos: son identicos entre EXE y DLL en los 376832 pares (solo EFLAGS difiere en las funciones de una instruccion; ningun llamador del EXE lo lee). Cuerpos anteriores de CMemoryMgr::PushMemId, PopMemId y MoveMemory (usaban los montones y la pila de ids del EXE, que el EXE retail nunca toca) sustituidos por los del EXE. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, subtarea nula en MakeAbortable (el EXE se cae) y la exactitud de ~CTaskComplex (0x61A3D0), colaborador falseado. No se salta ninguna funcion.",
+      "review_reference": "reversing/Fn138A/README.md"
     }
   ]
 }

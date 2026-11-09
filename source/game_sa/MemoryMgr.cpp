@@ -50,6 +50,9 @@ void CMemoryMgr::InjectHooks() {
     RH_ScopedInstall(Free, 0x72F430);
     RH_ScopedOverloadedInstall(Calloc, "NumSizeHint", 0x72F460, uint8*(*)(uint32,uint32,uint32));
     RH_ScopedInstall(FreeAlign, 0x72F4F0);
+    RH_ScopedInstall(PushMemId, 0x72F4A0);                                                  // lote 138A (banco Fn138A): el EXE retail no hace nada (`ret`)
+    RH_ScopedInstall(PopMemId, 0x72F4B0);                                                   // lote 138A: idem
+    RH_ScopedOverloadedInstall(MoveMemory, "Pointer", 0x72F500, void*(*)(void*));           // lote 138A: devuelve el puntero tal cual (`mov eax,[esp+4]; ret`)
 
 }
 
@@ -431,31 +434,19 @@ void CMemoryMgr::SetRestrictMemoryMove(bool restrict) {
     g_Heaps[HEAP_SECONDARY].m_bMovingRestricted = restrict;
 }
 
-void CMemoryMgr::PushMemId(eMemoryId id) {
-    m_idStack.push(m_id);
-    m_id = id;
-    g_Heaps[HEAP_PRIMARY].m_nMemId   = m_id;
-    g_Heaps[HEAP_SECONDARY].m_nMemId = m_id;
+// 0x72F4A0 (lote 138A, banco Fn138A; cdecl, el EXE no lee argumentos): en el EXE retail es un `ret` (la contabilidad de ids de memoria no existe: sus llamadores no empujan argumento).
+// El cuerpo anterior escribia el id y la pila de ids del EXE (0xC87B1C, 0xC87C18) y los ids de los dos montones, memoria que el EXE nunca usa.
+void CMemoryMgr::PushMemId(eMemoryId /*id*/) {
 }
 
+// 0x72F4B0 (lote 138A, banco Fn138A; cdecl, sin argumentos): en el EXE retail es un `ret` (ver PushMemId).
 void CMemoryMgr::PopMemId() {
-    m_id = m_idStack.pop();
-    g_Heaps[HEAP_PRIMARY].m_nMemId   = m_id;
-    g_Heaps[HEAP_SECONDARY].m_nMemId = m_id;
 }
 
+// 0x72F500 (lote 138A, banco Fn138A; cdecl, un puntero): en el EXE retail no hay montones movibles: devuelve el puntero recibido (`mov eax,[esp+4]; ret`). Sus llamadores
+// (CAnimBlendHierarchy / CAnimBlendSequence::MoveMemory) comparan el resultado con el puntero original. El cuerpo anterior usaba los montones del EXE.
 void* CMemoryMgr::MoveMemory(void* memory) {
-    LOCK_MEMORYHEAP();
-    RegisterFree(memory);
-    void* movedMem = nullptr;
-    if (g_Heaps[HEAP_SECONDARY].IsHeapPointer(memory)) {
-        movedMem = g_Heaps[HEAP_SECONDARY].MoveMemory(memory);
-    } else {
-        movedMem = g_Heaps[HEAP_PRIMARY].MoveMemory(memory);
-    }
-    RegisterMalloc(movedMem);
-    UNLOCK_MEMORYHEAP();
-    return movedMem;
+    return memory;
 }
 
 void* CMemoryMgr::MoveMemory(void* memory, void** ppUnk, int32 iUnk) {

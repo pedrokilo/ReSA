@@ -45,10 +45,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "84d5ebb1eeb55396ee73d5b24265d23726e9885239ff8a2430a656d0c4046341",
+  "log_sha256": "83132696f35f8add7d8654baa7769209f1abe698b5a0843e39799b3eefd3fab3",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-anim16\\20261107-134536-789732",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-anim16\\20261109-015755-181206",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAnimBlendHierarchy::Constructor": true,
@@ -86,8 +86,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c461ec7d45299fef3c4804f96cd2f1bc314c24ae5fa4f34fbae6b8cd173f0393",
-      "pdb": "789a7b2eb84a9856a90c558ad8dc33696b9d87e9b4d1300fe3cb31b5fafd8641"
+      "asi": "b6fae745527a102c8c782158aa1ca4ac62a8204b27ed361728b645eef09c8874",
+      "pdb": "8720ad58f6187fa332b8fb7e5ca273578a9ee394a204d3f08e1c5ccc57c1fa4a"
     },
     "sources": {
       "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",

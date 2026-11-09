@@ -23,6 +23,12 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleRunAnim.h"
 #include "TaskSimplePlayerOnFoot.h"
 
+// 0x634F30 (lote 138A, banco Fn138A): el EXE tiene su propia copia de la reenvoltura de CTaskComplex (`mov ecx,[ecx+8]; mov eax,[ecx]; jmp [eax+18h]`): pasa los tres argumentos
+// a la ranura 6 (MakeAbortable) de la subtarea, sin comprobar que exista.
+bool CTaskComplexUseGoggles::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+    return m_pSubTask->MakeAbortable(ped, priority, event);
+}
+
 // 0x634F40
 CTask* CTaskComplexUseGoggles::CreateNextSubTask(CPed* ped) {
     switch (m_pSubTask->GetTaskType()) {
@@ -77,15 +83,24 @@ CTaskComplexUseGoggles* __fastcall UseGogglesConstructorBody(CTaskComplexUseGogg
     *reinterpret_cast<uint32*>(self) = 0x86E4A8;
     return self;
 }
+
+// 0x634F20 (lote 138A, banco Fn138A; thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CTaskComplexUseGoggles del EXE (`mov [ecx],0x86E4A8; jmp 0x61A3D0`). Deja la vtable de
+// CTaskComplexUseGoggles del EXE (0x86E4A8) y sigue con el cuerpo de ~CTaskComplex (0x61A3D0, con hook).
+void __fastcall UseGogglesDestructorBody(CTaskComplexUseGoggles* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86E4A8;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
 } // namespace
 
 void CTaskComplexUseGoggles::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexUseGoggles, 0x86E4A8, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(UseGogglesConstructorBody, "Constructor", 0x634EF0);
+    RH_ScopedNamedGlobalInstall(UseGogglesDestructorBody, "Destructor", 0x634F20);
 
     RH_ScopedVMTInstall(Clone, 0x637060);
     RH_ScopedVMTInstall(GetTaskType, 0x634F10);
+    RH_ScopedVMTInstall(MakeAbortable, 0x634F30);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x634F40);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x634F90);
     RH_ScopedVMTInstall(ControlSubTask, 0x635050);

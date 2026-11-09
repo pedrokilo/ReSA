@@ -23,12 +23,27 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleStandStill.h"
 #include "TaskSimpleGetUp.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+// 0x678160 (lote 138A, banco Fn138A; thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CTaskComplexGetUpAndStandStill del EXE (`mov [ecx],0x870404; jmp 0x61A3D0`).
+// Deja la vtable de CTaskComplexGetUpAndStandStill del EXE (0x870404) y sigue con el cuerpo de ~CTaskComplex (0x61A3D0, con hook).
+void __fastcall GetUpAndStandStillDestructorBody(CTaskComplexGetUpAndStandStill* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870404;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexGetUpAndStandStill::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGetUpAndStandStill, 0x870404, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x678130);
+    RH_ScopedNamedGlobalInstall(GetUpAndStandStillDestructorBody, "Destructor", 0x678160);
     RH_ScopedInstall(CreateSubTask, 0x678170);
     // VTABLE
+    RH_ScopedVMTInstall(GetTaskType, 0x678150);   // lote 138A (banco Fn138A): retorno de constante
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x6782A0);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x678240);
     RH_ScopedVMTInstall(ControlSubTask, 0x6782B0);

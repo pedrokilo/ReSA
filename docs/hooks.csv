@@ -3189,6 +3189,10 @@ CEventSoundQuiet,Constructor,0x005E05B0,1,0,1,S
 CEventSeenPanickedPed,AffectsPed,0x00000000,1,0,1,V
 CEventSeenPanickedPed,Constructor,0x004B2080,1,0,1,S
 CEventSeenPanickedPed,Destructor,0x004B2130,1,0,1,S
+CEventSeenPanickedPed,GetEventType,0x00000000,1,0,1,V
+CEventSeenPanickedPed,GetEventPriority,0x00000000,1,0,1,V
+CEventSeenPanickedPed,GetLifeTime,0x00000000,1,0,1,V
+CEventSeenPanickedPed,GetSourceEntity,0x00000000,1,0,1,V
 CEventSeenCop,Constructor1,0x005FF380,1,0,1,S
 CEventScriptedAttractor,Constructor,0x005FEF40,1,0,1,S
 CEventScriptCommand,AffectsPed,0x00000000,1,0,1,V
@@ -3217,6 +3221,10 @@ CEventPlayerCommandToGroupAttack,Constructor,0x005F6340,1,0,1,S
 CEventPlayerCommandToGroup,AffectsPedGroup,0x00000000,1,0,1,V
 CEventPlayerCommandToGroup,Constructor,0x004B23D0,1,0,1,S
 CEventPlayerCommandToGroup,Destructor,0x004B2470,1,0,1,S
+CEventPlayerCommandToGroup,AffectsPed,0x00000000,1,0,1,V
+CEventPlayerCommandToGroup,GetLifeTime,0x00000000,1,0,1,V
+CEventPlayerCommandToGroup,GetSourceEntity,0x00000000,1,0,1,V
+CEventPlayerCommandToGroup,TakesPriorityOver,0x00000000,1,0,1,V
 CEventPlayerCollisionWithPed,Constructor,0x005FEE40,1,0,1,S
 CEventPedCollisionWithPlayer,Constructor,0x005FED40,1,0,1,S
 CEventPedCollisionWithPed,AffectsPed,0x00000000,1,0,1,V
@@ -3404,9 +3412,15 @@ CEventDamage,TakesPriorityOver,0x00000000,1,0,1,V
 CEventCopCarBeingStolen,AffectsPed,0x00000000,1,0,1,V
 CEventCopCarBeingStolen,Constructor,0x004B1740,1,0,1,S
 CEventCopCarBeingStolen,Destructor,0x004B17F0,1,0,1,S
+CEventCopCarBeingStolen,GetEventType,0x00000000,1,0,1,V
+CEventCopCarBeingStolen,GetEventPriority,0x00000000,1,0,1,V
+CEventCopCarBeingStolen,GetLifeTime,0x00000000,1,0,1,V
 CEventCarUpsideDown,AffectsPed,0x00000000,1,0,1,V
 CEventCarUpsideDown,Constructor,0x004B1CC0,1,0,1,S
 CEventCarUpsideDown,Destructor,0x004B1D50,1,0,1,S
+CEventCarUpsideDown,GetEventType,0x00000000,1,0,1,V
+CEventCarUpsideDown,GetEventPriority,0x00000000,1,0,1,V
+CEventCarUpsideDown,GetLifeTime,0x00000000,1,0,1,V
 CEventBuildingCollision,AffectsPed,0x00000000,1,0,1,V
 CEventBuildingCollision,CanTreatBuildingAsObject,0x004B3120,1,0,1,S
 CEventBuildingCollision,Constructor,0x004ACF00,1,0,1,S
@@ -5801,6 +5815,8 @@ CTaskComplexUseGoggles,ControlSubTask,0x00000000,1,0,1,V
 CTaskComplexUseGoggles,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexUseGoggles,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexUseGoggles,GetTaskType,0x00000000,1,0,1,V
+CTaskComplexUseGoggles,Destructor,0x00634F20,1,0,1,S
+CTaskComplexUseGoggles,MakeAbortable,0x00000000,1,0,1,V
 CTaskComplexUseEffectSprinting,Constructor,0x00636860,1,0,1,S
 CTaskComplexUseEffectSprinting,Clone,0x00000000,1,0,1,V
 CTaskComplexUseEffectSprinting,GetTaskType,0x00000000,1,0,1,V
@@ -6281,6 +6297,8 @@ CTaskComplexGetUpAndStandStill,ControlSubTask,0x00000000,1,0,1,V
 CTaskComplexGetUpAndStandStill,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexGetUpAndStandStill,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexGetUpAndStandStill,CreateSubTask,0x00678170,1,0,1,S
+CTaskComplexGetUpAndStandStill,Destructor,0x00678160,1,0,1,S
+CTaskComplexGetUpAndStandStill,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexGetOnBoatSeat,Clone,0x00000000,1,0,1,V
 CTaskComplexGetOnBoatSeat,Constructor,0x00649210,1,0,1,S
 CTaskComplexGetOnBoatSeat,ControlSubTask,0x00000000,1,0,1,V
@@ -6407,6 +6425,8 @@ CTaskComplexFallToDeath,ControlSubTask,0x00000000,1,0,1,V
 CTaskComplexFallToDeath,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexFallToDeath,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexFallToDeath,MakeAbortable,0x00000000,1,0,1,V
+CTaskComplexFallToDeath,Destructor,0x006790B0,1,0,1,S
+CTaskComplexFallToDeath,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexFallAndGetUp,Constructor,0x006786C0,1,0,1,S
 CTaskComplexFallAndGetUp,Constructor2,0x00678700,1,0,1,S
 CTaskComplexFallAndGetUp,ControlSubTask,0x00000000,1,0,1,V
@@ -8651,6 +8671,9 @@ CMemoryMgr,Malloc-SizeHint,0x0072F420,1,0,1,S
 CMemoryMgr,Realloc-MemorySizeHint,0x0072F440,1,0,1,S
 CMemoryMgr,MallocAlign-SizeAlignHint,0x0072F4C0,1,0,1,S
 CMemoryMgr,FreeAlign,0x0072F4F0,1,0,1,S
+CMemoryMgr,PushMemId,0x0072F4A0,1,0,1,S
+CMemoryMgr,PopMemId,0x0072F4B0,1,0,1,S
+CMemoryMgr,MoveMemory-Pointer,0x0072F500,1,0,1,S
 CStats,UpdateFatAndMuscleStats,0x0055C470,1,0,1,S
 CStats,UpdateStatsWhenWeaponHit,0x0055CEB0,1,0,1,S
 CStats,UpdateStatsWhenSwimming,0x0055C990,1,0,1,S
