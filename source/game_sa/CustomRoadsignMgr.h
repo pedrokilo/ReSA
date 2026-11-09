@@ -30,3 +30,5 @@ RpMaterial* RoadsignSetMaterialAlphaCB(RpMaterial* material, void* data); //data
 RpMaterial* RoadsignSetMaterialTextureCB(RpMaterial* material, void* data); //data is RwTexture*
 bool RoadsignGenerateTextRaster(char* roadName, int32 numLetters, RwRaster* charsetRaster, int32 unused, RwRaster* signRaster);
 void RoadsignGetLineAndRow(char cLetter, int32* line, int32* row); // Weird calling convention in SA, passing argument in <al>, line is column
+// 0x6FE260 con el contrato del EXE: caracter en AL, punteros de columna y fila en la pila (cdecl)
+void __cdecl RoadsignGetLineAndRowExe(int32* line, int32* row);

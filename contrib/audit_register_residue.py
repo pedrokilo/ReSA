@@ -19,7 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OBJECTS = ['Cam', 'FxFrustumInfo', 'Garages', 'EventScriptCommand', 'BaseModelInfo', 'ClumpModelInfo', 'PedGroupIntelligence', 'Pools', 'RwHelper', 'TaskInteriorSitInChair',
-           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri', 'Pickup', 'EntryExit', 'PlayerPed', 'CarEnterExit', 'TaskComplexWaitForPed', 'PlayerRelationshipRecorder', 'EventSource', 'TheZones', 'PedGroups', 'Ped', 'MemoryMgr', 'Pad', 'PathFind', 'AEVehicleAudioEntity', 'WaterLevel', 'Radar', 'Stats', 'Vehicle', 'TaskSimpleFight', 'DecisionMakerTypes', 'Garage', 'Interior_c', 'platform']
+           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri', 'Pickup', 'EntryExit', 'PlayerPed', 'CarEnterExit', 'TaskComplexWaitForPed', 'PlayerRelationshipRecorder', 'EventSource', 'TheZones', 'PedGroups', 'Ped', 'MemoryMgr', 'Pad', 'PathFind', 'AEVehicleAudioEntity', 'WaterLevel', 'Radar', 'Stats', 'Vehicle', 'TaskSimpleFight', 'DecisionMakerTypes', 'Garage', 'Interior_c', 'platform', 'CustomCarPlateMgr', 'CustomRoadsignMgr']
 # Objetos cuyas funciones con ayudante de residuo deben salir SIEMPRE por él (una sola salida; ningun `ret` alcanzable sin pasar por la llamada).
 EVERY_PATH_OBJECTS = {'Cam', 'TheZones', 'Ped', 'MemoryMgr', 'PathFind', 'AEVehicleAudioEntity', 'WaterLevel', 'Vehicle', 'DecisionMakerTypes', 'Interior_c'}
 HELPER_CALL = re.compile(r'^call\s+(?:\?|@)?(ResidueRegsCpp@@YIIIII@Z|Get@ResidueEcx@@QAEII@Z|PlayerPedResidueFloatCpp@@YIMIIM@Z|PathFindResidueFloatCpp@@YIMIIMI@Z|VehicleResidueBoolCpp@12)\b')

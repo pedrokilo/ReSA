@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "pairs": 32768,
+  "differences": 0,
+  "registered_pairs": 32768,
+  "registered_functions": 2,
+  "functions": {
+    "GetCharacterPositionInCharSetExe": 16384,
+    "RoadsignGetLineAndRowExe": 16384
+  },
+  "covered_functions": {
+    "GetCharacterPositionInCharSetExe": true,
+    "RoadsignGetLineAndRowExe": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main e9fcf31dd4 con los cambios del lote (ver artifacts/build-manifest.json). Dos funciones del EXE sin hook con contrato __usercall (caracter en AL, punteros de columna y fila en la pila, ret sin limpiar la pila): GetCharacterPositionInCharSet 0x6FD7C0 (CCustomCarPlateMgr; el listado ya la daba por esa clase) y RoadsignGetLineAndRow 0x6FE260 (CCustomRoadsignMgr; el listado decia RoadsignGenerateTextRaster, que es 0x6FEB70). Ambas son tablas puras sin colaboradores ni memoria global; se enganchan con RH_ScopedGlobalInstall leyendo el AL de entrada con EntryEaxCpp (X87Math). Se observan bytes cambiados de las tres arenas, x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py (tablas decodificadas del EXE con exe_tables.py). EAX/ECX/EDX tras la llamada quedan en los residuos (informativos: sus unicos llamadores del EXE, 0x6FDDDE y 0x6FEBF1, estan reemplazados). Fuera de los fixtures: punteros nulos o crudos. No se reconstruye 0x709CF0 (CShadows::ShadowRenderTriangleCB, usercall con EAX, EBX y EDI): ver README.md.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn136A-20261108-233249-568966",
+  "summary_sha256": "fa231357a68132c669c5800183b3b9c5191423d6555ce8c96dc5d5c16163e7bd",
+  "result_txt_sha256": "0a44c17fcf0b42678c81efcb8209b27f6b1958ed492e20d1913f3526f03c7a3f",
+  "log_sha256": "f2baf8e27bb4dc1168fff4f78a4d81a58b4efdfb694f9cc3ff114add7a208d29",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "b5a3652fe321954a21d6b6b9cb15af9bed17d3dc05229c88d1a1f551a46e085d",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+      "source/game_sa/CustomCarPlateMgr.cpp": "862ef3bcc28d0840dda1be9037ca266f67f91dfca1ea8b80c398ab7f82bb7d99",
+      "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
+      "source/game_sa/CustomRoadsignMgr.cpp": "9a9c6df8208c87a1f33c3a2a7002c64cd4ecf5d2040f7e093d4e0772a93b4459",
+      "source/game_sa/CustomRoadsignMgr.h": "85d2dc1dc0fca4409a1392de61d4879a7df8712be4fd59d76daa4eb2bc110a14",
+      "source/game_sa/X87Math.cpp": "a48b7b4f2e332689b616a00742fdc072094df17cfc9e8cc8a594988101202290",
+      "source/game_sa/X87Math.h": "0fd847dcfcc36e7ee670a7dc10fef932327a23465a73a8e7d4830709337f06fe",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn136A/LiveComparison.hpp": "a658092beba8aafabfdaa0b6b2329d3f04b2e1befd86ef814642a7363fcc00e8",
+      "reversing/Fn136A/Core.hpp": "a6f57ea4b405c9669adda285ec4c1c7bddb6dcaeb93eec29ca2d46546245dec3",
+      "reversing/Fn136A/Fixtures.hpp": "7f517191fd633115f244a55c03cef924497612f61dd2e6f1dc7af29f662b0a83",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

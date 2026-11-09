@@ -9492,3 +9492,5 @@ CDecision,Pick,0x006007A0,1,0,1,S
 CTaskComplexWaitForPed,CloneBody,0x00683950,1,0,1,S
 CTaskComplexPartnerDeal,Clone,0x00000000,1,0,1,V
 CTaskSimpleTired,Clone,0x00000000,1,0,1,V
+CCustomCarPlateMgr,GetCharacterPositionInCharSetExe,0x006FD7C0,1,0,1,S
+CCustomRoadsignMgr,RoadsignGetLineAndRowExe,0x006FE260,1,0,1,S

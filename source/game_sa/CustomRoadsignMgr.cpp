@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "CustomRoadsignMgr.h"
+#include "X87Math.h"
 
 void CCustomRoadsignMgr::InjectHooks()
 {
@@ -34,6 +35,7 @@ void CCustomRoadsignMgr::InjectHooks()
     RH_ScopedInstall(SetupRoadsignAtomic, 0x6FED60);
     RH_ScopedInstall(SetAtomicAlpha, 0x6FE240);
     RH_ScopedGlobalInstall(RoadsignGenerateTextRaster, 0x6FEB70);
+    RH_ScopedGlobalInstall(RoadsignGetLineAndRowExe, 0x6FE260);
 }
 
 // 0x6FE120
@@ -751,3 +753,15 @@ void RoadsignGetLineAndRow(char cLetter, int32* line, int32* row)
         break;
     }
 }
+
+// 0x6FE260 con el contrato del EXE (__usercall: el caracter llega en AL, los dos punteros (columna y fila) en la pila, `ret` sin limpiar la pila).
+// El EXE hace `movzx eax, al` y escribe primero la columna y despues la fila (con punteros iguales gana la fila). EntryEaxCpp (X87Math) devuelve el
+// EAX de entrada y tiene que ser lo primero que se ejecuta (sin comprobaciones de ejecucion ni cookie de /GS; lo vigila contrib/audit_register_residue.py,
+// objeto CustomRoadsignMgr). EAX, ECX y EDX de salida no los lee ningun llamador (el unico del EXE, 0x6FEBF1 en 0x6FEB70, esta reemplazado).
+#pragma runtime_checks("", off)
+__declspec(safebuffers) void __cdecl RoadsignGetLineAndRowExe(int32* line, int32* row)
+{
+    const uint8 letter = static_cast<uint8>(EntryEaxCpp());
+    RoadsignGetLineAndRow(static_cast<char>(letter), line, row);
+}
+#pragma runtime_checks("", restore)

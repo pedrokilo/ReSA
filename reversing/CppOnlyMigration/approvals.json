@@ -20973,5 +20973,33 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn132A con 147456 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Nueve funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CPatrolRoutePool::New 0x41B660 (decia CPointRoutePool), CTaskComplexFollowLeaderInFormation::GetFormationOffset 0x611F20 (decia CLoadedCarGroup), CScriptedEffectPairs::Reset 0x6F9EB0 (CScripted2dEffects), JPegScanlineToRaster 0x5D0570, SunReflectionDistanceFactor 0x6FBA20 (CCoronas; la cuenta va en X87Math), CDecision::Choices::Pick 0x6007A0, CTaskComplexWaitForPed (cuerpo de Clone) 0x683950 (decia CTaskComplexWalkAlongsidePed), CTaskComplexPartnerDeal::Clone 0x684D10 (decia CTaskComplexBeInCouple; hook V) y CTaskSimpleTired::Clone 0x636180 (decia CTaskSimpleDead; hook V). Las demas son hook S. Marcos SEH de los tres Clone: solo liberan la memoria si el constructor lanza; la DLL los omite. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con hook, apagados durante el banco): RwRGBAToPixel 0x803740, CTask::operator new 0x61A5A0, los constructores de CTaskComplexWaitForPed 0x683340 y de CTaskComplexPartnerDeal 0x684190 y el constructor de CTaskSimple 0x61A390; rand 0x821B1E (CRT del EXE; falso solo en la direccion del EXE: la DLL lo llama por esa direccion). Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos con sus argumentos, valor devuelto (EAX, etiqueta de la memoria devuelta), ST0 de 80 bits en SunReflectionDistanceFactor (modelo exacto con racionales) o x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos) salvo en CScriptedEffectPairs::Reset, donde se comparan (EAX = -1, ECX = this, EDX = 0: el bucle de Init del EXE usa ECX tras la llamada) y en las funciones cuyo llamador lee EAX (se comparan el valor devuelto o la etiqueta). Fuera de los fixtures: contadores de Choices::Pick que leen mas alla de la estructura de 0x34 bytes con valores de rand fuera de 0..32767, el pool de patrullas con cursor mayor o igual que el tamano (el EXE no termina), objetos reales construidos por el EXE, this nulo o crudo, los registros volatiles tras la llamada y la exactitud de los colaboradores sustituidos. No se reconstruyen 0x53F2D0 (ya tenia hook en el codigo: GetMouseSetUp en WinInput.cpp) ni 0x747300 (getDvdGamePath: llamadas a la IAT de kernel32 y repe cmpsb): ver README.md."
+  },
+  "0x006FD7C0": {
+    "identity": "GetCharacterPositionInCharSetExe",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/CustomCarPlateMgr.cpp",
+    "bank": "Fn136A",
+    "run": "20261108-233249-568966",
+    "pairs": 32768,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn136A-20261108-233249-568966/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn136A con 32768 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main e9fcf31dd4 con los cambios del lote (ver artifacts/build-manifest.json). Dos funciones del EXE sin hook con contrato __usercall (caracter en AL, punteros de columna y fila en la pila, ret sin limpiar la pila): GetCharacterPositionInCharSet 0x6FD7C0 (CCustomCarPlateMgr; el listado ya la daba por esa clase) y RoadsignGetLineAndRow 0x6FE260 (CCustomRoadsignMgr; el listado decia RoadsignGenerateTextRaster, que es 0x6FEB70). Ambas son tablas puras sin colaboradores ni memoria global; se enganchan con RH_ScopedGlobalInstall leyendo el AL de entrada con EntryEaxCpp (X87Math). Se observan bytes cambiados de las tres arenas, x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py (tablas decodificadas del EXE con exe_tables.py). EAX/ECX/EDX tras la llamada quedan en los residuos (informativos: sus unicos llamadores del EXE, 0x6FDDDE y 0x6FEBF1, estan reemplazados). Fuera de los fixtures: punteros nulos o crudos. No se reconstruye 0x709CF0 (CShadows::ShadowRenderTriangleCB, usercall con EAX, EBX y EDI): ver README.md."
+  },
+  "0x006FE260": {
+    "identity": "RoadsignGetLineAndRowExe",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/CustomRoadsignMgr.cpp",
+    "bank": "Fn136A",
+    "run": "20261108-233249-568966",
+    "pairs": 32768,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn136A-20261108-233249-568966/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn136A con 32768 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main e9fcf31dd4 con los cambios del lote (ver artifacts/build-manifest.json). Dos funciones del EXE sin hook con contrato __usercall (caracter en AL, punteros de columna y fila en la pila, ret sin limpiar la pila): GetCharacterPositionInCharSet 0x6FD7C0 (CCustomCarPlateMgr; el listado ya la daba por esa clase) y RoadsignGetLineAndRow 0x6FE260 (CCustomRoadsignMgr; el listado decia RoadsignGenerateTextRaster, que es 0x6FEB70). Ambas son tablas puras sin colaboradores ni memoria global; se enganchan con RH_ScopedGlobalInstall leyendo el AL de entrada con EntryEaxCpp (X87Math). Se observan bytes cambiados de las tres arenas, x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py (tablas decodificadas del EXE con exe_tables.py). EAX/ECX/EDX tras la llamada quedan en los residuos (informativos: sus unicos llamadores del EXE, 0x6FDDDE y 0x6FEBF1, estan reemplazados). Fuera de los fixtures: punteros nulos o crudos. No se reconstruye 0x709CF0 (CShadows::ShadowRenderTriangleCB, usercall con EAX, EBX y EDI): ver README.md."
   }
 }

@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include <reversiblebugfixes/Bugs.hpp>
 #include "CustomCarPlateMgr.h"
+#include "X87Math.h"
+
+void __cdecl GetCharacterPositionInCharSetExe(uint32* outCol, uint32* outRow);
 
 void CCustomCarPlateMgr::InjectHooks() {
     RH_ScopedClass(CCustomCarPlateMgr);
@@ -36,7 +39,7 @@ void CCustomCarPlateMgr::InjectHooks() {
     RH_ScopedInstall(MaterialUpgradeSetCarplateTextureCB, 0x6FDF50);
     RH_ScopedInstall(AtomicUpgradeSetCarplateTextureCB, 0x6FDFC0);
     RH_ScopedInstall(SetupMaterialPlateTexture, 0x6FE020);
-    // RH_ScopedInstall(GetCharacterPositionInCharSet, 0x6FD7C0, { .enabled = false }); // Incompatible with original function (As it uses __usercall and passes the first arg in `al`)
+    RH_ScopedGlobalInstall(GetCharacterPositionInCharSetExe, 0x6FD7C0);
     RH_ScopedInstall(MaterialSetCarplateTextureCB, 0x6FE060);
     RH_ScopedInstall(AtomicSetCarplateTextureCB, 0x6FE0D0);
     RH_ScopedInstall(SetupClump, 0x6FE0F0);
@@ -188,7 +191,7 @@ void CCustomCarPlateMgr::SetupMaterialPlatebackTexture(RpMaterial* material, uin
     RpMaterialSetTexture(material, pPlatebackTexTab[ResolvePlateType(plateType)]);
 }
 
-// 0x6FD7C0 - Can't be hooked - Calling conventions differ - So we're allowed to use `std::pair` :D
+// 0x6FD7C0 - la usa el codigo C++ (con std::pair); el contrato del EXE (caracter en AL) esta en GetCharacterPositionInCharSetExe, que es la que se engancha
 // Returns <col, row> of character in the charset
 std::pair<uint32, uint32> GetCharacterPositionInCharSet(char c) {
     switch (c)
@@ -295,6 +298,19 @@ std::pair<uint32, uint32> GetCharacterPositionInCharSet(char c) {
         return { 0, 9 };
     }
 }
+
+// 0x6FD7C0 con el contrato del EXE (__usercall: el caracter llega en AL, los dos punteros (columna y fila) en la pila, `ret` sin limpiar la pila).
+// El EXE hace `movzx eax, al` y escribe primero la columna y despues la fila (con punteros iguales gana la fila). EntryEaxCpp (X87Math) devuelve el
+// EAX de entrada y tiene que ser lo primero que se ejecuta (sin comprobaciones de ejecucion ni cookie de /GS; lo vigila contrib/audit_register_residue.py,
+// objeto CustomCarPlateMgr). EAX, ECX y EDX de salida no los lee ningun llamador (el unico del EXE, 0x6FDDDE en 0x6FDD70, esta reemplazado).
+#pragma runtime_checks("", off)
+__declspec(safebuffers) void __cdecl GetCharacterPositionInCharSetExe(uint32* outCol, uint32* outRow) {
+    const uint8 letter = static_cast<uint8>(EntryEaxCpp());
+    const auto position = GetCharacterPositionInCharSet(static_cast<char>(letter));
+    *outCol = position.first;
+    *outRow = position.second;
+}
+#pragma runtime_checks("", restore)
 
 // 0x6FDD70
 // FIX ME
