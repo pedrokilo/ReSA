@@ -18808,6 +18808,8 @@ __declspec(noinline) float __cdecl PedSphereNearestCpp(const float* front, const
         }
     }
     return minimum;
+}
+#pragma float_control(pop)
 
 // Lote 137A (Fn137A).
 #pragma float_control(precise, on, push)

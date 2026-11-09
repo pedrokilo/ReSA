@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,400** funciones en 359 clases/módulos (rango 0x401000–0x74FFFF): 2,378 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,381** funciones en 353 clases/módulos (rango 0x401000–0x74FFFF): 2,359 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,12 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CdStream | 2 | 13 |
-| CEventInAir | 3 | 15 |
-| CEventPedCollisionWithPed | 3 | 15 |
-| CEventVehicleToSteal | 3 | 15 |
-| CEventAcquaintancePedHate | 4 | 18 |
-| CEventPotentialWalkIntoPed | 4 | 19 |
 | CEventPotentialWalkIntoVehicle | 4 | 20 |
 | CEventVehicleDied | 4 | 20 |
 | CPlayerInfo | 3 | 21 |
@@ -369,55 +363,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CdStream (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00406450 | 6 | A |  | 1 | 1 |  | alta |
-| 0x00406D10 | 7 | A |  | 5 | 5 |  | baja |
-
-## CEventInAir (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B0CE0 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004B0CD0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B0CF0 | 6 | B |  | 0 | 0 | sí | baja |
-
-## CEventPedCollisionWithPed (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004ACA50 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004ACA40 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004ACA60 | 6 | B |  | 0 | 0 | sí | alta |
-
-## CEventVehicleToSteal (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AF6E0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004AF6D0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004AF6F0 | 6 | B |  | 0 | 0 | sí | alta |
-
-## CEventAcquaintancePedHate (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00420E90 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x00420EA0 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x00420EC0 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x00420EB0 | 7 | B |  | 0 | 0 | sí | baja |
-
-## CEventPotentialWalkIntoPed (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AE770 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004AE780 | 4 | B |  | 0 | 0 | sí | alta |
-| 0x004AE760 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004AE790 | 6 | B |  | 0 | 0 | sí | alta |
 
 ## CEventPotentialWalkIntoVehicle (4)
 
