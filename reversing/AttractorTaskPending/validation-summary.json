@@ -20,7 +20,7 @@
   "log_sha256": "8d1d8310febb421737bfd1e9264017e2d48ae46a843c37c4751d031087dfa0c7",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-attractor-task-pending\\20261007-195707-708603",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-attractor-task-pending\\20261108-211433-746989",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexGoToAttractor::Clone": true,
@@ -29,31 +29,32 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "bad6c7d057f39854f3217691e31cfe1d5cdf91e913435e5a55605b8afd90a6ba",
-      "pdb": "6d3e29e6489f0be1233b33cbe3b7db5c0218da80944edc7980ef238086d08c8b"
+      "asi": "401d6ee553822860974ea56add2aea543ac19396b95cb84f43d60b03b9486696",
+      "pdb": "5246ad1ec51c164ba3264d2d82918c095d24d06e24f7866529db43a08b58cb35"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "b260fb049d8b16d4948deb709ad508b75062e29491794972af685667a8d1738c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "1db86084b39f230bf25b6bdde859a23d11b9fddd3cbc869d4f19a4faf8b44b70",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
-      "source/game_sa/Tasks/TaskComplexSequence.cpp": "3497ea85aebba258669ea20dbd06fd3628f1e443bca554bfbdd257f1984d5df5",
+      "source/game_sa/Tasks/TaskComplexSequence.cpp": "bf8a114775cf0d7b8f3c818b4e6f78b0e07e3550361b17cad0ebc1555e3f2f15",
       "source/game_sa/Tasks/TaskComplexSequence.h": "9d2404579563e19da54b6c829f3f98129484cc3d10c6c2732e5845d5660926aa",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.h": "70a6149b4fe79ca1505be3b8fa9cd90fee360a3f73d8d7b5f3417d09491163e9",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "788e7a8b3d40f382bbb1a9caad0be5a271aa78971d24e54a384a1d677e49c5bf",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "e45411b7ceff42cf89bb263f6000a57e31b2703c26d893e2be830537098a2f23",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp": "8575f31bad074baddab158103c05245072275f451b4421de73a49d7d08f2e660",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.h": "d192f48cb427c9a28ca961e7b423707a3b9c1c711897c44703dfb48da2bc43bb"
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp": "b379f9fd33fa6279e73afb1a8b346d5ddd9f2bfcee0c3a9d10080d5fe3aba6d9",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.h": "c9f3b62b2547a53e5b44af1dd0b24f3a8062a2341b4e2e3742b69fdc71fc46da"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "94e96f34e17ba2d1c654482899f9de327fc01da465906371bac632af8ac4892a",
-      "build_probe.py": "1b6e42cc567f829d9b498b4a4f430bd0d3ab88a902453a60aa3ef49cfc589112",
-      "run_local.py": "df5eb588aa861eda19d6200272d42ce5d9c798231c44028323f4b61311d69a0b"
+      "LiveComparison.hpp": "f2c256d476f31dd400ff9d8b0e1f210a9f7f01f6c33d48d418d3278ee8cfce4e",
+      "build_probe.py": "baae8b519d6c85aa66f29f5ee85427795f7441f766af735550a7ce84bbe1123e",
+      "run_local.py": "18b963a0d3f703190cc52d091674712d092a2429d90edd80be2f311425f83bff"
     }
   },
   "limitations": [
-    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

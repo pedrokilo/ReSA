@@ -2284,3 +2284,13 @@ double __cdecl ColLightingCurrentCpp(unsigned int day, unsigned int night, float
 // Lote 130A (Fn130A).
 // CompressVector (0x536E90): 32 bits bajos del _ftol2 de v * 128.0f (el EXE escribe el word bajo en el vector comprimido).
 int __cdecl CompressVectorWordCpp(float v);
+
+// Lote 133A (Fn133A).
+// CameraSize (0x72FC70): ventana de vista (x, y) en out[0..1]. Exclusivo: x = viewWindow (copia cruda), y = float(viewWindow / aspect). Si no: con ancho > alto, x = viewWindow (cruda) e
+// y = float((alto * viewWindow) / ancho); si no, x = float((ancho * viewWindow) / alto) e y = viewWindow (cruda). Enteros cargados con fild; cada operacion redondeada a 24 bits por la x87
+// (exponente ampliado) y un solo redondeo a float al guardar; la division por cero da infinito o NaN. viewWindowBits = los bits del float (la copia cruda no pasa por la x87).
+void __cdecl CameraSizeWindowCpp(bool exclusive, int width, int height, unsigned int viewWindowBits, float aspect, float* out);
+// CTheScripts::IsPointInAngledArea (0x477DA0, tras la llamada a CGeneral::GetRadianAngleBetweenPoints): rectangulo angulado con la esquina (x1, y1)-(x2, y2) y ancho `width` a lo largo de
+// (sin, -cos) del angulo + pi/2 normalizado a [0, 2pi]; devuelve si pt (dos floats) cae dentro y las cuatro coordenadas que usa el dibujo de depuracion:
+// corners = {x2 + s, y2 - c, x1 + s, y1 - c}. Cada operacion a 24 bits (x87, exponente ampliado); las variables que el EXE guarda como float se guardan como float.
+bool __cdecl AngledAreaCpp(const float* pt, float x1, float y1, float x2, float y2, float width, float angle, float* corners);

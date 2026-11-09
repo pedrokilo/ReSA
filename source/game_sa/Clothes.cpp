@@ -48,6 +48,7 @@ void CClothes::InjectHooks() {
     RH_ScopedInstall(GetDependentTexture, 0x5A7F30);
     RH_ScopedInstall(GetPlayerMotionGroupToLoad, 0x5A7FB0);
     RH_ScopedInstall(GetDefaultPlayerMotionGroup, 0x5A81B0);
+    RH_ScopedInstall(GetClothesModelFromName, 0x5A7A20); // (cdecl, `ret`; el listado decia CPedClothesDesc): solo toca EAX, ECX y EDX; los llamadores del EXE no leen ECX ni EDX
 }
 
 // 0x5A80D0
@@ -65,7 +66,7 @@ void CClothes::Init() {
 }
 
 // 0x5A7A20
-int32 GetClothesModelFromName(const char* name) {
+int32 CClothes::GetClothesModelFromName(const char* name) {
     if (!strcmp(name, "torso"))    return CLOTHES_MODEL_TORSO;
     if (!strcmp(name, "head"))     return CLOTHES_MODEL_HEAD;
     if (!strcmp(name, "hands"))    return CLOTHES_MODEL_HANDS;

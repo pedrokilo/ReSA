@@ -45,7 +45,7 @@ for(const auto& fn:fns){const auto full=std::string(fn.cls)+"::"+fn.name;if(!onl
 using ReversingProbe::EntryPatch;using std::bit_cast;
 EntryPatch pe(0x650A80,Position),pd(bit_cast<uintptr_t>(&CTaskUtilityLineUpPedWithCar::GetPositionToOpenCarDoor),Position);
 EntryPatch le(0x64FC10,Local),ld(bit_cast<uintptr_t>(&CTaskUtilityLineUpPedWithCar::GetLocalPositionToOpenCarDoor),Local);
-EntryPatch ze(0x616920,ZExe),zd(bit_cast<uintptr_t>(&CPedPlacement::FindZCoorForPed),ZDll);
+EntryPatch ze(0x616920,ZExe),zd(bit_cast<uintptr_t>(static_cast<std::pair<CVector,bool>(*)(CVector)>(&CPedPlacement::FindZCoorForPed)),ZDll);
 EntryPatch ue(0x6D1D90,Upside),ud(bit_cast<uintptr_t>(&CVehicle::IsUpsideDown),Upside);
 EntryPatch ge(0x6E3B00,Group),gd(bit_cast<uintptr_t>(&CVehicleAnimGroup::GetGroup),Group);
 EntryPatch te(0x6E3C80,Timing),td(bit_cast<uintptr_t>(&CVehicleAnimGroup::ComputeCriticalBlendTime),Timing);

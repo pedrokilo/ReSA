@@ -566,6 +566,8 @@ public:
     static void DrawDebugSquare(const CRect& area) { DrawDebugSquare(area.left, area.top, area.right, area.bottom); }
     // Como el original (0x486990): ocho floats por pila (infX, infY, supX, supY, rotSupX, rotSupY, rotInfX, rotInfY).
     static void DrawDebugAngledSquare(float infX, float infY, float supX, float supY, float rotSupX, float rotSupY, float rotInfX, float rotInfY);
+    // Como el original (0x477DA0, cdecl, `ret`, AL; el catalogo decia CTaskSimpleSetCharIgnoreWeaponRangeFlag): rectangulo angulado (x1, y1)-(x2, y2) de ancho `width`; dibuja sus esquinas si DbgFlag.
+    static bool IsPointInAngledArea(const CVector2D* pt, float x1, float y1, float x2, float y2, float width);
     static void DrawDebugCube(const CVector& inf, const CVector& sup);
     static void DrawDebugAngledCube(const CVector& inf, const CVector& sup, const CVector2D& rotSup, const CVector2D& rotInf);
     static void DrawScriptSpritesAndRectangles(bool drawBeforeFade);

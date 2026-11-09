@@ -9477,3 +9477,9 @@ CAEPedAudioEntity,Destructor,0x005DE920,1,0,1,S
 CSector,Destructor,0x00563130,1,0,1,S
 CPtrNodeSingleLinkPool,Flush,0x00552400,1,0,1,S
 CPtrNodeDoubleLinkPool,Flush,0x00552470,1,0,1,S
+CClothes,GetClothesModelFromName,0x005A7A20,1,0,1,S
+App,CameraSize,0x0072FC70,1,0,1,S
+CTaskComplexFollowLeaderInFormation,Offsets::Constructor,0x00694850,1,0,1,S
+CPedPlacement,FindZCoorForPed-Ptr,0x00616920,1,0,1,S
+CTaskComplexSmartFleeEntity,CreateSubTask,0x0065C530,1,0,1,S
+CTheScripts,IsPointInAngledArea,0x00477DA0,1,0,1,S

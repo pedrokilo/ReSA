@@ -34,6 +34,7 @@ public:
     static eClothesTexturePart GetDependentTexture(eClothesModelPart eClothesModelPart);
     static AssocGroupId GetPlayerMotionGroupToLoad();
     static AssocGroupId GetDefaultPlayerMotionGroup();
+    static int32 GetClothesModelFromName(const char* name);
 
     // NOTSA
     static void AddRule(uint32 rule) {

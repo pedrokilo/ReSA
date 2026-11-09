@@ -18,7 +18,7 @@
   "log_sha256": "6c3abfb0c5c092da02191723cf6a5e45150abff2e4515f1e6e202ce01c877bfe",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gameidle\\20261004-121818-892636",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gameidle\\20261108-211029-918135",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "Game::Idle": true,
@@ -26,21 +26,22 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "b3f3404a9e621e70e09f4e93c5eb35c63fa2d9fc9c2c1f487bed36858de8ab78",
-      "pdb": "b3b3bd70c34f4e204d7fc818840d1dfa02e17bbc2a5f3e6f980c32b63d23409d"
+      "asi": "c2cec134b9363445661bb964d52438c40ff87bf780fc9cc621ffc7fb260146a7",
+      "pdb": "c14b81bbf989417d854e6561ab2f1ff65ab0d88dead150adef60320cd0c46bdb"
     },
     "sources": {
-      "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "585877dcf161a7d2ddc9ab2b6293750f5a5c48a579b52ab97b777f09e98f672b",
+      "LiveComparison.hpp": "9dd7b486682b7e355d0290e9aaac6cda325986e81c41ebb847a8d67e2b11f361",
       "build_probe.py": "f130187fc5add6c181a8c1b048b024b1e4757802da0e33809ef18a1fe98f2d46",
       "run_local.py": "6630790b29cad86e87ca79601c815c6ecc562861acaddaacbcdcf9827789c7eb"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

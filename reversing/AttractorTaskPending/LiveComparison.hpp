@@ -50,7 +50,7 @@ inline void Update(){
    EntryPatch me(0x5EE190,Manager),md(bit_cast<uintptr_t>(&GetPedAttractorManager),Manager);
    EntryPatch ae(0x5EFE20,Arrival),ad(bit_cast<uintptr_t>(static_cast<bool(CPedAttractorManager::*)(CPed*,CPedAttractor*)>(&CPedAttractorManager::BroadcastArrival)),Arrival);
    EntryPatch he(0x5EB590,Head),hd(bit_cast<uintptr_t>(&CPedAttractor::GetHeadOfQueue),Head);
-   EntryPatch ze(0x616920,ZExe),zd(bit_cast<uintptr_t>(&CPedPlacement::FindZCoorForPed),ZDll);
+   EntryPatch ze(0x616920,ZExe),zd(bit_cast<uintptr_t>(static_cast<std::pair<CVector,bool>(*)(CVector)>(&CPedPlacement::FindZCoorForPed)),ZDll);
    for(int i=0;i<fn.cases;++i){caseId=i;json result[2];
     for(int candidate=0;candidate<2;++candidate){h->State(candidate!=0);const auto address=*reinterpret_cast<uintptr_t*>(fn.vt+fn.slot*4);const bool switches=(address<0x400000||address>=0x1000000)==(candidate!=0);if(!switches)pass=false;
      ped.fill(0);matrix.fill(0);task.fill(0xCD);attractor.fill(0);for(auto& a:arena)a.fill(0xCD);sizes.fill(0);allocCount=0;trace=json::array();

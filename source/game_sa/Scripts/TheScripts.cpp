@@ -118,6 +118,7 @@ void CTheScripts::InjectHooks() {
     RH_ScopedInstall(PrintListSizes, 0x4646D0);
     RH_ScopedOverloadedInstall(DrawDebugSquare, "", 0x486840, void(*)(float,float,float,float));
     RH_ScopedInstall(DrawDebugAngledSquare, 0x486990);
+    RH_ScopedInstall(IsPointInAngledArea, 0x477DA0);
     // RH_ScopedInstall(DrawDebugCube, 0x0);
     // RH_ScopedInstall(DrawDebugAngledCube, 0x0)
     RH_ScopedInstall(DrawScriptSpritesAndRectangles, 0x464980);
@@ -1944,6 +1945,19 @@ void CTheScripts::DrawDebugAngledSquare(float infX, float infY, float supX, floa
     DebugProbeVerticalLine(supX, supY);
     DebugProbeVerticalLine(rotSupX, rotSupY);
     DebugProbeVerticalLine(rotInfX, rotInfY);
+}
+
+// 0x477DA0
+// Como el original: angulo = CGeneral::GetRadianAngleBetweenPoints(x1, y1, x2, y2) (0x53CBE0, con hook); toda la aritmetica x87 (normalizacion del angulo + pi/2, esquinas, proyecciones y el
+// CVector2D::Normalise en linea) esta en X87Math.cpp (AngledAreaCpp). Con DbgFlag se dibujan las cuatro esquinas (0x486990), se de o no el punto por dentro.
+bool CTheScripts::IsPointInAngledArea(const CVector2D* pt, float x1, float y1, float x2, float y2, float width) {
+    const float angle = CGeneral::GetRadianAngleBetweenPoints(x1, y1, x2, y2);
+    float corners[4];
+    const bool inside = AngledAreaCpp(&pt->x, x1, y1, x2, y2, width, angle, corners);
+    if (DbgFlag) {
+        DrawDebugAngledSquare(x1, y1, x2, y2, corners[0], corners[1], corners[2], corners[3]);
+    }
+    return inside;
 }
 
 // (float infX, float infY, float infZ, float supX, float supY, float supZ)

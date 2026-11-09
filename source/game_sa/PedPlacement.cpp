@@ -30,30 +30,48 @@ void CPedPlacement::InjectHooks() {
     RH_ScopedClass(CPedPlacement);
     RH_ScopedCategoryGlobal();
 
-    //RH_ScopedInstall(FindZCoorForPed, 0x616920);
+    RH_ScopedOverloadedInstall(FindZCoorForPed, "Ptr", 0x616920, bool(*)(CVector*));
     RH_ScopedOverloadedInstall(IsPositionClearForPed, "OG",  0x616860, bool(*)(const CVector&, float, int32, CEntity**, bool, bool, bool));
     RH_ScopedOverloadedInstall(IsPositionClearOfCars, "Pos", 0x6168E0, CVehicle*(*)(const CVector*));
     RH_ScopedOverloadedInstall(IsPositionClearOfCars, "Ped", 0x616A40, CVehicle*(*)(const CPed*));
 }
 
-// 0x616920 - Refactored
-std::pair<CVector, bool> CPedPlacement::FindZCoorForPed(CVector pos) {
-    const auto FindZ = [&](const CVector& origin) {
-        CEntity*  hit{};
-        CColPoint cp{};
-        return CWorld::ProcessVerticalLine(origin, pos.z - 100.0f, cp, hit, true, true, false, false, true, false, nullptr)
+// Como el original (0x616920, cdecl, `ret`, un puntero; AL): corrige la z del punto EN EL SITIO. Solo se escribe pos->z (y solo si hay suelo).
+// Las dos sondas verticales parten de (x, y, z + 0.5) y de (x + 0.1, y + 0.1, z + 0.5), con distancia z - 100; la x de la primera se copia cruda (mov) y la y pasa por la x87
+// (fld/fstp: un NaN senalizante sale silencioso). Sin colision la z vale -100; gana la segunda salvo que la primera sea estrictamente mayor, y solo vale si supera -99.
+bool CPedPlacement::FindZCoorForPed(CVector* pos) {
+    const auto FloatBits = [](float f) { return std::bit_cast<uint32>(f); };
+    const auto QuietBits = [](uint32 b) { return ((b & 0x7F800000u) == 0x7F800000u && (b & 0x007FFFFFu)) ? (b | 0x00400000u) : b; }; // fld + fstp
+    const uint32* const raw = reinterpret_cast<const uint32*>(pos); // lectura cruda
+    const uint32 xBits = raw[0], yBits = raw[1];
+    const float  x = std::bit_cast<float>(xBits), y = std::bit_cast<float>(yBits), z = pos->z;
+    const float distance = z - 100.0f;
+    const float zProbe   = z + 0.5f;
+
+    const auto FindZ = [&](uint32 ox, uint32 oy) {
+        // El origen se arma con dwords (sin pasar por la x87: la x cruda del EXE conserva un NaN senalizante)
+        const uint32 originBits[3] = { ox, oy, FloatBits(zProbe) };
+        const auto&  origin        = *reinterpret_cast<const CVector*>(originBits);
+        CEntity*     hit{};
+        CColPoint    cp{};
+        return CWorld::ProcessVerticalLine(origin, distance, cp, hit, true, true, false, false, true, false, nullptr)
             ? cp.m_vecPoint.z
             : MAP_Z_LOW_LIMIT;
     };
-    // Como el original: primero el punto exacto y despues el desplazado 0.1; gana el segundo salvo que el primero sea mayor,
-    // y solo vale si supera -99 estrictamente (0x616A15)
-    const float z1 = FindZ(CVector{ pos.x, pos.y, pos.z + 0.5f });
-    const float z2 = FindZ(CVector{ pos.x + 0.1f, pos.y + 0.1f, pos.z + 0.5f });
+    const float z1 = FindZ(xBits, QuietBits(yBits));
+    const float z2 = FindZ(FloatBits(x + 0.1f), FloatBits(y + 0.1f));
     const float highestZ = z1 > z2 ? z1 : z2;
     if (highestZ > MAP_Z_LOW_LIMIT + 1.0f) {
-        return {CVector{pos, highestZ + 1.f}, true};
+        pos->z = highestZ + 1.0f;
+        return true;
     }
-    return {pos, false};
+    return false;
+}
+
+// Envoltura NOTSA: la version del EXE trabaja en el sitio sobre un puntero; devuelve el punto corregido y si hubo suelo.
+std::pair<CVector, bool> CPedPlacement::FindZCoorForPed(CVector pos) {
+    const bool found = FindZCoorForPed(&pos);
+    return {pos, found};
 }
 
 // 0x616860

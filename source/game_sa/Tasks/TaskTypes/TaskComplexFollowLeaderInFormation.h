@@ -20,6 +20,8 @@ public:
         std::array<CVector2D, TOTAL_PED_GROUP_MEMBERS> Offsets;
         std::array<CVector2D, TOTAL_PED_GROUP_MEMBERS> MovingOffsets;
         float                                          Scale;
+
+        struct Offsets* Constructor(); // 0x694850 (el EXE lo llama una sola vez, desde el inicializador estatico 0x852F10; el catalogo decia CEntitySeekPosCalculatorFixedPos)
     };
     static inline auto& ms_offsets = StaticRef<Offsets>(0xC196E8);
 

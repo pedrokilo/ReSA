@@ -46,6 +46,7 @@ void AppInjectHooks() {
 
     RH_ScopedGlobalInstall(PluginAttach, 0x53D870);
     RH_ScopedGlobalInstall(AppEventHandler, 0x53EC10);
+    RH_ScopedGlobalInstall(CameraSize, 0x72FC70);
 
     RH_ScopedGlobalInstall(DefinedState, 0x734650);
     RH_ScopedGlobalInstall(DefinedState2d, 0x734750);

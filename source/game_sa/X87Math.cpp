@@ -18675,3 +18675,89 @@ __declspec(noinline) int __cdecl CompressVectorWordCpp(float v) {
     return static_cast<int>(static_cast<long long>(v * 128.0f));
 }
 #pragma float_control(pop)
+
+// Lote 133A (Fn133A).
+#pragma float_control(precise, on, push)
+// CameraSize (0x72FC70, 0x72FD00..0x72FD5A): ver X87Math.h. `fild` + `fmul` + `fidiv` / `fld` + `fdiv`; la copia cruda de viewWindow es la del `mov` del EXE.
+__declspec(noinline) void __cdecl CameraSizeWindowCpp(bool exclusive, int width, int height, unsigned int viewWindowBits, float aspect, float* out) {
+    const uint32_t raw        = viewWindowBits;
+    const float    viewWindow = std::bit_cast<float>(viewWindowBits);
+    uint32_t* const outBits = reinterpret_cast<uint32_t*>(out);
+    if (exclusive) {
+        outBits[0] = raw;
+        out[1]     = float(double(viewWindow) / double(aspect));
+    } else if (width > height) {
+        outBits[0] = raw;
+        const double product = double(height) * double(viewWindow);
+        out[1]               = float(product / double(width));
+    } else {
+        outBits[1] = raw;
+        const double product = double(width) * double(viewWindow);
+        out[0]               = float(product / double(height));
+    }
+}
+#pragma float_control(pop)
+
+// CTheScripts::IsPointInAngledArea (0x477DA0, desde 0x477E13): ver X87Math.h. Va en modo /fp:fast para que fsin, fcos y fsqrt salgan en linea: solo hay sumas de dos terminos (conmutativas) y las
+// variables que el EXE guarda como float son volatile (sin ellas /fp:fast simplificaria (x1 + s) - x1). `d` = y2 - y1 queda en un registro (24 bits, sin pasar por float).
+__declspec(noinline) bool __cdecl AngledAreaCpp(const float* pt, float x1, float y1, float x2, float y2, float width, float angle, float* corners) {
+    const double halfPi = double(std::bit_cast<float>(0x3FC90FDBu)); // 0x858FE4
+    const double twoPi  = double(std::bit_cast<float>(0x40C90FDBu)); // 0x858CBC
+    double t = double(angle) + halfPi;
+    while (t < 0.0) {
+        t += twoPi;
+    }
+    while (t > twoPi) {
+        t -= twoPi;
+    }
+    const double s = std::sin(t) * double(width);
+    volatile float cornerX2 = float(double(x2) + s);
+    const double cw = -(std::cos(t) * double(width));
+    volatile float negC     = float(cw);
+    volatile float cornerY2 = float(cw + double(y2));
+    volatile float cornerX1 = float(s + double(x1));
+    volatile float cornerY1 = float(double(negC) + double(y1));
+    volatile float dx       = float(double(x2) - double(x1));
+    const double   d        = double(y2) - double(y1);
+    volatile float sx       = float(double(cornerX1) - double(x1));
+    volatile float sy       = float(double(cornerY1) - double(y1));
+    const double   len2     = d * d + double(dx) * double(dx);
+    volatile float lenAB    = float(std::sqrt(len2));
+    const double   side2    = double(sy) * double(sy) + double(sx) * double(sx);
+    volatile float lenSide  = float(std::sqrt(side2));
+    volatile float qx       = float(double(pt[0]) - double(x1));
+    volatile float qy       = float(double(pt[1]) - double(y1));
+    uint32_t* const bits = reinterpret_cast<uint32_t*>(corners);
+    bits[0] = std::bit_cast<uint32_t>(float(cornerX2));
+    bits[1] = std::bit_cast<uint32_t>(float(cornerY2));
+    bits[2] = std::bit_cast<uint32_t>(float(cornerX1));
+    bits[3] = std::bit_cast<uint32_t>(float(cornerY1));
+
+    double nx, ny;
+    if (!(len2 <= 0.0)) {
+        const double inv = 1.0 / std::sqrt(len2);
+        volatile float invStored = float(inv);
+        nx = inv * double(dx);
+        ny = d * double(invStored);
+    } else {
+        nx = 1.0;
+        ny = d;
+    }
+    const double proj = ny * double(qy) + double(qx) * nx;
+    if (!(proj >= 0.0) || !(proj <= double(lenAB))) {
+        return false;
+    }
+    // CVector2D::Normalise (0x44E480) en el sitio sobre (sx, sy): x = 1 si |v|^2 <= 0; si no, cada componente por 1 / sqrt(|v|^2) sin redondear el factor.
+    const double norm2 = double(sx) * double(sx) + double(sy) * double(sy);
+    volatile float ux = sx;
+    volatile float uy = sy;
+    if (norm2 <= 0.0) {
+        ux = 1.0f;
+    } else {
+        const double inv2 = 1.0 / std::sqrt(norm2);
+        ux = float(inv2 * double(ux));
+        uy = float(inv2 * double(uy));
+    }
+    const double proj2 = double(qy) * double(uy) + double(qx) * double(ux);
+    return proj2 >= 0.0 && proj2 <= double(lenSide);
+}

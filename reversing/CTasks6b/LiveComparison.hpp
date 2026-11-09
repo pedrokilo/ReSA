@@ -356,7 +356,7 @@ inline void Update() {
         EntryPatch p5(bit_cast<uintptr_t>(&CPed::PositionPedOutOfCollision),FakeOutOfCollision), p5e(0x5E0820,FakeOutOfCollision);
         EntryPatch t1(TaskManagerAccess::ChangeSlotAddress(),FakeChangeSlot), t1e(0x681AF0,FakeSetTask);
         EntryPatch g1(bit_cast<uintptr_t>(&CVehicleAnimGroup::ComputeAnimDoorOffsets),FakeDoorOffsets), g1e(0x6E3D10,FakeDoorOffsets);
-        EntryPatch g2(bit_cast<uintptr_t>(&CPedPlacement::FindZCoorForPed),FakeFindZDll), g2e(0x616920,FakeFindZExe);
+        EntryPatch g2(bit_cast<uintptr_t>(static_cast<std::pair<CVector,bool>(*)(CVector)>(&CPedPlacement::FindZCoorForPed)),FakeFindZDll), g2e(0x616920,FakeFindZExe);
         EntryPatch g3(bit_cast<uintptr_t>(&CCarEnterExit::IsRoomForPedToLeaveCar),FakeIsRoom), g3e(0x6504C0,FakeIsRoom);
         EntryPatch g4e(0x64E550,FakeDoorFlag);
         EntryPatch g5(bit_cast<uintptr_t>(&CCarEnterExit::GetPositionToOpenCarDoor),FakeOpenDoorPos), g5e(0x64E740,FakeOpenDoorPos);

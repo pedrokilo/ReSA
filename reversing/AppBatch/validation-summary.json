@@ -25,7 +25,7 @@
   "log_sha256": "b8c5d58700dedb293e31b3a7f2a3b9619df5c4e3d6fb50c11c27a072c17135d1",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-app\\20261002-022239-896213",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-app\\20261108-210744-695971",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "App::AppEventHandler": true,
@@ -40,25 +40,26 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "7f021866732d3ea6f51d951a423cd17c4e40762284c8932958c097b39b354c1c",
-      "pdb": "2b66aae9a48bf71e4595872d1875c44474ba42a073d4572ad00c1edf2403a273"
+      "asi": "9fdd8963338555d86a0fbf67cc9290070e18e4a2731b59bb4a43a3b6359d6084",
+      "pdb": "6553186ab57f0bf2cf935b1c00d34f10f5d5d83ec89968387fb12f99265218f5"
     },
     "sources": {
-      "source/app/app.cpp": "ef27bf46086d7f5d9262b317e8701d8ff1174a888cda143d298fd7ae36a593d8",
-      "source/app/app.h": "f996c14003fe805d6e9a0a5c8083bbe538d9a41dddd59ff27905fa1430a5d1c1",
+      "source/app/app.cpp": "36b61f9b8a926e4820f2757d7540db27a7536dd097569b9fd82bfe15094290d6",
+      "source/app/app.h": "02da602abf1b7f1ad83f204415f15b08fd174246bbd5efbc76a0427f52dffafd",
       "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
       "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
-      "source/game_sa/Pools/IplDefPool.h": "b60bc9c8f8e7cd90fec4d0cda912966d3ef9481b597dfb52f14c1afad2ce0f44"
+      "source/game_sa/Pools/IplDefPool.h": "00f0d98d50a21cde4fdba31dcbd044de0da8769336f91233898b4f0b7e79c599"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "5f2a4cb0c1e78cf16b63525bb328334ae852f67b0c1a228ee848a433cbf81af2",
+      "LiveComparison.hpp": "bd9cb4c03f15a2595a9e6bcf0786146a772d6e01e4fed825e045ff9557023162",
       "build_probe.py": "f95aece237a2b6c38b36a4a020bc57044efe0d9df355dadb98daa7bc509c095a",
-      "run_local.py": "00efd81ee794325ecd10f3fb40788eb328ce37392dd58f5d45599af3570147bf"
+      "run_local.py": "e44705ff076ef89dcffa47ca900266191b449682947b72615d50cd8352a667de"
     }
   },
   "limitations": [
     "Funciones de orquestacion: dependencias interceptadas (camara, sprites, nubes, depuracion, eventos, registro de plugins, estado de render, CFileMgr); se compara la secuencia exacta de llamadas y argumentos.",
-    "No se ejecutan render ni registro reales; CIplDefPool sobre un pool propio."
+    "No se ejecutan render ni registro reales; CIplDefPool sobre un pool propio.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

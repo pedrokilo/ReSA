@@ -1,0 +1,3 @@
+APROBADO: Game::Idle y FrontendIdle como el EXE
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-gameidle\20261108-211029-918135

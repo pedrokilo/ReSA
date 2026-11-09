@@ -20600,6 +20600,288 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main f5051e64fb con los cambios del lote (ver artifacts/build-manifest.json). Cuatro funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CAEPedAudioEntity::Destructor 0x5DE920 (decia CGangs; cuerpo con marco SEH que la DLL no replica: solo desenrolla; el destructor de la entidad gemela 0x4F2B80 y el destructor base van expandidos en linea), CSector::Destructor 0x563130 (decia CWanted; destructor de los 14400 sectores de ms_aSectors, marco SEH omitido) y los dos Flush de listas de punteros que este llama, codigo de plantilla del EXE compartido por todas las listas: Flush de lista simple 0x552400 (CPtrNodeSingleLinkPool) y de lista doble 0x552470 (CPtrNodeDoubleLinkPool), ambos con el borrado de nodos del pool en linea. Todos hook S (RH_ScopedInstall / RH_ScopedNamedGlobalInstall). Colaboradores de CAEPedAudioEntity::Destructor sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CAESound::StopSoundAndForget 0x4EF850 y CAESound::Destructor 0x4EF660 (ambos con hook, apagados durante el banco). CSector::Destructor ejecuta REALES los dos Flush (el EXE los suyos y la DLL sus funciones propias, con hook apagado). Los dos punteros de pool del juego (0xB74484 y 0xB74488) apuntan durante cada lado a pools falsos de la arena C (se guardan y se restauran). Se observan bytes cambiados de las arenas, eventos de los falsos (con el estado del objeto en cada llamada), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos: ningun llamador del EXE los lee). Fuera de los fixtures: listas con ciclos, nodos solapados entre si o con la cabeza, el aliasing de la cabeza con los estados del pool (alcanzaria las ramas de busqueda del Flush simple), punteros \"anterior\" fuera de las arenas, la exactitud de CAESound::Destructor / StopSoundAndForget (se heredan de sus bancos), pools reales y objetos reales construidos por el EXE.",
       "review_reference": "reversing/Fn131A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClothes",
+        "fn_name": "GetClothesModelFromName",
+        "address": "0x005A7A20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn133A/validation-summary.json",
+        "sha256": "7cf5752669a143daf63e5110ba269fbf87e02927d9d39cfe8114774d7f8925f3",
+        "passed_path": [
+          "covered_functions",
+          "CClothes::GetClothesModelFromName"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "b6f90ee0812d169347b1406f114ed2b3f27e9acbed84c09c222a4b599f14f71d",
+        "source/app/app.cpp": "36b61f9b8a926e4820f2757d7540db27a7536dd097569b9fd82bfe15094290d6",
+        "source/app/app_camera.cpp": "610bcbbff8ebd74e9fd04f4fcc5e2b7d7c82c18c60205e872c1ac17cd75aad99",
+        "source/game_sa/Clothes.cpp": "404463b7c8277c8185445c8378c6d0cf1892e020560112dba4edcc343a481866",
+        "source/game_sa/Clothes.h": "e1bb80f1768da645d82523c4a983dcf00b5a5085b1e69b53aedb20c6164322ac",
+        "source/game_sa/PedPlacement.cpp": "5c02d99a071a4157ab87757f318a96d6160be55be889340dd47fe44c9d8de9d7",
+        "source/game_sa/PedPlacement.h": "f71abffb106464e5af02419ff1b9df5a44835406c83eb18f766619c4722575ba",
+        "source/game_sa/Scripts/TheScripts.cpp": "195a37f54c12b72bd40afbbcd920c15f596df18ae595016f2bd4d947f79ab223",
+        "source/game_sa/Scripts/TheScripts.h": "0f4da4f75508790d5639ffc2fb5dcc8b4819d557bdb6b4ec7e3ef3de7eb4a4e9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "e7556184c548b231876fab15c70d8d718c99c4ae73e357a327868e82a48fb8ea",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "45b41073952cd322744d1df1d30c696414c6ce3164c11cb4e51d80e8017a5739",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "cfda26db68b7d24143e1bcd735e8b5583c32b72967e1b166b68169ef3a83b96a",
+        "source/game_sa/X87Math.cpp": "ebd0cf446e78d2997c96ed3a3fca3f064485e6d4a4fb0d97a26014485e31d4ae",
+        "source/game_sa/X87Math.h": "f517c545d83e15bde002deb135844365defd586cc237d9766cbb8cf05dcb8e21",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn133A/LiveComparison.hpp": "fc2cfc186fe526e498e39a773d0b1ad445c80f9b77ed2b51e56c531df87ba47b",
+        "reversing/Fn133A/Core.hpp": "5a1b2ec138e34ecb47ed3c6627ef88e31d667455b2e714a11fe23793bdc40812",
+        "reversing/Fn133A/Fixtures.hpp": "368f3d656451157ba8a128b5d98db56243646b171ee2041a842b3f43a67a0510",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Seis funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CClothes::GetClothesModelFromName 0x5A7A20 (decia CPedClothesDesc), CameraSize 0x72FC70 (decia PipelinePlugin), CTaskComplexFollowLeaderInFormation::Offsets::Constructor 0x694850 (decia CEntitySeekPosCalculatorFixedPos; inicializador estatico de ms_offsets), CPedPlacement::FindZCoorForPed 0x616920 (hook sobre la version en el sitio con puntero; la version con par queda como envoltura NOTSA), CTaskComplexSmartFleeEntity::CreateSubTask 0x65C530 y CTheScripts::IsPointInAngledArea 0x477DA0 (decia CTaskSimpleSetCharIgnoreWeaponRangeFlag). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CWorld::ProcessVerticalLine 0x5674E0, CTask::operator new 0x61A5A0, CGeneral::GetRadianAngleBetweenPoints 0x53CBE0 y CTheScripts::DrawDebugAngledSquare 0x486990 (con hook, apagados durante el banco), CGeneral::GetRandomNumber / rand() 0x821B1E (funcion propia de la DLL sin hook); RwEngineGetCurrentVideoMode 0x7F2D20, RwEngineGetVideoModeInfo 0x7F2CF0 y RwCameraSetViewWindow 0x7EE410 (falsos solo en la direccion del EXE: la DLL las llama por esa direccion). Los constructores de CTaskSimpleStandStill (0x62F310) y CTaskComplexSmartFleePoint (0x65BD20) corren reales en ambos lados con su hook del ASI (se observan los bytes del objeto creado, salvo la vtable que solo se anota como escrita) y CVector2D::Normalise 0x44E480 corre real en el EXE frente al codigo en linea de la DLL. Fuera de los fixtures: la rama NOTSA de CameraSize con la camara de la escena (limpia la camara y descarta rectangulos vacios; el banco usa una camara sintetica distinta de Scene.m_pRwCamera), rectangulos que solapan los rasters, camara o raster z nulos, operator new nulo en la tarea de huida con vtables no registradas, angulos con miles de vueltas, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn133A/README.md"
+    },
+    {
+      "hook": {
+        "class": "App",
+        "fn_name": "CameraSize",
+        "address": "0x0072FC70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn133A/validation-summary.json",
+        "sha256": "7cf5752669a143daf63e5110ba269fbf87e02927d9d39cfe8114774d7f8925f3",
+        "passed_path": [
+          "covered_functions",
+          "CameraSize"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "b6f90ee0812d169347b1406f114ed2b3f27e9acbed84c09c222a4b599f14f71d",
+        "source/app/app.cpp": "36b61f9b8a926e4820f2757d7540db27a7536dd097569b9fd82bfe15094290d6",
+        "source/app/app_camera.cpp": "610bcbbff8ebd74e9fd04f4fcc5e2b7d7c82c18c60205e872c1ac17cd75aad99",
+        "source/game_sa/Clothes.cpp": "404463b7c8277c8185445c8378c6d0cf1892e020560112dba4edcc343a481866",
+        "source/game_sa/Clothes.h": "e1bb80f1768da645d82523c4a983dcf00b5a5085b1e69b53aedb20c6164322ac",
+        "source/game_sa/PedPlacement.cpp": "5c02d99a071a4157ab87757f318a96d6160be55be889340dd47fe44c9d8de9d7",
+        "source/game_sa/PedPlacement.h": "f71abffb106464e5af02419ff1b9df5a44835406c83eb18f766619c4722575ba",
+        "source/game_sa/Scripts/TheScripts.cpp": "195a37f54c12b72bd40afbbcd920c15f596df18ae595016f2bd4d947f79ab223",
+        "source/game_sa/Scripts/TheScripts.h": "0f4da4f75508790d5639ffc2fb5dcc8b4819d557bdb6b4ec7e3ef3de7eb4a4e9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "e7556184c548b231876fab15c70d8d718c99c4ae73e357a327868e82a48fb8ea",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "45b41073952cd322744d1df1d30c696414c6ce3164c11cb4e51d80e8017a5739",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "cfda26db68b7d24143e1bcd735e8b5583c32b72967e1b166b68169ef3a83b96a",
+        "source/game_sa/X87Math.cpp": "ebd0cf446e78d2997c96ed3a3fca3f064485e6d4a4fb0d97a26014485e31d4ae",
+        "source/game_sa/X87Math.h": "f517c545d83e15bde002deb135844365defd586cc237d9766cbb8cf05dcb8e21",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn133A/LiveComparison.hpp": "fc2cfc186fe526e498e39a773d0b1ad445c80f9b77ed2b51e56c531df87ba47b",
+        "reversing/Fn133A/Core.hpp": "5a1b2ec138e34ecb47ed3c6627ef88e31d667455b2e714a11fe23793bdc40812",
+        "reversing/Fn133A/Fixtures.hpp": "368f3d656451157ba8a128b5d98db56243646b171ee2041a842b3f43a67a0510",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Seis funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CClothes::GetClothesModelFromName 0x5A7A20 (decia CPedClothesDesc), CameraSize 0x72FC70 (decia PipelinePlugin), CTaskComplexFollowLeaderInFormation::Offsets::Constructor 0x694850 (decia CEntitySeekPosCalculatorFixedPos; inicializador estatico de ms_offsets), CPedPlacement::FindZCoorForPed 0x616920 (hook sobre la version en el sitio con puntero; la version con par queda como envoltura NOTSA), CTaskComplexSmartFleeEntity::CreateSubTask 0x65C530 y CTheScripts::IsPointInAngledArea 0x477DA0 (decia CTaskSimpleSetCharIgnoreWeaponRangeFlag). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CWorld::ProcessVerticalLine 0x5674E0, CTask::operator new 0x61A5A0, CGeneral::GetRadianAngleBetweenPoints 0x53CBE0 y CTheScripts::DrawDebugAngledSquare 0x486990 (con hook, apagados durante el banco), CGeneral::GetRandomNumber / rand() 0x821B1E (funcion propia de la DLL sin hook); RwEngineGetCurrentVideoMode 0x7F2D20, RwEngineGetVideoModeInfo 0x7F2CF0 y RwCameraSetViewWindow 0x7EE410 (falsos solo en la direccion del EXE: la DLL las llama por esa direccion). Los constructores de CTaskSimpleStandStill (0x62F310) y CTaskComplexSmartFleePoint (0x65BD20) corren reales en ambos lados con su hook del ASI (se observan los bytes del objeto creado, salvo la vtable que solo se anota como escrita) y CVector2D::Normalise 0x44E480 corre real en el EXE frente al codigo en linea de la DLL. Fuera de los fixtures: la rama NOTSA de CameraSize con la camara de la escena (limpia la camara y descarta rectangulos vacios; el banco usa una camara sintetica distinta de Scene.m_pRwCamera), rectangulos que solapan los rasters, camara o raster z nulos, operator new nulo en la tarea de huida con vtables no registradas, angulos con miles de vueltas, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn133A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexFollowLeaderInFormation",
+        "fn_name": "Offsets::Constructor",
+        "address": "0x00694850",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn133A/validation-summary.json",
+        "sha256": "7cf5752669a143daf63e5110ba269fbf87e02927d9d39cfe8114774d7f8925f3",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexFollowLeaderInFormation::Offsets::Constructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "b6f90ee0812d169347b1406f114ed2b3f27e9acbed84c09c222a4b599f14f71d",
+        "source/app/app.cpp": "36b61f9b8a926e4820f2757d7540db27a7536dd097569b9fd82bfe15094290d6",
+        "source/app/app_camera.cpp": "610bcbbff8ebd74e9fd04f4fcc5e2b7d7c82c18c60205e872c1ac17cd75aad99",
+        "source/game_sa/Clothes.cpp": "404463b7c8277c8185445c8378c6d0cf1892e020560112dba4edcc343a481866",
+        "source/game_sa/Clothes.h": "e1bb80f1768da645d82523c4a983dcf00b5a5085b1e69b53aedb20c6164322ac",
+        "source/game_sa/PedPlacement.cpp": "5c02d99a071a4157ab87757f318a96d6160be55be889340dd47fe44c9d8de9d7",
+        "source/game_sa/PedPlacement.h": "f71abffb106464e5af02419ff1b9df5a44835406c83eb18f766619c4722575ba",
+        "source/game_sa/Scripts/TheScripts.cpp": "195a37f54c12b72bd40afbbcd920c15f596df18ae595016f2bd4d947f79ab223",
+        "source/game_sa/Scripts/TheScripts.h": "0f4da4f75508790d5639ffc2fb5dcc8b4819d557bdb6b4ec7e3ef3de7eb4a4e9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "e7556184c548b231876fab15c70d8d718c99c4ae73e357a327868e82a48fb8ea",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "45b41073952cd322744d1df1d30c696414c6ce3164c11cb4e51d80e8017a5739",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "cfda26db68b7d24143e1bcd735e8b5583c32b72967e1b166b68169ef3a83b96a",
+        "source/game_sa/X87Math.cpp": "ebd0cf446e78d2997c96ed3a3fca3f064485e6d4a4fb0d97a26014485e31d4ae",
+        "source/game_sa/X87Math.h": "f517c545d83e15bde002deb135844365defd586cc237d9766cbb8cf05dcb8e21",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn133A/LiveComparison.hpp": "fc2cfc186fe526e498e39a773d0b1ad445c80f9b77ed2b51e56c531df87ba47b",
+        "reversing/Fn133A/Core.hpp": "5a1b2ec138e34ecb47ed3c6627ef88e31d667455b2e714a11fe23793bdc40812",
+        "reversing/Fn133A/Fixtures.hpp": "368f3d656451157ba8a128b5d98db56243646b171ee2041a842b3f43a67a0510",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Seis funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CClothes::GetClothesModelFromName 0x5A7A20 (decia CPedClothesDesc), CameraSize 0x72FC70 (decia PipelinePlugin), CTaskComplexFollowLeaderInFormation::Offsets::Constructor 0x694850 (decia CEntitySeekPosCalculatorFixedPos; inicializador estatico de ms_offsets), CPedPlacement::FindZCoorForPed 0x616920 (hook sobre la version en el sitio con puntero; la version con par queda como envoltura NOTSA), CTaskComplexSmartFleeEntity::CreateSubTask 0x65C530 y CTheScripts::IsPointInAngledArea 0x477DA0 (decia CTaskSimpleSetCharIgnoreWeaponRangeFlag). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CWorld::ProcessVerticalLine 0x5674E0, CTask::operator new 0x61A5A0, CGeneral::GetRadianAngleBetweenPoints 0x53CBE0 y CTheScripts::DrawDebugAngledSquare 0x486990 (con hook, apagados durante el banco), CGeneral::GetRandomNumber / rand() 0x821B1E (funcion propia de la DLL sin hook); RwEngineGetCurrentVideoMode 0x7F2D20, RwEngineGetVideoModeInfo 0x7F2CF0 y RwCameraSetViewWindow 0x7EE410 (falsos solo en la direccion del EXE: la DLL las llama por esa direccion). Los constructores de CTaskSimpleStandStill (0x62F310) y CTaskComplexSmartFleePoint (0x65BD20) corren reales en ambos lados con su hook del ASI (se observan los bytes del objeto creado, salvo la vtable que solo se anota como escrita) y CVector2D::Normalise 0x44E480 corre real en el EXE frente al codigo en linea de la DLL. Fuera de los fixtures: la rama NOTSA de CameraSize con la camara de la escena (limpia la camara y descarta rectangulos vacios; el banco usa una camara sintetica distinta de Scene.m_pRwCamera), rectangulos que solapan los rasters, camara o raster z nulos, operator new nulo en la tarea de huida con vtables no registradas, angulos con miles de vueltas, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn133A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedPlacement",
+        "fn_name": "FindZCoorForPed-Ptr",
+        "address": "0x00616920",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn133A/validation-summary.json",
+        "sha256": "7cf5752669a143daf63e5110ba269fbf87e02927d9d39cfe8114774d7f8925f3",
+        "passed_path": [
+          "covered_functions",
+          "CPedPlacement::FindZCoorForPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "b6f90ee0812d169347b1406f114ed2b3f27e9acbed84c09c222a4b599f14f71d",
+        "source/app/app.cpp": "36b61f9b8a926e4820f2757d7540db27a7536dd097569b9fd82bfe15094290d6",
+        "source/app/app_camera.cpp": "610bcbbff8ebd74e9fd04f4fcc5e2b7d7c82c18c60205e872c1ac17cd75aad99",
+        "source/game_sa/Clothes.cpp": "404463b7c8277c8185445c8378c6d0cf1892e020560112dba4edcc343a481866",
+        "source/game_sa/Clothes.h": "e1bb80f1768da645d82523c4a983dcf00b5a5085b1e69b53aedb20c6164322ac",
+        "source/game_sa/PedPlacement.cpp": "5c02d99a071a4157ab87757f318a96d6160be55be889340dd47fe44c9d8de9d7",
+        "source/game_sa/PedPlacement.h": "f71abffb106464e5af02419ff1b9df5a44835406c83eb18f766619c4722575ba",
+        "source/game_sa/Scripts/TheScripts.cpp": "195a37f54c12b72bd40afbbcd920c15f596df18ae595016f2bd4d947f79ab223",
+        "source/game_sa/Scripts/TheScripts.h": "0f4da4f75508790d5639ffc2fb5dcc8b4819d557bdb6b4ec7e3ef3de7eb4a4e9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "e7556184c548b231876fab15c70d8d718c99c4ae73e357a327868e82a48fb8ea",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "45b41073952cd322744d1df1d30c696414c6ce3164c11cb4e51d80e8017a5739",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "cfda26db68b7d24143e1bcd735e8b5583c32b72967e1b166b68169ef3a83b96a",
+        "source/game_sa/X87Math.cpp": "ebd0cf446e78d2997c96ed3a3fca3f064485e6d4a4fb0d97a26014485e31d4ae",
+        "source/game_sa/X87Math.h": "f517c545d83e15bde002deb135844365defd586cc237d9766cbb8cf05dcb8e21",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn133A/LiveComparison.hpp": "fc2cfc186fe526e498e39a773d0b1ad445c80f9b77ed2b51e56c531df87ba47b",
+        "reversing/Fn133A/Core.hpp": "5a1b2ec138e34ecb47ed3c6627ef88e31d667455b2e714a11fe23793bdc40812",
+        "reversing/Fn133A/Fixtures.hpp": "368f3d656451157ba8a128b5d98db56243646b171ee2041a842b3f43a67a0510",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Seis funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CClothes::GetClothesModelFromName 0x5A7A20 (decia CPedClothesDesc), CameraSize 0x72FC70 (decia PipelinePlugin), CTaskComplexFollowLeaderInFormation::Offsets::Constructor 0x694850 (decia CEntitySeekPosCalculatorFixedPos; inicializador estatico de ms_offsets), CPedPlacement::FindZCoorForPed 0x616920 (hook sobre la version en el sitio con puntero; la version con par queda como envoltura NOTSA), CTaskComplexSmartFleeEntity::CreateSubTask 0x65C530 y CTheScripts::IsPointInAngledArea 0x477DA0 (decia CTaskSimpleSetCharIgnoreWeaponRangeFlag). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CWorld::ProcessVerticalLine 0x5674E0, CTask::operator new 0x61A5A0, CGeneral::GetRadianAngleBetweenPoints 0x53CBE0 y CTheScripts::DrawDebugAngledSquare 0x486990 (con hook, apagados durante el banco), CGeneral::GetRandomNumber / rand() 0x821B1E (funcion propia de la DLL sin hook); RwEngineGetCurrentVideoMode 0x7F2D20, RwEngineGetVideoModeInfo 0x7F2CF0 y RwCameraSetViewWindow 0x7EE410 (falsos solo en la direccion del EXE: la DLL las llama por esa direccion). Los constructores de CTaskSimpleStandStill (0x62F310) y CTaskComplexSmartFleePoint (0x65BD20) corren reales en ambos lados con su hook del ASI (se observan los bytes del objeto creado, salvo la vtable que solo se anota como escrita) y CVector2D::Normalise 0x44E480 corre real en el EXE frente al codigo en linea de la DLL. Fuera de los fixtures: la rama NOTSA de CameraSize con la camara de la escena (limpia la camara y descarta rectangulos vacios; el banco usa una camara sintetica distinta de Scene.m_pRwCamera), rectangulos que solapan los rasters, camara o raster z nulos, operator new nulo en la tarea de huida con vtables no registradas, angulos con miles de vueltas, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn133A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexSmartFleeEntity",
+        "fn_name": "CreateSubTask",
+        "address": "0x0065C530",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn133A/validation-summary.json",
+        "sha256": "7cf5752669a143daf63e5110ba269fbf87e02927d9d39cfe8114774d7f8925f3",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexSmartFleeEntity::CreateSubTask"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "b6f90ee0812d169347b1406f114ed2b3f27e9acbed84c09c222a4b599f14f71d",
+        "source/app/app.cpp": "36b61f9b8a926e4820f2757d7540db27a7536dd097569b9fd82bfe15094290d6",
+        "source/app/app_camera.cpp": "610bcbbff8ebd74e9fd04f4fcc5e2b7d7c82c18c60205e872c1ac17cd75aad99",
+        "source/game_sa/Clothes.cpp": "404463b7c8277c8185445c8378c6d0cf1892e020560112dba4edcc343a481866",
+        "source/game_sa/Clothes.h": "e1bb80f1768da645d82523c4a983dcf00b5a5085b1e69b53aedb20c6164322ac",
+        "source/game_sa/PedPlacement.cpp": "5c02d99a071a4157ab87757f318a96d6160be55be889340dd47fe44c9d8de9d7",
+        "source/game_sa/PedPlacement.h": "f71abffb106464e5af02419ff1b9df5a44835406c83eb18f766619c4722575ba",
+        "source/game_sa/Scripts/TheScripts.cpp": "195a37f54c12b72bd40afbbcd920c15f596df18ae595016f2bd4d947f79ab223",
+        "source/game_sa/Scripts/TheScripts.h": "0f4da4f75508790d5639ffc2fb5dcc8b4819d557bdb6b4ec7e3ef3de7eb4a4e9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "e7556184c548b231876fab15c70d8d718c99c4ae73e357a327868e82a48fb8ea",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "45b41073952cd322744d1df1d30c696414c6ce3164c11cb4e51d80e8017a5739",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "cfda26db68b7d24143e1bcd735e8b5583c32b72967e1b166b68169ef3a83b96a",
+        "source/game_sa/X87Math.cpp": "ebd0cf446e78d2997c96ed3a3fca3f064485e6d4a4fb0d97a26014485e31d4ae",
+        "source/game_sa/X87Math.h": "f517c545d83e15bde002deb135844365defd586cc237d9766cbb8cf05dcb8e21",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn133A/LiveComparison.hpp": "fc2cfc186fe526e498e39a773d0b1ad445c80f9b77ed2b51e56c531df87ba47b",
+        "reversing/Fn133A/Core.hpp": "5a1b2ec138e34ecb47ed3c6627ef88e31d667455b2e714a11fe23793bdc40812",
+        "reversing/Fn133A/Fixtures.hpp": "368f3d656451157ba8a128b5d98db56243646b171ee2041a842b3f43a67a0510",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Seis funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CClothes::GetClothesModelFromName 0x5A7A20 (decia CPedClothesDesc), CameraSize 0x72FC70 (decia PipelinePlugin), CTaskComplexFollowLeaderInFormation::Offsets::Constructor 0x694850 (decia CEntitySeekPosCalculatorFixedPos; inicializador estatico de ms_offsets), CPedPlacement::FindZCoorForPed 0x616920 (hook sobre la version en el sitio con puntero; la version con par queda como envoltura NOTSA), CTaskComplexSmartFleeEntity::CreateSubTask 0x65C530 y CTheScripts::IsPointInAngledArea 0x477DA0 (decia CTaskSimpleSetCharIgnoreWeaponRangeFlag). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CWorld::ProcessVerticalLine 0x5674E0, CTask::operator new 0x61A5A0, CGeneral::GetRadianAngleBetweenPoints 0x53CBE0 y CTheScripts::DrawDebugAngledSquare 0x486990 (con hook, apagados durante el banco), CGeneral::GetRandomNumber / rand() 0x821B1E (funcion propia de la DLL sin hook); RwEngineGetCurrentVideoMode 0x7F2D20, RwEngineGetVideoModeInfo 0x7F2CF0 y RwCameraSetViewWindow 0x7EE410 (falsos solo en la direccion del EXE: la DLL las llama por esa direccion). Los constructores de CTaskSimpleStandStill (0x62F310) y CTaskComplexSmartFleePoint (0x65BD20) corren reales en ambos lados con su hook del ASI (se observan los bytes del objeto creado, salvo la vtable que solo se anota como escrita) y CVector2D::Normalise 0x44E480 corre real en el EXE frente al codigo en linea de la DLL. Fuera de los fixtures: la rama NOTSA de CameraSize con la camara de la escena (limpia la camara y descarta rectangulos vacios; el banco usa una camara sintetica distinta de Scene.m_pRwCamera), rectangulos que solapan los rasters, camara o raster z nulos, operator new nulo en la tarea de huida con vtables no registradas, angulos con miles de vueltas, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn133A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheScripts",
+        "fn_name": "IsPointInAngledArea",
+        "address": "0x00477DA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn133A/validation-summary.json",
+        "sha256": "7cf5752669a143daf63e5110ba269fbf87e02927d9d39cfe8114774d7f8925f3",
+        "passed_path": [
+          "covered_functions",
+          "CTheScripts::IsPointInAngledArea"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "b6f90ee0812d169347b1406f114ed2b3f27e9acbed84c09c222a4b599f14f71d",
+        "source/app/app.cpp": "36b61f9b8a926e4820f2757d7540db27a7536dd097569b9fd82bfe15094290d6",
+        "source/app/app_camera.cpp": "610bcbbff8ebd74e9fd04f4fcc5e2b7d7c82c18c60205e872c1ac17cd75aad99",
+        "source/game_sa/Clothes.cpp": "404463b7c8277c8185445c8378c6d0cf1892e020560112dba4edcc343a481866",
+        "source/game_sa/Clothes.h": "e1bb80f1768da645d82523c4a983dcf00b5a5085b1e69b53aedb20c6164322ac",
+        "source/game_sa/PedPlacement.cpp": "5c02d99a071a4157ab87757f318a96d6160be55be889340dd47fe44c9d8de9d7",
+        "source/game_sa/PedPlacement.h": "f71abffb106464e5af02419ff1b9df5a44835406c83eb18f766619c4722575ba",
+        "source/game_sa/Scripts/TheScripts.cpp": "195a37f54c12b72bd40afbbcd920c15f596df18ae595016f2bd4d947f79ab223",
+        "source/game_sa/Scripts/TheScripts.h": "0f4da4f75508790d5639ffc2fb5dcc8b4819d557bdb6b4ec7e3ef3de7eb4a4e9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp": "e7556184c548b231876fab15c70d8d718c99c4ae73e357a327868e82a48fb8ea",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h": "45b41073952cd322744d1df1d30c696414c6ce3164c11cb4e51d80e8017a5739",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "cfda26db68b7d24143e1bcd735e8b5583c32b72967e1b166b68169ef3a83b96a",
+        "source/game_sa/X87Math.cpp": "ebd0cf446e78d2997c96ed3a3fca3f064485e6d4a4fb0d97a26014485e31d4ae",
+        "source/game_sa/X87Math.h": "f517c545d83e15bde002deb135844365defd586cc237d9766cbb8cf05dcb8e21",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn133A/LiveComparison.hpp": "fc2cfc186fe526e498e39a773d0b1ad445c80f9b77ed2b51e56c531df87ba47b",
+        "reversing/Fn133A/Core.hpp": "5a1b2ec138e34ecb47ed3c6627ef88e31d667455b2e714a11fe23793bdc40812",
+        "reversing/Fn133A/Fixtures.hpp": "368f3d656451157ba8a128b5d98db56243646b171ee2041a842b3f43a67a0510",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 3d80217cab con los cambios del lote (ver artifacts/build-manifest.json). Seis funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CClothes::GetClothesModelFromName 0x5A7A20 (decia CPedClothesDesc), CameraSize 0x72FC70 (decia PipelinePlugin), CTaskComplexFollowLeaderInFormation::Offsets::Constructor 0x694850 (decia CEntitySeekPosCalculatorFixedPos; inicializador estatico de ms_offsets), CPedPlacement::FindZCoorForPed 0x616920 (hook sobre la version en el sitio con puntero; la version con par queda como envoltura NOTSA), CTaskComplexSmartFleeEntity::CreateSubTask 0x65C530 y CTheScripts::IsPointInAngledArea 0x477DA0 (decia CTaskSimpleSetCharIgnoreWeaponRangeFlag). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CWorld::ProcessVerticalLine 0x5674E0, CTask::operator new 0x61A5A0, CGeneral::GetRadianAngleBetweenPoints 0x53CBE0 y CTheScripts::DrawDebugAngledSquare 0x486990 (con hook, apagados durante el banco), CGeneral::GetRandomNumber / rand() 0x821B1E (funcion propia de la DLL sin hook); RwEngineGetCurrentVideoMode 0x7F2D20, RwEngineGetVideoModeInfo 0x7F2CF0 y RwCameraSetViewWindow 0x7EE410 (falsos solo en la direccion del EXE: la DLL las llama por esa direccion). Los constructores de CTaskSimpleStandStill (0x62F310) y CTaskComplexSmartFleePoint (0x65BD20) corren reales en ambos lados con su hook del ASI (se observan los bytes del objeto creado, salvo la vtable que solo se anota como escrita) y CVector2D::Normalise 0x44E480 corre real en el EXE frente al codigo en linea de la DLL. Fuera de los fixtures: la rama NOTSA de CameraSize con la camara de la escena (limpia la camara y descarta rectangulos vacios; el banco usa una camara sintetica distinta de Scene.m_pRwCamera), rectangulos que solapan los rasters, camara o raster z nulos, operator new nulo en la tarea de huida con vtables no registradas, angulos con miles de vueltas, y la exactitud de los colaboradores sustituidos.",
+      "review_reference": "reversing/Fn133A/README.md"
     }
   ]
 }

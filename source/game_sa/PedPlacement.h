@@ -17,6 +17,7 @@ class CPedPlacement {
 public:
     static void InjectHooks();
 
+    static bool FindZCoorForPed(CVector* pos); // 0x616920
     static std::pair<CVector, bool> FindZCoorForPed(CVector pos);
     static bool IsPositionClearForPed(
         const CVector& pos,

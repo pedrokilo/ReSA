@@ -31,6 +31,7 @@ void CTaskComplexSmartFleeEntity::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x65C430);
     RH_ScopedInstall(Destructor, 0x65C4D0);
+    RH_ScopedInstall(CreateSubTask, 0x65C530);
 
     RH_ScopedVMTInstall(Clone, 0x65CF40);
     RH_ScopedVMTInstall(GetTaskType, 0x65C4C0);
@@ -163,23 +164,32 @@ CTask* CTaskComplexSmartFleeEntity::ControlSubTask(CPed* ped) {
     return m_pSubTask;
 }
 
-// 0x65C530
+// 0x65C530 (thiscall, `ret 4`, marco SEH que solo desenrolla)
+// Como el original: 0xCB (parado): CTask::operator new(0x20) primero y, si no es nulo, rand() del CRT (CGeneral::GetRandomNumber) & 0xFFFF * (1/32768) * 50 truncado como tiempo del
+// constructor (false, false, 8.0f); 0x38E (huir de un punto): arranca el temporizador (sin mirar el byte de parada), copia la posicion de la entidad (de su matriz o de su placement) a m_pos,
+// reserva 0x44 bytes y, si no es nulo, construye (m_pos, m_pedScream, m_safeDistance, m_time); 0x516 y cualquier otro tipo devuelven nulo.
 CTask* CTaskComplexSmartFleeEntity::CreateSubTask(eTaskType taskType) {
     switch (taskType) {
-    case TASK_SIMPLE_STAND_STILL: // Como el original: (int)(rand * (1/32768) * 50)
-        return new CTaskSimpleStandStill{ (int32)((float)(CGeneral::GetRandomNumber() & 0xFFFF) * 3.0517578125e-05f * 50.f), false, false, 8.f };
+    case TASK_SIMPLE_STAND_STILL: {
+        static_assert(sizeof(CTaskSimpleStandStill) == 0x20);
+        void* const mem = CTask::operator new(sizeof(CTaskSimpleStandStill));
+        if (!mem) {
+            return nullptr;
+        }
+        const int32 time = (int32)((float)(CGeneral::GetRandomNumber() & 0xFFFF) * 3.0517578125e-05f * 50.f);
+        return ::new (mem) CTaskSimpleStandStill{ time, false, false, 8.f };
+    }
     case TASK_COMPLEX_SMART_FLEE_POINT: {
-        // Como el original: el temporizador se arranca sin comprobar el intervalo y sin tocar el byte de parada
         m_posCheckTimer.m_nStartTime = CTimer::GetTimeInMS();
         m_posCheckTimer.m_nInterval  = m_posCheckPeriod;
         m_posCheckTimer.m_bStarted   = true;
         m_pos = m_fleeFrom->GetPosition();
-        return new CTaskComplexSmartFleePoint{
-            m_pos,
-            m_pedScream,
-            m_safeDistance,
-            m_time
-        };
+        static_assert(sizeof(CTaskComplexSmartFleePoint) == 0x44);
+        void* const mem = CTask::operator new(sizeof(CTaskComplexSmartFleePoint));
+        if (!mem) {
+            return nullptr;
+        }
+        return ::new (mem) CTaskComplexSmartFleePoint{ m_pos, m_pedScream, m_safeDistance, m_time };
     }
     default:
         return nullptr;

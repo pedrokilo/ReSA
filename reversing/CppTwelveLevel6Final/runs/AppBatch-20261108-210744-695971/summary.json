@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "9fdd8963338555d86a0fbf67cc9290070e18e4a2731b59bb4a43a3b6359d6084",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 3008,
+  "pairs_per_function": {
+    "App::AppEventHandler": 512,
+    "App::DefinedState": 64,
+    "App::DefinedState2d": 64,
+    "App::DoRWStuffEndOfFrame": 64,
+    "App::DoRWStuffStartOfFrame": 512,
+    "App::DoRWStuffStartOfFrame_Horizon": 512,
+    "App::PluginAttach": 256,
+    "CIniFile::LoadIniFile": 512,
+    "CIplDefPool::New": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "b8c5d58700dedb293e31b3a7f2a3b9619df5c4e3d6fb50c11c27a072c17135d1",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -1,0 +1,3 @@
+FALLO: Fn133A
+Funciones con diferencias: CClothes::GetClothesModelFromName: 105/2048; CameraSize: 1984/2048; CTaskComplexFollowLeaderInFormation::Offsets::Constructor: 2048/2048; CPedPlacement::FindZCoorForPed: 1723/2048; CTaskComplexSmartFleeEntity::CreateSubTask: 420/2048; CTheScripts::IsPointInAngledArea: 460/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn133a\20261108-204132-782647

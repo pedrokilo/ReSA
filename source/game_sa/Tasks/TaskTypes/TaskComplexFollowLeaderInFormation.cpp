@@ -33,12 +33,28 @@ void CTaskComplexFollowLeaderInFormation::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x6949A0);
     RH_ScopedInstall(Destructor, 0x694A40);
+    RH_ScopedInstall(Offsets::Constructor, 0x694850);
 
     RH_ScopedVMTInstall(Clone, 0x695740);
     RH_ScopedVMTInstall(GetTaskType, 0x694A30);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x696820);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x6968E0);
     RH_ScopedVMTInstall(ControlSubTask, 0x696940);
+}
+
+// 0x694850 (thiscall, `ret`; devuelve this). Como el original: escribe los 0x84 bytes de ms_offsets (0xC196E8) sin leer nada: ocho desplazamientos de formacion (Offsets), ocho para el
+// movimiento (MovingOffsets: los de la fila de atras a 1.25 y 2.5 de profundidad) y la escala 1.0 (+0x80).
+CTaskComplexFollowLeaderInFormation::Offsets* CTaskComplexFollowLeaderInFormation::Offsets::Constructor() {
+    Scale = 1.0f;
+    Offsets = {{
+        {-1.0f,  1.0f}, {1.0f,  1.0f}, {0.0f,  1.0f}, {-1.0f, 0.0f},
+        { 1.0f,  0.0f}, {-1.0f, -1.0f}, {0.0f, -1.0f}, { 1.0f, -1.0f},
+    }};
+    MovingOffsets = {{
+        {-1.0f,  0.0f},  {1.0f,  0.0f},  {0.0f, -1.25f}, {-1.25f, -1.25f},
+        { 1.25f, -1.25f}, {0.0f, -2.5f}, {-1.0f, -2.5f}, { 1.0f,  -2.5f},
+    }};
+    return this;
 }
 
 // 0x6949A0
