@@ -20424,6 +20424,182 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 6b525edfd0 con los cambios del lote (ver artifacts/build-manifest.json). Once funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CPointRoute::CopyFrom 0x63A040 (decia CVehicleAnimGroupData), CAEBankLoader::ResetRequests 0x4DFB60, LoadingScreenLoadingFile 0x5B3680 (decia CTimeInfo), CompressVectorExe 0x536E90 (decia CEntryInfoList), CRadar::HasThisBlipBeenRevealed 0x583AF0, CIplDefPool::ScalarDeletingDestructor 0x405A60, CTaskSequences::GetAvailableSlot 0x632E00, CTagManager::ResetAlpha 0x49CD50, CBoundingBox::Constructor 0x40FAF0 (decia CColModel), CDummy::ScalarDeletingDestructor 0x532770 y CTaskSimpleAffectSecondaryBehaviour::Destructor 0x6912C0 (cuerpo con marco SEH, que la DLL no replica: solo desenrolla). Todos hook S. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: LoadingScreen 0x53DED0, CVisibilityPlugins::SetUserValue 0x732380 y CTask::Destructor 0x61A3A0 (con hook, apagados durante el banco); el cuerpo del destructor de CDummy 0x532560 y CTheZones::GetCurrentZoneLockedOrUnlocked 0x572130 (funciones propias de la DLL sin hook, exportadas por Dummy.cpp y TheZones.cpp); free/operator delete[] 0x8213AE y operator delete 0x8214BD de la CRT del EXE (falsos solo en la direccion del EXE: la DLL los llama por esa direccion). strrchr 0x821490, sprintf 0x821BB5 y _ftol2 0x821B40 se ejecutan reales (CRT del EXE frente a la de la DLL). Se observan bytes cambiados de las arenas y de la memoria global, eventos de los falsos, valor devuelto (AL, EAX o etiqueta de this segun la funcion), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos). Fuera de los fixtures: contadores de CopyFrom mayores de 24, cadenas de mas de 330 bytes, ResetAlpha sin entrada de tag o con ms_numTags fuera de 0..150 (el EXE se cae), indices de blip mayores de 174, objetos reales construidos por el EXE, this nulo o crudo y los registros volatiles tras la llamada. No se reconstruyen 0x5DE920 (destructor de audio con SEH y destructor base expandido) ni 0x563130 (destructor SEH de una clase con dos listas de punteros): ver README.md.",
       "review_reference": "reversing/Fn130A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEPedAudioEntity",
+        "fn_name": "Destructor",
+        "address": "0x005DE920",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn131A/validation-summary.json",
+        "sha256": "3cfc434dcaa851ea78f6884eb420587851435ddc0bc9c8defcc9907e7659f6a9",
+        "passed_path": [
+          "covered_functions",
+          "CAEPedAudioEntity::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "12f1a70e170f07d02a2a54fe55815aab903c1d7200801bacf2f54af151519019",
+        "source/game_sa/Sector.cpp": "7f39357bb62e0028274fe24c9fed676731afd58fd3bba4a83b86dbd2aac545fa",
+        "source/game_sa/Sector.h": "72727a24311cf8e4ebc58fbc830864f21e459f2f394fe73b7c95ee1b4cfd0087",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "6f6ef3b310df613e3a046b52ce5fd9601c3a2bbd4c4312b1321a3f05e231f657",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "0593024fee11e8fe3946939bfddbcb560d61501e657fff6d24bafdfc845ffedd",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "f87c54be2a2a61229a9c7d7e7293109fc2ee069b7823e6de4ad5d53a609bce3c",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "c7dcb267c3c813bb8e97d8a924c4653945de9fc2427d1519cbf788d29d1382b5",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "0435f06c4939c1b4d62b1b81c324f6b881f6f55ef34eef699525bf135990d6a4",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "6f74e0748e8468a1b10aa51b2fa32e22f775e0a9be988f1a31ba87827444c0f0",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "0b5f78d11502d520a963fa16ff6b40292c09cbf349c915994bcfba58009a9563",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "aebbe8ee21d8b5710627fe452f6b8955c69f6afd56a4098010b487562ab69bd3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn131A/LiveComparison.hpp": "6fa24fa47e0d497f5bc64afbf1520ff43145910f5ee687a285fbf3c86c181613",
+        "reversing/Fn131A/Core.hpp": "32c1863d80a80a332fe5b577df6cf3b2187d11db4e94d281ecbcf208cd2fd468",
+        "reversing/Fn131A/Fixtures.hpp": "b782d9a3a31adc56c176d4ec0142173bff675a8f5b477b0d2411e00e96f919a6",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main f5051e64fb con los cambios del lote (ver artifacts/build-manifest.json). Cuatro funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CAEPedAudioEntity::Destructor 0x5DE920 (decia CGangs; cuerpo con marco SEH que la DLL no replica: solo desenrolla; el destructor de la entidad gemela 0x4F2B80 y el destructor base van expandidos en linea), CSector::Destructor 0x563130 (decia CWanted; destructor de los 14400 sectores de ms_aSectors, marco SEH omitido) y los dos Flush de listas de punteros que este llama, codigo de plantilla del EXE compartido por todas las listas: Flush de lista simple 0x552400 (CPtrNodeSingleLinkPool) y de lista doble 0x552470 (CPtrNodeDoubleLinkPool), ambos con el borrado de nodos del pool en linea. Todos hook S (RH_ScopedInstall / RH_ScopedNamedGlobalInstall). Colaboradores de CAEPedAudioEntity::Destructor sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CAESound::StopSoundAndForget 0x4EF850 y CAESound::Destructor 0x4EF660 (ambos con hook, apagados durante el banco). CSector::Destructor ejecuta REALES los dos Flush (el EXE los suyos y la DLL sus funciones propias, con hook apagado). Los dos punteros de pool del juego (0xB74484 y 0xB74488) apuntan durante cada lado a pools falsos de la arena C (se guardan y se restauran). Se observan bytes cambiados de las arenas, eventos de los falsos (con el estado del objeto en cada llamada), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos: ningun llamador del EXE los lee). Fuera de los fixtures: listas con ciclos, nodos solapados entre si o con la cabeza, el aliasing de la cabeza con los estados del pool (alcanzaria las ramas de busqueda del Flush simple), punteros \"anterior\" fuera de las arenas, la exactitud de CAESound::Destructor / StopSoundAndForget (se heredan de sus bancos), pools reales y objetos reales construidos por el EXE.",
+      "review_reference": "reversing/Fn131A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CSector",
+        "fn_name": "Destructor",
+        "address": "0x00563130",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn131A/validation-summary.json",
+        "sha256": "3cfc434dcaa851ea78f6884eb420587851435ddc0bc9c8defcc9907e7659f6a9",
+        "passed_path": [
+          "covered_functions",
+          "CSector::Destructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "12f1a70e170f07d02a2a54fe55815aab903c1d7200801bacf2f54af151519019",
+        "source/game_sa/Sector.cpp": "7f39357bb62e0028274fe24c9fed676731afd58fd3bba4a83b86dbd2aac545fa",
+        "source/game_sa/Sector.h": "72727a24311cf8e4ebc58fbc830864f21e459f2f394fe73b7c95ee1b4cfd0087",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "6f6ef3b310df613e3a046b52ce5fd9601c3a2bbd4c4312b1321a3f05e231f657",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "0593024fee11e8fe3946939bfddbcb560d61501e657fff6d24bafdfc845ffedd",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "f87c54be2a2a61229a9c7d7e7293109fc2ee069b7823e6de4ad5d53a609bce3c",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "c7dcb267c3c813bb8e97d8a924c4653945de9fc2427d1519cbf788d29d1382b5",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "0435f06c4939c1b4d62b1b81c324f6b881f6f55ef34eef699525bf135990d6a4",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "6f74e0748e8468a1b10aa51b2fa32e22f775e0a9be988f1a31ba87827444c0f0",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "0b5f78d11502d520a963fa16ff6b40292c09cbf349c915994bcfba58009a9563",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "aebbe8ee21d8b5710627fe452f6b8955c69f6afd56a4098010b487562ab69bd3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn131A/LiveComparison.hpp": "6fa24fa47e0d497f5bc64afbf1520ff43145910f5ee687a285fbf3c86c181613",
+        "reversing/Fn131A/Core.hpp": "32c1863d80a80a332fe5b577df6cf3b2187d11db4e94d281ecbcf208cd2fd468",
+        "reversing/Fn131A/Fixtures.hpp": "b782d9a3a31adc56c176d4ec0142173bff675a8f5b477b0d2411e00e96f919a6",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main f5051e64fb con los cambios del lote (ver artifacts/build-manifest.json). Cuatro funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CAEPedAudioEntity::Destructor 0x5DE920 (decia CGangs; cuerpo con marco SEH que la DLL no replica: solo desenrolla; el destructor de la entidad gemela 0x4F2B80 y el destructor base van expandidos en linea), CSector::Destructor 0x563130 (decia CWanted; destructor de los 14400 sectores de ms_aSectors, marco SEH omitido) y los dos Flush de listas de punteros que este llama, codigo de plantilla del EXE compartido por todas las listas: Flush de lista simple 0x552400 (CPtrNodeSingleLinkPool) y de lista doble 0x552470 (CPtrNodeDoubleLinkPool), ambos con el borrado de nodos del pool en linea. Todos hook S (RH_ScopedInstall / RH_ScopedNamedGlobalInstall). Colaboradores de CAEPedAudioEntity::Destructor sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CAESound::StopSoundAndForget 0x4EF850 y CAESound::Destructor 0x4EF660 (ambos con hook, apagados durante el banco). CSector::Destructor ejecuta REALES los dos Flush (el EXE los suyos y la DLL sus funciones propias, con hook apagado). Los dos punteros de pool del juego (0xB74484 y 0xB74488) apuntan durante cada lado a pools falsos de la arena C (se guardan y se restauran). Se observan bytes cambiados de las arenas, eventos de los falsos (con el estado del objeto en cada llamada), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos: ningun llamador del EXE los lee). Fuera de los fixtures: listas con ciclos, nodos solapados entre si o con la cabeza, el aliasing de la cabeza con los estados del pool (alcanzaria las ramas de busqueda del Flush simple), punteros \"anterior\" fuera de las arenas, la exactitud de CAESound::Destructor / StopSoundAndForget (se heredan de sus bancos), pools reales y objetos reales construidos por el EXE.",
+      "review_reference": "reversing/Fn131A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPtrNodeSingleLinkPool",
+        "fn_name": "Flush",
+        "address": "0x00552400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn131A/validation-summary.json",
+        "sha256": "3cfc434dcaa851ea78f6884eb420587851435ddc0bc9c8defcc9907e7659f6a9",
+        "passed_path": [
+          "covered_functions",
+          "CPtrNodeSingleLinkPool::Flush"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "12f1a70e170f07d02a2a54fe55815aab903c1d7200801bacf2f54af151519019",
+        "source/game_sa/Sector.cpp": "7f39357bb62e0028274fe24c9fed676731afd58fd3bba4a83b86dbd2aac545fa",
+        "source/game_sa/Sector.h": "72727a24311cf8e4ebc58fbc830864f21e459f2f394fe73b7c95ee1b4cfd0087",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "6f6ef3b310df613e3a046b52ce5fd9601c3a2bbd4c4312b1321a3f05e231f657",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "0593024fee11e8fe3946939bfddbcb560d61501e657fff6d24bafdfc845ffedd",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "f87c54be2a2a61229a9c7d7e7293109fc2ee069b7823e6de4ad5d53a609bce3c",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "c7dcb267c3c813bb8e97d8a924c4653945de9fc2427d1519cbf788d29d1382b5",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "0435f06c4939c1b4d62b1b81c324f6b881f6f55ef34eef699525bf135990d6a4",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "6f74e0748e8468a1b10aa51b2fa32e22f775e0a9be988f1a31ba87827444c0f0",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "0b5f78d11502d520a963fa16ff6b40292c09cbf349c915994bcfba58009a9563",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "aebbe8ee21d8b5710627fe452f6b8955c69f6afd56a4098010b487562ab69bd3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn131A/LiveComparison.hpp": "6fa24fa47e0d497f5bc64afbf1520ff43145910f5ee687a285fbf3c86c181613",
+        "reversing/Fn131A/Core.hpp": "32c1863d80a80a332fe5b577df6cf3b2187d11db4e94d281ecbcf208cd2fd468",
+        "reversing/Fn131A/Fixtures.hpp": "b782d9a3a31adc56c176d4ec0142173bff675a8f5b477b0d2411e00e96f919a6",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main f5051e64fb con los cambios del lote (ver artifacts/build-manifest.json). Cuatro funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CAEPedAudioEntity::Destructor 0x5DE920 (decia CGangs; cuerpo con marco SEH que la DLL no replica: solo desenrolla; el destructor de la entidad gemela 0x4F2B80 y el destructor base van expandidos en linea), CSector::Destructor 0x563130 (decia CWanted; destructor de los 14400 sectores de ms_aSectors, marco SEH omitido) y los dos Flush de listas de punteros que este llama, codigo de plantilla del EXE compartido por todas las listas: Flush de lista simple 0x552400 (CPtrNodeSingleLinkPool) y de lista doble 0x552470 (CPtrNodeDoubleLinkPool), ambos con el borrado de nodos del pool en linea. Todos hook S (RH_ScopedInstall / RH_ScopedNamedGlobalInstall). Colaboradores de CAEPedAudioEntity::Destructor sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CAESound::StopSoundAndForget 0x4EF850 y CAESound::Destructor 0x4EF660 (ambos con hook, apagados durante el banco). CSector::Destructor ejecuta REALES los dos Flush (el EXE los suyos y la DLL sus funciones propias, con hook apagado). Los dos punteros de pool del juego (0xB74484 y 0xB74488) apuntan durante cada lado a pools falsos de la arena C (se guardan y se restauran). Se observan bytes cambiados de las arenas, eventos de los falsos (con el estado del objeto en cada llamada), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos: ningun llamador del EXE los lee). Fuera de los fixtures: listas con ciclos, nodos solapados entre si o con la cabeza, el aliasing de la cabeza con los estados del pool (alcanzaria las ramas de busqueda del Flush simple), punteros \"anterior\" fuera de las arenas, la exactitud de CAESound::Destructor / StopSoundAndForget (se heredan de sus bancos), pools reales y objetos reales construidos por el EXE.",
+      "review_reference": "reversing/Fn131A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPtrNodeDoubleLinkPool",
+        "fn_name": "Flush",
+        "address": "0x00552470",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn131A/validation-summary.json",
+        "sha256": "3cfc434dcaa851ea78f6884eb420587851435ddc0bc9c8defcc9907e7659f6a9",
+        "passed_path": [
+          "covered_functions",
+          "CPtrNodeDoubleLinkPool::Flush"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "12f1a70e170f07d02a2a54fe55815aab903c1d7200801bacf2f54af151519019",
+        "source/game_sa/Sector.cpp": "7f39357bb62e0028274fe24c9fed676731afd58fd3bba4a83b86dbd2aac545fa",
+        "source/game_sa/Sector.h": "72727a24311cf8e4ebc58fbc830864f21e459f2f394fe73b7c95ee1b4cfd0087",
+        "source/game_sa/Core/PtrNodeSingleLink.cpp": "6f6ef3b310df613e3a046b52ce5fd9601c3a2bbd4c4312b1321a3f05e231f657",
+        "source/game_sa/Core/PtrNodeSingleLink.h": "0593024fee11e8fe3946939bfddbcb560d61501e657fff6d24bafdfc845ffedd",
+        "source/game_sa/Core/PtrNodeDoubleLink.cpp": "f87c54be2a2a61229a9c7d7e7293109fc2ee069b7823e6de4ad5d53a609bce3c",
+        "source/game_sa/Core/PtrNodeDoubleLink.h": "c7dcb267c3c813bb8e97d8a924c4653945de9fc2427d1519cbf788d29d1382b5",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "0435f06c4939c1b4d62b1b81c324f6b881f6f55ef34eef699525bf135990d6a4",
+        "source/game_sa/Pools/PtrNodeDoubleLinkPool.h": "6f74e0748e8468a1b10aa51b2fa32e22f775e0a9be988f1a31ba87827444c0f0",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "0b5f78d11502d520a963fa16ff6b40292c09cbf349c915994bcfba58009a9563",
+        "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "aebbe8ee21d8b5710627fe452f6b8955c69f6afd56a4098010b487562ab69bd3",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn131A/LiveComparison.hpp": "6fa24fa47e0d497f5bc64afbf1520ff43145910f5ee687a285fbf3c86c181613",
+        "reversing/Fn131A/Core.hpp": "32c1863d80a80a332fe5b577df6cf3b2187d11db4e94d281ecbcf208cd2fd468",
+        "reversing/Fn131A/Fixtures.hpp": "b782d9a3a31adc56c176d4ec0142173bff675a8f5b477b0d2411e00e96f919a6",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-1 sobre main f5051e64fb con los cambios del lote (ver artifacts/build-manifest.json). Cuatro funciones del EXE sin hook (clases por desensamblado; el listado las atribuia por cercania): CAEPedAudioEntity::Destructor 0x5DE920 (decia CGangs; cuerpo con marco SEH que la DLL no replica: solo desenrolla; el destructor de la entidad gemela 0x4F2B80 y el destructor base van expandidos en linea), CSector::Destructor 0x563130 (decia CWanted; destructor de los 14400 sectores de ms_aSectors, marco SEH omitido) y los dos Flush de listas de punteros que este llama, codigo de plantilla del EXE compartido por todas las listas: Flush de lista simple 0x552400 (CPtrNodeSingleLinkPool) y de lista doble 0x552470 (CPtrNodeDoubleLinkPool), ambos con el borrado de nodos del pool en linea. Todos hook S (RH_ScopedInstall / RH_ScopedNamedGlobalInstall). Colaboradores de CAEPedAudioEntity::Destructor sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CAESound::StopSoundAndForget 0x4EF850 y CAESound::Destructor 0x4EF660 (ambos con hook, apagados durante el banco). CSector::Destructor ejecuta REALES los dos Flush (el EXE los suyos y la DLL sus funciones propias, con hook apagado). Los dos punteros de pool del juego (0xB74484 y 0xB74488) apuntan durante cada lado a pools falsos de la arena C (se guardan y se restauran). Se observan bytes cambiados de las arenas, eventos de los falsos (con el estado del objeto en cada llamada), x87 vacia, pila, no volatiles, DF y SEH; cada lado coincide con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX tras la llamada quedan en los residuos (informativos: ningun llamador del EXE los lee). Fuera de los fixtures: listas con ciclos, nodos solapados entre si o con la cabeza, el aliasing de la cabeza con los estados del pool (alcanzaria las ramas de busqueda del Flush simple), punteros \"anterior\" fuera de las arenas, la exactitud de CAESound::Destructor / StopSoundAndForget (se heredan de sus bancos), pools reales y objetos reales construidos por el EXE.",
+      "review_reference": "reversing/Fn131A/README.md"
     }
   ]
 }

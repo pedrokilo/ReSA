@@ -9473,3 +9473,7 @@ CTagManager,ResetAlpha,0x0049CD50,1,0,1,S
 CBoundingBox,Constructor,0x0040FAF0,1,0,1,S
 CDummy,ScalarDeletingDestructor,0x00532770,1,0,1,S
 CTaskSimpleAffectSecondaryBehaviour,Destructor,0x006912C0,1,0,1,S
+CAEPedAudioEntity,Destructor,0x005DE920,1,0,1,S
+CSector,Destructor,0x00563130,1,0,1,S
+CPtrNodeSingleLinkPool,Flush,0x00552400,1,0,1,S
+CPtrNodeDoubleLinkPool,Flush,0x00552470,1,0,1,S

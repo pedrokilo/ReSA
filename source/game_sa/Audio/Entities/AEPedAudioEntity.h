@@ -69,6 +69,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    // 0x5DE920 (lote 131A, banco Fn131A): cuerpo del destructor del EXE (thiscall sin argumentos, `ret`, marco SEH); sin expansion en linea para que el banco pueda sustituir sus colaboradores
+    __declspec(noinline) CAEPedAudioEntity* Destructor();
+
 };
 
 VALIDATE_SIZE(CAEPedAudioEntity, 0x15C);

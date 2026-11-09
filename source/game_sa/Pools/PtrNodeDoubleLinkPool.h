@@ -37,6 +37,7 @@ public:
         RH_ScopedCategory("Pools");
 
         RH_ScopedInstall(New, 0x05522E0);
+        RH_ScopedNamedGlobalInstall(details::CPtrListDoubleLink__FlushExe, "Flush", 0x00552470); // lote 131A (banco Fn131A): Flush de listas dobles (codigo de plantilla del EXE)
     }
 
 public:

@@ -37,6 +37,7 @@ public:
         RH_ScopedCategory("Pools");
 
         RH_ScopedInstall(New, 0x0552240);
+        RH_ScopedNamedGlobalInstall(details::CPtrListSingleLink__FlushExe, "Flush", 0x00552400); // lote 131A (banco Fn131A): Flush de listas simples (codigo de plantilla del EXE)
     }
 
 public:

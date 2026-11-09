@@ -12,6 +12,7 @@
 namespace details {
 void* CPtrNodeSingleLink__operator_new(size_t sz);
 void  CPtrNodeSingleLink__operator_delete(void* data, size_t sz);
+void __fastcall CPtrListSingleLink__FlushExe(void* list, void* edx); // 0x552400 (lote 131A, banco Fn131A)
 };
 
 template<typename TItemType>

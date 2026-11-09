@@ -13,6 +13,9 @@ public: // Original used protected and accessor to use them
     CPtrListSingleLink<CBuilding*> Buildings{}; //!< Buildings in this sector [Yes, it's single-link]
     CPtrListDoubleLink<CDummy*>    Dummies{};   //!< Dummies in this sector
 
+public:
+    static void InjectHooks();
+
 public: // NOTSA:
     CSector(const CSector&)            = delete;
     CSector& operator=(const CSector&) = delete;

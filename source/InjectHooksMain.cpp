@@ -692,6 +692,7 @@ void InjectHooksMain() {
     C_PcSave::InjectHooks();
     CFileLoader::InjectHooks();
     CWorld::InjectHooks();
+    CSector::InjectHooks();
     CStreamingInfo::InjectHooks();
     CStreaming::InjectHooks();
     InjectCdStreamHooks();

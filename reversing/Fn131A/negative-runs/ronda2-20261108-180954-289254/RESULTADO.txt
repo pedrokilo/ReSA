@@ -1,0 +1,3 @@
+FALLO: Fn131A
+Funciones con diferencias: CAEPedAudioEntity::Destructor: 2048/2048; CSector::Destructor: 1892/2048; CPtrNodeSingleLinkPool::Flush: 916/2048; CPtrNodeDoubleLinkPool::Flush: 564/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn131a\20261108-180954-289254

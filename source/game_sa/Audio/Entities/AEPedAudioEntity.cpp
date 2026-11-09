@@ -38,6 +38,7 @@ void CAEPedAudioEntity::InjectHooks() {
     RH_ScopedCategory("Audio/Entities");
 
     //RH_ScopedInstall(Constructor, 0x5DE8D0, { .reversed = false });
+    RH_ScopedInstall(Destructor, 0x5DE920); // lote 131A (banco Fn131A)
 
     RH_ScopedGlobalInstall(SurfaceVolumeDb, 0x4DA510);
     RH_ScopedInstall(Initialise, 0x4E0E80);
@@ -70,6 +71,33 @@ CAEPedAudioEntity::CAEPedAudioEntity() : CAEAudioEntity() {
     m_JetPackSound0 = nullptr;
     m_JetPackSound1 = nullptr;
     m_JetPackSound2 = nullptr;
+}
+
+// 0x5DE920 (lote 131A, banco Fn131A; el listado de pendientes decia CGangs): destructor del EXE de CAEPedAudioEntity (thiscall sin argumentos, `ret`, 92 bytes, marco SEH que solo desenrolla y aqui
+// se omite). Como el original, con el orden exacto de escrituras y llamadas: vtable de la clase (0x86C2A8); destructor de m_sTwinLoopSoundEntity (+0xA8) expandido en linea (0x4F2B80: vtable 0x85F438 y,
+// si el WORD +0x88 no es cero, StopSoundAndForget (0x4EF850) sobre cada sonido no nulo de +0xA0 y +0xA4 poniendolo a cero y el WORD +0x88 a cero; vtable base 0x859988 y destructor de CAESound
+// (0x4EF660) sobre su m_tempSound en +8); vtable base 0x859988 y destructor de CAESound (0x4EF660) sobre m_tempSound (+8) con el destructor de CAEAudioEntity expandido. El destructor de C++ de la DLL
+// deja vtables propias y limpia campos que el EXE no toca, por eso se escriben a mano. No llama a CAEAudioEntity::Destructor (0x5DE9E0) ni al destructor de C++ de CAETwinLoopSoundEntity.
+CAEPedAudioEntity* CAEPedAudioEntity::Destructor() {
+    auto* const self = reinterpret_cast<uint8*>(this);
+    auto* const twin = self + 0xA8;
+    *reinterpret_cast<uint32*>(self) = 0x86C2A8;
+    *reinterpret_cast<uint32*>(twin) = 0x85F438;
+    if (*reinterpret_cast<uint16*>(twin + 0x88) != 0) {
+        for (const size_t off : { size_t(0xA0), size_t(0xA4) }) {
+            auto*& sound = *reinterpret_cast<CAESound**>(twin + off);
+            if (sound) {
+                sound->StopSoundAndForget();
+                sound = nullptr;
+            }
+        }
+        *reinterpret_cast<uint16*>(twin + 0x88) = 0;
+    }
+    *reinterpret_cast<uint32*>(twin) = 0x859988;
+    reinterpret_cast<CAESound*>(twin + 8)->Destructor();
+    *reinterpret_cast<uint32*>(self) = 0x859988;
+    m_tempSound.Destructor();
+    return this;
 }
 
 // (CEntity* entity)

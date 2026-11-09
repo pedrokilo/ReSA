@@ -1,0 +1,4 @@
+CAEPedAudioEntity::Destructor 2048 / 2048 (solo oraculo: 0 )
+CSector::Destructor 1892 / 2048 (solo oraculo: 0 )
+CPtrNodeSingleLinkPool::Flush 916 / 2048 (solo oraculo: 0 )
+CPtrNodeDoubleLinkPool::Flush 564 / 2048 (solo oraculo: 0 )
