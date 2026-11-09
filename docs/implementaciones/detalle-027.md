@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 09/11/2026 (Ciudad de México):** 870 grupos / 9540 funciones reconstruidas; 9540 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 09/11/2026 (Ciudad de México):** 871 grupos / 9565 funciones reconstruidas; 9565 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,56 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-521"></a>
+
+## CSprite2d
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CSprite2d::InjectHooks() | [source/game_sa/Sprite2d.cpp:31](../../source/game_sa/Sprite2d.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CSprite2d::CSprite2d() | [source/game_sa/Sprite2d.cpp:74](../../source/game_sa/Sprite2d.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88) |
+| * CSprite2d::Constructor() | [source/game_sa/Sprite2d.cpp:78](../../source/game_sa/Sprite2d.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::Constructor 0x00727230 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CSprite2d::~CSprite2d() | [source/game_sa/Sprite2d.cpp:84](../../source/game_sa/Sprite2d.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CSprite2d::Destructor() | [source/game_sa/Sprite2d.cpp:87](../../source/game_sa/Sprite2d.cpp#L87) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CSprite2d::Destructor 0x007281E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CSprite2d::Delete() | [source/game_sa/Sprite2d.cpp:95](../../source/game_sa/Sprite2d.cpp#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::Delete 0x00727240 | 0 / 0 | Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88) |
+| CSprite2d::SetTexture(Const char* name) | [source/game_sa/Sprite2d.cpp:105](../../source/game_sa/Sprite2d.cpp#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetTexture- 0x00727270 | 0 / 0 | Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88) |
+| CSprite2d::SetTexture(Const char* name, Const char* maskName) | [source/game_sa/Sprite2d.cpp:114](../../source/game_sa/Sprite2d.cpp#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetTexture-mask 0x007272B0 | 0 / 0 | Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88) |
+| CSprite2d::SetAddressingUV(RwTextureAddressMode modeU, RwTextureAddressMode modeV) | [source/game_sa/Sprite2d.cpp:121](../../source/game_sa/Sprite2d.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetAddressingUV 0x007272E0 | 0 / 0 | Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88) |
+| CSprite2d::SetAddressing(RwTextureAddressMode modeUV) | [source/game_sa/Sprite2d.cpp:130](../../source/game_sa/Sprite2d.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetAddressing 0x00727320 | 0 / 0 | Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88) |
+| CSprite2d::SetRenderState() | [source/game_sa/Sprite2d.cpp:138](../../source/game_sa/Sprite2d.cpp#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetRenderState 0x00727B30 | 0 / 0 | Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88) |
+| CSprite2d::Draw(float x, float y, float width, float height, const CRGBA& color) | [source/game_sa/Sprite2d.cpp:148](../../source/game_sa/Sprite2d.cpp#L148) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::Draw-ffffCRGBA 0x007282C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CSprite2d::Draw(const CRect& posn, const CRGBA& color) | [source/game_sa/Sprite2d.cpp:159](../../source/game_sa/Sprite2d.cpp#L159) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::Draw-CRectCRGBA 0x00728350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CSprite2d::DrawWithBilinearOffset(const CRect& posn, const CRGBA& color) | [source/game_sa/Sprite2d.cpp:165](../../source/game_sa/Sprite2d.cpp#L165) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::DrawWithBilinearOffset 0x007283B0 | 0 / 0 | Posible dato fijo m_pTexture: source/game_sa/Skidmarks.h:10 (0x00C79A88); Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::Draw(const CRect& posn, const CRGBA& color, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4) | [source/game_sa/Sprite2d.cpp:174](../../source/game_sa/Sprite2d.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::Draw(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4) | [source/game_sa/Sprite2d.cpp:182](../../source/game_sa/Sprite2d.cpp#L182) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::Draw-CRectCRGBA4 0x007284B0 | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::Draw(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, const CRGBA& color) | [source/game_sa/Sprite2d.cpp:190](../../source/game_sa/Sprite2d.cpp#L190) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::Draw-ffffffffCRGBA 0x00728520 | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::SetRecipNearClip() | [source/game_sa/Sprite2d.cpp:199](../../source/game_sa/Sprite2d.cpp#L199) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetRecipNearClip 0x00727260 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CSprite2d::InitPerFrame() | [source/game_sa/Sprite2d.cpp:204](../../source/game_sa/Sprite2d.cpp#L204) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::InitPerFrame 0x00727350 | 0 / 0 | Posible dato fijo NearScreenZ: source/game_sa/Sprite2d.h:22 (0x00C80460); Posible dato fijo RecipNearClip: source/game_sa/Sprite2d.h:23 (0x00C80464); Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo nextBufferIndex: source/game_sa/Sprite2d.h:20 (0x00C80458); Posible dato fijo nextBufferVertex: source/game_sa/Sprite2d.h:21 (0x00C8045C) |
+| CSprite2d::IsVertexBufferEmpty() | [source/game_sa/Sprite2d.cpp:213](../../source/game_sa/Sprite2d.cpp#L213) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::IsVertexBufferEmpty 0x00727390 | 0 / 0 | Posible dato fijo nextBufferVertex: source/game_sa/Sprite2d.h:21 (0x00C8045C) |
+| CSprite2d::IsVertexBufferFull() | [source/game_sa/Sprite2d.cpp:219](../../source/game_sa/Sprite2d.cpp#L219) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::IsVertexBufferFull 0x007273A0 | 0 / 0 | Posible dato fijo nextBufferIndex: source/game_sa/Sprite2d.h:20 (0x00C80458); Posible dato fijo nextBufferVertex: source/game_sa/Sprite2d.h:21 (0x00C8045C) |
+| CSprite2d::RenderVertexBuffer() | [source/game_sa/Sprite2d.cpp:225](../../source/game_sa/Sprite2d.cpp#L225) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::RenderVertexBuffer 0x007273D0 | 0 / 0 | Posible dato fijo aRadiosityVertexBuffer: source/game_sa/common.h:288 (0x00C5F958); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo nextBufferIndex: source/game_sa/Sprite2d.h:20 (0x00C80458); Posible dato fijo nextBufferVertex: source/game_sa/Sprite2d.h:21 (0x00C8045C) |
+| CSprite2d::SetVertices(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4) | [source/game_sa/Sprite2d.cpp:237](../../source/game_sa/Sprite2d.cpp#L237) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetVertices-CRectCRGBA4 0x00727420 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CSprite2d::SetVertices(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4) | [source/game_sa/Sprite2d.cpp:247](../../source/game_sa/Sprite2d.cpp#L247) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetVertices-ffffffffCRGBA 0x00727590 | 0 / 0 | Posible dato fijo NearScreenZ: source/game_sa/Sprite2d.h:22 (0x00C80460); Posible dato fijo RecipNearClip: source/game_sa/Sprite2d.h:23 (0x00C80464); Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::SetVertices(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4) | [source/game_sa/Sprite2d.cpp:282](../../source/game_sa/Sprite2d.cpp#L282) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetVertices-CRectCRGBA4ffffffff 0x00727710 | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::SetVertices(int32 numVerts, const CVector2D* posn, const CVector2D* texCoors, const CRGBA& color) | [source/game_sa/Sprite2d.cpp:289](../../source/game_sa/Sprite2d.cpp#L289) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetVertices-iffCRGBA 0x00727890 | 0 / 0 | Posible dato fijo NearScreenZ: source/game_sa/Sprite2d.h:22 (0x00C80460); Posible dato fijo RecipNearClip: source/game_sa/Sprite2d.h:23 (0x00C80464); Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::SetVertices(int32 numVerts, const CVector2D* posn, const CRGBA& color) | [source/game_sa/Sprite2d.cpp:304](../../source/game_sa/Sprite2d.cpp#L304) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetVertices-ifCRGBA 0x00727920 | 0 / 0 | Posible dato fijo NearScreenZ: source/game_sa/Sprite2d.h:22 (0x00C80460); Posible dato fijo RecipNearClip: source/game_sa/Sprite2d.h:23 (0x00C80464); Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::SetMaskVertices(int32 numVerts, const CVector2D* posn, float depth) | [source/game_sa/Sprite2d.cpp:321](../../source/game_sa/Sprite2d.cpp#L321) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetMaskVertices 0x007279B0 | 0 / 0 | Posible dato fijo RecipNearClip: source/game_sa/Sprite2d.h:23 (0x00C80464); Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::SetVertices(RwIm2DVertex* vertices, const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4) | [source/game_sa/Sprite2d.cpp:333](../../source/game_sa/Sprite2d.cpp#L333) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::SetVertices-RwD3D9Vertex 0x00727A00 | 0 / 0 | Posible dato fijo NearScreenZ: source/game_sa/Sprite2d.h:22 (0x00C80460); Posible dato fijo RecipNearClip: source/game_sa/Sprite2d.h:23 (0x00C80464) |
+| CSprite2d::DrawRect(const CRect& posn, const CRGBA& color) | [source/game_sa/Sprite2d.cpp:370](../../source/game_sa/Sprite2d.cpp#L370) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::DrawRect-CRGBA 0x00727B60 | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::DrawTxRect(const CRect& posn, const CRGBA& color) | [source/game_sa/Sprite2d.cpp:379](../../source/game_sa/Sprite2d.cpp#L379) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::DrawTxRect 0x00727BE0 | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::DrawRect(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4) | [source/game_sa/Sprite2d.cpp:385](../../source/game_sa/Sprite2d.cpp#L385) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::DrawRect-CRGBA4 0x00727C10 | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::DrawRectXLU(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4) | [source/game_sa/Sprite2d.cpp:393](../../source/game_sa/Sprite2d.cpp#L393) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::DrawRectXLU 0x00727C50 | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::DrawAnyRect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4) | [source/game_sa/Sprite2d.cpp:404](../../source/game_sa/Sprite2d.cpp#L404) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::DrawAnyRect 0x00727CC0 | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::DrawCircleAtNearClip(const CVector2D& posn, float size, const CRGBA& color, int32 angle) | [source/game_sa/Sprite2d.cpp:415](../../source/game_sa/Sprite2d.cpp#L415) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::DrawCircleAtNearClip 0x00727D60 | 0 / 0 | Conversión de dirección fija: 0x00BB3E00; Posible dato fijo NearScreenZ: source/game_sa/Sprite2d.h:22 (0x00C80460); Posible dato fijo RecipNearClip: source/game_sa/Sprite2d.h:23 (0x00C80464); Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::SetVerticesForSniper(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4) | [source/game_sa/Sprite2d.cpp:458](../../source/game_sa/Sprite2d.cpp#L458) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CSprite2d::OffsetTexCoordForBilinearFiltering(float width, float height) | [source/game_sa/Sprite2d.cpp:463](../../source/game_sa/Sprite2d.cpp#L463) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CSprite2d::OffsetTexCoordForBilinearFiltering 0x00728150 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::AddToBuffer(const CRect& posn, const CRGBA& color, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4) | [source/game_sa/Sprite2d.cpp:470](../../source/game_sa/Sprite2d.cpp#L470) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CSprite2d::AddToBuffer 0x00728200 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo aRadiosityVertexBuffer: source/game_sa/common.h:288 (0x00C5F958); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo nextBufferIndex: source/game_sa/Sprite2d.h:20 (0x00C80458); Posible dato fijo nextBufferVertex: source/game_sa/Sprite2d.h:21 (0x00C8045C) |
+| CSprite2d::Draw2DPolygon(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, const CRGBA& color) | [source/game_sa/Sprite2d.cpp:492](../../source/game_sa/Sprite2d.cpp#L492) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::Draw2DPolygon 0x007285B0 | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| CSprite2d::DrawBarChart(float x, float y, uint16 width, uint8 height, float progress, int8 progressAdd, uint8 drawPercentage, uint8 drawBlackBorder, CRGBA color, CRGBA addColor) | [source/game_sa/Sprite2d.cpp:511](../../source/game_sa/Sprite2d.cpp#L511) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSprite2d::DrawBarChart 0x00728640 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetVertices() | [source/game_sa/Sprite2d.h:74](../../source/game_sa/Sprite2d.h#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo maVertices: source/game_sa/Sprite2d.h:24 (0x00C80468) |
+| & GetNearScreenZ() | [source/game_sa/Sprite2d.h:75](../../source/game_sa/Sprite2d.h#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo NearScreenZ: source/game_sa/Sprite2d.h:22 (0x00C80460) |
+| & GetRecipNearClip() | [source/game_sa/Sprite2d.h:76](../../source/game_sa/Sprite2d.h#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo RecipNearClip: source/game_sa/Sprite2d.h:23 (0x00C80464) |
+
+<a id="grupo-522"></a>
 
 ## CStack
 
@@ -17,7 +67,7 @@
 | push(_Type const& _refVal) | [source/game_sa/MemoryMgr.h:83](../../source/game_sa/MemoryMgr.h#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | _top() const | [source/game_sa/MemoryMgr.h:89](../../source/game_sa/MemoryMgr.h#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-522"></a>
+<a id="grupo-523"></a>
 
 ## CStaticShadow
 
@@ -27,7 +77,7 @@
 | CStaticShadow::Free() | [source/game_sa/Shadows.cpp:88](../../source/game_sa/Shadows.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStaticShadow::Free 0x00707670 | 0 / 0 | Posible dato fijo pEmptyBunchList: source/game_sa/Shadows.h:176 (0x00C403D8) |
 | Init() | [source/game_sa/Shadows.h:150](../../source/game_sa/Shadows.h#L150) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-523"></a>
+<a id="grupo-524"></a>
 
 ## CStats
 
@@ -88,7 +138,7 @@
 | & GetFullFavoriteRadioStationList() | [source/game_sa/Stats.h:82](../../source/game_sa/Stats.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FavoriteRadioStationList: source/game_sa/Stats.h:48 (0x00B78E58) |
 | GetStatValue(eStats stat) | [source/game_sa/Stats.h:130](../../source/game_sa/Stats.h#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStats::GetStatValue--OG 0x00558E40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-524"></a>
+<a id="grupo-525"></a>
 
 ## CStencilShadowObject
 
@@ -100,7 +150,7 @@
 | * Constructor() | [source/game_sa/StencilShadowObject.h:32](../../source/game_sa/StencilShadowObject.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStencilShadowObject::Constructor 0x0070F8D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/StencilShadowObject.h:37](../../source/game_sa/StencilShadowObject.h#L37) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CStencilShadowObject::Destructor 0x0070F8E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-525"></a>
+<a id="grupo-526"></a>
 
 ## CStencilShadows
 
@@ -122,7 +172,7 @@
 | CStencilShadows::RegisterStencilShadows(CVector& cameraPos, bool doNotCreateNew) | [source/game_sa/StencilShadows.cpp:586](../../source/game_sa/StencilShadows.cpp#L586) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStencilShadows::RegisterStencilShadows 0x00711760 | 0 / 0 | Posible dato fijo ms_nCurrentScanCode: source/game_sa/World.h:82 (0x00B7CD78); Posible dato fijo pFirstActiveStencilShadowObject: source/game_sa/StencilShadows.h:10 (0x00C6A16C); Posible dato fijo pFirstAvailableStencilShadowObject: source/game_sa/StencilShadows.h:9 (0x00C6A168) |
 | GraphicsHighQuality() | [source/game_sa/common.cpp:165](../../source/game_sa/common.cpp#L165) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStencilShadows::GraphicsHighQuality 0x0070F9B0 | 0 / 0 | Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00) |
 
-<a id="grupo-526"></a>
+<a id="grupo-527"></a>
 
 ## CStore
 
@@ -132,7 +182,7 @@
 | & GetItemAtIndex(size_t index) | [source/game_sa/Core/Store.h:19](../../source/game_sa/Core/Store.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & AddItem() | [source/game_sa/Core/Store.h:23](../../source/game_sa/Core/Store.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-527"></a>
+<a id="grupo-528"></a>
 
 ## CStoredCar
 
@@ -148,7 +198,7 @@
 | Clear() | [source/game_sa/StoredCar.h:37](../../source/game_sa/StoredCar.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HasCar() | [source/game_sa/StoredCar.h:38](../../source/game_sa/StoredCar.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-528"></a>
+<a id="grupo-529"></a>
 
 ## CStreamedScripts
 
@@ -169,7 +219,7 @@
 | CStreamedScripts::GetStreamedScriptWithThisStartAddress(uint8* dataPtr) | [source/game_sa/StreamedScripts.cpp:170](../../source/game_sa/StreamedScripts.cpp#L170) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStreamedScripts::GetStreamedScriptWithThisStartAddress 0x00470910 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetActiveScriptsWithIndex() | [source/game_sa/StreamedScripts.h:48](../../source/game_sa/StreamedScripts.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-529"></a>
+<a id="grupo-530"></a>
 
 ## CStreaming
 
@@ -298,7 +348,7 @@
 | GetModelFromInfo(const CStreamingInfo* info) | [source/game_sa/Streaming.h:403](../../source/game_sa/Streaming.h#L403) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_aInfoForModel: source/game_sa/Streaming.h:247 (0x008E4CC0) |
 | GetLoadedPeds() | [source/game_sa/Streaming.h:404](../../source/game_sa/Streaming.h#L404) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_numPedsLoaded: source/game_sa/Streaming.h:225 (0x008E4BB0); Posible dato fijo ms_pedsLoaded: source/game_sa/Streaming.h:222 (0x008E4C00) |
 
-<a id="grupo-530"></a>
+<a id="grupo-531"></a>
 
 ## CStreamingInfo
 
@@ -337,7 +387,7 @@
 | IsMissionOrGameRequired() const noexcept | [source/game_sa/StreamingInfo.h:110](../../source/game_sa/StreamingInfo.h#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsRequiredToBeKept() const noexcept | [source/game_sa/StreamingInfo.h:111](../../source/game_sa/StreamingInfo.h#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-531"></a>
+<a id="grupo-532"></a>
 
 ## CStuckCarCheck
 
@@ -355,7 +405,7 @@
 | CStuckCarCheck::ResetArrayElement(uint16 carHandle) | [source/game_sa/StuckCarCheck.cpp:222](../../source/game_sa/StuckCarCheck.cpp#L222) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStuckCarCheck::ResetArrayElement-Index 0x00463970 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CStuckCarCheck::ResetArrayElement(tStuckCar& car) | [source/game_sa/StuckCarCheck.cpp:227](../../source/game_sa/StuckCarCheck.cpp#L227) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CStuckCarCheck::ResetArrayElement-Index 0x00463970 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-532"></a>
+<a id="grupo-533"></a>
 
 ## CStuntJumpManager
 
@@ -372,7 +422,7 @@
 | CStuntJumpManager::SetActive(bool active) | [source/game_sa/StuntJumpManager.cpp:341](../../source/game_sa/StuntJumpManager.cpp#L341) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CStuntJumpManager::Render() | [source/game_sa/StuntJumpManager.cpp:346](../../source/game_sa/StuntJumpManager.cpp#L346) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-533"></a>
+<a id="grupo-534"></a>
 
 ## CTagManager
 
@@ -402,7 +452,7 @@
 | GetTags() | [source/game_sa/TagManager.h:54](../../source/game_sa/TagManager.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_numTags: source/game_sa/TagManager.h:25 (0x00A9AD70); Posible dato fijo ms_tagDesc: source/game_sa/TagManager.h:24 (0x00A9A8C0) |
 | GetTagsInArea(const CRect& area) | [source/game_sa/TagManager.h:62](../../source/game_sa/TagManager.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-534"></a>
+<a id="grupo-535"></a>
 
 ## CTask
 
@@ -424,7 +474,7 @@
 | * CloneIfIs(CTask* t) | [source/game_sa/Tasks/Task.h:84](../../source/game_sa/Tasks/Task.h#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | classof(const From* f) | [source/game_sa/Tasks/Task.h:92](../../source/game_sa/Tasks/Task.h#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-535"></a>
+<a id="grupo-536"></a>
 
 ## CTaskAllocator
 
@@ -439,7 +489,7 @@
 | Abort() | [source/game_sa/Tasks/Allocators/TaskAllocator.h:41](../../source/game_sa/Tasks/Allocators/TaskAllocator.h#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocator::Abort 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | classof(const From* f) | [source/game_sa/Tasks/Allocators/TaskAllocator.h:45](../../source/game_sa/Tasks/Allocators/TaskAllocator.h#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-536"></a>
+<a id="grupo-537"></a>
 
 ## CTaskAllocatorAttack
 
@@ -454,7 +504,7 @@
 | * Constructor(CPed * ped1, int32 groupId, CPed * ped2) | [source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h:27](../../source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorAttack::Constructor 0x0069C240 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h:34](../../source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h#L34) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorAttack::Destructor 0x0069C2D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-537"></a>
+<a id="grupo-538"></a>
 
 ## CTaskAllocatorKillOnFoot
 
@@ -467,7 +517,7 @@
 | * Constructor(CPed* a, int32 b) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h:24](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillOnFoot::Constructor 0x0069BB80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h:30](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h#L30) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorKillOnFoot::Destructor 0x0069BBF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-538"></a>
+<a id="grupo-539"></a>
 
 ## CTaskAllocatorKillThreatsBasic
 
@@ -482,7 +532,7 @@
 | * Constructor(CPed * ped) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h:27](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsBasic::Constructor 0x0069C710 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h:33](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h#L33) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorKillThreatsBasic::Destructor 0x0069C780 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-539"></a>
+<a id="grupo-540"></a>
 
 ## CTaskAllocatorKillThreatsBasicRandomGroup
 
@@ -491,17 +541,3 @@
 | CTaskAllocatorKillThreatsBasicRandomGroup::AllocateTasks(CPedGroupIntelligence* intel) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp:31](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsBasicRandomGroup::AllocateTasks 0x0069D460 | 0 / 0 | Posible dato fijo g_InterestingEvents: source/game_sa/InterestingEvents.cpp:24 (0x00C0B058) |
 | CTaskAllocatorKillThreatsBasicRandomGroup::InjectHooks() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp:80](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h:14](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsBasicRandomGroup::GetType 0x005F68F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-540"></a>
-
-## CTaskAllocatorKillThreatsDriveby
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskAllocatorKillThreatsDriveby::CTaskAllocatorKillThreatsDriveby(CPed* threat) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp:41](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsDriveby::Constructor 0x0069CAF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskAllocatorKillThreatsDriveby::ProcessGroup(CPedGroupIntelligence* intel) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp:47](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsDriveby::ProcessGroup 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskAllocatorKillThreatsDriveby::AllocateTasks(CPedGroupIntelligence* intel) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp:58](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsDriveby::AllocateTasks 0x00000000 | 0 / 0 | Posible dato fijo g_InterestingEvents: source/game_sa/InterestingEvents.cpp:24 (0x00C0B058) |
-| CTaskAllocatorKillThreatsDriveby::InjectHooks() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp:116](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp#L116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h:16](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsDriveby::GetType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor(CPed* a) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h:26](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsDriveby::Constructor 0x0069CAF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h:32](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h#L32) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorKillThreatsDriveby::Destructor 0x0069CB60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

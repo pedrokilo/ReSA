@@ -9,9 +9,9 @@
 
 | Dimensión | Cifra |
 | --- | ---: |
-| Entradas en el catálogo | 9.540 |
-| Reconstruidas | 9.540 |
-| Validadas | 9.540 |
+| Entradas en el catálogo | 9.565 |
+| Reconstruidas | 9.565 |
+| Validadas | 9.565 |
 | Reconstruidas sin validar | 0 |
 | De ellas, en esta cola (validables por pares) | 0 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |

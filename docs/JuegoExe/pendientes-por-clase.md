@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,381** funciones en 353 clases/módulos (rango 0x401000–0x74FFFF): 2,359 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,356** funciones en 346 clases/módulos (rango 0x401000–0x74FFFF): 2,334 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,13 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CEventPotentialWalkIntoVehicle | 4 | 20 |
-| CEventVehicleDied | 4 | 20 |
-| CPlayerInfo | 3 | 21 |
-| CTaskComplexDie | 3 | 23 |
-| CEventVehicleDamage | 4 | 23 |
-| CLodTimeModelInfo | 2 | 25 |
-| CEventGunShotWhizzedBy | 5 | 29 |
 | CLodAtomicModelInfo | 2 | 31 |
 | CPhysical | 2 | 32 |
 | CTrailer | 2 | 33 |
@@ -364,66 +357,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
 
-## CEventPotentialWalkIntoVehicle (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AE3A0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004AE5C0 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x004AE390 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004AE3B0 | 6 | B |  | 0 | 0 | sí | alta |
-
-## CEventVehicleDied (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B0D80 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B0EE0 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x004B0D70 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B0D90 | 6 | B |  | 0 | 0 | sí | alta |
-
-## CPlayerInfo (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00571970 | 5 | C |  | 1 | 0 |  | baja |
-| 0x00571980 | 5 | C |  | 1 | 0 |  | baja |
-| 0x0056F200 | 11 | A |  | 3 | 3 |  | baja |
-
-## CTaskComplexDie (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006300B0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00630580 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x006300C0 | 11 | C |  | 1 | 0 |  | alta |
-
-## CEventVehicleDamage (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B1960 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B1980 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B1970 | 7 | B |  | 0 | 0 | sí | alta |
-| 0x004B1B50 | 7 | C |  | 1 | 0 |  | baja |
-
-## CLodTimeModelInfo (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004C56E0 | 7 | C |  | 1 | 0 |  | baja |
-| 0x004C56F0 | 18 | D |  | 0 | 0 |  | baja |
-
-## CEventGunShotWhizzedBy (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B2040 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004B2050 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004B2030 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B2060 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B2070 | 11 | A |  | 5 | 2 |  | baja |
-
 ## CLodAtomicModelInfo (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -656,7 +589,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x004C5920 | 7 | C |  | 1 | 0 |  | baja |
 | 0x004C5540 | 18 | D |  | 0 | 0 |  | baja |
-| 0x004C4A60 | 21 | C |  | 9 | 0 |  | baja |
+| 0x004C4A60 | 21 | A |  | 9 | 1 |  | baja |
 
 ## CEventGunShot (7)
 

@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 09/11/2026 (Ciudad de México):** 870 grupos / 9540 funciones reconstruidas; 9540 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 09/11/2026 (Ciudad de México):** 871 grupos / 9565 funciones reconstruidas; 9565 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo B: Falta: método virtual
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-792 funciones, 38,125 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+775 funciones, 38,039 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -526,7 +526,6 @@
 | `0x004AFCD0` | 7 | CEventKnockOffBike | alta | 0 (0) | sí |
 | `0x004B1150` | 7 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x004B1300` | 7 | CEventHitByWaterCannon | alta | 0 (0) | sí |
-| `0x004B1970` | 7 | CEventVehicleDamage | alta | 0 (0) | sí |
 | `0x004C7660` | 7 | CVehicleModelInfo | alta | 0 (0) | sí |
 | `0x005FF7E0` | 7 | CEventSeenCop | baja | 0 (0) | sí |
 | `0x006B58B0` | 7 | CBike | alta | 0 (0) | sí |
@@ -549,8 +548,6 @@
 | `0x004ACDC0` | 6 | CEventObjectCollision | alta | 0 (0) | sí |
 | `0x004ACFB0` | 6 | CEventBuildingCollision | alta | 0 (0) | sí |
 | `0x004ACFE0` | 6 | CEventBuildingCollision | alta | 0 (0) | sí |
-| `0x004AE390` | 6 | CEventPotentialWalkIntoVehicle | alta | 0 (0) | sí |
-| `0x004AE3B0` | 6 | CEventPotentialWalkIntoVehicle | alta | 0 (0) | sí |
 | `0x004AE640` | 6 | CEventPotentialWalkIntoObject | baja | 0 (0) | sí |
 | `0x004AE660` | 6 | CEventPotentialWalkIntoObject | baja | 0 (0) | sí |
 | `0x004AEA00` | 6 | CEventVehicleHitAndRun | baja | 0 (0) | sí |
@@ -558,18 +555,13 @@
 | `0x004AF3D0` | 6 | CEventAttractor | alta | 0 (0) | sí |
 | `0x004AFCB0` | 6 | CEventKnockOffBike | alta | 0 (0) | sí |
 | `0x004AFCE0` | 6 | CEventKnockOffBike | alta | 0 (0) | sí |
-| `0x004B0D70` | 6 | CEventVehicleDied | alta | 0 (0) | sí |
-| `0x004B0D90` | 6 | CEventVehicleDied | alta | 0 (0) | sí |
 | `0x004B1130` | 6 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x004B1160` | 6 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x004B12E0` | 6 | CEventHitByWaterCannon | alta | 0 (0) | sí |
 | `0x004B1310` | 6 | CEventHitByWaterCannon | alta | 0 (0) | sí |
 | `0x004B14F0` | 6 | CEventStuckInAir | alta | 0 (0) | sí |
-| `0x004B1980` | 6 | CEventVehicleDamage | alta | 0 (0) | sí |
 | `0x004B1ED0` | 6 | CEventPotentialWalkIntoFire | baja | 0 (0) | sí |
 | `0x004B1EF0` | 6 | CEventPotentialWalkIntoFire | baja | 0 (0) | sí |
-| `0x004B2030` | 6 | CEventGunShotWhizzedBy | baja | 0 (0) | sí |
-| `0x004B2060` | 6 | CEventGunShotWhizzedBy | baja | 0 (0) | sí |
 | `0x004B21F0` | 6 | CEventAreaCodes | alta | 0 (0) | sí |
 | `0x004B2670` | 6 | CEventDanger | alta | 0 (0) | sí |
 | `0x004B2690` | 6 | CEventDanger | alta | 0 (0) | sí |
@@ -611,8 +603,6 @@
 | `0x0062FCB0` | 6 | CTaskSimpleDieInCar | baja | 0 (0) | sí |
 | `0x0062FF00` | 6 | CTaskComplexDieInCar | baja | 0 (0) | sí |
 | `0x0062FF40` | 6 | CTaskComplexDieInCar | baja | 0 (0) | sí |
-| `0x006300B0` | 6 | CTaskComplexDie | alta | 0 (0) | sí |
-| `0x00630580` | 6 | CTaskComplexDie | baja | 0 (0) | sí |
 | `0x00630F50` | 6 | CTaskSimpleTired | alta | 0 (0) | sí |
 | `0x00631940` | 6 | CTaskComplexObserveTrafficLights | baja | 0 (0) | sí |
 | `0x00632B50` | 6 | CTaskSimpleWaitForBus | baja | 0 (0) | sí |
@@ -685,10 +675,8 @@
 | `0x004ABFF0` | 5 | CEvent | alta | 0 (0) | sí |
 | `0x004AC980` | 5 | CEventVehicleCollision | baja | 0 (0) | sí |
 | `0x004ACEF0` | 5 | CEventObjectCollision | baja | 0 (0) | sí |
-| `0x004AE5C0` | 5 | CEventPotentialWalkIntoVehicle | baja | 0 (0) | sí |
 | `0x004AE6D0` | 5 | CEventPotentialWalkIntoObject | baja | 0 (0) | sí |
 | `0x004AFB40` | 5 | CEventAcquaintancePedHateBadlyLit | baja | 0 (0) | sí |
-| `0x004B0EE0` | 5 | CEventVehicleDied | baja | 0 (0) | sí |
 | `0x004B0F70` | 5 | CEventLeaderEnteredCarAsDriver | baja | 0 (0) | sí |
 | `0x004B1040` | 5 | CEventLeaderQuitEnteringCarAsDriver | baja | 0 (0) | sí |
 | `0x004B2390` | 5 | CEventAreaCodes | baja | 0 (0) | sí |
@@ -753,7 +741,6 @@
 | `0x004ACDB0` | 3 | CEventObjectCollision | alta | 0 (0) | sí |
 | `0x004ACFC0` | 3 | CEventBuildingCollision | alta | 0 (0) | sí |
 | `0x004ACFD0` | 3 | CEventBuildingCollision | alta | 0 (0) | sí |
-| `0x004AE3A0` | 3 | CEventPotentialWalkIntoVehicle | alta | 0 (0) | sí |
 | `0x004AE650` | 3 | CEventPotentialWalkIntoObject | baja | 0 (0) | sí |
 | `0x004AEA10` | 3 | CEventVehicleHitAndRun | baja | 0 (0) | sí |
 | `0x004AF3E0` | 3 | CEventAttractor | alta | 0 (0) | sí |
@@ -761,15 +748,11 @@
 | `0x004AFCC0` | 3 | CEventKnockOffBike | alta | 0 (0) | sí |
 | `0x004B06F0` | 3 | CEventKnockOffBike | baja | 0 (0) | sí |
 | `0x004B0A40` | 3 | CEventScriptCommand | alta | 0 (0) | sí |
-| `0x004B0D80` | 3 | CEventVehicleDied | alta | 0 (0) | sí |
 | `0x004B1140` | 3 | CEventVehicleOnFire | baja | 0 (0) | sí |
 | `0x004B12F0` | 3 | CEventHitByWaterCannon | alta | 0 (0) | sí |
 | `0x004B1500` | 3 | CEventStuckInAir | alta | 0 (0) | sí |
 | `0x004B1510` | 3 | CEventStuckInAir | alta | 0 (0) | sí |
-| `0x004B1960` | 3 | CEventVehicleDamage | alta | 0 (0) | sí |
 | `0x004B1EE0` | 3 | CEventPotentialWalkIntoFire | baja | 0 (0) | sí |
-| `0x004B2040` | 3 | CEventGunShotWhizzedBy | baja | 0 (0) | sí |
-| `0x004B2050` | 3 | CEventGunShotWhizzedBy | baja | 0 (0) | sí |
 | `0x004B2200` | 3 | CEventAreaCodes | alta | 0 (0) | sí |
 | `0x004B2680` | 3 | CEventDanger | alta | 0 (0) | sí |
 | `0x004B8330` | 3 | CEventLeaderExitedCarAsDriver | baja | 0 (0) | sí |
