@@ -1,0 +1,21 @@
+ronda 1: pares con diferencias por funcion (de [2048] casos por funcion)
+CdStreamGetLastPosn: 2048 / 2048
+CMaths::AbsFloat: 1069 / 2048
+CEvent::IsCriminalEvent: 2048 / 2048
+CEvent::ReportCriminalEvent: 2048 / 2048
+CEvent::GetLocalSoundLevel: 2048 / 2048
+CEvent::DoInformVehicleOccupants: 2048 / 2048
+CEventPedCollisionWithPed::GetEventType: 2048 / 2048
+CEventPedCollisionWithPed::GetLifeTime: 2048 / 2048
+CEventPedCollisionWithPed::GetEventPriority: 2048 / 2048
+CEventPotentialWalkIntoPed::GetEventType: 2048 / 2048
+CEventPotentialWalkIntoPed::GetLifeTime: 2048 / 2048
+CEventPotentialWalkIntoPed::GetSourceEntity: 1580 / 2048
+CEventPotentialWalkIntoPed::GetEventPriority: 2048 / 2048
+CEventVehicleToSteal::GetEventType: 2048 / 2048
+CEventVehicleToSteal::GetLifeTime: 2048 / 2048
+CEventVehicleToSteal::GetEventPriority: 2048 / 2048
+CEventInAir::GetEventType: 2048 / 2048
+CEventInAir::GetLifeTime: 2048 / 2048
+CEventInAir::GetEventPriority: 2048 / 2048
+lado EXE (original) fuera del oraculo independiente en toda la ronda: 0 pares

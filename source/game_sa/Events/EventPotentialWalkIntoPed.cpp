@@ -38,6 +38,10 @@ void CEventPotentialWalkIntoPed::InjectHooks()
     RH_ScopedNamedGlobalInstall(PotentialWalkIntoPedDestructorBody, "Destructor", 0x4AE7A0);
 
     RH_ScopedInstall(Constructor, 0x4AE6E0);
+    RH_ScopedVMTInstall(GetEventType, 0x4AE760);     // lote 137A (banco Fn137A)
+    RH_ScopedVMTInstall(GetLifeTime, 0x4AE770);      // lote 137A
+    RH_ScopedVMTInstall(GetSourceEntity, 0x4AE780);  // lote 137A
+    RH_ScopedVMTInstall(GetEventPriority, 0x4AE790); // lote 137A
     RH_ScopedVMTInstall(AffectsPed, 0x4AE800);
     RH_ScopedVMTInstall(TakesPriorityOver, 0x4AE950);
 }

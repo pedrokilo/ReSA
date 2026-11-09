@@ -18808,5 +18808,13 @@ __declspec(noinline) float __cdecl PedSphereNearestCpp(const float* front, const
         }
     }
     return minimum;
+
+// Lote 137A (Fn137A).
+#pragma float_control(precise, on, push)
+// 0x406D10 (valor absoluto de un float; cdecl, el argumento en la pila, `ret`, resultado en ST0): `fld dword ptr [esp+4]; fabs; ret`. La x87 carga el float (un NaN senalizante se vuelve silencioso, sin tocar la
+// carga util) y fabs borra el signo; no se guarda ni se recarga.
+#pragma intrinsic(fabs)
+__declspec(noinline) float __cdecl FloatAbsCpp(float v) {
+    return float(fabs(double(v))); // con std::fabs(float) el compilador llama a la funcion de la CRT (guarda el float en la pila y registros distintos del EXE); con el intrinsico de fabs(double) sale `fld; fabs`
 }
 #pragma float_control(pop)

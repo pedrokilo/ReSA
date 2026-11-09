@@ -48,7 +48,36 @@ void CEvent::InjectHooks() {
     RH_ScopedInstall(CalcSoundLevelIncrement, 0x4AC050);
     RH_ScopedInstall(GetSoundLevel, 0x4B2850);
     RH_ScopedInstall(TakesPriorityOverBase, 0x4ABC30);
+    RH_ScopedVMTInstall(IsCriminalEvent, 0x420E90);            // lote 137A (banco Fn137A)
+    RH_ScopedVMTInstall(ReportCriminalEvent, 0x420EA0);        // lote 137A
+    RH_ScopedVMTInstall(GetLocalSoundLevel, 0x420EB0);         // lote 137A
+    RH_ScopedVMTInstall(DoInformVehicleOccupants, 0x420EC0);   // lote 137A
 }
+
+// Lote 137A (banco Fn137A): las cuatro implementaciones por defecto de CEvent que las vtables del EXE comparten (ranuras 7, 8, 12 y 13 de CEvent 0x85AB38 y de todos los eventos que no las redefinen).
+// Son cuerpos minimos (sin marco): se optimizan por pragma, que solo actua con /Zi y sin comprobaciones de ejecucion (CMakeLists.txt, como los destructores de arriba).
+#pragma runtime_checks("", off)
+#pragma optimize("gty", on)
+// 0x420E90 (thiscall, `ret`, bool en AL): `xor al, al`.
+bool CEvent::IsCriminalEvent() {
+    return false;
+}
+
+// 0x420EA0 (thiscall, un argumento de pila, `ret 4`): no hace nada.
+void CEvent::ReportCriminalEvent(CPed* /*ped*/) {
+}
+
+// 0x420EB0 (thiscall, `ret`, float en ST0): `fld dword [0x858B50]` (0.0f).
+float CEvent::GetLocalSoundLevel() {
+    return 0.0f;
+}
+
+// 0x420EC0 (thiscall, un argumento de pila, `ret 4`, bool en AL): `xor al, al`.
+bool CEvent::DoInformVehicleOccupants(CPed* /*ped*/) {
+    return false;
+}
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
 
 // 0x4ABC30: thiscall (`ret 4`), bool en AL. Como el original: primero la prioridad del otro evento (ranura 2 de su vtabla), despues la propia; comparacion con signo `>=`.
 bool CEvent::TakesPriorityOverBase(const CEvent& other) {

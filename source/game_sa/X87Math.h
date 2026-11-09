@@ -2302,3 +2302,7 @@ double __cdecl SunReflectionFactorCpp(const float* cam, float x, float y, float 
 // Lote 135A (Fn135A).
 // 0x50D590 (CCollision): distancia minima de las 12 esferas (5 dwords cada una) de golpe de un peaton al plano cercano de la camara (front y source = 3 floats); ver X87Math.cpp.
 float __cdecl PedSphereNearestCpp(const float* front, const float* source, const float* spheres, float nearClip);
+
+// Lote 137A (Fn137A).
+// 0x406D10 (cdecl, un float en la pila, `ret`, resultado en ST0): `fld dword [esp+4]; fabs; ret`. Con un NaN senalizante el `fld` lo vuelve silencioso (como en el EXE).
+float __cdecl FloatAbsCpp(float v);

@@ -91,7 +91,7 @@ CdStreamHandle CdStreamOpen(const char* lpFileName);
 eCdStreamStatus CdStreamSync(int32 streamId);
 eCdStreamStatus CdStreamGetStatus(int32 streamId);
 bool CdStreamRead(int32 streamId, void* lpBuffer, CdStreamPos offsetAndHandle, int32 sectorCount);
-static uint32 CdStreamGetLastPosn() { return gLastCdStreamPosn; }
+uint32 CdStreamGetLastPosn(); // 0x406450 (lote 137A)
 [[noreturn]] void WINAPI CdStreamThread(LPVOID lpParam);
 void CdStreamInitThread();
 void CdStreamInit(int32 streamCount);

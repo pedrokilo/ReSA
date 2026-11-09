@@ -38,6 +38,9 @@ void CEventPedCollisionWithPed::InjectHooks()
     RH_ScopedNamedGlobalInstall(PedCollisionWithPedDestructorBody, "Destructor", 0x4ACA70);
 
     RH_ScopedInstall(Constructor, 0x4AC990);
+    RH_ScopedVMTInstall(GetEventType, 0x4ACA40);     // lote 137A (banco Fn137A)
+    RH_ScopedVMTInstall(GetLifeTime, 0x4ACA50);      // lote 137A
+    RH_ScopedVMTInstall(GetEventPriority, 0x4ACA60); // lote 137A
     RH_ScopedVMTInstall(TakesPriorityOver, 0x4ACAD0);
     RH_ScopedVMTInstall(AffectsPed, 0x4ACB10);
 }

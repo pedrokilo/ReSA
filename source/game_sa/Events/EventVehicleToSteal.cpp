@@ -35,6 +35,9 @@ void CEventVehicleToSteal::InjectHooks() {
     RH_ScopedNamedGlobalInstall(VehicleToStealDestructorBody, "Destructor", 0x4AF700);
 
     RH_ScopedInstall(Constructor, 0x4AF670);
+    RH_ScopedVMTInstall(GetEventType, 0x4AF6D0);     // lote 137A (banco Fn137A)
+    RH_ScopedVMTInstall(GetLifeTime, 0x4AF6E0);      // lote 137A
+    RH_ScopedVMTInstall(GetEventPriority, 0x4AF6F0); // lote 137A
     RH_ScopedVMTInstall(AffectsPed, 0x4AF760);
 }
 

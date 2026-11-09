@@ -47,6 +47,12 @@ void InjectCdStreamHooks() {
     RH_ScopedGlobalInstall(CdStreamInit, 0x406B70);
     RH_ScopedGlobalInstall(CdStreamRemoveImages, 0x406690);
     RH_ScopedGlobalInstall(CdStreamShutdown, 0x406370);
+    RH_ScopedGlobalInstall(CdStreamGetLastPosn, 0x406450); // lote 137A (banco Fn137A)
+}
+
+// 0x406450 (lote 137A; cdecl, sin argumentos, `ret`): devuelve la ultima posicion leida (dword en 0x8E4898, la que guarda CdStreamRead con el FileID en el byte alto): `mov eax, [0x8E4898]; ret`.
+uint32 CdStreamGetLastPosn() {
+    return gLastCdStreamPosn;
 }
 
 // 0x4067B0

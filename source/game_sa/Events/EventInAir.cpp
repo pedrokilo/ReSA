@@ -34,6 +34,9 @@ void CEventInAir::InjectHooks()
     RH_ScopedNamedGlobalInstall(InAirDestructorBody, "Destructor", 0x4B0D00);
 
     RH_ScopedInstall(Constructor, 0x4B0CB0);
+    RH_ScopedVMTInstall(GetEventType, 0x4B0CD0);     // lote 137A (banco Fn137A)
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B0CE0);      // lote 137A
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B0CF0); // lote 137A
     RH_ScopedVMTInstall(AffectsPed, 0x4B0C00);
 }
 

@@ -27,14 +27,14 @@ public:
     virtual CEvent* Clone() const noexcept = 0;
     virtual bool AffectsPed(CPed* ped) { return true; };
     virtual bool AffectsPedGroup(CPedGroup* pedGroup) { return true; };
-    virtual bool IsCriminalEvent() { return false; }
-    virtual void ReportCriminalEvent(CPed* ped) { }; // empty
+    virtual bool IsCriminalEvent();                  // 0x420E90 (lote 137A): `xor al, al; ret`; las vtables del EXE de todos los eventos que no la redefinen apuntan a esta direccion
+    virtual void ReportCriminalEvent(CPed* ped);     // 0x420EA0 (lote 137A): `ret 4` (vacia)
     virtual bool HasEditableResponse() const { return false; }
     virtual CEntity* GetSourceEntity() const { return nullptr; }
     virtual bool TakesPriorityOver(const CEvent& other) { return TakesPriorityOverBase(other); }
     bool TakesPriorityOverBase(const CEvent& other); // 0x4ABC30: cuerpo de la implementacion por defecto (las vtables del EXE apuntan a esta direccion)
-    virtual float GetLocalSoundLevel() { return 0.0f; }
-    virtual bool DoInformVehicleOccupants(CPed* ped) { return false; }
+    virtual float GetLocalSoundLevel();              // 0x420EB0 (lote 137A): `fld dword [0x858B50]` (0.0f); `ret`
+    virtual bool DoInformVehicleOccupants(CPed* ped); // 0x420EC0 (lote 137A): `xor al, al; ret 4`
     virtual bool IsValid(CPed* ped) { return m_bValid || m_nTimeActive <= GetLifeTime(); }
     virtual bool CanBeInterruptedBySameEvent() { return false; };
 
