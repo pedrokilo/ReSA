@@ -17,29 +17,29 @@
   "max_error": 4.76837158203125e-07,
   "tolerance": 1e-05,
   "state_restored": true,
-  "log_sha256": "0c950d4192f00c60e6886d2820b0f6e23a4bc1d1b40ac4125a6a7a09332e197c",
+  "log_sha256": "c04294933ad3428780411e2ab6afdf1a3fd8a00cd780db743f285d1227cccfdc",
   "saves_unchanged": true,
   "class_recorded_progress": "145/145",
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cped-completion\\20260922-221131-711733",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cped-completion\\20261108-230815-686706",
   "probe_build_manifest": {
     "binaries": {
-      "asi": "1c01208a8ae43d5b125309f2b35a0884a28634e2dbcbcffb72b2ab486a7eb633",
-      "pdb": "f6d68e4509a43fd6c625e34ef407e35067019dc44d9224d7c56db57b85923dac"
+      "asi": "b63ed248a9ee62a673a83af8ad9cab8cc00b3dce9c6e006e1adcaa9d6c2be7fd",
+      "pdb": "dc8e20000f2d80f24202ee4e02c930269281b026566b0f492f3ba86341406468"
     },
     "sources": {
-      "source\\game_sa\\Entity\\Ped\\Ped.cpp": "fc2b74d3cbd1877320f01c6f2c5a85a57d0fb0107465532679a4d93514a7355d",
-      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+      "source\\game_sa\\Entity\\Ped\\Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+      "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
     },
     "instrumentation": {
       "CompletionLive.hpp": "1cf3258a68a139cd6737bcf7ac909f021f935d22f9ec5dec0e0ec86949cfc165",
-      "CompletionProbe.hpp": "2ed5b262cceafe21bcdeb3928d858ff6e72aa349487e69382bfb0caa6e3a2917",
-      "FootLandedComparison.hpp": "2670f7b44b404c185fe9964262137fc03c344efe2601e22139a127507d11fd27",
-      "FootStepsComparison.hpp": "0826c4bddf1da90cd2adb7c5df94847ac15c542a720d6e29d34bf8c24f0b4cd4",
+      "CompletionProbe.hpp": "c465bd2caf5e40bdf830de2791b13ddb4cfdb80cd9dbeb9a410cce3bd835ef41",
+      "FootLandedComparison.hpp": "838a205e241d7017c85a7e73f179ae3f9d8ce6f635fdb7c603c6ef7d2f8f8806",
+      "FootStepsComparison.hpp": "f3b67f6acfccda9207534268c53b9f492ad53a49fd39e8b7ea1aaf11bd8737f6",
       "KillComparison.hpp": "35d0e8863a177b38bc9eab05b39991b166cd03afe08be56ea2a1a8480c1ead62",
-      "PositionComparison.hpp": "46982dcf19fa5ac578f551684513bb6a7d3e8bb91fe0d770dcc19fb83e1c8743",
-      "TyresComparison.hpp": "24d4e4ccbb6923af3c1c506dd801c54dc343d9bca2523186486d040c8c41e46a",
-      "build_completion_probe.py": "af309c05f240e5f9f7fd7d71b3534d2e96cf92fbfd94c0497a755709e270469b",
-      "ProbeSupport.hpp": "723fa314edaf3fa1ea4b06078c389707d078f4e5f676fe8502c663de00a50724"
+      "PositionComparison.hpp": "c8802d6d6b77573565e960684668e604efa3014674a17c2cdac5cb78f49c5b0a",
+      "TyresComparison.hpp": "b66278a7ec2a82518f6dde3dba2f0193090176e8e6ffc670470033aca616be01",
+      "build_completion_probe.py": "2be41d59077bd01d1d7e697cfc29d5644c9531c2c74ef2edd5c128428ff5218b",
+      "ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739"
     }
   },
   "installation": {
@@ -67,7 +67,8 @@
     "Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README.",
     "Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle.",
     "Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies.",
-    "Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee."
+    "Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ],
   "kill_observed_events": {
     "['affects', 49, 3]": 3901,
@@ -85,5 +86,13 @@
     "['vehicle_audio', 0, 122]": 70,
     "['blend', 0, 22]": 82
   },
-  "runner_sha256": "03bdd0845b07879ad42f6b2e577098e6d1307ef3f3c0806fbeb5a6a0e888d682"
+  "runner_sha256": "03bdd0845b07879ad42f6b2e577098e6d1307ef3f3c0806fbeb5a6a0e888d682",
+  "pairs_per_function": {
+    "CalculateNewVelocity": 4096,
+    "DoFootLanded": 2048,
+    "PlayFootSteps": 8192,
+    "MakeTyresMuddySectorList": 2048,
+    "PositionPedOutOfCollision": 4096,
+    "KillPedWithCar": 8192
+  }
 }

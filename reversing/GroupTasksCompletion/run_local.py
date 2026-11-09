@@ -2,7 +2,8 @@ import json,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from runtime_runner import run_case,digest
-PROBE_HASH='b63cb6e3d169b48e02ccbd84d4219e41a25f4465947b61fc375b81a5d1f8323e'
+# 134R: el hash de la sonda sale del manifiesto de la ultima compilacion (antes estaba congelado y ya no coincide con el codigo actual)
+PROBE_HASH=json.loads((Path(__file__).parent/'artifacts/build-manifest.json').read_text())['binaries']['asi']
 EXPECTED={'Random::AllocateDefaultTasks':2048,'SitInLeaderCar::AllocateDefaultTasks':2048,'GangFollower::SetCanEnterLeadersCar':512}
 def analyze(path):
     if not path.exists():return None

@@ -42,7 +42,7 @@
   "log_sha256": "f8904d20c314d0f7a978799253308786cadb4d0a968c71a5259c124dfb8f11bc",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cpede\\20261006-150049-052551",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cpede\\20261108-225841-882328",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPed::AttachPedToBike": true,
@@ -73,22 +73,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "f90056d3c7f95f9991208a8dfe99fb4a1e15a4caa712c6e115add44909294700",
-      "pdb": "7720b668522841071fa74959baf6775eff8417f06d8233fc25e0932c1069b901"
+      "asi": "f87d41da5813978c1e64438d47f3096618185667b32816349f8ff3af6f42485c",
+      "pdb": "8b026815de74479744587b17e312606000b28e20a77390977abd7ef31799b318"
     },
     "sources": {
-      "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
-      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+      "source/game_sa/Entity/Ped/Ped.h": "7d4f653e046e428073f2b3eae35c29eb9a771bfbffee79b86589e69f27e55404"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "1c4e80299b09f207bce5d47d2a10f541de2413eab62d4f5d94ac690b0df77649",
+      "LiveComparison.hpp": "5079bea69f593decd41c2282c67139f2dfa315569f85be7eb47ead4dda5758e7",
       "build_probe.py": "1ca36fd6159046a18221765cd6850f3ced9e8bbb112d90a95b33d5227b86df21",
       "run_local.py": "a21a51bc87d1d3356c431eeb58606d664b40ba8f97d42a148b606ba1cba36263"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

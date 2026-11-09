@@ -31,3 +31,7 @@ Aprobación histórica: `20261008-013115-980305`, 4352 pares. Informe: [summary.
 Validación final del lote pendiente: una aprobación histórica no acredita las fuentes actuales. El cierre requiere repetir los bancos afectados y comprobar los hashes actuales de fuentes, instrumentos, EXE y ASI ejecutada mediante el registro estricto coordinado por la raíz. Este README no autoriza activar hooks.
 
 La equivalencia está limitada a los fixtures y ramas descritos arriba. Las colaboraciones aisladas simétricamente no acreditan su implementación; estos resultados no constituyen una campaña integral de juego ni independencia del EXE.
+
+## Revalidacion 134R (08/11/2026, main e9fcf31dd4)
+
+Causa del fallo preexistente (`CTaskComplexGangFollower::Destructor` 256/256): la unica diferencia era la vtable que deja el destructor en el primer dword de la tarea. El destructor del EXE (0x65EBB0) acaba en el cuerpo de `~CTask` (0x61A3A0) y deja la vtable de CTask del EXE (0x86D48C); el destructor C++ de la DLL termina con la vtable de `CTask` de la DLL (0x706cc0b4 en la corrida; `~CTask()` esta vacio). Es la misma situacion que ya se identifica en otros bancos: el objeto esta muerto y el valor no se lee. Arreglo solo de banco: `VmtIdentity355` reconoce `CTask` (canonica 0x86D48C y la de la DLL) y las dos vtables se comparan como equivalentes. Produccion no se toca. APROBADO: `20261108-231817-248056`, 4352 pares, cero diferencias; archivado en `CppTwelveLevel6Final/runs/GangFollower355-20261108-231817-248056`. Sustituye el `attempt-summary.json` fallido del 08/10/2026.

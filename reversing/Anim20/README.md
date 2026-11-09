@@ -39,3 +39,7 @@ Validadas el 03/10/2026 con **10.368 pares original/candidato dentro de GTA**, t
   - el destructor (0x4CECF0) no está en la lista.
 
 Repetir: `python reversing/Anim20/build_probe.py` y `python reversing/run.py --case anim20`. Evidencia: [validation-summary.json](validation-summary.json).
+
+## Revalidacion 134R (08/11/2026, main e9fcf31dd4)
+
+Diagnostico: no se reprodujo ningun fallo. Con `bench_here.sh Anim20` (sonda compilada con `probe_build.py`) el banco compila y pasa: APROBADO `20261108-231603-849078`, 10368 pares, cero diferencias; archivado en `CppTwelveLevel6Final/runs/Anim20-20261108-231603-849078`. No hizo falta cambiar banco ni produccion.

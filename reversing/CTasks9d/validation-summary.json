@@ -52,7 +52,7 @@
   "log_sha256": "2974058e0de51d36a31141cd6731257fd2fad56f3eb31d159408c7b4b96cd2b1",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks9d\\20261003-041138-648540",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks9d\\20261108-230543-819008",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexSeekEntityStandard::Clone": true,
@@ -94,29 +94,30 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "56bc74a5034803bc590c68cc1f31fc71c8f2bd91b2a0f57d8a3b137a6574b69f",
-      "pdb": "0a6d702a2c5698bde906c7969759953e90c89aaa7e5a8220ff2794ecfd30ee1c"
+      "asi": "61165933f5cda9dc74ae151d461bac2c3247061a5c0b06e698647174531958ab",
+      "pdb": "a6aad6b729a627a9b3bc041570e729dd080cb8f1349a8470f70a3853d472cad6"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
       "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
       "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "97b0c27d38a88e9291a17f6fb4ce931ce70308ac7dcb0cec4f8a6f878ec463db",
+      "LiveComparison.hpp": "ce414328a50460293ef9c00dee2937db3e7bd85f9d9f87b67fef6f0fb9c9a7be",
       "build_probe.py": "d7784d2405d73c988e7c719648abb60951e36fca3ff9e6c64976cec41bf985bd",
       "run_local.py": "225630354e98add99c2d4f9e26595fb96f8c8d8d46e48db6cf129648efb6331c"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

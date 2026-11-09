@@ -1,0 +1,3 @@
+APROBADO: CTaskComplexUse* (lote 4)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-tasks4\20261108-230210-678908

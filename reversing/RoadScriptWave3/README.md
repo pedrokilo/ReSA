@@ -73,3 +73,7 @@ MATCH sin cambios: `Init` (rep stos 0x51 dwords + 1 byte, OpenFile "rb", Read 4 
 ## Segunda aprobacion (09/10/2026)
 
 Corrida `20261009-110441-788318`: passed=true, 3200 pares, 4 funciones con 0 fallos, evento complete. Se registra solo CRunningScript::SetCharCoordinates (1024 pares) con `register_roadscriptwave3_b.py` (`validation-summary-b.json`); las otras tres ya estaban registradas. CRunningScript queda completa.
+
+## Revalidacion 134R (08/11/2026, main e9fcf31dd4)
+
+Repetido sin cambios en el banco (cita 0x616920 solo en comentarios (el fixture ejecuta la funcion real); no usa `&CPedPlacement::FindZCoorForPed`). APROBADO: `20261108-230411-611071`, 3200 pares, las cuatro funciones sin diferencias (incluida `SetCharCoordinates`, registrada en `validation-summary-b.json`); archivado en `CppTwelveLevel6Final/runs/RoadScriptWave3-20261108-230411-611071`.

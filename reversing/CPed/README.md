@@ -55,3 +55,7 @@ Se excluyen `Audio` y `Global/SurfaceInfos_c`, como en la infraestructura existe
 `PROBAR.cmd --case cped-completion` o `python reversing/run.py --case cped-completion`. Integrado en `--all`, conservando un solo PROBAR.cmd. El runner usa la sonda archivada y termina sin supervision; no es una prueba integrada de todas las clases en la compilacion actual. `build_completion_probe.py` recompila instrumentacion temporal y restaura los fuentes incluso si falla: revisar su manifiesto y renovar conscientemente el hash y los binarios archivados para repetir con otra revision.
 
 Solo se instala en `D:/JUEGOS/GTA San Andreas - CVehicle Test`. Instalacion personal y partidas conservadas. Sin commit ni push.
+
+## Revalidacion 134R (08/11/2026, main e9fcf31dd4)
+
+Repetido el banco `cped-completion` (`run_completion.py`), que cita 0x616920 a traves de la sonda (`build_completion_probe.py` sustituye `FindZCoorForPed(position).first` por `plugin::Call<0x616920>(&position)` en `PositionPedOutOfCollision`). `run_completion.py` mantiene su `PROBE_HASH` fijo, asi que se compilo la sonda con `build_completion_probe.py`, se instalo en `_baseline` y se ejecuto `run_case` con el hash de la sonda nueva sin tocar el fichero (ver informe 134R). APROBADO: `20261108-230815-686706`, 28672 pares, archivado en `CppTwelveLevel6Final/runs/CPed-20261108-230815-686706`.

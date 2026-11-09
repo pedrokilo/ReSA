@@ -36,7 +36,7 @@
   "log_sha256": "9f51a19ace365c7de11d095276272cf64833040f15b08fbf88cae8fccd999a9a",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-anim20\\20261107-200958-058364",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-anim20\\20261108-231603-849078",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAnimBlendAssociation::Constructor0-": true,
@@ -62,8 +62,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "195f7fc6e596b7ff7d599fabd661da9828117cdd12e243da8626963027c15617",
-      "pdb": "7df5c2925cacf008833b63245cbb0305ec74d021c133ac84ae504591fca6d3c2"
+      "asi": "9b21834f854cc76fce57047069d5c48d781e75abcfb517be6a18ffa4e5cfc76c",
+      "pdb": "c1b158a2b2d477964bb2fbbac213232e363c22be11c2c38ac839dce63758bf05"
     },
     "sources": {
       "source/game_sa/Animation/AnimBlendAssociation.cpp": "48d69096df4497e826e3afa52fbd856fa1d122d6e6349521f6dda121551956b6",

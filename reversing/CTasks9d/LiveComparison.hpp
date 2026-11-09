@@ -322,11 +322,11 @@ inline void Update() {
         EntryPatch r1(Body(bit_cast<uintptr_t>(&CGeneral::GetRandomNumber)),FakeRandomNumber), r1e(0x821B1E,FakeRand);
         EntryPatch s1(Body(MemberAddress(static_cast<int16(CPed::*)(eGlobalSpeechContext,uint32,float,bool,bool,bool)>(&CPed::Say))),FakeSay), s1e(0x5EFFE0,FakeSay);
         EntryPatch s2(Body(bit_cast<uintptr_t>(static_cast<CPlayerPed*(*)(int32)>(&FindPlayerPed))),FakeFindPlayerPed), s2e(0x56E210,FakeFindPlayerPed);
-        EntryPatch s3e(0x5F7F40,FakeSameGroup); // CPedGroups::AreInSameGroup del DLL llama al EXE
+        EntryPatch s3(Body(bit_cast<uintptr_t>(&CPedGroups::AreInSameGroup)),FakeSameGroup), s3e(0x5F7F40,FakeSameGroup); // CPedGroups::AreInSameGroup: la DLL ya lo llama en C++ (TaskComplexSeekEntity.h), no por la direccion del EXE
         EntryPatch s4(Body(MemberAddress(&CPedGroupMembership::IsFollower)),FakeIsFollower), s4e(0x5F6A10,FakeIsFollower);
         EntryPatch s5(Body(MemberAddress(&CPed::DettachPedFromEntity)),FakeDettach), s5e(0x5E7EC0,FakeDettach);
         EntryPatch s6(Body(MemberAddress(&CPed::AttachPedToEntity)),FakeAttach), s6e(0x5E7CB0,FakeAttach);
-        EntryPatch s7(Body(bit_cast<uintptr_t>(&CPedPlacement::FindZCoorForPed)),FakeFindZDll), s7e(0x616920,FakeFindZExe);
+        EntryPatch s7(Body(bit_cast<uintptr_t>(static_cast<std::pair<CVector,bool>(*)(CVector)>(&CPedPlacement::FindZCoorForPed))),FakeFindZDll), s7e(0x616920,FakeFindZExe);
         EntryPatch s8(Body(MemberAddress(&CTaskComplexFollowNodeRoute::SetTarget)),FakeSetTarget), s8e(0x671750,FakeSetTarget);
         EntryPatch s9(Body(dllStandStill),FakeStandStillProcess), s9e(0x62F370,FakeStandStillProcess);
         EntryPatch c1(Body(dllCompStd),FakeCompute), c1e(0x46AF20,FakeCompute);

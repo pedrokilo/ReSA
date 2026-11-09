@@ -1,0 +1,3 @@
+APROBADO: Asignadores de grupo Random/SitInLeaderCar y SetCanEnterLeadersCar
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-group-alloc\20261108-231726-685949

@@ -44,3 +44,7 @@ python reversing/GroupTasksCompletion/write_summary.py # resumen y registro desd
 ## Evidencia
 
 Resumen, hashes y manifiesto de la sonda: [validation-summary.json](validation-summary.json). Log aprobado: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-group-alloc/20261001-235300-178372/comparisons.jsonl`. La primera pasada (`20261001-234924-039832`) falló en el caso 640 de `SitInLeaderCar` solo por el relleno descrito. La segunda (`20261001-235047-738785`) aprobó antes de actualizar los comentarios de estado. Desensamblado de referencia: [allocators.disasm.txt](allocators.disasm.txt).
+
+## Revalidacion 134R (08/11/2026, main e9fcf31dd4)
+
+Causa del fallo preexistente: banco antiguo de `run_case` con `PROBE_HASH` fijo (sonda de 01/10/2026, ya no existia en `_baseline`) y `build_probe.py` que no instalaba la sonda: `run_case` abortaba al abrirla, antes de ejecutar nada. Arreglo solo de banco: `build_probe.py` copia ahora la sonda a `_baseline` y `run_local.py` lee el hash del `artifacts/build-manifest.json` de la ultima compilacion. APROBADO: `20261108-231726-685949`, 4608 pares, cero diferencias; archivado en `CppTwelveLevel6Final/runs/GroupTasksCompletion-20261108-231726-685949`.

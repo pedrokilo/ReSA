@@ -342,7 +342,7 @@ inline void Update() {
         add(0x542CE0,GetSpeedStub,bit_cast<uintptr_t>(&CPhysical::GetSpeed));
         add(0x55E770,SteepStub,bit_cast<uintptr_t>(&SurfaceInfos_c::IsSteepSlope));
         add(0x569E20,SphStub,bit_cast<uintptr_t>(&CWorld::TestSphereAgainstWorld)); add(0x56BA00,LosStub,bit_cast<uintptr_t>(&CWorld::ProcessLineOfSight));
-        add(0x616920,FindZExe,0); if(const auto b=Body(bit_cast<uintptr_t>(&CPedPlacement::FindZCoorForPed)); std::find(seen.begin(),seen.end(),b)==seen.end()){ seen.push_back(b); patches.push_back(std::make_unique<EntryPatch>(b,FindZDll)); }
+        add(0x616920,FindZExe,0); if(const auto b=Body(bit_cast<uintptr_t>(static_cast<std::pair<CVector,bool>(*)(CVector)>(&CPedPlacement::FindZCoorForPed))); std::find(seen.begin(),seen.end(),b)==seen.end()){ seen.push_back(b); patches.push_back(std::make_unique<EntryPatch>(b,FindZDll)); }
         add(0x535300,ColStub,bit_cast<uintptr_t>(&CEntity::GetColModel));
         add(0x698EF0,CoverStub,bit_cast<uintptr_t>(&CCoverPoint::ReleaseCoverPointForPed));
         add(0x56E210,FindPlayerStub,bit_cast<uintptr_t>(&FindPlayerPed));

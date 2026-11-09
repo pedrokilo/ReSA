@@ -75,3 +75,7 @@ llamada virtual AddScriptSayEvent: el EXE por la vtable falsa, la DLL por el cue
   sitio, y la matriz por la posicion estandar de hueso en el orden de sumas de 0x59C890; `DoesLOSBulletHitPed` devuelve 0 con NaN.
 
 Repetir: `python reversing/CPedE/build_probe.py` y `python reversing/run.py --case cpede`.
+
+## Revalidacion 134R (08/11/2026, main e9fcf31dd4)
+
+Repetido con el codigo actual de main porque cita 0x616920 (`CPedPlacement::FindZCoorForPed`: el hook esta ahora en la version con `CVector*`; la version con `std::pair` es una envoltura NOTSA). El banco (solo el banco, nunca produccion) toma la direccion de la version con par con `static_cast<std::pair<CVector,bool>(*)(CVector)>(&CPedPlacement::FindZCoorForPed)`. APROBADO: `20261108-225841-882328`, 10368 pares, archivado en `CppTwelveLevel6Final/runs/CPedE-20261108-225841-882328`.

@@ -49,7 +49,7 @@
   "log_sha256": "85ab8756bd8374d8f09ca176ca8e0b9a25f5368483e72d0275d28a9f020a4142",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks4\\20261002-124225-899039",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks4\\20261108-230210-678908",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexUseScriptedAttractor::Constructor": true,
@@ -88,12 +88,12 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "13ceb06f7348e535b94944a048b43aa325c0726f9e65431652232a1b2582f3e6",
-      "pdb": "84ba069548366de1baf90f246e979ac979c1696609ebd7478f68057b988181c9"
+      "asi": "8d339d5e84d84a1f11c858c0ad9322f9868774d91ddf97302a1bb5df8d567fc8",
+      "pdb": "ba5ce7704e4455aec6d8496c42e242b6f9182c31b53b3f9d20ff4629e15fc5fa"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
       "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
       "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
       "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -103,15 +103,16 @@
       "source/game_sa/Tasks/TaskComplexUseSequence.cpp": "2c44dcfb1a5fe60db7d2ecf29c76cea14efe06777a5d5ea391fb6e7c481d6289",
       "source/game_sa/Tasks/TaskComplexUseSequence.h": "8ce4d288ea0fafbbc4f7b35335e1980735a1b05852a576bf04fbf9d5b3f015bc"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "b16467e0d9a05fdf0f3883273ab8901dfb7435486cba912b72b16619dce46260",
+      "LiveComparison.hpp": "bd93aeb113188ca121872af8bf3967514605aeaaa27602044e8751e7ed606d4e",
       "build_probe.py": "b6c6b74561a2488524ed91c53cce2b1e596cf7c50e1a0a30a713f0c8d7fc14da",
       "run_local.py": "e3cd77ba24f3acd430bec7112a4f08ba6afc5bdd0559cd6c04592c77a085277c"
     }
   },
   "limitations": [
     "Peaton, helicoptero, vehiculo e incendio falsos; tareas falsas con vtable trazada; secuencias globales, almacen de cerebros y slot libre del pool de tareas restaurados por ejecucion.",
-    "FindZCoorForPed, FindCoorsAlongRope, CPed::Say, FireTruckControl, CScriptedBrainTaskStore::Clear y RNG simulados."
+    "FindZCoorForPed, FindCoorsAlongRope, CPed::Say, FireTruckControl, CScriptedBrainTaskStore::Clear y RNG simulados.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

@@ -7,7 +7,7 @@ import subprocess
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from runtime_runner import digest
+from runtime_runner import digest, GAME
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 CMAKE = next((ROOT/'reversing/CVehicle/conan-cache/p').glob('cmake*/p/bin/cmake.exe'))
@@ -48,6 +48,7 @@ def main():
         for ext in ('asi', 'pdb'):
             dest = artifacts/f'gta_reversed-group-alloc-probe.{ext}'
             shutil.copy2(ROOT/f'bin/Debug/gta_reversed.{ext}', dest); hashes[ext] = digest(dest)
+            shutil.copy2(dest, GAME/'_baseline'/dest.name)  # 134R: instala la sonda como los bancos nuevos (probe_build.py)
         manifest = dict(binaries=hashes,
                         sources={str(p.relative_to(ROOT)): hashlib.sha256(data).hexdigest() for p, data in saved.items()},
                         instrumentation={n: digest(HERE/n) for n in ('Probe.hpp', 'LiveComparison.hpp', 'build_probe.py')})

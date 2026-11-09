@@ -39,3 +39,7 @@ Validadas el 02/10/2026 con **13.568 pares original/candidato dentro de GTA**, t
 - Fuera de los fixtures: el constructor de `CTaskInteriorSitAtDesk` con un byte de `bDoInstantly` distinto de 0/1 (el DLL lo normaliza a `bool`).
 
 Repetir: `python reversing/CTasks9d/build_probe.py` y `python reversing/run.py --case ctasks9d`. Evidencia: [validation-summary.json](validation-summary.json).
+
+## Revalidacion 134R (08/11/2026, main e9fcf31dd4)
+
+Repetido con el codigo actual de main porque cita 0x616920 (`CPedPlacement::FindZCoorForPed`: el hook esta ahora en la version con `CVector*`; la version con `std::pair` es una envoltura NOTSA). El banco (solo el banco, nunca produccion) toma la direccion de la version con par con `static_cast<std::pair<CVector,bool>(*)(CVector)>(&CPedPlacement::FindZCoorForPed)`. Ademas, el primer replay fallaba en 3 `ControlSubTask` de SeekEntity (688, 657 y 673 de 1024) por una causa ajena a 0x616920: `TaskComplexSeekEntity.h` llama ya en C++ a `CPedGroups::AreInSameGroup` (antes por la direccion del EXE), y el banco solo falseaba la direccion 0x5F7F40, asi que la DLL ejecutaba la real y su traza perdia el evento `same_group`. Se anadio el parche del cuerpo de la DLL (`s3`) junto al del EXE (`s3e`). APROBADO: `20261108-230543-819008`, 13568 pares, archivado en `CppTwelveLevel6Final/runs/CTasks9d-20261108-230543-819008`.

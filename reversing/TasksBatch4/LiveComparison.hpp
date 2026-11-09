@@ -178,7 +178,7 @@ inline void Update() {
         using ReversingProbe::EntryPatch; using std::bit_cast;
         // GetTask va en línea en el EXE: se rellena el almacén real (0xC188F0) en vez de simularlo
         EntryPatch d2(bit_cast<uintptr_t>(static_cast<void(*)(CTask*)>(&CScriptedBrainTaskStore::Clear)),StoreClearTask), d2e(0x6357F0,StoreClearTask);
-        EntryPatch d3(bit_cast<uintptr_t>(&CPedPlacement::FindZCoorForPed),FindZDll), d3e(0x616920,FindZExe);
+        EntryPatch d3(bit_cast<uintptr_t>(static_cast<std::pair<CVector,bool>(*)(CVector)>(&CPedPlacement::FindZCoorForPed)),FindZDll), d3e(0x616920,FindZExe);
         EntryPatch d4(bit_cast<uintptr_t>(&CRopes::FindCoorsAlongRope),FindRope), d4e(0x555E40,FindRope);
         EntryPatch d5(bit_cast<uintptr_t>(static_cast<int16(CPed::*)(eGlobalSpeechContext,uint32,float,bool,bool,bool)>(&CPed::Say)),Say), d5e(0x5EFFE0,Say);
         EntryPatch d6(bit_cast<uintptr_t>(&CAutomobile::FireTruckControl),FireTruck), d6e(0x729B60,FireTruck);

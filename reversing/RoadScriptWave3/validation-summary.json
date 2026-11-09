@@ -38,22 +38,22 @@
     "CRunningScript::GivePedScriptedTask-OG": "Corpus 1024; MATCH, no source change (EXE 0x465C20: branches -1 / script brain / event / group with the same calls and order)."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/RoadScriptWave3-20261105-102315-312511",
-  "summary_sha256": "edc4fd9a743c67b885a75981dce01a5bf504ec59f019c2fabe0d3462c2759b6b",
-  "result_txt_sha256": "2474d45ab59676deddb4afee666422ad4e49047413ed57b2cd0a783c047cc833",
-  "log_sha256": "3a59b1f23f9b6655cba5092f98f874abb415a3e8bd11ee5917a89673fc0ce456",
+  "run": "reversing/CppTwelveLevel6Final/runs/RoadScriptWave3-20261108-230411-611071",
+  "summary_sha256": "d9c361d9dbd1b958565e30dfeed7fe3010e4186bae0ced26853fdec5751e34eb",
+  "result_txt_sha256": "8c50b51bfddf4abbb98722196e63d4b4f224a1eb5466986d62ea6e5544c6caa9",
+  "log_sha256": "e5aa21cdfa7dc8138a68d2e065489d84b5344fd5f98d06910386526352c7904a",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RoadScriptWave3-20261105-102315-312511/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RoadScriptWave3-20261108-230411-611071/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "bb1d153902ec41661c334178cd023a164583c5843384d74631c5097fc3b6def3",
-    "uncompressed_sha256": "3a59b1f23f9b6655cba5092f98f874abb415a3e8bd11ee5917a89673fc0ce456"
+    "compressed_sha256": "05989bd9fd8f0f11e63c72e224d1c793feb5a12afedda459f79c5b3fd88207bc",
+    "uncompressed_sha256": "e5aa21cdfa7dc8138a68d2e065489d84b5344fd5f98d06910386526352c7904a"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "697734c24e742cc1b3e592dc89f592a6e5c43abbabbb23839cb01b18fa5b0a48",
+  "executed_probe_sha256": "c8c1973d01c6f9353a046c3d5f084aee003f3d4c46d4b04eae813f50d1f7120c",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {

@@ -37,6 +37,7 @@ return p;}
 inline json VmtIdentity355(uintptr_t value) {
     struct Table { const char* name; uintptr_t canonical; };
     static constexpr Table tables[]{
+{"CTask",0x86D48C},
 {"CTaskAllocator",0x870E30},
 {"CTaskAllocatorAttack",0x870e60},
 {"CTaskAllocatorKillOnFoot",0x870e48},

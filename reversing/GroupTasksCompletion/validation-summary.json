@@ -19,10 +19,10 @@
   "tasks_compared": 6477,
   "door_queries": 1696,
   "assigned_pairs": 5809,
-  "log_sha256": "62a328c5589addace6b015973f92bfa2a49cba88a8c7b57189c4a685084737ec",
+  "log_sha256": "5b5ecb8d5112f4c66b59380391eb346ea71dbea0e118b89315c219acee1bb155",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-group-alloc\\20261001-235300-178372",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-group-alloc\\20261108-231726-685949",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "Random::AllocateDefaultTasks": true,
@@ -31,19 +31,19 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "b63cb6e3d169b48e02ccbd84d4219e41a25f4465947b61fc375b81a5d1f8323e",
-      "pdb": "2f8c0306d16f29e9c4ce32ebf97bcfc10d243e4725c2996d3b80ce7d86fd07ea"
+      "asi": "448aa39acad1ef38643bab3c6000384802affc430cd115a244d9fb11ff330b1f",
+      "pdb": "8849cf1c40d9d17b3d50bc83b040a89d3eb2f18140d10521b74f9dda537654c4"
     },
     "sources": {
-      "source\\game_sa\\Tasks\\Allocators\\PedGroup\\PedGroupDefaultTaskAllocatorRandom.h": "32a599d49da4dee9b3faa349b23a597463c86df5eaf880f5bb30f8b7746eb7ed",
-      "source\\game_sa\\Tasks\\Allocators\\PedGroup\\PedGroupDefaultTaskAllocatorSitInLeaderCar.h": "fadd23ceeaaf628bbe9e1c92b72798eb65ed87460c764628b0d0050106bd6f4b",
-      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexGangFollower.h": "606e88849189d57e2479a4572c581c30b72251b4b1e6966569c0c1fe5eb163c9",
-      "source\\game_sa\\Game.cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372"
+      "source\\game_sa\\Tasks\\Allocators\\PedGroup\\PedGroupDefaultTaskAllocatorRandom.h": "e7a927c60ef81d61c0ee57c861e98f66ced0429ea78684c2e22346b0567a9c53",
+      "source\\game_sa\\Tasks\\Allocators\\PedGroup\\PedGroupDefaultTaskAllocatorSitInLeaderCar.h": "05e00b746c9ee83deb2394b0d755384b3f161ab46f2a3d1641663e796986cf8e",
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+      "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
     },
     "instrumentation": {
       "Probe.hpp": "34625037ce7252c1663a7f96637d8ea8ad6564b8a514463f283eaa9c59558532",
-      "LiveComparison.hpp": "1fbf658e8ea974c312c4bb2ed7ddbb76b90933a9adbd37a9570d1ffe7675bad5",
-      "build_probe.py": "916f0194f7092b5e1e35eed4d562942cb68452227314ac3c7cd4c998d63806f0"
+      "LiveComparison.hpp": "0015965fdaec593e946a90106dd9109a68f6c049cad1599ad402d59eec0edc97",
+      "build_probe.py": "dc250cc29767b86518cef867cddd2ff3e9275199a1c10b1ae8778f94f092474b"
     }
   },
   "limitations": [
@@ -51,7 +51,8 @@
     "CCarEnterExit::ComputeTargetDoorToEnterAsPassenger se controla (EXE y DLL) y se compara la secuencia de consultas.",
     "En CTaskComplexSequence se excluyen los 3 bytes de relleno tras m_bFlushTasks (0x39..0x3B): el original los deja con el patron del pool y la inicializacion por valor de la DLL los pone a cero; no tienen valor definido.",
     "Los constructores de tareas son dependencias compartidas: el original llama a sus direcciones del EXE (algunas ya enganchadas a la DLL); no se acredita su equivalencia aqui.",
-    "Sin dependency_review: no acredita independencia del EXE ni estabilidad prolongada."
+    "Sin dependency_review: no acredita independencia del EXE ni estabilidad prolongada.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ],
   "class_recorded_progress": {
     "CPedGroupDefaultTaskAllocatorRandom": "2/2",

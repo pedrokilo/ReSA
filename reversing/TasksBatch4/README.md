@@ -38,3 +38,7 @@ Validadas el 02/10/2026 con **15.872 pares original/candidato dentro de GTA**, t
 - Se simulan `FindZCoorForPed`, `FindCoorsAlongRope`, `CPed::Say`, `FireTruckControl`, `CScriptedBrainTaskStore::Clear` y el RNG.
 
 Repetir: `python reversing/TasksBatch4/build_probe.py` y `python reversing/run.py --case tasks4`. Evidencia: [validation-summary.json](validation-summary.json).
+
+## Revalidacion 134R (08/11/2026, main e9fcf31dd4)
+
+Repetido con el codigo actual de main porque cita 0x616920 (`CPedPlacement::FindZCoorForPed`: el hook esta ahora en la version con `CVector*`; la version con `std::pair` es una envoltura NOTSA). El banco (solo el banco, nunca produccion) toma la direccion de la version con par con `static_cast<std::pair<CVector,bool>(*)(CVector)>(&CPedPlacement::FindZCoorForPed)`. APROBADO: `20261108-230210-678908`, archivado en `CppTwelveLevel6Final/runs/TasksBatch4-20261108-230210-678908`.

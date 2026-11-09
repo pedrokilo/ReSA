@@ -534,14 +534,17 @@
       },
       "evidence": {
         "path": "reversing/CPed/validation-summary.json",
-        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "sha256": "02c1331bb84e4afcce8b3e10d1d5fc0de2d326430ff4435bd7d9edff70436815",
         "passed_path": [
           "passed"
         ],
         "pairs": 4096,
         "original_address": null
       },
-      "tested_sources": {},
+      "tested_sources": {
+        "source\\game_sa\\Entity\\Ped\\Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+        "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
+      },
       "source_provenance": null,
       "dependency_review": null,
       "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
@@ -556,14 +559,17 @@
       },
       "evidence": {
         "path": "reversing/CPed/validation-summary.json",
-        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "sha256": "02c1331bb84e4afcce8b3e10d1d5fc0de2d326430ff4435bd7d9edff70436815",
         "passed_path": [
           "passed"
         ],
         "pairs": 2048,
         "original_address": null
       },
-      "tested_sources": {},
+      "tested_sources": {
+        "source\\game_sa\\Entity\\Ped\\Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+        "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
+      },
       "source_provenance": null,
       "dependency_review": null,
       "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
@@ -578,14 +584,17 @@
       },
       "evidence": {
         "path": "reversing/CPed/validation-summary.json",
-        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "sha256": "02c1331bb84e4afcce8b3e10d1d5fc0de2d326430ff4435bd7d9edff70436815",
         "passed_path": [
           "passed"
         ],
         "pairs": 8192,
         "original_address": null
       },
-      "tested_sources": {},
+      "tested_sources": {
+        "source\\game_sa\\Entity\\Ped\\Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+        "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
+      },
       "source_provenance": null,
       "dependency_review": null,
       "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
@@ -600,14 +609,17 @@
       },
       "evidence": {
         "path": "reversing/CPed/validation-summary.json",
-        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "sha256": "02c1331bb84e4afcce8b3e10d1d5fc0de2d326430ff4435bd7d9edff70436815",
         "passed_path": [
           "passed"
         ],
         "pairs": 2048,
         "original_address": null
       },
-      "tested_sources": {},
+      "tested_sources": {
+        "source\\game_sa\\Entity\\Ped\\Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+        "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
+      },
       "source_provenance": null,
       "dependency_review": null,
       "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
@@ -622,14 +634,17 @@
       },
       "evidence": {
         "path": "reversing/CPed/validation-summary.json",
-        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "sha256": "02c1331bb84e4afcce8b3e10d1d5fc0de2d326430ff4435bd7d9edff70436815",
         "passed_path": [
           "passed"
         ],
         "pairs": 4096,
         "original_address": null
       },
-      "tested_sources": {},
+      "tested_sources": {
+        "source\\game_sa\\Entity\\Ped\\Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+        "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
+      },
       "source_provenance": null,
       "dependency_review": null,
       "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
@@ -644,14 +659,17 @@
       },
       "evidence": {
         "path": "reversing/CPed/validation-summary.json",
-        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "sha256": "02c1331bb84e4afcce8b3e10d1d5fc0de2d326430ff4435bd7d9edff70436815",
         "passed_path": [
           "passed"
         ],
         "pairs": 8192,
         "original_address": null
       },
-      "tested_sources": {},
+      "tested_sources": {
+        "source\\game_sa\\Entity\\Ped\\Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+        "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
+      },
       "source_provenance": null,
       "dependency_review": null,
       "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
@@ -984,7 +1002,7 @@
       },
       "evidence": {
         "path": "reversing/GroupTasksCompletion/validation-summary.json",
-        "sha256": "7775bee67fb33b50f360ad729c5de85b6221e7fa910ce1e50445b0707f559b40",
+        "sha256": "f8c16a4ba47f852a8e6b5582b4718ee01c1bcf4769a39a4d59c16646d044f401",
         "passed_path": [
           "covered_functions",
           "Random::AllocateDefaultTasks"
@@ -993,7 +1011,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h": "32a599d49da4dee9b3faa349b23a597463c86df5eaf880f5bb30f8b7746eb7ed"
+        "source\\game_sa\\Tasks\\Allocators\\PedGroup\\PedGroupDefaultTaskAllocatorRandom.h": "e7a927c60ef81d61c0ee57c861e98f66ced0429ea78684c2e22346b0567a9c53",
+        "source\\game_sa\\Tasks\\Allocators\\PedGroup\\PedGroupDefaultTaskAllocatorSitInLeaderCar.h": "05e00b746c9ee83deb2394b0d755384b3f161ab46f2a3d1641663e796986cf8e",
+        "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261001-235300-178372); .cpp hash taken at registration (hook registration only).",
       "dependency_review": null,
@@ -1009,7 +1030,7 @@
       },
       "evidence": {
         "path": "reversing/GroupTasksCompletion/validation-summary.json",
-        "sha256": "7775bee67fb33b50f360ad729c5de85b6221e7fa910ce1e50445b0707f559b40",
+        "sha256": "f8c16a4ba47f852a8e6b5582b4718ee01c1bcf4769a39a4d59c16646d044f401",
         "passed_path": [
           "covered_functions",
           "SitInLeaderCar::AllocateDefaultTasks"
@@ -1018,7 +1039,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h": "fadd23ceeaaf628bbe9e1c92b72798eb65ed87460c764628b0d0050106bd6f4b"
+        "source\\game_sa\\Tasks\\Allocators\\PedGroup\\PedGroupDefaultTaskAllocatorRandom.h": "e7a927c60ef81d61c0ee57c861e98f66ced0429ea78684c2e22346b0567a9c53",
+        "source\\game_sa\\Tasks\\Allocators\\PedGroup\\PedGroupDefaultTaskAllocatorSitInLeaderCar.h": "05e00b746c9ee83deb2394b0d755384b3f161ab46f2a3d1641663e796986cf8e",
+        "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261001-235300-178372); .cpp hash taken at registration (hook registration only).",
       "dependency_review": null,
@@ -1034,7 +1058,7 @@
       },
       "evidence": {
         "path": "reversing/GroupTasksCompletion/validation-summary.json",
-        "sha256": "7775bee67fb33b50f360ad729c5de85b6221e7fa910ce1e50445b0707f559b40",
+        "sha256": "f8c16a4ba47f852a8e6b5582b4718ee01c1bcf4769a39a4d59c16646d044f401",
         "passed_path": [
           "covered_functions",
           "GangFollower::SetCanEnterLeadersCar"
@@ -1043,8 +1067,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "606e88849189d57e2479a4572c581c30b72251b4b1e6966569c0c1fe5eb163c9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "d47599ee3dc51c0a0b428acd704f3cdad19f2183f157f6647b84d73470e52293"
+        "source\\game_sa\\Tasks\\Allocators\\PedGroup\\PedGroupDefaultTaskAllocatorRandom.h": "e7a927c60ef81d61c0ee57c861e98f66ced0429ea78684c2e22346b0567a9c53",
+        "source\\game_sa\\Tasks\\Allocators\\PedGroup\\PedGroupDefaultTaskAllocatorSitInLeaderCar.h": "05e00b746c9ee83deb2394b0d755384b3f161ab46f2a3d1641663e796986cf8e",
+        "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexGangFollower.h": "be726a56e3e9a8597db82ad85b81318e2c7836f3201789050769e7077d371899",
+        "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261001-235300-178372); .cpp hash taken at registration (hook registration only).",
       "dependency_review": null,
@@ -18591,7 +18617,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedAttractor::Constructor"
@@ -18600,8 +18626,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18625,7 +18651,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedAttractor::Destructor"
@@ -18634,8 +18660,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18659,7 +18685,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedAttractor::Clone"
@@ -18668,8 +18694,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18693,7 +18719,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedAttractor::GetTaskType"
@@ -18702,8 +18728,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18727,7 +18753,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedAttractor::CreateNextSubTask"
@@ -18736,8 +18762,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18761,7 +18787,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedAttractor::CreateFirstSubTask"
@@ -18770,8 +18796,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18795,7 +18821,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedAttractor::ControlSubTask"
@@ -18804,8 +18830,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18829,7 +18855,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedBrain::Constructor"
@@ -18838,8 +18864,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18863,7 +18889,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedBrain::Destructor"
@@ -18872,8 +18898,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18897,7 +18923,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedBrain::Clone"
@@ -18906,8 +18932,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18931,7 +18957,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedBrain::GetTaskType"
@@ -18940,8 +18966,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18965,7 +18991,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedBrain::MakeAbortable"
@@ -18974,8 +19000,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -18999,7 +19025,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedBrain::CreateNextSubTask"
@@ -19008,8 +19034,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19033,7 +19059,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedBrain::CreateFirstSubTask"
@@ -19042,8 +19068,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19067,7 +19093,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseScriptedBrain::ControlSubTask"
@@ -19076,8 +19102,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19101,7 +19127,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSequence::Constructor"
@@ -19110,8 +19136,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19135,7 +19161,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSequence::Clone"
@@ -19144,8 +19170,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19169,7 +19195,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSequence::ControlSubTask"
@@ -19178,8 +19204,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19203,7 +19229,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSequence::CreateFirstSubTask"
@@ -19212,8 +19238,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19237,7 +19263,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSequence::CreateNextSubTask"
@@ -19246,8 +19272,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19271,7 +19297,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSequence::MakeAbortable"
@@ -19280,8 +19306,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19305,7 +19331,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSwatRope::Constructor"
@@ -19314,8 +19340,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19339,7 +19365,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSwatRope::CreateSubTask"
@@ -19348,8 +19374,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19373,7 +19399,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSwatRope::Clone"
@@ -19382,8 +19408,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19407,7 +19433,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSwatRope::ControlSubTask"
@@ -19416,8 +19442,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19441,7 +19467,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSwatRope::CreateFirstSubTask"
@@ -19450,8 +19476,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19475,7 +19501,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSwatRope::CreateNextSubTask"
@@ -19484,8 +19510,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19509,7 +19535,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSwatRope::MakeAbortable"
@@ -19518,8 +19544,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19543,7 +19569,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseWaterCannon::Constructor"
@@ -19552,8 +19578,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19577,7 +19603,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseWaterCannon::Clone"
@@ -19586,8 +19612,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19611,7 +19637,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseWaterCannon::ControlSubTask"
@@ -19620,8 +19646,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19645,7 +19671,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseWaterCannon::CreateFirstSubTask"
@@ -19654,8 +19680,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -19679,7 +19705,7 @@
       },
       "evidence": {
         "path": "reversing/TasksBatch4/validation-summary.json",
-        "sha256": "4df418b595053795f9152e30817d4adb32474afb332f379176524a9c43274621",
+        "sha256": "646b735ed71dfa2cada48bfd1ec48c126a41247b9848dd8ccb2fce113d509317",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseWaterCannon::CreateNextSubTask"
@@ -19688,8 +19714,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "f2e384a7fa7c63135d4e0e779cf56a6fc9fa6725d6070d7315fd18d82f93dacc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "373da1d0e0728e0595fb0edb8ca32eb160984e1a583313475a72110cb535f8c3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.h": "e866b86d678f52b00ef4023e4d3a10cf3ad12988ac7405915565e2b58b00f28d",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp": "a6ec150afc90dcb466a0a1c0fa8d63a0b601f259c028f7677753059ab5d9de72",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.h": "ebc58c72a9e6aea751b8c13a73a459319bec2b3e55cc5267f6d74300ca6080a5",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "fbb3515ae3384317900cdb6b8b4c56f07b2a73f3f0abf258e2f9a910b00a7714",
@@ -92083,7 +92109,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityStandard::Clone"
@@ -92092,15 +92118,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92116,7 +92142,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityStandard::Constructor"
@@ -92125,15 +92151,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92149,7 +92175,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityStandard::ControlSubTask"
@@ -92158,15 +92184,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92182,7 +92208,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityStandard::CreateFirstSubTask"
@@ -92191,15 +92217,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92215,7 +92241,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityStandard::CreateNextSubTask"
@@ -92224,15 +92250,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92248,7 +92274,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityStandard::CreateSubTask"
@@ -92257,15 +92283,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92281,7 +92307,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityStandard::Destructor"
@@ -92290,15 +92316,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92314,7 +92340,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityStandard::GetTaskType"
@@ -92323,15 +92349,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92347,7 +92373,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityStandard::MakeAbortable"
@@ -92356,15 +92382,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92380,7 +92406,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityRadiusAngleOffset::Clone"
@@ -92389,15 +92415,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92413,7 +92439,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityRadiusAngleOffset::Constructor"
@@ -92422,15 +92448,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92446,7 +92472,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityRadiusAngleOffset::ControlSubTask"
@@ -92455,15 +92481,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92479,7 +92505,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityRadiusAngleOffset::CreateFirstSubTask"
@@ -92488,15 +92514,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92512,7 +92538,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityRadiusAngleOffset::CreateNextSubTask"
@@ -92521,15 +92547,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92545,7 +92571,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityRadiusAngleOffset::CreateSubTask"
@@ -92554,15 +92580,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92578,7 +92604,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityRadiusAngleOffset::Destructor"
@@ -92587,15 +92613,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92611,7 +92637,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityRadiusAngleOffset::GetTaskType"
@@ -92620,15 +92646,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92644,7 +92670,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntityRadiusAngleOffset::MakeAbortable"
@@ -92653,15 +92679,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92677,7 +92703,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::Clone"
@@ -92686,15 +92712,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92710,7 +92736,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::Constructor"
@@ -92719,15 +92745,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92743,7 +92769,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::ControlSubTask"
@@ -92752,15 +92778,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92776,7 +92802,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::CreateFirstSubTask"
@@ -92785,15 +92811,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92809,7 +92835,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::CreateNextSubTask"
@@ -92818,15 +92844,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92842,7 +92868,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::CreateSubTask"
@@ -92851,15 +92877,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92875,7 +92901,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::Destructor"
@@ -92884,15 +92910,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92908,7 +92934,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::GetTaskType"
@@ -92917,15 +92943,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92941,7 +92967,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::MakeAbortable"
@@ -92950,15 +92976,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -92974,7 +93000,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitAtDesk::Clone"
@@ -92983,15 +93009,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -93007,7 +93033,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitAtDesk::Constructor"
@@ -93016,15 +93042,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -93040,7 +93066,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitAtDesk::Destructor"
@@ -93049,15 +93075,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -93073,7 +93099,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitAtDesk::FinishAnimCB"
@@ -93082,15 +93108,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -93106,7 +93132,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitAtDesk::GetTaskType"
@@ -93115,15 +93141,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -93139,7 +93165,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitAtDesk::MakeAbortable"
@@ -93148,15 +93174,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -93172,7 +93198,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitAtDesk::ProcessPed"
@@ -93181,15 +93207,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -93205,7 +93231,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitAtDesk::StartRandomLoopAnim"
@@ -93214,15 +93240,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -93238,7 +93264,7 @@
       },
       "evidence": {
         "path": "reversing/CTasks9d/validation-summary.json",
-        "sha256": "dbaa7e91829238023b58cdeb191ea3e7a441e2fe3bde753a38694cb3f4e3ea39",
+        "sha256": "b538716938717375ba144ed9f5b14c2c6258b8045a6da97006a9f51402571f4b",
         "passed_path": [
           "covered_functions",
           "CTaskInteriorSitAtDesk::StartRandomOneOffAnim"
@@ -93247,15 +93273,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "c16e81731e45fb2826b67b3b62f28320cef5cc9b9a16015cc3b6b09ccb88b353",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "01a3b61814d8f0865589b73d22aa4e9c0cdb5ac1c041b756836545a50bebacd9",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "b0b6a05127f6c8aac677c837f34a3637e134ac8eef4e6a04cedfd3575651120a",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "b6c3d0db745908e39b9dcd6996259af9e207b0ed304c76ff50e27d010c0dd6ed",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp": "f64bfc80e76305ba1de9ee20cebf5484da4825480840f1c5cdb0dda95e87e897",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h": "3d035adf4cb2b0c1e5a855c575ee6243d2580a1342f790000f48de2bb0177ab5",
-        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "a1901a5d9d7223658fa60fcb822680df826cc76ad2ab24f19421dddf08bcdfc9",
+        "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp": "946850780d928c56dce751bbf104ae9d8f62da344523b319eec635b5d157d31c",
         "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "fdf2780d7931e2b49124ec9ba2accd1818bbbe0994dc604c3b84c82c4f8870cb",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "330e561cdf006701fd15430ad1e080a61baf8532a77c617181461cf9cf67337d"
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp": "8d2f023589177ae5bed81f3ec56c1bc98445088e38f0abc9117ed1fd8262a44c",
+        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h": "24e50db29a6800720690547466245be1b8ad88f300fbcb35e2168fc807cfadb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-041138-648540).",
       "dependency_review": null,
@@ -123281,7 +123307,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::Constructor0-"
@@ -123307,7 +123333,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::Constructor1-clump_hier"
@@ -123333,7 +123359,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::Constructor2-blend"
@@ -123359,7 +123385,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::Constructor3-static_blend"
@@ -123385,7 +123411,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::Init-0"
@@ -123411,7 +123437,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::Init-1"
@@ -123437,7 +123463,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::Init-2"
@@ -123463,7 +123489,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::AllocateAnimBlendNodeArray"
@@ -123489,7 +123515,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::FreeAnimBlendNodeArray"
@@ -123515,7 +123541,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::ReferenceAnimBlock"
@@ -123541,7 +123567,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::SetBlend"
@@ -123567,7 +123593,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::SetBlendTo"
@@ -123593,7 +123619,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::SetCurrentTime"
@@ -123619,7 +123645,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::SetDeleteCallback"
@@ -123645,7 +123671,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::SetFinishCallback"
@@ -123671,7 +123697,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::Start"
@@ -123697,7 +123723,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::SyncAnimation"
@@ -123723,7 +123749,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::UpdateBlend"
@@ -123749,7 +123775,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::UpdateTime"
@@ -123775,7 +123801,7 @@
       },
       "evidence": {
         "path": "reversing/Anim20/validation-summary.json",
-        "sha256": "2977cce6f82b3322d1e8c6b0ac1e75a6e419501b185703f59cb903f5fab722d5",
+        "sha256": "7e04a09f5219bef10c6cb7996bc11c11cc27eada3f6ccfe3e8e27db068702958",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::UpdateTimeStep"
@@ -181396,48 +181422,6 @@
         "passed_path": [
           "covered_functions",
           "CTaskComplexWanderCriminal::LookForCarsToSteal"
-        ],
-        "pairs": 1024,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "e11375c29aaac1ee4af90720146269837e3d9c2de9597acb608f18e7863cdae6",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.h": "f38146f1df86caf78a07b7acd7bcb4b6aed23a3c5be186b1caab79a741e22ae0",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp": "fb8dd2aaca7e2edde69463dbde8aad6ea54e94f96b6b44f4bc00919ec62f2279",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.h": "0a8e75e2cbceab0429b8c23525a249be3930d8b9e5af465cdedd4df47915a25a",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "f556580f037263a1d0a3e597cebd87179c377b628bc957e21bf3ce1792db1364",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "5aecac4330d4383baccea4e3370367bc67cc251f59235bb03197e990e484f14e",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "5549b2480dc3dc2821cb71ed9d9e1e004cd1fb31b6094b85a9bcde35c388b6cc",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h": "82bbd730ecb4a26b7207b12330163c4779fa98c542b8a60812245329189c7a2d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "c45dec7025a48f49e2c183684d86dfe96a596a61c2793bd4e585aa95cdfd5b27",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h": "2b11017c74fa8320ad5b41895c9ccf8f54765693fe859164ae42738ae026c6cc",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "844c50f4168a6612fc302d5289f0792b7657a934705da99d7f7ed607eee3431a",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h": "8003882353696c8da5abc6696d0a354b6fdfb5f6638c73ec68bb4ab8e336aaf9",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "86b2fe3dc893df70948b45d71d1f2e0eabbf89d5139a90b04f52d73820dc56da",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h": "46f871e6205cd64012a94fa1a253f9619803196705075cb5a8f739e19a7f04ef",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "7cc73625640ada03fea36c8283ae0a9c2266574a255824b9f24048e14deef960",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "7be4c19913cbee1270d11f00c453ea684d3e3be2d23e20be0a732ce9e66be520",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp": "e9fbfa255cceec21fbc2e0582a7156d6bf40ff5edf895474461e763d16e86f13",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h": "d42e928aa41d040a093f37849ce18f4d4984cde1f26490519e1a9ca8af378b27"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-204334-550890).",
-      "dependency_review": null,
-      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 32256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/CTasks61b/README.md"
-    },
-    {
-      "hook": {
-        "class": "CTaskComplexWanderCriminal",
-        "fn_name": "ScanForStuff",
-        "address": "0x00670350",
-        "type": "V"
-      },
-      "evidence": {
-        "path": "reversing/CTasks61b/validation-summary.json",
-        "sha256": "da8531c7bd9d6c5f5655898f138cd254c5b1cd56368c3551ecc41c68429f7d26",
-        "passed_path": [
-          "covered_functions",
-          "CTaskComplexWanderCriminal::ScanForStuff"
         ],
         "pairs": 1024,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
