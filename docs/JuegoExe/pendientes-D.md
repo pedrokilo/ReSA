@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 09/11/2026 (Ciudad de México):** 871 grupos / 9586 funciones reconstruidas; 9586 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 09/11/2026 (Ciudad de México):** 872 grupos / 9609 funciones reconstruidas; 9609 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo D: Falta: sin llamadas ni vtable (¿muerto o por puntero?)
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-407 funciones, 58,830 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+403 funciones, 58,742 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -272,7 +272,6 @@
 | `0x004AEDC0` | 35 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x004AF100` | 35 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x004F2930` | 35 | CAETwinLoopSoundEntity | alta | 0 (0) |  |
-| `0x004C5690` | 34 | CTimeModelInfo | baja | 0 (0) |  |
 | `0x006789D0` | 34 | CTaskComplexFallAndGetUp | baja | 0 (0) |  |
 | `0x004634D0` | 32 | CEntity | baja | 0 (0) |  |
 | `0x004AD3A0` | 32 | CEventBuildingCollision | baja | 0 (0) |  |
@@ -281,7 +280,6 @@
 | `0x00749D20` | 32 | Win | baja | 0 (0) |  |
 | `0x00404590` | 30 | CRect | baja | 0 (0) |  |
 | `0x004C4C00` | 30 | CBaseModelInfo | alta | 0 (0) |  |
-| `0x005A40F0` | 30 | ProcObjectMan_c | baja | 0 (0) |  |
 | `0x005DE310` | 30 | CCopPed | baja | 0 (0) |  |
 | `0x005DE3E0` | 30 | CCopPed | baja | 0 (0) |  |
 | `0x005DEB90` | 30 | CAEAudioEntity | baja | 0 (0) |  |
@@ -401,8 +399,6 @@
 | `0x00597FE0` | 12 | Interior_c | baja | 0 (0) |  |
 | `0x005A3070` | 12 | ProcSurfaceInfo_c | baja | 0 (0) |  |
 | `0x005B2AB0` | 12 | CCam | baja | 0 (0) |  |
-| `0x005F68A0` | 12 | CTaskSimpleWaitUntilLeaderAreaCodesMatch | baja | 0 (0) |  |
-| `0x006986E0` | 12 | CTaskComplexReactToGunAimedAt | baja | 0 (0) |  |
 | `0x00732D60` | 12 | CVisibilityPlugins | alta | 0 (0) |  |
 | `0x00732D80` | 12 | CVisibilityPlugins | alta | 0 (0) |  |
 | `0x004C6B10` | 11 | CModelInfo | baja | 0 (0) |  |

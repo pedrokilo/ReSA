@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,335** funciones en 338 clases/módulos (rango 0x401000–0x74FFFF): 2,313 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,312** funciones en 328 clases/módulos (rango 0x401000–0x74FFFF): 2,290 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -22,16 +22,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskComplexGoToPointAndStandStillTimed | 2 | 41 |
 | CTaskComplexUseEffectRunning | 2 | 41 |
 | CTaskComplexUseEffectSprinting | 2 | 41 |
-| CTaskComplexWanderMedic | 2 | 41 |
-| CTaskComplexWanderStandard | 2 | 41 |
-| CTaskSimpleFinishBrain | 2 | 41 |
-| CTaskSimpleTogglePedThreatScanner | 2 | 41 |
-| CTimeModelInfo | 2 | 41 |
-| ProcObjectMan_c | 2 | 41 |
-| CAEStaticChannel | 3 | 41 |
-| CTaskComplexReactToGunAimedAt | 2 | 42 |
-| CTaskSimpleWaitUntilLeaderAreaCodesMatch | 2 | 42 |
-| CEventDanger | 4 | 43 |
 | RwHelper | 3 | 45 |
 | C2dEffect | 3 | 46 |
 | CEventGunShot | 7 | 46 |
@@ -433,79 +423,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00636930 | 11 | C |  | 1 | 0 |  | baja |
 | 0x00636910 | 30 | B |  | 0 | 0 | sí | baja |
 
-## CTaskComplexWanderMedic (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00658850 | 11 | C |  | 1 | 0 |  | baja |
-| 0x00658830 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexWanderStandard (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0048E600 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0048E5E0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleFinishBrain (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004636E0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x004636C0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleTogglePedThreatScanner (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00492D40 | 11 | C |  | 2 | 0 |  | alta |
-| 0x00492DF0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTimeModelInfo (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004C5680 | 7 | C |  | 1 | 0 |  | baja |
-| 0x004C5690 | 34 | D |  | 0 | 0 |  | baja |
-
-## ProcObjectMan_c (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005A40E0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x005A40F0 | 30 | D |  | 0 | 0 |  | baja |
-
-## CAEStaticChannel (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004F11D0 | 3 | A |  | 1 | 1 |  | baja |
-| 0x004F11E0 | 11 | A |  | 1 | 1 |  | baja |
-| 0x004F1020 | 27 | B |  | 0 | 0 | sí | alta |
-
-## CTaskComplexReactToGunAimedAt (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006986E0 | 12 | D |  | 0 | 0 |  | baja |
-| 0x00697EF0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleWaitUntilLeaderAreaCodesMatch (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F68A0 | 12 | D |  | 0 | 0 |  | baja |
-| 0x005F6880 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CEventDanger (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B2680 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B2670 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B2690 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B27B0 | 28 | B |  | 0 | 0 | sí | baja |
-
 ## RwHelper (3)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -520,7 +437,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x004C5920 | 7 | C |  | 1 | 0 |  | baja |
 | 0x004C5540 | 18 | D |  | 0 | 0 |  | baja |
-| 0x004C4A60 | 21 | A |  | 9 | 2 |  | baja |
+| 0x004C4A60 | 21 | A |  | 9 | 3 |  | baja |
 
 ## CEventGunShot (7)
 
@@ -805,7 +722,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00632C60 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x005F67E0 | 11 | C |  | 2 | 0 |  | baja |
+| 0x005F67E0 | 11 | A |  | 2 | 1 |  | baja |
 | 0x00463640 | 18 | A |  | 1 | 1 |  | baja |
 | 0x00638A80 | 30 | B |  | 0 | 0 | sí | baja |
 
@@ -1728,7 +1645,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x00699F00 | 24 | A |  | 3 | 2 |  | baja |
+| 0x00699F00 | 24 | A |  | 3 | 3 |  | baja |
 | 0x00699E20 | 179 | A |  | 3 | 3 |  | baja |
 
 ## CCutsceneMgr (3)
@@ -1814,7 +1731,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x004EFD30 | 33 | C |  | 1 | 0 |  | baja |
 | 0x004F0B10 | 60 | A |  | 1 | 1 |  | baja |
-| 0x004F0B50 | 127 | C |  | 1 | 0 |  | baja |
+| 0x004F0B50 | 127 | A |  | 1 | 1 |  | baja |
 
 ## CTaskSimpleFight (2)
 
@@ -2544,7 +2461,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x005A1EF0 | 36 | A |  | 2 | 2 |  | baja |
 | 0x004048E0 | 41 | A |  | 297 | 1 |  | baja |
-| 0x005A1F20 | 49 | A |  | 33 | 1 |  | baja |
+| 0x005A1F20 | 49 | A |  | 33 | 2 |  | baja |
 | 0x005A1D10 | 90 | A |  | 5 | 3 |  | baja |
 | 0x005A1DF0 | 230 | A |  | 2 | 2 |  | baja |
 
@@ -2854,7 +2771,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x005A2CB0 | 59 | A |  | 5 | 5 |  | baja |
 | 0x0059F610 | 74 | A |  | 1 | 0 |  | alta |
 | 0x005A2BD0 | 76 | B |  | 0 | 0 | sí | alta |
-| 0x0059F660 | 480 | A |  | 6 | 0 |  | alta |
+| 0x0059F660 | 480 | A |  | 6 | 1 |  | alta |
 
 ## CEventScriptCommand (11)
 

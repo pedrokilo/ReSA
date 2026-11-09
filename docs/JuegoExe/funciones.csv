@@ -1186,8 +1186,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00463640,18,A,CTaskComplexSequence,baja,,1,1,,
 0x00463660,80,reemplazada,CTaskSimpleFinishBrain,exacta,CTaskSimpleFinishBrain::Clone,0,0,,sí
 0x004636B0,6,reemplazada,CTaskSimpleFinishBrain,exacta,CTaskSimpleFinishBrain::GetTaskType,0,0,,sí
-0x004636C0,30,B,CTaskSimpleFinishBrain,baja,,0,0,,sí
-0x004636E0,11,C,CTaskSimpleFinishBrain,baja,,1,0,,
+0x004636C0,30,reemplazada,CTaskSimpleFinishBrain,baja,,0,0,,sí
+0x004636E0,11,reemplazada,CTaskSimpleFinishBrain,baja,,1,1,,
 0x004637E0,44,reemplazada,CTaskSimpleFinishBrain,baja,,31,2,,
 0x00463830,104,reemplazada,CUpsideDownCarCheck,exacta,CUpsideDownCarCheck::IsCarUpsideDown-vehicle,6,6,,
 0x004638D0,49,reemplazada,CUpsideDownCarCheck,exacta,CUpsideDownCarCheck::AddCarToCheck,1,0,,
@@ -1437,8 +1437,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0048E4F0,60,reemplazada,CTaskComplexWanderStandard,exacta,CTaskComplexWanderStandard::Constructor,9,6,,
 0x0048E530,149,reemplazada,CTaskComplexWanderStandard,exacta,CTaskComplexWanderStandard::Clone,0,0,,sí
 0x0048E5D0,3,reemplazada,CTaskComplexWanderStandard,exacta,CTaskComplexWanderStandard::GetWanderType,0,0,,sí
-0x0048E5E0,30,B,CTaskComplexWanderStandard,baja,,0,0,,sí
-0x0048E600,11,C,CTaskComplexWanderStandard,baja,,1,0,,
+0x0048E5E0,30,reemplazada,CTaskComplexWanderStandard,baja,,0,0,,sí
+0x0048E600,11,reemplazada,CTaskComplexWanderStandard,baja,,1,1,,
 0x0048E610,60,reemplazada,CTaskComplexWanderCriminal,exacta,CTaskComplexWanderCriminal::Constructor,4,2,,
 0x0048E650,149,reemplazada,CTaskComplexWanderCriminal,exacta,CTaskComplexWanderCriminal::Clone,0,0,,sí
 0x0048E6F0,6,reemplazada,CTaskComplexWanderCriminal,exacta,CTaskComplexWanderCriminal::GetWanderType,0,0,,sí
@@ -1466,11 +1466,11 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0048EA90,5,C,CTaskSimpleHandsUp,baja,,1,0,sí,
 0x00492CB0,48,C,CTaskSimpleHandsUp,baja,,1,0,,
 0x00492D10,41,reemplazada,CTaskSimpleTogglePedThreatScanner,exacta,CTaskSimpleTogglePedThreatScanner::Constructor,2,0,,
-0x00492D40,11,C,CTaskSimpleTogglePedThreatScanner,alta,,2,0,,
+0x00492D40,11,reemplazada,CTaskSimpleTogglePedThreatScanner,alta,,2,1,,
 0x00492D50,122,reemplazada,CTaskSimpleTogglePedThreatScanner,exacta,CTaskSimpleTogglePedThreatScanner::Clone,0,0,,sí
 0x00492DD0,6,reemplazada,CTaskSimpleTogglePedThreatScanner,exacta,CTaskSimpleTogglePedThreatScanner::GetTaskType,0,0,,sí
 0x00492DE0,5,reemplazada,CTaskSimpleTogglePedThreatScanner,exacta,CTaskSimpleTogglePedThreatScanner::MakeAbortable,0,0,,sí
-0x00492DF0,30,B,CTaskSimpleTogglePedThreatScanner,baja,,0,0,,sí
+0x00492DF0,30,reemplazada,CTaskSimpleTogglePedThreatScanner,baja,,0,0,,sí
 0x00492E20,66,reemplazada,CTaskComplexDiveFromAttachedEntityAndGetUp,exacta,CTaskComplexDiveFromAttachedEntityAndGetUp::Constructor,4,3,,
 0x00492E70,110,reemplazada,CTaskComplexDiveFromAttachedEntityAndGetUp,exacta,CTaskComplexDiveFromAttachedEntityAndGetUp::Clone,0,0,,sí
 0x00492EE0,6,reemplazada,CTaskComplexDiveFromAttachedEntityAndGetUp,exacta,CTaskComplexDiveFromAttachedEntityAndGetUp::GetTaskType,0,0,,sí
@@ -2211,12 +2211,12 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004B2580,84,reemplazada,CEventEscalator,exacta,CEventEscalator::AffectsPed,0,0,,sí
 0x004B25E0,32,reemplazada,CEventEscalator,baja,,0,0,,sí
 0x004B2600,109,reemplazada,CEventDanger,exacta,CEventDanger::Constructor,4,2,,
-0x004B2670,6,B,CEventDanger,alta,,0,0,,sí
-0x004B2680,3,B,CEventDanger,alta,,0,0,,sí
-0x004B2690,6,B,CEventDanger,alta,,0,0,,sí
+0x004B2670,6,reemplazada,CEventDanger,alta,,0,0,,sí
+0x004B2680,3,reemplazada,CEventDanger,alta,,0,0,,sí
+0x004B2690,6,reemplazada,CEventDanger,alta,,0,0,,sí
 0x004B26A0,81,reemplazada,CEventDanger,alta,,6,1,,
 0x004B2700,37,reemplazada,CEventDanger,exacta,CEventDanger::GetSourceEntity,0,0,,sí
-0x004B27B0,28,B,CEventDanger,baja,,0,0,,sí
+0x004B27B0,28,reemplazada,CEventDanger,baja,,0,0,,sí
 0x004B27D0,113,reemplazada,CEventVehicleHitAndRun,exacta,CEventVehicleHitAndRun::ReportCriminalEvent,0,0,,sí
 0x004B2850,247,reemplazada,CEvent,exacta,CEvent::GetSoundLevel,3,3,,
 0x004B2950,50,D,CEvent,baja,,0,0,,
@@ -2486,7 +2486,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C4A10,22,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::SetIsLod,0,0,,
 0x004C4A30,5,reemplazada,CTimeInfo,exacta,CTimeInfo::GetOtherTimeModel,0,0,,
 0x004C4A40,25,reemplazada,C2dEffect,exacta,C2dEffect::RpGeometryGet2dFxAtIndex,0,0,,
-0x004C4A60,21,A,C2dEffect,baja,,9,2,,
+0x004C4A60,21,A,C2dEffect,baja,,9,3,,
 0x004C4A80,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsAtomicModelInfoPtr,0,0,,sí
 0x004C4A90,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsDamageAtomicModelInfoPtr,0,0,,sí
 0x004C4AA0,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsLodAtomicModelInfoPtr,0,0,,sí
@@ -2547,8 +2547,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C5640,24,reemplazada,CLodAtomicModelInfo,baja,,0,0,,
 0x004C5660,3,reemplazada,CTimeModelInfo,exacta,CTimeModelInfo::GetModelType,0,0,,sí
 0x004C5670,4,reemplazada,CTimeModelInfo,exacta,CTimeModelInfo::GetTimeInfo,0,0,,sí
-0x004C5680,7,C,CTimeModelInfo,baja,,1,0,,
-0x004C5690,34,D,CTimeModelInfo,baja,,0,0,,
+0x004C5680,7,reemplazada,CTimeModelInfo,baja,,1,0,,
+0x004C5690,34,reemplazada,CTimeModelInfo,baja,,0,0,,
 0x004C56C0,3,reemplazada,CLodTimeModelInfo,exacta,CLodTimeModelInfo::GetModelType,0,0,,sí
 0x004C56D0,4,reemplazada,CLodTimeModelInfo,exacta,CLodTimeModelInfo::GetTimeInfo,0,0,,sí
 0x004C56E0,7,reemplazada,CLodTimeModelInfo,baja,,1,0,,
@@ -3385,18 +3385,18 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004EFFD0,48,reemplazada,CAESound,exacta,CAESound::SoundHasFinished,0,0,,
 0x004F0000,2811,reemplazada,CAESoundManager,exacta,CAESoundManager::Service,7,7,,
 0x004F0B10,60,A,CAESoundManager,baja,,1,1,,
-0x004F0B50,127,C,CAESoundManager,baja,,1,0,,
+0x004F0B50,127,A,CAESoundManager,baja,,1,1,,
 0x004F0BD0,102,reemplazada,CAEStaticChannel,exacta,CAEStaticChannel::Play,0,0,,sí
 0x004F0C40,767,reemplazada,CAEStaticChannel,exacta,CAEStaticChannel::SetAudioBuffer,1,1,,
 0x004F0F40,34,reemplazada,CAEStaticChannel,exacta,CAEStaticChannel::IsSoundPlaying,0,0,,sí
 0x004F0F70,37,reemplazada,CAEStaticChannel,exacta,CAEStaticChannel::GetPlayTime,0,0,,sí
 0x004F0FA0,13,reemplazada,CAEStaticChannel,exacta,CAEStaticChannel::GetLength,0,0,,sí
 0x004F0FB0,101,reemplazada,CAEStaticChannel,exacta,CAEStaticChannel::Stop,0,0,,sí
-0x004F1020,27,B,CAEStaticChannel,alta,,0,0,,sí
+0x004F1020,27,reemplazada,CAEStaticChannel,alta,,0,0,,sí
 0x004F1040,134,reemplazada,CAEStaticChannel,exacta,CAEStaticChannel::SynchPlayback,0,0,,sí
 0x004F10D0,243,reemplazada,CAEStaticChannel,exacta,CAEStaticChannel::Service,0,0,,sí
-0x004F11D0,3,A,CAEStaticChannel,baja,,1,1,,
-0x004F11E0,11,A,CAEStaticChannel,baja,,1,1,,
+0x004F11D0,3,reemplazada,CAEStaticChannel,baja,,1,1,,
+0x004F11E0,11,reemplazada,CAEStaticChannel,baja,,1,1,,
 0x004F11F0,14,reemplazada,CAEStreamThread,exacta,CAEStreamThread::Start,1,1,,
 0x004F1200,10,reemplazada,CAEStreamThread,exacta,CAEStreamThread::Pause,0,0,,
 0x004F1210,10,reemplazada,CAEStreamThread,exacta,CAEStreamThread::Resume,0,0,,
@@ -5422,7 +5422,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0059F4B0,265,reemplazada,CObject,exacta,CObject::ResetDoorAngle,1,1,,
 0x0059F5C0,31,reemplazada,CObject,exacta,CObject::LockDoor,2,1,,
 0x0059F610,74,A,CObject,alta,,1,0,,
-0x0059F660,480,A,CObject,alta,,6,0,,
+0x0059F660,480,A,CObject,alta,,6,1,,
 0x0059F840,769,reemplazada,CObject,exacta,CObject::Init,5,3,,
 0x0059FB50,420,reemplazada,CObject,exacta,CObject::DoBurnEffect,1,1,,
 0x0059FD00,78,reemplazada,CObject,exacta,CObject::GetLightingFromCollisionBelow,1,1,,
@@ -5448,7 +5448,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005A1DF0,230,A,CObjectPool,baja,,2,2,,
 0x005A1EE0,11,reemplazada,CObjectPool,baja,,26,26,,
 0x005A1EF0,36,A,CObjectPool,baja,,2,2,,
-0x005A1F20,49,A,CObjectPool,baja,,33,1,,
+0x005A1F20,49,A,CObjectPool,baja,,33,2,,
 0x005A1F60,261,reemplazada,CObject,exacta,CObject::Create-intbool,3,1,,
 0x005A2070,188,reemplazada,CObject,exacta,CObject::Create-dummy,1,1,,
 0x005A2130,2148,reemplazada,CObject,exacta,CObject::ProcessControl,0,0,,sí
@@ -5477,8 +5477,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005A3F20,74,reemplazada,ProcObjectMan_c,exacta,ProcObjectMan_c::ProcessTriangleAdded,2,2,,
 0x005A3F70,192,reemplazada,ProcObjectMan_c,exacta,ProcObjectMan_c::ProcessTriangleRemoved,1,1,,
 0x005A4030,167,reemplazada,ProcObjectMan_c,baja,,3,3,,
-0x005A40E0,11,C,ProcObjectMan_c,baja,,1,0,,
-0x005A40F0,30,D,ProcObjectMan_c,baja,,0,0,,
+0x005A40E0,11,reemplazada,ProcObjectMan_c,baja,,1,1,,
+0x005A40F0,30,reemplazada,ProcObjectMan_c,baja,,0,0,,
 0x005A4150,61,reemplazada,Common,exacta,Common::WriteRaster,0,0,,
 0x005A4190,36,reemplazada,CClothesBuilder,exacta,CClothesBuilder::LoadCdDirectory,0,0,,
 0x005A41C0,86,reemplazada,CClothesBuilder,exacta,CClothesBuilder::RequestGeometry,1,1,,
@@ -6169,7 +6169,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005DF510,79,reemplazada,CPed,exacta,CPed::GetBikeRidingSkill,5,5,,
 0x005DF560,874,reemplazada,CPed,exacta,CPed::ShoulderBoneRotation,2,2,,
 0x005DF8D0,28,reemplazada,CPed,exacta,CPed::SetLookTimer,2,2,,
-0x005DF8F0,21,reemplazada,CPed,exacta,CPed::IsPlayer,436,398,,
+0x005DF8F0,21,reemplazada,CPed,exacta,CPed::IsPlayer,436,399,,
 0x005DF910,970,reemplazada,CPed,exacta,CPed::SetPedPositionInCar,12,12,,
 0x005DFD60,16,reemplazada,CPed,exacta,CPed::RestoreHeadingRate,11,11,,
 0x005DFD70,20,reemplazada,CPed,exacta,CPed::RestoreHeadingRateCB,0,0,,
@@ -6506,11 +6506,11 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005F66E0,30,reemplazada,CTaskComplexBeStill,alta,,0,0,,sí
 0x005F6700,11,reemplazada,CTaskComplexBeStill,exacta,CTaskComplexBeStill::Destructor,1,1,,
 0x005F6710,154,reemplazada,CTaskComplexSequence,exacta,CTaskComplexSequence::Clone,1,1,,sí
-0x005F67E0,11,C,CTaskComplexSequence,baja,,2,0,,
+0x005F67E0,11,A,CTaskComplexSequence,baja,,2,1,,
 0x005F67F0,117,reemplazada,CTaskSimpleWaitUntilLeaderAreaCodesMatch,exacta,CTaskSimpleWaitUntilLeaderAreaCodesMatch::Clone,0,0,,sí
 0x005F6870,6,reemplazada,CTaskSimpleWaitUntilLeaderAreaCodesMatch,exacta,CTaskSimpleWaitUntilLeaderAreaCodesMatch::GetTaskType,0,0,,sí
-0x005F6880,30,B,CTaskSimpleWaitUntilLeaderAreaCodesMatch,baja,,0,0,,sí
-0x005F68A0,12,D,CTaskSimpleWaitUntilLeaderAreaCodesMatch,baja,,0,0,,
+0x005F6880,30,reemplazada,CTaskSimpleWaitUntilLeaderAreaCodesMatch,baja,,0,0,,sí
+0x005F68A0,12,reemplazada,CTaskSimpleWaitUntilLeaderAreaCodesMatch,baja,,0,0,,
 0x005F68E0,1,reemplazada,CTaskAllocator,exacta,CTaskAllocator::Abort,0,0,,sí
 0x005F68F0,6,reemplazada,CTaskAllocatorKillThreatsBasicRandomGroup,exacta,CTaskAllocatorKillThreatsBasicRandomGroup::GetType,0,0,,sí
 0x005F6900,30,B,CTaskAllocatorKillThreatsBasicRandomGroup,baja,,0,0,,sí
@@ -7159,14 +7159,14 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061A350,7,C,CPlayerRelationshipRecorder,baja,,1,0,,
 0x0061A360,41,reemplazada,CPlayerRelationshipRecorder,baja,,29,27,,
 0x0061A390,16,reemplazada,CPlayerRelationshipRecorder,baja,,234,206,,
-0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,105,,
+0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,107,,
 0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,204,,
 0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,118,,
 0x0061A430,40,B,CPlayerRelationshipRecorder,baja,,0,0,,sí
 0x0061A4B0,73,reemplazada,CTask,exacta,CTask::IsTaskPtr,2,2,,
 0x0061A500,103,reemplazada,CTaskPool,exacta,CTaskPool::New,1,1,,
 0x0061A5A0,11,reemplazada,CTask,exacta,CTask::operator new,1788,1536,,
-0x0061A5B0,41,reemplazada,CTask,exacta,CTask::operator delete,2114,68,,
+0x0061A5B0,41,reemplazada,CTask,exacta,CTask::operator delete,2114,74,,
 0x0061A620,59,D,CTask,baja,,0,0,,
 0x0061A660,56,B,CTask,baja,,0,0,,sí
 0x0061A6C0,47,reemplazada,CTask,baja,,2,1,,
@@ -8745,8 +8745,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006587A0,112,reemplazada,CTaskComplexWanderMedic,exacta,CTaskComplexWanderMedic::Clone,0,0,,sí
 0x00658810,6,reemplazada,CTaskComplexWanderMedic,exacta,CTaskComplexWanderMedic::GetWanderType,0,0,,sí
 0x00658820,3,reemplazada,CTaskComplexWanderMedic,exacta,CTaskComplexWanderMedic::ScanForStuff,0,0,,sí
-0x00658830,30,B,CTaskComplexWanderMedic,baja,,0,0,,sí
-0x00658850,11,C,CTaskComplexWanderMedic,baja,,1,0,,
+0x00658830,30,reemplazada,CTaskComplexWanderMedic,baja,,0,0,,sí
+0x00658850,11,reemplazada,CTaskComplexWanderMedic,baja,,1,1,,
 0x00658860,44,reemplazada,CTaskSimpleGiveCPR,exacta,CTaskSimpleGiveCPR::Constructor,1,1,,
 0x00658890,6,B,CTaskSimpleGiveCPR,alta,,0,0,,sí
 0x006588A0,93,C,CTaskSimpleGiveCPR,alta,,1,0,,
@@ -9125,7 +9125,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006698E0,149,reemplazada,CTaskComplexFollowNodeRoute,exacta,CTaskComplexFollowNodeRoute::GetLastWaypoint,2,2,,
 0x00669980,87,reemplazada,CTaskComplexFollowNodeRoute,exacta,CTaskComplexFollowNodeRoute::GetNextWaypoint,1,1,,
 0x006699E0,829,reemplazada,CTaskComplexFollowNodeRoute,exacta,CTaskComplexFollowNodeRoute::ComputeRoute,1,1,,
-0x00669D20,11,reemplazada,CTaskComplexFollowNodeRoute,baja,,8,3,,
+0x00669D20,11,reemplazada,CTaskComplexFollowNodeRoute,baja,,8,5,,
 0x00669D30,22,reemplazada,CTaskComplexFollowNodeRoute,baja,,1,1,,
 0x00669D50,69,reemplazada,CTaskComplexFollowNodeRoute,baja,,1,1,,
 0x00669DA0,303,reemplazada,CTaskComplexWander,exacta,CTaskComplexWander::UpdateDir,0,0,,sí
@@ -9897,7 +9897,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00697230,90,reemplazada,CTaskComplexReactToGunAimedAt,exacta,CTaskComplexReactToGunAimedAt::Destructor,1,1,,
 0x00697290,133,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::Constructor,1,1,,
 0x00697320,6,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::GetTaskType,0,0,,sí
-0x00697330,106,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::Destructor,1,0,,
+0x00697330,106,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::Destructor,1,1,,
 0x006973A0,6,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::ControlSubTask,0,0,,sí
 0x006973B0,520,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::CreateSubTask,8,8,,
 0x006975C0,25,reemplazada,CTaskComplexExtinguishFires,exacta,CTaskComplexExtinguishFires::Constructor,1,1,,
@@ -9914,7 +9914,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00697A00,333,reemplazada,CTaskComplexInvestigateDeadPed,exacta,CTaskComplexInvestigateDeadPed::ControlSubTask,0,0,,sí
 0x00697B50,30,reemplazada,CTaskComplexInvestigateDeadPed,baja,,0,0,,sí
 0x00697B70,893,reemplazada,CTaskComplexReactToGunAimedAt,exacta,CTaskComplexReactToGunAimedAt::CreateSubTask,11,11,,
-0x00697EF0,30,B,CTaskComplexReactToGunAimedAt,baja,,0,0,,sí
+0x00697EF0,30,reemplazada,CTaskComplexReactToGunAimedAt,baja,,0,0,,sí
 0x00697F10,424,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::CreateNextSubTask,0,0,,sí
 0x006980C0,37,reemplazada,CTaskComplexWaitForBackup,exacta,CTaskComplexWaitForBackup::CreateFirstSubTask,0,0,,sí
 0x006980F0,30,reemplazada,CTaskComplexWaitForBackup,baja,,0,0,,sí
@@ -9927,7 +9927,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006985E0,43,reemplazada,CTaskComplexReactToGunAimedAt,baja,,2,2,,
 0x00698610,15,reemplazada,CTaskComplexReactToGunAimedAt,baja,,1,1,,
 0x00698680,88,reemplazada,CTaskComplexReactToGunAimedAt,baja,,1,1,,
-0x006986E0,12,D,CTaskComplexReactToGunAimedAt,baja,,0,0,,
+0x006986E0,12,reemplazada,CTaskComplexReactToGunAimedAt,baja,,0,0,,
 0x00698710,46,reemplazada,CCover,exacta,CCover::Init,2,2,,
 0x00698740,71,reemplazada,CCover,exacta,CCover::RemoveCoverPointsForThisEntity,1,1,,
 0x00698790,88,reemplazada,CCover,exacta,CCover::FindVectorFromFirstToMissingVertex,0,0,,
@@ -9947,10 +9947,10 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006992B0,691,reemplazada,CCover,exacta,CCover::FindAndReserveCoverPoint,2,2,,
 0x00699570,623,reemplazada,CCover,exacta,CCover::FindCoordinatesCoverPoint,3,3,,
 0x006997E0,1479,reemplazada,CCover,exacta,CCover::Update,1,1,,
-0x00699DB0,21,reemplazada,CPedList,exacta,CPedList::Empty,5,4,,
+0x00699DB0,21,reemplazada,CPedList,exacta,CPedList::Empty,5,5,,
 0x00699DD0,79,reemplazada,CPedList,exacta,CPedList::BuildListFromGroup_NoLeader,2,2,,
 0x00699E20,179,A,CPedList,baja,,3,3,,
-0x00699F00,24,A,CPedList,baja,,3,2,,
+0x00699F00,24,A,CPedList,baja,,3,3,,
 0x00699F50,66,reemplazada,CFormation,exacta,CFormation::ReturnTargetPedForPed,1,1,,
 0x00699FA0,75,reemplazada,CFormation,exacta,CFormation::ReturnDestinationForPed,1,1,,
 0x00699FF0,835,reemplazada,CFormation,exacta,CFormation::FindCoverPointsBehindBox,2,2,,
