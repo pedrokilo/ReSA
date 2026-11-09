@@ -173,7 +173,7 @@ inline const char* const kNames[2]{"CDecisionMakerTypes::MakeDecision-Ped","CDec
 struct Side {Reg reg{};std::array<uint8,108> fp{};uint32 mxcsr{};bool routeOK{};u32 rngState{};};
 struct Env {
     uintptr_t asi{},game{};
-    std::unique_ptr<HookRoute> ped,group,decision;   // 0x606E70, 0x606F80 y 0x6040D0 (CDecision::MakeDecision)
+    std::unique_ptr<HookRoute> ped,group,decision,pick,maker;   // 0x606E70, 0x606F80 y 0x6040D0 (CDecision::MakeDecision); pick = 0x6007A0 (CDecision::Pick, hook desde el lote 132A: apagado) y maker = 0x606060 (CDecisionMaker::MakeDecision, con hook: apagado)
     std::vector<Watch> watches;                      // codigo del EXE que debe seguir intacto (colaboradores y cuerpos de las entradas tras el parche de 5 bytes)
     bool WatchesIntact()const{return std::ranges::all_of(watches,[](const auto& w){return w.Intact();});}
 };
@@ -283,7 +283,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies) {
     }
     const bool entriesIntact=env.WatchesIntact();
     bool stateRestored=entriesIntact&&*ExeRandState()==savedRand;
-    for(auto* route:{env.ped.get(),env.group.get(),env.decision.get()})if(route)stateRestored&=route->Restore();
+    for(auto* route:{env.ped.get(),env.group.get(),env.decision.get(),env.pick.get(),env.maker.get()})if(route)stateRestored&=route->Restore();
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     Write({{"event","global_state_final"},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact},
         {"rand_state",*ExeRandState()}});
@@ -302,6 +302,8 @@ inline void Update() {
     env.ped.reset(new HookRoute("CDecisionMakerTypes","MakeDecision-Ped",0x606E70,FunctionToVoidPtr(static_cast<PedDecision>(&CDecisionMakerTypes::MakeDecision))));
     env.group.reset(new HookRoute("CDecisionMakerTypes","MakeDecision-Group",0x606F80,FunctionToVoidPtr(static_cast<GroupDecision>(&CDecisionMakerTypes::MakeDecision))));
     env.decision.reset(new HookRoute("CDecision","MakeDecision",0x6040D0,HookRoute::RegisteredTarget{}));
+    env.pick.reset(new HookRoute("CDecision","Pick",0x6007A0,HookRoute::RegisteredTarget{}));   // lote 132A: hook de 0x6007A0 apagado antes de empezar
+    env.maker.reset(new HookRoute("CDecisionMaker","MakeDecision",0x606060,HookRoute::RegisteredTarget{}));   // 0x606060 tiene hook (CDecisionMaker::MakeDecision) desde un lote posterior al banco: apagado, el EXE ejecuta el suyo
     bool ready=true;json registered=json::object();json bodies=json::object();
     const struct {const char* name;HookRoute* route;} routes[]{{"CDecisionMakerTypes::MakeDecision-Ped",env.ped.get()},{"CDecisionMakerTypes::MakeDecision-Group",env.group.get()},{"CDecision::MakeDecision",env.decision.get()}};
     for(const auto& r:routes){

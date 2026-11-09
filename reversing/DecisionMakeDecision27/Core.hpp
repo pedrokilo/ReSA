@@ -138,6 +138,7 @@ struct Env {
     uintptr_t asi{},game{};
     unsigned cases{kCases};
     std::unique_ptr<HookRoute> route;
+    std::unique_ptr<HookRoute> pick;     // CDecision::Pick (0x6007A0): desde el lote 132A tiene hook; se deja apagado (el EXE ejecuta su 0x6007A0 y la DLL su Choices::Pick)
     uintptr_t entry{0x6040D0};
     std::vector<Watch> watches;          // 0x6007A0, 0x821B1E, 0x821B11, 0x827B3D: deben seguir siendo el codigo del EXE
     bool WatchesIntact()const{return std::ranges::all_of(watches,[](const auto& w){return w.Intact();});}
@@ -229,6 +230,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies) {
     const bool entriesIntact=env.WatchesIntact();
     bool stateRestored=entriesIntact&&*ExeRandState()==savedRand;
     if(env.route)stateRestored&=env.route->Restore();
+    if(env.pick)stateRestored&=env.pick->Restore();
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     Write({{"event","global_state_final"},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact},
         {"rand_state",*ExeRandState()}});

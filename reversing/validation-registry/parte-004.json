@@ -61792,7 +61792,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddScriptCheckpoint"
@@ -61818,7 +61818,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddScriptEffectSystem"
@@ -61844,7 +61844,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddScriptSearchLight"
@@ -61870,7 +61870,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddScriptSphere"
@@ -61896,7 +61896,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToBuildingSwapArray"
@@ -61922,7 +61922,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToInvisibilitySwapArray"
@@ -61948,7 +61948,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToListOfConnectedLodObjects"
@@ -61974,7 +61974,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToListOfSpecialAnimGroupsAttachedToCharModels"
@@ -62000,7 +62000,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToSwitchJumpTable"
@@ -62026,7 +62026,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToVehicleModelsBlockedByScript"
@@ -62052,7 +62052,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToWaitingForScriptBrainArray"
@@ -62078,7 +62078,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AttachSearchlightToSearchlightObject"
@@ -62104,7 +62104,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::CheckStreamedScriptVersion"
@@ -62130,7 +62130,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::CleanUpThisObject"
@@ -62156,7 +62156,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::CleanUpThisPed"
@@ -62182,7 +62182,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::CleanUpThisVehicle"
@@ -62208,7 +62208,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ClearAllSuppressedCarModels"
@@ -62234,7 +62234,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ClearAllVehicleModelsBlockedByScript"
@@ -62260,7 +62260,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ClearSpaceForMissionEntity"
@@ -62286,7 +62286,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::DoScriptSetupAfterPoolsHaveLoaded"
@@ -62312,7 +62312,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::DrawDebugAngledSquare"
@@ -62338,7 +62338,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::DrawDebugSquare-"
@@ -62364,7 +62364,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::DrawScriptSpheres"
@@ -62390,7 +62390,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::DrawScriptSpritesAndRectangles"
@@ -62416,7 +62416,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::GetActualScriptThingIndex"
@@ -62442,7 +62442,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::GetNewUniqueScriptThingIndex"
@@ -62468,7 +62468,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::GetScriptIndexFromPointer"
@@ -62494,7 +62494,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::GetUniqueScriptThingIndex"
@@ -62520,7 +62520,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::HasCarModelBeenSuppressed"
@@ -62546,7 +62546,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::HasVehicleModelBeenBlockedByScript"
@@ -62572,7 +62572,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::HighlightImportantAngledArea"
@@ -62598,7 +62598,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::HighlightImportantArea-"
@@ -62624,7 +62624,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::Init"
@@ -62650,7 +62650,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::InitialiseAllConnectLodObjects"
@@ -62676,7 +62676,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::InitialiseConnectLodObjects"
@@ -62702,7 +62702,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::InitialiseSpecialAnimGroup"
@@ -62728,7 +62728,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::InitialiseSpecialAnimGroupsAttachedToCharModels"
@@ -62754,7 +62754,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::IsPedStopped"
@@ -62780,7 +62780,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::IsPlayerOnAMission"
@@ -62806,7 +62806,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::IsVehicleStopped"
@@ -62832,7 +62832,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::Load"
@@ -62858,7 +62858,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::PrintListSizes"
@@ -62884,7 +62884,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::Process"
@@ -62910,7 +62910,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ProcessAllSearchLights"
@@ -62936,7 +62936,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ProcessWaitingForScriptBrainArray"
@@ -62962,7 +62962,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ReadMultiScriptFileOffsetsFromScript"
@@ -62988,7 +62988,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ReadObjectNamesFromScript"
@@ -63014,7 +63014,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ReinitialiseSwitchStatementData"
@@ -63040,7 +63040,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveFromWaitingForScriptBrainArray"
@@ -63066,7 +63066,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveScriptCheckpoint"
@@ -63092,7 +63092,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveScriptEffectSystem"
@@ -63118,7 +63118,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveScriptSearchLight"
@@ -63144,7 +63144,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveScriptSphere"
@@ -63170,7 +63170,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveScriptTextureDictionary"
@@ -63196,7 +63196,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveThisPed"
@@ -63222,7 +63222,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RenderAllSearchLights"
@@ -63248,7 +63248,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::Save"
@@ -63274,7 +63274,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ScriptAttachAnimGroupToCharModel"
@@ -63300,7 +63300,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ScriptConnectLodsFunction"
@@ -63326,7 +63326,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ScriptDebugCircle2D"
@@ -63352,7 +63352,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ScriptDebugLine3D"
@@ -63378,7 +63378,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::StartNewScript-indexed"
@@ -63404,7 +63404,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::StartNewScript-last-idle"
@@ -63430,7 +63430,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::StartTestScript"
@@ -63456,7 +63456,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::UndoBuildingSwaps"
@@ -63482,7 +63482,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::UndoEntityInvisibilitySettings"
@@ -63508,7 +63508,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::UpdateObjectIndices"
@@ -63534,7 +63534,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::UseSwitchJumpTable"
@@ -63560,7 +63560,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "cbad6b8b6c41fe821e4dc28b234650033c4dc0189c7a19dc426bc75efd23bcbe",
+        "sha256": "cc116ed36944b61002e85a7ff3704d2d9967316c05bdc0802e14f2031696b837",
         "passed_path": [
           "covered_functions",
           "CTheScripts::WipeLocalVariableMemoryForMissionScript"
@@ -85501,7 +85501,7 @@
       },
       "evidence": {
         "path": "reversing/DecisionPedGroup27/validation-summary.json",
-        "sha256": "0cda68f0ca47fb9cfb46e2c5ea1901762ae0e391ffb75150ca9e467d5e54673d",
+        "sha256": "d32e7d31df1f598f13b2f939eb4807261951fbc6ddd06a6a8d8822ca0759956f",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypes::MakeDecision-Ped"
@@ -85510,18 +85510,18 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
-        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
-        "source/game_sa/DecisionMakers/Decision.cpp": "78d9729ba39b8db418f7a466544ecea7374ae3302112bd686f28996206ea00c5",
-        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "590ba50627a505145eb8df650389f51222d833323a8d8a05cc5a21913afceb01",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
-        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/X87Math.cpp": "37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45",
-        "source/game_sa/X87Math.h": "7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "9b7771785d2a20378fceb904085d95ba08cd8896c0f9c736885489fae9f53921",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
+        "source/game_sa/X87Math.cpp": "e4ff41dc2e9674707ba7bf072c96a970cb8172bdbaeebce4344a822cbbb0bb17",
+        "source/game_sa/X87Math.h": "436f464ad0098943e10ce2d79443470d1d777d16f50d918acfaf40f4f30f2d2c",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/DecisionPedGroup27/LiveComparison.hpp": "72931c0cdb178da544499803a8373dd87f14269379353b9abf1a1ba7465d22f4",
+        "reversing/DecisionPedGroup27/LiveComparison.hpp": "2aa6db1ce6577401683e6d928dfa7d8d6cd26f31b0ac100f79cb1bbf574eb7b4",
         "reversing/DecisionPedGroup27/Fixtures.hpp": "496061a4ba8777f03aad1279b9953bb81b3c2a86e3ea6f11792f852e5f33086a",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
@@ -85553,7 +85553,7 @@
       },
       "evidence": {
         "path": "reversing/DecisionPedGroup27/validation-summary.json",
-        "sha256": "0cda68f0ca47fb9cfb46e2c5ea1901762ae0e391ffb75150ca9e467d5e54673d",
+        "sha256": "d32e7d31df1f598f13b2f939eb4807261951fbc6ddd06a6a8d8822ca0759956f",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypes::MakeDecision-Group"
@@ -85562,18 +85562,18 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
-        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
-        "source/game_sa/DecisionMakers/Decision.cpp": "78d9729ba39b8db418f7a466544ecea7374ae3302112bd686f28996206ea00c5",
-        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "590ba50627a505145eb8df650389f51222d833323a8d8a05cc5a21913afceb01",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
-        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/X87Math.cpp": "37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45",
-        "source/game_sa/X87Math.h": "7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "9b7771785d2a20378fceb904085d95ba08cd8896c0f9c736885489fae9f53921",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
+        "source/game_sa/X87Math.cpp": "e4ff41dc2e9674707ba7bf072c96a970cb8172bdbaeebce4344a822cbbb0bb17",
+        "source/game_sa/X87Math.h": "436f464ad0098943e10ce2d79443470d1d777d16f50d918acfaf40f4f30f2d2c",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/DecisionPedGroup27/LiveComparison.hpp": "72931c0cdb178da544499803a8373dd87f14269379353b9abf1a1ba7465d22f4",
+        "reversing/DecisionPedGroup27/LiveComparison.hpp": "2aa6db1ce6577401683e6d928dfa7d8d6cd26f31b0ac100f79cb1bbf574eb7b4",
         "reversing/DecisionPedGroup27/Fixtures.hpp": "496061a4ba8777f03aad1279b9953bb81b3c2a86e3ea6f11792f852e5f33086a",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
@@ -85605,7 +85605,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesDecisionPed7/validation-summary.json",
-        "sha256": "da8c9e34add021ad79b5695d5179d72eb09b04493020c0f62855e6fe4b7a3d70",
+        "sha256": "cb84b838a81b2a395912a09978836be5944d83cf4e1e3f628cfe79143ba5ccc3",
         "passed_path": [
           "covered_functions",
           "CPedPool::GetRef"
@@ -85616,36 +85616,36 @@
       "tested_sources": {
         "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
         "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
-        "source/game_sa/DecisionMakers/Decision.cpp": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5",
-        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "9b7771785d2a20378fceb904085d95ba08cd8896c0f9c736885489fae9f53921",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
         "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/Pools/TaskPool.h": "69ff1cd75564c116bddbfa02d85d12da356689ef459afa4cfddb19124a0db638",
         "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93",
-        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools.cpp": "80e370e0d6e87061896deb730df5685900043cec352c860a1303551ac462fda6",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Ped/Ped.h": "7d4f653e046e428073f2b3eae35c29eb9a771bfbffee79b86589e69f27e55404",
         "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
-        "source/game_sa/PedIntelligence.cpp": "17d279e4063dd028f638fdcc5f1cce4d3fb8c2f527702de06c4e65ac3961c639",
+        "source/game_sa/PedIntelligence.cpp": "e4c5cab10235b8f13e14ddb95689d98dffcb6341116233ecd99fc289c6ee21e0",
         "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
         "source/game_sa/Events/EventScriptCommand.cpp": "8a0b75844d0c7e192ee0dd14f143d410503dd0c9f6312cfa5852892eefb6f993",
         "source/game_sa/Events/EventScriptCommand.h": "4860ba0ad4eba054d5d0a708d9cf3c2c8a530425ced7a2e7666eb38975b6bb27",
-        "source/game_sa/Events/Event.cpp": "7d345ca705c07ef144fe8e6df508f4a841e6d647fa8e75d24bf5c80bd236786b",
-        "source/game_sa/Events/Event.h": "03bdb8dc071929a39f1e8f44e51fddbe0390afd27ce80074fb8d36ad71c5cf99",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+        "source/game_sa/Events/Event.cpp": "8a1cf4b9dcb3e4884e21ebf564a77629f818aac6b00f170aecf62692865e7fe5",
+        "source/game_sa/Events/Event.h": "442bac3d9bebd7fba818a28ad8c1c25d037d88e3eb25e2840a1c818154b6bdcd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
-        "source/game_sa/Tasks/Task.cpp": "82e5cf364b04d162c72a61b2e86c80d01f0617c7b61d2d90aa17e819e05c39db",
+        "source/game_sa/Tasks/Task.cpp": "be8bc85ded7b60208f987af721340a13aa0db0d50272406ad67ec86f4101c0e6",
         "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
-        "source/game_sa/Tasks/TaskTimer.cpp": "7085edb0e98b7a5235875a3631f9b10dfd218bd2c0d325170cba3f9e1a5dbc25",
-        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+        "source/game_sa/Tasks/TaskTimer.cpp": "5d729b6b57429a09b3237ef61172b4c60704c819f2e449eb1a22ab88271a04a8",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
         "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/game_sa/Timer.cpp": "f3cfbec0010eef16f722974547e7578df896015544b01246098a29a2038fafba",
+        "source/game_sa/Timer.cpp": "078a03ad0ad618cf46b5bc2f3c7ac0b7f2e92677187f6a96a98d2ea564cbced7",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
@@ -85662,7 +85662,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesDecisionPed7/validation-summary.json",
-        "sha256": "da8c9e34add021ad79b5695d5179d72eb09b04493020c0f62855e6fe4b7a3d70",
+        "sha256": "cb84b838a81b2a395912a09978836be5944d83cf4e1e3f628cfe79143ba5ccc3",
         "passed_path": [
           "covered_functions",
           "CEventScriptCommand::Destructor"
@@ -85673,36 +85673,36 @@
       "tested_sources": {
         "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
         "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
-        "source/game_sa/DecisionMakers/Decision.cpp": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5",
-        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "9b7771785d2a20378fceb904085d95ba08cd8896c0f9c736885489fae9f53921",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
         "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
         "source/game_sa/Pools/TaskPool.h": "69ff1cd75564c116bddbfa02d85d12da356689ef459afa4cfddb19124a0db638",
         "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93",
-        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+        "source/game_sa/Pools.cpp": "80e370e0d6e87061896deb730df5685900043cec352c860a1303551ac462fda6",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Ped/Ped.h": "7d4f653e046e428073f2b3eae35c29eb9a771bfbffee79b86589e69f27e55404",
         "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
-        "source/game_sa/PedIntelligence.cpp": "17d279e4063dd028f638fdcc5f1cce4d3fb8c2f527702de06c4e65ac3961c639",
+        "source/game_sa/PedIntelligence.cpp": "e4c5cab10235b8f13e14ddb95689d98dffcb6341116233ecd99fc289c6ee21e0",
         "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
         "source/game_sa/Events/EventScriptCommand.cpp": "8a0b75844d0c7e192ee0dd14f143d410503dd0c9f6312cfa5852892eefb6f993",
         "source/game_sa/Events/EventScriptCommand.h": "4860ba0ad4eba054d5d0a708d9cf3c2c8a530425ced7a2e7666eb38975b6bb27",
-        "source/game_sa/Events/Event.cpp": "7d345ca705c07ef144fe8e6df508f4a841e6d647fa8e75d24bf5c80bd236786b",
-        "source/game_sa/Events/Event.h": "03bdb8dc071929a39f1e8f44e51fddbe0390afd27ce80074fb8d36ad71c5cf99",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+        "source/game_sa/Events/Event.cpp": "8a1cf4b9dcb3e4884e21ebf564a77629f818aac6b00f170aecf62692865e7fe5",
+        "source/game_sa/Events/Event.h": "442bac3d9bebd7fba818a28ad8c1c25d037d88e3eb25e2840a1c818154b6bdcd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
-        "source/game_sa/Tasks/Task.cpp": "82e5cf364b04d162c72a61b2e86c80d01f0617c7b61d2d90aa17e819e05c39db",
+        "source/game_sa/Tasks/Task.cpp": "be8bc85ded7b60208f987af721340a13aa0db0d50272406ad67ec86f4101c0e6",
         "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
-        "source/game_sa/Tasks/TaskTimer.cpp": "7085edb0e98b7a5235875a3631f9b10dfd218bd2c0d325170cba3f9e1a5dbc25",
-        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
+        "source/game_sa/Tasks/TaskTimer.cpp": "5d729b6b57429a09b3237ef61172b4c60704c819f2e449eb1a22ab88271a04a8",
+        "source/game_sa/Tasks/TaskTimer.h": "4e1dbb68548c4daf3c9b614a9ee76b39325b936694a93c10d4ece6ba86c08386",
         "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/game_sa/Timer.cpp": "f3cfbec0010eef16f722974547e7578df896015544b01246098a29a2038fafba",
+        "source/game_sa/Timer.cpp": "078a03ad0ad618cf46b5bc2f3c7ac0b7f2e92677187f6a96a98d2ea564cbced7",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
@@ -92606,7 +92606,7 @@
       },
       "evidence": {
         "path": "reversing/DecisionMakeDecision27/validation-summary.json",
-        "sha256": "b66dbe225311cb2e5b754cb3fa829e9a4c9368e8fa2072a87dc2b4a987863123",
+        "sha256": "468403b9b49d819d4f9db5dc061c97596ebc1057f08be516241ff137457121b0",
         "passed_path": [
           "covered_functions",
           "CDecision::MakeDecision"
@@ -92615,13 +92615,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
-        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
-        "source/game_sa/DecisionMakers/Decision.cpp": "9434ac29d9f256e5f232b88d1f99acd1fdcf5fba56e6401c0f093052aa657680",
-        "source/game_sa/DecisionMakers/Decision.h": "e7a3a87ea4385b2df44c564bf5a51535bd1b57fbed413c3900c8fb16b717977c",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+        "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+        "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/DecisionMakeDecision27/LiveComparison.hpp": "d56d9a64f4665797938f457f61ed9d073987ac792093589cfb42f782b8b58895",
-        "reversing/DecisionMakeDecision27/Core.hpp": "0c6ef4c14d14b53b28ccb40e4331d4921a458d1b1a721874cbd09fa21fe0c75c",
+        "reversing/DecisionMakeDecision27/LiveComparison.hpp": "5400219a72a6db9738a22c9d3a0305a15f70378bb4a353562c6e9e90c7800f0b",
+        "reversing/DecisionMakeDecision27/Core.hpp": "c9353df7b299c65d979fa0733bb7a80913fe8197bb3b74fb244cd8ee434f7f21",
         "reversing/DecisionMakeDecision27/Fixtures.hpp": "ccf3f3590a108fd33276a113018feaaf7fe4d65892c6fb71e6d6c32fa5ca960b",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"

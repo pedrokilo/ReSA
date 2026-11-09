@@ -60,7 +60,7 @@
   "log_sha256": "069e82d6bb8265a0c3e97ba0a28fafe4375e777139f3486333ddf94f219254e5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx43\\20261107-200826-580481",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx43\\20261108-211512-230018",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEWeatherAudioEntity::Service": true,
@@ -110,8 +110,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "3d70a9774c4fa52573e47f85f79e7cdaa9ec76d9c23db69891bc1cf155049ef8",
-      "pdb": "058971fd251f123094aaa73cce66f9334693042d21b4dbd8baeaf3585ff3fa8c"
+      "asi": "362a562e19d9a98a242e5788d3dfe35a6f3147b2217e98cf0b1c196080d746f7",
+      "pdb": "0b1e7c3e6f69abc3a63859f9e2f1e7f8fe5bc1af2fec25af159acac2b634fe11"
     },
     "sources": {
       "source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp": "518da0d6f3d0d26bebbc253afaa9b74c43d31d2b2b90f9e4a2dfc4bd3e890ee4",
@@ -128,8 +128,8 @@
       "source/game_sa/WaterCannon.h": "c75ef579dbf92c3de85946a87a4495a0696871f27ae601d0393b8c3501d03ca6",
       "source/game_sa/Fx/FxMemoryPool.cpp": "99710e9d4ddc6e662087f76a0288751f225d7b08511a24cb27e8478a6b8ce790",
       "source/game_sa/Fx/FxMemoryPool.h": "c1cdb364ba657edcb60a3242573e96bd0bca6ff8b137c5a67b29fef79a619091",
-      "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "3bfd2369f43bee9fab657bb56947241ab36df6ead9e31f1bf5c9bf191b13335d",
-      "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "5be5119baf994b22a2d68a0dc7472e1b5fb3221daeeef582e9410a1379115ccc",
+      "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "8b1931ae7f909a38f96bcb0112de9f7e277a5690532e3ea2ee0a7bd700689a24",
+      "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.h": "a02d932209b00f39f90409600b164d87e587ef3e33f44afb786ddbe95c3d5aff",
       "source/app/app_input.cpp": "f1ab39d6f48de5f2ccce0fc2049ea91d650650210708dcdf4cac3f463ef93b49",
       "source/app/app_input.h": "f28df039c8e2e2a5c21a2ba67dfc5ed8de0f08dd49ed3a0fbb522ae277810d1b"
     },

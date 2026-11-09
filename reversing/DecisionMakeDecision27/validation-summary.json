@@ -10,30 +10,37 @@
   "covered_functions": {
     "CDecision::MakeDecision": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/DecisionMakeDecision27-20261018-140521-969916",
-  "summary_sha256": "0edec40f12d208ecd47514767a5bf88052b87a92e42d5f7e4bc519d299e95cb9",
-  "result_txt_sha256": "62aa7d9ab639c0846c75209f43810061d2a94b78efc17d4b84a0de605ffa7d62",
-  "log_sha256": "b2025bf707be8b66c41f873bb651d27e9e2fd06b3213b52950a75c952b50d0c6",
+  "run": "reversing/CppTwelveLevel6Final/runs/DecisionMakeDecision27-20261108-210700-322640",
+  "summary_sha256": "bd09d226a9373fac79e08401c33902f795f047469d8678add885d1ca972775a7",
+  "result_txt_sha256": "1d5431615008fbd1d34e9329e4ae9ea206e0053c302f44787dc00a0423fe89b1",
+  "log_sha256": "3bed35085ffa545c10134a16aa202b606f6542c8d590213ce9d71104eb611757",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "28cf26ff76704d82866c5a190b6076de961548a8c9068488d03e697414944518",
+  "executed_probe_sha256": "aaaa290b29650f975814dca3a6a9bb348e2b14b215b3c459cfae5cfb83916558",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
-      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
-      "source/game_sa/DecisionMakers/Decision.cpp": "9434ac29d9f256e5f232b88d1f99acd1fdcf5fba56e6401c0f093052aa657680",
-      "source/game_sa/DecisionMakers/Decision.h": "e7a3a87ea4385b2df44c564bf5a51535bd1b57fbed413c3900c8fb16b717977c",
+      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+      "source/InjectHooksMain.cpp": "2abe702bd51ddc344244eb65c599964a43b236affc7f43be17628384c2f12ebd",
+      "source/game_sa/DecisionMakers/Decision.cpp": "4ef904a9bcc9c48664e230870d6ca4566b942699a298031d081f7d939370c0e7",
+      "source/game_sa/DecisionMakers/Decision.h": "91e23965728835ed3041d5940b85754e73bdec209fd0057014d4b82b331f7fc4",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/DecisionMakeDecision27/LiveComparison.hpp": "d56d9a64f4665797938f457f61ed9d073987ac792093589cfb42f782b8b58895",
-      "reversing/DecisionMakeDecision27/Core.hpp": "0c6ef4c14d14b53b28ccb40e4331d4921a458d1b1a721874cbd09fa21fe0c75c",
+      "reversing/DecisionMakeDecision27/LiveComparison.hpp": "5400219a72a6db9738a22c9d3a0305a15f70378bb4a353562c6e9e90c7800f0b",
+      "reversing/DecisionMakeDecision27/Core.hpp": "c9353df7b299c65d979fa0733bb7a80913fe8197bb3b74fb244cd8ee434f7f21",
       "reversing/DecisionMakeDecision27/Fixtures.hpp": "ccf3f3590a108fd33276a113018feaaf7fe4d65892c6fb71e6d6c32fa5ca960b",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/DecisionMakeDecision27-20261108-210700-322640/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "69b12486aafd3dcb49f4311360d5a9dc6a8c74d4c68f39c8df12eebc5274c0cc",
+    "uncompressed_sha256": "3bed35085ffa545c10134a16aa202b606f6542c8d590213ce9d71104eb611757"
   }
 }

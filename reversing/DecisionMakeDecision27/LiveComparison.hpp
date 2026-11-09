@@ -19,6 +19,7 @@ inline void Update() {
     // Ruta RH: se construye antes que nada; el constructor deja el hook apagado.
     bool ready=true;json registered=json::object();json bodies=json::object();
     env.route.reset(new HookRoute("CDecision","MakeDecision",0x6040D0,HookRoute::RegisteredTarget{}));
+    env.pick.reset(new HookRoute("CDecision","Pick",0x6007A0,HookRoute::RegisteredTarget{}));   // lote 132A: hook de 0x6007A0 apagado antes de empezar
     const bool reg=env.route->Registered();registered["CDecision::MakeDecision"]=reg;
     const uintptr_t body=env.route->Body();bodies["CDecision::MakeDecision"]=body;
     ready&=reg&&body&&ModuleOf(body)==env.asi;

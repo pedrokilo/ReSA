@@ -79,5 +79,37 @@
     "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-clothes-scripted-sprint-20260923",
     "saves_unchanged": true
   },
-  "scope": "Four pending registered functions; finite in-engine differential tests, not whole-class or general stability certification."
+  "scope": "Four pending registered functions; finite in-engine differential tests, not whole-class or general stability certification. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
+  "run": "reversing/CppTwelveLevel6Final/runs/ClothesScriptedSprint-20261108-220745-793668",
+  "summary_sha256": "8eafb717c45778ce86bed7de5350fcec4717b5a7e6248d2cb10ba5200c888dd4",
+  "result_txt_sha256": "8121ded8abc5517dd9e05908bd98e4c8c78b48265e31de0752024021fdf1002b",
+  "executed_probe_sha256": "9f1b3d21d57a608cee82e58385eb8380780e87cc97356bfda482b0e7bd9f3677",
+  "functions": {
+    "0": 4096,
+    "1": 256,
+    "2": 2048,
+    "3": 2048
+  },
+  "covered_functions": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true
+  },
+  "registered_pairs": 8448,
+  "manifest": {
+    "tested_sources": {
+      "source\\game_sa\\Clothes.cpp": "832eaffb349e7d06c4354631cb5aea54a752da72c18f5a6fb1387102346518e1",
+      "source\\game_sa\\Scripts\\Scripted2dEffects.cpp": "34e2fa52be45c3dfeb3d86dc5aedcc18553cfc18d775f007a101ead66c22c973",
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexUseClosestFreeScriptedAttractorSprint.cpp": "86e964ea0de0bcd731bfa7a7b9b88c2a59bab82a8c505ba4d96432fa44bcd56d",
+      "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
+    }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/ClothesScriptedSprint-20261108-220745-793668/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "a52bff2d7e771e21bbd9028696027f8715a7957233b309716bd033f6e74ccc32",
+    "uncompressed_sha256": "a2949581e2bcce814b0c2f366801470a3f0a11f9ea8652fe938288c208d30c46"
+  }
 }
