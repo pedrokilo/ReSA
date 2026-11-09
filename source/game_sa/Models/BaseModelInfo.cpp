@@ -42,9 +42,15 @@ static uint32 __fastcall SetBaseModelInfoFlags_KeepEdx(void* /*ecx*/, uint32 ent
 }
 #pragma runtime_checks("", restore)
 
+// 0x4C5620 (lote 140A, banco Fn140A): cuerpo del destructor de CBaseModelInfo del EXE (thiscall, sin argumentos, `ret`, 7 bytes: `mov dword [ecx],0x85BB9C`): solo deja la vtable de la clase base y no
+// toca nada mas. Lo pasan a los iteradores de vectores de los almacenes (CStore) y lo llama el destructor con borrado (0x4C6250).
+__declspec(noinline) static void __fastcall BaseModelInfoDestructorBody(CBaseModelInfo* self, void* /*edx*/) { *reinterpret_cast<uint32*>(self) = 0x85BB9C; }
+
 void CBaseModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CBaseModelInfo, 0x85BB9C, 15);
     RH_ScopedCategory("Models");
+
+    RH_ScopedNamedGlobalInstall(BaseModelInfoDestructorBody, "DestructorBody", 0x4C5620); // lote 140A (banco Fn140A)
 
     RH_ScopedVMTInstall(AsAtomicModelInfoPtr, 0x4C4A80);
     RH_ScopedVMTInstall(AsDamageAtomicModelInfoPtr, 0x4C4A90);

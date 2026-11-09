@@ -25,12 +25,24 @@ END GENERATED HOOK STATUS */
 
 #include "TaskGangHasslePed.h"
 
+// 0x6642A0 (lote 140A, banco Fn140A) : destructor con borrado de CTaskGangHasslePed del EXE (ranura 0 de su vtable 0x86FA00; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x65FF60; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x65FF60; aqui su envoltura Destructor()), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskGangHasslePed* CTaskGangHasslePed::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
+}
+
 void CTaskGangHasslePed::InjectHooks() {
     RH_ScopedVirtualClass(CTaskGangHasslePed, 0x86FA00, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x65FED0);
     RH_ScopedInstall(Destructor, 0x65FF60);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6642A0); // lote 140A (banco Fn140A)
 
     RH_ScopedVMTInstall(CreateNextSubTask, 0x6642C0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x664380);

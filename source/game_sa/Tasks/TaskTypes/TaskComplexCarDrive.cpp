@@ -34,6 +34,7 @@ void CTaskComplexCarDrive::InjectHooks() {
     RH_ScopedInstall(Constructor_0, 0x63C9D0);
     RH_ScopedInstall(Constructor_1, 0x63C940);
     RH_ScopedInstall(Destructor, 0x63CA40);
+    RH_ScopedVMTInstall(GetTaskType, 0x63C9C0); // lote 140A (banco Fn140A): retorno de constante
     RH_ScopedInstall(ScalarDeletingDestructor, 0x642F80);
 
     RH_ScopedInstall(CreateSubTask, 0x642FA0);

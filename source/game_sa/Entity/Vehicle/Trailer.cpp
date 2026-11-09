@@ -79,11 +79,31 @@ float SteerTowardsTractor(const CPlaceable* tractor, const CPlaceable* self) {
 }
 } // namespace
 
+namespace {
+// 0x6CED10 (lote 140A, banco Fn140A): cuerpo del destructor de CTrailer del EXE (vtable 0x871C28 y salto al destructor de la base 0x6A61E0; sin hook propio: el destructor de la clase es el generado por
+// el compilador). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama TrailerScalarDeletingDestructor como el `call 0x6CED10` del EXE.
+__declspec(noinline) void __fastcall TrailerDestructorBody(CTrailer* self, void* /*edx*/) { self->CTrailer::~CTrailer(); }
+
+// 0x6CF180 (lote 140A, banco Fn140A): destructor con borrado de CTrailer del EXE (ranura 0 de su vtable 0x871C28; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6CED10; test byte [esp+8],1; je ..; push esi; call 0x6E2D90; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CVehicle::operator delete (0x6E2D90, sin hook: pool de vehiculos) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTrailer* __fastcall TrailerScalarDeletingDestructor(CTrailer* self, void* /*edx*/, uint8 flags) {
+    TrailerDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CVehicle::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote140ATrailerDestructorBody() { return reinterpret_cast<uintptr_t>(&TrailerDestructorBody); } // para el banco Fn140A
+
 void CTrailer::InjectHooks() {
     RH_ScopedVirtualClass(CTrailer, 0x871c28, 71);
     RH_ScopedCategory("Vehicle");
 
     RH_ScopedInstall(Constructor, 0x6D03A0);
+    RH_ScopedNamedGlobalInstall(TrailerScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6CF180); // lote 140A (banco Fn140A)
     RH_ScopedInstall(ScanForTowLink, 0x6CF030);
 
     RH_ScopedVMTInstall(SetupSuspensionLines, 0x6CF1A0);

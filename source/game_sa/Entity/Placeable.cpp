@@ -29,6 +29,10 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 #pragma warning(pop)
 
+// 0x41BD80 (lote 140A, banco Fn140A): copia fuera de linea de CPlaceable::GetMatrix del EXE (thiscall, sin argumentos, `ret`, 4 bytes: `mov eax,[ecx+14h]`): devuelve el puntero m_matrix tal cual, sin
+// comprobar nada (los vehiculos lo llaman en CAutomobile::ProcessCarWheelPair y similares).
+static CMatrixLink* __fastcall PlaceableGetMatrixCopy(CPlaceable* self, void* /*edx*/) { return self->m_matrix; }
+
 /**
  * Registra las operaciones de transformación y gestión del pool global de matrices.
  */
@@ -52,6 +56,7 @@ void CPlaceable::InjectHooks() {
     RH_ScopedInstall(AllocateMatrix, 0x54F560);
     RH_ScopedInstall(SetMatrix, 0x54F610);
     RH_ScopedInstall(GetMatrix, 0x411990);
+    RH_ScopedNamedGlobalInstall(PlaceableGetMatrixCopy, "GetMatrixCopy", 0x41BD80); // lote 140A (banco Fn140A)
     RH_ScopedInstall(ShutdownMatrixArray, 0x54EFD0);
     RH_ScopedInstall(InitMatrixArray, 0x54F3A0);
     RH_ScopedInstall(FreeStaticMatrix, 0x54F010);

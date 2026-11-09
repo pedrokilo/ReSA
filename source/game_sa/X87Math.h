@@ -2306,3 +2306,8 @@ float __cdecl PedSphereNearestCpp(const float* front, const float* source, const
 // Lote 137A (Fn137A).
 // 0x406D10 (cdecl, un float en la pila, `ret`, resultado en ST0): `fld dword [esp+4]; fabs; ret`. Con un NaN senalizante el `fld` lo vuelve silencioso (como en el EXE).
 float __cdecl FloatAbsCpp(float v);
+
+// Lote 140A (Fn140A).
+// 0x41BCE0 / 0x41BCF0 (cdecl, un float en la pila, `ret`, resultado en ST0): `fld dword [esp+4]; fsin; ret` / `fcos`. Devuelven double para que ST0 salga sin redondear.
+double __cdecl SinFloatSt0Cpp(float angle);
+double __cdecl CosFloatSt0Cpp(float angle);

@@ -21,10 +21,16 @@ END GENERATED HOOK STATUS */
 #include "cTransmission.h"
 #include "CarCtrl.h"
 
+// 0x6D0450 (lote 140A, banco Fn140A): constructor de cTransmission del EXE (thiscall, sin argumentos, `ret`, 3 bytes: `mov eax,ecx`): no escribe nada y devuelve this. Lo llaman el constructor de
+// tHandlingData (0x6F4FA0, para el miembro +0x2C) y el de cHandlingDataMgr (0x6F5330, para los 210 elementos).
+static cTransmission* __fastcall TransmissionConstructorBody(cTransmission* self, void* /*edx*/) { return self; }
+
 void cTransmission::InjectHooks()
 {
     RH_ScopedClass(cTransmission);
     RH_ScopedCategoryGlobal();
+
+    RH_ScopedNamedGlobalInstall(TransmissionConstructorBody, "ConstructorBody", 0x6D0450); // lote 140A (banco Fn140A)
 
     RH_ScopedInstall(DisplayGearRatios, 0x6D0590);
     RH_ScopedInstall(InitGearRatios, 0x6D0460);

@@ -28,6 +28,10 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 
 
+// 0x41BD50 (lote 140A, banco Fn140A): copia fuera de linea de CTimer::GetTimeStep del EXE (cdecl, sin argumentos, `ret`, 7 bytes: `fld dword [0xB7CB5C]; ret`): devuelve ms_fTimeStep en ST0 sin redondear
+// ni guardar (un NaN senalizante se vuelve silencioso al cargarlo, como en el EXE).
+static float __cdecl GetTimeStepCopy() { return CTimer::ms_fTimeStep; }
+
 void CTimer::InjectHooks()
 {
     RH_ScopedClass(CTimer);
@@ -47,6 +51,7 @@ void CTimer::InjectHooks()
     RH_ScopedInstall(UpdateVariables, 0x5618D0);
     RH_ScopedInstall(Update, 0x561B10);
     RH_ScopedGlobalInstall(GetMillisecondTime, 0x5617C0);
+    RH_ScopedNamedGlobalInstall(GetTimeStepCopy, "GetTimeStepCopy", 0x41BD50); // lote 140A (banco Fn140A)
     RH_ScopedGlobalInstall(GetOSWPerformanceTime, 0x5617A0); // lote 124A (banco Fn124A): oswrapper_win.cpp; el listado de pendientes decia CTimeCycle (la clase real es CTimer: es el temporizador que elige CTimer::Initialise)
 }
 

@@ -27,6 +27,7 @@ void CBridge::InjectHooks() {
     RH_ScopedInstall(Init, 0x41BC70);
     RH_ScopedInstall(Update, 0x41BC80);
     RH_ScopedInstall(FindBridgeEntities, 0x41BCA0);
+    RH_ScopedInstall(ThisIsABridgeObjectMovingUp, 0x41BCB0); // lote 140A (banco Fn140A)
     RH_ScopedInstall(ShouldLightsBeFlashing, 0x41BC90);
 }
 

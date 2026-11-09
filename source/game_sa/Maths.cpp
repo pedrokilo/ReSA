@@ -62,6 +62,8 @@ void CMaths::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(InitMathsTables, 0x59AC90);
+    RH_ScopedNamedGlobalInstall(SinFloatSt0Cpp, "SinFloat", 0x41BCE0); // lote 140A (banco Fn140A): fsin del float de la pila, ST0 sin redondear (X87Math.cpp)
+    RH_ScopedNamedGlobalInstall(CosFloatSt0Cpp, "CosFloat", 0x41BCF0); // lote 140A (banco Fn140A): fcos
     RH_ScopedNamedGlobalInstall(FloatAbsCpp, "AbsFloat", 0x406D10); // lote 137A (banco Fn137A): fabs(float) del EXE, en X87Math.cpp
     RH_ScopedInstall(GetSinFast, 0x4A1340); // No callers in the game, inlined in every single instance
     RH_ScopedInstall(GetCosFast, 0x4A1360); // No callers in the game, inlined in every single instance

@@ -40,6 +40,7 @@ void CTaskComplexArrestPed::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x68B990);
     RH_ScopedInstall(Destructor, 0x68BA00);
+    RH_ScopedVMTInstall(GetTaskType, 0x68B9F0); // lote 140A (banco Fn140A): retorno de constante
     RH_ScopedVMTInstall(MakeAbortable, 0x68BA60);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x690220);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x6907A0);

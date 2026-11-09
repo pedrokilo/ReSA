@@ -31,6 +31,24 @@ END GENERATED HOOK STATUS */
 #include "RealTimeShadowManager.h"
 #include "X87Math.h"
 
+namespace {
+// 0x544990 (lote 140A, banco Fn140A): destructor con borrado de CPhysical del EXE (ranura 0 de su vtable 0x863BA0; thiscall, un argumento de pila, `ret 4`, 27 bytes:
+// `push esi; mov esi,ecx; call 0x542450; test byte [esp+8],1; je ..; push esi; call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x542450,
+// aqui la funcion propia PhysicalDestructorBody, sin expansion en linea para que el banco la sustituya), libera `this` con `operator delete` (0x8214BD) solo si el bit 0 del BYTE de banderas esta
+// puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+__declspec(noinline) void __fastcall PhysicalDestructorBody(CPhysical* self, void* /*edx*/) { self->CPhysical::~CPhysical(); }
+
+CPhysical* __fastcall PhysicalScalarDeletingDestructor(CPhysical* self, void* /*edx*/, uint8 flags) {
+    PhysicalDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote140APhysicalDestructorBody() { return reinterpret_cast<uintptr_t>(&PhysicalDestructorBody); } // para el banco Fn140A
+
 /**
  * Registra integración física, fuerzas, colisiones, attachments y listas espaciales.
  */
@@ -41,6 +59,7 @@ void CPhysical::InjectHooks()
 
     RH_ScopedInstall(Constructor, 0x542260);
     RH_ScopedInstall(Destructor, 0x542450);
+    RH_ScopedNamedGlobalInstall(PhysicalScalarDeletingDestructor, "ScalarDeletingDestructor", 0x544990); // lote 140A (banco Fn140A)
 
     RH_ScopedInstall(RemoveAndAdd, 0x542560);
     RH_ScopedInstall(ApplyTurnForce, 0x542A50);

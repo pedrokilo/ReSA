@@ -82,6 +82,19 @@ void CMatrix::InjectHooksAttachAssign()
     RH_ScopedInstall(operator=, 0x59BBC0);
 }
 
+namespace {
+// 0x41BD00 (lote 140A, banco Fn140A): copia fuera de linea de CMatrix::GetRight del EXE (thiscall, sin argumentos, `ret`, 3 bytes: `mov eax,ecx`): devuelve la direccion del vector derecho (+0x0, el propio this).
+// Lo llaman los vehiculos (CAutomobile) sobre la matriz de CPlaceable::GetMatrix.
+CVector* __fastcall MatrixGetRightCopy(CMatrix* self, void* /*edx*/) { return &self->GetRight(); }
+
+// 0x41BD10 (lote 140A, banco Fn140A): copia fuera de linea de CMatrix::GetForward del EXE (thiscall, sin argumentos, `ret`, 4 bytes: `lea eax,[ecx+10h]`): direccion del vector de avance (+0x10).
+CVector* __fastcall MatrixGetForwardCopy(CMatrix* self, void* /*edx*/) { return &self->GetForward(); }
+
+// 0x54E8E0 (lote 140A, banco Fn140A): trampolin del destructor de CMatrix del EXE (thiscall, sin argumentos, 5 bytes: `jmp 0x59ACD0`); es el que pasan a los iteradores de vectores de matrices. Salta
+// al cuerpo del destructor del EXE (0x59ACD0, con hook: CMatrix::Destructor). Sin expansion en linea (llamada a la funcion del hook).
+__declspec(noinline) void __fastcall MatrixDestructorThunk(CMatrix* self, void* /*edx*/) { self->Destructor(); }
+} // namespace
+
 // CMatrix::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); estas son, junto con InjectHooksMultiplyVector y InjectHooksAttachAssign, las unicas entradas de CMatrix que se instalan
 // (lote 97A, bancos Fn97A y Fn97B): UpdateRW (0x59BBB0), UpdateRwMatrix (0x59AD70), SetTranslate (0x59AF40), SetRotateZOnly (0x59B020), el destructor (0x59ACD0) y los constructores
 // de copia (0x59BCF0) y con RwMatrix (0x59C050).
@@ -89,6 +102,10 @@ void CMatrix::InjectHooksExactOps()
 {
     RH_ScopedClass(CMatrix);
     RH_ScopedCategory("Core");
+
+    RH_ScopedNamedGlobalInstall(MatrixGetRightCopy, "GetRightCopy", 0x41BD00);       // lote 140A (banco Fn140A)
+    RH_ScopedNamedGlobalInstall(MatrixGetForwardCopy, "GetForwardCopy", 0x41BD10);   // lote 140A (banco Fn140A)
+    RH_ScopedNamedGlobalInstall(MatrixDestructorThunk, "DestructorThunk", 0x54E8E0); // lote 140A (banco Fn140A)
 
     RH_ScopedInstall(UpdateRW, 0x59BBB0);
     RH_ScopedInstall(UpdateRwMatrix, 0x59AD70);

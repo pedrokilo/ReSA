@@ -26,6 +26,8 @@ private: // Wrappers for hooks
         this->CTaskComplexCarDriveWander::CTaskComplexCarDriveWander(vehicle, carDrivingStyle, fSpeed);
         return this;
     }
+
+    CTaskComplexCarDriveWander* ScalarDeletingDestructor(uint8 flags); // 0x643220 (lote 140A, banco Fn140A): destructor con borrado (ranura 0 de la vtable 0x86E96C), `ret 4`
 };
 
 VALIDATE_SIZE(CTaskComplexCarDrive, 0x24);

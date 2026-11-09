@@ -56,10 +56,12 @@ private: // Wrappers for hooks
     }
 
     // 0x68D880
-    CTaskComplexPolicePursuit* Destructor() {
+    __declspec(noinline) CTaskComplexPolicePursuit* Destructor() {
         this->CTaskComplexPolicePursuit::~CTaskComplexPolicePursuit();
         return this;
     }
+
+    CTaskComplexPolicePursuit* ScalarDeletingDestructor(uint8 flags); // 0x6908C0 (lote 140A, banco Fn140A): destructor con borrado (ranura 0 de la vtable 0x8709D4), `ret 4`
 };
 
 VALIDATE_SIZE(CTaskComplexPolicePursuit, 0x18);

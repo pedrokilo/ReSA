@@ -37,6 +37,7 @@ void CTaskGangHassleVehicle::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x65FAC0);
     RH_ScopedInstall(Destructor, 0x65FB60);
+    RH_ScopedVMTInstall(GetTaskType, 0x65FB50); // lote 140A (banco Fn140A): retorno de constante
     RH_ScopedInstall(ScalarDeletingDestructor, 0x6637A0);
     RH_ScopedInstall(GetTargetHeading, 0x65FDD0);
     RH_ScopedInstall(CalcTargetOffset, 0x6641A0);

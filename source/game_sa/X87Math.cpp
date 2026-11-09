@@ -18820,3 +18820,11 @@ __declspec(noinline) float __cdecl FloatAbsCpp(float v) {
     return float(fabs(double(v))); // con std::fabs(float) el compilador llama a la funcion de la CRT (guarda el float en la pila y registros distintos del EXE); con el intrinsico de fabs(double) sale `fld; fabs`
 }
 #pragma float_control(pop)
+
+// Lote 140A (Fn140A).
+#pragma float_control(precise, off, push)
+// 0x41BCE0 / 0x41BCF0 (cdecl, un float en la pila, `ret`, resultado en ST0): `fld dword [esp+4]; fsin; ret` y `fld dword [esp+4]; fcos; ret`. Con /O2 /Oi /arch:IA32 /fp:fast el compilador expande
+// sin(double) y cos(double) a fsin / fcos sobre el float cargado, sin guardar ni recargar: el resultado sale en ST0 con la precision completa de la x87 (por eso devuelven double).
+__declspec(noinline) double __cdecl SinFloatSt0Cpp(float angle) { return sin(double(angle)); }
+__declspec(noinline) double __cdecl CosFloatSt0Cpp(float angle) { return cos(double(angle)); }
+#pragma float_control(pop)

@@ -21,11 +21,31 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexDriveWander.h"
 #include "CarCtrl.h"
 
+namespace {
+// 0x63CB50 (lote 140A, banco Fn140A): cuerpo del destructor de CTaskComplexCarDriveWander del EXE (vtable 0x86E96C y salto al cuerpo de ~CTaskComplexCarDrive 0x63CA40; sin hook propio: el destructor de la
+// clase es el generado por el compilador). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x63CB50` del EXE.
+__declspec(noinline) void __fastcall CarDriveWanderDestructorBody(CTaskComplexCarDriveWander* self, void* /*edx*/) { self->CTaskComplexCarDriveWander::~CTaskComplexCarDriveWander(); }
+} // namespace
+
+uintptr_t Lote140ACarDriveWanderDestructorBody() { return reinterpret_cast<uintptr_t>(&CarDriveWanderDestructorBody); } // para el banco Fn140A
+
+// 0x643220 (lote 140A, banco Fn140A) : destructor con borrado de CTaskComplexCarDriveWander del EXE (ranura 0 de su vtable 0x86E96C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x63CB50; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x63CB50, funcion propia), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexCarDriveWander* CTaskComplexCarDriveWander::ScalarDeletingDestructor(uint8 flags) {
+    CarDriveWanderDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
+}
+
 void CTaskComplexCarDriveWander::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexCarDriveWander, 0x86E96C, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x63CB10);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x643220); // lote 140A (banco Fn140A)
 
     RH_ScopedVMTInstall(Clone, 0x63DD00);
     RH_ScopedVMTInstall(GetTaskType, 0x63CB40);
