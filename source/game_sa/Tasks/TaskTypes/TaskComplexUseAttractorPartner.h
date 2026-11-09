@@ -27,8 +27,9 @@ private: // Wrappers for hooks
         return this;
     }
 
+    CTaskComplexUseAttractorPartner* ScalarDeletingDestructor(uint8 flags); // 0x638FD0 (lote 141A, banco Fn141A): destructor con borrado (ranura 0 de la vtable 0x86E2B0), `ret 4`
     // 0x633300
-    CTaskComplexUseAttractorPartner* Destructor() {
+    __declspec(noinline) CTaskComplexUseAttractorPartner* Destructor() {
         this->CTaskComplexUseAttractorPartner::~CTaskComplexUseAttractorPartner();
         return this;
     }

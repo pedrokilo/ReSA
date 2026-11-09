@@ -42,16 +42,7 @@ public:
 
 private:
     friend void InjectHooksMain();
-    static void InjectHooks() {
-        RH_ScopedVirtualClass(CTaskComplexObserveTrafficLightsAndAchieveHeading, 0x86DFC4, 11);
-        RH_ScopedCategory("Tasks/TaskTypes");
-
-        RH_ScopedVMTInstall(Clone, 0x636490);
-        RH_ScopedVMTInstall(ControlSubTask, 0x631AD0);
-        RH_ScopedVMTInstall(CreateFirstSubTask, 0x631AC0);
-        RH_ScopedVMTInstall(CreateNextSubTask, 0x631A70);
-        RH_ScopedVMTInstall(MakeAbortable, 0x631950);
-    }
+    static void InjectHooks();
 
     CTaskComplexObserveTrafficLightsAndAchieveHeading* Constructor(int32 durationInMs, float fTargetHeading) {
         this->CTaskComplexObserveTrafficLightsAndAchieveHeading::CTaskComplexObserveTrafficLightsAndAchieveHeading(durationInMs, fTargetHeading);

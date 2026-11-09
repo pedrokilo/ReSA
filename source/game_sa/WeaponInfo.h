@@ -125,8 +125,8 @@ public:
     auto GetRLoadB(bool isCrouching) const -> uint16; // 0x73A2B0
     auto GetTargetHeadRange() const -> float;
     auto GetWeaponReloadTime() const -> uint32;
-    auto GetAnimLoopStart(bool isSet2 = false) const { return isSet2 ? m_fAnimLoop2Start : m_fAnimLoopStart; }
-    auto GetAnimLoopEnd(bool isSet2 = false) const { return isSet2 ? m_fAnimLoop2End : m_fAnimLoopEnd; }
+    float GetAnimLoopStart(bool isSet2 = false) const; // 0x608F00 (lote 141A, banco Fn141A): fld dword [ecx+0x4C o +0x40]
+    float GetAnimLoopEnd(bool isSet2 = false) const;   // 0x608F20 (lote 141A, banco Fn141A): fld dword [ecx+0x50 o +0x44]
 
     auto GetFireType() const { return m_nWeaponFire; }
 
@@ -151,3 +151,7 @@ public:
     const auto& GetAimingOffset() const { return CWeaponInfo::ms_WeaponAimOffsets.data()[m_nAimOffsetIndex]; }
 };
 VALIDATE_SIZE(CWeaponInfo, 0x70);
+VALIDATE_OFFSET(CWeaponInfo, m_fAnimLoopStart, 0x40);
+VALIDATE_OFFSET(CWeaponInfo, m_fAnimLoopEnd, 0x44);
+VALIDATE_OFFSET(CWeaponInfo, m_fAnimLoop2Start, 0x4C);
+VALIDATE_OFFSET(CWeaponInfo, m_fAnimLoop2End, 0x50);

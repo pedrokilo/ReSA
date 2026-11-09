@@ -418,19 +418,20 @@ public:
     bool IsScanCodeCurrent() const;
     void SetCurrentScanCode();
 
-private:
-    friend void InjectHooksMain();
-    static void InjectHooks();
-
-    CEntity* Constructor() {
+public: // Envolturas de los cuerpos 0x532A90 / 0x535E90 (con hook): las llaman los cuerpos reconstruidos de CDummy (0x532540, 0x532560; lote 141A, banco Fn141A), sin expansion en linea
+    __declspec(noinline) CEntity* Constructor() {
         this->CEntity::CEntity();
         return this;
     }
 
-    CEntity* Destructor() {
+    __declspec(noinline) CEntity* Destructor() {
         this->CEntity::~CEntity();
         return this;
     }
+
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
 };
 
 VALIDATE_SIZE(CEntity, 0x38);

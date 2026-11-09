@@ -25,9 +25,22 @@ END GENERATED HOOK STATUS */
 #include "TaskSimplePause.h"
 #include "TaskSimpleStandStill.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+// 0x668630 (lote 141A, banco Fn141A): cuerpo no virtual de ~CTaskComplexGoToPointAndStandStill del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],0x86FDA8; jmp 0x61A3D0 (~CTaskComplex, con hook)`). Deja la vtable de la clase del EXE (0x86FDA8) y sigue con ese cuerpo.
+__declspec(noinline) void __fastcall GoToPointAndStandStillDestructorBody(CTaskComplexGoToPointAndStandStill* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86FDA8;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexGoToPointAndStandStill::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGoToPointAndStandStill, 0x86fda8, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(GoToPointAndStandStillDestructorBody, "Destructor", 0x668630); // lote 141A (banco Fn141A)
 
     RH_ScopedInstall(Constructor, 0x668120);
 

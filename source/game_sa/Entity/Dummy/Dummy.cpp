@@ -23,20 +23,39 @@ END GENERATED HOOK STATUS */
 /**
  * Registra la validación de punteros para entidades CDummy.
  */
+namespace {
+CDummy* __fastcall DummyConstructorBody(CDummy* self, void* edx);
+void __fastcall DummyDestructorBody(CDummy* self, void* edx);
+} // namespace
+
 void CDummy::InjectHooks() {
     RH_ScopedVirtualClass(CDummy, 0x8638C0, 22);
     RH_ScopedCategory("Entity/Dummy");
 
     RH_ScopedGlobalInstall(IsDummyPointerValid, 0x532730);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x532770); // lote 130A (banco Fn130A)
+    RH_ScopedNamedGlobalInstall(DummyConstructorBody, "Constructor", 0x532540); // lote 141A (banco Fn141A)
+    RH_ScopedNamedGlobalInstall(DummyDestructorBody, "Destructor", 0x532560); // lote 141A (banco Fn141A)
 }
 
 namespace {
 // 0x532560 (lote 130A, banco Fn130A): cuerpo del destructor de CDummy del EXE, sin hook propio (`mov dword [ecx],0x8638C0; jmp CEntity::Destructor (0x535E90)`, thiscall sin argumentos). Funcion propia
 // sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x532560` del EXE.
+// Desde el lote 141A (banco Fn141A) tiene hook propio (0x532560, tipo S, nombre "Destructor"); llama a la envoltura CEntity::Destructor() (0x535E90, con hook, sin expansion en linea).
 __declspec(noinline) void __fastcall DummyDestructorBody(CDummy* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x8638C0;
-    self->CEntity::~CEntity();
+    static_cast<CEntity*>(self)->Destructor();
+}
+
+// 0x532540 (lote 141A, banco Fn141A): cuerpo del constructor de CDummy del EXE (thiscall, sin argumentos, `ret`, 28 bytes: `push esi; mov esi,ecx; call 0x532A90; mov al,[esi+0x36]; and al,0xFD;
+// or al,5; mov [esi+0x36],al; mov dword [esi],0x8638C0; mov eax,esi; pop esi; ret`). Base CEntity (0x532A90, con hook), tipo del byte +0x36 = dummy (bit 1 a cero, bits 0 y 2 a uno, resto
+// intacto), vtable de CDummy del EXE (0x8638C0); devuelve this. Lo llaman CDummyObject (0x59EA03, 0x59EA3E) y 0x5DE2E3.
+__declspec(noinline) CDummy* __fastcall DummyConstructorBody(CDummy* self, void* /*edx*/) {
+    static_cast<CEntity*>(self)->Constructor();
+    uint8* const flags = reinterpret_cast<uint8*>(self) + 0x36;
+    *flags = uint8((*flags & 0xFDu) | 5u);
+    *reinterpret_cast<uint32*>(self) = 0x8638C0;
+    return self;
 }
 } // namespace
 

@@ -33,9 +33,9 @@ public: // Constructor: lo llaman los constructores de las subclases reconstruid
         return this;
     }
 
-private: // Wrappers for hooks
+public: // Envoltura del cuerpo 0x632270 (con hook): la llaman los cuerpos reconstruidos de CTaskComplexUseEffectRunning (0x636850) y CTaskComplexUseEffectSprinting (0x636930; lote 141A, banco Fn141A), sin expansion en linea
     // 0x632270
-    CTaskComplexUseEffect* Destructor() {
+    __declspec(noinline) CTaskComplexUseEffect* Destructor() {
         this->CTaskComplexUseEffect::~CTaskComplexUseEffect();
         return this;
     }

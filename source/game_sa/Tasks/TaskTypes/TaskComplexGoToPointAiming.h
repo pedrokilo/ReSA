@@ -43,8 +43,9 @@ private:
         this->CTaskComplexGoToPointAiming::CTaskComplexGoToPointAiming(moveState, movePos, aimAtEntity, aimPos, targetRadius, slowDownDist);
         return this;
     }
+    CTaskComplexGoToPointAiming* ScalarDeletingDestructor(uint8 flags); // 0x66DD50 (lote 141A, banco Fn141A): destructor con borrado (ranura 0 de la vtable 0x86FE00), `ret 4`
     // 0x668870
-    CTaskComplexGoToPointAiming* Destructor() {
+    __declspec(noinline) CTaskComplexGoToPointAiming* Destructor() {
         this->CTaskComplexGoToPointAiming::~CTaskComplexGoToPointAiming();
         return this;
     }

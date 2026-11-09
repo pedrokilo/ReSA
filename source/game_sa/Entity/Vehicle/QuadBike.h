@@ -46,6 +46,7 @@ public:
 public:
     CQuadBike(int32 modelIndex, eVehicleCreatedBy createdBy);
     ~CQuadBike() override = default; // 0x6CDC30
+    CQuadBike* ScalarDeletingDestructor(uint8 flags); // 0x6CE440 (lote 141A, banco Fn141A): destructor con borrado (ranura 0 de la vtable 0x871AE8), `ret 4`
 
     void Fix() override;
     CRideAnimData* GetRideAnimData() override;

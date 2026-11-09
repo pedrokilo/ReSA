@@ -402,9 +402,22 @@ void CCustomBuildingDNPipeline::CustomPipeRenderCB(RwResEntry* entry, void* obje
     RwD3D9SetTextureStageState(1, D3DTSS_TEXTURETRANSFORMFLAGS, 0);
 }
 
-// 0x5D6E90
+// Sin direccion propia en el EXE: sus llamadores (0x5D6D10, 0x5D6D30, ...) llevan la cuenta expandida en linea.
 ExtraVertColour* CCustomBuildingDNPipeline::GetExtraVertColourPtr(const void* geometry) {
     return RWPLUGINOFFSET(ExtraVertColour, geometry, ms_extraVertColourPluginOffset);
+}
+
+// 0x5D6E90 (lote 141A, banco Fn141A): cdecl, un argumento de pila (`ret`): `mov eax,[esp+4]; mov ecx,[0x8D12BC]; mov eax,[ecx+eax]`. LEE el dword de la geometria en el desplazamiento del plugin (NightColors,
+// primer campo de ExtraVertColour: sus llamadores, 0x5D7F00 y 0x5D7F40, solo comprueban que no sea nulo); no devuelve la direccion del plugin. Suma con vuelta modulo 2^32.
+RwRGBA* CCustomBuildingDNPipeline::GetExtraNightColors(const void* geometry) {
+    return *reinterpret_cast<RwRGBA* const*>(reinterpret_cast<uintptr_t>(geometry) + uintptr_t(ms_extraVertColourPluginOffset));
+}
+
+// 0x5D6830 (lote 141A, banco Fn141A): cdecl, un argumento de pila (lo limpia el llamador, `ret`). Como el original: indice de trabajo = (indice + 1) & 15 en 0xC02C14 y el argumento
+// (dword completo, sin normalizar) en 0xC02C18. CCustomBuildingRenderer::Update (0x5D8050) lo llama con 0.
+void CCustomBuildingDNPipeline::AdvanceWorkingIndex(uint32 flag) {
+    s_Magic1 = (s_Magic1 + 1u) & 0xFu;
+    s_Magic2 = flag;
 }
 
 // 0x5D9570
@@ -497,4 +510,6 @@ void CCustomBuildingDNPipeline::InjectHooks() {
     RH_ScopedInstall(SetFxEnvTexture, 0x5D9570);
     RH_ScopedInstall(CustomPipeMaterialSetup, 0x5D7120);
     RH_ScopedInstall(CustomPipeRenderCB, 0x5D6480);
+    RH_ScopedInstall(GetExtraNightColors, 0x5D6E90); // lote 141A (banco Fn141A)
+    RH_ScopedInstall(AdvanceWorkingIndex, 0x5D6830); // lote 141A (banco Fn141A)
 }

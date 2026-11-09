@@ -22,9 +22,18 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexGoToPointAnyMeans.h"
 #include "Models/ModelInfo.h"
 
+namespace {
+// 0x63CE70 (lote 141A, banco Fn141A): cuerpo no virtual de ~CTaskComplexDriveToPoint del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],0x86E9DC; jmp 0x63CA40 (~CTaskComplexCarDrive, con hook, envoltura Destructor())`). Deja la vtable de la clase del EXE (0x86E9DC) y sigue con ese cuerpo.
+__declspec(noinline) void __fastcall DriveToPointDestructorBody(CTaskComplexDriveToPoint* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86E9DC;
+    static_cast<CTaskComplexCarDrive*>(self)->Destructor();
+}
+} // namespace
+
 void CTaskComplexDriveToPoint::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDriveToPoint, 0x86E9DC, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(DriveToPointDestructorBody, "Destructor", 0x63CE70); // lote 141A (banco Fn141A)
 
     RH_ScopedInstall(Constructor, 0x63CE00);
 

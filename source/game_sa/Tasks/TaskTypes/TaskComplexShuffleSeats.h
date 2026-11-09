@@ -36,8 +36,9 @@ private: // Wrappers for hooks
         this->CTaskComplexShuffleSeats::CTaskComplexShuffleSeats(veh);
         return this;
     }
+    CTaskComplexShuffleSeats* ScalarDeletingDestructor(uint8 flags); // 0x6436E0 (lote 141A, banco Fn141A): destructor con borrado (ranura 0 de la vtable 0x86EA40), `ret 4`
     // 0x63D1A0
-    CTaskComplexShuffleSeats* Destructor() {
+    __declspec(noinline) CTaskComplexShuffleSeats* Destructor() {
         this->CTaskComplexShuffleSeats::~CTaskComplexShuffleSeats();
         return this;
     }

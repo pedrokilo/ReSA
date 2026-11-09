@@ -19,7 +19,7 @@ VCVARS = r'C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Bu
 def extract(src):
     text = src.read_text(encoding='utf-8').replace('\r\n', '\n')
     a = text.index('// 0x5D6480')
-    b = text.index('// 0x5D6E90')
+    b = text.index('// Sin direccion propia en el EXE')   # (antes '// 0x5D6E90'; el lote 141A cambio ese comentario)
     return text[a:b]
 
 

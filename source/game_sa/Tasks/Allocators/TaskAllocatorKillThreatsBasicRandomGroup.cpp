@@ -77,9 +77,32 @@ void CTaskAllocatorKillThreatsBasicRandomGroup::AllocateTasks(CPedGroupIntellige
     }
 }
 
+namespace {
+// 0x5F6920 (lote 141A, banco Fn141A): cuerpo no virtual de ~CTaskAllocatorKillThreatsBasicRandomGroup del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],0x86C80C;
+// jmp 0x69C780`). Deja la vtable de la clase del EXE (0x86C80C) y sigue con el cuerpo de ~CTaskAllocatorKillThreatsBasic (0x69C780, con hook, envoltura Destructor()).
+__declspec(noinline) void __fastcall KillThreatsBasicRandomGroupDestructorBody(CTaskAllocatorKillThreatsBasicRandomGroup* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86C80C;
+    static_cast<CTaskAllocatorKillThreatsBasic*>(self)->Destructor();
+}
+} // namespace
+
+// 0x5F6900 (lote 141A, banco Fn141A): destructor con borrado de CTaskAllocatorKillThreatsBasicRandomGroup del EXE (ranura 0 de su vtable 0x86C80C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x5F6920; test byte [esp+8],1; je ..; push esi; call 0x69D990; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x5F6920), libera `this` con CTaskAllocator::operator delete (0x69D990, con hook; pool de asignadores) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskAllocatorKillThreatsBasicRandomGroup* CTaskAllocatorKillThreatsBasicRandomGroup::ScalarDeletingDestructor(uint8 flags) {
+    KillThreatsBasicRandomGroupDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CTaskAllocator::operator delete(this);
+    }
+    return this;
+}
+
 void CTaskAllocatorKillThreatsBasicRandomGroup::InjectHooks() {
     RH_ScopedVirtualClass(CTaskAllocatorKillThreatsBasicRandomGroup, 0x86C80C, 6);
     RH_ScopedCategory("Tasks/Allocators");
+
+    RH_ScopedNamedGlobalInstall(KillThreatsBasicRandomGroupDestructorBody, "Destructor", 0x5F6920); // lote 141A (banco Fn141A)
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x5F6900); // lote 141A (banco Fn141A)
 
     // Como el original son funciones virtuales (huecos 5 y 1 de 0x86C80C): con RH_ScopedInstall el salto iría al
     // thunk vcall, que vuelve a despachar por la vtable del EXE y entra en recursión infinita.

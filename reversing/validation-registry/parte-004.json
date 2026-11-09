@@ -92130,7 +92130,7 @@
       },
       "evidence": {
         "path": "reversing/CBDNRenderCB30/validation-summary.json",
-        "sha256": "ccca70a3e03ad5639aa7b3adc404feb7920cea962ddd025bf50dcdc0a67ed9eb",
+        "sha256": "e1dd64216a40966b3d937f12d91cd335b3190948f35c55875115f8d3db1a3cf6",
         "passed_path": [
           "covered_functions",
           "CCustomBuildingDNPipeline::CustomPipeRenderCB"
@@ -92139,12 +92139,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
-        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "2cc6a71f9ceeb30343d69c66645df4f2a7eddc19ea9c007a11043c0425dde7cc",
-        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4",
+        "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
+        "source/InjectHooksMain.cpp": "a51c1cf28863b255bc2f80ae4be85dc04957fd4ab73cdfa2c0f840eb6631e39c",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "a8b0b859fbc484df36a0f4f98ec31558642240b028344ce8a9d75947a7977194",
+        "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "dca02802daa505248c8b0c20cd819fbfc10a982f1c47ed5881ede6407ac8d07c",
         "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "78738b50d2616ffc0563ac741a3fccc6838a1c9c684c14a07c0a01e3fabbb827",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/CBDNRenderCB30/LiveComparison.hpp": "c474539e5c01769e28899ddff72f33fe663363a534eb16dcb532d4a1044f6e48",

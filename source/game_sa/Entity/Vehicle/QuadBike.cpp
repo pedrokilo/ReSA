@@ -51,11 +51,33 @@ float QuadMax(float a, float b) { return a > b ? a : b; }
 float QuadMin(float a, float b) { return a < b ? a : b; }
 } // namespace
 
+namespace {
+// 0x6CDC30 (lote 141A, banco Fn141A): cuerpo del destructor de CQuadBike del EXE (vtable 0x871AE8, destruccion de miembros y salto al destructor de la base; sin hook propio: el destructor de la clase es
+// el generado por el compilador). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x6CDC30` del EXE.
+__declspec(noinline) void __fastcall QuadBikeDestructorBody(CQuadBike* self, void* /*edx*/) {
+    self->CQuadBike::~CQuadBike();
+}
+} // namespace
+
+uintptr_t Lote141AQuadBikeDestructorBody() { return reinterpret_cast<uintptr_t>(&QuadBikeDestructorBody); } // para el banco Fn141A
+
+// 0x6CE440 (lote 141A, banco Fn141A): destructor con borrado de CQuadBike del EXE (ranura 0 de su vtable 0x871AE8; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx;
+// call 0x6CDC30; test byte [esp+8],1; je ..; push esi; call 0x6E2D90; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6CDC30), libera `this` con
+// CVehicle::operator delete (0x6E2D90, sin hook: pool de vehiculos) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CQuadBike* CQuadBike::ScalarDeletingDestructor(uint8 flags) {
+    QuadBikeDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CVehicle::operator delete(this);
+    }
+    return this;
+}
+
 void CQuadBike::InjectHooks() {
     RH_ScopedVirtualClass(CQuadBike, 0x871ae8, 71);
     RH_ScopedCategory("Vehicle");
 
     RH_ScopedInstall(Constructor, 0x6CE370);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6CE440); // lote 141A (banco Fn141A)
     RH_ScopedVMTInstall(Fix, 0x6CE2B0);
     RH_ScopedVMTInstall(GetRideAnimData, 0x6CDC90);
     RH_ScopedVMTInstall(PreRender, 0x6CEAD0);

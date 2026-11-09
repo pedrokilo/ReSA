@@ -80,9 +80,14 @@ float SteerTowardsTractor(const CPlaceable* tractor, const CPlaceable* self) {
 } // namespace
 
 namespace {
-// 0x6CED10 (lote 140A, banco Fn140A): cuerpo del destructor de CTrailer del EXE (vtable 0x871C28 y salto al destructor de la base 0x6A61E0; sin hook propio: el destructor de la clase es el generado por
-// el compilador). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama TrailerScalarDeletingDestructor como el `call 0x6CED10` del EXE.
-__declspec(noinline) void __fastcall TrailerDestructorBody(CTrailer* self, void* /*edx*/) { self->CTrailer::~CTrailer(); }
+// (lote 140A y 141A) 0x6CED10: la sustituye por falso el banco Fn140A y la engancha el banco Fn141A; ver mas abajo su descripcion.
+// 0x6CED10 (lote 141A, banco Fn141A): cuerpo no virtual de ~CTrailer del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],0x871C28; jmp 0x6A61E0`; el listado de pendientes decia
+// CQuadBike: la clase sale de la vtable 0x871C28 y de su ranura 0 0x6CF180, que lo llama). Deja la vtable de CTrailer del EXE (0x871C28) y sigue con el cuerpo de ~CAutomobile (0x6A61E0, con hook,
+// envoltura Destructor()).
+__declspec(noinline) void __fastcall TrailerDestructorBody(CTrailer* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x871C28;
+    static_cast<CAutomobile*>(self)->Destructor();
+}
 
 // 0x6CF180 (lote 140A, banco Fn140A): destructor con borrado de CTrailer del EXE (ranura 0 de su vtable 0x871C28; thiscall, un argumento de pila, `ret 4`, 30 bytes:
 // `push esi; mov esi,ecx; call 0x6CED10; test byte [esp+8],1; je ..; push esi; call 0x6E2D90; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
@@ -101,6 +106,8 @@ uintptr_t Lote140ATrailerDestructorBody() { return reinterpret_cast<uintptr_t>(&
 void CTrailer::InjectHooks() {
     RH_ScopedVirtualClass(CTrailer, 0x871c28, 71);
     RH_ScopedCategory("Vehicle");
+
+    RH_ScopedNamedGlobalInstall(TrailerDestructorBody, "Destructor", 0x6CED10); // lote 141A (banco Fn141A)
 
     RH_ScopedInstall(Constructor, 0x6D03A0);
     RH_ScopedNamedGlobalInstall(TrailerScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6CF180); // lote 140A (banco Fn140A)

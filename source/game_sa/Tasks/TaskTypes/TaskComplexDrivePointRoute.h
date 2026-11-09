@@ -46,8 +46,9 @@ private: // Wrappers for hooks
         return this;
     }
 
+    CTaskComplexDrivePointRoute* ScalarDeletingDestructor(uint8 flags); // 0x645350 (lote 141A, banco Fn141A): destructor con borrado (ranura 0 de la vtable 0x86EBF8), `ret 4`
     // 0x643490
-    auto Destructor() {
+    __declspec(noinline) CTaskComplexDrivePointRoute* Destructor() {
         this->CTaskComplexDrivePointRoute::~CTaskComplexDrivePointRoute();
         return this;
     }

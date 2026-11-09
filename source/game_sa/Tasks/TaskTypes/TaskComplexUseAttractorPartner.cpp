@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 void CTaskComplexUseAttractorPartner::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexUseAttractorPartner, 0x86e2b0, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x638FD0); // lote 141A (banco Fn141A)
 
     RH_ScopedInstall(Constructor, 0x6332C0);
     RH_ScopedInstall(Destructor, 0x633300);
@@ -51,4 +52,15 @@ CTaskComplexUseAttractorPartner::CTaskComplexUseAttractorPartner(const CTaskComp
 // 0x638FF0
 CTask* CTaskComplexUseAttractorPartner::CreateFirstSubTask(CPed* ped) {
     return new CTaskComplexUseSequence{ m_CurrentFxPair->Effects[m_IsLeader ? 0 : 1].PartnerTask };
+}
+
+// 0x638FD0 (lote 141A, banco Fn141A): destructor con borrado de CTaskComplexUseAttractorPartner del EXE (ranura 0 de su vtable 0x86E2B0; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x633300; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x633300; aqui su envoltura Destructor()), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexUseAttractorPartner* CTaskComplexUseAttractorPartner::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

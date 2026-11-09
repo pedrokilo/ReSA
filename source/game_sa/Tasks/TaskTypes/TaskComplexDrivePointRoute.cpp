@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 void CTaskComplexDrivePointRoute::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDrivePointRoute, 0x86ebf8, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x645350); // lote 141A (banco Fn141A)
 
     RH_ScopedInstall(Constructor, 0x6433E0);
     RH_ScopedInstall(Destructor, 0x643490);
@@ -88,4 +89,15 @@ CTask* CTaskComplexDrivePointRoute::CreateNextSubTask(CPed* ped) {
     }
 
     return CreateTaskForCurrentPoint();
+}
+
+// 0x645350 (lote 141A, banco Fn141A): destructor con borrado de CTaskComplexDrivePointRoute del EXE (ranura 0 de su vtable 0x86EBF8; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x643490; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x643490; aqui su envoltura Destructor()), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexDrivePointRoute* CTaskComplexDrivePointRoute::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

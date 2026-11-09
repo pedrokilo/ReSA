@@ -28,11 +28,18 @@ CTaskComplexUseEffectRunning* __fastcall UseEffectRunningConstructorBody(CTaskCo
     *reinterpret_cast<uint32*>(bytes + 0x1C) = 6;
     return self;
 }
+// 0x636850 (lote 141A, banco Fn141A): cuerpo no virtual de ~CTaskComplexUseEffectRunning del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],0x86E594; jmp 0x632270 (~CTaskComplexUseEffect, con hook, envoltura Destructor())`). Deja la vtable de la clase del EXE (0x86E594) y sigue con ese cuerpo.
+__declspec(noinline) void __fastcall UseEffectRunningDestructorBody(CTaskComplexUseEffectRunning* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86E594;
+    static_cast<CTaskComplexUseEffect*>(self)->Destructor();
+}
 } // namespace
 
 void CTaskComplexUseEffectRunning::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexUseEffectRunning, 0x86e594, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x636830); // lote 141A (banco Fn141A)
+    RH_ScopedNamedGlobalInstall(UseEffectRunningDestructorBody, "Destructor", 0x636850); // lote 141A (banco Fn141A)
     RH_ScopedNamedGlobalInstall(UseEffectRunningConstructorBody, "Constructor", 0x636780);
 
     RH_ScopedVMTInstall(Clone, 0x6367C0);
@@ -50,4 +57,15 @@ CTaskComplexUseEffectRunning::CTaskComplexUseEffectRunning(C2dEffectPedAttractor
 CTaskComplexUseEffectRunning::CTaskComplexUseEffectRunning(const CTaskComplexUseEffectRunning& o) :
     CTaskComplexUseEffectRunning{ o.m_2dFx, o.m_Entity }
 {
+}
+
+// 0x636830 (lote 141A, banco Fn141A): destructor con borrado de CTaskComplexUseEffectRunning del EXE (ranura 0 de su vtable 0x86E594; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x636850; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x636850; aqui la funcion UseEffectRunningDestructorBody), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexUseEffectRunning* CTaskComplexUseEffectRunning::ScalarDeletingDestructor(uint8 flags) {
+    UseEffectRunningDestructorBody(this, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }

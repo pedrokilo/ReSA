@@ -52,6 +52,8 @@ public:
     static void CustomPipeRenderCB(RwResEntry* entry, void* object, uint8 type, uint32 flags);
 
     static ExtraVertColour* GetExtraVertColourPtr(const void* geometry);
+    static RwRGBA* GetExtraNightColors(const void* geometry); // 0x5D6E90 (lote 141A, banco Fn141A): cdecl, un argumento; devuelve el dword de [geometria + desplazamiento del plugin] (NightColors, primer campo de ExtraVertColour)
+    static void AdvanceWorkingIndex(uint32 flag); // 0x5D6830 (lote 141A, banco Fn141A): cdecl, un argumento
 
     static RwTexture* GetFxEnvTexture(RpMaterial* material);
     static CustomEnvMapPipeMaterialData* SetFxEnvTexture(CustomEnvMapPipeMaterialData** envMapData);

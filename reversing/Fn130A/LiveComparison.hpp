@@ -392,7 +392,7 @@ inline void Update() {
     env.stubs[4] = {U(0x572130, Lote130ATheZonesLockedOrUnlockedAddress(), &FkZone)};
     env.stubs[5] = {X(0x8213AE, &FkFree), X(0x8214BD, &FkDelete)};
     env.stubs[7] = {F(0x732380, &FkSetUser)};
-    env.stubs[9] = {U(0x532560, Lote130ADummyDestructorBody(), &FkDummyBody)};
+    env.stubs[9] = {F(0x532560, &FkDummyBody)};   // desde el lote 141A el cuerpo de ~CDummy (0x532560) tiene hook RH
     env.stubs[10] = {F(0x61A3A0, &FkTaskBase)};
     const char* dllReal[kFunctions] = {
         "toda la funcion (sin colaboradores)",

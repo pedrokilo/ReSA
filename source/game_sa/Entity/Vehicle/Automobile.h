@@ -398,7 +398,8 @@ private:
         return this;
     }
 
-    auto Destructor() {
+public: // Envoltura del cuerpo 0x6A61E0 (con hook): la llama el cuerpo reconstruido de CTrailer (0x6CED10; lote 141A, banco Fn141A), sin expansion en linea
+    __declspec(noinline) CAutomobile* Destructor() {
         this->CAutomobile::~CAutomobile();
         return this;
     }

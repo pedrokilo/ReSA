@@ -36,11 +36,17 @@ CTaskComplexAttractorPartnerWait* __fastcall AttractorPartnerWaitConstructorBody
     *reinterpret_cast<uint32*>(bytes + 0x10) = value;
     return self;
 }
+// 0x633290 (lote 141A, banco Fn141A): cuerpo no virtual de ~CTaskComplexAttractorPartnerWait del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],0x86E284; jmp 0x61A3D0 (~CTaskComplex, con hook)`). Deja la vtable de la clase del EXE (0x86E284) y sigue con ese cuerpo.
+__declspec(noinline) void __fastcall AttractorPartnerWaitDestructorBody(CTaskComplexAttractorPartnerWait* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86E284;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
 } // namespace
 
 void CTaskComplexAttractorPartnerWait::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexAttractorPartnerWait, 0x86e284, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(AttractorPartnerWaitDestructorBody, "Destructor", 0x633290); // lote 141A (banco Fn141A)
     RH_ScopedNamedGlobalInstall(AttractorPartnerWaitConstructorBody, "Constructor", 0x633250);
 
     RH_ScopedVMTInstall(Clone, 0x636CF0);

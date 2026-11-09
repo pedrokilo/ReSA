@@ -43,6 +43,18 @@ void CWeaponInfo::InjectHooks() {
     RH_ScopedInstall(GetRLoadB, 0x73A2B0);
     RH_ScopedInstall(GetTargetHeadRange, 0x743D50);
     RH_ScopedInstall(GetWeaponReloadTime, 0x743D70);
+    RH_ScopedInstall(GetAnimLoopStart, 0x608F00);
+    RH_ScopedInstall(GetAnimLoopEnd, 0x608F20);
+}
+
+// 0x608F00 (lote 141A, banco Fn141A): thiscall, un argumento de pila (solo se lee el byte bajo), `ret 4`; devuelve en ST0 el float de la tabla 1 (+0x40) o de la 2 (+0x4C).
+float CWeaponInfo::GetAnimLoopStart(bool isSet2) const {
+    return isSet2 ? m_fAnimLoop2Start : m_fAnimLoopStart;
+}
+
+// 0x608F20 (lote 141A, banco Fn141A): como GetAnimLoopStart con +0x44 / +0x50.
+float CWeaponInfo::GetAnimLoopEnd(bool isSet2) const {
+    return isSet2 ? m_fAnimLoop2End : m_fAnimLoopEnd;
 }
 
 // 0x5BF750
