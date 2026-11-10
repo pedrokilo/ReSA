@@ -33,9 +33,29 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexGoToPointAndStandStill.h"
 #include "InterestingEvents.h"
 
+namespace {
+// 0x658C30 (lote 143A, banco Fn143A): cuerpo del destructor de CTaskComplexMedicTreatInjuredPed del EXE (vtable 0x86F518, marco SEH; sin hook propio: el destructor de la clase es el escrito en este archivo). Funcion
+// propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x658C30` del EXE.
+__declspec(noinline) void __fastcall MedicTreatInjuredPedDestructorBody(CTaskComplexMedicTreatInjuredPed* self, void* /*edx*/) { self->CTaskComplexMedicTreatInjuredPed::~CTaskComplexMedicTreatInjuredPed(); }
+
+// 0x659FC0 (lote 143A, banco Fn143A): destructor con borrado de CTaskComplexMedicTreatInjuredPed del EXE (ranura 0 de su vtable 0x86F518; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x658C30; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x658C30,
+// funcion propia), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexMedicTreatInjuredPed* __fastcall MedicTreatInjuredPedScalarDeletingDestructor(CTaskComplexMedicTreatInjuredPed* self, void* /*edx*/, uint8 flags) {
+    MedicTreatInjuredPedDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote143AMedicTreatInjuredPedDestructorBody() { return reinterpret_cast<uintptr_t>(&MedicTreatInjuredPedDestructorBody); } // para el banco Fn143A
+
 void CTaskComplexMedicTreatInjuredPed::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexMedicTreatInjuredPed, 0x86F518, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(MedicTreatInjuredPedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x659FC0); // lote 143A (banco Fn143A)
     RH_ScopedInstall(Constructor, 0x658BA0);
     RH_ScopedInstall(CreateSubTask, 0x658DB0);
     RH_ScopedInstall(CreateDealWithNextAccidentTask, 0x65A020);

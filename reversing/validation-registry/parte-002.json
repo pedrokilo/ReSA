@@ -27983,7 +27983,7 @@
       },
       "evidence": {
         "path": "reversing/PostEffectsPending/validation-summary.json",
-        "sha256": "7275467c49a58bcd40f40faaa5f28b747658329a942a460d315fc3fea074a456",
+        "sha256": "bf0cf8007a6670ce6a52db342fc0a037837773cbd4c1176e1420947a2e441326",
         "passed_path": [
           "covered_functions",
           "CPostEffects::HeatHazeFX"
@@ -28009,7 +28009,7 @@
       },
       "evidence": {
         "path": "reversing/PostEffectsPending/validation-summary.json",
-        "sha256": "7275467c49a58bcd40f40faaa5f28b747658329a942a460d315fc3fea074a456",
+        "sha256": "bf0cf8007a6670ce6a52db342fc0a037837773cbd4c1176e1420947a2e441326",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Radiosity"
@@ -28035,7 +28035,7 @@
       },
       "evidence": {
         "path": "reversing/PostEffectsPending/validation-summary.json",
-        "sha256": "7275467c49a58bcd40f40faaa5f28b747658329a942a460d315fc3fea074a456",
+        "sha256": "bf0cf8007a6670ce6a52db342fc0a037837773cbd4c1176e1420947a2e441326",
         "passed_path": [
           "covered_functions",
           "CPostEffects::SpeedFX"

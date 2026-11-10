@@ -27,12 +27,25 @@ RwBool RwIm2DRenderPrimitiveThunk(RwPrimitiveType primType, RwIm2DVertex* vertic
     return RwEngineInstance->dOpenDevice.fpIm2DRenderPrimitive(primType, vertices, numVertices);
 }
 
+// 0x734EA0 (lote 143A, banco Fn143A; cdecl, cinco argumentos de pila): salto a la funcion de dibujo indexado de primitivas 2D del dispositivo abierto (RwEngineInstance + 0x34), con los mismos argumentos y
+// su retorno en EAX. Como la de 0x734E90: lee el puntero del motor (0xC97B24) en cada llamada.
+RwBool RwIm2DRenderIndexedPrimitiveThunk(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices, RwImVertexIndex* indices, RwInt32 numIndices) {
+    return RwEngineInstance->dOpenDevice.fpIm2DRenderIndexedPrimitive(primType, vertices, numVertices, indices, numIndices);
+}
+
+// 0x734EC0 (lote 143A, banco Fn143A; cdecl, cuatro argumentos de pila): salto a la funcion de dibujo de lineas 2D del dispositivo abierto (RwEngineInstance + 0x28), con los mismos argumentos y su retorno en EAX.
+RwBool RwIm2DRenderLineThunk(RwIm2DVertex* vertices, RwInt32 numVertices, RwInt32 vert1, RwInt32 vert2) {
+    return RwEngineInstance->dOpenDevice.fpIm2DRenderLine(vertices, numVertices, vert1, vert2);
+}
+
 void RwHelperInjectHooks() {
     RH_ScopedNamespaceName("RwHelper");
     RH_ScopedCategoryGlobal();
 
     RH_ScopedGlobalInstall(GetEventGlobalGroup, 0x4ABA50);
     RH_ScopedGlobalInstall(RwIm2DRenderPrimitiveThunk, 0x734E90);
+    RH_ScopedGlobalInstall(RwIm2DRenderIndexedPrimitiveThunk, 0x734EA0); // lote 143A (banco Fn143A)
+    RH_ScopedGlobalInstall(RwIm2DRenderLineThunk, 0x734EC0);             // lote 143A (banco Fn143A)
     RH_ScopedGlobalInstall(GetNameAndDamage, 0x5370A0);
     RH_ScopedGlobalInstall(GetFirstAtomicCallback, 0x734810);
     RH_ScopedGlobalInstall(GetFirstAtomic, 0x734820);

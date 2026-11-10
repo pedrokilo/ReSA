@@ -33,7 +33,7 @@ void __fastcall TimeModelInfoDestructorBody(CTimeModelInfo* self, void* /*edx*/)
  * Registra las operaciones específicas de los modelos con visibilidad por horario.
  */
 // 0x4C5640 (lote 140A, banco Fn140A): constructor de CTimeModelInfo del EXE (thiscall, sin argumentos, `ret`, 24 bytes: `push esi; mov esi,ecx; call 0x4C4A60; mov dword [esi],0x85BCB0; mov word [esi+22h],0FFFFh;
-// mov eax,esi; pop esi; ret`). 0x4C4A60 (sin hook) es el constructor de CBaseModelInfo expandido: vtable 0x85BB9C, +8 = 0 (contador de referencias, word) y +0xA = 0xFFFF (indice del TXD, word). Aqui se escribe
+// mov eax,esi; pop esi; ret`). 0x4C4A60 (con hook desde el lote 143A) es el constructor de CBaseModelInfo expandido: vtable 0x85BB9C, +8 = 0 (contador de referencias, word) y +0xA = 0xFFFF (indice del TXD, word). Aqui se escribe
 // en linea (el resultado final es el mismo: la vtable de la base se sobrescribe enseguida con la de la clase); +0x22 (CTimeInfo::m_nOtherTimeModel) = 0xFFFF; devuelve this. Lo pasan a los iteradores
 // de vectores del almacen de modelos con horario (CStore de 169 elementos de 0x24 bytes).
 __declspec(noinline) static CTimeModelInfo* __fastcall TimeModelInfoConstructorBody(CTimeModelInfo* self, void* /*edx*/) {

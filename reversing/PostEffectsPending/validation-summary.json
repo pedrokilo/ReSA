@@ -17,10 +17,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "909bff15249b14f5ab13f7afdb3864abfbd193ef82dde3f7c20ae0dff80aec6e",
+  "log_sha256": "8757b375a43beb6787e884300d739d67d195e269da13e542c1504d8c1c68dc7c",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-post-effects-pending\\20261106-015843-162705",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-post-effects-pending\\20261109-172245-265582",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPostEffects::HeatHazeFX": true,
@@ -29,8 +29,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "8fc487250e738239d315cdc342b37e8290c6d87d84e49e981d64e5186f7172c6",
-      "pdb": "cf1cf3a070e352f6b4b22352cf8c94939d8d8e930bc9f62aa73e33f963e62c4e"
+      "asi": "1f2709837a3f29456460df9a758c02245b598795ba40c778924eb2394a97f227",
+      "pdb": "9dd188b7163534275bdaaefde0e203ae824fee9b328f41da4741d85f341ebac6"
     },
     "sources": {
       "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",

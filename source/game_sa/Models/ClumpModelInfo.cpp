@@ -47,7 +47,7 @@ static uint32 __fastcall SetClumpModelInfoFlags_KeepEdx(void* /*ecx*/, uint32 en
 
 namespace {
 // 0x4C56F0 (lote 139A, banco Fn139A; thiscall, sin argumentos de pila, `ret`): constructor de CClumpModelInfo del EXE (lo llama el iterador de constructores de vectores, sin leer el resultado).
-// En el EXE llama al constructor de CBaseModelInfo (0x4C4A60: m_nRefCount (+8) = 0 y m_nTxdIndex (+0xA) = -1; sin hook) y deja la vtable de CClumpModelInfo del EXE (0x85BD30; la de la DLL no
+// En el EXE llama al constructor de CBaseModelInfo (0x4C4A60: m_nRefCount (+8) = 0 y m_nTxdIndex (+0xA) = -1; con hook desde el lote 143A) y deja la vtable de CClumpModelInfo del EXE (0x85BD30; la de la DLL no
 // vale: las subclases del EXE la sobrescriben). Devuelve this en EAX. Aqui el cuerpo de CBaseModelInfo va en linea: las mismas escrituras, en memoria el mismo resultado.
 CClumpModelInfo* __fastcall ClumpModelInfoConstructorBody(CClumpModelInfo* self, void* /*edx*/) {
     self->m_nRefCount = 0;

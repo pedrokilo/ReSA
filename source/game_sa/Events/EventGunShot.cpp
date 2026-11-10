@@ -41,6 +41,14 @@ void CEventGunShot::InjectHooks() {
     RH_ScopedVMTInstall(IsCriminalEvent, 0x4AC810);
     RH_ScopedVMTInstall(TakesPriorityOver, 0x4AC780);
     RH_ScopedVMTInstall(CloneEditable, 0x4B6B20);
+    // lote 143A (banco Fn143A): ranuras triviales (las vtables de CEventGunShot 0x85ABE0 y de CEventGunShotWhizzedBy 0x85B730 comparten 0x4AC6D0, 0x4AC6E0 y 0x4AC830)
+    RH_ScopedVMTInstall(GetEventType, 0x4AC6B0);                // 15
+    RH_ScopedVMTInstall(GetLifeTime, 0x4AC6C0);                 // 0
+    RH_ScopedVMTInstall(GetSourceEntity, 0x4AC6D0);             // m_firedBy (+0x14)
+    RH_ScopedVMTInstall(GetLocalSoundLevel, 0x4AC6E0);          // m_bHasNoSound (+0x30) ? 0.0f : 160.0f en ST0
+    RH_ScopedVMTInstall(CanBeInterruptedBySameEvent, 0x4AC700); // siempre true
+    RH_ScopedVMTInstall(GetEventPriority, 0x4AC710);            // 35
+    RH_ScopedVMTInstall(ReportCriminalEvent, 0x4AC830);         // vacia, `ret 4`
 }
 
 CEventGunShot* CEventGunShot::Constructor(CEntity* entity, CVector startPoint, CVector endPoint, bool bHasNoSound) { this->CEventGunShot::CEventGunShot(entity, startPoint, endPoint, bHasNoSound); return this; }

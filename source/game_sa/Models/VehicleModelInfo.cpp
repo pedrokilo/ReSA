@@ -47,6 +47,10 @@ auto& gpWhiteTexture = StaticRef<RwTexture*>(0xB4E3EC);
 auto& fEnvMapDefaultCoeff = StaticRef<float>(0x8A7780);
 auto& fRearDoubleWheelOffsetFactor = StaticRef<float>(0x8A7784);
 
+// 0x4C5920 (lote 143A, banco Fn143A): cuerpo del destructor de CVehicleModelInfo del EXE (thiscall, sin argumentos, `ret`, 7 bytes: `mov dword [ecx],0x85BB9C`): el EXE expande en linea los destructores de las
+// clases intermedias y solo deja la vtable de CBaseModelInfo; no toca nada mas. Lo pasan a los iteradores de vectores del almacen de vehiculos (CStore de 212 elementos de 0x308 bytes, 0x4C5F51 y 0x4C6375).
+__declspec(noinline) static void __fastcall VehicleModelInfoDestructorBody(CVehicleModelInfo* self, void* /*edx*/) { *reinterpret_cast<uint32*>(self) = 0x85BB9C; }
+
 /**
  * Registra las operaciones de configuración, extras, materiales y upgrades de vehículos.
  */
@@ -54,6 +58,8 @@ void CVehicleModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CVehicleModelInfo, 0x85C5C8, 17);
     RH_ScopedCategory("Models");
+
+    RH_ScopedNamedGlobalInstall(VehicleModelInfoDestructorBody, "DestructorBody", 0x4C5920); // lote 143A (banco Fn143A)
 
     { // ClinkedUpgradeList
         RH_ScopedClass(CLinkedUpgradeList);

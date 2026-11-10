@@ -22,22 +22,23 @@ END GENERATED HOOK STATUS */
 
 #include "PedType.h"
 
-namespace {
+// Espacio con nombre (no anonimo) para que los destructores de CEventVehicleDamageCollision (0x6A0650) y CEventVehicleDamageWeapon (0x61C310), lote 143A, llamen a este mismo cuerpo sin duplicarlo.
+namespace CEventVehicleDamageBody {
 // 0x4B1990 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventVehicleDamage que usan los destructores del EXE. Deja la vtable de CEventVehicleDamage del EXE (0x85B588), libera las referencias de m_vehicle (+0x14) y despues de m_attacker (+0x18) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
 // y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
-void __fastcall VehicleDamageDestructorBody(CEventVehicleDamage* self, void* /*edx*/) {
+void __fastcall Destructor(CEventVehicleDamage* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x85B588;
     CEntity::SafeCleanUpRef(self->m_vehicle);
     CEntity::SafeCleanUpRef(self->m_attacker);
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }
-} // namespace
+} // namespace CEventVehicleDamageBody
 
 void CEventVehicleDamage::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventVehicleDamage, 0x85B588, 17);
     RH_ScopedCategory("Events");
-    RH_ScopedNamedGlobalInstall(VehicleDamageDestructorBody, "Destructor", 0x4B1990);
+    RH_ScopedNamedGlobalInstall(CEventVehicleDamageBody::Destructor, "Destructor", 0x4B1990);
 
     RH_ScopedInstall(Constructor, 0x4B18D0);
     RH_ScopedVMTInstall(AffectsPed, 0x4B1A00);

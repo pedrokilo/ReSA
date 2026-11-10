@@ -46,11 +46,25 @@ static uint32 __fastcall SetBaseModelInfoFlags_KeepEdx(void* /*ecx*/, uint32 ent
 // toca nada mas. Lo pasan a los iteradores de vectores de los almacenes (CStore) y lo llama el destructor con borrado (0x4C6250).
 __declspec(noinline) static void __fastcall BaseModelInfoDestructorBody(CBaseModelInfo* self, void* /*edx*/) { *reinterpret_cast<uint32*>(self) = 0x85BB9C; }
 
+// 0x4C4A60 (lote 143A, banco Fn143A): cuerpo del constructor de CBaseModelInfo del EXE (thiscall, sin argumentos, `ret`, 21 bytes: `mov eax,ecx; mov [eax],0x85BB9C; mov word [eax+8],0; mov word [eax+0Ah],0FFFFh`):
+// vtable de la clase base, contador de referencias (+8, word) a 0 e indice del TXD (+0xA, word) a 0xFFFF; devuelve `this`. Espacio con nombre (no anonimo) para que el constructor de CAtomicModelInfo
+// (0x4C5540, AtomicModelInfo.cpp) llame a este mismo cuerpo sin duplicarlo.
+namespace CBaseModelInfoBody {
+__declspec(noinline) CBaseModelInfo* __fastcall Constructor(CBaseModelInfo* self, void* /*edx*/) {
+    auto* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x85BB9C;
+    *reinterpret_cast<uint16*>(bytes + 0x8) = 0;
+    *reinterpret_cast<uint16*>(bytes + 0xA) = 0xFFFF;
+    return self;
+}
+} // namespace CBaseModelInfoBody
+
 void CBaseModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CBaseModelInfo, 0x85BB9C, 15);
     RH_ScopedCategory("Models");
 
     RH_ScopedNamedGlobalInstall(BaseModelInfoDestructorBody, "DestructorBody", 0x4C5620); // lote 140A (banco Fn140A)
+    RH_ScopedNamedGlobalInstall(CBaseModelInfoBody::Constructor, "ConstructorBody", 0x4C4A60); // lote 143A (banco Fn143A)
 
     RH_ScopedVMTInstall(AsAtomicModelInfoPtr, 0x4C4A80);
     RH_ScopedVMTInstall(AsDamageAtomicModelInfoPtr, 0x4C4A90);

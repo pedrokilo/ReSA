@@ -25,10 +25,25 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleAchieveHeading.h"
 #include "Ragdoll/IKChainManager.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+// 0x658AE0 (lote 143A, banco Fn143A; thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CTaskComplexTreatAccident del EXE (`mov [ecx],0x86F4EC; jmp 0x61A3D0`). Deja la vtable de
+// CTaskComplexTreatAccident del EXE (0x86F4EC) y sigue con el cuerpo de ~CTaskComplex (0x61A3D0, con hook).
+void __fastcall TreatAccidentDestructorBody(CTaskComplexTreatAccident* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86F4EC;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexTreatAccident::InjectHooks()
 {
     RH_ScopedVirtualClass(CTaskComplexTreatAccident, 0x86F4EC, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(TreatAccidentDestructorBody, "Destructor", 0x658AE0); // lote 143A (banco Fn143A)
+    RH_ScopedVMTInstall(GetTaskType, 0x658AD0);                                       // lote 143A: retorno de constante (101)
     RH_ScopedInstall(Constructor, 0x658AB0);
     RH_ScopedInstall(CreateSubTask, 0x659E90);
     RH_ScopedInstall(ComputeHeading, 0x658AF0);

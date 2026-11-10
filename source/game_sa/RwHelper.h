@@ -7,6 +7,8 @@ class CEventGlobalGroup;
 void RwHelperInjectHooks();
 
 RwBool RwIm2DRenderPrimitiveThunk(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices); // 0x734E90
+RwBool RwIm2DRenderIndexedPrimitiveThunk(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices, RwImVertexIndex* indices, RwInt32 numIndices); // 0x734EA0 (lote 143A)
+RwBool RwIm2DRenderLineThunk(RwIm2DVertex* vertices, RwInt32 numVertices, RwInt32 vert1, RwInt32 vert2); // 0x734EC0 (lote 143A)
 
 CEventGlobalGroup* GetEventGlobalGroup();
 
