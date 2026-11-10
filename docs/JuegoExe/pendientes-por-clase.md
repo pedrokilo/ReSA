@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,197** funciones en 280 clases/módulos (rango 0x401000–0x74FFFF): 2,175 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,171** funciones en 272 clases/módulos (rango 0x401000–0x74FFFF): 2,149 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,14 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CEventGlobalGroup | 3 | 63 |
-| CPedShelterAttractor | 2 | 65 |
-| CTaskComplexGoToPointAiming | 3 | 65 |
-| CTaskComplexSequence | 4 | 65 |
-| CTaskComplexUseSequence | 3 | 66 |
-| FxSystem_c | 4 | 66 |
-| CTaskComplexDiveFromAttachedEntityAndGetUp | 3 | 67 |
-| CTaskSimpleCower | 4 | 70 |
 | FxPrimBP_c | 5 | 70 |
 | CPedGroupIntelligence | 2 | 71 |
 | CTaskComplexCarDriveWander | 3 | 71 |
@@ -290,72 +282,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CEventGlobalGroup (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AB980 | 14 | A |  | 2 | 1 |  | alta |
-| 0x004AB9B0 | 14 | A |  | 1 | 1 |  | alta |
-| 0x004ABA20 | 35 | B |  | 0 | 0 | sí | baja |
-
-## CPedShelterAttractor (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005E9850 | 32 | A |  | 1 | 0 |  | baja |
-| 0x005E9800 | 33 | A |  | 1 | 0 |  | baja |
-
-## CTaskComplexGoToPointAiming (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0066DFA0 | 5 | C |  | 1 | 0 |  | baja |
-| 0x0066DF80 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0066DFB0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexSequence (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00632C60 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x005F67E0 | 11 | A |  | 2 | 1 |  | baja |
-| 0x00463640 | 18 | A |  | 1 | 1 |  | baja |
-| 0x00638A80 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexUseSequence (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00635490 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x006397A0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006397C0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## FxSystem_c (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AB240 | 5 | A |  | 1 | 1 |  | baja |
-| 0x004AB250 | 5 | A |  | 59 | 59 |  | baja |
-| 0x004AB260 | 5 | A |  | 1 | 1 |  | baja |
-| 0x004AB2D0 | 51 | A |  | 1 | 1 |  | baja |
-
-## CTaskComplexDiveFromAttachedEntityAndGetUp (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00492F60 | 7 | C |  | 5 | 0 |  | baja |
-| 0x00492EF0 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x006579F0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleCower (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0048DEA0 | 5 | B |  | 0 | 0 | sí | alta |
-| 0x0048E930 | 5 | C |  | 1 | 0 |  | baja |
-| 0x0048E910 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0048E940 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## FxPrimBP_c (5)
 

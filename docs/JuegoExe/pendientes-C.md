@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 09/11/2026 (Ciudad de México):** 875 grupos / 9724 funciones reconstruidas; 9724 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 09/11/2026 (Ciudad de México):** 875 grupos / 9750 funciones reconstruidas; 9750 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-445 funciones, 64,149 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+442 funciones, 64,132 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -410,7 +410,6 @@
 | `0x00402DC5` | 9 | CEntity | baja | 4 (0) |  |
 | `0x005F6450` | 9 | CEventPlayerCommandToGroupAttack | baja | 1 (0) |  |
 | `0x005F6510` | 9 | CPedGroupDefaultTaskAllocatorChat | baja | 1 (0) |  |
-| `0x00492F60` | 7 | CTaskComplexDiveFromAttachedEntityAndGetUp | baja | 5 (0) |  |
 | `0x004A4940` | 7 | FxEmitterBP_c | baja | 64 (0) |  |
 | `0x004A8460` | 7 | FxInfoManager_c | baja | 18 (0) |  |
 | `0x004A87F0` | 7 | FxInfoManager_c | baja | 15 (0) |  |
@@ -428,7 +427,6 @@
 | `0x00404180` | 5 | CBuilding | baja | 1 (0) |  |
 | `0x0043E1A0` | 5 | CPlaceable | baja | 5 (0) |  |
 | `0x0048DE60` | 5 | CRunningScript | baja | 1 (0) |  |
-| `0x0048E930` | 5 | CTaskSimpleCower | baja | 1 (0) |  |
 | `0x0048EA90` | 5 | CTaskSimpleHandsUp | baja | 1 (0) |  |
 | `0x004A2BB0` | 5 | FxEmitterBP_c | alta | 1 (0) |  |
 | `0x00542080` | 5 | CEntity | baja | 2 (0) |  |
@@ -448,7 +446,6 @@
 | `0x00655DD0` | 5 | CTaskComplexWalkRoundFire | baja | 1 (0) |  |
 | `0x00655E00` | 5 | CTaskComplexWalkRoundFire | baja | 1 (0) |  |
 | `0x00659E00` | 5 | CTaskComplexUseWaterCannon | baja | 1 (0) |  |
-| `0x0066DFA0` | 5 | CTaskComplexGoToPointAiming | baja | 1 (0) |  |
 | `0x006935B0` | 5 | CTaskSimpleHoldEntity | baja | 1 (0) |  |
 | `0x006935E0` | 5 | CTaskSimpleHoldEntity | baja | 1 (0) |  |
 | `0x00403B7B` | 2 | CEntity | baja | 3 (0) |  |
