@@ -26,10 +26,10 @@ El EXE original tiene **17.765 funciones detectadas** (3,72 MB de código), pero
 
 | Región del EXE | Funciones | Bytes de código | ¿Entra en el objetivo? | Reemplazadas hoy |
 | --- | ---: | ---: | --- | --- |
-| **Juego y plataforma** (0x401000–0x74FFFF) | 11.804 | 3.007.877 (81%) | **Sí: es el trabajo propio del proyecto** | 9.770 · 82,8% de funciones · 91,5% de bytes |
+| **Juego y plataforma** (0x401000–0x74FFFF) | 11.804 | 3.007.877 (81%) | **Sí: es el trabajo propio del proyecto** | 9.821 · 83,2% de funciones · 91,6% de bytes |
 | RenderWare y D3D (0x750000–0x81FFFF) | 1.889 | 600.971 | No: biblioteca enlazada | 61 · 3,2% |
 | CRT/MSVC y runtime (0x820000 en adelante) | 4.072 | 115.711 | No: biblioteca enlazada | 9 · 0,2% |
-| **Total del EXE** | **17.765** | **3.724.559** | | 9.840 · 55,4% de funciones · 74,0% de bytes |
+| **Total del EXE** | **17.765** | **3.724.559** | | 9.891 · 55,7% de funciones · 74,0% de bytes |
 
 **Por qué solo las funciones del juego:**
 
@@ -39,7 +39,7 @@ El EXE original tiene **17.765 funciones detectadas** (3,72 MB de código), pero
 - **Medir contra el EXE completo daría un avance engañoso.** Contar bibliotecas haría parecer lejano un trabajo que en el código del juego ya va al 92% de los bytes; el porcentaje correcto es el de la región del juego.
 - **Los recursos del juego y las bibliotecas externas son dependencias separadas:** este hito no promete eliminarlas ([hoja de ruta](docs/ProjectRoadmap.md)).
 
-Lo que falta dentro del objetivo: **2.034 funciones del juego (17,2% de las funciones, 254 KB, 8,5% de los bytes)**, según el mapa [JuegoExe](docs/JuegoExe/README.md) y la [lista por clase](docs/JuegoExe/pendientes-por-clase.md). Origen de las cifras: [cobertura real del EXE](docs/ReversedClasses.md#cobertura-exe).
+Lo que falta dentro del objetivo: **1.983 funciones del juego (16,8% de las funciones, 252 KB, 8,4% de los bytes)**, según el mapa [JuegoExe](docs/JuegoExe/README.md) y la [lista por clase](docs/JuegoExe/pendientes-por-clase.md). Origen de las cifras: [cobertura real del EXE](docs/ReversedClasses.md#cobertura-exe).
 <!-- RESA-OBJETIVO-JUEGO:END -->
 
 ### Dónde estamos hoy (10/11/2026)
@@ -47,14 +47,14 @@ Lo que falta dentro del objetivo: **2.034 funciones del juego (17,2% de las func
 <!-- RESA-ESTADO-NOV:BEGIN -->
 **Lo que ya tenemos**
 
-- **9.814 funciones del juego reconstruidas en C++, enganchadas y validadas** (8.025 hooks de tipo S sobre la dirección del EXE y 1.789 de tipo V sobre ranuras de vtable): 0 locks, 0 pendientes de validación dentro del catálogo y registro de validaciones coherente (9.814 entradas documentadas, 0 con evidencia rota). La auditoría estricta del catálogo de hooks pasa.
+- **9.938 funciones del juego reconstruidas en C++, enganchadas y validadas** (8.112 hooks de tipo S sobre la dirección del EXE y 1.826 de tipo V sobre ranuras de vtable): 0 locks, 0 pendientes de validación dentro del catálogo y registro de validaciones coherente (9.938 entradas documentadas, 0 con evidencia rota). La auditoría estricta del catálogo de hooks pasa.
 - **0 apariciones de `__asm` y 0 de `naked` en `source/game_sa`.** Todo lo nuevo va en C++ puro, dos archivos por clase y sin duplicados. La aritmética x87 que el EXE hace a 24 bits vive en helpers de `source/game_sa/X87Math.cpp/.h`.
 - **Cada función se valida par a par dentro del juego real:** el mismo EXE con el hook apagado contra la DLL con el hook encendido, mínimo 16.384 pares por función y 0 diferencias, un oráculo Python independiente del código bajo prueba y una prueba negativa con mutaciones (dos rondas, y todas las funciones deben fallar con la mutación). Cuando una función pasa a tener hook, se repiten los bancos antiguos que la usan como colaborador.
-- **Trabajo por lotes de ~25 funciones diminutas** (destructores con borrado, cuerpos de destructor, getters, `operator new/delete` de pools, `GetTaskType` y similares), cada lote con su banco `FnNNNA`, evidencia archivada en `reversing/CppTwelveLevel6Final/runs` e integración a `main` solo cuando todo está validado. Los últimos integrados son los lotes 132A–150A, más las revalidaciones conjuntas 134R, 141R y 140R.
+- **Trabajo por lotes de ~25 funciones diminutas** (destructores con borrado, cuerpos de destructor, getters, `operator new/delete` de pools, `GetTaskType` y similares), cada lote con su banco `FnNNNA`, evidencia archivada en `reversing/CppTwelveLevel6Final/runs` e integración a `main` solo cuando todo está validado. Los últimos integrados son los lotes 132A–156A, más las revalidaciones conjuntas 134R, 141R y 140R.
 
 **Lo que sabemos que falta**
 
-- **2.034 funciones del rango del juego (0x401000–0x74FFFF) siguen sin reemplazar o son envolturas:** 2.012 sin reemplazar y 22 que ya tienen hook pero llaman al EXE. La lista, de menor a mayor por clase, está en [pendientes por clase](docs/JuegoExe/pendientes-por-clase.md); el mapa completo, en [docs/JuegoExe](docs/JuegoExe/README.md).
+- **1.983 funciones del rango del juego (0x401000–0x74FFFF) siguen sin reemplazar o son envolturas:** 1.961 sin reemplazar y 22 que ya tienen hook pero llaman al EXE. La lista, de menor a mayor por clase, está en [pendientes por clase](docs/JuegoExe/pendientes-por-clase.md); el mapa completo, en [docs/JuegoExe](docs/JuegoExe/README.md).
 - **El 100% del catálogo no es el 100% del EXE.** Hay funciones del juego fuera del catálogo y bibliotecas enlazadas (RenderWare, CRT, DirectX) que no cuentan como código del juego. Ver la [auditoría de cobertura](docs/BinaryCoverageAudit.md).
 - **Todavía no es un ejecutable independiente.** El proyecto sigue dependiendo de `gta_sa.exe` y de los recursos del juego. La meta de fondo es un EXE propio que corra sin el original: [ruta hacia el EXE independiente](docs/RutaExeIndependiente.md).
 - **Límites de la validación:** la evidencia vale para los fixtures de cada banco y para el árbol en que se probó; la vigencia acreditada contra el árbol actual sigue en 0 y no se afirma estabilidad general del juego. Las diferencias y huecos conocidos están en [Desviaciones conocidas](docs/DesviacionesConocidas.md).
