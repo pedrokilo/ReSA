@@ -23,9 +23,29 @@ END GENERATED HOOK STATUS */
 #include "AnimBlendAssociation.h"
 #include "EventGroup.h"
 
+namespace {
+// 0x61BF10 (lote 150A, banco Fn150A): cuerpo del destructor de CTaskSimpleRunNamedAnim del EXE (con hook propio (Destructor); vtable 0x86D54C). Funcion propia sin expansion en linea para que el banco pueda sustituirla;
+// la llama el destructor con borrado como el `call 0x61BF10` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleRunNamedAnimDestructorBody(CTaskSimpleRunNamedAnim* self, void* /*edx*/) { self->CTaskSimpleRunNamedAnim::~CTaskSimpleRunNamedAnim(); }
+
+// 0x61BEF0 (lote 150A, banco Fn150A): destructor con borrado de CTaskSimpleRunNamedAnim del EXE (ranura 0 de su vtable 0x86D54C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x61BF10; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleRunNamedAnim* __fastcall CTaskSimpleRunNamedAnimScalarDeletingDestructor(CTaskSimpleRunNamedAnim* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleRunNamedAnimDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote150ABody_CTaskSimpleRunNamedAnim() { return reinterpret_cast<uintptr_t>(&CTaskSimpleRunNamedAnimDestructorBody); } // para el banco Fn150A
+
 void CTaskSimpleRunNamedAnim::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleRunNamedAnim, 0x86D54C, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleRunNamedAnimScalarDeletingDestructor, "ScalarDeletingDestructor", 0x61BEF0); // lote 150A (banco Fn150A)
 
     RH_ScopedOverloadedInstall(Constructor, "Default", 0x6674B0, CTaskSimpleRunNamedAnim*(CTaskSimpleRunNamedAnim::*)());
     RH_ScopedOverloadedInstall(Constructor, "Anim", 0x61A990, CTaskSimpleRunNamedAnim*(CTaskSimpleRunNamedAnim::*)(char const*, char const*, int32, float, int32, bool, bool, bool, bool));

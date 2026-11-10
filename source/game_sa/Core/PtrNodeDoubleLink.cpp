@@ -46,3 +46,17 @@ void __fastcall CPtrListDoubleLink__FlushExe(void* list, void* /*edx*/) {
     } while (next);
 }
 };
+
+namespace details {
+// 0x5329A0 (lote 150A, banco Fn150A; el listado decia CRect): inserta un nodo de lista doble al principio (thiscall, ECX = nodo, un argumento de pila (puntero a la cabeza), `ret 4`, 30 bytes), codigo de
+// plantilla del EXE (CPhysical::AddToMovingList y otras). Como el original, en este orden: prev (+8) = 0; next (+4) = *cabeza; si *cabeza (leida otra vez) no es nula, su prev (+8) = nodo; *cabeza = nodo.
+void __fastcall CPtrNodeDoubleLink__AddToListExe(void* node, void* /*edx*/, void** head) {
+    auto* const bytes = static_cast<uint8*>(node);
+    *reinterpret_cast<void**>(bytes + 8) = nullptr;
+    *reinterpret_cast<void**>(bytes + 4) = *head;
+    if (auto* const first = static_cast<uint8*>(*head)) {
+        *reinterpret_cast<void**>(first + 8) = node;
+    }
+    *head = node;
+}
+};

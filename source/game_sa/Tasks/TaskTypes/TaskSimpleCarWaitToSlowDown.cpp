@@ -20,9 +20,29 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleCarWaitToSlowDown.h"
 
+namespace {
+// 0x646A00 (lote 150A, banco Fn150A): cuerpo del destructor de CTaskSimpleCarWaitToSlowDown del EXE (con hook propio (Destructor); vtable 0x86ED98). Funcion propia sin expansion en linea para que el banco pueda sustituirla;
+// la llama el destructor con borrado como el `call 0x646A00` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleCarWaitToSlowDownDestructorBody(CTaskSimpleCarWaitToSlowDown* self, void* /*edx*/) { self->CTaskSimpleCarWaitToSlowDown::~CTaskSimpleCarWaitToSlowDown(); }
+
+// 0x64B440 (lote 150A, banco Fn150A): destructor con borrado de CTaskSimpleCarWaitToSlowDown del EXE (ranura 0 de su vtable 0x86ED98; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x646A00; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleCarWaitToSlowDown* __fastcall CTaskSimpleCarWaitToSlowDownScalarDeletingDestructor(CTaskSimpleCarWaitToSlowDown* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleCarWaitToSlowDownDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote150ABody_CTaskSimpleCarWaitToSlowDown() { return reinterpret_cast<uintptr_t>(&CTaskSimpleCarWaitToSlowDownDestructorBody); } // para el banco Fn150A
+
 void CTaskSimpleCarWaitToSlowDown::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarWaitToSlowDown, 0x86ed98, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleCarWaitToSlowDownScalarDeletingDestructor, "ScalarDeletingDestructor", 0x64B440); // lote 150A (banco Fn150A)
 
     RH_ScopedInstall(Constructor, 0x646990);
     RH_ScopedInstall(Destructor, 0x646A00);

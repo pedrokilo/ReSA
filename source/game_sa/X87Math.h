@@ -2315,3 +2315,7 @@ double __cdecl CosFloatSt0Cpp(float angle);
 // Lote 146A (Fn146A).
 // 0x5A2E60 (thiscall con tres floats en la pila): las tres filas de 16 bytes de `matrix` {x, y, z, relleno} se multiplican componente a componente por (x, y, z) con fld/fmul/fstp por componente (conserva denormales).
 void __fastcall ProcSurfaceScaleMatrixCpp(float* matrix, void* edx, float x, float y, float z);
+
+// Lote 150A (Fn150A).
+// 0x43E090 (CEntryExit::GetPosition): centro del rectangulo de entrada (+8..+0x14) con la x87 (24 bits) y Z (+0x18) copiado como entero, en `out` (3 floats). Ver X87Math.cpp.
+void __cdecl EntryExitGetPositionCpp(const void* entry, void* out);

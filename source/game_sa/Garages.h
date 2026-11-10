@@ -80,7 +80,7 @@ public:
     static void ChangeGarageType(int16 garageId, eGarageType type, uint32 unused);
     static bool HasCarBeenDroppedOffYet(int16 garageId) { return GetGarage(garageId).m_nDoorState == GARAGE_DOOR_CLOSED_DROPPED_CAR; } // 0x447C90
     static bool HasResprayHappened(int16 garageId);
-    static bool CameraShouldBeOutside() { return bCamShouldBeOutside; } // 0x448650
+    static bool CameraShouldBeOutside(); // 0x448650 (lote 150A, banco Fn150A: definida en el .cpp)
     static void GivePlayerDetonator();
     static void StopCarFromBlowingUp(CAutomobile* vehicle);
     static int32 CountCarsInHideoutGarage(eGarageType type);

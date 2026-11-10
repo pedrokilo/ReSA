@@ -18848,3 +18848,27 @@ __declspec(noinline) void __fastcall ProcSurfaceScaleMatrixCpp(float* matrix, vo
     }
 }
 #pragma float_control(pop)
+
+// Lote 150A (Fn150A).
+#pragma float_control(precise, on, push)
+// 0x43E090 (CEntryExit::GetPosition; thiscall, un puntero de salida en la pila, `ret 4`): centro del rectangulo de entrada con la x87 del EXE. `entry` es la CEntryExit: rectangulo en +8 (izquierda +8, abajo +0xC,
+// derecha +0x10, arriba +0x14) y Z de la entrada en +0x18. En este orden, leyendo cada operando en el momento en que lo hace el EXE (tras haber escrito el resultado anterior, por si `out` se solapa con la entrada):
+// out.x = (derecha + izquierda) * 0.5 (`fld [+0x10]; fadd [+8]; fmul [0.5]; fstp [out]`), out.y = (arriba + abajo) * 0.5 (`fld [+0x14]; fadd [+0xC]; fmul; fstp [out+4]`) y out.z = el dword de +0x18 copiado como
+// entero (conserva los bits, tambien de un NaN senalizante). La suma y el producto quedan en la x87 (24 bits de mantisa con exponente ampliado) y solo el resultado se guarda como float. Lecturas y escrituras
+// volatiles: fijan el orden y el numero de accesos.
+__declspec(noinline) void __cdecl EntryExitGetPositionCpp(const void* entry, void* out) {
+    const volatile float* const e = reinterpret_cast<const volatile float*>(static_cast<const unsigned char*>(entry) + 8);
+    volatile float* const       o = static_cast<volatile float*>(out);
+    {
+        const double a = e[2];
+        const double b = e[0];
+        o[0] = float((a + b) * 0.5);
+    }
+    {
+        const double a = e[3];
+        const double b = e[1];
+        o[1] = float((a + b) * 0.5);
+    }
+    *reinterpret_cast<volatile unsigned*>(o + 2) = *reinterpret_cast<const volatile unsigned*>(e + 4);
+}
+#pragma float_control(pop)

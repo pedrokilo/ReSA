@@ -42,6 +42,18 @@ END GENERATED HOOK STATUS */
 #include "Shadows.h"
 #include "CustomBuildingRenderer.h"
 
+// 0x4043E0 (lote 150A, banco Fn150A; el listado decia CRect): CEntity::GetStatus del EXE (thiscall, sin argumentos de pila, `ret`, 8 bytes: `movzx eax,byte [ecx+36h]; shr eax,3`). Devuelve en EAX los cinco bits
+// altos del byte +0x36 (m_nStatus) con extension a cero (sin signo: un campo de bits de un enum con signo lo extenderia). Solo lo llama CAutomobile::ProcessCarWheelPair (0x6A5154 y 0x6A5163) y no lee ECX ni EDX despues.
+static uint32 __fastcall EntityGetStatusExe(const CEntity* self, void* /*edx*/) {
+    return uint32(reinterpret_cast<const uint8*>(self)[0x36]) >> 3;
+}
+
+// 0x404420 (lote 150A, banco Fn150A; el listado decia CRect): CEntity::GetModelIndex del EXE (thiscall, sin argumentos de pila, `ret`, 5 bytes: `movsx eax,word [ecx+22h]`). Devuelve en EAX la palabra +0x22
+// (m_nModelIndex) con extension de signo. Solo lo llama CAutomobile::ProcessCarWheelPair (0x6A53B5) y no lee ECX ni EDX despues.
+static int32 __fastcall EntityGetModelIndexExe(const CEntity* self, void* /*edx*/) {
+    return int32(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(self) + 0x22));
+}
+
 /**
  * Registra el ciclo de vida, streaming, referencias, render y efectos comunes de CEntity.
  */
@@ -51,6 +63,8 @@ void CEntity::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x532A90);
     RH_ScopedInstall(Destructor, 0x535E90);
+    RH_ScopedNamedGlobalInstall(EntityGetStatusExe, "GetStatus", 0x4043E0); // lote 150A (banco Fn150A)
+    RH_ScopedNamedGlobalInstall(EntityGetModelIndexExe, "GetModelIndex", 0x404420); // lote 150A (banco Fn150A)
 
     //RH_ScopedOverloadedInstall(Add, "void", 0x533020, void(CEntity::*)());
     RH_ScopedVMTOverloadedInstall(Add, "rect", 0x5347D0, void(CEntity::*)(const CRect&)); // Como el original: virtual (hueco 1); un hook plano entra en bucle

@@ -38,6 +38,7 @@ public:
 
         RH_ScopedInstall(New, 0x05522E0);
         RH_ScopedNamedGlobalInstall(details::CPtrListDoubleLink__FlushExe, "Flush", 0x00552470); // lote 131A (banco Fn131A): Flush de listas dobles (codigo de plantilla del EXE)
+        RH_ScopedNamedGlobalInstall(details::CPtrNodeDoubleLink__AddToListExe, "AddToList", 0x005329A0); // lote 150A (banco Fn150A): insercion de un nodo al principio de una lista doble (codigo de plantilla del EXE)
     }
 
 public:

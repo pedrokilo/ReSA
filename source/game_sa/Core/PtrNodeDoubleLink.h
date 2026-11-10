@@ -13,6 +13,7 @@ namespace details {
 void* CPtrNodeDoubleLink__operator_new(size_t sz);
 void  CPtrNodeDoubleLink__operator_delete(void* data, size_t sz);
 void __fastcall CPtrListDoubleLink__FlushExe(void* list, void* edx); // 0x552470 (lote 131A, banco Fn131A)
+void __fastcall CPtrNodeDoubleLink__AddToListExe(void* node, void* edx, void** head); // 0x5329A0 (lote 150A, banco Fn150A)
 };
 
 template<typename TItemType>

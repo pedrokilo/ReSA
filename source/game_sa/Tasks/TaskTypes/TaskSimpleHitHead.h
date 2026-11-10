@@ -13,7 +13,7 @@ public:
     CTaskSimpleHitHead();
     ~CTaskSimpleHitHead() override;
 
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x653080 (lote 150A, banco Fn150A: definido en el .cpp)
     CTask* Clone() const override { return new CTaskSimpleHitHead(); }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;

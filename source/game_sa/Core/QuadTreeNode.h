@@ -79,6 +79,7 @@ public:
         RH_ScopedCategory("Core");
 
         RH_ScopedInstall(InitPool, 0x552C00);
+        RH_ScopedNamedInstall(ScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x404590); // lote 150A (banco Fn150A)
         RH_ScopedOverloadedInstall(FindSector, "rect", 0x5525A0, int32(CQuadTreeNode<T>::*)(const CRect&));
         RH_ScopedOverloadedInstall(FindSector, "vec", 0x552640, int32(CQuadTreeNode<T>::*)(const CVector2D&));
         RH_ScopedInstall(InSector, 0x5526A0);
@@ -135,6 +136,29 @@ public:
             delete child;
         }
         m_ItemList.Flush();
+    }
+
+    // 0x552520 (lote 150A, banco Fn150A): cuerpo del destructor de CQuadTreeNode del EXE (thiscall, sin argumentos de pila, `ret`; sin hook: es el destructor de la clase). Funcion propia sin expansion en linea para
+    // que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x552520` del EXE.
+    __declspec(noinline) static void __fastcall DestructorBodyExe(CQuadTreeNode* self, void* /*edx*/) {
+        self->~CQuadTreeNode();
+    }
+
+    // 0x552C90 (lote 150A, banco Fn150A): liberacion del nodo en el pool (cdecl, un argumento; sin hook: es CQuadTreeNode::operator delete). Funcion propia sin expansion en linea para que el banco pueda
+    // sustituirla; la llama el destructor con borrado como el `call 0x552C90` del EXE.
+    __declspec(noinline) static void DeleteStorageExe(void* data) {
+        CQuadTreeNode::operator delete(data, sizeof(CQuadTreeNode<void*>));
+    }
+
+    // 0x404590 (lote 150A, banco Fn150A; el listado decia CRect): destructor con borrado de CQuadTreeNode del EXE (sin vtable ni llamadores; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi;
+    // mov esi,ecx; call 0x552520; test byte [esp+8],1; je ..; push esi; call 0x552C90; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera el nodo en el pool
+    // solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+    static CQuadTreeNode* __fastcall ScalarDeletingDestructorExe(CQuadTreeNode* self, void* /*edx*/, uint8 flags) {
+        DestructorBodyExe(self, nullptr);
+        if (flags & 1) {
+            DeleteStorageExe(self);
+        }
+        return self;
     }
 
     // 0x552CD0

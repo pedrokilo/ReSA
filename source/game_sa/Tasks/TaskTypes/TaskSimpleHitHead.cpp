@@ -20,9 +20,34 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleHitHead.h"
 
+namespace {
+// Callback por defecto de animaciones del EXE (CDefaultAnimCallback::DefaultAnimCB, 0x4D1390: `ret`). Como el original, el destructor pasa la direccion del EXE a SetFinishCallback (la de la DLL no
+// vale para la comparacion de lo que se le pasa).
+using AnimFinishCallback = void (*)(CAnimBlendAssociation*, void*);
+const AnimFinishCallback kExeDefaultAnimCB = reinterpret_cast<AnimFinishCallback>(0x4D1390);
+
+// 0x653090 (lote 150A, banco Fn150A): cuerpo del destructor de CTaskSimpleHitHead del EXE (thiscall, sin argumentos de pila, `ret`, 93 bytes con marco SEH que solo desenrolla): deja la vtable de la clase (0x86F1D0); si hay
+// animacion (m_pAnim, +0xC) le pone SetFinishCallback(0x4D1390, nullptr) (0x4CEBE0, con hook); y llama al cuerpo de ~CTask (0x61A3A0, con hook: vtable base 0x86D48C). Conserva ESI pero no EAX, ECX ni EDX
+// (los llamadores, los destructores con borrado, no los leen). El marco SEH se omite.
+void __fastcall CTaskSimpleHitHeadDestructorBodyExe(CTaskSimpleHitHead* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86F1D0;
+    if (self->m_pAnim) {
+        self->m_pAnim->SetFinishCallback(kExeDefaultAnimCB, nullptr);
+    }
+    self->CTask::Destructor();
+}
+} // namespace
+
+// 0x653080 (lote 150A, banco Fn150A; thiscall, `ret`, 6 bytes: `mov eax,0x1F4`): TASK_SIMPLE_HIT_HEAD (500); no lee el objeto.
+eTaskType CTaskSimpleHitHead::GetTaskType() const {
+    return Type;
+}
+
 void CTaskSimpleHitHead::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleHitHead, 0x86F1D0, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleHitHeadDestructorBodyExe, "DestructorBody", 0x653090); // lote 150A (banco Fn150A)
+    RH_ScopedVMTInstall(GetTaskType, 0x653080); // lote 150A (banco Fn150A): retorno de constante
 
     RH_ScopedInstall(Constructor, 0x653060);
     RH_ScopedInstall(FinishAnimCB, 0x653150);

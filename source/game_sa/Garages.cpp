@@ -27,6 +27,8 @@ void CGarages::InjectHooks() {
     RH_ScopedClass(CGarages);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedInstall(CameraShouldBeOutside, 0x448650); // lote 150A (banco Fn150A)
+    RH_ScopedInstall(GivePlayerDetonator, 0x448660); // lote 150A (banco Fn150A)
     RH_ScopedInstall(Init, 0x447120);
     RH_ScopedInstall(Init_AfterRestart, 0x448B60);
     RH_ScopedInstall(Shutdown, 0x4471B0);
@@ -152,12 +154,19 @@ void CGarages::Update() {
     }
 }
 
-// 0x448660
+// 0x448650 (lote 150A, banco Fn150A; cdecl, sin argumentos, `ret`, 6 bytes: `mov al,[0x96BFE4]; ret`): devuelve el booleano bCamShouldBeOutside; solo se lee AL.
+bool CGarages::CameraShouldBeOutside() {
+    return bCamShouldBeOutside;
+}
+
+// 0x448660 (lote 150A, banco Fn150A; cdecl, sin argumentos, `ret`, 86 bytes): FindPlayerPed(-1) (0x56E210), GetWeaponInfo(WEAPON_DETONATOR, STD) (0x743C60), GiveWeapon(DETONATOR, 1, true) (0x5E6080), estado del
+// arma de esa ranura (dword +4 de la ranura, 0x1C bytes cada una desde +0x5A0) a READY, arma elegida del jugador (byte +0x20 de los datos del jugador) = ranura y, si el arma guardada (+0x70C) no es
+// WEAPON_UNIDENTIFIED (0x37), pasa a ser WEAPON_DETONATOR (0x28). La ranura (int32) se aplica sin comprobar el rango, como el EXE (imul por 0x1C y suma de 32 bits).
 void CGarages::GivePlayerDetonator() {
     auto player = FindPlayerPed();
     auto slot = CWeaponInfo::GetWeaponInfo(WEAPON_DETONATOR, eWeaponSkill::STD)->m_nSlot;
     player->GiveWeapon(WEAPON_DETONATOR, 1, true);
-    player->m_aWeapons[slot].m_State = WEAPONSTATE_READY;
+    player->m_aWeapons.data()[slot].m_State = WEAPONSTATE_READY;
     player->GetPlayerData()->m_nChosenWeapon = slot;
     if (player->m_nSavedWeapon != WEAPON_UNIDENTIFIED)
         player->m_nSavedWeapon = WEAPON_DETONATOR;

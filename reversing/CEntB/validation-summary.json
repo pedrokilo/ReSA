@@ -45,7 +45,7 @@
   "log_sha256": "39dbcb1e81d41aedf756c7c30cd6a1f62bdc16028fcefd222d4899d506498223",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-centb\\20261106-182607-000071",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-centb\\20261110-000824-105622",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CEntity::Constructor": true,
@@ -79,12 +79,12 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "26f86e01d8cd8442ea2852e0898f8cecf63c1fdc15a26f498c694fb204891f1d",
-      "pdb": "b72c304e58fa437b977580f1aba458f77003e6edf2e684672f30c249439fbc29"
+      "asi": "ab8aad7999df4a80b4a6d436c6fea9f19b880ae112cb595e3086dba6481cec10",
+      "pdb": "e2575c83d6b5898f67176142bbc71c304138ad565ec0d32d182c3d523b3e53fd"
     },
     "sources": {
-      "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-      "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+      "source/game_sa/Entity/Entity.cpp": "c6cfe6e00435b24ebf81a3527714a9f7fbd3e425bc6997a35c82e85689ebda66",
+      "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
       "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",

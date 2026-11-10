@@ -36,9 +36,29 @@ CTaskSimpleAnim* __fastcall SimpleAnimConstructorBody(CTaskSimpleAnim* self, voi
 }
 } // namespace
 
+namespace {
+// 0x61A6F0 (lote 150A, banco Fn150A): cuerpo del destructor de CTaskSimpleAnim del EXE (sin hook: es el destructor de la clase; vtable 0x86D504). Funcion propia sin expansion en linea para que el banco pueda sustituirla;
+// la llama el destructor con borrado como el `call 0x61A6F0` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleAnimDestructorBody(CTaskSimpleAnim* self, void* /*edx*/) { self->CTaskSimpleAnim::~CTaskSimpleAnim(); }
+
+// 0x61BA80 (lote 150A, banco Fn150A): destructor con borrado de CTaskSimpleAnim del EXE (ranura 0 de su vtable 0x86D504; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x61A6F0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleAnim* __fastcall CTaskSimpleAnimScalarDeletingDestructor(CTaskSimpleAnim* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleAnimDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote150ABody_CTaskSimpleAnim() { return reinterpret_cast<uintptr_t>(&CTaskSimpleAnimDestructorBody); } // para el banco Fn150A
+
 void CTaskSimpleAnim::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleAnim, 0x86D504, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleAnimScalarDeletingDestructor, "ScalarDeletingDestructor", 0x61BA80); // lote 150A (banco Fn150A)
     RH_ScopedNamedGlobalInstall(SimpleAnimConstructorBody, "Constructor", 0x61A6C0);
     RH_ScopedVMTInstall(MakeAbortable, 0x61A790);
 }

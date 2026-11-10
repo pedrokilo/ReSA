@@ -51,12 +51,20 @@ static __declspec(safebuffers) uint32 __fastcall EntryExitGetPositionRelativeToO
 }
 #pragma runtime_checks("", restore)
 
+// 0x43E090 (lote 150A, banco Fn150A; el listado decia CRect): CEntryExit::GetPosition del EXE (thiscall, un puntero de salida en la pila, `ret 4`, 42 bytes): escribe en `out` el centro del rectangulo de
+// entrada y la Z de la entrada y devuelve `out` en EAX. La aritmetica (24 bits, orden de lectura y escritura del EXE) esta en X87Math.cpp. Los llamadores (0x477680) releen el resultado de la memoria.
+static CVector* __fastcall EntryExitGetPositionExe(CEntryExit* self, void* /*edx*/, CVector* out) {
+    EntryExitGetPositionCpp(self, out);
+    return out;
+}
+
 bool IsTeleportPointValid(const CVector& origin, const CVector& target); // 0x43EA90, definida mas abajo
 
 void CEntryExit::InjectHooks() {
     RH_ScopedClass(CEntryExit);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedNamedGlobalInstall(EntryExitGetPositionExe, "GetPosition", 0x43E090); // lote 150A (banco Fn150A)
     RH_ScopedInstall(GenerateAmbientPeds, 0x43E8B0);
     RH_ScopedInstall(GetEntryExitToDisplayNameOf, 0x43E650);
     RH_ScopedInstall(FindValidTeleportPoint, 0x43EAF0);

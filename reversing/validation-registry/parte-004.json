@@ -90198,7 +90198,7 @@
       },
       "evidence": {
         "path": "reversing/GarageUpdate63/validation-summary.json",
-        "sha256": "939ffcd182d1984e0033abac2db67e262056856fd04ee44b84e22e01802c5429",
+        "sha256": "edc3b637c003fc5f737f9526b36f4fd22a9383ff99d011eb362a9a18813fe754",
         "passed_path": [
           "covered_functions",
           "CGarage::Update"
@@ -90207,12 +90207,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "718b5b458e756d56aa0808dedba2703be8a5ffb2f90ecf616a0f287efc92fb7e",
         "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
-        "source/game_sa/X87Math.cpp": "9bc388015fff074e1f2b15d065415d26acbe54d29127cb1d28134f747c471fcf",
-        "source/game_sa/X87Math.h": "6e842a1d07f38fd525e638e9e15a8bfe61c2991d09b1dd6662376e02d3d7a83e",
+        "source/game_sa/X87Math.cpp": "88b2e023642c11f4eb6a35e96b00bf156e48775c412ea690c98d6ee5be470f63",
+        "source/game_sa/X87Math.h": "900d6be92285e4dc23a0a0f3b6c606d33aee486a5c22d4c0c844fb612cdd9c29",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/GarageUpdate63/LiveComparison.hpp": "93f081ba171c34014e99ac1eba739ca45cadcb3596ffec46f40f79698946af2b",
         "reversing/GarageUpdate63/Core.hpp": "574ca0806538695a1418914735ed68de2597da0a91c3551d6403fa7816aec3b3",

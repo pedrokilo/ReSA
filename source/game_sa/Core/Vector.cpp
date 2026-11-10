@@ -120,6 +120,13 @@ static void __fastcall CrossProductInPlaceExe(CVector* out, void* /*edx*/, const
     }
 }
 
+// 0x404350 (lote 150A, banco Fn150A; el listado decia CRect): constructor por defecto de CVector del EXE (thiscall, sin argumentos de pila, `ret`, 3 bytes: `mov eax,ecx; ret`): no escribe nada y devuelve `this`.
+// Sus llamadores (CAutomobile::ProcessCarWheelPair y el iterador de constructores de vectores `__vec_ctor(ptr, 12, 4, 0x404350)`) lo usan con ECX = el vector. EDX no se toca.
+static CVector* __fastcall VectorDefaultConstructorExe(CVector* self, void* /*edx*/)
+{
+    return self;
+}
+
 // Operadores y productos del EXE con la x87 exacta (lote 97A), validados por el banco Fn97A: DotProduct (0x40FDB0), CrossProduct (0x59C730), Multiply3x3 matriz * vector (0x59C790),
 // la suma (0x40FE30) y la resta (0x40FE60) de vectores, los productos escalar * vector (0x40FE90) y vector * escalar (0x40FEC0), operator+= (0x411A00) y operator*=(float) (0x40FEF0).
 void CVector::InjectHooksExactOperators()
@@ -130,6 +137,7 @@ void CVector::InjectHooksExactOperators()
     RH_ScopedGlobalOverloadedInstall(DotProduct, "v3d*v3d*", 0x40FDB0, float(*)(CVector*, CVector*));
     RH_ScopedGlobalOverloadedInstall(CrossProduct, "out", 0x59C730, CVector*(*)(CVector*, CVector*, CVector*));
     RH_ScopedNamedGlobalInstall(CrossProductInPlaceExe, "Cross_OG", 0x70F890);
+    RH_ScopedNamedGlobalInstall(VectorDefaultConstructorExe, "DefaultConstructor", 0x404350); // lote 150A (banco Fn150A)
     RH_ScopedGlobalInstall(Multiply3x3Exe, 0x59C790);
     RH_ScopedGlobalInstall(Multiply3x3VMExe, 0x59C810);
     RH_ScopedInstall(Difference, 0x40FE00);

@@ -594,10 +594,30 @@ void CAEStreamingChannel::Service() {
     m_lastSlot = slot;
 }
 
+namespace {
+// 0x4F2200 (lote 150A, banco Fn150A): cuerpo del destructor de CAEStreamingChannel del EXE (con hook propio (Destructor); vtable 0x85F3F0). Funcion propia sin expansion en linea para que el banco pueda sustituirla;
+// la llama el destructor con borrado como el `call 0x4F2200` del EXE.
+__declspec(noinline) void __fastcall AEStreamingChannelDestructorBody(CAEStreamingChannel* self, void* /*edx*/) { self->CAEStreamingChannel::~CAEStreamingChannel(); }
+
+// 0x4F27F0 (lote 150A, banco Fn150A): destructor con borrado de CAEStreamingChannel del EXE (ranura 0 de su vtable 0x85F3F0; thiscall, un argumento de pila, `ret 4`, 27 bytes:
+// `push esi; mov esi,ecx; call 0x4F2200; test byte [esp+8],1; je ..; push esi; call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con operator delete (0x8214BD, CRT, sin hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CAEStreamingChannel* __fastcall AEStreamingChannelScalarDeletingDestructor(CAEStreamingChannel* self, void* /*edx*/, uint8 flags) {
+    AEStreamingChannelDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote150ABody_CAEStreamingChannel() { return reinterpret_cast<uintptr_t>(&AEStreamingChannelDestructorBody); } // para el banco Fn150A
+
 void CAEStreamingChannel::InjectHooks() {
     RH_ScopedVirtualClass(CAEStreamingChannel, 0x85F3F0, 9);
     RH_ScopedCategory("Audio/Hardware");
 
+    RH_ScopedNamedGlobalInstall(AEStreamingChannelScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4F27F0); // lote 150A (banco Fn150A)
     RH_ScopedInstall(Constructor, 0x4F1800);
     RH_ScopedInstall(Destructor, 0x4F2200);
     RH_ScopedVMTInstall(SynchPlayback, 0x4F1870);

@@ -59,11 +59,24 @@ __declspec(noinline) CBaseModelInfo* __fastcall Constructor(CBaseModelInfo* self
 }
 } // namespace CBaseModelInfoBody
 
+// 0x4C4AF0 (lote 150A, banco Fn150A): destructor con borrado de CBaseModelInfo del EXE (ranura 0 de su vtable 0x85BB9C; thiscall, un argumento de pila, `ret 4`, 28 bytes: `test byte [esp+4],1; push esi;
+// mov esi,ecx; mov dword [esi],0x85BB9C; je ..; push esi; call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: deja la vtable de la clase base en linea (sin llamar al
+// cuerpo 0x4C5620), libera `this` con operator delete (0x8214BD, CRT, sin hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la
+// ranura del destructor virtual).
+static CBaseModelInfo* __fastcall BaseModelInfoScalarDeletingDestructor(CBaseModelInfo* self, void* /*edx*/, uint8 flags) {
+    *reinterpret_cast<uint32*>(self) = 0x85BB9C;
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+
 void CBaseModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CBaseModelInfo, 0x85BB9C, 15);
     RH_ScopedCategory("Models");
 
     RH_ScopedNamedGlobalInstall(BaseModelInfoDestructorBody, "DestructorBody", 0x4C5620); // lote 140A (banco Fn140A)
+    RH_ScopedNamedGlobalInstall(BaseModelInfoScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4C4AF0); // lote 150A (banco Fn150A)
     RH_ScopedNamedGlobalInstall(CBaseModelInfoBody::Constructor, "ConstructorBody", 0x4C4A60); // lote 143A (banco Fn143A)
 
     RH_ScopedVMTInstall(AsAtomicModelInfoPtr, 0x4C4A80);
