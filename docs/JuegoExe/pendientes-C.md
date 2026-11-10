@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 09/11/2026 (Ciudad de México):** 874 grupos / 9702 funciones reconstruidas; 9702 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 09/11/2026 (Ciudad de México):** 875 grupos / 9724 funciones reconstruidas; 9724 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-450 funciones, 64,278 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+445 funciones, 64,149 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -265,7 +265,6 @@
 | `0x0074EB40` | 58 | Win | baja | 2 (0) |  |
 | `0x00533670` | 54 | CEntity | alta | 1 (0) |  |
 | `0x0074A1C0` | 52 | Win | baja | 1 (0) |  |
-| `0x0041B820` | 51 | CNodeRoutePool | baja | 3 (0) |  |
 | `0x004CBDE0` | 51 | CWeaponModelInfo | baja | 35 (0) |  |
 | `0x0046A340` | 49 | CEntity | baja | 1 (0) |  |
 | `0x004C9580` | 49 | CVehicleModelInfo | alta | 1 (0) |  |
@@ -305,7 +304,6 @@
 | `0x004C5E30` | 36 | CModelInfo | alta | 1 (0) |  |
 | `0x004C5E90` | 36 | CModelInfo | alta | 1 (0) |  |
 | `0x004C5EF0` | 36 | CModelInfo | alta | 1 (0) |  |
-| `0x00706770` | 36 | CRealTimeShadow | baja | 1 (0) |  |
 | `0x004F3BA0` | 35 | CAEUserRadioTrackManager | alta | 8 (0) |  |
 | `0x007467D0` | 35 | VideoPlayer | baja | 1 (0) |  |
 | `0x0046A7E0` | 33 | CTheScripts | alta | 1 (0) |  |
@@ -327,7 +325,6 @@
 | `0x00463490` | 21 | CEntity | baja | 1 (0) |  |
 | `0x00407800` | 20 | CStreaming | alta | 1 (0) |  |
 | `0x005CF850` | 20 | FxEmitterBP_c | baja | 2 (0) |  |
-| `0x007067A0` | 20 | CRealTimeShadow | baja | 1 (0) |  |
 | `0x004C9F70` | 19 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x005D28B0` | 19 | CObject | baja | 2 (0) |  |
 | `0x006677A0` | 19 | CTaskSimpleRunNamedAnim | baja | 2 (0) |  |
@@ -348,7 +345,6 @@
 | `0x00506CC0` | 14 | CAEGlobalWeaponAudioEntity | baja | 1 (0) |  |
 | `0x0046B260` | 12 | CTheScripts | baja | 1 (0) |  |
 | `0x004033B2` | 11 | CEntity | baja | 18 (0) |  |
-| `0x0041B810` | 11 | CNodeRoutePool | baja | 1 (0) |  |
 | `0x00420F30` | 11 | CEventEditableResponse | baja | 14 (0) |  |
 | `0x0043E2B0` | 11 | CEventLeaderEntryExit | baja | 1 (0) |  |
 | `0x0043E3D0` | 11 | CTaskSimpleUninterruptable | baja | 1 (0) |  |
@@ -398,7 +394,6 @@
 | `0x006597B0` | 11 | CTaskComplexUseWaterCannon | alta | 1 (0) |  |
 | `0x006598B0` | 11 | CTaskComplexUseWaterCannon | baja | 1 (0) |  |
 | `0x0065EEF0` | 11 | CTaskSimpleGoToPointFine | alta | 1 (0) |  |
-| `0x00668240` | 11 | CTaskComplexGoToPointAndStandStill | alta | 1 (0) |  |
 | `0x0066C4C0` | 11 | CTaskComplexGotoDoorAndOpen | baja | 1 (0) |  |
 | `0x0066F670` | 11 | CTaskComplexWanderGang | baja | 1 (0) |  |
 | `0x006726F0` | 11 | CTaskComplexWanderProstitute | alta | 1 (0) |  |

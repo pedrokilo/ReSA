@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,219** funciones en 290 clases/módulos (rango 0x401000–0x74FFFF): 2,197 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,197** funciones en 280 clases/módulos (rango 0x401000–0x74FFFF): 2,175 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,16 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CTaskInteriorBeInOffice | 2 | 60 |
-| CTaskSimpleCreateCarAndGetIn | 2 | 60 |
-| CTaskSimpleEvasiveStep | 2 | 60 |
-| CTaskSimpleGoToPoint | 2 | 60 |
-| CAEMFDecoder | 3 | 60 |
-| CRealTimeShadow | 3 | 60 |
-| CBuildingPool | 2 | 62 |
-| CDummyPool | 2 | 62 |
-| CNodeRoutePool | 2 | 62 |
-| CObjectData | 2 | 62 |
 | CEventGlobalGroup | 3 | 63 |
 | CPedShelterAttractor | 2 | 65 |
 | CTaskComplexGoToPointAiming | 3 | 65 |
@@ -300,78 +290,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CTaskInteriorBeInOffice (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00676480 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006764A0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleCreateCarAndGetIn (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064D1E0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0064D200 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleEvasiveStep (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00655EE0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00655F00 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleGoToPoint (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0066DB60 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0066DB80 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CAEMFDecoder (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004E7850 | 10 | A |  | 1 | 1 |  | alta |
-| 0x004E7F20 | 23 | A |  | 1 | 1 |  | baja |
-| 0x004E7C50 | 27 | B |  | 0 | 0 | sí | alta |
-
-## CRealTimeShadow (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x007059E0 | 4 | A |  | 1 | 1 |  | alta |
-| 0x007067A0 | 20 | C |  | 1 | 0 |  | baja |
-| 0x00706770 | 36 | C |  | 1 | 0 |  | baja |
-
-## CBuildingPool (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00404090 | 11 | A |  | 4 | 4 |  | baja |
-| 0x004040A0 | 51 | A |  | 5 | 1 |  | baja |
-
-## CDummyPool (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005326E0 | 11 | A |  | 1 | 1 |  | baja |
-| 0x005326F0 | 51 | A |  | 3 | 1 |  | baja |
-
-## CNodeRoutePool (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0041B810 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0041B820 | 51 | C |  | 3 | 0 |  | baja |
-
-## CObjectData (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005A2E90 | 15 | D |  | 0 | 0 |  | baja |
-| 0x005A2E60 | 47 | A |  | 2 | 2 |  | baja |
 
 ## CEventGlobalGroup (3)
 
@@ -2714,7 +2632,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x00668240 | 11 | C |  | 1 | 0 |  | alta |
+| 0x00668240 | 11 | A |  | 1 | 1 |  | alta |
 | 0x004700E0 | 18 | C |  | 1 | 0 |  | baja |
 | 0x0066DC70 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00470070 | 32 | C |  | 2 | 0 |  | baja |
@@ -3425,7 +3343,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004A89B0 | 7 | C |  | 27 | 0 |  | baja |
 | 0x004A8B70 | 7 | C |  | 4 | 0 |  | baja |
 | 0x004A9090 | 12 | D |  | 0 | 0 |  | baja |
-| 0x004A8DD0 | 13 | A |  | 20 | 5 |  | baja |
+| 0x004A8DD0 | 13 | A |  | 20 | 6 |  | baja |
 | 0x004A8DB0 | 16 | A |  | 15 | 7 |  | baja |
 | 0x004A8440 | 20 | A |  | 9 | 0 |  | baja |
 | 0x004A87D0 | 20 | A |  | 8 | 0 |  | baja |
