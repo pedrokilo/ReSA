@@ -33,6 +33,9 @@ public:
     explicit CTaskSimpleAnim(bool bHoldLastFrame);
     ~CTaskSimpleAnim() override;
 
+    //! 0x61A6F0 (lote 150A, banco Fn150A; usado desde el lote 151A por el cuerpo de ~CTaskSimpleLookAbout): cuerpo del destructor del EXE, funcion propia sin expansion en linea
+    static void __fastcall DestructorBodyExe(CTaskSimpleAnim* self, void* edx);
+
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     static void FinishRunAnimCB(CAnimBlendAssociation* blendAssoc, void* data); //data is CTaskSimpleAnim
 

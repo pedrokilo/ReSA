@@ -24,4 +24,5 @@ private:
         return this;
     }
     CTaskSimpleChat* ScalarDeletingDestructor(uint8 flags); // 0x5F7FB0 (lote 148A, banco Fn148A): destructor con borrado (ranura 0 de la vtable 0x86C78C), `ret 4`
+    static CTaskSimpleChat* __fastcall ConstructorExe(CTaskSimpleChat* self, void* edx, uint32 duration); // 0x5F65A0 (lote 151A, banco Fn151A): constructor del EXE, vtable 0x86C78C del EXE
 };

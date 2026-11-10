@@ -38,6 +38,9 @@ CTaskSimpleFacial* __fastcall FacialConstructorBody(CTaskSimpleFacial* self, voi
     *reinterpret_cast<uint32*>(bytes + 0x14) = first;
     return self;
 }
+
+// 0x690CB0 (definida mas abajo; lote 151A, banco Fn151A)
+__declspec(noinline) void __fastcall SimpleFacialDestructorBody(CTaskSimpleFacial* self, void* edx);
 } // namespace
 
 void CTaskSimpleFacial::InjectHooks() {
@@ -45,6 +48,7 @@ void CTaskSimpleFacial::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(ScalarDeletingDestructor, 0x692E30);
     RH_ScopedNamedGlobalInstall(FacialConstructorBody, "Constructor", 0x690C70);
+    RH_ScopedNamedGlobalInstall(SimpleFacialDestructorBody, "Destructor", 0x690CB0); // lote 151A (banco Fn151A): el cuerpo ya existia (lote 128A) sin hook propio
 
     RH_ScopedGlobalInstall(GetAnimId, 0x690CC0);
     RH_ScopedVMTInstall(Clone, 0x692820);
@@ -134,8 +138,8 @@ bool CTaskSimpleFacial::ProcessPed(CPed* ped) {
 }
 
 namespace {
-// 0x690CB0 (lote 128A, banco Fn128A): cuerpo del destructor de CTaskSimpleFacial del EXE, sin hook propio (`mov dword [ecx],0x870AB8; jmp CTask::Destructor (0x61A3A0)`, thiscall sin argumentos). Funcion propia sin expansion
-// en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x690CB0` del EXE.
+// 0x690CB0 (lote 128A, banco Fn128A; con hook propio desde el lote 151A, banco Fn151A): cuerpo del destructor de CTaskSimpleFacial del EXE (`mov dword [ecx],0x870AB8; jmp CTask::Destructor (0x61A3A0)`, thiscall sin
+// argumentos). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x690CB0` del EXE.
 __declspec(noinline) void __fastcall SimpleFacialDestructorBody(CTaskSimpleFacial* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x870AB8;
     self->CTask::Destructor();

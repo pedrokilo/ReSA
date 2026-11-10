@@ -26,12 +26,32 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexSeekEntity.h"
 #include "SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.h"
 
+namespace {
+// 0x6832C0 (lote 151A, banco Fn151A): cuerpo del destructor de CTaskComplexWalkAlongsidePed del EXE (con hook propio, Destructor; vtable 0x8706CC). Funcion propia sin expansion en linea para que el banco pueda
+// sustituirla; la llama el destructor con borrado como el `call 0x6832C0` del EXE.
+__declspec(noinline) void __fastcall WalkAlongsidePedDestructorBody(CTaskComplexWalkAlongsidePed* self, void* /*edx*/) { self->CTaskComplexWalkAlongsidePed::~CTaskComplexWalkAlongsidePed(); }
+
+// 0x684760 (lote 151A, banco Fn151A; el listado decia CTaskComplexPartnerShove): destructor con borrado de CTaskComplexWalkAlongsidePed del EXE (ranura 0 de su vtable 0x8706CC; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6832C0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexWalkAlongsidePed* __fastcall WalkAlongsidePedScalarDeletingDestructor(CTaskComplexWalkAlongsidePed* self, void* /*edx*/, uint8 flags) {
+    WalkAlongsidePedDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote151ABody_CTaskComplexWalkAlongsidePed() { return reinterpret_cast<uintptr_t>(&WalkAlongsidePedDestructorBody); } // para el banco Fn151A
+
 void CTaskComplexWalkAlongsidePed::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWalkAlongsidePed, 0x8706cc, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x683240);
     RH_ScopedInstall(Destructor, 0x6832C0);
+    RH_ScopedNamedGlobalInstall(WalkAlongsidePedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x684760); // lote 151A (banco Fn151A)
 
     RH_ScopedInstall(CreateSubTask, 0x685000);
     RH_ScopedVMTInstall(Clone, 0x6838E0);

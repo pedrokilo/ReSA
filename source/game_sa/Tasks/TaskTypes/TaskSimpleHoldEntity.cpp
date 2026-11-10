@@ -49,11 +49,29 @@ CVector HoldMultiply3x3_59C790(const CMatrix& m, const CVector& v) {
         m.GetUp().z * v.z + m.GetRight().z * v.x + m.GetForward().z * v.y
     };
 }
+
+// 0x691630 (lote 151A, banco Fn151A): cuerpo del destructor de CTaskSimpleHoldEntity del EXE (sin hook: es el destructor de la clase; vtable 0x870B2C; marco SEH que solo desenrolla). Funcion propia sin expansion en linea
+// para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x691630` del EXE.
+__declspec(noinline) void __fastcall HoldEntityDestructorBody(CTaskSimpleHoldEntity* self, void* /*edx*/) { self->CTaskSimpleHoldEntity::~CTaskSimpleHoldEntity(); }
+
+// 0x692FD0 (lote 151A, banco Fn151A; el listado decia CTaskSimpleFacial): destructor con borrado de CTaskSimpleHoldEntity del EXE (ranura 0 de su vtable 0x870B2C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x691630; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskSimpleHoldEntity* __fastcall HoldEntityScalarDeletingDestructor(CTaskSimpleHoldEntity* self, void* /*edx*/, uint8 flags) {
+    HoldEntityDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
+
+uintptr_t Lote151ABody_CTaskSimpleHoldEntity() { return reinterpret_cast<uintptr_t>(&HoldEntityDestructorBody); } // para el banco Fn151A
 
 void CTaskSimpleHoldEntity::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleHoldEntity, 0x870B2C, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(HoldEntityScalarDeletingDestructor, "ScalarDeletingDestructor", 0x692FD0); // lote 151A (banco Fn151A)
     RH_ScopedOverloadedInstall(Constructor, "1", 0x6913A0, CTaskSimpleHoldEntity*(CTaskSimpleHoldEntity::*)(CEntity*, CVector*, uint8, uint8, AnimationId, AssocGroupId, bool));
     RH_ScopedOverloadedInstall(Constructor, "2", 0x691470, CTaskSimpleHoldEntity * (CTaskSimpleHoldEntity::*)(CEntity*, CVector*, uint8, uint8, const char*, const char*, eAnimationFlags));
     RH_ScopedOverloadedInstall(Constructor, "3", 0x691550, CTaskSimpleHoldEntity * (CTaskSimpleHoldEntity::*)(CEntity*, CVector*, uint8, uint8, CAnimBlock*, CAnimBlendHierarchy*, eAnimationFlags));

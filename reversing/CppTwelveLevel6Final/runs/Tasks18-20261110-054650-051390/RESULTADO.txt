@@ -1,0 +1,3 @@
+APROBADO: Gestor de tareas (lista de 18)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-tasks18\20261110-054650-051390

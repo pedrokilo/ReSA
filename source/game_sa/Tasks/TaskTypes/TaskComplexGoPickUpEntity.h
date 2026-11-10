@@ -27,7 +27,7 @@ public:
     ~CTaskComplexGoPickUpEntity() override;                         // 0x691A50
 
     CTask*    Clone() const override;                               // 0x692C80
-    eTaskType GetTaskType() const override { return Type; }        // 0x691A40
+    eTaskType GetTaskType() const override;                         // 0x691A40 (definida en el .cpp desde el lote 151A, banco Fn151A)
     CTask*    CreateNextSubTask(CPed* ped) override;                // 0x691AE0
     CTask*    CreateFirstSubTask(CPed* ped) override;               // 0x693610
     CTask*    ControlSubTask(CPed* ped) override;                   // 0x691D50

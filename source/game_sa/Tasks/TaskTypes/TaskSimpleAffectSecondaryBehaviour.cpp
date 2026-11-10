@@ -25,6 +25,7 @@ void CTaskSimpleAffectSecondaryBehaviour::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x691270);
     RH_ScopedInstall(Destructor, 0x6912C0); // lote 130A (banco Fn130A)
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x692FB0); // lote 151A (banco Fn151A)
 
     RH_ScopedVMTInstall(Clone, 0x692910);
     RH_ScopedVMTInstall(GetTaskType, 0x6912A0);
@@ -59,6 +60,17 @@ CTaskSimpleAffectSecondaryBehaviour* CTaskSimpleAffectSecondaryBehaviour::Destru
         delete m_task;
     }
     CTask::Destructor();
+    return this;
+}
+
+// 0x692FB0 (lote 151A, banco Fn151A; el listado decia CTaskSimpleFacial): destructor con borrado de CTaskSimpleAffectSecondaryBehaviour del EXE (ranura 0 de su vtable 0x870B08; thiscall, un argumento de pila,
+// `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6912C0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase
+// (0x6912C0, con hook propio: Destructor), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleAffectSecondaryBehaviour* CTaskSimpleAffectSecondaryBehaviour::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
     return this;
 }
 

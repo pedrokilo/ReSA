@@ -21,12 +21,41 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexWaitForPed.h"
 #include "X87Math.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+// 0x6833D0 (lote 151A, banco Fn151A): cuerpo del destructor de CTaskComplexWaitForPed del EXE (sin hook: la clase aun no declara su destructor; thiscall, sin argumentos de pila, `ret`, con marco SEH que solo desenrolla y aqui
+// se omite). Como el original: vtable de la clase del EXE (0x8706F8); si el ped (+0xC) no es nulo, CEntity::CleanUpOldReference (0x571A00) con la direccion de +0xC (sin poner el puntero a cero) y ~CTaskComplex (0x61A3D0, con hook).
+// Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x6833D0` del EXE.
+__declspec(noinline) void __fastcall WaitForPedDestructorBody(CTaskComplexWaitForPed* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x8706F8;
+    CEntity::SafeCleanUpRef(self->m_ped);
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+
+// 0x684780 (lote 151A, banco Fn151A; el listado decia CTaskComplexPartnerShove): destructor con borrado de CTaskComplexWaitForPed del EXE (ranura 0 de su vtable 0x8706F8; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6833D0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexWaitForPed* __fastcall WaitForPedScalarDeletingDestructor(CTaskComplexWaitForPed* self, void* /*edx*/, uint8 flags) {
+    WaitForPedDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote151ABody_CTaskComplexWaitForPed() { return reinterpret_cast<uintptr_t>(&WaitForPedDestructorBody); } // para el banco Fn151A
+
 void CTaskComplexWaitForPed::InjectHooks() {
     RH_ScopedClass(CTaskComplexWaitForPed);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x683340);
     RH_ScopedInstall(CloneBody, 0x683950); // lote 132A (banco Fn132A)
+    RH_ScopedNamedGlobalInstall(WaitForPedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x684780); // lote 151A (banco Fn151A)
 }
 
 namespace {

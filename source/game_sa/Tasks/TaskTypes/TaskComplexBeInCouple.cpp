@@ -25,12 +25,32 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexWaitForPed.h"
 #include "Ragdoll/IKChainManager.h"
 
+namespace {
+// 0x683780 (lote 151A, banco Fn151A): cuerpo del destructor de CTaskComplexBeInCouple del EXE (con hook propio, Destructor; vtable 0x870724). Funcion propia sin expansion en linea para que el banco pueda
+// sustituirla; la llama el destructor con borrado como el `call 0x683780` del EXE.
+__declspec(noinline) void __fastcall BeInCoupleDestructorBody(CTaskComplexBeInCouple* self, void* /*edx*/) { self->CTaskComplexBeInCouple::~CTaskComplexBeInCouple(); }
+
+// 0x6847A0 (lote 151A, banco Fn151A; el listado decia CTaskComplexPartnerShove): destructor con borrado de CTaskComplexBeInCouple del EXE (ranura 0 de su vtable 0x870724; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x683780; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexBeInCouple* __fastcall BeInCoupleScalarDeletingDestructor(CTaskComplexBeInCouple* self, void* /*edx*/, uint8 flags) {
+    BeInCoupleDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote151ABody_CTaskComplexBeInCouple() { return reinterpret_cast<uintptr_t>(&BeInCoupleDestructorBody); } // para el banco Fn151A
+
 void CTaskComplexBeInCouple::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexBeInCouple, 0x870724, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x6836F0);
     RH_ScopedInstall(Destructor, 0x683780);
+    RH_ScopedNamedGlobalInstall(BeInCoupleScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6847A0); // lote 151A (banco Fn151A)
 
     RH_ScopedInstall(AbortArmIK, 0x6837F0);
     RH_ScopedInstall(GetSideOfPartner, 0x683840);

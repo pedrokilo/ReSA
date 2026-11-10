@@ -119374,7 +119374,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::Constructor"
@@ -119383,9 +119383,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119403,7 +119403,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::Destructor"
@@ -119412,9 +119412,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119432,7 +119432,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::GetActiveTask"
@@ -119441,9 +119441,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119461,7 +119461,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::FindActiveTaskByType"
@@ -119470,9 +119470,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119490,7 +119490,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::FindTaskByType"
@@ -119499,9 +119499,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119519,7 +119519,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::HasTaskSecondary"
@@ -119528,9 +119528,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119548,7 +119548,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::Flush"
@@ -119557,9 +119557,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119577,7 +119577,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::FlushImmediately"
@@ -119586,9 +119586,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119606,7 +119606,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::SetNextSubTask"
@@ -119615,9 +119615,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119635,7 +119635,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::StopTimers"
@@ -119644,9 +119644,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119664,7 +119664,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::GetSimplestActiveTask"
@@ -119673,9 +119673,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119693,7 +119693,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::AddSubTasks"
@@ -119702,9 +119702,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119722,7 +119722,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::ParentsControlChildren"
@@ -119731,9 +119731,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119751,7 +119751,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::SetTask"
@@ -119760,9 +119760,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119780,7 +119780,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::SetTaskSecondary"
@@ -119789,9 +119789,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119809,7 +119809,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::ClearTaskEventResponse"
@@ -119818,9 +119818,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },
@@ -119838,7 +119838,7 @@
       },
       "evidence": {
         "path": "reversing/Tasks18/validation-summary.json",
-        "sha256": "1cf14dad917626c9083489200eea5e860dcdeaf6cd60d39814d228a36cb2f854",
+        "sha256": "588888f3f683f894e307655d452d7cc45f269bdbb659620de89bdcf264d055e6",
         "passed_path": [
           "covered_functions",
           "CTaskManager::ManageTasks"
@@ -119847,9 +119847,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
-        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
-        "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+        "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
+        "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
       },

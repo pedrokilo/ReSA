@@ -82,6 +82,8 @@ public:
             RH_ScopedNamedGlobalInstall(SetMaxEntityDist2DRegs, "SetMaxEntityDist2D", 0x4BC470);
             RH_ScopedInstall(Constructor, 0x661DC0);
             RH_ScopedInstall(Destructor, 0x661F30);
+            RH_ScopedNamedInstall(ScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x661F10); // lote 151A (banco Fn151A)
+            RH_ScopedInstall(GetSeekPos, 0x665DC0);                                                    // lote 151A (banco Fn151A)
 
             RH_ScopedInstall(CreateSubTask, 0x665270); // Como el original: 0x496DC0 es el GetSeekPos de RadiusAngleOffset (lo llama 0x496B9A)
 
@@ -386,10 +388,14 @@ public:
     }
 
     // NOTSA Helpers
+    // 0x665DC0 (lote 151A, banco Fn151A; solo la especializacion XYOffset, la unica con hook): thiscall, puntero de salida (CVector devuelto por valor) y peaton en la pila, `ret 8`, devuelve el puntero de salida.
+    // Como el original: la llamada al calculador (objeto incrustado en +0x40) es VIRTUAL (`call [vtable]`: el calculador se pasa como referencia a la base para que no se resuelva en compilacion), con el peaton,
+    // la entidad (+0xC, sin comprobar nulo) y un temporal local; despues copia el temporal a la salida.
     CVector GetSeekPos(CPed* ped) {
-        CVector seekPos{};
-        m_entitySeekPosCalculator.ComputeEntitySeekPos(*ped, *m_entityToSeek, seekPos);
-        return seekPos;
+        CVector seekPos; // Como el original: temporal local sin inicializar (no la salida: con NRVO la salida se escribia antes de la llamada y el calculador la veia cambiada)
+        CEntitySeekPosCalculator& calculator = m_entitySeekPosCalculator;
+        calculator.ComputeEntitySeekPos(*ped, *m_entityToSeek, seekPos);
+        return static_cast<const CVector&>(seekPos); // copia (sin NRVO) a la salida despues de la llamada
     }
 
     CVector2D GetSeekPos2D(CPed* ped) {
@@ -450,6 +456,23 @@ private:
             m_minEntityDist2D == 0.f || pedToSeekPosDist2DSq > sq(m_minEntityDist2D) ? TASK_COMPLEX_FOLLOW_NODE_ROUTE : TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL,
             ped
         );
+    }
+
+public:
+    // 0x661F30 (lote 151A, banco Fn151A): cuerpo del destructor de la clase, funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x661F30` del EXE.
+    __declspec(noinline) static void __fastcall DestructorBodyExe(CTaskComplexSeekEntity* self, void* /*edx*/) {
+        self->CTaskComplexSeekEntity::~CTaskComplexSeekEntity();
+    }
+
+    // 0x661F10 (lote 151A, banco Fn151A; el listado decia CTaskComplexSeekEntity<XYOffset> y lo es: ranura 0 de la vtable 0x86FBB4): destructor con borrado (thiscall, un argumento de pila, `ret 4`, 30 bytes:
+    // `push esi; mov esi,ecx; call 0x661F30; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con
+    // CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+    static CTaskComplexSeekEntity* __fastcall ScalarDeletingDestructorExe(CTaskComplexSeekEntity* self, void* /*edx*/, uint8 flags) {
+        DestructorBodyExe(self, nullptr);
+        if (flags & 1) {
+            CTask::operator delete(self);
+        }
+        return self;
     }
 
 protected: // Wrappers for hooks

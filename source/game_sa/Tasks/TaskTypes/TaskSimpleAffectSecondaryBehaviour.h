@@ -35,6 +35,7 @@ public:
 private: // Wrappers for hooks
     // 0x6912C0 (lote 130A, banco Fn130A): cuerpo del destructor del EXE (thiscall sin argumentos); sin expansion en linea para que el banco pueda sustituir sus colaboradores
     __declspec(noinline) CTaskSimpleAffectSecondaryBehaviour* Destructor();
+    CTaskSimpleAffectSecondaryBehaviour* ScalarDeletingDestructor(uint8 flags); // 0x692FB0 (lote 151A, banco Fn151A): destructor con borrado (ranura 0 de la vtable 0x870B08), `ret 4`
 
     // 0x691270
     CTaskSimpleAffectSecondaryBehaviour* Constructor(bool add, eSecondaryTask secondaryTaskType, CTask* a4) {

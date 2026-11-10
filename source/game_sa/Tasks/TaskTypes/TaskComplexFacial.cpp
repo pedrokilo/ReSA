@@ -32,6 +32,17 @@ void __fastcall FacialDestructorBody(CTaskComplexFacial* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x870ADC;
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x692F90 (lote 151A, banco Fn151A; el listado decia CTaskSimpleFacial): destructor con borrado de CTaskComplexFacial del EXE (ranura 0 de su vtable 0x870ADC; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x690D90; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x690D90, con hook),
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexFacial* __fastcall ComplexFacialScalarDeletingDestructor(CTaskComplexFacial* self, void* /*edx*/, uint8 flags) {
+    FacialDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexFacial::InjectHooks() {
@@ -39,6 +50,7 @@ void CTaskComplexFacial::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedNamedGlobalInstall(FacialDestructorBody, "Destructor", 0x690D90);
+    RH_ScopedNamedGlobalInstall(ComplexFacialScalarDeletingDestructor, "ScalarDeletingDestructor", 0x692F90); // lote 151A (banco Fn151A)
     RH_ScopedInstall(Constructor, 0x690D20);
 
     RH_ScopedInstall(SetRequest, 0x691230);

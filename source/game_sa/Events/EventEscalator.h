@@ -13,7 +13,7 @@ public:
     eEventType GetEventType() const override { return EVENT_ON_ESCALATOR; }
     int32 GetEventPriority() const override { return 56; }
     int32 GetLifeTime() override { return 0; }
-    CEventEscalator* Clone() const noexcept override { return new CEventEscalator(); }
+    CEventEscalator* Clone() const noexcept override; // 0x602B90 (lote 151A, banco Fn151A): ranura 4 de la vtable 0x86CD00
     bool AffectsPed(CPed* ped) override;
     bool TakesPriorityOver(const CEvent& refEvent) override;
 

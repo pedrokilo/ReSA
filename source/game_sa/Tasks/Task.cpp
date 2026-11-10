@@ -63,6 +63,18 @@ void CTask::Destructor() {
 #pragma optimize("", on)
 #pragma runtime_checks("", restore)
 
+namespace CTaskBody {
+// 0x61A350 (lote 151A, banco Fn151A): copia byte a byte de 0x61A3A0 (`mov [ecx], 0x86D48C; ret`, 7 bytes; solo la alcanza un funclet de desenrollado, `jmp` en 0x83F0E3). EAX, ECX y EDX salen intactos (mismas
+// condiciones que CTask::Destructor: optimizada por pragma, sin marco ni comprobaciones). Funcion propia (no la de CTask::Destructor) para que cada direccion tenga su hook y su ruta en el banco.
+#pragma runtime_checks("", off)
+#pragma optimize("gty", on)
+void __fastcall DestructorCopy(CTask* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86D48C;
+}
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
+} // namespace CTaskBody
+
 class CTaskComplex;
 
 namespace CTaskSimpleBody {
@@ -120,12 +132,30 @@ void* __fastcall Constructor(void* self, void* /*edx*/) {
 #pragma optimize("", on)
 #pragma runtime_checks("", restore)
 
+// 0x61A430 (lote 151A, banco Fn151A; el listado decia CPlayerRelationshipRecorder): CTaskComplex::SetSubTask (ranura 7 de unas cien vtables del EXE; thiscall, un argumento de pila, `ret 4`, 40 bytes). Como el original:
+// si la subtarea guardada (+8) es la misma, no hace nada; si no, borra la antigua (si no es nula) con su destructor virtual con borrado (`push 1; call [vtable]`) ANTES de guardar la nueva, y si la nueva no es
+// nula le pone el padre (+4) a esta tarea. Se engancha como S (la entrada sirve a todas las vtables; un hook V solo cambiaria la de CTaskComplex). La de la cabecera es `final` y no se puede tomar su direccion.
+void __fastcall SetSubTask(CTask* self, void* /*edx*/, CTask* subTask) {
+    CTask*& current = *reinterpret_cast<CTask**>(reinterpret_cast<uint8*>(self) + 8);
+    if (current == subTask) {
+        return;
+    }
+    if (CTask* const old = current) {
+        delete old;
+    }
+    current = subTask;
+    if (subTask) {
+        *reinterpret_cast<CTask**>(reinterpret_cast<uint8*>(subTask) + 4) = self;
+    }
+}
+
 static void InjectHooks() {
     RH_ScopedClass(CTaskComplex);
     RH_ScopedCategory("Tasks");
 
     RH_ScopedGlobalInstall(Destructor, 0x61A3D0);
     RH_ScopedGlobalInstall(Constructor, 0x61A3B0);
+    RH_ScopedGlobalInstall(SetSubTask, 0x61A430); // lote 151A (banco Fn151A)
 }
 } // namespace CTaskComplexBody
 
@@ -172,6 +202,7 @@ void CTask::InjectHooks() {
     RH_ScopedInstall(IsGoToTask, 0x61A360);
     RH_ScopedInstall(IsTaskPtr, 0x61A4B0);
     RH_ScopedInstall(Destructor, 0x61A3A0);
+    RH_ScopedNamedGlobalInstall(CTaskBody::DestructorCopy, "Destructor-2", 0x61A350); // lote 151A (banco Fn151A): copia byte a byte de 0x61A3A0
     RH_ScopedInstall(operator new, 0x61A5A0);
     RH_ScopedInstall(operator delete, 0x61A5B0);
     RH_ScopedVMTInstall(StopTimer, 0x421180);

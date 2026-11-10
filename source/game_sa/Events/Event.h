@@ -56,6 +56,7 @@ public: // Casting.hpp support //
 
 private:
     friend void InjectHooksMain();
+    friend class CEventEscalator; // lote 151A (banco Fn151A): su Clone del EXE (0x602B90) llama al cuerpo enganchado Constructor (0x4ABFC0)
     static void InjectHooks();
 
     CEvent* Constructor();

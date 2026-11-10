@@ -23,10 +23,20 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexTurnToFaceEntityOrCoord.h"
 #include "TaskSimpleRunAnim.h"
 
+namespace {
+// 0x684750 (lote 151A, banco Fn151A; el listado decia CTaskComplexPartnerShove y lo es): cuerpo no virtual de ~CTaskComplexPartnerShove del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes:
+// `mov [ecx], 0x870800; jmp 0x683A40`). Deja la vtable de la clase del EXE (0x870800) y sigue con el cuerpo de ~CTaskComplexPartner (0x683A40, con hook). Lo llama el destructor con borrado (0x684FE0).
+void __fastcall PartnerShoveDestructorBody(CTaskComplexPartnerShove* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870800;
+    CTaskComplexPartnerBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexPartnerShove::InjectHooks()
 {
     RH_ScopedVirtualClass(CTaskComplexPartnerShove, 0x870800, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(PartnerShoveDestructorBody, "Destructor", 0x684750); // lote 151A (banco Fn151A)
     RH_ScopedInstall(Constructor, 0x6846F0);
     RH_ScopedVMTInstall(GetPartnerSequence, 0x683120);
 }

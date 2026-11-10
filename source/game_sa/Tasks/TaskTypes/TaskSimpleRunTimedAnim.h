@@ -32,6 +32,7 @@ public:
     eTaskType GetTaskType() const override { return static_cast<eTaskType>(m_taskId); }
     bool      ProcessPed(CPed* ped) override;
 private: // Wrappers for hooks
+    friend class CTaskSimpleChat; // lote 151A (banco Fn151A): su constructor del EXE (0x5F65A0) llama al cuerpo enganchado 0x61ABE0
     // 0x61AB70
     CTaskSimpleRunTimedAnim* Constructor(AssocGroupId groupId, AnimationId animId, float blendDelta, float unused1, uint32 durationMs, bool holdLastFrame) {
         this->CTaskSimpleRunTimedAnim::CTaskSimpleRunTimedAnim(groupId, animId, blendDelta, unused1, durationMs, holdLastFrame);

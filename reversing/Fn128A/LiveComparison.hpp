@@ -269,7 +269,7 @@ inline void Update() {
     env.stubs[14] = {F(0x646380, &FkBody<0x646380>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[15] = {F(0x633A90, &FkBody<0x633A90>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[16] = {F(0x48E4E0, &FkBody<0x48E4E0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
-    env.stubs[17] = {U(0x690CB0, Lote128ASimpleFacialDestructorBody(), &FkBody<0x690CB0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
+    env.stubs[17] = {F(0x690CB0, &FkBody<0x690CB0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[18] = {F(0x6311B0, &FkBody<0x6311B0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[19] = {F(0x631320, &FkBody<0x631320>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[20] = {F(0x6314A0, &FkBody<0x6314A0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};

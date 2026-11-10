@@ -24,6 +24,7 @@ void CTaskSimpleChat::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleChat, 0x86C78C, 10);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedInstall(ConstructorExe, "Constructor", 0x5F65A0); // lote 151A (banco Fn151A)
     RH_ScopedInstall(Destructor, 0x5F7FD0);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x5F7FB0); // lote 148A (banco Fn148A)
     RH_ScopedVMTInstall(Clone, 0x5F65E0);
@@ -43,6 +44,19 @@ CTaskSimpleChat::CTaskSimpleChat(uint32 duration) :
         0
     }
 {
+}
+
+// 0x5F65A0 (lote 151A, banco Fn151A; el listado decia CPedGroupDefaultTaskAllocatorSitInLeaderCar): constructor de CTaskSimpleChat del EXE (thiscall, un dword de pila, `ret 4`, 51 bytes: llama al constructor de
+// CTaskSimpleRunTimedAnim 0x61ABE0 (con hook; ECX = this) con (grupo 0, anim 0xC, mezcla 4.0 = 0x40800000, -4.0 = 0xC0800000, duracion, tipo 0x1A0, nombre 0x86C7B4 ("Chat"), 0), deja la vtable de la clase del EXE
+// (0x86C78C; la de la DLL no vale para los llamadores del EXE: 6 constructores/clones) y devuelve this). Los seis llamadores no leen ECX ni EDX tras la llamada, solo EAX = this. El constructor C++ de arriba
+// sigue siendo el de los objetos creados desde la DLL.
+static_assert(TASK_SIMPLE_CHAT == 0x1A0);
+static_assert(ANIM_GROUP_DEFAULT == 0);
+static_assert(ANIM_ID_IDLE_CHAT == 0xC);
+CTaskSimpleChat* __fastcall CTaskSimpleChat::ConstructorExe(CTaskSimpleChat* self, void* /*edx*/, uint32 duration) {
+    static_cast<CTaskSimpleRunTimedAnim*>(self)->Constructor(ANIM_GROUP_DEFAULT, ANIM_ID_IDLE_CHAT, 4.f, -4.f, duration, TASK_SIMPLE_CHAT, "Chat", false);
+    *reinterpret_cast<uint32*>(self) = 0x86C78C;
+    return self;
 }
 
 // 0x5F65E0

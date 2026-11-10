@@ -44,6 +44,8 @@ void CTaskComplexGoPickUpEntity::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x6919C0);
     RH_ScopedInstall(Destructor, 0x691A50);
+    RH_ScopedVMTInstall(Clone, 0x692C80);       // lote 151A (banco Fn151A): ranura 1
+    RH_ScopedVMTInstall(GetTaskType, 0x691A40); // lote 151A (banco Fn151A): retorno de constante (0x136), ranura 4
     RH_ScopedVMTInstall(CreateNextSubTask, 0x691AE0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x693610);
     RH_ScopedVMTInstall(ControlSubTask, 0x691D50);
@@ -73,10 +75,20 @@ CTaskComplexGoPickUpEntity::~CTaskComplexGoPickUpEntity() {
     }
 }
 
-// 0x692C80: CTask::operator new (0x61A5A0) devuelve nulo si el pool esta agotado y el EXE lo comprueba antes de construir.
+// 0x691A40 (lote 151A, banco Fn151A; el listado decia CTaskSimplePutDownEntity): `mov eax, 0x136; ret` (TASK_COMPLEX_GO_PICKUP_ENTITY, ranura 4 de la vtable 0x870B98).
+eTaskType CTaskComplexGoPickUpEntity::GetTaskType() const {
+    return Type;
+}
+
+// 0x692C80 (lote 151A, banco Fn151A; el listado decia CTaskSimplePutDownEntity): thiscall, sin argumentos, `ret`, 100 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite).
+// CTask::operator new (0x61A5A0) devuelve nulo si el pool esta agotado y el EXE lo comprueba antes de construir: sin memoria, devuelve nulo; si no, llama al constructor (0x6919C0, con hook) con la entidad (+0xC)
+// y el grupo de animacion (+0x2C) y devuelve lo que el constructor deja en EAX (el EXE no lo sustituye por la direccion reservada). Ranura 1 de la vtable 0x870B98: se engancha como V.
 CTask* CTaskComplexGoPickUpEntity::Clone() const {
     void* const memory = CTask::operator new(sizeof(CTaskComplexGoPickUpEntity));
-    return memory ? ::new (memory) CTaskComplexGoPickUpEntity(m_pEntity, m_nAnimGroupId) : nullptr;
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CTaskComplexGoPickUpEntity*>(memory)->Constructor(m_pEntity, m_nAnimGroupId);
 }
 
 // Redondeo a 24 bits de mantisa (a la mas cercana, empate al par) de un double con exponente sin limite, como la x87 con la palabra de control del juego (PC = 24 bits).

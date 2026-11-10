@@ -34,11 +34,17 @@ public:
         }
     }
 
+    // 0x5F7200 (lote 151A, banco Fn151A; el listado decia CPedGroupDefaultTaskAllocatorSitInLeaderCar): forma del EXE de Get (cdecl, un dword de pila, `ret`, 54 bytes + tabla de saltos de 6 entradas): devuelve la
+    // direccion del asignador global (0xC09908 + {0, 4, 8, 0xC, 0x14, 0x10} segun el tipo 0..5) y 0 con cualquier otro valor (comparacion SIN signo: `cmp ecx, 5; ja`). Su unico llamador (0x5FBB77,
+    // CPedGroupIntelligence::SetDefaultTaskAllocatorType) guarda ECX del llamador en EDX antes de la llamada y lo recupera despues: EDX debe salir intacto (el EXE solo escribe ECX y EAX). Se define en
+    // PedGroupDefaultTaskAllocators.cpp, que se compila optimizado por pragma (CMakeLists.txt: /Zi y sin comprobaciones de ejecucion), para que el codigo no use EDX ni lleve marco.
+    static const CPedGroupDefaultTaskAllocator* GetExe(uint32 type);
+
 public:
     static void InjectHooks() {
         RH_ScopedClass(CPedGroupDefaultTaskAllocators);
         RH_ScopedCategory("Tasks/Allocators/PedGroup");
 
-        //RH_ScopedInstall(Get, 0x5F7200, { .enabled = false, .locked = true }); // Spoils <ecx>, can't hook
+        RH_ScopedNamedInstall(GetExe, "Get", 0x5F7200); // lote 151A (banco Fn151A)
     }
 };

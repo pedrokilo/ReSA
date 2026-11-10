@@ -124,12 +124,22 @@ void CPlayerRelationshipRecorder::ClearRelationshipWithPlayer(const CPed* ped) {
     }
 }
 
-// 0x61A2E0
+// 0x61A2E0 (lote 151A, banco Fn151A; el listado decia CPlayerRelationshipRecorder y lo es): cdecl, sin argumentos, `ret`, 64 bytes; devuelve el puntero al registrador unico (0xC17084) en EAX (sus dos llamadores,
+// 0x607328 y 0x6082BA, hacen `mov ecx, eax` y no leen EDX). Como el original: si la variable ya tiene valor, lo devuelve; si no, reserva 0x80 bytes con el operator new del CRT del EXE (0x82119A, sin hook, por esa
+// direccion: es `operator new`, que el EXE llama directamente) y, si devuelve algo, pone a cero las 16 entradas con SOLO un dword (el peaton) y el byte bajo de la relacion (los tres bytes altos de cada entrada
+// quedan como los dejo la reserva: la imagen del constructor C++, que ponia a cero la relacion entera, no es la del EXE) y guarda el puntero; si no devuelve nada, guarda nulo (y devuelve nulo).
 CPlayerRelationshipRecorder& GetPlayerRelationshipRecorder() {
     static auto& g_sPlayerRelationshipRecorder = StaticRef<CPlayerRelationshipRecorder*>(0xC17084);
 
     if (!g_sPlayerRelationshipRecorder) {
-        g_sPlayerRelationshipRecorder = new CPlayerRelationshipRecorder();
+        void* const memory = reinterpret_cast<void*(__cdecl*)(size_t)>(0x82119A)(sizeof(CPlayerRelationshipRecorder));
+        auto* const recorder = static_cast<CPlayerRelationshipRecorder*>(memory);
+        if (recorder) {
+            for (size_t i = 0; i < 16; ++i) {
+                recorder->m_Relationships.data()[i].Flush();
+            }
+        }
+        g_sPlayerRelationshipRecorder = recorder;
     }
     return *g_sPlayerRelationshipRecorder;
 }
@@ -137,6 +147,7 @@ CPlayerRelationshipRecorder& GetPlayerRelationshipRecorder() {
 void CPlayerRelationshipRecorder::InjectHooks() {
     RH_ScopedClass(CPlayerRelationshipRecorder);
     RH_ScopedCategory("Ped");
+    RH_ScopedGlobalInstall(GetPlayerRelationshipRecorder, 0x61A2E0); // lote 151A (banco Fn151A)
     RH_ScopedNamedInstall(RecordRelationshipWithPlayerRegs, "RecordRelationshipWithPlayer", 0x61A1D0);
     RH_ScopedInstall(ClearRelationshipWithPlayer, 0x61A150);
     RH_ScopedInstall(AddRelationship, 0x61A180);

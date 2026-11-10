@@ -55,6 +55,9 @@ CTaskSimpleAnim* __fastcall CTaskSimpleAnimScalarDeletingDestructor(CTaskSimpleA
 
 uintptr_t Lote150ABody_CTaskSimpleAnim() { return reinterpret_cast<uintptr_t>(&CTaskSimpleAnimDestructorBody); } // para el banco Fn150A
 
+// 0x61A6F0 (lote 151A): la misma funcion propia, visible para otras clases (CTaskSimpleLookAbout::DestructorBody la llama como el `jmp 0x61A6F0` del EXE)
+void __fastcall CTaskSimpleAnim::DestructorBodyExe(CTaskSimpleAnim* self, void* edx) { CTaskSimpleAnimDestructorBody(self, edx); }
+
 void CTaskSimpleAnim::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleAnim, 0x86D504, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
