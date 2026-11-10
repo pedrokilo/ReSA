@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,127** funciones en 258 clases/módulos (rango 0x401000–0x74FFFF): 2,105 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,107** funciones en 251 clases/módulos (rango 0x401000–0x74FFFF): 2,085 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -12,13 +12,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---:|
 | CTaskComplexWaitForBus | 1 | 21 |
 | CAEStreamingChannel | 1 | 61 |
-| FxPrimBP_c | 5 | 70 |
-| CPedGroupIntelligence | 2 | 71 |
-| CTaskComplexCarDriveWander | 3 | 71 |
-| CPedGroups | 2 | 72 |
-| CPedIK | 2 | 72 |
-| CCollision | 2 | 76 |
-| CTaskComplexInAirAndLand | 4 | 77 |
 | CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset> | 2 | 91 |
 | CInformGroupEvent | 2 | 101 |
 | CTaskComplexPartnerShove | 4 | 101 |
@@ -281,61 +274,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x004F21C0 | 61 | B | CAEStreamingChannel::Stop-virtual | 0 | 0 | sí | alta |
 
-## FxPrimBP_c (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004A9F50 | 10 | A |  | 1 | 1 |  | baja |
-| 0x004A9F70 | 10 | A |  | 3 | 2 |  | baja |
-| 0x004A9F60 | 14 | C |  | 1 | 0 |  | baja |
-| 0x004A9F40 | 15 | D |  | 0 | 0 |  | baja |
-| 0x004A9F20 | 21 | A |  | 2 | 1 |  | baja |
-
-## CPedGroupIntelligence (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F8580 | 29 | C |  | 1 | 0 |  | alta |
-| 0x005F8750 | 42 | D |  | 0 | 0 |  | alta |
-
-## CTaskComplexCarDriveWander (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0063CB50 | 11 | A |  | 1 | 1 |  | alta |
-| 0x00643260 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00643280 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CPedGroups (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F7FB0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x005FB990 | 42 | C |  | 1 | 0 |  | baja |
-
-## CPedIK (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005FE9C0 | 23 | A |  | 6 | 4 |  | baja |
-| 0x005FE960 | 49 | A |  | 1 | 1 |  | baja |
-
-## CCollision (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004161D0 | 12 | D |  | 0 | 0 |  | alta |
-| 0x004161F0 | 64 | A |  | 2 | 2 |  | alta |
-
-## CTaskComplexInAirAndLand (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00678CB0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00678CC0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0067D340 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0067D360 | 30 | B |  | 0 | 0 | sí | baja |
-
 ## CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset> (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -411,7 +349,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00678D40 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00678D50 | 109 | C |  | 1 | 0 |  | alta |
+| 0x00678D50 | 109 | A |  | 1 | 1 |  | alta |
 
 ## App (6)
 
@@ -770,7 +708,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00678ED0 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x0067D550 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x0067D570 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00678EE0 | 93 | C |  | 1 | 0 |  | alta |
+| 0x00678EE0 | 93 | A |  | 1 | 1 |  | alta |
 
 ## CIplStore (3)
 
