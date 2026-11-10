@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/11/2026 (Ciudad de México):** 883 grupos / 9890 funciones reconstruidas; 9890 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/11/2026 (Ciudad de México):** 883 grupos / 9905 funciones reconstruidas; 9905 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-411 funciones, 62,573 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+408 funciones, 62,455 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -177,7 +177,6 @@
 | `0x004CBF20` | 93 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x00675C90` | 93 | CTaskInteriorSitInChair | baja | 1 (0) |  |
 | `0x00677F80` | 93 | CTaskSimpleGetUp | alta | 1 (0) |  |
-| `0x00678310` | 93 | CTaskSimpleFall | alta | 1 (0) |  |
 | `0x00403C14` | 92 | CEntity | baja | 1 (0) |  |
 | `0x0048E220` | 90 | CEventLeaderEnteredCarAsDriver | baja | 3 (0) |  |
 | `0x004C62F0` | 90 | CModelInfo | alta | 1 (0) |  |
@@ -323,7 +322,6 @@
 | `0x00447050` | 14 | CEntity | baja | 1 (0) |  |
 | `0x00506C30` | 14 | CAEWeatherAudioEntity | baja | 2 (0) |  |
 | `0x00506C40` | 14 | CAEWeatherAudioEntity | baja | 2 (0) |  |
-| `0x00506CC0` | 14 | CAEGlobalWeaponAudioEntity | baja | 1 (0) |  |
 | `0x0046B260` | 12 | CTheScripts | baja | 1 (0) |  |
 | `0x004033B2` | 11 | CEntity | baja | 18 (0) |  |
 | `0x00420F30` | 11 | CEventEditableResponse | baja | 14 (0) |  |
@@ -375,7 +373,6 @@
 | `0x0066F670` | 11 | CTaskComplexWanderGang | baja | 1 (0) |  |
 | `0x006726F0` | 11 | CTaskComplexWanderProstitute | alta | 1 (0) |  |
 | `0x00674ED0` | 11 | CTaskComplexWanderCop | baja | 3 (0) |  |
-| `0x00678790` | 11 | CTaskComplexFallAndGetUp | alta | 1 (0) |  |
 | `0x00678A90` | 11 | CTaskComplexFallAndGetUp | baja | 1 (0) |  |
 | `0x006926F0` | 11 | CTaskSimpleDuck | baja | 1 (0) |  |
 | `0x0069DB40` | 11 | CTaskAllocatorPool | baja | 1 (0) |  |

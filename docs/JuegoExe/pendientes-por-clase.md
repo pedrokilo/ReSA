@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,031** funciones en 228 clases/módulos (rango 0x401000–0x74FFFF): 2,009 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,016** funciones en 223 clases/módulos (rango 0x401000–0x74FFFF): 1,994 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -11,14 +11,9 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Clase | Funciones | Bytes |
 |---|---:|---:|
 | CTaskComplexWaitForBus | 1 | 21 |
-| CTaskGangHasslePed | 2 | 60 |
 | CAEStreamingChannel | 1 | 61 |
-| CPedIntelligence | 1 | 93 |
-| CTaskSimpleFall | 3 | 129 |
-| CEventHandler | 2 | 130 |
-| CEventObjectCollision | 5 | 130 |
-| CCompressedMatrixNotAligned | 2 | 131 |
-| CAEGlobalWeaponAudioEntity | 2 | 135 |
+| CCompressedMatrixNotAligned | 1 | 74 |
+| CAEGlobalWeaponAudioEntity | 1 | 121 |
 | CTaskSimpleUseGun | 2 | 139 |
 | CEventDontJoinPlayerGroup | 5 | 140 |
 | CTaskSimpleCarSlowBeDraggedOut | 3 | 141 |
@@ -238,7 +233,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (228 clases / módulos)** | **2,031** | **253,483** |
+| **TOTAL (223 clases / módulos)** | **2,016** | **252,870** |
 
 ## CTaskComplexWaitForBus (1)
 
@@ -246,62 +241,22 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x00638A40 | 21 | B | CTaskComplexSequence::CreateNextSubTask-V | 0 | 0 | sí | baja |
 
-## CTaskGangHasslePed (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006644C0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006644E0 | 30 | B |  | 0 | 0 | sí | baja |
-
 ## CAEStreamingChannel (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x004F21C0 | 61 | B | CAEStreamingChannel::Stop-virtual | 0 | 0 | sí | alta |
 
-## CPedIntelligence (1)
+## CCompressedMatrixNotAligned (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x00602240 | 93 | D |  | 0 | 0 |  | alta |
-
-## CTaskSimpleFall (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00678300 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x0067CB50 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00678310 | 93 | C |  | 1 | 0 |  | alta |
-
-## CEventHandler (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004C3740 | 65 | D |  | 0 | 0 |  | alta |
-| 0x004C3E30 | 65 | D |  | 0 | 0 |  | alta |
-
-## CEventObjectCollision (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004ACDB0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004ACEF0 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x004ACDA0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004ACDC0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004ACE80 | 110 | A |  | 1 | 1 |  | baja |
-
-## CCompressedMatrixNotAligned (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0059BD90 | 57 | D |  | 0 | 0 |  | baja |
 | 0x0059BB60 | 74 | A |  | 5 | 5 |  | baja |
 
-## CAEGlobalWeaponAudioEntity (2)
+## CAEGlobalWeaponAudioEntity (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x00506CC0 | 14 | C |  | 1 | 0 |  | baja |
 | 0x004DEFE0 | 121 | A |  | 2 | 2 |  | alta |
 
 ## CTaskSimpleUseGun (2)
@@ -1857,7 +1812,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006786F0 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x00678A00 | 6 | B |  | 0 | 0 | sí | baja |
 | 0x00678BC0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00678790 | 11 | C |  | 1 | 0 |  | alta |
+| 0x00678790 | 11 | A |  | 1 | 1 |  | alta |
 | 0x00678A90 | 11 | C |  | 1 | 0 |  | baja |
 | 0x0067CBC0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x0067CC10 | 30 | B |  | 0 | 0 | sí | baja |
