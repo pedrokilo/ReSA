@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "bbd82f977c7f974cd530288bf65eb50d183013d3fa054aa13a2dca3737361974",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 11008,
+  "pairs_per_function": {
+    "CAEUserRadioTrackManager::DeleteUserTracksInfo": 128,
+    "CAEUserRadioTrackManager::GetAudioFileType": 512,
+    "CAEUserRadioTrackManager::GetTrackPath": 512,
+    "CAEUserRadioTrackManager::GetUserTrackPlayMode": 64,
+    "CAEUserRadioTrackManager::Initialise": 256,
+    "CAEUserRadioTrackManager::IsShortcut": 256,
+    "CAEUserRadioTrackManager::LoadUserTrack": 1024,
+    "CAEUserRadioTrackManager::ReadUserTracks": 512,
+    "CAEUserRadioTrackManager::ResolveShortcut-": 512,
+    "CAEUserRadioTrackManager::ScanUserTracks": 128,
+    "CAEUserRadioTrackManager::SelectUserTrackIndex": 1024,
+    "CAEUserRadioTrackManager::SetUserTrackIndex": 64,
+    "CAEUserRadioTrackManager::Shutdown": 128,
+    "CAEUserRadioTrackManager::WriteUserTracksFile-": 1024,
+    "CAEUserRadioTrackManager::WriteUserTracksThread": 512,
+    "CAnimBlendAssocGroup::Constructor": 64,
+    "CAnimBlendAssocGroup::CopyAnimation-AnimationId": 256,
+    "CAnimBlendAssocGroup::CopyAnimation-Name": 256,
+    "CAnimBlendAssocGroup::CreateAssociations-1": 512,
+    "CAnimBlendAssocGroup::CreateAssociations-2": 512,
+    "CAnimBlendAssocGroup::CreateAssociations-3": 512,
+    "CAnimBlendAssocGroup::DestroyAssociations": 256,
+    "CAnimBlendAssocGroup::Destructor": 256,
+    "CAnimBlendAssocGroup::GetAnimBlock": 64,
+    "CAnimBlendAssocGroup::GetAnimation-AnimationId": 256,
+    "CAnimBlendAssocGroup::GetAnimation-Name": 512,
+    "CAnimBlendAssocGroup::GetAnimationId": 512,
+    "CAnimBlendAssocGroup::GetNumAnimations": 64,
+    "CAnimBlendAssocGroup::InitEmptyAssociations": 256,
+    "CAnimBlendAssocGroup::IsCreated": 64
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "57ba5ed43f2bd9c6de72ca7528590778ee07a8725cc952454d0ea5930c345ade",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

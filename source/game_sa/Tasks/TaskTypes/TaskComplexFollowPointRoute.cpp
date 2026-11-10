@@ -27,9 +27,29 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexLeaveCar.h"
 #include "TaskComplexWalkRoundCar.h"
 
+namespace {
+// 0x66E050 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskComplexFollowPointRoute del EXE (sin hook propio; vtable 0x870078). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// el destructor con borrado como el `call 0x66E050` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexFollowPointRouteDestructorBody(CTaskComplexFollowPointRoute* self, void* /*edx*/) { self->CTaskComplexFollowPointRoute::~CTaskComplexFollowPointRoute(); }
+
+// 0x671610 (lote 145A, banco Fn145A): destructor con borrado de CTaskComplexFollowPointRoute del EXE (ranura 0 de su vtable 0x870078; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x66E050; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexFollowPointRoute* __fastcall CTaskComplexFollowPointRouteScalarDeletingDestructor(CTaskComplexFollowPointRoute* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexFollowPointRouteDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote145ABody_CTaskComplexFollowPointRoute() { return reinterpret_cast<uintptr_t>(&CTaskComplexFollowPointRouteDestructorBody); } // para el banco Fn145A
+
 void CTaskComplexFollowPointRoute::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFollowPointRoute, 0x870078, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexFollowPointRouteScalarDeletingDestructor, "ScalarDeletingDestructor", 0x671610); // lote 145A (banco Fn145A)
 
     RH_ScopedInstall(Constructor, 0x671510);
 

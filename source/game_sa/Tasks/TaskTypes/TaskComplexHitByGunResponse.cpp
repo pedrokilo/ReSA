@@ -24,9 +24,29 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleHitByGunFromRear.h"
 #include "TaskSimpleHitByGunFromRight.h"
 
+namespace {
+// 0x631E30 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskComplexHitByGunResponse del EXE (con hook propio (Destructor); vtable 0x86E06C). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// el destructor con borrado como el `call 0x631E30` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexHitByGunResponseDestructorBody(CTaskComplexHitByGunResponse* self, void* /*edx*/) { self->CTaskComplexHitByGunResponse::~CTaskComplexHitByGunResponse(); }
+
+// 0x638160 (lote 145A, banco Fn145A): destructor con borrado de CTaskComplexHitByGunResponse del EXE (ranura 0 de su vtable 0x86E06C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x631E30; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexHitByGunResponse* __fastcall CTaskComplexHitByGunResponseScalarDeletingDestructor(CTaskComplexHitByGunResponse* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexHitByGunResponseDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote145ABody_CTaskComplexHitByGunResponse() { return reinterpret_cast<uintptr_t>(&CTaskComplexHitByGunResponseDestructorBody); } // para el banco Fn145A
+
 void CTaskComplexHitByGunResponse::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexHitByGunResponse, 0x86e06c, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexHitByGunResponseScalarDeletingDestructor, "ScalarDeletingDestructor", 0x638160); // lote 145A (banco Fn145A)
 
     RH_ScopedInstall(Constructor, 0x631DD0);
     RH_ScopedInstall(Destructor, 0x631E30);

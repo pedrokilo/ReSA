@@ -19,9 +19,29 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "TaskSimpleIKManager.h"
 
+namespace {
+// 0x633830 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskSimpleIKManager del EXE (con hook propio (Destructor); vtable 0x86E358). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// el destructor con borrado como el `call 0x633830` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleIKManagerDestructorBody(CTaskSimpleIKManager* self, void* /*edx*/) { self->CTaskSimpleIKManager::~CTaskSimpleIKManager(); }
+
+// 0x639330 (lote 145A, banco Fn145A): destructor con borrado de CTaskSimpleIKManager del EXE (ranura 0 de su vtable 0x86E358; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x633830; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleIKManager* __fastcall CTaskSimpleIKManagerScalarDeletingDestructor(CTaskSimpleIKManager* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleIKManagerDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote145ABody_CTaskSimpleIKManager() { return reinterpret_cast<uintptr_t>(&CTaskSimpleIKManagerDestructorBody); } // para el banco Fn145A
+
 void CTaskSimpleIKManager::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleIKManager, 0x86E358, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleIKManagerScalarDeletingDestructor, "ScalarDeletingDestructor", 0x639330); // lote 145A (banco Fn145A)
 
     RH_ScopedInstall(Constructor, 0x6337F0);
     RH_ScopedInstall(Destructor, 0x633830);

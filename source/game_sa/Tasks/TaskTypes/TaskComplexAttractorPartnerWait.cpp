@@ -43,9 +43,29 @@ __declspec(noinline) void __fastcall AttractorPartnerWaitDestructorBody(CTaskCom
 }
 } // namespace
 
+namespace {
+// 0x633290 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskComplexAttractorPartnerWait del EXE (con hook propio (Destructor); vtable 0x86E284). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// el destructor con borrado como el `call 0x633290` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexAttractorPartnerWaitDestructorBody(CTaskComplexAttractorPartnerWait* self, void* /*edx*/) { self->CTaskComplexAttractorPartnerWait::~CTaskComplexAttractorPartnerWait(); }
+
+// 0x638F00 (lote 145A, banco Fn145A): destructor con borrado de CTaskComplexAttractorPartnerWait del EXE (ranura 0 de su vtable 0x86E284; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x633290; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexAttractorPartnerWait* __fastcall CTaskComplexAttractorPartnerWaitScalarDeletingDestructor(CTaskComplexAttractorPartnerWait* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexAttractorPartnerWaitDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote145ABody_CTaskComplexAttractorPartnerWait() { return reinterpret_cast<uintptr_t>(&CTaskComplexAttractorPartnerWaitDestructorBody); } // para el banco Fn145A
+
 void CTaskComplexAttractorPartnerWait::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexAttractorPartnerWait, 0x86e284, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexAttractorPartnerWaitScalarDeletingDestructor, "ScalarDeletingDestructor", 0x638F00); // lote 145A (banco Fn145A)
     RH_ScopedNamedGlobalInstall(AttractorPartnerWaitDestructorBody, "Destructor", 0x633290); // lote 141A (banco Fn141A)
     RH_ScopedNamedGlobalInstall(AttractorPartnerWaitConstructorBody, "Constructor", 0x633250);
 

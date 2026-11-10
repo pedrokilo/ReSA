@@ -22,9 +22,29 @@ END GENERATED HOOK STATUS */
 #include "Events/EventDamage.h"
 #include "X87Math.h"
 
+namespace {
+// 0x6218C0 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskSimpleGangDriveBy del EXE (sin hook propio; vtable 0x86D944). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// el destructor con borrado como el `call 0x6218C0` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleGangDriveByDestructorBody(CTaskSimpleGangDriveBy* self, void* /*edx*/) { self->CTaskSimpleGangDriveBy::~CTaskSimpleGangDriveBy(); }
+
+// 0x6275E0 (lote 145A, banco Fn145A): destructor con borrado de CTaskSimpleGangDriveBy del EXE (ranura 0 de su vtable 0x86D944; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6218C0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleGangDriveBy* __fastcall CTaskSimpleGangDriveByScalarDeletingDestructor(CTaskSimpleGangDriveBy* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleGangDriveByDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote145ABody_CTaskSimpleGangDriveBy() { return reinterpret_cast<uintptr_t>(&CTaskSimpleGangDriveByDestructorBody); } // para el banco Fn145A
+
 void CTaskSimpleGangDriveBy::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleGangDriveBy, 0x86D944, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleGangDriveByScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6275E0); // lote 145A (banco Fn145A)
 
     RH_ScopedInstall(Constructor, 0x6217D0);
     RH_ScopedInstall(HasClearLineOfSight, 0x621B10);

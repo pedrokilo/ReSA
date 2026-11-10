@@ -153267,7 +153267,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::DeleteUserTracksInfo"
@@ -153296,7 +153296,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::GetAudioFileType"
@@ -153325,7 +153325,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::GetTrackPath"
@@ -153354,7 +153354,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::GetUserTrackPlayMode"
@@ -153383,7 +153383,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::Initialise"
@@ -153412,7 +153412,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::IsShortcut"
@@ -153441,7 +153441,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::LoadUserTrack"
@@ -153470,7 +153470,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::ReadUserTracks"
@@ -153499,7 +153499,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::ResolveShortcut-"
@@ -153528,7 +153528,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::ScanUserTracks"
@@ -153557,7 +153557,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::SelectUserTrackIndex"
@@ -153586,7 +153586,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::SetUserTrackIndex"
@@ -153615,7 +153615,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::Shutdown"
@@ -153644,7 +153644,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::WriteUserTracksFile-"
@@ -153673,7 +153673,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::WriteUserTracksThread"
@@ -153702,7 +153702,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::Constructor"
@@ -153731,7 +153731,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CopyAnimation-AnimationId"
@@ -153760,7 +153760,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CopyAnimation-Name"
@@ -153789,7 +153789,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CreateAssociations-1"
@@ -153818,7 +153818,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CreateAssociations-2"
@@ -153847,7 +153847,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CreateAssociations-3"
@@ -153876,7 +153876,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::DestroyAssociations"
@@ -153905,7 +153905,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::Destructor"
@@ -153934,7 +153934,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimBlock"
@@ -153963,7 +153963,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimation-AnimationId"
@@ -153992,7 +153992,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimation-Name"
@@ -154021,7 +154021,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimationId"
@@ -154050,7 +154050,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetNumAnimations"
@@ -154079,7 +154079,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::InitEmptyAssociations"
@@ -154108,7 +154108,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0c47731d89464cd3d6052141c429f3be54469aee0fb2d1d6789ff44ddcd1a852",
+        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::IsCreated"

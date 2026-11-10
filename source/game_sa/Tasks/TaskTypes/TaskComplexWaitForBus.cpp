@@ -21,9 +21,29 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleWaitForBus.h"
 #include "TaskComplexEnterCarAsPassenger.h"
 
+namespace {
+// 0x632930 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskComplexWaitForBus del EXE (con hook propio (Destructor); vtable 0x86E18C). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// el destructor con borrado como el `call 0x632930` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexWaitForBusDestructorBody(CTaskComplexWaitForBus* self, void* /*edx*/) { self->CTaskComplexWaitForBus::~CTaskComplexWaitForBus(); }
+
+// 0x638920 (lote 145A, banco Fn145A): destructor con borrado de CTaskComplexWaitForBus del EXE (ranura 0 de su vtable 0x86E18C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x632930; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexWaitForBus* __fastcall CTaskComplexWaitForBusScalarDeletingDestructor(CTaskComplexWaitForBus* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexWaitForBusDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote145ABody_CTaskComplexWaitForBus() { return reinterpret_cast<uintptr_t>(&CTaskComplexWaitForBusDestructorBody); } // para el banco Fn145A
+
 void CTaskComplexWaitForBus::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWaitForBus, 0x86e18c, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexWaitForBusScalarDeletingDestructor, "ScalarDeletingDestructor", 0x638920); // lote 145A (banco Fn145A)
 
     RH_ScopedInstall(Constructor, 0x632900);
 

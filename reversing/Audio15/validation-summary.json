@@ -43,10 +43,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "7011a61c8c6566ae203f2bd5a31fdcd8fbc50bdc3679902ed9452d1172348fd8",
+  "log_sha256": "57ba5ed43f2bd9c6de72ca7528590778ee07a8725cc952454d0ea5930c345ade",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio15\\20261106-143330-595650",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio15\\20261109-192934-046339",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEUserRadioTrackManager::DeleteUserTracksInfo": true,
@@ -82,8 +82,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "977b322272df77d5956d9fa55a71be0853cc68f40bfa6c1f88636d2b7b22e9e8",
-      "pdb": "0c27d141103038a31b4ae4f9e42a1ee670f00307f3dd88ae184de5b0e727ef60"
+      "asi": "bbd82f977c7f974cd530288bf65eb50d183013d3fa054aa13a2dca3737361974",
+      "pdb": "793880ededa35d67cb677bda490365d290a1aec52aeebca3de5510682bd8c046"
     },
     "sources": {
       "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "ab030aab3fa862634ec144369654cf9fcfd5de2a6f76ce23e9cd9c7b8154c80c",

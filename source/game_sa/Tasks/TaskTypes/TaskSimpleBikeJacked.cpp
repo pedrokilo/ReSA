@@ -20,9 +20,29 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleBikeJacked.h"
 #include "TaskUtilityLineUpPedWithCar.h"
 
+namespace {
+// 0x648C40 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskSimpleBikeJacked del EXE (con hook propio (Destructor); vtable 0x86EFAC). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// el destructor con borrado como el `call 0x648C40` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleBikeJackedDestructorBody(CTaskSimpleBikeJacked* self, void* /*edx*/) { self->CTaskSimpleBikeJacked::~CTaskSimpleBikeJacked(); }
+
+// 0x64C950 (lote 145A, banco Fn145A): destructor con borrado de CTaskSimpleBikeJacked del EXE (ranura 0 de su vtable 0x86EFAC; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x648C40; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleBikeJacked* __fastcall CTaskSimpleBikeJackedScalarDeletingDestructor(CTaskSimpleBikeJacked* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleBikeJackedDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote145ABody_CTaskSimpleBikeJacked() { return reinterpret_cast<uintptr_t>(&CTaskSimpleBikeJackedDestructorBody); } // para el banco Fn145A
+
 void CTaskSimpleBikeJacked::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleBikeJacked, 0x86EFAC, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleBikeJackedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x64C950); // lote 145A (banco Fn145A)
 
     RH_ScopedInstall(Constructor, 0x648B90);
     RH_ScopedInstall(Destructor, 0x648C40);

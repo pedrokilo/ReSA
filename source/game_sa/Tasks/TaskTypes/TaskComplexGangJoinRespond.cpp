@@ -24,9 +24,29 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleRunAnim.h"
 #include "TaskSimpleStandStill.h"
 
+namespace {
+// 0x661720 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskComplexGangJoinRespond del EXE (con hook propio (Destructor); vtable 0x86FB5C). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// el destructor con borrado como el `call 0x661720` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexGangJoinRespondDestructorBody(CTaskComplexGangJoinRespond* self, void* /*edx*/) { self->CTaskComplexGangJoinRespond::~CTaskComplexGangJoinRespond(); }
+
+// 0x664A80 (lote 145A, banco Fn145A): destructor con borrado de CTaskComplexGangJoinRespond del EXE (ranura 0 de su vtable 0x86FB5C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x661720; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexGangJoinRespond* __fastcall CTaskComplexGangJoinRespondScalarDeletingDestructor(CTaskComplexGangJoinRespond* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexGangJoinRespondDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote145ABody_CTaskComplexGangJoinRespond() { return reinterpret_cast<uintptr_t>(&CTaskComplexGangJoinRespondDestructorBody); } // para el banco Fn145A
+
 void CTaskComplexGangJoinRespond::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGangJoinRespond, 0x86FB5C, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexGangJoinRespondScalarDeletingDestructor, "ScalarDeletingDestructor", 0x664A80); // lote 145A (banco Fn145A)
 
     RH_ScopedInstall(Constructor, 0x6616F0);
     RH_ScopedInstall(Destructor, 0x661720);

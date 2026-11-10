@@ -259,12 +259,13 @@ bool CAEWMADecoder::InitLibrary() {
     return true;
 }
 
+// 0x502BF0 (lote 145A, banco Fn145A): cdecl, sin argumentos, `ret`. Como el original: si WMCreateSyncReader (0xB6BAD8) no es nulo, libera wmvcore.dll (FreeLibrary del manejador de 0xB6BAD4, por la IAT) y
+// pone a cero SOLO WMCreateSyncReader; el manejador queda como estaba (la version anterior tambien lo anulaba).
 void CAEWMADecoder::Shutdown() {
     // Free WMV core
     if (WMCreateSyncReader) {
         FreeLibrary(wmvCoreModule);
         WMCreateSyncReader = nullptr;
-        wmvCoreModule = nullptr;
     }
 }
 
@@ -314,6 +315,26 @@ HRESULT CAEWMADecoder::SelectStreamIndex(IWMProfile* profile) {
 /**
  * Registra el decoder Windows Media Audio.
  */
+namespace {
+// 0x502760 (lote 145A, banco Fn145A): cuerpo del destructor de CAEWMADecoder del EXE (con hook propio, Destructor; vtable 0x862D90). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la
+// llama el destructor con borrado como el `call 0x502760` del EXE.
+__declspec(noinline) void __fastcall CAEWMADecoderDestructorBody(CAEWMADecoder* self, void* /*edx*/) { self->CAEWMADecoder::~CAEWMADecoder(); }
+
+// 0x502C40 (lote 145A, banco Fn145A): destructor con borrado de CAEWMADecoder del EXE (ranura 6 de su vtable 0x862D90; thiscall, un argumento de pila, `ret 4`, 27 bytes:
+// `push esi; mov esi,ecx; call 0x502760; test byte [esp+8],1; je ..; push esi; call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la
+// clase, libera `this` con operator delete (0x8214BD, CRT, sin hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del
+// destructor virtual).
+CAEWMADecoder* __fastcall CAEWMADecoderScalarDeletingDestructor(CAEWMADecoder* self, void* /*edx*/, uint8 flags) {
+    CAEWMADecoderDestructorBody(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote145ABody_CAEWMADecoder() { return reinterpret_cast<uintptr_t>(&CAEWMADecoderDestructorBody); } // para el banco Fn145A
+
 void CAEWMADecoder::InjectHooks() {
     // Como el original: vtable 0x862D90 con 8 entradas (Initialise, FillBuffer, GetStreamLengthMs,
     // GetStreamPlayTimeMs, SetCursor, GetSampleRate, destructor con borrado, GetStreamID). Las virtuales se
@@ -324,6 +345,8 @@ void CAEWMADecoder::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x502720);
     RH_ScopedInstall(Destructor, 0x502760);
     RH_ScopedInstall(InitLibrary, 0x502b80);
+    RH_ScopedInstall(Shutdown, 0x502BF0);                                                                        // lote 145A (banco Fn145A)
+    RH_ScopedNamedGlobalInstall(CAEWMADecoderScalarDeletingDestructor, "ScalarDeletingDestructor", 0x502C40);  // lote 145A (banco Fn145A)
     RH_ScopedInstall(SelectStreamIndex, 0x502990);
     RH_ScopedVMTInstall(Initialise, 0x502c60);
     RH_ScopedVMTInstall(FillBuffer, 0x5027d0);
