@@ -1,0 +1,3 @@
+APROBADO: Fn141A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn141a\20261109-182342-890731

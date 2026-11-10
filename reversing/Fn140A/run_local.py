@@ -26,10 +26,10 @@ HOOKS = dict(zip(NAMES, oracle.ENTRIES))
 SLOTS = ()
 # colaboradores sustituidos por falsos: (direccion del EXE, hooked). Con hook RH en la DLL (apagado durante el banco): el mismo falso va en el cuerpo de la DLL. Sin hook (hooked False) y con funcion propia de la DLL:
 # el falso va tambien en esa funcion (DLL_BODY_WITHOUT_HOOK); operator delete del CRT (0x8214BD): sin hook, la DLL lo llama por la direccion del EXE (un solo parche).
-DLL_BODY_WITHOUT_HOOK = {0x6CED10, 0x6E2D90, 0x4040A0, 0x63CB50}
+DLL_BODY_WITHOUT_HOOK = {0x6E2D90, 0x4040A0, 0x63CB50}
 STUBBED = {NAMES[2]: [(0x542450, True), (0x8214BD, False)],
            NAMES[3]: [(0x59ACD0, True)],
-           NAMES[4]: [(0x6CED10, False), (0x6E2D90, False)],
+           NAMES[4]: [(0x6CED10, True), (0x6E2D90, False)],
            NAMES[6]: [(0x537A70, True), (0x4040A0, False)],
            NAMES[7]: [(0x535E90, True)],
            NAMES[16]: [(0x68D880, True), (0x61A5B0, True)],

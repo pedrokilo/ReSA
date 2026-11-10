@@ -60,3 +60,5 @@ Dos rondas de 24 mutaciones (`mutate.py`, 2048 casos por funcion con `FN141A_CAS
 
 ## Bancos repetidos
 Citan estas direcciones: `Fn130A` (0x532560, ahora con hook: adaptado para usar `F` / colaborador con hook en lugar de la funcion propia) y `CBDNRenderCB30` (0x5D6E90 aparece en el marcador de `host_check.py`, adaptado). Resultados en la seccion final del informe del lote.
+
+**Revalidacion conjunta 141R (09/11/2026):** repetido sin cambios sobre la base con 140A integrado y aprobado: 393216 pares, cero diferencias (`reversing/CppTwelveLevel6Final/runs/Fn141A-20261109-182342-890731`).
