@@ -41,6 +41,17 @@ void InjectHooks() {
     RH_ScopedInstall(UpdateWindow, 0x7466D0);
     RH_ScopedInstall(Release, 0x746740);
     RH_ScopedInstall(Play, 0x747660);
+    RH_ScopedInstall(SumMasked24, 0x7467D0); // lote 156A (banco Fn156A)
+}
+
+// 0x7467D0 (lote 156A, banco Fn156A; el listado decia VideoPlayer; su unico llamador es la funcion de comprobacion de integridad 0x746800, que lee solo EAX): cdecl, dos punteros de pila (inicio y fin), `ret`, 35 bytes.
+// Suma, con aritmetica de 32 bits que da la vuelta, los 24 bits bajos de cada dword (leido sin alinear) desde `begin` mientras `p < end` (comparacion SIN signo); con begin >= end devuelve 0 sin leer nada.
+uint32 SumMasked24(const uint32* begin, const uint32* end) {
+    uint32 sum = 0;
+    for (const uint32* p = begin; reinterpret_cast<uintptr_t>(p) < reinterpret_cast<uintptr_t>(end); ++p) {
+        sum += *p & 0xFFFFFFu;
+    }
+    return sum;
 }
 
 // 0x746740

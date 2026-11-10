@@ -22,7 +22,7 @@ public:
     explicit CTaskSimpleJump(bool bCanClimb);
     ~CTaskSimpleJump() override;
 
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x679AE0 (lote 156A, banco Fn156A)
     CTask* Clone() const override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;

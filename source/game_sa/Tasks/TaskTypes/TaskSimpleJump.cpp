@@ -23,15 +23,32 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleClimb.h"
 #include "Shadows.h"
 
+namespace {
+// 0x679AF0 (lote 156A, banco Fn156A): cuerpo del destructor de CTaskSimpleJump del EXE (thiscall, sin argumentos de pila, `ret`, 109 bytes con marco SEH que solo desenrolla; lo llama el destructor con borrado 0x67D570):
+// deja la vtable de la clase del EXE (0x87054C; la de la DLL no vale para los llamadores del EXE); si hay animacion (+0x28) le pone la funcion de fin por defecto (CAnimBlendAssociation::SetFinishCallback 0x4CEBE0, con
+// hook, con CDefaultAnimCallback::DefaultAnimCB (0x4D1390) y datos nulos); si hay entidad de trepada (+0x1C) libera la referencia (CEntity::CleanUpOldReference 0x571A00, con hook, ECX = la entidad, argumento = la direccion
+// de +0x1C); y sigue con el cuerpo de ~CTask (0x61A3A0, con hook). El destructor generado por el compilador dejaria la vtable de la DLL. El marco SEH se omite. Funcion propia sin expansion en linea.
+__declspec(noinline) void __fastcall SimpleJumpDestructorBodyExe(CTaskSimpleJump* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x87054C;
+    if (self->m_pAnim) {
+        self->m_pAnim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+    }
+    CEntity::SafeCleanUpRef(self->m_pClimbEntity);
+    self->CTask::Destructor();
+}
+} // namespace
+
 void CTaskSimpleJump::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleJump, 0x87054C, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(SimpleJumpDestructorBodyExe, "DestructorBody", 0x679AF0); // lote 156A (banco Fn156A)
     RH_ScopedInstall(Constructor, 0x679AA0);
     RH_ScopedInstall(CheckIfJumpBlocked, 0x67D590);
     RH_ScopedInstall(Launch, 0x679B80);
     RH_ScopedInstall(StartLaunchAnim, 0x67D7A0);
     RH_ScopedInstall(JumpAnimFinishCB, 0x67A020);
     // VTABLE
+    RH_ScopedVMTInstall(GetTaskType, 0x679AE0); // lote 156A (banco Fn156A): retorno de constante
     RH_ScopedVMTInstall(Clone, 0x67C510);
     RH_ScopedVMTInstall(MakeAbortable, 0x679B60);
     RH_ScopedVMTInstall(ProcessPed, 0x680C60);
@@ -60,7 +77,12 @@ CTaskSimpleJump::~CTaskSimpleJump() {
         m_pAnim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
 
     CEntity::SafeCleanUpRef(m_pClimbEntity);
-};// 0x67C510
+};// 0x679AE0 (lote 156A, banco Fn156A; thiscall, `ret`, 6 bytes: `mov eax,0D2h`): TASK_SIMPLE_JUMP (210); no lee el objeto (ranura 4 de la vtable 0x87054C).
+eTaskType CTaskSimpleJump::GetTaskType() const {
+    return Type;
+}
+
+// 0x67C510
 CTask* CTaskSimpleJump::Clone() const {
     auto newTask = new CTaskSimpleJump(m_bCanClimb);
     newTask->m_bCanClimb = this->m_bCanClimb; // Como el original: se copia el byte crudo (el parametro bool lo normaliza)

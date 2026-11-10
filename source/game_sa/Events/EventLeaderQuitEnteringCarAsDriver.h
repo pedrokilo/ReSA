@@ -15,13 +15,13 @@ public:
     CEventLeaderQuitEnteringCarAsDriver() = default;
     ~CEventLeaderQuitEnteringCarAsDriver() override = default;
 
-    eEventType GetEventType() const override { return EVENT_LEADER_QUIT_ENTERING_CAR_AS_DRIVER; }
-    int32 GetEventPriority() const override { return 48; }
-    int32 GetLifeTime() override { return 0; }
-    CEventLeaderQuitEnteringCarAsDriver* Clone() const noexcept override { return new CEventLeaderQuitEnteringCarAsDriver(); }
-    bool AffectsPed(CPed* ped) override { return false; }
+    eEventType GetEventType() const override;     // 0x63A130 (lote 156A, banco Fn156A)
+    int32 GetEventPriority() const override;      // 0x63A1E0 (lote 156A, banco Fn156A)
+    int32 GetLifeTime() override;                 // 0x63A140 (lote 156A, banco Fn156A)
+    CEventLeaderQuitEnteringCarAsDriver* Clone() const noexcept override; // 0x63A150 (lote 156A, banco Fn156A)
+    bool AffectsPed(CPed* ped) override;          // 0x63A1A0 (lote 156A, banco Fn156A)
     bool AffectsPedGroup(CPedGroup* pedGroup) override;
-    bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
+    bool TakesPriorityOver(const CEvent& refEvent) override; // 0x4B1040 (lote 156A, banco Fn156A)
 
 private:
     CEventLeaderQuitEnteringCarAsDriver* Constructor();

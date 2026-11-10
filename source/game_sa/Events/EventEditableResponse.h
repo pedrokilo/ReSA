@@ -29,6 +29,7 @@ public:
 
 private:
     friend void InjectHooksMain();
+    friend class CEventLeaderExitedCarAsDriver; // lote 156A (banco Fn156A): su CloneEditable del EXE (0x4B8340) llama al cuerpo enganchado Constructor (0x4AC450)
     static void InjectHooks();
 
     CEventEditableResponse* Constructor();

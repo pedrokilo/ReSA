@@ -26,7 +26,21 @@ void CEventLeaderExitedCarAsDriver::InjectHooks()
     RH_ScopedCategory("Events");
 
     RH_ScopedInstall(Constructor, 0x4B8300);
+    RH_ScopedVMTInstall(CloneEditable, 0x4B8340); // lote 156A (banco Fn156A)
     RH_ScopedVMTInstall(AffectsPedGroup, 0x4B0F80);
+}
+
+// 0x4B8340 (lote 156A, banco Fn156A; thiscall, sin argumentos, `ret`, 80 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); no lee `this`; ranura 16 de la vtable 0x85B898).
+// Como el original: CEvent::operator new (0x4B5620, con hook) con 0x14 bytes; sin memoria devuelve nulo; si no, CEventEditableResponse::CEventEditableResponse (0x4AC450, con hook; ECX = memoria), deja la vtable
+// de la clase del EXE (0x85B898; la de la DLL no vale para los llamadores del EXE) y devuelve la memoria.
+CEventLeaderExitedCarAsDriver* CEventLeaderExitedCarAsDriver::CloneEditable() const noexcept {
+    void* const memory = CEvent::operator new(sizeof(CEventLeaderExitedCarAsDriver));
+    if (!memory) {
+        return nullptr;
+    }
+    static_cast<CEventEditableResponse*>(memory)->Constructor();
+    *reinterpret_cast<uint32*>(memory) = 0x85B898;
+    return static_cast<CEventLeaderExitedCarAsDriver*>(memory);
 }
 
 // 0x4B8300

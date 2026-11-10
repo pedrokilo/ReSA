@@ -23,10 +23,30 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexTurnToFaceEntityOrCoord.h"
 #include "Ragdoll/IKChainManager.h"
 
+namespace {
+// 0x661230 (lote 156A, banco Fn156A): cuerpo del destructor de CTaskComplexPassObject del EXE (con hook propio, Destructor; vtable 0x86FB18). Funcion propia sin expansion en linea para que el banco pueda
+// sustituirla; la llama el destructor con borrado como el `call 0x661230` del EXE.
+__declspec(noinline) void __fastcall PassObjectDestructorBody(CTaskComplexPassObject* self, void* /*edx*/) { self->CTaskComplexPassObject::~CTaskComplexPassObject(); }
+
+// 0x664A30 (lote 156A, banco Fn156A; el listado decia CTaskLeanOnVehicle): destructor con borrado de CTaskComplexPassObject del EXE (ranura 0 de su vtable 0x86FB18; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x661230; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexPassObject* __fastcall PassObjectScalarDeletingDestructor(CTaskComplexPassObject* self, void* /*edx*/, uint8 flags) {
+    PassObjectDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote156ABody_CTaskComplexPassObject() { return reinterpret_cast<uintptr_t>(&PassObjectDestructorBody); } // para el banco Fn156A
+
 void CTaskComplexPassObject::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexPassObject, 0x86fb18, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(PassObjectScalarDeletingDestructor, "ScalarDeletingDestructor", 0x664A30); // lote 156A (banco Fn156A)
     RH_ScopedInstall(Constructor, 0x6611B0);
     RH_ScopedInstall(Destructor, 0x661230);
 

@@ -29,8 +29,26 @@ void CTaskLeanOnVehicle::InjectHooks() {
 
     RH_ScopedInstall(FinishAnimCB, 0x661160);
 
+    RH_ScopedVMTInstall(GetTaskType, 0x661020); // lote 156A (banco Fn156A): retorno de constante
+    RH_ScopedVMTInstall(Clone, 0x6610A0);       // lote 156A (banco Fn156A)
     RH_ScopedVMTInstall(MakeAbortable, 0x661110);
     RH_ScopedVMTInstall(ProcessPed, 0x6648C0);
+}
+
+// 0x661020 (lote 156A, banco Fn156A; thiscall, `ret`, 6 bytes: `mov eax,4C1h`): TASK_COMPLEX_LEAN_ON_VEHICLE (1217); no lee el objeto (ranura 4 de la vtable 0x86FAF4).
+eTaskType CTaskLeanOnVehicle::GetTaskType() const {
+    return Type;
+}
+
+// 0x6610A0 (lote 156A, banco Fn156A; thiscall, sin argumentos, `ret`, 106 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 1 de la vtable 0x86FAF4).
+// Como el original: CTask::operator new (0x61A5A0, con hook) con 0x2C bytes; sin memoria devuelve nulo; si no, llama al constructor (0x660F90, con hook; ECX = memoria) con el vehiculo (+8), la duracion (+0xC) y el
+// BYTE field_10 (+0x10, extendido con ceros) y devuelve lo que el constructor deja en EAX (el EXE no lo sustituye por la direccion reservada).
+CTask* CTaskLeanOnVehicle::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskLeanOnVehicle));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CTaskLeanOnVehicle*>(memory)->Constructor(m_Vehicle, m_LeanAnimDurationInMs, field_10);
 }
 
 // 0x660F90

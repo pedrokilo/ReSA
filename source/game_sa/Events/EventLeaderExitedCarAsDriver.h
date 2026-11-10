@@ -19,7 +19,7 @@ public:
     bool AffectsPed(CPed* ped) override { return false; }
     bool AffectsPedGroup(CPedGroup* pedGroup) override;
     bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
-    CEventLeaderExitedCarAsDriver* CloneEditable() const noexcept override { return new CEventLeaderExitedCarAsDriver(); }
+    CEventLeaderExitedCarAsDriver* CloneEditable() const noexcept override; // 0x4B8340 (lote 156A, banco Fn156A): ranura 16 de la vtable 0x85B898
 
 private:
     CEventLeaderExitedCarAsDriver* Constructor();

@@ -21,8 +21,8 @@ public:
     CTaskLeanOnVehicle(CEntity* vehicle, int32 leanAnimDurationInMs, uint8 a4);
     ~CTaskLeanOnVehicle() override;
 
-    eTaskType GetTaskType() const override { return Type; }
-    CTask*    Clone() const override { return new CTaskLeanOnVehicle(m_Vehicle, m_LeanAnimDurationInMs, field_10); } // 0x6610A0
+    eTaskType GetTaskType() const override; // 0x661020 (lote 156A, banco Fn156A)
+    CTask*    Clone() const override;       // 0x6610A0 (lote 156A, banco Fn156A)
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;
 
