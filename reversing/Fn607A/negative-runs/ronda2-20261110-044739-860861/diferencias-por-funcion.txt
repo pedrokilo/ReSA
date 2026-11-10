@@ -1,0 +1,7 @@
+pares 2048 con diferencias EXE/DLL 1238
+lado EXE fuera del oraculo 0
+lado DLL mutado fuera del oraculo con las mutaciones de la ronda 0
+mutaciones de la ronda y pares en que cada una SOLA cambia lo observable (el banco la detecta):
+  4 (el acumulador corta en 3 en lugar de 4 (se saltan CanPedTargetPed y 0x607560)): 644
+  5 (el cuarto evento de la lista del decision maker es 0x29 en lugar de 0x28): 968
+  6 (el producto escalar compara con >= en lugar de > (AcquaintanceInViewCpp)): 83

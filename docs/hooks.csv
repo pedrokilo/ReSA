@@ -9192,6 +9192,7 @@ CCamera,AvoidTheGeometry,0x00514030,1,0,1,S
 CTaskSimpleGangDriveBy,FireGun,0x00627CC0,1,0,1,S
 CFont,PrintSegment,0x00719B40,1,0,1,S
 CPedAcquaintanceScanner,ScanForPedAcquaintances,0x00607D80,1,0,1,S
+CPedAcquaintanceScanner,ScanEntities,0x00607A90,1,0,1,S
 CNearbyFireScanner,ScanForNearbyFires,0x00603E70,1,0,1,S
 CSexyPedScanner,ScanForSexyPeds,0x00603BF0,1,0,1,S
 CPad,GetPad,0x0053FB70,1,0,1,S

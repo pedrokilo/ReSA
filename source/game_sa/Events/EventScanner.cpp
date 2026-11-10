@@ -89,6 +89,13 @@ END GENERATED HOOK STATUS */
 #include "ObjectScanner.h"
 #include "Entity/Object/Object.h"
 #include "Models/ModelInfo.h"
+#include "DecisionMakers/DecisionMakerTypes.h"
+#include "GameLogic.h"
+#include "PedGroup.h"
+#include "PedGroups.h"
+#include "PedIntelligence.h"
+#include "PedType.h"
+#include "X87Math.h"
 
 void CObjectPotentialCollisionScanner::InjectHooks() {
     RH_ScopedClass(CObjectPotentialCollisionScanner);
@@ -102,6 +109,7 @@ void CPedAcquaintanceScanner::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(ScanForPedAcquaintances, 0x607D80);
+    RH_ScopedInstall(ScanEntities, 0x607A90); // caso 607A90 (banco Fn607A)
 }
 
 void CSexyPedScanner::InjectHooks() {
@@ -500,14 +508,165 @@ void CPedAcquaintanceScanner::ScanForPedAcquaintances(CPed& ped, CEntity** entit
     m_timer.m_nInterval  = interval;
     m_timer.m_bStarted   = true;
 
-    // 0x603A30: decide si este escaner puede actuar sobre el peaton; 0x607A90 hace el escaneo (aun por direccion).
+    // 0x603A30: decide si este escaner puede actuar sobre el peaton (aun por direccion); 0x607A90 (ScanEntities) hace el escaneo.
     // El EXE le pasa dos punteros a variables locales que valen 0 y -1 (el escaneo las rellena; esta funcion no las lee).
     if (!plugin::CallMethodAndReturn<bool, 0x603A30>(this, &ped)) {
         return;
     }
     int32 outA = 0;
     int32 outB = -1;
-    plugin::CallMethod<0x607A90, CPedAcquaintanceScanner*, CPed*, int32, CEntity**, int32, int32*, int32*>(this, &ped, -1, entities, count, &outA, &outB);
+    ScanEntities(ped, -1, entities, count, &outA, &outB);
+}
+
+// 0x607A90: escaneo de entidades (caso 607A90, banco Fn607A). Thiscall con seis argumentos de pila (`ret 18h`); el unico llamador del EXE es ScanForPedAcquaintances. Devuelve el numero de candidatos que
+// pasan el filtro (0 si ninguno). Como el original:
+//  - *outA = 0 al empezar; para cada entidad no nula y viva (0x5E0170) se calcula delta = posicion(candidato) - posicion(ped) (posicion de la matriz +0x30 o, sin matriz, la de +4) en la x87 (AcquaintanceDeltaCpp,
+//    guardada como float), se normaliza (0x59C910) y se compara (z*fz + y*fy) + x*fx con el umbral de 0xC0B034, con el vector adelante de la matriz del ped (+0x10..+0x18) leido DESPUES de normalizar
+//    (AcquaintanceInViewCpp, tambien x87). Si NO es mayor, solo sigue si el ped o el candidato tienen el bit 0x100 de +0x46C (bInVehicle).
+//  - Si la prioridad es -1 y el tipo del candidato es 6 (policia), pasa directamente. Si no, para los indices 4..0 (todos con prioridad -1, solo el indicado en otro caso) pasa si
+//    (acquaintances del ped[indice] & GetPedFlag(tipo)) != 0 (0x608970, 0x608830). Si ninguno acierta, solo pasa con disturbios activos (0x441C10) y CanJoinRiotAgainst (0x603AF0).
+//  - Un candidato de tipo 6 entra en la tabla local (16 entradas, como la del EXE: mas desbordan los registros guardados) sin mas condiciones; el resto, con disturbios y 0x603AF0 o si el decision maker del ped
+//    tiene respuesta a alguno de los eventos 36, 37, 39 y 40 (0x4684F0 + 0x6042B0, count = 5: el quinto elemento del EXE es un resto de pila que no se lee; aqui se repite el cuarto).
+//  - Por cada candidato de la tabla, mientras el acumulador (-1 al empezar) no valga 4: CanPedTargetPed (0x5F1C40, con la bandera de que ni el ped ni el candidato estan en vehiculo) y, si acierta, el
+//    acumulador pasa a ser el valor de 0x607560 (FindAcquaintance, que escribe *outA y *outB y fija el temporizador del escaner).
+int32 CPedAcquaintanceScanner::ScanEntities(CPed& ped, int32 priority, CEntity** entities, int32 count, int32* outA, int32* outB) {
+    *outA = 0;
+    CPed* candidates[16];
+    int32 numCandidates = 0;
+    for (int32 i = 0; i < count; ++i) {
+        CPed* const other = static_cast<CPed*>(entities[i]);
+        if (!other || !other->IsAlive()) {
+            continue;
+        }
+
+        // Posiciones: la del ped (matriz o +4) y la del candidato; delta guardada como float y normalizada
+        CVector delta;
+        AcquaintanceDeltaCpp(&other->GetPosition().x, &ped.GetPosition().x, &delta.x);
+        delta.Normalise();
+
+        // Producto escalar con el vector adelante del ped (se lee despues de normalizar) contra el umbral (x87); si no pasa, solo siguen los que van en vehiculo
+        if (!AcquaintanceInViewCpp(&delta.x, &ped.GetForward().x, ms_fThresholdDotProduct)) {
+            if (!ped.bInVehicle && !other->bInVehicle) {
+                continue;
+            }
+        }
+
+        // Relacion: policia con prioridad -1, o algun indice 4..0 cuyas acquaintances incluyan el tipo del candidato
+        bool related = priority == -1 && other->m_nPedType == PED_TYPE_COP;
+        if (!related) {
+            for (int32 id = 4; id >= 0 && !related; --id) {
+                if (priority == -1 || priority == id) {
+                    const uint32 acquaintances = ped.m_acquaintance.GetAcquaintances(id);
+                    const uint32 pedFlag       = CPedType::GetPedFlag(other->m_nPedType);
+                    related = (acquaintances & pedFlag) != 0;
+                }
+            }
+            if (!related) {
+                if (!CGameLogic::LaRiotsActiveHere() || !CanJoinRiotAgainst(&ped, other)) {
+                    continue;
+                }
+            }
+        }
+
+        // Tabla de candidatos: los policias, o disturbios + 0x603AF0, o una respuesta del decision maker a los eventos 36, 37, 39 y 40
+        if (other->m_nPedType != PED_TYPE_COP) {
+            bool accepted = CGameLogic::LaRiotsActiveHere() && CanJoinRiotAgainst(&ped, other);
+            if (!accepted) {
+                const int32 events[5]{ 0x24, 0x25, 0x27, 0x28, 0x28 };
+                accepted = CDecisionMakerTypes::GetInstance()->HasResponseToAnyEvent(&ped, events, 5);
+            }
+            if (!accepted) {
+                continue;
+            }
+        }
+        candidates[numCandidates++] = other;
+    }
+
+    int32 accumulator = -1;
+    for (int32 i = 0; i < numCandidates; ++i) {
+        if (accumulator == 4) {
+            continue;
+        }
+        CPed* const other = candidates[i];
+        const bool canTarget = !ped.bInVehicle && !other->bInVehicle;
+        if (CPedGeometryAnalyser::CanPedTargetPed(ped, *other, canTarget)) {
+            accumulator = FindAcquaintance(ped, priority, accumulator, other, outA, outB);
+        }
+    }
+    return numCandidates;
+}
+
+// 0x607560: funcion propia (sin hook; la llama ScanEntities). Thiscall con seis argumentos de pila (`ret 18h`): para los indices 4..0 (parando con -1 si llega al ya usado, `current`) comprueba si el ped tiene al
+// candidato como acquaintance de ese indice (0x608970/0x608830, o disturbios y CanJoinRiotAgainst; con prioridad -1 el indice 2 y un policia pasan directo) y la visibilidad con luces (0x605550, float): sigue si
+// es mayor que 0 o, solo con el indice 4, si es distinta de 0 (negativa o NaN). Entonces escribe *outA = candidato, *outB = indice; con una prioridad distinta de -1 devuelve la prioridad; con -1 pide el evento a
+// 0x606BA0 (por direccion: aun sin reconstruir) y fija el temporizador del escaner (inicio = hora, intervalo = 200 si el indice es 4 y la visibilidad es negativa, 3000 si no, arrancado), devolviendo
+// el indice si el evento se creo. Devuelve -1 si ningun indice sirve. Sin banco propio: la valida solo como colaborador falseado el banco Fn607A.
+int32 CPedAcquaintanceScanner::FindAcquaintance(CPed& ped, int32 priority, int32 current, CPed* candidate, int32* outA, int32* outB) {
+    const float visibility = ped.GetIntelligence()->CanSeeEntityWithLights(candidate, 0);
+    for (int32 id = 4; id >= 0; --id) {
+        if (id == current) {
+            return -1;
+        }
+        if (priority != -1 && priority != id) {
+            continue;
+        }
+        if (!(priority == -1 && id == 2 && candidate->m_nPedType == PED_TYPE_COP)) {
+            const uint32 acquaintances = ped.m_acquaintance.GetAcquaintances(id);
+            const uint32 pedFlag       = CPedType::GetPedFlag(candidate->m_nPedType);
+            const bool   related       = (acquaintances & pedFlag) != 0;
+            if (!related && (!CGameLogic::LaRiotsActiveHere() || !CanJoinRiotAgainst(&ped, candidate))) {
+                continue;
+            }
+        }
+        if (!(visibility > 0.0f)) {
+            if (id != 4 || visibility == 0.0f) {
+                continue;
+            }
+        }
+        *outA = reinterpret_cast<int32>(candidate);
+        *outB = id;
+        if (priority != -1) {
+            return priority;
+        }
+        if (!*outA) {
+            continue;
+        }
+        const bool created = plugin::CallMethodAndReturn<bool, 0x606BA0, CPedAcquaintanceScanner*, CPed*, int32, CEntity*>(this, &ped, id, reinterpret_cast<CEntity*>(*outA));
+        const int32 interval = (*outB == 4 && visibility < 0.0f) ? StaticRef<int32>(0x8D2360) : StaticRef<int32>(0x8D235C);
+        m_timer.m_nStartTime = CTimer::GetTimeInMS();
+        m_timer.m_nInterval  = interval;
+        m_timer.m_bStarted   = true;
+        if (created) {
+            return *outB;
+        }
+    }
+    return -1;
+}
+
+// 0x603AF0: funcion propia (sin hook, cdecl; la llaman ScanEntities y FindAcquaintance). Dice si `ped` puede unirse a un disturbio contra `other`: falso si el ped es policia, medico o bombero (tipos 6, 18 y 19),
+// es el jugador (0x5DF8F0) o fue creado por mision (byte +0x484 == 2); si `other` es el jugador, es lo contrario de que el ped lo respete (0x601C90); si no, si `other` tiene un grupo (0x5F7E80) cuyo lider (0x5F69A0)
+// es el jugador, es lo contrario de que el ped respete al lider; en el resto de casos es falso solo si los dos son de la misma banda (tipos de banda, 0x5FE9C0) y verdadero en caso contrario.
+bool CPedAcquaintanceScanner::CanJoinRiotAgainst(CPed* ped, CPed* other) {
+    const ePedType type = ped->m_nPedType;
+    if (type == PED_TYPE_COP || type == PED_TYPE_MEDIC || type == PED_TYPE_FIREMAN) {
+        return false;
+    }
+    if (ped->IsPlayer() || ped->GetCreatedBy() == PED_MISSION) {
+        return false;
+    }
+    if (other->IsPlayer()) {
+        return !ped->GetIntelligence()->Respects(other);
+    }
+    if (CPedGroup* const group = CPedGroups::GetPedsGroup(other)) {
+        auto& membership = group->GetMembership();
+        if (membership.GetLeader() && membership.GetLeader()->IsPlayer()) {
+            return !ped->GetIntelligence()->Respects(membership.GetLeader());
+        }
+    }
+    if (IsPedTypeGang(type) && IsPedTypeGang(other->m_nPedType) && type == other->m_nPedType) {
+        return false;
+    }
+    return true;
 }
 
 // 0x603E70

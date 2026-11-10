@@ -373,3 +373,32 @@ void __stdcall CDecisionMakerTypes::ReadEventIndices(int32* indices, const char*
     }
     CFileMgr::CloseFile(file);
 }
+
+
+// 0x6042B0 (thiscall, ped + lista + contador en la pila, `ret 0Ch`): funcion propia, sin hook (la llama CPedAcquaintanceScanner::ScanEntities, 0x607A90, tras GetInstance 0x4684F0). Dice si ALGUNO de los
+// `count` tipos de evento de la lista tiene una respuesta en el decision maker del ped (alguna de sus 6 tareas distinta de 200 = TASK_NONE). Decision maker: el tipo del ped (+0x47C -> +0xB4): -2 el
+// predeterminado del jugador (+0xD4EC), -1 el predeterminado de mision (+0xCB50) si el ped fue creado por mision (byte +0x484 == 2) o el aleatorio (+0xC1B4), y si no el de ese indice (41 decisiones de 60 bytes
+// cada uno). El indice de la decision sale de `m_EventIndices[tipo]` (sin comprobar rango, como el EXE); el recorrido se detiene en el primer acierto. Sin comprobaciones de rango (`.data()`).
+bool CDecisionMakerTypes::HasResponseToAnyEvent(CPed* ped, const int32* eventTypes, int32 count) {
+    const int32 dmType = ped->GetIntelligence()->GetPedDecisionMakerType();
+    bool found = false;
+    for (int32 i = 0; i < count && !found; ++i) {
+        const int32 decisionIndex = m_EventIndices.data()[eventTypes[i]];
+        const CDecisionMaker* maker;
+        if (dmType == -2) {
+            maker = &m_DefaultPlayerPedDecisionMaker;
+        } else if (dmType == -1) {
+            maker = ped->GetCreatedBy() == PED_MISSION ? &m_DefaultMissionPedDecisionMaker : &m_DefaultRandomPedDecisionMaker;
+        } else {
+            maker = m_DecisionMakers.data() + dmType;
+        }
+        const int32* tasks = reinterpret_cast<const int32*>(maker->m_aDecisions.data() + decisionIndex); // m_Tasks es el primer miembro de CDecision (6 x eTaskType)
+        for (int32 k = 0; k < CDecision::MAX_NUM_CHOICES; ++k) {
+            if (tasks[k] != 200) {
+                found = true;
+                break;
+            }
+        }
+    }
+    return found;
+}

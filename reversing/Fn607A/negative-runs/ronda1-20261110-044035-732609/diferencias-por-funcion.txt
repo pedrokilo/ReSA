@@ -1,0 +1,7 @@
+pares 2048 con diferencias EXE/DLL 1655
+lado EXE fuera del oraculo 0
+lado DLL mutado fuera del oraculo con las mutaciones de la ronda 0
+mutaciones de la ronda y pares en que cada una SOLA cambia lo observable (el banco la detecta):
+  1 (la prioridad -1 ya no recorre los indices de acquaintances (`priority == id` en lugar de `priority == -1 || priority == id`)): 733
+  2 (fuera de vista siguen los que NO van en vehiculo (condicion de vehiculo invertida)): 1385
+  3 (la componente x de la diferencia es ped - candidato en lugar de candidato - ped (AcquaintanceDeltaCpp)): 1474

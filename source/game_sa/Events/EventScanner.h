@@ -34,6 +34,9 @@ public:
 
     static void InjectHooks();
     void ScanForPedAcquaintances(CPed& ped, CEntity** entities, int32 count); // 0x607D80
+    int32 ScanEntities(CPed& ped, int32 priority, CEntity** entities, int32 count, int32* outA, int32* outB); // 0x607A90 (hook ScanEntities; la llama ScanForPedAcquaintances)
+    int32 FindAcquaintance(CPed& ped, int32 priority, int32 current, CPed* candidate, int32* outA, int32* outB); // 0x607560 (funcion propia, sin hook: la llama ScanEntities)
+    static bool CanJoinRiotAgainst(CPed* ped, CPed* other); // 0x603AF0 (funcion propia, sin hook, cdecl: la llaman ScanEntities y FindAcquaintance)
 };
 
 class CVehiclePotentialCollisionScanner {

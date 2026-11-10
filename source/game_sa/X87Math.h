@@ -2319,3 +2319,9 @@ void __fastcall ProcSurfaceScaleMatrixCpp(float* matrix, void* edx, float x, flo
 // Lote 150A (Fn150A).
 // 0x43E090 (CEntryExit::GetPosition): centro del rectangulo de entrada (+8..+0x14) con la x87 (24 bits) y Z (+0x18) copiado como entero, en `out` (3 floats). Ver X87Math.cpp.
 void __cdecl EntryExitGetPositionCpp(const void* entry, void* out);
+
+// Caso 0x607A90 (Fn607A).
+// 0x607A90 (CPedAcquaintanceScanner::ScanEntities): `out` = `other` - `self` (3 floats) con la x87 (24 bits) y guardado como float; ver X87Math.cpp.
+void __cdecl AcquaintanceDeltaCpp(const float* other, const float* self, float* out);
+// 0x607A90: ((z*fz) + (y*fy)) + (x*fx) con la x87 (sin guardar) mayor (ordenado) que `threshold`; `v` y `fwd` son 3 floats.
+bool __cdecl AcquaintanceInViewCpp(const float* v, const float* fwd, float threshold);

@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CPedAcquaintanceScanner::ScanEntities": 16384
+  },
+  "covered_functions": {
+    "CPedAcquaintanceScanner::ScanEntities": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 8f02c8dfdb con los cambios del caso (ver artifacts/build-manifest.json). Una funcion del EXE sin hook antes del caso: 0x607A90, el escaneo de entidades de CPedAcquaintanceScanner (hook ScanEntities; el listado la atribuia a CDecisionMakerTypesFileLoader). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL: con hook RH (apagado durante el banco) CPed::IsAlive 0x5E0170, CVector::Normalise 0x59C910, CAcquaintance::GetAcquaintances 0x608970, CPedType::GetPedFlag 0x608830, CGameLogic::LaRiotsActiveHere 0x441C10, CPedGeometryAnalyser::CanPedTargetPed 0x5F1C40 y CDecisionMakerTypes::GetInstance 0x4684F0 (SEH en el EXE); sin hook y reconstruidos por este caso como funciones propias de la DLL (el falso va en la direccion del EXE y en esa funcion): 0x603AF0 (CPedAcquaintanceScanner::CanJoinRiotAgainst), 0x6042B0 (CDecisionMakerTypes::HasResponseToAnyEvent) y 0x607560 (CPedAcquaintanceScanner::FindAcquaintance). Esas tres funciones propias NO estan validadas por este banco (solo se prueba que ScanEntities las llama con los argumentos y en el orden del EXE y que usa su resultado como el EXE); 0x607560 llama por direccion a 0x606BA0 (sin reconstruir) y ScanForPedAcquaintances sigue llamando por direccion a 0x603A30. La aritmetica x87 (resta candidato - ped y producto escalar contra el umbral de 0xC0B034) vive en X87Math.cpp (AcquaintanceDeltaCpp, AcquaintanceInViewCpp) y es la validada. Se observan bytes cambiados de las cuatro arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos con todos sus argumentos, EAX (numero de candidatos), pila, no volatiles, DF, SEH y x87 vacia; el umbral global 0xC0B034 se guarda y se restaura tras cada lado; cada lado coincide con el oraculo independiente fixture_oracle.py (x87 de 24 bits con fracciones exactas). Fuera de los fixtures: mas de 16 candidatos aceptados (desbordan la tabla local del EXE y sus registros guardados), ped sin matriz (el EXE desreferencia +0x14), peaton y candidato reales construidos por el EXE, dos NaN con cargas utiles distintas en una misma resta, el quinto elemento de la lista del decision maker (en el EXE es un resto de pila sin inicializar; la DLL repite el cuarto), el valor de EAX/ECX/EDX tras la llamada (informativo; los llamadores del EXE no lo leen) y la exactitud de los colaboradores falseados (tienen bancos propios, salvo las tres funciones propias).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn607A-20261110-045010-841700",
+  "summary_sha256": "8dc8268d5688ddda18a00edffc2b90ddd8fa4d4e819a2fa621f2e56b27678e5b",
+  "result_txt_sha256": "0ad89bda108ea64652c54b2da923b2753a44d81f3c5b72426deeb743689ef879",
+  "log_sha256": "fd29fc08eea86934990c3beb69d042c7af0ef9c3ce6119aa438ad02b30c58183",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "a801595deaeb57054226721fc86c1cf7cb4cb3e44e5f82d771022029ba18c4f2",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+      "source/InjectHooksMain.cpp": "63add088b8f903cf16873584c8ecd33bcfd0605a8a65474f4fe48ccde8b8f19f",
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "53d9f21d86b197863edc0b5f1935bf097161c0ac75020ae6fe0dc1805a761dd9",
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "6b7dcfe53ae96eb2e6147b1c05c47a791340401ce4920ddb04c630ca2c6c815c",
+      "source/game_sa/Events/EventScanner.cpp": "9911aa507c58bdaf4ea3aef5f36e7e778abb3caff3ea67987270ebfc85d95567",
+      "source/game_sa/Events/EventScanner.h": "d020d4482260786a12c85b0cb8b1ae19b4a67298bf70b5c6b4335ef0fb2b30a6",
+      "source/game_sa/X87Math.cpp": "58787ae2d48fa37ad2de1c73a5cddbc7baf5607bfa5d8462c0fbd61676c81969",
+      "source/game_sa/X87Math.h": "efe8b9c6a929bc9c75676ad62b8a7964b279323b419dfd6bd8fbe8d8da497004",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn607A/LiveComparison.hpp": "75edc69163edf60b1fcba9dc0b0cad1ea87628cb003d0f8f20c414292691da1c",
+      "reversing/Fn607A/Core.hpp": "ea73e90db96b3005f0c121d9703e5801b5cccc0a95999c6dba47b4eefdcb9a73",
+      "reversing/Fn607A/Fixtures.hpp": "76b0a2be0053092e2e10395c40c621594ba4c8175ef8c6d09936986b5e0a9eb8",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

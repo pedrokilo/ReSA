@@ -40,3 +40,6 @@ Produccion mutada en 10 puntos de `EventScanner.cpp` (intervalo de rearranque de
 
 ## Tiempo
 Aprobacion: compilacion de la sonda y 49152 pares en unos 6 minutos (02:04 a 02:10 con el juego; la sonda ya estaba construida tras la primera compilacion completa del worktree, ~3 min).
+
+## Repeticion tras el caso 607A90 (10/11/2026)
+`0x607A90` pasa a tener hook RH (`CPedAcquaintanceScanner::ScanEntities`, banco `Fn607A`) y `ScanForPedAcquaintances` la llama directamente: este banco se repitio con el falso identico en la direccion del EXE y en el cuerpo de la DLL (`run_local.py` espera ahora `(0x607A90, True)`). Aprobado: `resultados-fn92a/20261110-045552-892462`, 3 x 16384 pares, cero diferencias; archivado en `reversing/CppTwelveLevel6Final/runs/Fn92A-20261110-045552-892462`.

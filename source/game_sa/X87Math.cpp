@@ -18872,3 +18872,22 @@ __declspec(noinline) void __cdecl EntryExitGetPositionCpp(const void* entry, voi
     *reinterpret_cast<volatile unsigned*>(o + 2) = *reinterpret_cast<const volatile unsigned*>(e + 4);
 }
 #pragma float_control(pop)
+
+// Caso 0x607A90 (Fn607A).
+#pragma float_control(precise, on, push)
+// 0x607A90 (CPedAcquaintanceScanner::ScanEntities): diferencia candidato - peaton con la x87 del EXE (`fld [otro+8]; fsub [self+8]; fld [otro+4]; fsub [self+4]; fld [otro]; fsub [self]; fstp x; fstp y; fstp z`):
+// cada componente se resta en la x87 (24 bits de mantisa, exponente ampliado) y se guarda como float (un NaN conserva su carga util y se vuelve silencioso; infinito menos infinito da el NaN indefinido).
+// `other` y `self` son las posiciones (3 floats) y `out` el vector local (3 floats).
+__declspec(noinline) void __cdecl AcquaintanceDeltaCpp(const float* other, const float* self, float* out) {
+    volatile float* const o = out;
+    o[2] = float(double(other[2]) - double(self[2]));
+    o[1] = float(double(other[1]) - double(self[1]));
+    o[0] = float(double(other[0]) - double(self[0]));
+}
+// 0x607A90: ((z * fz) + (y * fy)) + (x * fx) en la x87 (sin guardar a float) comparado con el umbral de 0xC0B034 (`fcomp [umbral]; fnstsw ax; test ah,41h; je`): verdadero solo si es MAYOR (ordenado: con NaN es falso).
+// `v` = el vector normalizado (x, y, z), `fwd` = el vector adelante de la matriz del peaton (+0x10, +0x14, +0x18).
+__declspec(noinline) bool __cdecl AcquaintanceInViewCpp(const float* v, const float* fwd, float threshold) {
+    const double dot = (double(v[2]) * double(fwd[2]) + double(v[1]) * double(fwd[1])) + double(v[0]) * double(fwd[0]);
+    return dot > double(threshold);
+}
+#pragma float_control(pop)
