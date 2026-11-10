@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/11/2026 (Ciudad de México):** 879 grupos / 9815 funciones reconstruidas; 9815 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/11/2026 (Ciudad de México):** 879 grupos / 9839 funciones reconstruidas; 9839 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo B: Falta: método virtual
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-653 funciones, 35,040 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+643 funciones, 34,891 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -247,7 +247,6 @@
 | `0x00629550` | 30 | CTaskComplexRoadRage | baja | 0 (0) | sí |
 | `0x006298E0` | 30 | CTaskSimpleStealthKill | baja | 0 (0) | sí |
 | `0x00629900` | 30 | CTaskSimpleStealthKill | baja | 0 (0) | sí |
-| `0x0062F250` | 30 | CTaskComplexLeaveCarAndDie | baja | 0 (0) | sí |
 | `0x00637300` | 30 | CTaskSimpleHitFromFront | baja | 0 (0) | sí |
 | `0x00637330` | 30 | CTaskSimpleHitFromFront | baja | 0 (0) | sí |
 | `0x00637360` | 30 | CTaskSimpleHitFromFront | baja | 0 (0) | sí |
@@ -289,8 +288,6 @@
 | `0x0063A1B0` | 30 | CEventLeaderQuitEnteringCarAsDriver | baja | 0 (0) | sí |
 | `0x006410E0` | 30 | CTaskComplexStealCar | baja | 0 (0) | sí |
 | `0x00642250` | 30 | CTaskComplexStealCar | baja | 0 (0) | sí |
-| `0x006422A0` | 30 | CTaskComplexLeaveCarAndDie | baja | 0 (0) | sí |
-| `0x006426E0` | 30 | CTaskComplexScreamInCarThenLeave | baja | 0 (0) | sí |
 | `0x00643C60` | 30 | CTaskComplexEnterCar | baja | 0 (0) | sí |
 | `0x00643C80` | 30 | CTaskComplexEnterCar | baja | 0 (0) | sí |
 | `0x00643CA0` | 30 | CTaskComplexEnterCar | baja | 0 (0) | sí |
@@ -393,7 +390,6 @@
 | `0x00696260` | 30 | CTaskComplexSeekEntityAnyMeansXYOffset | baja | 0 (0) | sí |
 | `0x006B1330` | 30 | CAutomobile | alta | 0 (0) | sí |
 | `0x006B8950` | 30 | CBike | alta | 0 (0) | sí |
-| `0x006C0570` | 30 | CBmx | alta | 0 (0) | sí |
 | `0x006C4810` | 30 | CHeli | alta | 0 (0) | sí |
 | `0x006CADB0` | 30 | CPlane | alta | 0 (0) | sí |
 | `0x006F6300` | 30 | CTrain | alta | 0 (0) | sí |
@@ -452,8 +448,6 @@
 | `0x004AC910` | 6 | CEventVehicleCollision | baja | 0 (0) | sí |
 | `0x004ACDA0` | 6 | CEventObjectCollision | alta | 0 (0) | sí |
 | `0x004ACDC0` | 6 | CEventObjectCollision | alta | 0 (0) | sí |
-| `0x004AE640` | 6 | CEventPotentialWalkIntoObject | baja | 0 (0) | sí |
-| `0x004AE660` | 6 | CEventPotentialWalkIntoObject | baja | 0 (0) | sí |
 | `0x004AEA00` | 6 | CEventVehicleHitAndRun | baja | 0 (0) | sí |
 | `0x004AEA40` | 6 | CEventVehicleHitAndRun | baja | 0 (0) | sí |
 | `0x004AF3D0` | 6 | CEventAttractor | alta | 0 (0) | sí |
@@ -540,7 +534,6 @@
 | `0x006786F0` | 6 | CTaskComplexFallAndGetUp | alta | 0 (0) | sí |
 | `0x00678A00` | 6 | CTaskComplexFallAndGetUp | baja | 0 (0) | sí |
 | `0x00678BC0` | 6 | CTaskComplexFallAndGetUp | baja | 0 (0) | sí |
-| `0x00678D40` | 6 | CTaskSimpleInAir | alta | 0 (0) | sí |
 | `0x00678ED0` | 6 | CTaskSimpleLand | alta | 0 (0) | sí |
 | `0x00679AE0` | 6 | CTaskSimpleJump | alta | 0 (0) | sí |
 | `0x0067A050` | 6 | CTaskComplexJump | alta | 0 (0) | sí |
@@ -562,7 +555,6 @@
 | `0x004ABFF0` | 5 | CEvent | alta | 0 (0) | sí |
 | `0x004AC980` | 5 | CEventVehicleCollision | baja | 0 (0) | sí |
 | `0x004ACEF0` | 5 | CEventObjectCollision | baja | 0 (0) | sí |
-| `0x004AE6D0` | 5 | CEventPotentialWalkIntoObject | baja | 0 (0) | sí |
 | `0x004AFB40` | 5 | CEventAcquaintancePedHateBadlyLit | baja | 0 (0) | sí |
 | `0x004B0F70` | 5 | CEventLeaderEnteredCarAsDriver | baja | 0 (0) | sí |
 | `0x004B1040` | 5 | CEventLeaderQuitEnteringCarAsDriver | baja | 0 (0) | sí |
@@ -621,7 +613,6 @@
 | `0x004AC000` | 3 | CEvent | alta | 0 (0) | sí |
 | `0x004AC900` | 3 | CEventVehicleCollision | baja | 0 (0) | sí |
 | `0x004ACDB0` | 3 | CEventObjectCollision | alta | 0 (0) | sí |
-| `0x004AE650` | 3 | CEventPotentialWalkIntoObject | baja | 0 (0) | sí |
 | `0x004AEA10` | 3 | CEventVehicleHitAndRun | baja | 0 (0) | sí |
 | `0x004AF3E0` | 3 | CEventAttractor | alta | 0 (0) | sí |
 | `0x004AF3F0` | 3 | CEventAttractor | alta | 0 (0) | sí |
@@ -650,7 +641,6 @@
 | `0x006B5840` | 3 | CBike | alta | 0 (0) | sí |
 | `0x006B5850` | 3 | CBike | alta | 0 (0) | sí |
 | `0x006B5890` | 3 | CBike | alta | 0 (0) | sí |
-| `0x006C0560` | 3 | CBmx | alta | 0 (0) | sí |
 | `0x006D6270` | 3 | CVehicle | alta | 0 (0) | sí |
 | `0x006D6280` | 3 | CVehicle | alta | 0 (0) | sí |
 | `0x006D6290` | 3 | CVehicle | alta | 0 (0) | sí |

@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,106** funciones en 250 clases/módulos (rango 0x401000–0x74FFFF): 2,084 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,082** funciones en 244 clases/módulos (rango 0x401000–0x74FFFF): 2,060 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -12,6 +12,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---:|
 | CTaskComplexWaitForBus | 1 | 21 |
 | CAEStreamingChannel | 1 | 61 |
+| CTaskSimpleHandsUp | 3 | 65 |
 | CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset> | 2 | 91 |
 | CInformGroupEvent | 2 | 101 |
 | CTaskComplexPartnerShove | 4 | 101 |
@@ -20,13 +21,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskSimplePutDownEntity | 2 | 106 |
 | CInterestingEvents | 2 | 110 |
 | CPlayerRelationshipRecorder | 3 | 111 |
-| CTaskSimpleHandsUp | 4 | 113 |
-| CTaskSimpleInAir | 2 | 115 |
-| App | 6 | 116 |
-| CEventPotentialWalkIntoObject | 6 | 116 |
-| CTaskComplexScreamInCarThenLeave | 2 | 118 |
-| CBmx | 3 | 118 |
-| CTaskComplexLeaveCarAndDie | 4 | 120 |
 | CEventStuckInAir | 5 | 120 |
 | CAnimBlendStaticAssociation | 2 | 121 |
 | CAEVehicleAudioEntity | 5 | 121 |
@@ -273,6 +267,14 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x004F21C0 | 61 | B | CAEStreamingChannel::Stop-virtual | 0 | 0 | sí | alta |
 
+## CTaskSimpleHandsUp (3)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x0048EA90 | 5 | C |  | 1 | 0 |  | baja |
+| 0x0048EA40 | 30 | B |  | 0 | 0 | sí | alta |
+| 0x0048EA70 | 30 | B |  | 0 | 0 | sí | baja |
+
 ## CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset> (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -333,68 +335,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0061A350 | 7 | C |  | 1 | 0 |  | baja |
 | 0x0061A430 | 40 | B |  | 0 | 0 | sí | baja |
 | 0x0061A2E0 | 64 | A |  | 2 | 2 |  | baja |
-
-## CTaskSimpleHandsUp (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0048EA90 | 5 | C |  | 1 | 0 |  | baja |
-| 0x0048EA40 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x0048EA70 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00492CB0 | 48 | C |  | 1 | 0 |  | baja |
-
-## CTaskSimpleInAir (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00678D40 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00678D50 | 109 | A |  | 1 | 1 |  | alta |
-
-## App (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0053ED30 | 1 | A |  | 1 | 1 |  | baja |
-| 0x0053EDC0 | 23 | A |  | 4 | 4 |  | baja |
-| 0x0053EE20 | 23 | A |  | 2 | 2 |  | baja |
-| 0x0053EE60 | 23 | A |  | 1 | 1 |  | baja |
-| 0x0053EF40 | 23 | A |  | 1 | 1 |  | baja |
-| 0x0053EF60 | 23 | A |  | 1 | 1 |  | baja |
-
-## CEventPotentialWalkIntoObject (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AE650 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004AE6D0 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x004AE640 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004AE660 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B4AA0 | 19 | A |  | 1 | 1 |  | baja |
-| 0x004B4A50 | 77 | D |  | 0 | 0 |  | baja |
-
-## CTaskComplexScreamInCarThenLeave (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006426E0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00642700 | 88 | A |  | 1 | 1 |  | baja |
-
-## CBmx (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006C0560 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x006C0570 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x006BF9D0 | 85 | C |  | 1 | 0 |  | alta |
-
-## CTaskComplexLeaveCarAndDie (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0062F270 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0062F250 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006422A0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0062F2D0 | 49 | A |  | 1 | 1 |  | baja |
 
 ## CEventStuckInAir (5)
 
@@ -2244,7 +2184,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006D63D0 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x006D3D50 | 9 | B |  | 0 | 0 | sí | alta |
 | 0x006D56B0 | 9 | B |  | 0 | 0 | sí | alta |
-| 0x006E2D90 | 49 | A |  | 72 | 4 |  | alta |
+| 0x006E2D90 | 49 | A |  | 72 | 5 |  | alta |
 | 0x006E2DD0 | 49 | C |  | 21 | 0 |  | alta |
 | 0x006D0BC0 | 62 | D |  | 0 | 0 |  | alta |
 | 0x006D5DD0 | 74 | A |  | 1 | 1 |  | alta |

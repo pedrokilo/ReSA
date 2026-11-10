@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/11/2026 (Ciudad de México):** 879 grupos / 9815 funciones reconstruidas; 9815 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/11/2026 (Ciudad de México):** 879 grupos / 9839 funciones reconstruidas; 9839 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,13 +8,21 @@
 
 <a id="grupo-1581"></a>
 
+## notsa::script::commands::cleo::pad
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| notsa::script::commands::cleo::pad::RegisterHandlers() | [source/game_sa/Scripts/Commands/CLEO/CLEOPadCommands.cpp:14](../../source/game_sa/Scripts/Commands/CLEO/CLEOPadCommands.cpp#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1582"></a>
+
 ## notsa::script::commands::cleo::script
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::cleo::script::RegisterHandlers() | [source/game_sa/Scripts/Commands/CLEO/CLEOScriptCommands.cpp:43](../../source/game_sa/Scripts/Commands/CLEO/CLEOScriptCommands.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1582"></a>
+<a id="grupo-1583"></a>
 
 ## notsa::script::commands::cleo::vehicle
 
@@ -22,7 +30,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::cleo::vehicle::RegisterHandlers() | [source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp:33](../../source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1583"></a>
+<a id="grupo-1584"></a>
 
 ## notsa::script::commands::cleo::world
 
@@ -30,7 +38,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::cleo::world::RegisterHandlers() | [source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp:28](../../source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1584"></a>
+<a id="grupo-1585"></a>
 
 ## notsa::script::commands::clock
 
@@ -38,7 +46,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::clock::RegisterHandlers() | [source/game_sa/Scripts/Commands/ClockCommands.cpp:36](../../source/game_sa/Scripts/Commands/ClockCommands.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1585"></a>
+<a id="grupo-1586"></a>
 
 ## notsa::script::commands::comparasion
 
@@ -46,7 +54,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::comparasion::RegisterHandlers() | [source/game_sa/Scripts/Commands/ComparasionCommands.cpp:13](../../source/game_sa/Scripts/Commands/ComparasionCommands.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1586"></a>
+<a id="grupo-1587"></a>
 
 ## notsa::script::commands::conversation
 
@@ -54,7 +62,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::conversation::RegisterHandlers() | [source/game_sa/Scripts/Commands/ConversationCommands.cpp:74](../../source/game_sa/Scripts/Commands/ConversationCommands.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1587"></a>
+<a id="grupo-1588"></a>
 
 ## notsa::script::commands::draw
 
@@ -62,7 +70,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::draw::RegisterHandlers() | [source/game_sa/Scripts/Commands/DrawCommands.cpp:114](../../source/game_sa/Scripts/Commands/DrawCommands.cpp#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1588"></a>
+<a id="grupo-1589"></a>
 
 ## notsa::script::commands::game
 
@@ -70,7 +78,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::game::RegisterHandlers() | [source/game_sa/Scripts/Commands/GameCommands.cpp:190](../../source/game_sa/Scripts/Commands/GameCommands.cpp#L190) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FailCurrentMission: source/game_sa/Scripts/TheScripts.h:446 (0x00A444B0) |
 
-<a id="grupo-1589"></a>
+<a id="grupo-1590"></a>
 
 ## notsa::script::commands::generic
 
@@ -78,7 +86,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::generic::RegisterHandlers() | [source/game_sa/Scripts/Commands/GenericCommands.cpp:9](../../source/game_sa/Scripts/Commands/GenericCommands.cpp#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1590"></a>
+<a id="grupo-1591"></a>
 
 ## notsa::script::commands::math
 
@@ -86,7 +94,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::math::RegisterHandlers() | [source/game_sa/Scripts/Commands/MathCommands.cpp:40](../../source/game_sa/Scripts/Commands/MathCommands.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1591"></a>
+<a id="grupo-1592"></a>
 
 ## notsa::script::commands::mission
 
@@ -94,7 +102,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::mission::RegisterHandlers() | [source/game_sa/Scripts/Commands/MissionCommands.cpp:78](../../source/game_sa/Scripts/Commands/MissionCommands.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1592"></a>
+<a id="grupo-1593"></a>
 
 ## notsa::script::commands::object
 
@@ -102,7 +110,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::object::RegisterHandlers() | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:186](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L186) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1593"></a>
+<a id="grupo-1594"></a>
 
 ## notsa::script::commands::pad
 
@@ -110,7 +118,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::pad::RegisterHandlers() | [source/game_sa/Scripts/Commands/PadCommands.cpp:36](../../source/game_sa/Scripts/Commands/PadCommands.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1594"></a>
+<a id="grupo-1595"></a>
 
 ## notsa::script::commands::path
 
@@ -118,7 +126,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::path::RegisterHandlers() | [source/game_sa/Scripts/Commands/PathCommands.cpp:82](../../source/game_sa/Scripts/Commands/PathCommands.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1595"></a>
+<a id="grupo-1596"></a>
 
 ## notsa::script::commands::ped
 
@@ -126,7 +134,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::ped::RegisterHandlers() | [source/game_sa/Scripts/Commands/PedCommands.cpp:29](../../source/game_sa/Scripts/Commands/PedCommands.cpp#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1596"></a>
+<a id="grupo-1597"></a>
 
 ## notsa::script::commands::player
 
@@ -134,7 +142,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::player::RegisterHandlers() | [source/game_sa/Scripts/Commands/PlayerCommands.cpp:461](../../source/game_sa/Scripts/Commands/PlayerCommands.cpp#L461) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1597"></a>
+<a id="grupo-1598"></a>
 
 ## notsa::script::commands::script
 
@@ -142,7 +150,7 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::script::RegisterHandlers() | [source/game_sa/Scripts/Commands/ScriptCommands.cpp:86](../../source/game_sa/Scripts/Commands/ScriptCommands.cpp#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1598"></a>
+<a id="grupo-1599"></a>
 
 ## notsa::script::commands::sequence
 
@@ -150,18 +158,10 @@
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::sequence::RegisterHandlers() | [source/game_sa/Scripts/Commands/SequenceCommands.cpp:21](../../source/game_sa/Scripts/Commands/SequenceCommands.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1599"></a>
+<a id="grupo-1600"></a>
 
 ## notsa::script::commands::stat
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | notsa::script::commands::stat::RegisterHandlers() | [source/game_sa/Scripts/Commands/StatCommands.cpp:48](../../source/game_sa/Scripts/Commands/StatCommands.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1600"></a>
-
-## notsa::script::commands::text
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| notsa::script::commands::text::RegisterHandlers() | [source/game_sa/Scripts/Commands/TextCommands.cpp:309](../../source/game_sa/Scripts/Commands/TextCommands.cpp#L309) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo UseTextCommands: source/game_sa/Scripts/TheScripts.h:419 (0x00A44B67) |
