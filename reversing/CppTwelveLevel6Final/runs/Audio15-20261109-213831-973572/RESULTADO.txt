@@ -1,0 +1,3 @@
+APROBADO: Radio de usuario y grupos de animaciones (lista de 15)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-audio15\20261109-213831-973572

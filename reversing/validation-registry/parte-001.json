@@ -42452,7 +42452,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "cTransmission::InitGearRatios"
@@ -42461,12 +42461,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42482,7 +42482,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "cTransmission::CalculateGearForSimpleCar"
@@ -42491,12 +42491,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42512,7 +42512,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "cTransmission::DisplayGearRatios"
@@ -42521,12 +42521,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42542,7 +42542,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "cTransmission::CalculateDriveAcceleration"
@@ -42551,12 +42551,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42572,7 +42572,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "CWaterCannons::Init"
@@ -42581,12 +42581,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42602,7 +42602,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "CWaterCannons::UpdateOne"
@@ -42611,12 +42611,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42632,7 +42632,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "CWaterCannons::Update"
@@ -42641,12 +42641,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42662,7 +42662,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "CWaterCannons::Render"
@@ -42671,12 +42671,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42692,7 +42692,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "FxInfoManager_c::AddFxInfo"
@@ -42701,12 +42701,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42722,7 +42722,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "FxInfoManager_c::ProcessEmissionInfo"
@@ -42731,12 +42731,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42752,7 +42752,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "FxInfoManager_c::ProcessMovementInfo"
@@ -42761,12 +42761,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42782,7 +42782,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "FxInfoManager_c::ProcessRenderInfo"
@@ -42791,12 +42791,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42812,7 +42812,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "FxSphere_c::operator new"
@@ -42821,12 +42821,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42842,7 +42842,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "FxSphere_c::operator delete-"
@@ -42851,12 +42851,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42872,7 +42872,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "FxSphere_c::IsCollision"
@@ -42881,12 +42881,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42902,7 +42902,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "FxSphere_c::GetDistToPlane"
@@ -42911,12 +42911,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42932,7 +42932,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "ProcSurfaceInfo_c::Init"
@@ -42941,12 +42941,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42962,7 +42962,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "ProcSurfaceInfo_c::Exit"
@@ -42971,12 +42971,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -42992,7 +42992,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "ProcSurfaceInfo_c::AddObject"
@@ -43001,12 +43001,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -43022,7 +43022,7 @@
       },
       "evidence": {
         "path": "reversing/Misc8/validation-summary.json",
-        "sha256": "e164985294f074efd4049340240329405e65368b7fe00d54cb3697e08e1b78fe",
+        "sha256": "8daf740681f3b63afcdf6a45a4e94485c2a850c190fc93daaefe3180f8078048",
         "passed_path": [
           "covered_functions",
           "ProcSurfaceInfo_c::AddObjects"
@@ -43031,12 +43031,12 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+        "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
         "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
         "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261002-182644-454625).",
       "dependency_review": null,
@@ -151625,7 +151625,7 @@
       },
       "evidence": {
         "path": "reversing/MFDec/validation-summary.json",
-        "sha256": "94d5a6bfc43fc853f371fe707566b9cb63e787bcca5370fbd84f745baa93139e",
+        "sha256": "5985ca7be94ad694c3039d965522dce50d0e716a5739aa0fee3c5491fe3faf01",
         "passed_path": [
           "covered_functions",
           "CAEMFDecoder::Initialise"
@@ -151634,8 +151634,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "ea92ee6d3c0f05b140a576ad57cf51b2fbe1c76cf9840d8d10b5fbf6fa2ba52c",
-        "source/game_sa/Audio/Loaders/AEMFDecoder.h": "7c6018395ffce99152284a431e7d2e78f1b16d9b94d92ee492531e7ee046c8de"
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "d7710b82e04712aee86b55dbff76ce1bc7b89c0381d1e15408c54377871e1483",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-115557-636667).",
       "dependency_review": null,
@@ -151651,7 +151651,7 @@
       },
       "evidence": {
         "path": "reversing/MFDec/validation-summary.json",
-        "sha256": "94d5a6bfc43fc853f371fe707566b9cb63e787bcca5370fbd84f745baa93139e",
+        "sha256": "5985ca7be94ad694c3039d965522dce50d0e716a5739aa0fee3c5491fe3faf01",
         "passed_path": [
           "covered_functions",
           "CAEMFDecoder::FillBuffer"
@@ -151660,8 +151660,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "ea92ee6d3c0f05b140a576ad57cf51b2fbe1c76cf9840d8d10b5fbf6fa2ba52c",
-        "source/game_sa/Audio/Loaders/AEMFDecoder.h": "7c6018395ffce99152284a431e7d2e78f1b16d9b94d92ee492531e7ee046c8de"
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "d7710b82e04712aee86b55dbff76ce1bc7b89c0381d1e15408c54377871e1483",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-115557-636667).",
       "dependency_review": null,
@@ -151677,7 +151677,7 @@
       },
       "evidence": {
         "path": "reversing/MFDec/validation-summary.json",
-        "sha256": "94d5a6bfc43fc853f371fe707566b9cb63e787bcca5370fbd84f745baa93139e",
+        "sha256": "5985ca7be94ad694c3039d965522dce50d0e716a5739aa0fee3c5491fe3faf01",
         "passed_path": [
           "covered_functions",
           "CAEMFDecoder::InitLibrary"
@@ -151686,8 +151686,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "ea92ee6d3c0f05b140a576ad57cf51b2fbe1c76cf9840d8d10b5fbf6fa2ba52c",
-        "source/game_sa/Audio/Loaders/AEMFDecoder.h": "7c6018395ffce99152284a431e7d2e78f1b16d9b94d92ee492531e7ee046c8de"
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "d7710b82e04712aee86b55dbff76ce1bc7b89c0381d1e15408c54377871e1483",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-115557-636667).",
       "dependency_review": null,
@@ -153267,7 +153267,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::DeleteUserTracksInfo"
@@ -153296,7 +153296,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::GetAudioFileType"
@@ -153325,7 +153325,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::GetTrackPath"
@@ -153354,7 +153354,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::GetUserTrackPlayMode"
@@ -153383,7 +153383,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::Initialise"
@@ -153412,7 +153412,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::IsShortcut"
@@ -153441,7 +153441,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::LoadUserTrack"
@@ -153470,7 +153470,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::ReadUserTracks"
@@ -153499,7 +153499,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::ResolveShortcut-"
@@ -153528,7 +153528,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::ScanUserTracks"
@@ -153557,7 +153557,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::SelectUserTrackIndex"
@@ -153586,7 +153586,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::SetUserTrackIndex"
@@ -153615,7 +153615,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::Shutdown"
@@ -153644,7 +153644,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::WriteUserTracksFile-"
@@ -153673,7 +153673,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAEUserRadioTrackManager::WriteUserTracksThread"
@@ -153702,7 +153702,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::Constructor"
@@ -153731,7 +153731,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CopyAnimation-AnimationId"
@@ -153760,7 +153760,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CopyAnimation-Name"
@@ -153789,7 +153789,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CreateAssociations-1"
@@ -153818,7 +153818,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CreateAssociations-2"
@@ -153847,7 +153847,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::CreateAssociations-3"
@@ -153876,7 +153876,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::DestroyAssociations"
@@ -153905,7 +153905,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::Destructor"
@@ -153934,7 +153934,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimBlock"
@@ -153963,7 +153963,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimation-AnimationId"
@@ -153992,7 +153992,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimation-Name"
@@ -154021,7 +154021,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetAnimationId"
@@ -154050,7 +154050,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::GetNumAnimations"
@@ -154079,7 +154079,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::InitEmptyAssociations"
@@ -154108,7 +154108,7 @@
       },
       "evidence": {
         "path": "reversing/Audio15/validation-summary.json",
-        "sha256": "0eb4613eb90f45fab054b14d720de2e0a9aa7086896239022bf0eddb6180a2af",
+        "sha256": "734c9cb702813907c29d83c1b8095bf27045faa0cec1833ccd9689caebce50ef",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssocGroup::IsCreated"

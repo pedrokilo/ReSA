@@ -36,7 +36,7 @@ public:
     // se trabaja sobre el diseno del EXE: +0 objetos, +4 estados (bit 7 = libre, bits 0..6 = id), +8 tamano, +0xC cursor. Como el original: avanza el cursor una posicion ANTES de mirar y lo guarda; al
     // llegar al tamano (igualdad) lo pone a 0 y, si ya habia dado la vuelta, devuelve nulo; si no, da la vuelta (una sola vez). Con el primer estado libre (bit 7) lo marca ocupado e incrementa su id de
     // 7 bits (modulo 128, sin tocar el almacenamiento) y devuelve objetos + cursor * 0x1A4. Devuelve nulo (0) tambien en el caso de pool lleno.
-    void* New() {
+    __declspec(noinline) void* New() { // sin expansion en linea: lo llama CPatrolRoute::operator new (lote 146A) y el banco puede sustituirlo
         auto* const raw = reinterpret_cast<uint8*>(this);
         bool wrapped = false;
         for (;;) {

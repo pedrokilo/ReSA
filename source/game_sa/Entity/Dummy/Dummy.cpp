@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Dummy.h"
+#include "Pools/PoolRawDelete.h"
 
 /**
  * Registra la validación de punteros para entidades CDummy.
@@ -33,6 +34,8 @@ void CDummy::InjectHooks() {
     RH_ScopedCategory("Entity/Dummy");
 
     RH_ScopedGlobalInstall(IsDummyPointerValid, 0x532730);
+    RH_ScopedInstall(operator new, 0x5326E0);    // lote 146A (banco Fn146A)
+    RH_ScopedInstall(operator delete, 0x5326F0); // lote 146A (banco Fn146A)
     RH_ScopedInstall(ScalarDeletingDestructor, 0x532770); // lote 130A (banco Fn130A)
     RH_ScopedNamedGlobalInstall(DummyConstructorBody, "Constructor", 0x532540); // lote 141A (banco Fn141A)
     RH_ScopedNamedGlobalInstall(DummyDestructorBody, "Destructor", 0x532560); // lote 141A (banco Fn141A)
@@ -78,15 +81,16 @@ CDummy* CDummy::ScalarDeletingDestructor(uint8 flags) {
     return this;
 }
 
-// 0x5326E0
-// Obtiene almacenamiento del pool específico de dummies.
+// 0x5326E0 (lote 146A, banco Fn146A): `mov ecx,[0xB744A0]; jmp 0x532630` (cdecl con un argumento de pila que no se lee; `ret`).
+// Obtiene almacenamiento del pool específico de dummies con CDummyPool::New (0x532630, con hook); devuelve nulo si esta lleno.
 void* CDummy::operator new(size_t size) {
     return GetDummyPool()->New();
 }
 
-// 0x5326F0
+// 0x5326F0 (lote 146A, banco Fn146A): cdecl con un argumento de pila, `ret`, 51 bytes. Libera la ranura de `obj` en el pool de dummies (0xB744A0) en linea, como el EXE: indice =
+// (obj - almacenamiento) / 56 (division con signo truncada hacia cero, sin comprobar que pertenezca al pool), estados[indice] |= 0x80 y, si indice < cursor (con signo), cursor = indice.
 void CDummy::operator delete(void* obj) {
-    GetDummyPool()->Delete(static_cast<CDummy*>(obj));
+    PoolFreeSlotRaw(GetDummyPool(), obj, sizeof(CDummy));
 }
 
 // 0x532540

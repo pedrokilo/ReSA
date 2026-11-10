@@ -20,9 +20,29 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleStandStill.h"
 #include "TaskSimpleWaitUntilPedIsOutCar.h"
 
+namespace {
+// 0x6494F0 (lote 146A, banco Fn146A): cuerpo del destructor de CTaskSimpleWaitUntilPedIsOutCar que usa el destructor con borrado del EXE (thiscall, sin argumentos de pila; el hook Destructor de la clase). Funcion propia sin expansion
+// en linea para que el banco pueda sustituirla; el destructor con borrado la llama como el `call 0x6494F0` del EXE.
+__declspec(noinline) void __fastcall WaitUntilPedIsOutCarDestructorBody(CTaskSimpleWaitUntilPedIsOutCar* self, void* /*edx*/) { self->CTaskSimpleWaitUntilPedIsOutCar::~CTaskSimpleWaitUntilPedIsOutCar(); }
+
+// 0x64D1E0 (lote 146A, banco Fn146A): destructor con borrado de CTaskSimpleWaitUntilPedIsOutCar del EXE (ranura 0 de su vtable 0x86F094; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6494F0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6494F0), libera `this`
+// con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleWaitUntilPedIsOutCar* __fastcall WaitUntilPedIsOutCarScalarDeletingDestructor(CTaskSimpleWaitUntilPedIsOutCar* self, void* /*edx*/, uint8 flags) {
+    WaitUntilPedIsOutCarDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote146AWaitUntilPedIsOutCarDestructorBody() { return reinterpret_cast<uintptr_t>(&WaitUntilPedIsOutCarDestructorBody); } // para el banco Fn146A
+
 void CTaskSimpleWaitUntilPedIsOutCar::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleWaitUntilPedIsOutCar, 0x86F094, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(WaitUntilPedIsOutCarScalarDeletingDestructor, "ScalarDeletingDestructor", 0x64D1E0); // lote 146A (banco Fn146A)
 
     RH_ScopedInstall(Constructor, 0x649450);
     RH_ScopedInstall(Destructor, 0x6494F0);

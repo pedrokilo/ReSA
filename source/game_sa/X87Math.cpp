@@ -18828,3 +18828,23 @@ __declspec(noinline) float __cdecl FloatAbsCpp(float v) {
 __declspec(noinline) double __cdecl SinFloatSt0Cpp(float angle) { return sin(double(angle)); }
 __declspec(noinline) double __cdecl CosFloatSt0Cpp(float angle) { return cos(double(angle)); }
 #pragma float_control(pop)
+
+// Lote 146A (Fn146A).
+#pragma float_control(precise, on, push)
+// 0x5A2E60 (thiscall, tres floats en la pila, `ret 0Ch`): escala las tres filas de 16 bytes de la matriz {x, y, z, relleno} componente a componente con `fld dword [arg]; fmul dword [elemento]; fstp dword [elemento]`
+// por componente, con (x, y, z) = los argumentos de pila (primero, segundo y tercero) y las filas en +0, +0x10 y +0x20: el producto se hace en el x87 con la precision vigente y se guarda como float (conserva los
+// denormales que SSE vaciaria a cero).
+// Un elemento: *element = *arg * *element como `fld dword [arg]; fmul dword [elemento]; fstp dword [elemento]` (el argumento se carga primero y el elemento es el operando de memoria: con un NaN senalizante
+// en el elemento el resultado depende de ese orden). La lectura volatil del argumento hace que el compilador lo cargue primero; el argumento se lee en su propia ranura de pila, sin copiarlo.
+__declspec(noinline) static void ProcSurfaceScaleElementCpp(const volatile float* arg, float* element) {
+    *element = *arg * *element;
+}
+__declspec(noinline) void __fastcall ProcSurfaceScaleMatrixCpp(float* matrix, void* /*edx*/, float x, float y, float z) {
+    for (int row = 0; row < 3; ++row) {
+        float* const r = matrix + 4 * row;
+        ProcSurfaceScaleElementCpp(&x, &r[0]);
+        ProcSurfaceScaleElementCpp(&y, &r[1]);
+        ProcSurfaceScaleElementCpp(&z, &r[2]);
+    }
+}
+#pragma float_control(pop)

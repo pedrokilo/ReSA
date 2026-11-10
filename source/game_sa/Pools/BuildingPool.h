@@ -48,7 +48,7 @@ public:
     // Como el original: busca a partir de m_nFirstFree+1 (con una sola vuelta; si el pool está lleno deja
     // m_nFirstFree = 0 y devuelve nullptr), marca el slot como ocupado, incrementa su ID de 7 bits y no
     // toca el almacenamiento del objeto (sin el relleno 0xCD de CPool::New).
-    CBuilding* New() {
+    __declspec(noinline) CBuilding* New() { // sin expansion en linea: lo llama CBuilding::operator new (lote 146A) y el banco puede sustituirlo
         return NewLegacy();
     }
 };

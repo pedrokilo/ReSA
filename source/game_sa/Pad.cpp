@@ -49,6 +49,7 @@ void CPad::InjectHooks() {
     RH_ScopedClass(CPad);
     RH_ScopedCategoryGlobal();
     RH_ScopedInstall(GetPad, 0x53FB70);
+    RH_ScopedInstall(IsRadioTrackSkipPressed, 0x4E7F20); // lote 146A (banco Fn146A): cuerpo inline en la cabecera
     RH_ScopedInstall(GetCameraCycleUp, 0x5404A0);
     RH_ScopedInstall(GetMouseCameraStickHorizontal, 0x540E80);
     RH_ScopedInstall(GetMouseCameraStickVertical, 0x540F80);

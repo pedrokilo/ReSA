@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Building.h"
+#include "Pools/PoolRawDelete.h"
 
 /**
  * Registra las operaciones específicas de edificios estáticos y su pool.
@@ -29,6 +30,8 @@ void CBuilding::InjectHooks()
     RH_ScopedCategory("Entity");
 
     RH_ScopedInstall(ReplaceWithNewModel, 0x403EC0);
+    RH_ScopedInstall(operator new, 0x404090);    // lote 146A (banco Fn146A)
+    RH_ScopedInstall(operator delete, 0x4040A0); // lote 146A (banco Fn146A)
     RH_ScopedGlobalInstall(IsBuildingPointerValid, 0x4040E0);
 }
 
@@ -38,15 +41,18 @@ CBuilding::CBuilding() : CEntity()
     SetUsesCollision(true);
 }
 
-// Los edificios se asignan exclusivamente desde CBuildingPool.
+// 0x404090 (lote 146A, banco Fn146A): `mov ecx,[0xB74498]; jmp 0x403FA0` (cdecl con un argumento de pila que no se lee; `ret`). Los edificios se asignan exclusivamente desde CBuildingPool: toma una ranura con
+// CBuildingPool::New (0x403FA0, con hook); devuelve nulo si esta lleno.
 void* CBuilding::operator new(unsigned size)
 {
     return GetBuildingPool()->New();
 }
 
+// 0x4040A0 (lote 146A, banco Fn146A): cdecl con un argumento de pila, `ret`, 51 bytes. Libera la ranura de `data` en el pool de edificios (0xB74498) en linea, como el EXE: indice =
+// (data - almacenamiento) / 56 (division con signo truncada hacia cero, sin comprobar que pertenezca al pool), estados[indice] |= 0x80 y, si indice < cursor (con signo), cursor = indice.
 void CBuilding::operator delete(void* data)
 {
-    GetBuildingPool()->Delete(static_cast<CBuilding*>(data));
+    PoolFreeSlotRaw(GetBuildingPool(), data, sizeof(CBuilding));
 }
 
 /**

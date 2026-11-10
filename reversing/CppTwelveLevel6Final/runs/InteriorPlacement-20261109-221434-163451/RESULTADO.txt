@@ -1,0 +1,3 @@
+APROBADO: InteriorPlacement
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-interior-placement\20261109-221434-163451

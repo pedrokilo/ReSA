@@ -2311,3 +2311,7 @@ float __cdecl FloatAbsCpp(float v);
 // 0x41BCE0 / 0x41BCF0 (cdecl, un float en la pila, `ret`, resultado en ST0): `fld dword [esp+4]; fsin; ret` / `fcos`. Devuelven double para que ST0 salga sin redondear.
 double __cdecl SinFloatSt0Cpp(float angle);
 double __cdecl CosFloatSt0Cpp(float angle);
+
+// Lote 146A (Fn146A).
+// 0x5A2E60 (thiscall con tres floats en la pila): las tres filas de 16 bytes de `matrix` {x, y, z, relleno} se multiplican componente a componente por (x, y, z) con fld/fmul/fstp por componente (conserva denormales).
+void __fastcall ProcSurfaceScaleMatrixCpp(float* matrix, void* edx, float x, float y, float z);

@@ -27,6 +27,8 @@ void CRealTimeShadowManager::InjectHooks() {
     RH_ScopedClass(CRealTimeShadowManager);
     RH_ScopedCategory("Shadows");
 
+    RH_ScopedInstall(Constructor, 0x706770); // lote 146A (banco Fn146A)
+    RH_ScopedInstall(Destructor, 0x7067A0);  // lote 146A (banco Fn146A)
     RH_ScopedInstall(Init, 0x7067C0);
     RH_ScopedInstall(ReInit, 0x706870);
     RH_ScopedInstall(ReturnRealTimeShadow, 0x705B30);
@@ -34,6 +36,26 @@ void CRealTimeShadowManager::InjectHooks() {
     RH_ScopedInstall(Update, 0x706AB0);
     RH_ScopedInstall(DoShadowThisFrame, 0x706BA0);
     RH_ScopedInstall(Exit, 0x706A60);
+}
+
+// 0x706770
+CRealTimeShadowManager* CRealTimeShadowManager::Constructor() {
+    m_BlurCamera.m_pRwCamera = nullptr;
+    m_BlurCamera.m_pRwRenderTexture = nullptr;
+    m_GradientCamera.m_pRwCamera = nullptr;
+    m_GradientCamera.m_pRwRenderTexture = nullptr;
+    m_bInitialised = 0;
+    m_bNeedsReinit = 0;
+    for (auto*& shadow : m_apShadows) {
+        shadow = nullptr;
+    }
+    return this;
+}
+
+// 0x7067A0
+void CRealTimeShadowManager::Destructor() {
+    m_GradientCamera.Destroy();
+    m_BlurCamera.Destroy();
 }
 
 // 0x7067C0

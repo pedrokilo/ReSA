@@ -47,3 +47,6 @@ Copias buenas en `artifacts/good/` (SHA256 restaurado y comprobado). Ronda 1 (co
 
 ## Bancos repetidos
 `grep` de las trece direcciones (con y sin ceros) en `reversing/` (sin Fn125A, evidencias archivadas ni artifacts): ningun banco las cita (solo un comentario de texto en `Fn124A/README.md`). No hubo bancos que repetir ni adaptar.
+
+## Actualizacion del lote 146A (09/11/2026)
+`CDummy::operator delete` (0x5326F0) tiene hook RH y banco propio desde el lote 146A (`reversing/Fn146A`): lo dicho arriba de que es "sin hook" ya no aplica. El banco se adapto: el falso de 0x5326F0 va ahora en la direccion del EXE y en el cuerpo del hook (`F` en lugar de `U`; `run_local.py` lo declara con hook) y se repitio aprobado con el codigo final (212992 pares, cero diferencias, `runs/Fn125A-20261109-210958-836101`).

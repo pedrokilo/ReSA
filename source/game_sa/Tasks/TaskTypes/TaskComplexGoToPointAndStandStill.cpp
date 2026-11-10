@@ -35,12 +35,27 @@ __declspec(noinline) void __fastcall GoToPointAndStandStillDestructorBody(CTaskC
     *reinterpret_cast<uint32*>(self) = 0x86FDA8;
     CTaskComplexBody::Destructor(self, nullptr);
 }
+
+// 0x66DB80 (lote 146A, banco Fn146A): destructor con borrado de CTaskComplexGoToPointAndStandStill del EXE (ranura 0 de su vtable 0x86FDA8; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x668240; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). 0x668240 es una COPIA del cuerpo de 0x668630 (los mismos 11 bytes: `mov [ecx],0x86FDA8;
+// jmp 0x61A3D0`), sin hook ni llamadores propios aparte de este destructor; la DLL llama a GoToPointAndStandStillDestructorBody (el cuerpo reconstruido de 0x668630, mismo efecto). Libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexGoToPointAndStandStill* __fastcall GoToPointAndStandStillScalarDeletingDestructor(CTaskComplexGoToPointAndStandStill* self, void* /*edx*/, uint8 flags) {
+    GoToPointAndStandStillDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
+
+uintptr_t Lote146AGoToPointDestructorBody() { return reinterpret_cast<uintptr_t>(&GoToPointAndStandStillDestructorBody); } // para el banco Fn146A
 
 void CTaskComplexGoToPointAndStandStill::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGoToPointAndStandStill, 0x86fda8, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(GoToPointAndStandStillDestructorBody, "Destructor", 0x668630); // lote 141A (banco Fn141A)
+    RH_ScopedNamedGlobalInstall(GoToPointAndStandStillScalarDeletingDestructor, "ScalarDeletingDestructor", 0x66DB80); // lote 146A (banco Fn146A)
 
     RH_ScopedInstall(Constructor, 0x668120);
 

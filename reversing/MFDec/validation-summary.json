@@ -26,7 +26,7 @@
   "log_sha256": "71a2e0f0e4655e84cdb2b33f880ab71465e28e66a52cbd520fc298d785c7bc45",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mfdec\\20261004-115557-636667",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mfdec\\20261109-213603-257762",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEMFDecoder::Initialise": true,
@@ -42,12 +42,12 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "f141942db341c18148787b100c0eaf5f853d73f7f96ecbeae30ea47b7e0ff6bb",
-      "pdb": "69c4e95109bdbc35152eb153672a5525d8141b83b4e731676744fb54841c87e9"
+      "asi": "2d35079822d92d9a32a3d39dba991f79d379fab62421100acca01d7ed6b62916",
+      "pdb": "3350c7b7cfc2346d90c1a519c26b1410a6ef09b61f2627482ffe707219234edd"
     },
     "sources": {
-      "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "ea92ee6d3c0f05b140a576ad57cf51b2fbe1c76cf9840d8d10b5fbf6fa2ba52c",
-      "source/game_sa/Audio/Loaders/AEMFDecoder.h": "7c6018395ffce99152284a431e7d2e78f1b16d9b94d92ee492531e7ee046c8de"
+      "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "d7710b82e04712aee86b55dbff76ce1bc7b89c0381d1e15408c54377871e1483",
+      "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
@@ -58,6 +58,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

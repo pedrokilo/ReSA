@@ -23,10 +23,18 @@ END GENERATED HOOK STATUS */
 #include "PlantLocTri.h"
 #include "X87Math.h"
 
+// 0x5A2E90
+ProcSurfaceInfo_c* ProcSurfaceInfo_c::Constructor() {
+    this->ProcSurfaceInfo_c::ProcSurfaceInfo_c();
+    return this;
+}
+
 void ProcSurfaceInfo_c::InjectHooks() {
     RH_ScopedClass(ProcSurfaceInfo_c);
     RH_ScopedCategory("Plant");
 
+    RH_ScopedInstall(Constructor, 0x5A2E90); // lote 146A (banco Fn146A)
+    RH_ScopedNamedGlobalInstall(ProcSurfaceScaleMatrixCpp, "ScaleMatrix", 0x5A2E60); // lote 146A (banco Fn146A)
     RH_ScopedInstall(Init, 0x5A2EB0);
     RH_ScopedInstall(Exit, 0x5A3270);
     RH_ScopedInstall(AddObject, 0x5A32D0);
@@ -195,11 +203,9 @@ ProcObjectListItem* ProcSurfaceInfo_c::AddObject(CVector pos, CVector normal, tC
             auto* modellingMatrix = head->m_Obj->GetModellingMatrix();
 
             auto tempMatrix = CMatrix(modellingMatrix, false);
-            // Como el original (0x5A2E60): cada fila se multiplica componente a componente por (xy, xy, z).
+            // Como el original (llamada a 0x5A2E60): cada fila se multiplica componente a componente por (xy, xy, z).
             // Los productos se hacen en el x87 como el EXE: conserva los denormales que SSE vacía a cero.
-            for (CVector* row : { &tempMatrix.GetRight(), &tempMatrix.GetForward(), &tempMatrix.GetUp() }) {
-                ProcSurfaceScaleRowCpp(&row->x, xyScale, zScale);
-            }
+            ProcSurfaceScaleMatrixCpp(&tempMatrix.GetRight().x, nullptr, xyScale, xyScale, zScale);
             // Como el original (0x5A3803): pos.z - (min.z * zScale - min.z), todo en el x87
             ProcSurfaceOffsetZCpp(&tempMatrix.GetPosition().z, minBounding.z, zScale);
             tempMatrix.UpdateRW();

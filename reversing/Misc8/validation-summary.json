@@ -36,7 +36,7 @@
   "log_sha256": "7e6abdd8774094e6dfd0c91eedbecdc04ee7162aacc336929ad987d9b8c559e3",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc8\\20261105-185935-671445",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc8\\20261109-221313-892690",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "cTransmission::InitGearRatios": true,
@@ -62,16 +62,16 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "0c05b7d94dd4839b19c7e1a55c51caeceb43fcdbffd4bf0819e020c6192268c3",
-      "pdb": "6acca18c50a85f8c90713c097201d486dbfbc7ad2a5c69ee8e190bd6a166b8eb"
+      "asi": "8846b8299b8657c45a7b8205abbd70b5ce828e92b78ef061832260a6b452b316",
+      "pdb": "2de8d0a773864fcd2edea61bca87f0dd39aa63a9bac5411d546419e054e38f56"
     },
     "sources": {
-      "source/game_sa/cTransmission.cpp": "fc59b1384bc9a8807b347d9938262b277bf00c1a5ddc2f8ee90fd4412728b3d5",
+      "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
       "source/game_sa/WaterCannons.cpp": "5c721168c8f611898dc4450ab3743ddbf03aa1d7ed0b7c49848269208221b514",
       "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
       "source/game_sa/Fx/FxSphere.cpp": "53234eb4fa025b31e2e4ffa0863034e42c5a560563407b8fa6398c632d22e4ea",
-      "source/game_sa/Plant/ProcSurfaceInfo.cpp": "5b2c88395f3506885092c941638abad07fceedcd525114a8517de59b287d0331",
-      "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+      "source/game_sa/Plant/ProcSurfaceInfo.cpp": "1999dfc54b28c2517700e8f4bbe6d6a411fddd50f323a722247044c17fc76b23",
+      "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {

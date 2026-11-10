@@ -319,11 +319,10 @@ inline void Update() {
     };
     using VoidDelete = void (*)(void*);
     const uintptr_t vehicleDelete = reinterpret_cast<uintptr_t>(static_cast<VoidDelete>(&CVehicle::operator delete));
-    const uintptr_t buildingDelete = reinterpret_cast<uintptr_t>(static_cast<VoidDelete>(&CBuilding::operator delete));
     env.stubs[kIdxPhysical] = {H(0x542450, Lote140APhysicalDestructorBody(), &FkBody<0x542450>), E(0x8214BD, &FkDelete<0x8214BD>)};
     env.stubs[kIdxMatrixThunk] = {F(0x59ACD0, &FkBody<0x59ACD0>)};
     env.stubs[kIdxTrailer] = {H(0x6CED10, Lote140ATrailerDestructorBody(), &FkBody<0x6CED10>), U(0x6E2D90, vehicleDelete, &FkDelete<0x6E2D90>)};
-    env.stubs[kIdxAnimDelete] = {F(0x537A70, &FkBody<0x537A70>), U(0x4040A0, buildingDelete, &FkDelete<0x4040A0>)};
+    env.stubs[kIdxAnimDelete] = {F(0x537A70, &FkBody<0x537A70>), F(0x4040A0, &FkDelete<0x4040A0>)};
     env.stubs[kIdxAnimBody] = {H(0x535E90, Lote140AAnimatedBuildingEntityDestructor(), &FkBody<0x535E90>)};
     env.stubs[kIdxPolice] = {F(0x68D880, &FkBody<0x68D880>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[kIdxWander] = {U(0x63CB50, Lote140ACarDriveWanderDestructorBody(), &FkBody<0x63CB50>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
@@ -333,7 +332,7 @@ inline void Update() {
     dllReal[kIdxPhysical] = "toda la funcion salvo ~CPhysical (0x542450, funcion propia de la DLL con falso identico; el EXE tiene hook en esa direccion, apagado) y operator delete (0x8214BD, sin hook: la DLL lo llama por esa direccion, un solo parche)";
     dllReal[kIdxMatrixThunk] = "toda la funcion salvo CMatrix::Destructor (0x59ACD0, con hook, falso identico en la direccion del EXE y en el cuerpo de la DLL)";
     dllReal[kIdxTrailer] = "toda la funcion salvo el cuerpo ~CTrailer (0x6CED10, con hook S Destructor del lote 141A, apagado; la DLL llama a su funcion propia TrailerDestructorBody, falso identico en la direccion del EXE y en ella) y CVehicle::operator delete (0x6E2D90, sin hook, falso identico)";
-    dllReal[kIdxAnimDelete] = "toda la funcion salvo el cuerpo de CAnimatedBuilding (0x537A70, con hook propio del lote, falso identico) y CBuilding::operator delete (0x4040A0, sin hook, falso identico)";
+    dllReal[kIdxAnimDelete] = "toda la funcion salvo el cuerpo de CAnimatedBuilding (0x537A70, con hook propio del lote, falso identico) y CBuilding::operator delete (0x4040A0, con hook desde el lote 146A, falso identico en la direccion del EXE y en su cuerpo)";
     dllReal[kIdxAnimBody] = "toda la funcion salvo ~CEntity (0x535E90, con hook; la DLL llama a su funcion propia AnimatedBuildingEntityDestructor, falso identico en la direccion del EXE y en ella)";
     dllReal[kIdxPolice] = "toda la funcion salvo ~CTaskComplexPolicePursuit (0x68D880, envoltura Destructor() con falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)";
     dllReal[kIdxWander] = "toda la funcion salvo el cuerpo ~CTaskComplexCarDriveWander (0x63CB50, funcion propia sin hook, falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)";

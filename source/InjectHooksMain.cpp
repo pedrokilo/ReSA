@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "PatrolRoute.h"
 #include "AttractorScanner.h"
 #include "Events/EventSource.h"
 #include "Events/EventPotentialGetRunOver.h"
@@ -936,6 +937,7 @@ void InjectHooksMain() {
     CCarPathLink::InjectHooks();
     CNodeAddress::InjectHooks();
     CNodeRoute::InjectHooks();
+    CPatrolRoute::InjectHooks(); // lote 146A
     CAutoPilot::InjectHooks();
     CLoadMonitor::InjectHooks();
     CDecisionMakerTypes::InjectHooks();

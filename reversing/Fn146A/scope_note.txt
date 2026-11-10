@@ -1,0 +1,1 @@
+Fuentes probadas compiladas en el worktree wv-3 sobre main 168a054a42 con los cambios del lote (ver artifacts/build-manifest.json).

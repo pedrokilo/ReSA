@@ -25,9 +25,20 @@ END GENERATED HOOK STATUS */
 namespace {
 // 0x667E70 (lote 122A, banco Fn122A): cuerpo no virtual de ~CTaskSimpleAchieveHeading del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx], 0x86FD74 ; jmp 0x61A3A0`).
 // Deja la vtable de CTaskSimpleAchieveHeading del EXE (0x86FD74) y salta a CTask::Destructor (0x61A3A0), que deja la vtable de CTask (0x86D48C). Lo llaman el funclet de limpieza (SEH) y el destructor con borrado.
-void __fastcall AchieveHeadingDestructorBody(CTaskSimpleAchieveHeading* self, void* /*edx*/) {
+__declspec(noinline) void __fastcall AchieveHeadingDestructorBody(CTaskSimpleAchieveHeading* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x86FD74;
     self->CTask::Destructor();
+}
+
+// 0x66DB60 (lote 146A, banco Fn146A): destructor con borrado de CTaskSimpleAchieveHeading del EXE (ranura 0 de su vtable 0x86FD74; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x667E70; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x667E70, con hook; aqui
+// su funcion AchieveHeadingDestructorBody, sin expansion en linea), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleAchieveHeading* __fastcall AchieveHeadingScalarDeletingDestructor(CTaskSimpleAchieveHeading* self, void* /*edx*/, uint8 flags) {
+    AchieveHeadingDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
 }
 } // namespace
 
@@ -36,6 +47,7 @@ void CTaskSimpleAchieveHeading::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedNamedGlobalInstall(AchieveHeadingDestructorBody, "Destructor", 0x667E70);
+    RH_ScopedNamedGlobalInstall(AchieveHeadingScalarDeletingDestructor, "ScalarDeletingDestructor", 0x66DB60); // lote 146A (banco Fn146A)
     RH_ScopedInstall(Constructor, 0x667E20);
     RH_ScopedInstall(SetUpIK, 0x667F20);
     RH_ScopedVMTInstall(Clone, 0x66CCF0);

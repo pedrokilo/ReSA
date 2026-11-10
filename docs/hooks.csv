@@ -9701,3 +9701,25 @@ WaterCreature_c,Constructor,0x006E3E30,1,0,1,S
 CAEGlobalWeaponAudioEntity,ScalarDeletingDestructor,0x00506DC0,1,0,1,S
 CAudioEngine,StopPoliceScanner,0x00507400,1,0,1,S
 CAEExplosionAudioEntity,Constructor,0x005074B0,1,0,1,S
+CTaskInteriorBeInShop,ScalarDeletingDestructor,0x00676480,1,0,1,S
+CTaskInteriorShopKeeper,ScalarDeletingDestructor,0x006764A0,1,0,1,S
+CTaskSimpleWaitUntilPedIsOutCar,ScalarDeletingDestructor,0x0064D1E0,1,0,1,S
+CTaskSimpleWaitUntilPedIsInCar,ScalarDeletingDestructor,0x0064D200,1,0,1,S
+CTaskComplexEvasiveStep,ScalarDeletingDestructor,0x00655EE0,1,0,1,S
+CTaskSimpleEvasiveDive,ScalarDeletingDestructor,0x00655F00,1,0,1,S
+CTaskSimpleAchieveHeading,ScalarDeletingDestructor,0x0066DB60,1,0,1,S
+CTaskComplexGoToPointAndStandStill,ScalarDeletingDestructor,0x0066DB80,1,0,1,S
+CAEMFDecoder,Shutdown,0x004E7850,1,0,1,S
+CAEMFDecoder,ScalarDeletingDestructor,0x004E7C50,1,0,1,S
+CPad,IsRadioTrackSkipPressed,0x004E7F20,1,0,1,S
+CRealTimeShadow,GetShadowCamera,0x007059E0,1,0,1,S
+CRealTimeShadowManager,Constructor,0x00706770,1,0,1,S
+CRealTimeShadowManager,Destructor,0x007067A0,1,0,1,S
+CBuilding,operator new,0x00404090,1,0,1,S
+CBuilding,operator delete,0x004040A0,1,0,1,S
+CDummy,operator new,0x005326E0,1,0,1,S
+CDummy,operator delete,0x005326F0,1,0,1,S
+CPatrolRoute,operator new,0x0041B810,1,0,1,S
+CPatrolRoute,operator delete,0x0041B820,1,0,1,S
+ProcSurfaceInfo_c,ScaleMatrix,0x005A2E60,1,0,1,S
+ProcSurfaceInfo_c,Constructor,0x005A2E90,1,0,1,S

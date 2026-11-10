@@ -33,6 +33,8 @@ public:
     static void InjectHooks();
 
     ProcSurfaceInfo_c() = default;  // 0x5A2E90
+    // 0x5A2E90 (lote 146A, banco Fn146A): constructor del EXE (thiscall, `ret`): solo inicializa la lista de objetos (+0x3C: tres dwords a cero) y devuelve `this`; el resto del objeto no se escribe.
+    ProcSurfaceInfo_c* Constructor();
     ~ProcSurfaceInfo_c() = default; // 0x5A2EA0
 
     bool Init(const char* surfaceType, const char* modelName,

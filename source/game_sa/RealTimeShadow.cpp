@@ -31,6 +31,7 @@ void CRealTimeShadow::InjectHooks() {
 
     RH_ScopedInstall(SetLightProperties, 0x705900);
     RH_ScopedInstall(GetShadowRwTexture, 0x7059F0);
+    RH_ScopedInstall(GetShadowCamera, 0x7059E0); // lote 146A (banco Fn146A): cuerpo inline en la cabecera
     RH_ScopedInstall(DrawBorderAroundTexture, 0x705A00);
     RH_ScopedInstall(Create, 0x706460);
     RH_ScopedInstall(SetupForThisEntity, 0x706520);

@@ -26,9 +26,29 @@ END GENERATED HOOK STATUS */
 #include "InteriorInfo_t.h"
 #include "InteriorManager_c.h"
 
+namespace {
+// 0x6756A0 (lote 146A, banco Fn146A): cuerpo del destructor de CTaskInteriorShopKeeper que usa el destructor con borrado del EXE (thiscall, sin argumentos de pila; el hook Destructor de la clase). Funcion propia sin expansion
+// en linea para que el banco pueda sustituirla; el destructor con borrado la llama como el `call 0x6756A0` del EXE.
+__declspec(noinline) void __fastcall ShopKeeperDestructorBody(CTaskInteriorShopKeeper* self, void* /*edx*/) { self->CTaskInteriorShopKeeper::~CTaskInteriorShopKeeper(); }
+
+// 0x6764A0 (lote 146A, banco Fn146A): destructor con borrado de CTaskInteriorShopKeeper del EXE (ranura 0 de su vtable 0x870290; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6756A0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6756A0), libera `this`
+// con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskInteriorShopKeeper* __fastcall ShopKeeperScalarDeletingDestructor(CTaskInteriorShopKeeper* self, void* /*edx*/, uint8 flags) {
+    ShopKeeperDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote146AShopKeeperDestructorBody() { return reinterpret_cast<uintptr_t>(&ShopKeeperDestructorBody); } // para el banco Fn146A
+
 void CTaskInteriorShopKeeper::InjectHooks() {
     RH_ScopedVirtualClass(CTaskInteriorShopKeeper, 0x870290, 11);
     RH_ScopedCategory("Tasks/TaskTypes/Interior");
+    RH_ScopedNamedGlobalInstall(ShopKeeperScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6764A0); // lote 146A (banco Fn146A)
 
     RH_ScopedInstall(Constructor, 0x675660);
     RH_ScopedInstall(Destructor, 0x6756A0);
