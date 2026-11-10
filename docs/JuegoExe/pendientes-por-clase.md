@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,244** funciones en 299 clases/módulos (rango 0x401000–0x74FFFF): 2,222 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,219** funciones en 290 clases/módulos (rango 0x401000–0x74FFFF): 2,197 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,15 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CText | 2 | 48 |
-| CAEAudioHardware | 2 | 54 |
-| CTheCarGenerators | 3 | 55 |
-| FxManager_c | 5 | 55 |
-| CEventAreaCodes | 4 | 56 |
-| CAEPedAudioEntity | 2 | 57 |
-| CTaskSimpleTired | 2 | 57 |
-| CVehicleAnimGroup | 2 | 58 |
-| CAudioEngine | 3 | 58 |
 | CTaskInteriorBeInOffice | 2 | 60 |
 | CTaskSimpleCreateCarAndGetIn | 2 | 60 |
 | CTaskSimpleEvasiveStep | 2 | 60 |
@@ -309,76 +300,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-
-## CText (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0069FFA0 | 24 | D |  | 0 | 0 |  | baja |
-| 0x0069FFD0 | 24 | D |  | 0 | 0 |  | baja |
-
-## CAEAudioHardware (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004D8670 | 27 | D |  | 0 | 0 |  | alta |
-| 0x004D8690 | 27 | D |  | 0 | 0 |  | alta |
-
-## CTheCarGenerators (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0047E050 | 4 | A |  | 6 | 6 |  | baja |
-| 0x0047C0E0 | 21 | C |  | 1 | 0 |  | baja |
-| 0x0047E070 | 30 | C |  | 1 | 0 |  | baja |
-
-## FxManager_c (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004A9C20 | 1 | A |  | 1 | 1 |  | baja |
-| 0x004A9C10 | 3 | A |  | 1 | 1 |  | baja |
-| 0x004A9110 | 12 | D |  | 0 | 0 |  | alta |
-| 0x004A94E0 | 12 | D |  | 0 | 0 |  | alta |
-| 0x004A9340 | 27 | D |  | 0 | 0 |  | alta |
-
-## CEventAreaCodes (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B2200 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B2390 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x004B21F0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B23A0 | 42 | B |  | 0 | 0 | sí | baja |
-
-## CAEPedAudioEntity (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004E34C0 | 14 | C |  | 2 | 0 |  | baja |
-| 0x004E3350 | 43 | A |  | 2 | 2 |  | baja |
-
-## CTaskSimpleTired (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00630F50 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00630FF0 | 51 | B |  | 0 | 0 | sí | baja |
-
-## CVehicleAnimGroup (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006E3E30 | 19 | D |  | 0 | 0 |  | baja |
-| 0x005BA020 | 39 | D |  | 0 | 0 |  | baja |
-
-## CAudioEngine (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00507400 | 14 | A |  | 1 | 1 |  | alta |
-| 0x005074B0 | 17 | C |  | 1 | 0 |  | baja |
-| 0x00506DC0 | 27 | D |  | 0 | 0 |  | alta |
 
 ## CTaskInteriorBeInOffice (2)
 
@@ -3505,7 +3426,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004A8B70 | 7 | C |  | 4 | 0 |  | baja |
 | 0x004A9090 | 12 | D |  | 0 | 0 |  | baja |
 | 0x004A8DD0 | 13 | A |  | 20 | 5 |  | baja |
-| 0x004A8DB0 | 16 | A |  | 15 | 4 |  | baja |
+| 0x004A8DB0 | 16 | A |  | 15 | 7 |  | baja |
 | 0x004A8440 | 20 | A |  | 9 | 0 |  | baja |
 | 0x004A87D0 | 20 | A |  | 8 | 0 |  | baja |
 | 0x004A8990 | 20 | A |  | 13 | 0 |  | baja |

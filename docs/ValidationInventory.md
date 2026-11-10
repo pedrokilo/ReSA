@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,677 entradas reversed=1**, de 9,677 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,702 entradas reversed=1**, de 9,702 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9677 |
+| `validated=1` · evidencia aprobada vinculada | 9702 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9677 |
+| Evidencia histórica vinculada; revisión pendiente | 9702 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -215,6 +215,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEBankLoader | `LoadBankSlotFile` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAEBankLoader | `LoadSFXPakLookupFile` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAEBankLoader | `ResetRequests` | [Resumen](../reversing/Fn130A/validation-summary.json) |
+| CAEBankLoader | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CAECollisionAudioEntity | `AddCollisionSoundToList` | [Resumen](../reversing/Audio17/validation-summary.json) |
 | CAECollisionAudioEntity | `ChooseCollisionSoundID` | [Resumen](../reversing/Audio17/validation-summary.json) |
 | CAECollisionAudioEntity | `GetCollisionSoundStatus` | [Resumen](../reversing/Audio17/validation-summary.json) |
@@ -268,6 +269,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEDoorAudioEntity | `StaticInitialise` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CAEDoorAudioEntity | `UpdateParameters` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CAEExplosionAudioEntity | `AddAudioEvent` | [Resumen](../reversing/Small2/validation-summary.json) |
+| CAEExplosionAudioEntity | `Constructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CAEExplosionAudioEntity | `StaticInitialise` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CAEExplosionAudioEntity | `UpdateParameters` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CAEFireAudioEntity | `AddAudioEvent` | [Resumen](../reversing/Audio7/validation-summary.json) |
@@ -287,6 +289,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEGlobalWeaponAudioEntity | `Constructor` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAEGlobalWeaponAudioEntity | `Destructor` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAEGlobalWeaponAudioEntity | `ProjectileFire` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
+| CAEGlobalWeaponAudioEntity | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CAEGlobalWeaponAudioEntity | `ServiceAmbientGunFire` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAEGlobalWeaponAudioEntity | `UpdateParameters` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAEMFDecoder | `Constructor` | [Resumen](../reversing/Sys10/validation-summary.json) |
@@ -322,6 +325,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEMP3TrackLoader | `IsCurrentAudioStreamAvailable` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CAEMP3TrackLoader | `LoadStreamPackTable` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CAEMP3TrackLoader | `LoadTrackLookupTable` | [Resumen](../reversing/Audio7/validation-summary.json) |
+| CAEMP3TrackLoader | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CAEPedAudioEntity | `AddAudioEvent` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
 | CAEPedAudioEntity | `Destructor` | [Resumen](../reversing/Fn131A/validation-summary.json) |
 | CAEPedAudioEntity | `HandleFootstepEvent` | [Resumen](../reversing/AudioWave2/validation-summary.json) |
@@ -351,6 +355,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEPedSpeechAudioEntity | `CanWePlayGlobalSpeechContext` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
 | CAEPedSpeechAudioEntity | `CanWePlayScriptedSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
 | CAEPedSpeechAudioEntity | `Constructor` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `Destructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CAEPedSpeechAudioEntity | `DisableAllPedSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
 | CAEPedSpeechAudioEntity | `DisablePedSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
 | CAEPedSpeechAudioEntity | `DisablePedSpeechForScriptSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
@@ -402,6 +407,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEPedSpeechAudioEntity | `Terminate` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
 | CAEPedSpeechAudioEntity | `UpdateParameters` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
 | CAEPedSpeechAudioEntity | `WillPedChatAboutTopic` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechSlot | `Reset` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CAEPedWeaponAudioEntity | `AddAudioEvent` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CAEPedWeaponAudioEntity | `Constructor` | [Resumen](../reversing/WeapAudio/validation-summary.json) |
 | CAEPedWeaponAudioEntity | `Initialise` | [Resumen](../reversing/Data23/validation-summary.json) |
@@ -1029,6 +1035,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAudioEngine | `StopAmbienceTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
 | CAudioEngine | `StopBeatTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
 | CAudioEngine | `StopCutsceneTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioEngine | `StopPoliceScanner` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CAudioEngine | `StopRadio` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
 | CAudioZones | `Init` | [Resumen](../reversing/World43/validation-summary.json) |
 | CAudioZones | `RegisterAudioBox` | [Resumen](../reversing/World43/validation-summary.json) |
@@ -1651,6 +1658,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarGenerator | `Setup` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCarGenerator | `SwitchOff` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCarGenerator | `SwitchOn` | [Resumen](../reversing/Data8a/validation-summary.json) |
+| CCarGenerator | `SwitchOnWithCount` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CCarPathLink | `GetNodeCoors-vector` | [Resumen](../reversing/Fn98A/validation-summary.json) |
 | CCarPathLink | `OneWayLaneOffset` | [Resumen](../reversing/Fn93A/validation-summary.json) |
 | CCheat | `AddToCheatString` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
@@ -1856,6 +1864,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CColModel | `operator=` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CColModelPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CColPoint | `ColPointAssignExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
+| CColPoint | `GetSurfaceTypeB` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CColSphere | `IntersectEdge` | [Resumen](../reversing/World43/validation-summary.json) |
 | CColSphere | `IntersectPoint` | [Resumen](../reversing/World43/validation-summary.json) |
 | CColSphere | `IntersectRay` | [Resumen](../reversing/World43/validation-summary.json) |
@@ -2244,6 +2253,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCutsceneMgr | `RemoveEverythingBecauseCutsceneDoesntFitInMemory` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
 | CCutsceneMgr | `SetCutsceneAnim` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
 | CCutsceneMgr | `SetCutsceneAnimToLoop` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `SetCutsceneOffset` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CCutsceneMgr | `SetHeadAnim` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
 | CCutsceneMgr | `SetupCutsceneToStart` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
 | CCutsceneMgr | `Shutdown` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
@@ -2309,6 +2319,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CDarkel | `ThisPedShouldBeKilledForFrenzy` | [Resumen](../reversing/Game19/validation-summary.json) |
 | CDarkel | `ThisVehicleShouldBeKilledForFrenzy` | [Resumen](../reversing/Game19/validation-summary.json) |
 | CDarkel | `Update` | [Resumen](../reversing/Game19/validation-summary.json) |
+| CData | `Destructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CData | `Load` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CData | `Unload` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CDebug | `DebugDisplayTextBuffer` | [Resumen](../reversing/Misc56/validation-summary.json) |
@@ -2320,6 +2331,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CDecision | `Pick` | [Resumen](../reversing/Fn132A/validation-summary.json) |
 | CDecision | `Set` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
 | CDecision | `SetDefault` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
+| CDecisionMaker | `From` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CDecisionMaker | `MakeDecision` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
 | CDecisionMakerTypes | `AddDecisionMaker` | [Resumen](../reversing/DependenciesDecisionRelationship6/validation-summary.json) |
 | CDecisionMakerTypes | `AddEventResponse` | [Resumen](../reversing/DecisionAdd27/validation-summary.json) |
@@ -2508,6 +2520,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventAreaCodes | `AffectsPed` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventAreaCodes | `Constructor` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventAreaCodes | `Destructor` | [Resumen](../reversing/Fn107A/validation-summary.json) |
+| CEventAreaCodes | `GetEventType` | [Resumen](../reversing/Fn144A/validation-summary.json) |
+| CEventAreaCodes | `GetLifeTime` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CEventAreaCodes | `TakesPriorityOver` | [Resumen](../reversing/Events52/validation-summary.json) |
 | CEventAttractor | `AffectsPed` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CEventAttractor | `CloneEditable` | [Resumen](../reversing/Events23/validation-summary.json) |
@@ -2736,7 +2750,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventLeaderEnteredCarAsDriver | `AffectsPedGroup` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventLeaderEnteredCarAsDriver | `Constructor` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventLeaderEnteredCarAsDriver | `TakesPriorityOver` | [Resumen](../reversing/Fn139A/validation-summary.json) |
+| CEventLeaderEntryExit | `AffectsPedGroup` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CEventLeaderEntryExit | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CEventLeaderEntryExit | `TakesPriorityOver` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CEventLeaderExitedCarAsDriver | `AffectsPedGroup` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventLeaderExitedCarAsDriver | `Constructor` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventLeaderQuitEnteringCarAsDriver | `AffectsPedGroup` | [Resumen](../reversing/Events70/validation-summary.json) |
@@ -3433,6 +3449,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CIplStore | `SetupRelatedIpls` | [Resumen](../reversing/IplStore2/validation-summary.json) |
 | CIplStore | `Shutdown` | [Resumen](../reversing/IplStore2/validation-summary.json) |
 | CKeyArray | `BinarySearch` | [Resumen](../reversing/SmallBatch/validation-summary.json) |
+| CKeyArray | `Destructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CKeyArray | `Load` | [Resumen](../reversing/SmallBatch/validation-summary.json) |
 | CKeyArray | `Search` | [Resumen](../reversing/SmallBatch/validation-summary.json) |
 | CKeyArray | `Unload` | [Resumen](../reversing/SmallBatch/validation-summary.json) |
@@ -7939,6 +7956,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleTired | `Clone` | [Resumen](../reversing/Fn132A/validation-summary.json) |
 | CTaskSimpleTired | `Constructor` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleTired | `Destructor` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
+| CTaskSimpleTired | `GetTaskType` | [Resumen](../reversing/Fn144A/validation-summary.json) |
+| CTaskSimpleTired | `MakeAbortable` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CTaskSimpleTired | `StartAnim` | [Resumen](../reversing/SimpleTasks52/validation-summary.json) |
 | CTaskSimpleTogglePedThreatScanner | `Clone` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleTogglePedThreatScanner | `Constructor` | [Resumen](../reversing/STasks43/validation-summary.json) |
@@ -9031,6 +9050,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxEmitterBP_c | `RenderHeatHaze` | [Resumen](../reversing/FxEmitterRender355/validation-summary.json) |
 | FxEmitterBP_c | `Update` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
 | FxEmitterBP_c | `UpdateParticle` | [Resumen](../reversing/FxEmitterParticle355/validation-summary.json) |
+| FxEmitterPrt_c | `Constructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | FxEmitterPrt_c | `operator new[]` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | FxEmitter_c | `AddParticle-matrix` | [Resumen](../reversing/FxEmitterAddParticleMat31/validation-summary.json) |
 | FxEmitter_c | `AddParticle-vector` | [Resumen](../reversing/FxEmitterAddParticle30/validation-summary.json) |
@@ -9071,6 +9091,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxManager_c | `ShouldCreate` | [Resumen](../reversing/Fx25/validation-summary.json) |
 | FxManager_c | `UnloadFxProject` | [Resumen](../reversing/Fx25/validation-summary.json) |
 | FxManager_c | `Update` | [Resumen](../reversing/FxManager/validation-summary.json) |
+| FxMemoryPool_c | `Constructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
+| FxMemoryPool_c | `Destructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | FxMemoryPool_c | `Exit` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | FxMemoryPool_c | `GetMem` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | FxMemoryPool_c | `Init` | [Resumen](../reversing/Fx43/validation-summary.json) |
@@ -9116,6 +9138,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxSystem_c | `Play` | [Resumen](../reversing/FxPost1/validation-summary.json) |
 | FxSystem_c | `PlayAndKill` | [Resumen](../reversing/FxPost1/validation-summary.json) |
 | FxSystem_c | `ResetBoundingSphere` | [Resumen](../reversing/FxPost1/validation-summary.json) |
+| FxSystem_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | FxSystem_c | `SetBoundingSphere` | [Resumen](../reversing/FxPost1/validation-summary.json) |
 | FxSystem_c | `SetConstTime` | [Resumen](../reversing/FxPost1/validation-summary.json) |
 | FxSystem_c | `SetLocalParticles` | [Resumen](../reversing/FxPost1/validation-summary.json) |
@@ -9349,6 +9372,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | NodeNamePlugin | `GetFrameNodeName` | [Resumen](../reversing/World52/validation-summary.json) |
 | NodeNamePlugin | `NodeNamePluginAttach` | [Resumen](../reversing/World52/validation-summary.json) |
 | NodeNamePlugin | `SetFrameNodeName` | [Resumen](../reversing/World52/validation-summary.json) |
+| Particle_c | `Constructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | PipelinePlugin | `GetPipelineID` | [Resumen](../reversing/World52/validation-summary.json) |
 | PipelinePlugin | `PipelinePluginAttach` | [Resumen](../reversing/World52/validation-summary.json) |
 | PipelinePlugin | `SetPipelineID` | [Resumen](../reversing/World52/validation-summary.json) |
@@ -9659,6 +9683,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | WaterCreatureManager_c | `TryToExitGroup` | [Resumen](../reversing/Mgr7/validation-summary.json) |
 | WaterCreatureManager_c | `TryToFreeUpWaterCreatures` | [Resumen](../reversing/Mgr7/validation-summary.json) |
 | WaterCreatureManager_c | `Update` | [Resumen](../reversing/Mgr7/validation-summary.json) |
+| WaterCreature_c | `Constructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | WaterCreature_c | `Exit` | [Resumen](../reversing/World52/validation-summary.json) |
 | WaterCreature_c | `Init` | [Resumen](../reversing/World52/validation-summary.json) |
 | WaterCreature_c | `Update` | [Resumen](../reversing/World52/validation-summary.json) |
@@ -9719,20 +9744,21 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEAudioEnvironment` | 6 | 0 | 6 | 0 |
 | `CAEAudioHardware` | 55 | 0 | 55 | 0 |
 | `CAEAudioUtility` | 11 | 0 | 11 | 0 |
-| `CAEBankLoader` | 7 | 0 | 7 | 0 |
+| `CAEBankLoader` | 8 | 0 | 8 | 0 |
 | `CAECollisionAudioEntity` | 18 | 0 | 18 | 0 |
 | `CAECutsceneTrackManager` | 8 | 0 | 8 | 0 |
 | `CAEDataStream` | 20 | 0 | 20 | 0 |
 | `CAEDoorAudioEntity` | 6 | 0 | 6 | 0 |
-| `CAEExplosionAudioEntity` | 3 | 0 | 3 | 0 |
+| `CAEExplosionAudioEntity` | 4 | 0 | 4 | 0 |
 | `CAEFireAudioEntity` | 7 | 0 | 7 | 0 |
 | `CAEFrontendAudioEntity` | 6 | 0 | 6 | 0 |
-| `CAEGlobalWeaponAudioEntity` | 6 | 0 | 6 | 0 |
+| `CAEGlobalWeaponAudioEntity` | 7 | 0 | 7 | 0 |
 | `CAEMFDecoder` | 12 | 0 | 12 | 0 |
 | `CAEMP3BankLoader` | 14 | 0 | 14 | 0 |
-| `CAEMP3TrackLoader` | 7 | 0 | 7 | 0 |
+| `CAEMP3TrackLoader` | 8 | 0 | 8 | 0 |
 | `CAEPedAudioEntity` | 22 | 0 | 22 | 0 |
-| `CAEPedSpeechAudioEntity` | 58 | 0 | 58 | 0 |
+| `CAEPedSpeechAudioEntity` | 59 | 0 | 59 | 0 |
+| `CAEPedSpeechSlot` | 1 | 0 | 1 | 0 |
 | `CAEPedWeaponAudioEntity` | 5 | 0 | 5 | 0 |
 | `CAEPedlessSpeechAudioEntity` | 12 | 0 | 12 | 0 |
 | `CAEPoliceScannerAudioEntity` | 17 | 0 | 17 | 0 |
@@ -9770,7 +9796,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAnimatedBuilding` | 5 | 0 | 5 | 0 |
 | `CAtomicModelInfo` | 10 | 0 | 10 | 0 |
 | `CAttractorScanner` | 2 | 0 | 2 | 0 |
-| `CAudioEngine` | 82 | 0 | 82 | 0 |
+| `CAudioEngine` | 83 | 0 | 83 | 0 |
 | `CAudioZones` | 5 | 0 | 5 | 0 |
 | `CAutoPilot` | 2 | 0 | 2 | 0 |
 | `CAutomobile` | 104 | 0 | 104 | 0 |
@@ -9794,7 +9820,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCarCtrl` | 112 | 0 | 112 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
 | `CCarFXRenderer` | 10 | 0 | 10 | 0 |
-| `CCarGenerator` | 8 | 0 | 8 | 0 |
+| `CCarGenerator` | 9 | 0 | 9 | 0 |
 | `CCarPathLink` | 2 | 0 | 2 | 0 |
 | `CCheat` | 72 | 0 | 72 | 0 |
 | `CCheckpoint` | 1 | 0 | 1 | 0 |
@@ -9810,7 +9836,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CColLine` | 2 | 0 | 2 | 0 |
 | `CColModel` | 11 | 0 | 11 | 0 |
 | `CColModelPool` | 1 | 0 | 1 | 0 |
-| `CColPoint` | 1 | 0 | 1 | 0 |
+| `CColPoint` | 2 | 0 | 2 | 0 |
 | `CColSphere` | 5 | 0 | 5 | 0 |
 | `CColStore` | 23 | 0 | 23 | 0 |
 | `CColTrianglePlane` | 2 | 0 | 2 | 0 |
@@ -9842,15 +9868,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCustomCarEnvMapPipeline` | 37 | 0 | 37 | 0 |
 | `CCustomCarPlateMgr` | 16 | 0 | 16 | 0 |
 | `CCustomRoadsignMgr` | 10 | 0 | 10 | 0 |
-| `CCutsceneMgr` | 36 | 0 | 36 | 0 |
+| `CCutsceneMgr` | 37 | 0 | 37 | 0 |
 | `CCutsceneObject` | 7 | 0 | 7 | 0 |
 | `CDamageAtomicModelInfo` | 4 | 0 | 4 | 0 |
 | `CDamageManager` | 27 | 0 | 27 | 0 |
 | `CDarkel` | 19 | 0 | 19 | 0 |
-| `CData` | 2 | 0 | 2 | 0 |
+| `CData` | 3 | 0 | 3 | 0 |
 | `CDebug` | 2 | 0 | 2 | 0 |
 | `CDecision` | 7 | 0 | 7 | 0 |
-| `CDecisionMaker` | 1 | 0 | 1 | 0 |
+| `CDecisionMaker` | 2 | 0 | 2 | 0 |
 | `CDecisionMakerTypes` | 10 | 0 | 10 | 0 |
 | `CDecisionMakerTypesFileLoader` | 7 | 0 | 7 | 0 |
 | `CDirectory` | 10 | 0 | 10 | 0 |
@@ -9877,7 +9903,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventAcquaintancePed` | 5 | 0 | 5 | 0 |
 | `CEventAcquaintancePedHate` | 1 | 0 | 1 | 0 |
 | `CEventAcquaintancePedHateBadlyLit` | 2 | 0 | 2 | 0 |
-| `CEventAreaCodes` | 4 | 0 | 4 | 0 |
+| `CEventAreaCodes` | 6 | 0 | 6 | 0 |
 | `CEventAttractor` | 5 | 0 | 5 | 0 |
 | `CEventBuildingCollision` | 5 | 0 | 5 | 0 |
 | `CEventCarUpsideDown` | 6 | 0 | 6 | 0 |
@@ -9906,7 +9932,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventInWater` | 2 | 0 | 2 | 0 |
 | `CEventKnockOffBike` | 9 | 0 | 9 | 0 |
 | `CEventLeaderEnteredCarAsDriver` | 3 | 0 | 3 | 0 |
-| `CEventLeaderEntryExit` | 1 | 0 | 1 | 0 |
+| `CEventLeaderEntryExit` | 3 | 0 | 3 | 0 |
 | `CEventLeaderExitedCarAsDriver` | 2 | 0 | 2 | 0 |
 | `CEventLeaderQuitEnteringCarAsDriver` | 2 | 0 | 2 | 0 |
 | `CEventLeanOnVehicle` | 2 | 0 | 2 | 0 |
@@ -9983,7 +10009,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CInterestingEvents` | 7 | 0 | 7 | 0 |
 | `CIplDefPool` | 2 | 0 | 2 | 0 |
 | `CIplStore` | 34 | 0 | 34 | 0 |
-| `CKeyArray` | 4 | 0 | 4 | 0 |
+| `CKeyArray` | 5 | 0 | 5 | 0 |
 | `CKeyGen` | 4 | 0 | 4 | 0 |
 | `CKeyboardState` | 1 | 0 | 1 | 0 |
 | `CLinkedUpgradeList` | 2 | 0 | 2 | 0 |
@@ -10452,7 +10478,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleSwim` | 11 | 0 | 11 | 0 |
 | `CTaskSimpleThrowControl` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleThrowProjectile` | 10 | 0 | 10 | 0 |
-| `CTaskSimpleTired` | 4 | 0 | 4 | 0 |
+| `CTaskSimpleTired` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleTogglePedThreatScanner` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleTurn180` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleUninterruptable` | 1 | 0 | 1 | 0 |
@@ -10518,7 +10544,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FurnitureManager_c` | 7 | 0 | 7 | 0 |
 | `FurnitureSubGroup_c` | 3 | 0 | 3 | 0 |
 | `FxEmitterBP_c` | 9 | 0 | 9 | 0 |
-| `FxEmitterPrt_c` | 1 | 0 | 1 | 0 |
+| `FxEmitterPrt_c` | 2 | 0 | 2 | 0 |
 | `FxEmitter_c` | 4 | 0 | 4 | 0 |
 | `FxFrustumInfo_c` | 1 | 0 | 1 | 0 |
 | `FxInfoManager_c` | 5 | 0 | 5 | 0 |
@@ -10527,12 +10553,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxInterpInfoFloat_c` | 1 | 0 | 1 | 0 |
 | `FxInterpInfoU255_c` | 1 | 0 | 1 | 0 |
 | `FxManager_c` | 25 | 0 | 25 | 0 |
-| `FxMemoryPool_c` | 5 | 0 | 5 | 0 |
+| `FxMemoryPool_c` | 7 | 0 | 7 | 0 |
 | `FxPrimBP_c` | 2 | 0 | 2 | 0 |
 | `FxPrtMult_c` | 2 | 0 | 2 | 0 |
 | `FxSphere_c` | 4 | 0 | 4 | 0 |
 | `FxSystemBP_c` | 10 | 0 | 10 | 0 |
-| `FxSystem_c` | 35 | 0 | 35 | 0 |
+| `FxSystem_c` | 36 | 0 | 36 | 0 |
 | `Fx_c` | 28 | 0 | 28 | 0 |
 | `Game` | 12 | 0 | 12 | 0 |
 | `IKChainManager_c` | 17 | 0 | 17 | 0 |
@@ -10545,6 +10571,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `Light` | 27 | 0 | 27 | 0 |
 | `ModelIndices` | 2 | 0 | 2 | 0 |
 | `NodeNamePlugin` | 3 | 0 | 3 | 0 |
+| `Particle_c` | 1 | 0 | 1 | 0 |
 | `PipelinePlugin` | 3 | 0 | 3 | 0 |
 | `ProcObjectMan_c` | 8 | 0 | 8 | 0 |
 | `ProcSurfaceInfo_c` | 4 | 0 | 4 | 0 |
@@ -10570,7 +10597,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `VideoMode` | 4 | 0 | 4 | 0 |
 | `VideoPlayer` | 6 | 0 | 6 | 0 |
 | `WaterCreatureManager_c` | 7 | 0 | 7 | 0 |
-| `WaterCreature_c` | 3 | 0 | 3 | 0 |
+| `WaterCreature_c` | 4 | 0 | 4 | 0 |
 | `Win` | 7 | 0 | 7 | 0 |
 | `cBuoyancy` | 10 | 0 | 10 | 0 |
 | `cHandlingDataMgr` | 11 | 0 | 11 | 0 |
