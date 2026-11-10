@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,082** funciones en 244 clases/módulos (rango 0x401000–0x74FFFF): 2,060 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,058** funciones en 235 clases/módulos (rango 0x401000–0x74FFFF): 2,036 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -12,15 +12,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---:|
 | CTaskComplexWaitForBus | 1 | 21 |
 | CAEStreamingChannel | 1 | 61 |
-| CTaskSimpleHandsUp | 3 | 65 |
-| CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset> | 2 | 91 |
-| CInformGroupEvent | 2 | 101 |
-| CTaskComplexPartnerShove | 4 | 101 |
-| CTaskSimpleFacial | 4 | 101 |
-| CPedGroupDefaultTaskAllocatorSitInLeaderCar | 2 | 105 |
-| CTaskSimplePutDownEntity | 2 | 106 |
-| CInterestingEvents | 2 | 110 |
-| CPlayerRelationshipRecorder | 3 | 111 |
 | CEventStuckInAir | 5 | 120 |
 | CAnimBlendStaticAssociation | 2 | 121 |
 | CAEVehicleAudioEntity | 5 | 121 |
@@ -267,75 +258,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x004F21C0 | 61 | B | CAEStreamingChannel::Stop-virtual | 0 | 0 | sí | alta |
 
-## CTaskSimpleHandsUp (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0048EA90 | 5 | C |  | 1 | 0 |  | baja |
-| 0x0048EA40 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x0048EA70 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset> (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00661F10 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x00665DC0 | 61 | A |  | 2 | 2 |  | baja |
-
-## CInformGroupEvent (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AC370 | 50 | D |  | 0 | 0 |  | baja |
-| 0x004AC3B0 | 51 | D |  | 0 | 0 |  | baja |
-
-## CTaskComplexPartnerShove (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00684750 | 11 | C |  | 1 | 0 |  | baja |
-| 0x00684760 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00684780 | 30 | D |  | 0 | 0 |  | baja |
-| 0x006847A0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleFacial (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00690CB0 | 11 | A |  | 1 | 1 |  | alta |
-| 0x00692F90 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00692FB0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00692FD0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CPedGroupDefaultTaskAllocatorSitInLeaderCar (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F65A0 | 51 | A |  | 6 | 6 |  | baja |
-| 0x005F7200 | 54 | A |  | 1 | 1 |  | baja |
-
-## CTaskSimplePutDownEntity (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00691A40 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00692C80 | 100 | B |  | 0 | 0 | sí | baja |
-
-## CInterestingEvents (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00602BE0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00602B90 | 80 | B |  | 0 | 0 | sí | baja |
-
-## CPlayerRelationshipRecorder (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0061A350 | 7 | C |  | 1 | 0 |  | baja |
-| 0x0061A430 | 40 | B |  | 0 | 0 | sí | baja |
-| 0x0061A2E0 | 64 | A |  | 2 | 2 |  | baja |
-
 ## CEventStuckInAir (5)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -382,7 +304,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x004B5630 | 49 | A |  | 119 | 2 |  | baja |
+| 0x004B5630 | 49 | A |  | 119 | 3 |  | baja |
 | 0x004B5670 | 77 | B |  | 0 | 0 | sí | baja |
 
 ## CTaskComplexUseSwatRope (2)
@@ -1275,7 +1197,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006935C0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x006935F0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x006939D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00691630 | 166 | C |  | 1 | 0 |  | alta |
+| 0x00691630 | 166 | A |  | 1 | 1 |  | alta |
 
 ## CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse (3)
 
@@ -2108,7 +2030,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00683430 | 5 | D |  | 0 | 0 |  | baja |
 | 0x00683440 | 5 | D |  | 0 | 0 |  | baja |
 | 0x006833C0 | 6 | D |  | 0 | 0 |  | baja |
-| 0x006833D0 | 90 | C |  | 1 | 0 |  | baja |
+| 0x006833D0 | 90 | A |  | 1 | 1 |  | baja |
 | 0x00683450 | 138 | D |  | 0 | 0 |  | baja |
 | 0x006834E0 | 528 | D |  | 0 | 0 |  | baja |
 
@@ -2234,7 +2156,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x005FF780 | 3 | B |  | 0 | 0 | sí | baja |
 | 0x005FF850 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x005FF860 | 5 | C |  | 2 | 0 |  | baja |
+| 0x005FF860 | 5 | A |  | 2 | 1 |  | baja |
 | 0x005FF3B0 | 6 | B |  | 0 | 0 | sí | baja |
 | 0x005FF770 | 6 | B |  | 0 | 0 | sí | baja |
 | 0x005FF840 | 6 | B |  | 0 | 0 | sí | baja |
