@@ -418,6 +418,7 @@ def generate(input_path, output_path, update_source_status=False):
                   "| Clase o módulo | Funciones pendientes | Bytes pendientes | Función más grande (B) | Tamaño |", "| --- | ---: | ---: | ---: | --- |"]
         for m, n, bts, big in _pend:
             lines.append(f"| {m.replace('|', chr(92) + '|')} | **{n}** | {bts:,} | {big:,} | {exe_coverage.size_label(big)} |")
+        lines.append(f"| **TOTAL ({len(_pend)} clases / módulos)** | **{sum(p[1] for p in _pend):,}** | **{sum(p[2] for p in _pend):,}** | {max(p[3] for p in _pend):,} | |")
     lines += ["", '<a id="sin-revertir"></a>', f"## 12. 🔴 Sin revertir · {len(empty) + len(uncatalogued)} clases", "",
               "Orden de mayor a menor tamaño de las envolturas pendientes. Clases o grupos sin ninguna entrada reconstruida en el catálogo. Las que figuran con envolturas al EXE no están en [hooks.csv](hooks.csv): sus funciones del juego se conocen por el código fuente o por las cohortes de dependencias y siguen delegando en el original.", "",
               "| Clase | Revertidas / total | Pendientes | Envolturas del juego al EXE (sin bibliotecas) | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |"]

@@ -238,6 +238,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
+| **TOTAL (228 clases / módulos)** | **2,034** | **254,286** |
 
 ## CTaskComplexWaitForBus (1)
 

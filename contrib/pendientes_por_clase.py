@@ -27,6 +27,8 @@ def build(root, fecha):
         L.append(f'| {m} | {len(g[m])} | {b} |')
         big = max(int(x['bytes']) for x in g[m])
         summary.append((m, len(g[m]), b, big))
+    tb = sum(int(x['bytes']) for x in miss)
+    L.append(f'| **TOTAL ({len(order)} clases / módulos)** | **{len(miss):,}** | **{tb:,}** |')
     for m in order:
         xs = sorted(g[m], key=lambda x: (int(x['bytes']), x['va']))
         L += ['', f'## {m} ({len(xs)})', '',
