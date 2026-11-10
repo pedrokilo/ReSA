@@ -114,8 +114,8 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| NormalizePadAxis(LONG value) | [source/game_sa/Pad.cpp:317](../../source/game_sa/Pad.cpp#L317) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| InitialiseMouse(bool exclusive) | [source/game_sa/Pad.cpp:1522](../../source/game_sa/Pad.cpp#L1522) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| NormalizePadAxis(LONG value) | [source/game_sa/Pad.cpp:319](../../source/game_sa/Pad.cpp#L319) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InitialiseMouse(bool exclusive) | [source/game_sa/Pad.cpp:1524](../../source/game_sa/Pad.cpp#L1524) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1233"></a>
 
