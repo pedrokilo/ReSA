@@ -1,0 +1,3 @@
+APROBADO: Arrastrar fuera despacio y levantarse (CTaskComplexCarSlowBeDraggedOutAndStandUp)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dragout60\20261110-160300-935020

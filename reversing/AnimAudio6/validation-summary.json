@@ -58,7 +58,7 @@
   "log_sha256": "7038c2458c57a2a1d15bf48f7f13c417f9bc4fdbbcf9411593d08a6365cd0ec5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-animaudio6\\20261109-192247-561517",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-animaudio6\\20261110-161229-760251",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEBankLoader::CalculateBankSlotsInfosOffsets": true,
@@ -106,8 +106,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "0c807d0a162f4ca10c095747cda8d11aef7c497d752c8c39699b0bed680cd14d",
-      "pdb": "d48b5ca0bd700cfb2d07d17e4aff3b4c4225c4782202042207b6fad18c272e2e"
+      "asi": "1abd2aaf8d2f54ae7e2ec1c593ec2a4f6f537a86d1c34304306280175038ec2a",
+      "pdb": "5cee5f8c3cc8973537ae03cb6f5a3d1d2efbf31d65e147c0edd2a48750a30304"
     },
     "sources": {
       "source/game_sa/Door.cpp": "9ab19067eca1b52d798327f7b9e82ad83abd276589b5d7e36fae071afffbb607",
@@ -116,9 +116,9 @@
       "source/game_sa/Animation/AnimBlendClumpData.h": "b36e940e5450f5c51ffbf72cdcaed0df210011ba217b52fb8d8d16b40bead22c",
       "source/game_sa/Animation/AnimBlendStaticAssociation.cpp": "52a8191b392fa4c6052c8f94431c5ab3e7d8879cc3a78d12aa1dee8da3e7f357",
       "source/game_sa/Animation/AnimBlendStaticAssociation.h": "f166f995806cc8ff184dd416ae163f78109e361b000961ac612990e777c897b2",
-      "source/game_sa/Audio/Loaders/AEBankLoader.cpp": "881238c5a3aa721b3926161232c5c6ddaf0f79bff448db1d583467a21c35a3aa",
+      "source/game_sa/Audio/Loaders/AEBankLoader.cpp": "b50600f687f2f76e73ef14749ae2a1ba39d37a0b21c491fb2ae591a5eee222bf",
       "source/game_sa/Audio/Loaders/AEBankLoader.h": "22b02b992db4b10d12235892e735fa193e3358e80f4f411e1ec0d0bf4b7e1694",
-      "source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp": "7e2243d0ca76427c815af2b85bfacbf9b8a8d3d4754f4d9f75be125b8baaa93b",
+      "source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp": "0ba3d0d641cf7eea786c0a41a0f445185ecefd090c6112d52cfc8ad5cf605bcb",
       "source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.h": "6e882b1b8ac439ce8ffcdfd23f7e2cdbfb9ba8417e497ce5b12870178ca57b3b",
       "source/game_sa/Entity/Object/CutsceneObject.cpp": "20fbeb9349f8ac583cbd547b59b1d391a09d4b6e5137a5aa0be3f9913ba00ac2",
       "source/game_sa/Entity/Object/CutsceneObject.h": "501efe15c3b8b57cc449543cc710e9b14d622f5d463fa21d427919d97cb6b97c",

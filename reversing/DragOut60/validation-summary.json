@@ -24,7 +24,7 @@
   "log_sha256": "0b5c9c46f5a8020a80e7ed2a64be53c5aeb1588b45fb20fe06656be5e718cde7",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-dragout60\\20261005-185314-945231",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-dragout60\\20261110-160300-935020",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexCarSlowBeDraggedOutAndStandUp::Clone": true,
@@ -38,22 +38,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "5ce6b4020f8732789817a904d070438e357da668b23cd41b26203971f7975bb8",
-      "pdb": "dde8e02538c43181bcfa41a626c608f71a96814519771294989317611567c493"
+      "asi": "dfba5f2ccf19c86ac4767f2cbba087b7a51fcfd20a68de18eceb6e0124990dac",
+      "pdb": "12d8d86814da88f21e119c3a978d1386db56381e3b356de4b672101b19baaa86"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.cpp": "3437586575a0d2ba6c1108d53149f17274ea6361e817c9f79905e9fbb3e5d497",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.cpp": "886934da9bdde6f523ec24435c80a5c66300e7363e0912e9443bc9fb052413be",
       "source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.h": "610d70dba041aeaa62904010b533b1aa1ce8255ae6f71219011529c2fdacb215"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "80ba8c981af3976765fbb8053d36e9d1a06cd8c0e4de8540b03893aa0bde2be6",
+      "LiveComparison.hpp": "c064813a379c5ef5bf5d69c7d996af4b2d1b366a8c12181223b57359fe8c43ad",
       "build_probe.py": "a7be938d40fd7fc90a48e73757e8d5bb0301991a293d8fea11f3f3d08444d978",
       "run_local.py": "128cee7563b72136448f06b59809d538f9ec21c401f3e09b8bb77d7a612fce1c"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

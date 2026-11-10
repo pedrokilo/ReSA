@@ -12,23 +12,23 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-4 (HEAD 1e45e275d de main + el unico cambio de produccion de source.patch: CreateFirstSubTask de TaskComplexLeaveCar.cpp reconstruida en C++ con RH_ScopedVMTInstall; sin otros hooks nuevos encendidos). El constructor, el destructor, ControlSubTask y CreateSubTask 0x641530 de la clase NO estan hookeados en este HEAD: CreateFirstSubTask no llama a CreateSubTask. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/LeaveCarFirst70-20261110-061048-788991",
-  "summary_sha256": "73af4d142140427d80a2f5314a4b189f95b6fa12c67cc86991a0b18fa8711b9c",
-  "result_txt_sha256": "46787a026864628255427cf952935b6368308b8f3b7fc284216c1857ca490e1b",
-  "log_sha256": "319e70d84391bf47b63f286984439441f791da3fddfeaffa19691c766c6ea408",
+  "run": "reversing/CppTwelveLevel6Final/runs/LeaveCarFirst70-20261110-160541-707394",
+  "summary_sha256": "bd4d1124d5993270fee9650126ccec1938c9a88042b3cdd71ead962d9ec89c73",
+  "result_txt_sha256": "c53b7b3fc547c8c9b456374e5731527e3d361101370d256c3649aec2d36aa9b0",
+  "log_sha256": "089b9a4fc6ea4c28eb74ca498cefaec78b50300c7e5280494037a6cfa77f7ce0",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "50f150bf97569b3b26e9b2c94630cbf2fb6ba3d954c06b76f7bf9c0b3c4b7d07",
+  "executed_probe_sha256": "b425692cafd97ab12108cf0cdb6a5fc7938b78ceddbb6ee8e209fc7018117f32",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
-      "source/InjectHooksMain.cpp": "f1789bb172ba766b680a5a3fcefcbec5277b76d246403e4f7815456e469c5420",
+      "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+      "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
       "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "546c0d4fefa422b88495cc578989d66dc711b80039293998939c537897643e97",
       "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "048f20bde645f158139eb659a67acf9e3b8c077629370cffc9fb2c58677ee6f5",
-      "source/game_sa/Tasks/Task.cpp": "be8bc85ded7b60208f987af721340a13aa0db0d50272406ad67ec86f4101c0e6",
+      "source/game_sa/Tasks/Task.cpp": "f55b521efb046d5c9564d62102e8cbe862334641203ff8be8f65031ddbf3beb7",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/LeaveCarFirst70/LiveComparison.hpp": "09b94bedae6e1177d113c16f412a0eec0baa9de990c8a82b26ffc87498eee02f",
       "reversing/LeaveCarFirst70/Core.hpp": "0fc946424ac53441bc0e913c526d1f028141fddac87cde9592f921100048bd62",
@@ -40,10 +40,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/LeaveCarFirst70-20261110-061048-788991/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/LeaveCarFirst70-20261110-160541-707394/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "eb70f32789912856cfd9427c1d47a60051f1f1aebdc5273e0a368de90ab2d5f5",
-    "uncompressed_sha256": "319e70d84391bf47b63f286984439441f791da3fddfeaffa19691c766c6ea408"
+    "compressed_sha256": "84bdd0b91eb66a5347d67f110f5c18003955888ea45bf1c830574157bd4b112b",
+    "uncompressed_sha256": "089b9a4fc6ea4c28eb74ca498cefaec78b50300c7e5280494037a6cfa77f7ce0"
   }
 }
