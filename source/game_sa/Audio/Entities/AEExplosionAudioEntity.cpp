@@ -32,6 +32,17 @@ CAEExplosionAudioEntity::CAEExplosionAudioEntity() {
     m_Speed = 0;
 }
 
+// 0x5074B0 (lote 144A, banco Fn144A; thiscall, sin argumentos de pila, `ret`, 17 bytes: `mov eax,ecx; xor ecx,ecx; mov [eax+10h],ecx; mov [eax],862E60h; mov [eax+7Ch],cl; ret`): constructor del EXE.
+// Escribe solo el dword +0x10 (el campo de m_tempSound que su constructor expandido en linea anula), la vtable de la clase del EXE (0x862E60; la de la DLL no vale) y m_Speed (+0x7C); no escribe m_Entity
+// (+4) ni el resto de m_tempSound. Devuelve this en EAX.
+CAEExplosionAudioEntity* CAEExplosionAudioEntity::Constructor() {
+    auto* const bytes = reinterpret_cast<uint8*>(this);
+    *reinterpret_cast<uint32*>(bytes + 0x10) = 0;
+    *reinterpret_cast<uint32*>(bytes) = 0x862E60;
+    bytes[0x7C] = 0;
+    return this;
+}
+
 void CAEExplosionAudioEntity::StaticInitialise() {
     AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_EXPLOSIONS, SND_BANK_SLOT_EXPLOSIONS);
 }
@@ -118,6 +129,7 @@ void CAEExplosionAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEExplosionAudioEntity, 0x862E60, 1);
     RH_ScopedCategory("Audio/Entities");
 
+    RH_ScopedInstall(Constructor, 0x5074B0); // lote 144A (banco Fn144A)
     RH_ScopedInstall(StaticInitialise, 0x5B9A60);
     RH_ScopedInstall(AddAudioEvent, 0x4DCBE0);
     RH_ScopedVMTInstall(UpdateParameters, 0x4DCB90);

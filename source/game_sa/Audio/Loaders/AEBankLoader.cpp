@@ -27,6 +27,7 @@ void CAEBankLoader::InjectHooks() {
     RH_ScopedCategory("Audio/Loaders");
 
     RH_ScopedInstall(Deconstructor, 0x4DFB20);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4D8670); // lote 144A (banco Fn144A)
     RH_ScopedInstall(GetBankLookup, 0x4E01B0);
     RH_ScopedInstall(LoadBankLookupFile, 0x4DFBD0);
     RH_ScopedInstall(LoadBankSlotFile, 0x4E0590);
@@ -48,6 +49,17 @@ void CAEBankLoader::ResetRequests() {
     m_NextOneSoundReqIdx = 0;
     m_RequestCnt         = 0;
     m_NextRequestIdx     = 0;
+}
+
+// 0x4D8670 (lote 144A, banco Fn144A; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x4DFB20; test byte [esp+8],1; je ..; push esi; call 0x8214BD (operator delete);
+// add esp,4; mov eax,esi; pop esi; ret 4`; el listado lo atribuia a CAEAudioHardware). Como el original: destruye con el cuerpo de la clase (0x4DFB20), libera `this` solo si el bit 0 del BYTE de banderas
+// esta puesto y devuelve `this`. Ninguna vtable ni llamador del EXE la referencia (CAEBankLoader no es virtual).
+CAEBankLoader* CAEBankLoader::ScalarDeletingDestructor(uint8 flags) {
+    Deconstructor();
+    if (flags & 1) {
+        ::operator delete(this);
+    }
+    return this;
 }
 
 // 0x4DFB20

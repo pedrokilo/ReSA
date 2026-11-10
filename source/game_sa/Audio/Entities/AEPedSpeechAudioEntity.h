@@ -182,6 +182,9 @@ public:
     CAEPedSpeechAudioEntity(CPed* ped) noexcept;
     ~CAEPedSpeechAudioEntity() = default;
 
+    // 0x4E34C0 (lote 144A, banco Fn144A): cuerpo del destructor del EXE (vtable base 0x859988 y CAESound::Destructor (0x4EF660, con hook) sobre m_tempSound (+8))
+    __declspec(noinline) void Destructor();
+
     void Initialise(CEntity* ped);
 
     bool  IsGlobalContextImportantForWidescreen(eGlobalSpeechContext gCtx);

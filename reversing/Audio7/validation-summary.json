@@ -58,7 +58,7 @@
   "log_sha256": "e5506493061a850005a96ac6065a0f7531542f54b35c18012fdfeabaecf4b44b",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio7\\20261109-002601-759660",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio7\\20261109-192841-704482",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEFireAudioEntity::Initialise": true,
@@ -106,8 +106,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "4fd7a4326e919531e0ce85853852e990db7aedefb204184a64e03475dd927ab1",
-      "pdb": "c70244200416fce493962e79fa7d60def28313ef60b6c30b1d1369a5cdfa452d"
+      "asi": "5004c91820736b09a23b1289effca5dd2117ffd5b612f5083e34d63a5ed7d90b",
+      "pdb": "be8906923fe3bdafa606ac3b8d383b99ecac7f75b244f96b7a4ae5fed83f07e8"
     },
     "sources": {
       "source/game_sa/Audio/Entities/AEFireAudioEntity.cpp": "b6b9773935a2ae1da4b0c1eb20589d208a656c858e03cf0a7a22a8239baf906c",
@@ -116,8 +116,8 @@
       "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "31a51ba9a4542f0de72154e28066b1bece3ea95011f1cf0603407705e0fc2712",
       "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp": "f3c9d69dc2c02e3d6f9fccd54e64f338fcea40910bcfa04df912792bb2d07246",
       "source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.h": "705b8a13c84b78e48b6cba5bb7f4f1e2859e1a2f927fa8bf44eaf3adcaefd4b2",
-      "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "a1fef0719e19e0fae5fb3e3597ccefa952e5dcd23acb8c0baf189298ab1619d4",
-      "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "59f5db913714cd3c74cc156d9df6d06d0402d5eba14e4d99c5039313ddff4864",
+      "source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp": "fc6a0f4dcfaf0b4aaf82cf352bf62e3d480e7adff38a762f7ddac2e98916ff0c",
+      "source/game_sa/Audio/Loaders/AEMP3TrackLoader.h": "9539ebea5a8533d83158e5d06a206f006e266d3f44c3bb28198bc8aa62c94e11",
       "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp": "f9f515a2889ffaf7045152f4e631accf82d12adf639db69cf43fd8813105cf5f",
       "source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h": "3eb5bcc56eb799651422a51ce0bb5435f2d588217586561eeb25f15eb3962023",
       "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "1f9f831527ee5369847ddb2a53f95d4a07e3375520c096abfb806baad987049b",

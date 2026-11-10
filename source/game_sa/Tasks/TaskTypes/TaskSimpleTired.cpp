@@ -24,11 +24,15 @@ namespace CTaskSimpleBody {
 void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
 }
 
+static_assert(CTaskSimpleTired::Type == 0xDB); // 0x630F50: `mov eax,0DBh`
+
 void CTaskSimpleTired::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleTired, 0x86DED0, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedVMTInstall(Clone, 0x636180); // lote 132A (banco Fn132A)
+    RH_ScopedVMTInstall(GetTaskType, 0x630F50);   // lote 144A (banco Fn144A): retorno de constante (TASK_SIMPLE_TIRED = 219), ranura 4 de la vtable 0x86DED0
+    RH_ScopedVMTInstall(MakeAbortable, 0x630FF0); // lote 144A: ranura 6, `ret 0Ch`
     RH_ScopedInstall(Constructor, 0x630F20);
     RH_ScopedInstall(Destructor, 0x630F60);
     RH_ScopedInstall(StartAnim, 0x630F70);
@@ -83,7 +87,7 @@ void CTaskSimpleTired::StartAnim(CPed* ped) {
 
 // 0x630FF0
 bool CTaskSimpleTired::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
-    if (m_TiredAnim && m_TiredAnim == RpAnimBlendClumpGetAssociation(ped->GetRpClump(), ANIM_ID_IDLE_TIRED)) {
+    if (m_TiredAnim && m_TiredAnim == RpAnimBlendClumpGetAssociation(*reinterpret_cast<RpClump* const*>(reinterpret_cast<const uint8*>(ped) + 0x18), ANIM_ID_IDLE_TIRED)) { // como el EXE: lee +0x18 del ped sin comprobar el tipo (GetRpClump lo comprueba con assert)
         m_TiredAnim->m_BlendDelta = -4.f;
     }
     return true;

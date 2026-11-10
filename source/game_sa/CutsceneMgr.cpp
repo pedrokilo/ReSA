@@ -960,6 +960,17 @@ void CCutsceneMgr::RemoveEverythingBecauseCutsceneDoesntFitInMemory() {
     CGame::DrasticTidyUpMemory(true);
 }
 
+// 0x47E070 (lote 144A, banco Fn144A; cdecl, un argumento de pila, `ret`, 30 bytes; solo lo llama el codigo de un comando de script, 0x47EEE3; el listado lo atribuia a CTheCarGenerators): copia el vector
+// recibido (por puntero) a ms_cutsceneOffset (0xBC4034), componente a componente en orden x, y, z (cada lectura precede a su escritura: si el origen solapa el destino se ven las escrituras anteriores).
+// Sin escribir ni leer nada mas; clobbera EAX, ECX y EDX (los llamadores no los leen).
+void CCutsceneMgr::SetCutsceneOffset(const CVector& offset) {
+    volatile uint32* const d = reinterpret_cast<volatile uint32*>(&ms_cutsceneOffset);
+    const volatile uint32* const s = reinterpret_cast<const volatile uint32*>(&offset);
+    d[0] = s[0];
+    d[1] = s[1];
+    d[2] = s[2];
+}
+
 // 0x5B0390
 void CCutsceneMgr::SetCutsceneAnim(const char* animName, CObject* object) {
     const auto clump = reinterpret_cast<RpClump*>(object->GetRwObject()); // Como el original: se lee antes de buscar la animación
@@ -1209,6 +1220,7 @@ void CCutsceneMgr::InjectHooks() {
 
     RH_ScopedGlobalInstall(FindCutsceneAudioTrackId, 0x5AFA50); // Lote 116A, banco Fn116A (la direccion de antes, 0x8D0AA8, era la tabla de nombres del EXE)
     RH_ScopedGlobalInstall(SetCutsceneAnim, 0x5B0390);
+    RH_ScopedGlobalInstall(SetCutsceneOffset, 0x47E070); // lote 144A (banco Fn144A)
     RH_ScopedGlobalInstall(SetCutsceneAnimToLoop, 0x5B0420);
     RH_ScopedGlobalInstall(SetHeadAnim, 0x5B0440);
     RH_ScopedGlobalInstall(AttachObjectToBone, 0x5B0450);

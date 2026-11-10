@@ -34,6 +34,7 @@ void CAEPedSpeechAudioEntity::InjectHooks() {
     RH_ScopedCategory("Audio/Entities");
 
     RH_ScopedInstall(Constructor, 0x4E4F10);
+    RH_ScopedInstall(Destructor, 0x4E34C0); // lote 144A (banco Fn144A)
     RH_ScopedInstall(IsGlobalContextImportantForInterupting, 0x4E4600);
     RH_ScopedInstall(IsGlobalContextUberImportant, 0x4E46F0);
     RH_ScopedInstall(GetNextMoodToUse, 0x4E4700);
@@ -84,6 +85,12 @@ void CAEPedSpeechAudioEntity::InjectHooks() {
     RH_ScopedInstall(GetPedTalking, 0x4E3F50);
     RH_ScopedInstall(GetVoiceAndTypeForSpecialPed, 0x4E4170);
     RH_ScopedVMTInstall(UpdateParameters, 0x4E3520);
+
+    {
+        RH_ScopedClass(CAEPedSpeechSlot);
+        RH_ScopedCategory("Audio/Entities");
+        RH_ScopedInstall(Reset, 0x4E3350); // lote 144A (banco Fn144A)
+    }
     RH_ScopedVMTInstall(AddScriptSayEvent, 0x4E4F70);
     RH_ScopedVMTInstall(Terminate, 0x4E5670);
     RH_ScopedVMTInstall(PlayLoadedSound, 0x4E5CD0);
@@ -173,6 +180,14 @@ void CAEPedSpeechSlot::Reset() {
     IsReservedForPedConversation    = false;
     IsReservedForPlayerConversation = false;
     ForceAudible                    = false;
+}
+
+// 0x4E34C0 (lote 144A, banco Fn144A; thiscall, sin argumentos de pila, `ret`... `jmp`, 14 bytes: `mov [ecx],859988h; add ecx,8; jmp 0x4EF660`; el listado lo atribuia a CAEPedAudioEntity): cuerpo del
+// destructor del EXE de CAEPedSpeechAudioEntity (solo lo alcanzan funclets de desenrollado de excepciones; ningun llamador directo). Deja la vtable de la base del EXE (0x859988; la de la DLL no vale) y
+// destruye m_tempSound (+8) con CAESound::Destructor (0x4EF660, con hook), cuyo resultado el EXE devuelve en EAX (el contrato es void).
+void CAEPedSpeechAudioEntity::Destructor() {
+    *reinterpret_cast<uint32*>(this) = 0x859988;
+    m_tempSound.Destructor();
 }
 
 CAEPedSpeechAudioEntity::CAEPedSpeechAudioEntity(eAudioPedType pt) noexcept :

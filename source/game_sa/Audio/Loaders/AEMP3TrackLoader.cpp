@@ -31,6 +31,7 @@ void CAEMP3TrackLoader::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x4E0930);
     RH_ScopedInstall(Deconstructor, 0x4E0940);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4D8690); // lote 144A (banco Fn144A)
     RH_ScopedInstall(Initialise, 0x4E0C50);
     RH_ScopedInstall(LoadStreamPackTable, 0x4E0970);
     RH_ScopedInstall(LoadTrackLookupTable, 0x4E09F0);
@@ -42,6 +43,16 @@ void CAEMP3TrackLoader::InjectHooks() {
 CAEMP3TrackLoader::CAEMP3TrackLoader() {
     m_bInitialised = false;
     m_pszDvdDrivePath = nullptr;
+}
+
+// 0x4D8690 (lote 144A, banco Fn144A; thiscall, un argumento de pila, `ret 4`, 27 bytes, como 0x4D8670 pero con el cuerpo 0x4E0940; el listado lo atribuia a CAEAudioHardware). Destruye con el cuerpo de la
+// clase, libera `this` con operator delete (0x8214BD) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Sin referencias en el EXE.
+CAEMP3TrackLoader* CAEMP3TrackLoader::ScalarDeletingDestructor(uint8 flags) {
+    Deconstructor();
+    if (flags & 1) {
+        ::operator delete(this);
+    }
+    return this;
 }
 
 // 0x4E0940

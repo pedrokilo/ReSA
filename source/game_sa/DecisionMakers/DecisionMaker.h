@@ -18,6 +18,8 @@ public:
 
     CDecisionMaker();
 
+    void From(const CDecisionMaker& rhs); // 0x5BA020 (lote 144A, banco Fn144A)
+
     void MakeDecision(int32 eventIndex, int32 eventSourceType, bool bIsPedInVehicle, int32 taskTypeToAvoid1, int32 taskTypeToAvoid2, int32 taskTypeToAvoid3, int32 taskTypeToSeek, int16& taskType, int16& facialTaskType);
 };
 

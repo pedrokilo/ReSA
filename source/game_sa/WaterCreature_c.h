@@ -39,6 +39,9 @@ public:
 
 public:
     static void InjectHooks();
+    // 0x6E3E30 (lote 144A, banco Fn144A): constructor del EXE (`push esi; mov esi,ecx; call 0x4A8DB0 (ListItem_c: m_pPrev = m_pNext = 0); m_pObject (+8) = 0; mov eax,esi; pop esi; ret`; el listado lo atribuia
+    // a CVehicleAnimGroup); solo lo llama el constructor de vectores del EXE (0x6E3ECD)
+    WaterCreature_c* Constructor() { this->WaterCreature_c::WaterCreature_c(); return this; }
 
     bool Init(int32 nType, CVector* vecPos, WaterCreature_c* parent, float fWaterLevel, float fWaterDepth);
     void Exit();

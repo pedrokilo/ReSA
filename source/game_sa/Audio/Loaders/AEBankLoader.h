@@ -119,7 +119,8 @@ public:
 
 private:
     // NOTSA
-    void Deconstructor() { this->~CAEBankLoader(); }
+    __declspec(noinline) void Deconstructor() { this->~CAEBankLoader(); } // sin expansion en linea: lo llama ScalarDeletingDestructor como el `call 0x4DFB20` del EXE (el banco lo sustituye)
+    CAEBankLoader* ScalarDeletingDestructor(uint8 flags); // 0x4D8670 (lote 144A, banco Fn144A): destructor con borrado, `ret 4`; sin referencias en el EXE (no esta en ninguna vtable)
 
 protected:
     CAEBankSlot*                    m_BankSlots{};

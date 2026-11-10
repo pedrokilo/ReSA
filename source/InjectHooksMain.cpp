@@ -1571,6 +1571,7 @@ void InjectHooksMain() {
         FxManager_c::InjectHooks();
         // ReversibleHooks::Install("FxFrustumInfo_c", "IsCollision", 0x4AA030, &FxFrustumInfo_c::IsCollision);
         FxEmitterPrt_c::InjectHooks();
+        Particle_c::InjectHooks();
         FxEmitterBP_c::InjectHooks();
         FxEmitter_c::InjectHooks();
         Fx_c::InjectHooks();

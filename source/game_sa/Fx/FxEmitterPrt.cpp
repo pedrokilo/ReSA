@@ -35,4 +35,5 @@ void FxEmitterPrt_c::InjectHooks() {
     RH_ScopedCategory("Fx");
 
     RH_ScopedInstall(operator new[], 0x4A18B0);
+    RH_ScopedInstall(Constructor, 0x4A94E0); // lote 144A (banco Fn144A)
 }

@@ -23,6 +23,9 @@ public:
 
     static void StaticInitialise();
 
+    // 0x5074B0 (lote 144A, banco Fn144A): constructor del EXE (vtable del EXE, sin llamar al de la base ni tocar m_Entity); devuelve this
+    CAEExplosionAudioEntity* Constructor();
+
     void AddAudioEvent(eAudioEvents audioEvent, CVector& posn, float volume);
     void UpdateParameters(CAESound* sound, int16 curPlayPos) override;
 };

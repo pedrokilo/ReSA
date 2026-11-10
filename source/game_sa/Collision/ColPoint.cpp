@@ -67,6 +67,13 @@ CColPoint* __fastcall ColPointAssignExe(CColPoint* self, void* /*edx*/, const CC
     return self;
 }
 
+// 0x47E050 (lote 144A, banco Fn144A; thiscall, sin argumentos de pila, `ret`, 4 bytes: `mov al,[ecx+23h]; ret`; solo lo llama CAutomobile::ProcessCarWheelPair, 0x6A54DE, que lee AL con movzx; el listado
+// lo atribuia a CTheCarGenerators): tipo de superficie B del punto (m_nSurfaceTypeB, +0x23). Solo AL es contrato (el resto de EAX queda como estaba). __fastcall con EDX ficticio: ECX = this, igual que thiscall.
+static uint8 __fastcall ColPointSurfaceTypeBExe(const CColPoint* self, void* /*edx*/)
+{
+    return *reinterpret_cast<const volatile uint8*>(reinterpret_cast<const uint8*>(self) + 0x23);
+}
+
 // Lote 105A (banco Fn105A): CColPoint::operator= (0x40FC80). Funcion libre para no tocar ColPoint.h; se llama desde InjectHooksMain.cpp.
 void CColPointInjectHooksLote105A()
 {
@@ -74,6 +81,7 @@ void CColPointInjectHooksLote105A()
     RH_ScopedCategory("Collision");
 
     RH_ScopedGlobalInstall(ColPointAssignExe, 0x40FC80);
+    RH_ScopedNamedGlobalInstall(ColPointSurfaceTypeBExe, "GetSurfaceTypeB", 0x47E050); // lote 144A (banco Fn144A)
 }
 
 // Lote 116A (banco Fn116A): tColLighting::GetCurrentLighting (0x59F0C0). Funcion libre como la anterior; se llama desde InjectHooksMain.cpp.

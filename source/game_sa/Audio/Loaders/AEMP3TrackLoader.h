@@ -29,5 +29,6 @@ private:
         return this;
     }
 
-    void Deconstructor() { this->~CAEMP3TrackLoader(); }
+    __declspec(noinline) void Deconstructor() { this->~CAEMP3TrackLoader(); } // sin expansion en linea: lo llama ScalarDeletingDestructor como el `call 0x4E0940` del EXE (el banco lo sustituye)
+    CAEMP3TrackLoader* ScalarDeletingDestructor(uint8 flags); // 0x4D8690 (lote 144A, banco Fn144A): destructor con borrado, `ret 4`; sin referencias en el EXE
 };

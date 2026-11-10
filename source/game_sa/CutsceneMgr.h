@@ -153,6 +153,7 @@ public:
     static void RemoveCutscenePlayer();
     static void RemoveEverythingBecauseCutsceneDoesntFitInMemory();
     static void SetCutsceneAnim(const char* animName, CObject* object);
+    static void SetCutsceneOffset(const CVector& offset); // 0x47E070 (lote 144A, banco Fn144A)
     static void SetCutsceneAnimToLoop(const char* animName);
     static void SetHeadAnim(const char* animName, CObject* headObject);
     static void SetupCutsceneToStart();

@@ -355,6 +355,7 @@ void CAEGlobalWeaponAudioEntity::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x5075B0);
     RH_ScopedInstall(Destructor, 0x506C50);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x506DC0); // lote 144A (banco Fn144A)
     RH_ScopedVMTInstall(UpdateParameters, 0x4DEF90); // Como el original: entrada 0 de la vtable 0x862E5C (virtual)
     RH_ScopedInstall(AddAudioEvent, 0x4DFAA0);
     RH_ScopedInstall(ProjectileFire, 0x4DF060);
@@ -366,3 +367,14 @@ CAEGlobalWeaponAudioEntity* CAEGlobalWeaponAudioEntity::Constructor() {
     return this;
 }
 CAEGlobalWeaponAudioEntity* CAEGlobalWeaponAudioEntity::Destructor() { this->CAEGlobalWeaponAudioEntity::~CAEGlobalWeaponAudioEntity(); return this; }
+
+// 0x506DC0 (lote 144A, banco Fn144A; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x506C50; test byte [esp+8],1; je ..; push esi; call 0x8214BD (operator delete);
+// add esp,4; mov eax,esi; pop esi; ret 4`; el listado lo atribuia a CAudioEngine). Como el original: destruye con el cuerpo de la clase (0x506C50), libera `this` solo si el bit 0 del BYTE de banderas esta
+// puesto y devuelve `this`. Ninguna vtable ni llamador del EXE la referencia (el objeto vive dentro de CAudioEngine).
+CAEGlobalWeaponAudioEntity* CAEGlobalWeaponAudioEntity::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        ::operator delete(this);
+    }
+    return this;
+}

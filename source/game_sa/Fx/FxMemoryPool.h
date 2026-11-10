@@ -26,6 +26,10 @@ public:
 
     FxMemoryPool_c() = default; // 0x4A9C10
     ~FxMemoryPool_c() = default; // 0x4A9C20
+    // 0x4A9C10 (lote 144A, banco Fn144A): `mov eax,ecx; ret` (no escribe nada y devuelve this)
+    FxMemoryPool_c* Constructor() { return this; }
+    // 0x4A9C20 (lote 144A, banco Fn144A): `ret` (no hace nada)
+    void Destructor() {}
 
     bool  Init();
     void  Exit();

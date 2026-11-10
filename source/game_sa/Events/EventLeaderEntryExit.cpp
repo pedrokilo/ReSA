@@ -26,6 +26,8 @@ void CEventLeaderEntryExit::InjectHooks()
     RH_ScopedCategory("Events");
 
     RH_ScopedInstall(Constructor, 0x43E1C0);
+    RH_ScopedVMTInstall(AffectsPedGroup, 0x4B23A0);     // lote 144A (banco Fn144A): ranura 6 de la vtable 0x859540 (el listado la atribuia a CEventAreaCodes)
+    RH_ScopedVMTInstall(TakesPriorityOver, 0x4B2390);   // lote 144A: `mov al,1; ret 4` (verdadero siempre), ranura 11
 }
 
 // 0x43E1C0

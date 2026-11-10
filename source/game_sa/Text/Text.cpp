@@ -103,6 +103,7 @@ void CText::InjectHooks() {
     {
         RH_ScopedClass(CData);
         RH_ScopedInstall(Unload, 0x69F640);
+        RH_ScopedInstall(Destructor, 0x69FFD0); // lote 144A (banco Fn144A)
         RH_ScopedInstall(Load, 0x69F5D0);
     }
 
@@ -110,6 +111,7 @@ void CText::InjectHooks() {
         RH_ScopedClass(CKeyArray);
         RH_ScopedCategory("Text");
         RH_ScopedInstall(Unload, 0x69F510);
+        RH_ScopedInstall(Destructor, 0x69FFA0); // lote 144A (banco Fn144A)
         RH_ScopedInstall(BinarySearch, 0x69F570);
         RH_ScopedInstall(Search, 0x6A0000);
         RH_ScopedInstall(Load, 0x69F490);

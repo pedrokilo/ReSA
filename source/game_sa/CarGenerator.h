@@ -75,7 +75,8 @@ public:
                uint8 alarmChance, uint8 doorLockChance, uint16 minDelay, uint16 maxDelay,
                uint8 iplId, bool ignorePopulationLimit);
     void SwitchOff();
-    void SwitchOn();
+    __declspec(noinline) void SwitchOn(); // sin expansion en linea: SwitchOnWithCount la llama como el `call 0x6F32C0` del EXE (el banco la sustituye)
+    void SwitchOnWithCount(uint16 count); // 0x47C0E0 (lote 144A, banco Fn144A)
 
     static uint32 CalcNextGen();
 

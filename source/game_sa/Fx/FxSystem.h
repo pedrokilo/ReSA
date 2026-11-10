@@ -72,7 +72,8 @@ public:
     FxSystem_c();
     ~FxSystem_c();
     FxSystem_c* Constructor();
-    FxSystem_c* Destructor();
+    __declspec(noinline) FxSystem_c* Destructor();
+    FxSystem_c* ScalarDeletingDestructor(uint8 flags); // 0x4A9340 (lote 144A, banco Fn144A): destructor con borrado, `ret 4`; sin referencias en el EXE
 
     bool Init(FxSystemBP_c* systemBP, const RwMatrix& local, RwMatrix* parent);
     void Exit();

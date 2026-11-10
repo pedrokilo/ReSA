@@ -26,6 +26,7 @@ void WaterCreature_c::InjectHooks()
     RH_ScopedClass(WaterCreature_c);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedInstall(Constructor, 0x6E3E30); // lote 144A (banco Fn144A)
     RH_ScopedInstall(Init, 0x6E4160);
     RH_ScopedInstall(Exit, 0x6E3E60);
     RH_ScopedInstall(Update, 0x6E4670);

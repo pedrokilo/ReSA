@@ -37,6 +37,8 @@ void CEventAreaCodes::InjectHooks()
     RH_ScopedNamedGlobalInstall(AreaCodesDestructorBody, "Destructor", 0x4B2210);
 
     RH_ScopedInstall(Constructor, 0x4B2190);
+    RH_ScopedVMTInstall(GetEventType, 0x4B21F0); // lote 144A (banco Fn144A): retorno de constante (67), ranura 1 de la vtable 0x85B7C0
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B2200);  // lote 144A: 0, ranura 3
     RH_ScopedVMTInstall(AffectsPed, 0x4B2270);
     RH_ScopedVMTInstall(TakesPriorityOver, 0x4B2350);
 }

@@ -22,6 +22,16 @@ void CData::Unload() {
     m_size = 0;
 }
 
+// 0x69FFD0 (lote 144A, banco Fn144A; thiscall, sin argumentos de pila, `ret`, 24 bytes): cuerpo del destructor del EXE con Unload en linea (idem 0x69FFA0 de CKeyArray): libera m_data con delete[]
+// solo si no es nulo, lo anula y pone m_size a 0.
+void CData::Destructor() {
+    if (m_data) {
+        delete[] m_data;
+        m_data = nullptr;
+    }
+    m_size = 0;
+}
+
 // unknown always 0
 // 0x69F5D0
 bool CData::Load(uint32 length, FILESTREAM file, uint32* offset, uint8 unknown) {

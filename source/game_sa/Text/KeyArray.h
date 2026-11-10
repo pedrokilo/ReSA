@@ -17,6 +17,9 @@ public:
 
     bool Load(uint32 length, FILESTREAM file, uint32* offset, uint8 unknown);
     void Unload();
+    // 0x69FFA0 (lote 144A, banco Fn144A): cuerpo del destructor del EXE (Unload en linea: libera m_data con delete[] solo si no es nulo, lo anula y pone m_size a 0; sin llamadores directos; atribucion
+    // CKeyArray/CData por orden de direcciones, los dos cuerpos del EXE (0x69FFA0 y 0x69FFD0) son identicos byte a byte)
+    __declspec(noinline) void Destructor();
 
     void Update(char* offset);
 

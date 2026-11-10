@@ -25,6 +25,7 @@ private:
     static void InjectHooks();
 
     CAEGlobalWeaponAudioEntity* Constructor();
-    CAEGlobalWeaponAudioEntity* Destructor();
+    __declspec(noinline) CAEGlobalWeaponAudioEntity* Destructor();
+    CAEGlobalWeaponAudioEntity* ScalarDeletingDestructor(uint8 flags); // 0x506DC0 (lote 144A, banco Fn144A): destructor con borrado, `ret 4`
 };
 VALIDATE_SIZE(CAEGlobalWeaponAudioEntity, 0xA8);

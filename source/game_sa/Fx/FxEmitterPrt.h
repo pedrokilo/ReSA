@@ -32,6 +32,8 @@ public:
 public:
     FxEmitterPrt_c() = default;  // 0x4A94E0
     ~FxEmitterPrt_c() = default; // 0x4A94F0
+    // 0x4A94E0 (lote 144A, banco Fn144A): constructor del EXE (`push esi; mov esi,ecx; call 0x4A8DB0 (ListItem_c: m_pPrev = m_pNext = 0); mov eax,esi; pop esi; ret`): solo anula los enlaces
+    FxEmitterPrt_c* Constructor() { m_pPrev = nullptr; m_pNext = nullptr; return this; }
 
     static void InjectHooks();
 

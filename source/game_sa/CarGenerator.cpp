@@ -37,6 +37,7 @@ void CCarGenerator::InjectHooks()
     RH_ScopedInstall(Setup, 0x6F2E50);
     RH_ScopedInstall(SwitchOff, 0x6F2E30);
     RH_ScopedInstall(SwitchOn, 0x6F32C0);
+    RH_ScopedInstall(SwitchOnWithCount, 0x47C0E0); // lote 144A (banco Fn144A)
     RH_ScopedInstall(CalcNextGen, 0x6F2E40);
 }
 
@@ -442,6 +443,14 @@ void CCarGenerator::SwitchOn()
 {
     m_nGenerateCount = (uint16)-1;
     m_nNextGenTime = CalcNextGen();
+}
+
+// 0x47C0E0 (lote 144A, banco Fn144A; thiscall, un argumento de pila, `ret 4`, 21 bytes: `push esi; mov esi,ecx; call 0x6F32C0 (SwitchOn, con hook); mov ax,[esp+8]; mov [esi+1Ah],ax; pop esi;
+// ret 4`; el listado lo atribuia a CTheCarGenerators): trozo del comando de script SWITCH_CAR_GENERATOR (lo llama 0x47C275 con ECX = generador y el contador <= 100). Enciende el generador y deja
+// m_nGenerateCount (+0x1A) con la PALABRA baja del argumento (el EXE lee 16 bits del dword que se empuja). No devuelve nada.
+void CCarGenerator::SwitchOnWithCount(uint16 count) {
+    SwitchOn();
+    m_nGenerateCount = count;
 }
 
 // 0x6F2E40

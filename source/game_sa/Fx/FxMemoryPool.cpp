@@ -27,6 +27,8 @@ void FxMemoryPool_c::InjectHooks() {
     RH_ScopedClass(FxMemoryPool_c);
     RH_ScopedCategory("Fx");
 
+    RH_ScopedInstall(Constructor, 0x4A9C10); // lote 144A (banco Fn144A)
+    RH_ScopedInstall(Destructor, 0x4A9C20);  // lote 144A (banco Fn144A)
     RH_ScopedInstall(Init, 0x4A9C30);
     RH_ScopedInstall(Exit, 0x4A9C80);
     RH_ScopedInstall(Reset, 0x4A9C90);

@@ -59,7 +59,7 @@ public:
         float           speedVariance
     );
     ~CAESound();
-    CAESound* Destructor() { this->CAESound::~CAESound(); return this; } // 0x4EF660 (hook, lote 102A)
+    __declspec(noinline) CAESound* Destructor() { this->CAESound::~CAESound(); return this; } // 0x4EF660 (hook, lote 102A); sin expansion en linea (lote 144A: los bancos sustituyen su cuerpo)
     CAESound& operator=(const CAESound& other);
 
     void Initialise(

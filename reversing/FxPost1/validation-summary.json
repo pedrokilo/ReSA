@@ -210,27 +210,27 @@
     "FxSystem_c::Stop": "Corpus 256; source reviewed against the EXE and corrected before the run where needed (see the bank README and the list of corrections); fake objects with 16-byte guards."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FxPost1-20261107-134621-743907",
-  "summary_sha256": "d78adb28842d16312318f756d26b4b77b8cbcf20706484afc6db9fa9821f2573",
-  "result_txt_sha256": "c27bd640a7cd982ee53cc84d23eb143968864cd8503cd60a70924adbee738d0f",
-  "log_sha256": "e790b2a573b697f9e82788bca69f3db7074466f4011d988e02447174629d571c",
+  "run": "reversing/CppTwelveLevel6Final/runs/FxPost1-20261109-194848-374430",
+  "summary_sha256": "f17cbbe54c764d2e8b9e9f7984d927931b300f7440f62ef4484fe90d630e5c39",
+  "result_txt_sha256": "6ab3ba4e30f462d60394ed7db4885f59e0f97750df57438d8702680a4527f509",
+  "log_sha256": "6290b1ae1e0f5ffa31a112c1ed7d09a4d2e81b496205cdaeec2afe9bbb9eaacc",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FxPost1-20261107-134621-743907/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FxPost1-20261109-194848-374430/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "2cf6232de065496268a5ea3d3770420e7b7b13529da6939db9db5fc086c545bd",
-    "uncompressed_sha256": "e790b2a573b697f9e82788bca69f3db7074466f4011d988e02447174629d571c"
+    "compressed_sha256": "4a4a83c60db2389cc7078cd442d7f59b96622f7b2138cf88f6b7d94199e9a6c2",
+    "uncompressed_sha256": "6290b1ae1e0f5ffa31a112c1ed7d09a4d2e81b496205cdaeec2afe9bbb9eaacc"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "e6ff7d355a04e5dfd7da8cfbb3c2b3849e66f983daf6f20fa054d72baab5c791",
+  "executed_probe_sha256": "ac90c78d274321d23b07a72d3e76de62e1f9024d81e1647f7665262751075cbb",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-      "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+      "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+      "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
       "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
       "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
     }

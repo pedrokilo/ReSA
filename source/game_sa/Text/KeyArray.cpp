@@ -19,6 +19,16 @@ void CKeyArray::Unload() {
     m_size = 0;
 }
 
+// 0x69FFA0 (lote 144A, banco Fn144A; thiscall, sin argumentos de pila, `ret`, 24 bytes): cuerpo del destructor del EXE con Unload en linea. Como el original: si m_data no es nulo lo libera con
+// delete[] (operator delete[] 0x8213AE) y lo anula; m_size = 0 siempre. Sin expansion en linea para que el banco pueda sustituir el operator delete[] por la direccion del EXE.
+void CKeyArray::Destructor() {
+    if (m_data) {
+        delete[] m_data;
+        m_data = nullptr;
+    }
+    m_size = 0;
+}
+
 // unknown always 0
 // 0x69F490
 bool CKeyArray::Load(uint32 length, FILESTREAM file, uint32* offset, uint8 unknown) {

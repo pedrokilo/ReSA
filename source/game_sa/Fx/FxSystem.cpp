@@ -32,6 +32,7 @@ void FxSystem_c::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x4AAF00);
     RH_ScopedInstall(Destructor, 0x4AA260);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x4A9340); // lote 144A (banco Fn144A)
     RH_ScopedInstall(Init, 0x4AA750);
     RH_ScopedInstall(Exit, 0x4AA840);
     RH_ScopedInstall(Play, 0x4AA2F0);
@@ -68,6 +69,17 @@ void FxSystem_c::InjectHooks() {
 }
 FxSystem_c* FxSystem_c::Constructor() { this->FxSystem_c::FxSystem_c(); return this; }
 FxSystem_c* FxSystem_c::Destructor() { this->FxSystem_c::~FxSystem_c(); return this; }
+
+// 0x4A9340 (lote 144A, banco Fn144A; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x4AA260; test byte [esp+8],1; je ..; push esi; call 0x8214BD (operator delete);
+// add esp,4; mov eax,esi; pop esi; ret 4`; el listado lo atribuia a FxManager_c). Como el original: destruye con el cuerpo de la clase (0x4AA260), libera `this` solo si el bit 0 del BYTE de banderas
+// esta puesto y devuelve `this`. Ninguna vtable ni llamador del EXE la referencia.
+FxSystem_c* FxSystem_c::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        ::operator delete(this);
+    }
+    return this;
+}
 
 // 0x4AAF00
 FxSystem_c::FxSystem_c() : ListItem_c() {

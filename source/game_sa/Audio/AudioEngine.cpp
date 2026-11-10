@@ -51,6 +51,7 @@ void CAudioEngine::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x507670);
     RH_ScopedInstall(Destructor, 0x506CD0);
+    RH_ScopedInstall(StopPoliceScanner, 0x507400); // lote 144A (banco Fn144A)
 
     RH_ScopedInstall(Initialise, 0x5B9C60);
     RH_ScopedInstall(Shutdown, 0x507CB0);
@@ -746,7 +747,8 @@ void CAudioEngine::EnablePoliceScanner() {
     CAEPoliceScannerAudioEntity::EnableScanner();
 }
 
-// 0x507400
+// 0x507400 (lote 144A, banco Fn144A; thiscall, un argumento de pila, `ret 4`, 14 bytes: `mov eax,[esp+4]; push eax; call 0x4E6DC0; pop ecx; ret 4`): ECX (this) no se usa. El EXE empuja el dword
+// del argumento tal cual y StopScanner (0x4E6DC0, con hook) solo lee su byte bajo (`test al,al`); aqui el byte se normaliza a bool, que es lo que lee StopScanner.
 void CAudioEngine::StopPoliceScanner(uint8 a1) {
     CAEPoliceScannerAudioEntity::StopScanner(a1);
 }

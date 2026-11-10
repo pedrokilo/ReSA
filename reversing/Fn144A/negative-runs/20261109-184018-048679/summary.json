@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "ac20e3029cce0b297ad940bd4216de0f1aac3baa14fb23a440514a9aae78c888",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CKeyArray::Destructor: 1614/2048; CData::Destructor: 1621/2048; CAEBankLoader::ScalarDeletingDestructor: 506/2048; CAEMP3TrackLoader::ScalarDeletingDestructor: 510/2048; CCarGenerator::SwitchOnWithCount: 2048/2048; CColPoint::GetSurfaceTypeB: 1840/2048; CCutsceneMgr::SetCutsceneOffset: 423/2048; Particle_c::Constructor: 2048/2048; FxSystem_c::ScalarDeletingDestructor: 932/2048; FxEmitterPrt_c::Constructor: 2048/2048; FxMemoryPool_c::Constructor: 1927/2048; FxMemoryPool_c::Destructor: 1901/2048; CEventAreaCodes::GetEventType: 2048/2048; CEventAreaCodes::GetLifeTime: 2048/2048; CEventLeaderEntryExit::TakesPriorityOver: 512/2048; CEventLeaderEntryExit::AffectsPedGroup: 350/2048; CAEPedSpeechSlot::Reset: 2048/2048; CAEPedSpeechAudioEntity::Destructor: 2048/2048; CTaskSimpleTired::GetTaskType: 2048/2048; CTaskSimpleTired::MakeAbortable: 2048/2048; CDecisionMaker::From: 2048/2048; WaterCreature_c::Constructor: 2048/2048; CAEGlobalWeaponAudioEntity::ScalarDeletingDestructor: 889/2048; CAudioEngine::StopPoliceScanner: 449/2048; CAEExplosionAudioEntity::Constructor: 2048/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

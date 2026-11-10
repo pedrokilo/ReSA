@@ -25,12 +25,23 @@ void CDecisionMaker::InjectHooks() {
     RH_ScopedCategory("DecisionMakers");
 
     RH_ScopedInstall(MakeDecision, 0x606060);
+    RH_ScopedInstall(From, 0x5BA020); // lote 144A (banco Fn144A)
 }
 
 // 0x4650A0
 CDecisionMaker::CDecisionMaker() {
     for (auto& decision : m_aDecisions) {
         decision.SetDefault();
+    }
+}
+
+// 0x5BA020 (lote 144A, banco Fn144A; thiscall, un argumento de pila, `ret 4`, 39 bytes; el listado lo atribuia a CVehicleAnimGroup): copia de un decision maker. Para cada una de las 41 decisiones (0x3C
+// bytes, en orden creciente) llama a CDecision::From (0x6006B0, con hook) con ECX = decision destino y la decision de origen en la pila (origen + i * 0x3C). No devuelve nada (EAX es el de la ultima llamada;
+// el EXE no la referencia desde ningun llamador directo).
+void CDecisionMaker::From(const CDecisionMaker& rhs) {
+    static_assert(DM_TOTAL_NUM_EVENTS == 0x29);
+    for (size_t i = 0; i < m_aDecisions.size(); ++i) {
+        m_aDecisions[i].From(rhs.m_aDecisions[i]);
     }
 }
 

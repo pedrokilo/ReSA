@@ -49077,7 +49077,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::CCTV"
@@ -49086,8 +49086,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49105,7 +49105,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Close"
@@ -49114,8 +49114,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49133,7 +49133,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ColourFilter"
@@ -49142,8 +49142,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49161,7 +49161,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::DarknessFilter"
@@ -49170,8 +49170,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49189,7 +49189,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::DoScreenModeDependentInitializations"
@@ -49198,8 +49198,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49217,7 +49217,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::DrawQuad"
@@ -49226,8 +49226,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49245,7 +49245,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::FilterFX_RestoreDayNightBalance"
@@ -49254,8 +49254,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49273,7 +49273,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::FilterFX_StoreAndSetDayNightBalance"
@@ -49282,8 +49282,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49301,7 +49301,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Fog"
@@ -49310,8 +49310,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49329,7 +49329,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Grain"
@@ -49338,8 +49338,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49357,7 +49357,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::HeatHazeFXInit"
@@ -49366,8 +49366,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49385,7 +49385,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ImmediateModeFilterStuffInitialize"
@@ -49394,8 +49394,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49413,7 +49413,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ImmediateModeRenderStatesReStore"
@@ -49422,8 +49422,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49441,7 +49441,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ImmediateModeRenderStatesSet"
@@ -49450,8 +49450,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49469,7 +49469,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ImmediateModeRenderStatesStore"
@@ -49478,8 +49478,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49497,7 +49497,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::InfraredVision"
@@ -49506,8 +49506,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49525,7 +49525,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::InfraredVisionRestoreLightsForHeatObjects"
@@ -49534,8 +49534,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49553,7 +49553,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::InfraredVisionSetLightsForDefaultObjects"
@@ -49562,8 +49562,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49581,7 +49581,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::InfraredVisionStoreAndSetLightsForHeatObjects"
@@ -49590,8 +49590,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49609,7 +49609,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Initialise"
@@ -49618,8 +49618,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49637,7 +49637,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::IsVisionFXActive"
@@ -49646,8 +49646,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49665,7 +49665,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::NightVision"
@@ -49674,8 +49674,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49693,7 +49693,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::NightVisionSetLights"
@@ -49702,8 +49702,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49721,7 +49721,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Render"
@@ -49730,8 +49730,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49749,7 +49749,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptCCTVSwitch"
@@ -49758,8 +49758,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49777,7 +49777,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptDarknessFilterSwitch"
@@ -49786,8 +49786,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49805,7 +49805,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptHeatHazeFXSwitch"
@@ -49814,8 +49814,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49833,7 +49833,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptInfraredVisionSwitch"
@@ -49842,8 +49842,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49861,7 +49861,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptNightVisionSwitch"
@@ -49870,8 +49870,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49889,7 +49889,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::ScriptResetForEffects"
@@ -49898,8 +49898,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49917,7 +49917,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::SetFilterMainColour"
@@ -49926,8 +49926,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49945,7 +49945,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::SetSpeedFXManualSpeedCurrentFrame"
@@ -49954,8 +49954,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -49973,7 +49973,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::SetupBackBufferVertex"
@@ -49982,8 +49982,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50001,7 +50001,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::UnderWaterRipple"
@@ -50010,8 +50010,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50029,7 +50029,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "CPostEffects::Update"
@@ -50038,8 +50038,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50057,7 +50057,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::AddOffsetPos"
@@ -50066,8 +50066,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50085,7 +50085,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::AttachToBone"
@@ -50094,8 +50094,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50113,7 +50113,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Constructor"
@@ -50122,8 +50122,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50141,7 +50141,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::CopyParentMatrix"
@@ -50150,8 +50150,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50169,7 +50169,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Destructor"
@@ -50178,8 +50178,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50197,7 +50197,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::DoFxAudio"
@@ -50206,8 +50206,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50225,7 +50225,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::EnablePrim"
@@ -50234,8 +50234,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50253,7 +50253,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Exit"
@@ -50262,8 +50262,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50281,7 +50281,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::ForAllParticles"
@@ -50290,8 +50290,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50309,7 +50309,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::GetBoundingSphereLcl"
@@ -50318,8 +50318,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50337,7 +50337,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::GetBoundingSphereWld"
@@ -50346,8 +50346,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50365,7 +50365,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::GetCompositeMatrix"
@@ -50374,8 +50374,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50393,7 +50393,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::GetPlayStatus"
@@ -50402,8 +50402,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50421,7 +50421,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Init"
@@ -50430,8 +50430,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50449,7 +50449,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::IsVisible"
@@ -50458,8 +50458,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50477,7 +50477,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Kill"
@@ -50486,8 +50486,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50505,7 +50505,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Pause"
@@ -50514,8 +50514,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50533,7 +50533,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Play"
@@ -50542,8 +50542,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50561,7 +50561,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::PlayAndKill"
@@ -50570,8 +50570,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50589,7 +50589,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::ResetBoundingSphere"
@@ -50598,8 +50598,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50617,7 +50617,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetBoundingSphere"
@@ -50626,8 +50626,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50645,7 +50645,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetConstTime"
@@ -50654,8 +50654,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50673,7 +50673,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetLocalParticles"
@@ -50682,8 +50682,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50701,7 +50701,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetMatrix"
@@ -50710,8 +50710,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50729,7 +50729,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetMustCreatePrts"
@@ -50738,8 +50738,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50757,7 +50757,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetOffsetPos"
@@ -50766,8 +50766,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50785,7 +50785,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetRateMult"
@@ -50794,8 +50794,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50813,7 +50813,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetTimeMult"
@@ -50822,8 +50822,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50841,7 +50841,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetVelAdd"
@@ -50850,8 +50850,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50869,7 +50869,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::SetZTestEnable"
@@ -50878,8 +50878,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -50897,7 +50897,7 @@
       },
       "evidence": {
         "path": "reversing/FxPost1/validation-summary.json",
-        "sha256": "587e84f56837e9e727e9a9a949c5b9e910934a9886fbc809aece03d6d65d0e16",
+        "sha256": "20cd13aa61d4e36d18c286a08dc9b79fd6cf1a8a055bd440c3ced90bc31057ec",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::Stop"
@@ -50906,8 +50906,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Fx/FxSystem.cpp": "31d2d406e53a36fbeb1bfea6946efe84c22a4ad938c21b862bb4fb8c4361ea21",
-        "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+        "source/game_sa/Fx/FxSystem.cpp": "a0a4dd41f85b39ed56ec76c492974d775c471742e38046b6d1c248fb0a78f475",
+        "source/game_sa/Fx/FxSystem.h": "47435b0efce49eb7dc90ed7395047fafca750fd90bb66d5257512d20d7224819",
         "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
         "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914"
       },
@@ -108440,7 +108440,7 @@
       },
       "evidence": {
         "path": "reversing/Fn102A/validation-summary.json",
-        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "sha256": "5d932df4ece08c2942d4a1bfef607c0157ee63ba7a3c0fc1437fa8c12b9e60fd",
         "passed_path": [
           "covered_functions",
           "FxPrtMult_c::Constructor7f"
@@ -108449,21 +108449,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
-        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/game_sa/Fx/FxPrtMult.cpp": "7a5f24ae78d3e90d157878ab2f29a6b1100ae6342e22ccd1f42a217e96673bcc",
         "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
-        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.cpp": "1a94e990d92ce9a4742d7976c200b29b6f1185304ea3ed8edf6c349780f1757d",
         "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
-        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.cpp": "5d712b6358c23199509d113f4fef038086f5de161ff7ec3907df8606c5170a0f",
         "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
-        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
-        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
-        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
-        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "reversing/Fn102A/Core.hpp": "fcc6e52fcd7481f70e1b665cab848701227cfb5c1794d834df0fe5b7877b3ce6",
+        "reversing/Fn102A/Fixtures.hpp": "cf89e93cdf2e20cb12afbcc9cb7d701f0be5ac2a41354bb61fea81e08cfa0088",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -108481,7 +108481,7 @@
       },
       "evidence": {
         "path": "reversing/Fn102A/validation-summary.json",
-        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "sha256": "5d932df4ece08c2942d4a1bfef607c0157ee63ba7a3c0fc1437fa8c12b9e60fd",
         "passed_path": [
           "covered_functions",
           "CSimpleTransform::UpdateMatrix"
@@ -108490,21 +108490,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
-        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/game_sa/Fx/FxPrtMult.cpp": "7a5f24ae78d3e90d157878ab2f29a6b1100ae6342e22ccd1f42a217e96673bcc",
         "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
-        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.cpp": "1a94e990d92ce9a4742d7976c200b29b6f1185304ea3ed8edf6c349780f1757d",
         "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
-        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.cpp": "5d712b6358c23199509d113f4fef038086f5de161ff7ec3907df8606c5170a0f",
         "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
-        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
-        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
-        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
-        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "reversing/Fn102A/Core.hpp": "fcc6e52fcd7481f70e1b665cab848701227cfb5c1794d834df0fe5b7877b3ce6",
+        "reversing/Fn102A/Fixtures.hpp": "cf89e93cdf2e20cb12afbcc9cb7d701f0be5ac2a41354bb61fea81e08cfa0088",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -108522,7 +108522,7 @@
       },
       "evidence": {
         "path": "reversing/Fn102A/validation-summary.json",
-        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "sha256": "5d932df4ece08c2942d4a1bfef607c0157ee63ba7a3c0fc1437fa8c12b9e60fd",
         "passed_path": [
           "covered_functions",
           "CSimpleTransform::UpdateRwMatrix"
@@ -108531,21 +108531,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
-        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/game_sa/Fx/FxPrtMult.cpp": "7a5f24ae78d3e90d157878ab2f29a6b1100ae6342e22ccd1f42a217e96673bcc",
         "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
-        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.cpp": "1a94e990d92ce9a4742d7976c200b29b6f1185304ea3ed8edf6c349780f1757d",
         "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
-        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.cpp": "5d712b6358c23199509d113f4fef038086f5de161ff7ec3907df8606c5170a0f",
         "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
-        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
-        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
-        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
-        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "reversing/Fn102A/Core.hpp": "fcc6e52fcd7481f70e1b665cab848701227cfb5c1794d834df0fe5b7877b3ce6",
+        "reversing/Fn102A/Fixtures.hpp": "cf89e93cdf2e20cb12afbcc9cb7d701f0be5ac2a41354bb61fea81e08cfa0088",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -108563,7 +108563,7 @@
       },
       "evidence": {
         "path": "reversing/Fn102A/validation-summary.json",
-        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "sha256": "5d932df4ece08c2942d4a1bfef607c0157ee63ba7a3c0fc1437fa8c12b9e60fd",
         "passed_path": [
           "covered_functions",
           "CVector::SquaredMagnitudeExe"
@@ -108572,21 +108572,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
-        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/game_sa/Fx/FxPrtMult.cpp": "7a5f24ae78d3e90d157878ab2f29a6b1100ae6342e22ccd1f42a217e96673bcc",
         "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
-        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.cpp": "1a94e990d92ce9a4742d7976c200b29b6f1185304ea3ed8edf6c349780f1757d",
         "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
-        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.cpp": "5d712b6358c23199509d113f4fef038086f5de161ff7ec3907df8606c5170a0f",
         "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
-        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
-        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
-        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
-        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "reversing/Fn102A/Core.hpp": "fcc6e52fcd7481f70e1b665cab848701227cfb5c1794d834df0fe5b7877b3ce6",
+        "reversing/Fn102A/Fixtures.hpp": "cf89e93cdf2e20cb12afbcc9cb7d701f0be5ac2a41354bb61fea81e08cfa0088",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -108604,7 +108604,7 @@
       },
       "evidence": {
         "path": "reversing/Fn102A/validation-summary.json",
-        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "sha256": "5d932df4ece08c2942d4a1bfef607c0157ee63ba7a3c0fc1437fa8c12b9e60fd",
         "passed_path": [
           "covered_functions",
           "CAESound::Destructor"
@@ -108613,21 +108613,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
-        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/game_sa/Fx/FxPrtMult.cpp": "7a5f24ae78d3e90d157878ab2f29a6b1100ae6342e22ccd1f42a217e96673bcc",
         "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
-        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.cpp": "1a94e990d92ce9a4742d7976c200b29b6f1185304ea3ed8edf6c349780f1757d",
         "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
-        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.cpp": "5d712b6358c23199509d113f4fef038086f5de161ff7ec3907df8606c5170a0f",
         "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
-        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
-        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
-        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
-        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "reversing/Fn102A/Core.hpp": "fcc6e52fcd7481f70e1b665cab848701227cfb5c1794d834df0fe5b7877b3ce6",
+        "reversing/Fn102A/Fixtures.hpp": "cf89e93cdf2e20cb12afbcc9cb7d701f0be5ac2a41354bb61fea81e08cfa0088",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -108645,7 +108645,7 @@
       },
       "evidence": {
         "path": "reversing/Fn102A/validation-summary.json",
-        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "sha256": "5d932df4ece08c2942d4a1bfef607c0157ee63ba7a3c0fc1437fa8c12b9e60fd",
         "passed_path": [
           "covered_functions",
           "RpWorld::RpClumpForAllAtomics"
@@ -108654,21 +108654,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
-        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/game_sa/Fx/FxPrtMult.cpp": "7a5f24ae78d3e90d157878ab2f29a6b1100ae6342e22ccd1f42a217e96673bcc",
         "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
-        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.cpp": "1a94e990d92ce9a4742d7976c200b29b6f1185304ea3ed8edf6c349780f1757d",
         "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
-        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.cpp": "5d712b6358c23199509d113f4fef038086f5de161ff7ec3907df8606c5170a0f",
         "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
-        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
-        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
-        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
-        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "reversing/Fn102A/Core.hpp": "fcc6e52fcd7481f70e1b665cab848701227cfb5c1794d834df0fe5b7877b3ce6",
+        "reversing/Fn102A/Fixtures.hpp": "cf89e93cdf2e20cb12afbcc9cb7d701f0be5ac2a41354bb61fea81e08cfa0088",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -108686,7 +108686,7 @@
       },
       "evidence": {
         "path": "reversing/Fn102A/validation-summary.json",
-        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "sha256": "5d932df4ece08c2942d4a1bfef607c0157ee63ba7a3c0fc1437fa8c12b9e60fd",
         "passed_path": [
           "covered_functions",
           "RpWorld::RpGeometryForAllMaterials"
@@ -108695,21 +108695,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
-        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/game_sa/Fx/FxPrtMult.cpp": "7a5f24ae78d3e90d157878ab2f29a6b1100ae6342e22ccd1f42a217e96673bcc",
         "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
-        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.cpp": "1a94e990d92ce9a4742d7976c200b29b6f1185304ea3ed8edf6c349780f1757d",
         "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
-        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.cpp": "5d712b6358c23199509d113f4fef038086f5de161ff7ec3907df8606c5170a0f",
         "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
-        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
-        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
-        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
-        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "reversing/Fn102A/Core.hpp": "fcc6e52fcd7481f70e1b665cab848701227cfb5c1794d834df0fe5b7877b3ce6",
+        "reversing/Fn102A/Fixtures.hpp": "cf89e93cdf2e20cb12afbcc9cb7d701f0be5ac2a41354bb61fea81e08cfa0088",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -108727,7 +108727,7 @@
       },
       "evidence": {
         "path": "reversing/Fn102A/validation-summary.json",
-        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "sha256": "5d932df4ece08c2942d4a1bfef607c0157ee63ba7a3c0fc1437fa8c12b9e60fd",
         "passed_path": [
           "covered_functions",
           "RpWorld::RpAtomicSetFrame"
@@ -108736,21 +108736,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
-        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/game_sa/Fx/FxPrtMult.cpp": "7a5f24ae78d3e90d157878ab2f29a6b1100ae6342e22ccd1f42a217e96673bcc",
         "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
-        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.cpp": "1a94e990d92ce9a4742d7976c200b29b6f1185304ea3ed8edf6c349780f1757d",
         "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
-        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.cpp": "5d712b6358c23199509d113f4fef038086f5de161ff7ec3907df8606c5170a0f",
         "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
-        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
-        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
-        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
-        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "reversing/Fn102A/Core.hpp": "fcc6e52fcd7481f70e1b665cab848701227cfb5c1794d834df0fe5b7877b3ce6",
+        "reversing/Fn102A/Fixtures.hpp": "cf89e93cdf2e20cb12afbcc9cb7d701f0be5ac2a41354bb61fea81e08cfa0088",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -108768,7 +108768,7 @@
       },
       "evidence": {
         "path": "reversing/Fn102A/validation-summary.json",
-        "sha256": "334de8b5e2023a1dd8d6e814b3046f9cb70c97c4253c9c974ac457a2692e5f41",
+        "sha256": "5d932df4ece08c2942d4a1bfef607c0157ee63ba7a3c0fc1437fa8c12b9e60fd",
         "passed_path": [
           "covered_functions",
           "RpWorld::AtomicDefaultRenderCallBack"
@@ -108777,21 +108777,21 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "5a898b87e1b2a006e0b109b1c011bedda6dac66ba48b2217598665c0a1c32f7f",
-        "source/game_sa/Fx/FxPrtMult.cpp": "228df3d5971176c055c2ddd6c6a36986f5b7d4b2d80cd95fca602686e030467b",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "6621becc168bf083825e259664d3de3336cd170a788f9b6b1812ede43635dc3a",
+        "source/game_sa/Fx/FxPrtMult.cpp": "7a5f24ae78d3e90d157878ab2f29a6b1100ae6342e22ccd1f42a217e96673bcc",
         "source/game_sa/Fx/FxPrtMult.h": "db8cf5f03f99c8f369f239c1ae5391827070696ea51423be44980ca888e6f689",
-        "source/game_sa/SimpleTransform.cpp": "c9314747c67c52d902c6e9d37990fb422a26d9918fd9f61a4345da5577a6f038",
+        "source/game_sa/SimpleTransform.cpp": "1a94e990d92ce9a4742d7976c200b29b6f1185304ea3ed8edf6c349780f1757d",
         "source/game_sa/SimpleTransform.h": "068e782ef9cfea0feb638947917ab826c05beaf44daffdcb71cde6b1a173be88",
-        "source/game_sa/Core/Vector.cpp": "66bb3ec8781f64ad1a34958989c802ebbb64ab06719eb8ab92a6b027bb036b27",
+        "source/game_sa/Core/Vector.cpp": "5d712b6358c23199509d113f4fef038086f5de161ff7ec3907df8606c5170a0f",
         "source/game_sa/Core/Vector.h": "15ad6e6c6a2090908b62ef47cab08d69e6098450e7553b32617269367cc98df3",
-        "source/game_sa/Audio/AESound.cpp": "7080745e8ca64382b9ef6320c500ed4ed059a61de4ce4dc2f4e5e04fd999a031",
-        "source/game_sa/Audio/AESound.h": "439653ea6156c78434d7fe44f9fea76f59825a20e4df1096865381dc2f0c42ee",
-        "source/game_sa/RenderWare/rw/rpworld.cpp": "60667fc7e88b44bc4ca79791a8f1d9dc40e090022998055035a811b477948c69",
+        "source/game_sa/Audio/AESound.cpp": "2cb23f0a57d01aa6e42f66e82f684dc4d705557d9d40b3fc427c0a6781c1019c",
+        "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "b6016e7b8d1c54c9fdeaff680fdeb193d404e81e58bb9d7a82db3666b810c878",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn102A/LiveComparison.hpp": "062021c535b149903d3eb17b704364a76592a63ba0b9577f2fac14d13997cc56",
-        "reversing/Fn102A/Core.hpp": "f22fdb5c3f38accc149be512457ba1f5c8ca4c8e95f9ccf1de3bd9623c79f7d4",
-        "reversing/Fn102A/Fixtures.hpp": "f54f8ae8bf58273d56925ed3168bfe8cd8f2091d38012a791f52199877b851a8",
+        "reversing/Fn102A/Core.hpp": "fcc6e52fcd7481f70e1b665cab848701227cfb5c1794d834df0fe5b7877b3ce6",
+        "reversing/Fn102A/Fixtures.hpp": "cf89e93cdf2e20cb12afbcc9cb7d701f0be5ac2a41354bb61fea81e08cfa0088",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },

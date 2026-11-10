@@ -1,0 +1,82 @@
+# Fn144A: 25 funciones diminutas del EXE (lote 144A)
+
+Estado: **APROBADO dentro del juego** (09/11/2026, worktree `wv-1` sobre main d952530a97 + los cambios del lote; `wv-3` estaba ocupado por el lote 141A con otro contenido y se uso `wv-1`). Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn144a/20261109-174017-745649` (archivada en `reversing/CppTwelveLevel6Final/runs/Fn144A-20261109-174017-745649`; `comparisons.jsonl.gz` de 50,5 MB, bajo el limite de GitHub). 25 x 16384 = **409600 pares** EXE/DLL, cero diferencias, compuertas de ABI/ruta/SEH/DF/restauracion en ambos lados, x87 vacia y cada lado coincide con el oraculo Python independiente (`fixture_oracle.py`). SHA256 de la sonda ejecutada: `49b539a737e400028cf3fd7aa912193080175b0a3ef972d9624c00dead373aa8`; del EXE original: `72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b`.
+
+Ninguna de las 25 direcciones tenia hook (se comprobo el codigo y `docs/hooks.csv`) ni estaba en otro worktree. El encargo decia "solo esas 6 funciones" al final pero la lista y el encabezado son de 25 ("exactamente estas 25"): se hicieron las 25. Las clases del listado se atribuian por cercania; los nombres reales salen del desensamblado, de las vtables leidas del EXE y de los llamadores. **Casi todas las atribuciones del listado eran erroneas** (columna "listado decia").
+
+| # | Funcion real | Entrada | Bytes | Listado decia | Fuente | Tipo |
+|---|---|---|---|---|---|---|
+| 0 | `CKeyArray::Destructor` (cuerpo con Unload en linea) | 0x69FFA0 | 24 | CText | `Text/KeyArray.h/.cpp` | S |
+| 1 | `CData::Destructor` (idem) | 0x69FFD0 | 24 | CText | `Text/Data.h/.cpp` | S |
+| 2 | `CAEBankLoader::ScalarDeletingDestructor` | 0x4D8670 | 27 | CAEAudioHardware | `Audio/Loaders/AEBankLoader.h/.cpp` | S |
+| 3 | `CAEMP3TrackLoader::ScalarDeletingDestructor` | 0x4D8690 | 27 | CAEAudioHardware | `Audio/Loaders/AEMP3TrackLoader.h/.cpp` | S |
+| 4 | `CCarGenerator::SwitchOnWithCount` (nombre propio; trozo de SWITCH_CAR_GENERATOR) | 0x47C0E0 | 21 | CTheCarGenerators | `CarGenerator.h/.cpp` | S |
+| 5 | `CColPoint::GetSurfaceTypeB` (byte +0x23) | 0x47E050 | 4 | CTheCarGenerators | `Collision/ColPoint.cpp` (funcion libre, como los hooks de lotes anteriores) | S |
+| 6 | `CCutsceneMgr::SetCutsceneOffset` (copia al 0xBC4034) | 0x47E070 | 30 | CTheCarGenerators | `CutsceneMgr.h/.cpp` | S |
+| 7 | `Particle_c::Constructor` | 0x4A9110 | 12 | FxManager_c | `Fx/Particle.h` + `Particle.cpp` (nuevo) | S |
+| 8 | `FxSystem_c::ScalarDeletingDestructor` | 0x4A9340 | 27 | FxManager_c | `Fx/FxSystem.h/.cpp` | S |
+| 9 | `FxEmitterPrt_c::Constructor` | 0x4A94E0 | 12 | FxManager_c | `Fx/FxEmitterPrt.h/.cpp` | S |
+| 10 | `FxMemoryPool_c::Constructor` | 0x4A9C10 | 3 | FxManager_c | `Fx/FxMemoryPool.h/.cpp` | S |
+| 11 | `FxMemoryPool_c::Destructor` | 0x4A9C20 | 1 | FxManager_c | idem | S |
+| 12 | `CEventAreaCodes::GetEventType` (67, ranura 1, vtable 0x85B7C0) | 0x4B21F0 | 6 | CEventAreaCodes | `Events/EventAreaCodes.h/.cpp` | V |
+| 13 | `CEventAreaCodes::GetLifeTime` (0, ranura 3) | 0x4B2200 | 3 | CEventAreaCodes | idem | V |
+| 14 | `CEventLeaderEntryExit::TakesPriorityOver` (verdadero, ranura 11, vtable 0x859540) | 0x4B2390 | 5 | CEventAreaCodes | `Events/EventLeaderEntryExit.h/.cpp` | V |
+| 15 | `CEventLeaderEntryExit::AffectsPedGroup` (ranura 6) | 0x4B23A0 | 42 | CEventAreaCodes | idem | V |
+| 16 | `CAEPedSpeechSlot::Reset` | 0x4E3350 | 43 | CAEPedAudioEntity | `Audio/Entities/AEPedSpeechAudioEntity.h/.cpp` | S |
+| 17 | `CAEPedSpeechAudioEntity::Destructor` (cuerpo) | 0x4E34C0 | 14 | CAEPedAudioEntity | idem | S |
+| 18 | `CTaskSimpleTired::GetTaskType` (219, ranura 4, vtable 0x86DED0) | 0x630F50 | 6 | CTaskSimpleTired | `Tasks/TaskTypes/TaskSimpleTired.h/.cpp` | V |
+| 19 | `CTaskSimpleTired::MakeAbortable` (ranura 6) | 0x630FF0 | 51 | CTaskSimpleTired | idem | V |
+| 20 | `CDecisionMaker::From` (41 x CDecision::From) | 0x5BA020 | 39 | CVehicleAnimGroup | `DecisionMakers/DecisionMaker.h/.cpp` | S |
+| 21 | `WaterCreature_c::Constructor` | 0x6E3E30 | 19 | CVehicleAnimGroup | `WaterCreature_c.h/.cpp` | S |
+| 22 | `CAEGlobalWeaponAudioEntity::ScalarDeletingDestructor` | 0x506DC0 | 27 | CAudioEngine | `Audio/Entities/AEGlobalWeaponAudioEntity.h/.cpp` | S |
+| 23 | `CAudioEngine::StopPoliceScanner` | 0x507400 | 14 | CAudioEngine | `Audio/AudioEngine.cpp` | S |
+| 24 | `CAEExplosionAudioEntity::Constructor` | 0x5074B0 | 17 | CAudioEngine | `Audio/Entities/AEExplosionAudioEntity.h/.cpp` | S |
+
+Tipo V = `RH_ScopedVMTInstall` (ranura de la vtable del EXE; fila de `docs/hooks.csv` con direccion `0x00000000`); tipo S = `RH_ScopedInstall` / `RH_ScopedNamedGlobalInstall` / `RH_ScopedGlobalInstall`.
+
+## Funciones saltadas
+Ninguna: las 25 son viables en C++ puro (sin `__asm`/`naked`). Ningun cuerpo es un salto puro sin logica propia. Los cuatro destructores con borrado (2, 3, 8, 22) no estan en ninguna vtable ni tienen llamadores directos (xref sobre todo el EXE); tampoco tienen llamadores directos 0, 1, 7, 10 (solo el constructor de vectores 0x6E3ECD para 21), 11 ni 24 (se hookean igualmente por su direccion).
+
+## Revision contra el EXE
+- **0 y 1 (0x69FFA0 / 0x69FFD0)**: bytes identicos entre si: si `[ecx]` no es nulo, `operator delete[]` (0x8213AE) y `[ecx] = 0`; `[ecx+4] = 0`. Son el cuerpo del destructor de `CKeyArray` y de `CData` (con `Unload` en linea; los `Unload` propios son 0x69F510 y 0x69F640). **La atribucion 0x69FFA0 = CKeyArray y 0x69FFD0 = CData es por orden de direcciones**: al ser identicos y no tener llamadores no hay prueba directa; la semantica y el banco no dependen de ello (las dos clases son `{ptr, uint32}`).
+- **2, 3, 8, 22 (destructores con borrado, plantilla de 27 bytes)**: `push esi; mov esi,ecx; call BODY; test byte [esp+8],1; je ..; push esi; call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`. Solo manda el bit 0 del BYTE de banderas; devuelve `this`. Cuerpos: 0x4DFB20 (`CAEBankLoader::Deconstructor`), 0x4E0940 (`CAEMP3TrackLoader::Deconstructor`), 0x4AA260 (`FxSystem_c::Destructor`) y 0x506C50 (`CAEGlobalWeaponAudioEntity::Destructor`), todos con hook; los envoltorios pasan a `noinline` para que el banco los sustituya.
+- **4 (0x47C0E0)**: `push esi; mov esi,ecx; call 0x6F32C0 (SwitchOn); mov ax,[esp+8]; mov [esi+1Ah],ax; pop esi; ret 4`. El contador se escribe DESPUES de `SwitchOn` y es la palabra baja del dword empujado. Lo llama 0x47C275 (script SWITCH_CAR_GENERATOR) con el contador <= 100. `SwitchOn` pasa a `noinline`.
+- **5 (0x47E050)**: `mov al,[ecx+23h]; ret`; solo lo llama `CAutomobile::ProcessCarWheelPair` (0x6A54DE; `movzx edx,al`): solo AL es contrato. `ecx` = punto de colision de rueda (+0x724 y 0x2C por rueda).
+- **6 (0x47E070)**: cdecl, copia 3 dwords (orden x, y, z, cada lectura antes de su escritura) a `ms_cutsceneOffset` (0xBC4034); lo llama 0x47EEE3. El banco incluye fuentes que solapan el destino (+-4, +-8, +-12).
+- **7, 9, 21 (constructores de `ListItem_c`)**: llaman a 0x4A8DB0 (`[ecx] = [ecx+4] = 0`, sin hook: el EXE lo ejecuta real y la DLL lo lleva en linea) y devuelven `this`; `WaterCreature_c` ademas pone `+8` a cero.
+- **10, 11**: `mov eax,ecx; ret` y `ret`.
+- **12 a 15**: constantes 0x43 y 0; `TakesPriorityOver` = `mov al,1; ret 4`; `AffectsPedGroup` = `m_ped (+0xC)` no nulo y `CPedGroupMembership::GetLeader` (0x5F69A0, ecx = grupo + 8) igual a `m_ped`; devuelve EAX 0/1 (contrato AL).
+- **16 (0x4E3350)**: `CAEPedSpeechSlot::Reset`: palabra +0 = 0, +4 = 0, +8 = 0, palabras +0xC y +0xE = -1, +0x10 = 0, palabras +0x14 y +0x16 = -1, bytes +0x19, +0x1A y +0x18 = 0 (el byte +0x1B y el relleno no se tocan).
+- **17 (0x4E34C0)**: `mov [ecx],859988h; add ecx,8; jmp 0x4EF660`: cuerpo del destructor de `CAEPedSpeechAudioEntity` (vtable base y `CAESound::Destructor` de `m_tempSound`); `CAESound::Destructor` pasa a `noinline`.
+- **18, 19**: 0xDB (219) y `MakeAbortable`: si `m_TiredAnim` (+0x18) no es nulo llama a `RpAnimBlendClumpGetAssociation` (0x4D68B0, cdecl) con `[ped+0x18]` y 0xA y, si devuelve la misma animacion, pone `+0x1C` a -4.0f; devuelve AL = 1. **Cambio de produccion**: el codigo usaba `ped->GetRpClump()`, que tiene un `assert` de tipo en Debug que el EXE no tiene (el banco, con un clump basura, caia por ahi); ahora lee +0x18 directamente como el EXE.
+- **20 (0x5BA020)**: 41 llamadas a `CDecision::From` (0x6006B0, con hook) con destino y origen avanzando 0x3C; no devuelve nada util.
+- **23 (0x507400)**: empuja el dword del argumento a `StopScanner` (0x4E6DC0), que solo lee su byte bajo (`test al,al`); la DLL le pasa un bool: el falso del banco normaliza (byte bajo != 0).
+- **24 (0x5074B0)**: `mov eax,ecx; xor ecx,ecx; [eax+10h] = ecx; [eax] = 862E60h; [eax+7Ch] = cl`: no llama al constructor de la base ni toca `m_Entity` (+4); vtable del EXE.
+
+## Cambios de produccion
+Envoltorios y ranuras nuevos en las clases anteriores (ver tabla); `Particle.cpp` nuevo (Particle_c solo tenia cabecera; `InjectHooks` activado en la lambda `Fx` de `InjectHooksMain.cpp`); `noinline` en `CAESound::Destructor`, `CCarGenerator::SwitchOn`, `CAEBankLoader/CAEMP3TrackLoader::Deconstructor`, `FxSystem_c::Destructor`, `CAEGlobalWeaponAudioEntity::Destructor` y `CAEPedSpeechAudioEntity::Destructor`. 25 filas en `docs/hooks.csv` (sin `sync_docs`/`hooks2md`).
+
+## Banco
+Una funcion por ruta: original = bytes del EXE con el hook RH apagado; candidato = DLL con SOLO ese hook encendido (plantilla `Fn142A`, con `Fn138A`/`Fn139A`). Objetos sinteticos en tres arenas propias (A, B, C; ventana de 4 KiB con guardas de 0x40); la funcion 6 usa ademas la region global `[0xBC4020, 0xBC4050)` (se rellena por caso, se compara byte a byte y se restaura). Falsos identicos en la direccion del EXE y en el cuerpo de la DLL: 0x4DFB20, 0x4E0940, 0x4AA260, 0x506C50, `SwitchOn` 0x6F32C0, `GetLeader` 0x5F69A0, `CAESound::Destructor` 0x4EF660, `RpAnimBlendClumpGetAssociation` 0x4D68B0, `CDecision::From` 0x6006B0 y `StopScanner` 0x4E6DC0 (todos con hook, apagado durante el banco); `operator delete` 0x8214BD y `operator delete[]` 0x8213AE (la DLL los llama por la direccion del EXE: falso solo ahi; se comprueba que no tengan hook). 0x4A8DB0 (sin hook) corre real y se vigila su entrada.
+Se observa: bytes cambiados de las arenas y de la region global, eventos de los falsos (colaborador, ECX/argumentos como etiqueta de arena o crudo y dwords de contexto que prueban el ORDEN: el falso de `SwitchOn` deja una palabra distinta que el contador debe pisar; el cuerpo falso de los destructores deja un dword que `operator delete` lee despues; el falso de `CAESound::Destructor` ve la vtable ya escrita), valor devuelto (this, AL o EAX), x87 (vacia) y contrato de ABI. **EAX, ECX y EDX tras la llamada** quedan en `original_residue` / `candidate_residue` y no forman parte de la igualdad: los pocos llamadores del EXE no los leen (0x6A54DE solo AL; 0x47C275 y 0x47EEE3 hacen `xor al,al`; el resto no tiene llamadores directos); el numero de filas con residuos distintos esta en `summary.json` (`pairs_with_different_eax_ecx_edx_info_only`, informativo: EFLAGS y registros que el EXE conserva y la DLL usa).
+16 familias de 1024 casos por funcion (`Fixtures.hpp`): posicion de `this` x relleno de arenas; punteros nulos/crudos/de arena; banderas de los destructores (0, 1, 2, 3, 0xFF, 0x100, bits altos...); contador de generador 0, <= 100, 101, 0xFFFF y bits altos; vectores NaN/infinitos/ceros de los dos signos con fuentes que solapan el destino; m_ped nulo/crudo/de arena y lider igual/distinto/nulo; m_TiredAnim nulo/de arena/crudo y asociacion igual/distinta/nula; origen de `CDecisionMaker::From` de arena o crudo; argumento de `StopPoliceScanner` con el byte bajo cero y los altos no.
+`python -I fixture_selfcheck.py` (sin juego) pasa los 409600 casos por el oraculo y mide la cobertura de ramas (minimo 50 por marca, `KEYS`).
+
+## Fuera de los fixtures
+`this` nulo o crudo (salvo origen, clump y grupo crudos), objetos reales construidos por el EXE, la exactitud de los colaboradores falseados (los que tienen banco propio) y la atribucion CKeyArray/CData de 0x69FFA0/0x69FFD0.
+
+## Prueba negativa
+Dos rondas de mutaciones (`mutate.py`, una por funcion y ronda, 25 por ronda; se compila la sonda con las fuentes mutadas, se restauran de inmediato y se corre con `FN144A_CASES=2048`; `neg_summary.py` resume cada ronda). **Las 25 funciones fallan en ambas rondas** (`negative-runs/20261109-182053-240952`: 47924 de 51200 pares con diferencias; `20261109-184018-048679`: 38050 de 51200; en ambas el lado EXE coincide con el oraculo en todos los pares: "lado EXE fuera del oraculo 0"). Las funciones con menos de 2048 diferencias son aquellas cuya mutacion solo cambia algunos casos. Fuentes restauradas con comparacion SHA256 contra las copias buenas ("restauradas 21 fuentes"). SHA256 de las fuentes buenas: `Text/KeyArray.cpp` c190e795..., `Text/Data.cpp` e3ad3e15..., `Audio/Loaders/AEBankLoader.cpp` 881238c5..., `Audio/Loaders/AEMP3TrackLoader.cpp` fc6a0f4d..., `CarGenerator.cpp` c0632b66..., `Collision/ColPoint.cpp` e6ca9edb..., `CutsceneMgr.cpp` 05d920de..., `Fx/Particle.h` 39c631e7..., `Fx/FxSystem.cpp` a0a4dd41..., `Fx/FxEmitterPrt.h` 45447d3b..., `Fx/FxMemoryPool.h` 60353a0e..., `Events/EventAreaCodes.h` dfc6d04f..., `Events/EventLeaderEntryExit.h` a1c6a222..., `Audio/Entities/AEPedSpeechAudioEntity.cpp` 07876b1a..., `Tasks/TaskTypes/TaskSimpleTired.h` 20152f96..., `Tasks/TaskTypes/TaskSimpleTired.cpp` c6b7d0a3..., `DecisionMakers/DecisionMaker.cpp` 26114840..., `WaterCreature_c.h` 0b95d95f..., `Audio/Entities/AEGlobalWeaponAudioEntity.cpp` 7e2243d0..., `Audio/AudioEngine.cpp` 20ebad7b..., `Audio/Entities/AEExplosionAudioEntity.cpp` a182313f...
+
+## Bancos repetidos
+Grep de las 25 direcciones sobre `reversing/` (sin el banco nuevo, `_handoff` ni la evidencia archivada): solo `GameLogic27` cita una (0x507400). Ademas, como el lote deja `noinline` envoltorios que otros bancos usan como colaboradores (grep de 0x4EF660, 0x6F32C0, 0x4DFB20, 0x4E0940, 0x4AA260 y 0x506C50: 9 bancos; no se repiten `ScriptLoaded355` ni `FileLoader47`, que usan el mismo colaborador que otros repetidos), se repitio una muestra. 7 bancos repetidos, todos aprobados sin cambios en el banco (ninguno fallo por `collaborators_dll`: no hizo falta adaptar nada con `MakeCollab`/`HookRoute`):
+- `GameLogic27` (cita 0x507400 (`CAudioEngine::StopPoliceScanner`, funcion 23): es el unico banco que cita una direccion del lote): APROBADO, `resultados-gamelogic27/20261109-184952-316420`, evidencia archivada en `reversing/CppTwelveLevel6Final/runs/GameLogic27-20261109-184952-316420`; refrescado con `refresh_bank.py`.
+- `Fn131A` (colaborador `CAESound::Destructor` 0x4EF660 (ahora `noinline`)): APROBADO, `resultados-fn131a/20261109-190841-749599`, evidencia archivada en `reversing/CppTwelveLevel6Final/runs/Fn131A-20261109-190841-749599`; refrescado con `refresh_bank.py`.
+- `Fn102A` (colaborador 0x4EF660 (ahora `noinline`)): APROBADO, `resultados-fn102a/20261109-191545-046592`, evidencia archivada en `reversing/CppTwelveLevel6Final/runs/Fn102A-20261109-191545-046592`; refrescado con `refresh_bank.py`.
+- `AnimAudio6` (colaboradores 0x4DFB20 y 0x506C50 (envoltorios ahora `noinline`)): APROBADO, `resultados-animaudio6/20261109-192247-561517`, evidencia archivada en `reversing/CppTwelveLevel6Final/runs/AnimAudio6-20261109-192247-561517`; refrescado con `refresh_bank.py`.
+- `Audio7` (colaborador 0x4E0940 (envoltorio ahora `noinline`)): APROBADO, `resultados-audio7/20261109-192841-704482`, evidencia archivada en `reversing/CppTwelveLevel6Final/runs/Audio7-20261109-192841-704482`; refrescado con `refresh_bank.py`.
+- `FxPost1` (colaborador 0x4AA260 (`FxSystem_c::Destructor`, ahora `noinline`)): APROBADO, `resultados-fxpost1/20261109-194848-374430`, evidencia archivada en `reversing/CppTwelveLevel6Final/runs/FxPost1-20261109-194848-374430`; refrescado con `refresh_bank.py`.
+- `Data8a` (colaborador `CCarGenerator::SwitchOn` 0x6F32C0 (ahora `noinline`)): APROBADO, `resultados-data8a/20261109-195223-518854`, evidencia archivada en `reversing/CppTwelveLevel6Final/runs/Data8a-20261109-195223-518854`; refrescado con `refresh_bank.py`.
+
+## Tiempo
+Una corrida de los 409600 pares: unos 18 min (768 MB crudos, 50 MB comprimidos). Compilacion completa del worktree: unos 12 min (`CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1`). Sondas incrementales: 3-10 min.
