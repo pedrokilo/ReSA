@@ -25,9 +25,28 @@ END GENERATED HOOK STATUS */
 #include "TaskLeanOnVehicle.h"
 #include "TaskComplexGangLeader.h"
 
+namespace {
+// 0x660EE0 (lote 154A, banco Fn154A): cuerpo del destructor de CTaskGoToVehicleAndLean del EXE (con hook (Destructor); vtable 0x86FAC8). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor
+// con borrado como el `call 0x660EE0` del EXE.
+__declspec(noinline) void __fastcall CTaskGoToVehicleAndLeanDestructorBody(CTaskGoToVehicleAndLean* self, void* /*edx*/) { self->CTaskGoToVehicleAndLean::~CTaskGoToVehicleAndLean(); }
+
+// 0x6644E0 (lote 154A, banco Fn154A): destructor con borrado de CTaskGoToVehicleAndLean del EXE (ranura 0 de su vtable 0x86FAC8; thiscall, un argumento de pila, `ret 4`, 30 bytes, igual que 0x6644C0 con el cuerpo 0x660EE0).
+// Libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskGoToVehicleAndLean* __fastcall CTaskGoToVehicleAndLeanScalarDeletingDestructor(CTaskGoToVehicleAndLean* self, void* /*edx*/, uint8 flags) {
+    CTaskGoToVehicleAndLeanDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote154ABody_CTaskGoToVehicleAndLean() { return reinterpret_cast<uintptr_t>(&CTaskGoToVehicleAndLeanDestructorBody); } // para el banco Fn154A
+
 void CTaskGoToVehicleAndLean::InjectHooks() {
     RH_ScopedVirtualClass(CTaskGoToVehicleAndLean, 0x86FAC8, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskGoToVehicleAndLeanScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6644E0); // lote 154A (banco Fn154A)
 
     RH_ScopedInstall(Constructor, 0x660E60);
     RH_ScopedInstall(Destructor, 0x660EE0);

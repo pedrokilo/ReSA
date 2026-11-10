@@ -108,6 +108,7 @@ public:
     auto& GetPosition(this auto&& self) { return self.m_pos; }
 
     void Attach(RwMatrix* matrix, bool bOwnsMatrix);
+    void AttachRW(RwMatrix* matrix, bool bOwnsMatrix);  // 0x59BD90
     void Detach();
     void CopyOnlyMatrix(const CMatrix& matrix);  // copy base RwMatrix to another matrix
     void Update();                               // update RwMatrix with attaching matrix. This doesn't check if attaching matrix is present, so use it only if you know it is present.

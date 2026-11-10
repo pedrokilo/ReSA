@@ -79,6 +79,7 @@ void CMatrix::InjectHooksAttachAssign()
     RH_ScopedCategory("Core");
 
     RH_ScopedInstall(Attach, 0x59BD10);
+    RH_ScopedInstall(AttachRW, 0x59BD90); // lote 154A (banco Fn154A)
     RH_ScopedInstall(operator=, 0x59BBC0);
 }
 
@@ -228,6 +229,20 @@ void CMatrix::Attach(RwMatrix* matrix, bool bOwnsMatrix)
     m_pAttachMatrix = matrix;
     ownsWord = static_cast<uint32>(std::bit_cast<uint8>(bOwnsMatrix));
     CMatrix::Update();
+}
+
+// 0x59BD90 (lote 154A, banco Fn154A; thiscall(matriz, bandera), `ret 8`; el listado la atribuia a CCompressedMatrixNotAligned): como Attach, la bandera de propiedad se LEE como dword (+0x44) y se ESCRIBE como dword con el byte del
+// argumento sin normalizar (movzx); el destructor de RenderWare (0x7F2A20) solo se llama si hay matriz y la bandera es distinta de cero. Despues, si la matriz nueva no es nula, la actualiza con esta matriz (UpdateRwMatrix, 0x59AD70).
+void CMatrix::AttachRW(RwMatrix* matrix, bool bOwnsMatrix)
+{
+    uint32& ownsWord = *reinterpret_cast<uint32*>(&m_bOwnsAttachedMatrix);
+    if (m_pAttachMatrix && ownsWord)
+        RwMatrixDestroy(m_pAttachMatrix);
+
+    m_pAttachMatrix = matrix;
+    ownsWord = static_cast<uint32>(std::bit_cast<uint8>(bOwnsMatrix));
+    if (matrix)
+        CMatrix::UpdateRwMatrix(matrix);
 }
 
 void CMatrix::Detach()

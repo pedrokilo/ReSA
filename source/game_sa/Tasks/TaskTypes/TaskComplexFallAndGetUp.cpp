@@ -22,9 +22,28 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleFall.h"
 #include "TaskSimpleGetUp.h"
 
+namespace {
+// 0x678790 (lote 154A, banco Fn154A): cuerpo del destructor de CTaskComplexFallAndGetUp del EXE (sin hook: `mov [ecx],0x870454; jmp 0x61A3D0`; vtable 0x870454). Funcion propia de la DLL, sin expansion en linea, para que el banco pueda
+// sustituirla; la llama el destructor con borrado como el `call 0x678790` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexFallAndGetUpDestructorBody(CTaskComplexFallAndGetUp* self, void* /*edx*/) { self->CTaskComplexFallAndGetUp::~CTaskComplexFallAndGetUp(); }
+
+// 0x67CB50 (lote 154A, banco Fn154A): destructor con borrado de CTaskComplexFallAndGetUp del EXE (ranura 0 de su vtable 0x870454; thiscall, un argumento de pila, `ret 4`, 30 bytes, cuerpo 0x678790). Libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexFallAndGetUp* __fastcall CTaskComplexFallAndGetUpScalarDeletingDestructor(CTaskComplexFallAndGetUp* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexFallAndGetUpDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote154ABody_CTaskComplexFallAndGetUp() { return reinterpret_cast<uintptr_t>(&CTaskComplexFallAndGetUpDestructorBody); } // para el banco Fn154A
+
 void CTaskComplexFallAndGetUp::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFallAndGetUp, 0x870454, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexFallAndGetUpScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67CB50); // lote 154A (banco Fn154A)
     RH_ScopedInstall(Constructor, 0x6786C0);
     RH_ScopedInstall(Constructor2, 0x678700);
     RH_ScopedInstall(CreateSubTask, 0x678900);

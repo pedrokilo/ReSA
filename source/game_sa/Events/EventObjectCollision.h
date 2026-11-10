@@ -26,12 +26,13 @@ public:
     CEventObjectCollision(int16 pieceType, float damageIntensity, CObject* object, const CVector& collisionImpactVelocity, const CVector& collisionPos, int16 moveState);
     ~CEventObjectCollision() override;
 
-    eEventType GetEventType() const override { return EVENT_OBJECT_COLLISION; }
-    bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
-    int32 GetEventPriority() const override { return 57; }
-    int32 GetLifeTime() override { return 0; }
+    eEventType GetEventType() const override;                           // 0x4ACDA0
+    bool TakesPriorityOver(const CEvent& refEvent) override;            // 0x4ACEF0
+    int32 GetEventPriority() const override;                            // 0x4ACDC0
+    int32 GetLifeTime() override;                                       // 0x4ACDB0
     CEventObjectCollision* Clone() const noexcept override { return new CEventObjectCollision(m_pieceType, m_damageIntensity, m_object, m_impactNormal, m_impactPos, m_moveState); }
     bool AffectsPed(CPed* ped) override;
+    bool IsHeadOnCollision(CPed* ped);                                  // 0x4ACE80
 
 private:
     CEventObjectCollision* Constructor(int16 pieceType, float damageIntensity, CObject* object, const CVector& collisionImpactVelocity, const CVector& collisionPos, int16 moveState);

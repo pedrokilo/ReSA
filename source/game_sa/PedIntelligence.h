@@ -126,6 +126,7 @@ public:
     bool TestForStealthKill(CPed* pTarget, bool bFullTest);
     void RecordEventForScript(int32 eventId, int32 eventPriority);
     bool HasInterestingEntites();
+    void AddInterestingEntity(CEntity* entity);
     bool IsInterestingEntity(CEntity* entity);
     void LookAtInterestingEntities();
     void RemoveAllInterestingEntities();

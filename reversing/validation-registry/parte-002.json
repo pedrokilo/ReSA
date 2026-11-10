@@ -22960,7 +22960,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeAreaCodesResponse"
@@ -22969,7 +22969,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -22986,7 +22986,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeAttractorResponse"
@@ -22995,7 +22995,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23012,7 +23012,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeBuildingCollisionResponse"
@@ -23021,7 +23021,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23038,7 +23038,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeCarUpsideDownResponse"
@@ -23047,7 +23047,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23064,7 +23064,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeChatPartnerResponse"
@@ -23073,7 +23073,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23090,7 +23090,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeCopCarBeingStolenResponse"
@@ -23099,7 +23099,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23116,7 +23116,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeCreatePartnerTaskResponse"
@@ -23125,7 +23125,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23142,7 +23142,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDangerResponse"
@@ -23151,7 +23151,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23168,7 +23168,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDontJoinGroupResponse"
@@ -23177,7 +23177,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23194,7 +23194,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeDraggedOutCarResponse"
@@ -23203,7 +23203,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23220,7 +23220,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeFireNearbyResponse"
@@ -23229,7 +23229,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23246,7 +23246,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeGunAimedAtResponse"
@@ -23255,7 +23255,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23272,7 +23272,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeHighAngerAtPlayerResponse"
@@ -23281,7 +23281,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23298,7 +23298,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeInWaterResponse"
@@ -23307,7 +23307,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23324,7 +23324,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeInteriorUseInfoResponse"
@@ -23333,7 +23333,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23350,7 +23350,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeLowAngerAtPlayerResponse"
@@ -23359,7 +23359,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23376,7 +23376,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeLowHealthResponse"
@@ -23385,7 +23385,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23402,7 +23402,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeObjectCollisionPassiveResponse"
@@ -23411,7 +23411,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",
@@ -23428,7 +23428,7 @@
       },
       "evidence": {
         "path": "reversing/EvHB/validation-summary.json",
-        "sha256": "0d9e855c0c43e165e9956a26067700fca92b6acd02386a76d6e45678967f5a64",
+        "sha256": "1372b6f652eddfefe068b66fa86f8c38e98c292deba1530a52ac16c6a1236d24",
         "passed_path": [
           "covered_functions",
           "CEventHandler::ComputeObjectCollisionResponse"
@@ -23437,7 +23437,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+        "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
         "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-144627-425310).",

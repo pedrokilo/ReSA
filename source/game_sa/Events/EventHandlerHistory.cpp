@@ -20,11 +20,21 @@ END GENERATED HOOK STATUS */
 
 #include "EventHandlerHistory.h"
 
+namespace {
+// 0x4C3E30 (lote 154A, banco Fn154A): copia byte a byte de CEventHandlerHistory::Flush (0x4C3740; thiscall, sin argumentos de pila, `ret`, 65 bytes; sin llamadores directos: solo la alcanzan funclets de desenrollado). `this` es el
+// historial: borra con el destructor virtual con borrado (`push 1; call [vtable]`) el evento temporal (+8), el no temporal (+4) y el guardado (+0xC), en ese orden, y los deja a cero. Funcion propia para que cada direccion tenga su hook.
+void __fastcall EventHandlerHistoryFlushCopyExe(CEventHandlerHistory* self, void* /*edx*/) {
+    self->Flush();
+}
+} // namespace
+
 void CEventHandlerHistory::InjectHooks()
 {
     RH_ScopedClass(CEventHandlerHistory);
     RH_ScopedCategory("Events");
 
+    RH_ScopedInstall(Flush, 0x4C3740); // lote 154A (banco Fn154A)
+    RH_ScopedNamedGlobalInstall(EventHandlerHistoryFlushCopyExe, "FlushCopy", 0x4C3E30); // lote 154A (banco Fn154A)
     RH_ScopedInstall(ClearAllEvents, 0x4BC550);
     RH_ScopedInstall(ClearNonTempEvent, 0x4B8C60);
     RH_ScopedInstall(ClearTempEvent, 0x4B8C40);
@@ -69,6 +79,7 @@ void CEventHandlerHistory::ClearStoredActiveEvent()
     m_StoredEventActive = nullptr;
 }
 
+// 0x4C3740
 void CEventHandlerHistory::Flush()
 {
     ClearAllEvents();

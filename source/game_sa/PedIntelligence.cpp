@@ -113,6 +113,7 @@ void CPedIntelligence::InjectHooks()
     RH_ScopedInstall(TestForStealthKill, 0x601E00);
     RH_ScopedInstall(RecordEventForScript, 0x602050);
     RH_ScopedInstall(HasInterestingEntites, 0x602080);
+    RH_ScopedInstall(AddInterestingEntity, 0x602240); // lote 154A (banco Fn154A)
     RH_ScopedInstall(IsInterestingEntity, 0x6020A0);
     RH_ScopedInstall(LookAtInterestingEntities, 0x6020D0);
     RH_ScopedInstall(RemoveAllInterestingEntities, 0x602320);
@@ -803,6 +804,19 @@ bool CPedIntelligence::HasInterestingEntites() {
         }
     }
     return false;
+}
+
+// 0x602240 (lote 154A, banco Fn154A; thiscall(entity), `ret 4`, sin llamadores directos): inserta una entidad al principio de la lista de entidades interesantes (m_apInterestingEntities, +0x288) desplazando las anteriores:
+// [2] = [1], [1] = [0], [0] = entity; cada casilla libera su referencia anterior (CleanUpOldReference, 0x571A00) si no es nula y registra la nueva (RegisterReference, 0x571B70) si no es nula. Orden del EXE: casillas 2, 1 y 0.
+void CPedIntelligence::AddInterestingEntity(CEntity* entity) {
+    for (int32 i = 2; i > 0; --i) {
+        CEntity::SafeCleanUpRef(m_apInterestingEntities[i]);
+        m_apInterestingEntities[i] = m_apInterestingEntities[i - 1];
+        CEntity::SafeRegisterRef(m_apInterestingEntities[i]);
+    }
+    CEntity::SafeCleanUpRef(m_apInterestingEntities[0]);
+    m_apInterestingEntities[0] = entity;
+    CEntity::SafeRegisterRef(m_apInterestingEntities[0]);
 }
 
 // 0x6020A0

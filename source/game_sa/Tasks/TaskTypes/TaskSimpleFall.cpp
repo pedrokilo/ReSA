@@ -20,10 +20,33 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleFall.h"
 
+namespace {
+// Callback por defecto de animaciones del EXE (CDefaultAnimCallback::DefaultAnimCB, 0x4D1390: `ret`). Como el original, el destructor pasa la direccion del EXE a SetFinishCallback.
+using AnimFinishCallback = void (*)(CAnimBlendAssociation*, void*);
+const AnimFinishCallback kExeDefaultAnimCB = reinterpret_cast<AnimFinishCallback>(0x4D1390);
+
+// 0x678310 (lote 154A, banco Fn154A): cuerpo del destructor de CTaskSimpleFall del EXE (thiscall, sin argumentos de pila, `ret`, 93 bytes con marco SEH que solo desenrolla): deja la vtable de la clase (0x870430); si hay
+// animacion (m_pAnim, +0x14) le pone SetFinishCallback(0x4D1390, nullptr) (0x4CEBE0, con hook); y llama al cuerpo de ~CTask (0x61A3A0, con hook: vtable base 0x86D48C). El marco SEH se omite.
+void __fastcall CTaskSimpleFallDestructorBodyExe(CTaskSimpleFall* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x870430;
+    if (self->m_pAnim) {
+        self->m_pAnim->SetFinishCallback(kExeDefaultAnimCB, nullptr);
+    }
+    self->CTask::Destructor();
+}
+} // namespace
+
+// 0x678300 (lote 154A, banco Fn154A; thiscall, `ret`, 6 bytes: `mov eax,0xCF`): TASK_SIMPLE_FALL; no lee el objeto.
+eTaskType CTaskSimpleFall::GetTaskType() const {
+    return Type;
+}
+
 void CTaskSimpleFall::InjectHooks()
 {
     RH_ScopedVirtualClass(CTaskSimpleFall, 0x870430, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleFallDestructorBodyExe, "DestructorBody", 0x678310); // lote 154A (banco Fn154A)
+    RH_ScopedVMTInstall(GetTaskType, 0x678300); // lote 154A (banco Fn154A): retorno de constante
     RH_ScopedInstall(Constructor, 0x6782C0);
     RH_ScopedInstall(StartAnim, 0x67CA40);
     RH_ScopedInstall(ProcessFall, 0x6784C0);

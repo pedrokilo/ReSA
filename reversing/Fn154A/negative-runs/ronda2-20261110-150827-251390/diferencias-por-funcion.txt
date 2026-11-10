@@ -1,0 +1,3 @@
+{"CTaskComplexSignalAtPed::ScalarDeletingDestructor": 592, "CTaskGoToVehicleAndLean::ScalarDeletingDestructor": 613, "CTaskComplexFallAndGetUp::ScalarDeletingDestructor": 604, "CTaskSimpleFall::GetTaskType": 603, "CTaskSimpleFall::DestructorBody": 320, "CEventHandlerHistory::Flush": 563, "CEventHandlerHistory::FlushCopy": 591, "CEventObjectCollision::GetEventType": 591, "CEventObjectCollision::GetEventPriority": 635, "CEventObjectCollision::GetLifeTime": 615, "CEventObjectCollision::TakesPriorityOver": 620, "CEventObjectCollision::IsHeadOnCollision": 612, "CPedIntelligence::AddInterestingEntity": 531, "CMatrix::AttachRW": 567, "CAEAudioEntity::Destructor-3": 596}
+pares 30720 con diferencias 8653 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
