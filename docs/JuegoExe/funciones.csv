@@ -1898,11 +1898,11 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004AB8A0,81,reemplazada,CEventGlobalGroup,exacta,CEventGlobalGroup::AddEventsToGroup,1,1,,
 0x004AB900,126,reemplazada,CEventGlobalGroup,exacta,CEventGlobalGroup::GetSoundLevel,1,0,,
 0x004AB980,14,A,CEventGlobalGroup,alta,,2,1,,
-0x004AB9B0,14,C,CEventGlobalGroup,alta,,1,0,,
+0x004AB9B0,14,A,CEventGlobalGroup,alta,,1,1,,
 0x004AB9C0,86,reemplazada,CEventGlobalGroup,exacta,CEventGlobalGroup::AddEventsToPed,1,1,,
 0x004ABA20,35,B,CEventGlobalGroup,baja,,0,0,,sí
 0x004ABA50,77,reemplazada,RwHelper,exacta,RwHelper::GetEventGlobalGroup,33,30,,
-0x004ABAA0,27,B,RwHelper,baja,,0,0,,sí
+0x004ABAA0,27,reemplazada,RwHelper,baja,,0,0,,sí
 0x004ABAC0,114,reemplazada,CEventSource,exacta,CEventSource::ComputeEventSourceType,4,4,,
 0x004ABBA0,63,reemplazada,CEventSource,baja,,6,6,,
 0x004ABC30,36,reemplazada,CEventSource,baja,,2,1,,sí
@@ -1935,16 +1935,16 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004AC4A0,254,reemplazada,CEventEditableResponse,exacta,CEventEditableResponse::InformVehicleOccupants,1,1,,
 0x004AC5A0,99,reemplazada,CEventEditableResponse,exacta,CEventEditableResponse::TriggerLookAt,1,1,,
 0x004AC610,159,reemplazada,CEventGunShot,exacta,CEventGunShot::Constructor,6,6,,
-0x004AC6B0,6,B,CEventGunShot,alta,,0,0,,sí
-0x004AC6C0,3,B,CEventGunShot,alta,,0,0,,sí
-0x004AC6D0,4,B,CEventGunShot,alta,,0,0,,sí
-0x004AC6E0,21,B,CEventGunShot,alta,,0,0,,sí
-0x004AC700,3,B,CEventGunShot,alta,,0,0,,sí
-0x004AC710,6,B,CEventGunShot,alta,,0,0,,sí
+0x004AC6B0,6,reemplazada,CEventGunShot,alta,,0,0,,sí
+0x004AC6C0,3,reemplazada,CEventGunShot,alta,,0,0,,sí
+0x004AC6D0,4,reemplazada,CEventGunShot,alta,,0,0,,sí
+0x004AC6E0,21,reemplazada,CEventGunShot,alta,,0,0,,sí
+0x004AC700,3,reemplazada,CEventGunShot,alta,,0,0,,sí
+0x004AC710,6,reemplazada,CEventGunShot,alta,,0,0,,sí
 0x004AC720,81,reemplazada,CEventGunShot,alta,,10,5,,
 0x004AC780,137,reemplazada,CEventGunShot,exacta,CEventGunShot::TakesPriorityOver,0,0,,sí
 0x004AC810,31,reemplazada,CEventGunShot,exacta,CEventGunShot::IsCriminalEvent,0,0,,sí
-0x004AC830,3,B,CEventGunShot,baja,,0,0,,sí
+0x004AC830,3,reemplazada,CEventGunShot,baja,,0,0,,sí
 0x004AC840,174,reemplazada,CEventVehicleCollision,exacta,CEventVehicleCollision::Constructor,2,2,,
 0x004AC8F0,6,B,CEventVehicleCollision,baja,,0,0,,sí
 0x004AC900,3,B,CEventVehicleCollision,baja,,0,0,,sí
@@ -2159,7 +2159,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004B1960,3,reemplazada,CEventVehicleDamage,alta,,0,0,,sí
 0x004B1970,7,reemplazada,CEventVehicleDamage,alta,,0,0,,sí
 0x004B1980,6,reemplazada,CEventVehicleDamage,alta,,0,0,,sí
-0x004B1990,97,reemplazada,CEventVehicleDamage,alta,,12,9,,
+0x004B1990,97,reemplazada,CEventVehicleDamage,alta,,12,11,,
 0x004B1A00,112,reemplazada,CEventVehicleDamage,exacta,CEventVehicleDamage::AffectsPed,0,0,,sí
 0x004B1A70,31,reemplazada,CEventVehicleDamage,exacta,CEventVehicleDamage::GetSourceEntity,0,0,,sí
 0x004B1A90,73,reemplazada,CEventVehicleDamage,exacta,CEventVehicleDamage::IsCriminalEvent,0,0,,sí
@@ -2252,7 +2252,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004B54E0,131,reemplazada,CEventDanger,exacta,CEventDanger::AffectsPedGroup,0,0,,sí
 0x004B5570,103,reemplazada,CEventPool,exacta,CEventPool::New,45,9,,
 0x004B5620,11,reemplazada,CEventPool,baja,,54,26,,
-0x004B5630,49,C,CEventPool,baja,,119,0,,
+0x004B5630,49,A,CEventPool,baja,,119,2,,
 0x004B5670,77,B,CEventPool,baja,,0,0,,sí
 0x004B56C0,108,reemplazada,CEventEditableResponse,exacta,CEventEditableResponse::ComputeResponseTaskType-ped,2,2,,
 0x004B5730,111,reemplazada,CEventEditableResponse,exacta,CEventEditableResponse::ComputeResponseTaskOfType,4,3,,
@@ -2486,7 +2486,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C4A10,22,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::SetIsLod,0,0,,
 0x004C4A30,5,reemplazada,CTimeInfo,exacta,CTimeInfo::GetOtherTimeModel,0,0,,
 0x004C4A40,25,reemplazada,C2dEffect,exacta,C2dEffect::RpGeometryGet2dFxAtIndex,0,0,,
-0x004C4A60,21,A,C2dEffect,baja,,9,3,,
+0x004C4A60,21,reemplazada,C2dEffect,baja,,9,4,,
 0x004C4A80,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsAtomicModelInfoPtr,0,0,,sí
 0x004C4A90,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsDamageAtomicModelInfoPtr,0,0,,sí
 0x004C4AA0,3,reemplazada,CBaseModelInfo,exacta,CBaseModelInfo::AsLodAtomicModelInfoPtr,0,0,,sí
@@ -2532,7 +2532,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C5460,106,reemplazada,CClumpModelInfo,exacta,CClumpModelInfo::SetFrameIds,2,1,,
 0x004C54D0,5,reemplazada,CLodAtomicModelInfo,exacta,CLodAtomicModelInfo::Init,0,0,sí,sí
 0x004C54E0,46,reemplazada,C2dEffect,exacta,C2dEffect::DestroyAtomic,1,1,,
-0x004C5540,18,D,C2dEffect,baja,,0,0,,
+0x004C5540,18,reemplazada,C2dEffect,baja,,0,0,,
 0x004C5560,3,reemplazada,CAtomicModelInfo,exacta,CAtomicModelInfo::AsAtomicModelInfoPtr,0,0,,sí
 0x004C5570,3,reemplazada,CAtomicModelInfo,exacta,CAtomicModelInfo::GetModelType,0,0,,sí
 0x004C5580,6,reemplazada,CAtomicModelInfo,exacta,CAtomicModelInfo::GetRwModelType,0,0,,sí
@@ -2564,7 +2564,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004C57A0,25,D,CWeaponModelInfo,baja,,0,0,,
 0x004C57C0,3,reemplazada,CPedModelInfo,exacta,CPedModelInfo::GetModelType,0,0,,sí
 0x004C57D0,93,reemplazada,C2dEffect,exacta,C2dEffect::Shutdown,0,0,,
-0x004C5920,7,C,C2dEffect,baja,,1,0,,
+0x004C5920,7,reemplazada,C2dEffect,baja,,1,0,,
 0x004C5940,105,reemplazada,CModelInfo,exacta,CModelInfo::GetModelInfo-full,28,28,,
 0x004C59B0,47,reemplazada,CModelInfo,exacta,CModelInfo::GetModelInfoFromHashKey,1,1,,
 0x004C59F0,45,reemplazada,CModelInfo,exacta,CModelInfo::GetModelInfoUInt16,160,160,,
@@ -7161,12 +7161,12 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061A390,16,reemplazada,CPlayerRelationshipRecorder,baja,,234,206,,
 0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,107,,
 0x0061A3B0,17,reemplazada,CPlayerRelationshipRecorder,baja,,230,205,,
-0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,121,,
+0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,122,,
 0x0061A430,40,B,CPlayerRelationshipRecorder,baja,,0,0,,sí
 0x0061A4B0,73,reemplazada,CTask,exacta,CTask::IsTaskPtr,2,2,,
 0x0061A500,103,reemplazada,CTaskPool,exacta,CTaskPool::New,1,1,,
 0x0061A5A0,11,reemplazada,CTask,exacta,CTask::operator new,1788,1536,,
-0x0061A5B0,41,reemplazada,CTask,exacta,CTask::operator delete,2114,80,,
+0x0061A5B0,41,reemplazada,CTask,exacta,CTask::operator delete,2114,81,,
 0x0061A620,59,D,CTask,baja,,0,0,,
 0x0061A660,56,B,CTask,baja,,0,0,,sí
 0x0061A6C0,47,reemplazada,CTask,baja,,2,1,,
@@ -7220,10 +7220,10 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061C0D0,30,B,CTaskSimpleRunNamedAnim,baja,,0,0,,sí
 0x0061C150,20,A,CTaskSimpleRunNamedAnim,baja,,1,1,,
 0x0061C2E0,37,reemplazada,CEventVehicleDamageWeapon,exacta,CEventVehicleDamageWeapon::Constructor,6,6,,
-0x0061C310,11,C,CEventVehicleDamageWeapon,alta,,9,0,,
-0x0061C320,6,B,CEventVehicleDamageWeapon,alta,,0,0,,sí
+0x0061C310,11,reemplazada,CEventVehicleDamageWeapon,alta,,9,1,,
+0x0061C320,6,reemplazada,CEventVehicleDamageWeapon,alta,,0,0,,sí
 0x0061C330,96,reemplazada,CEventVehicleDamageWeapon,exacta,CEventVehicleDamageWeapon::CloneEditable,0,0,,sí
-0x0061C390,30,B,CEventVehicleDamageWeapon,baja,,0,0,,sí
+0x0061C390,30,reemplazada,CEventVehicleDamageWeapon,baja,,0,0,,sí
 0x0061C3D0,78,reemplazada,CTaskSimpleDuck,exacta,CTaskSimpleDuck::IsTaskInUseByOtherTasks,4,4,,
 0x0061C420,62,reemplazada,CTaskSimpleDuck,baja,,2,2,,
 0x0061C470,161,reemplazada,CTaskSimpleFight,exacta,CTaskSimpleFight::Constructor,5,4,,
@@ -8754,13 +8754,13 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00658990,21,reemplazada,CTaskSimpleGiveCPR,exacta,CTaskSimpleGiveCPR::FinishGiveCPRAnimCB,0,0,,
 0x006589B0,242,reemplazada,CTaskSimpleGiveCPR,exacta,CTaskSimpleGiveCPR::MakeAbortable,0,0,,sí
 0x00658AB0,27,reemplazada,CTaskComplexTreatAccident,exacta,CTaskComplexTreatAccident::Constructor,1,1,,
-0x00658AD0,6,B,CTaskComplexTreatAccident,alta,,0,0,,sí
-0x00658AE0,11,C,CTaskComplexTreatAccident,alta,,1,0,,
+0x00658AD0,6,reemplazada,CTaskComplexTreatAccident,alta,,0,0,,sí
+0x00658AE0,11,reemplazada,CTaskComplexTreatAccident,alta,,1,0,,
 0x00658AF0,150,reemplazada,CTaskComplexTreatAccident,exacta,CTaskComplexTreatAccident::ComputeHeading,2,2,,
 0x00658B90,6,reemplazada,CTaskComplexTreatAccident,exacta,CTaskComplexTreatAccident::ControlSubTask,0,0,,sí
 0x00658BA0,128,reemplazada,CTaskComplexMedicTreatInjuredPed,exacta,CTaskComplexMedicTreatInjuredPed::Constructor,3,3,,
 0x00658C20,6,B,CTaskComplexMedicTreatInjuredPed,alta,,0,0,,sí
-0x00658C30,129,C,CTaskComplexMedicTreatInjuredPed,alta,,1,0,,
+0x00658C30,129,A,CTaskComplexMedicTreatInjuredPed,alta,,1,1,,
 0x00658CC0,36,reemplazada,CTaskComplexMedicTreatInjuredPed,exacta,CTaskComplexMedicTreatInjuredPed::FindNearestAccident,2,2,,
 0x00658D20,138,reemplazada,CTaskComplexMedicTreatInjuredPed,exacta,CTaskComplexMedicTreatInjuredPed::CalcTargetPosWithOffset,5,5,,
 0x00658DB0,823,reemplazada,CTaskComplexMedicTreatInjuredPed,exacta,CTaskComplexMedicTreatInjuredPed::CreateSubTask,16,16,,
@@ -8803,7 +8803,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00659E10,30,B,CTaskComplexUseWaterCannon,baja,,0,0,,sí
 0x00659E70,30,B,CTaskComplexUseWaterCannon,baja,,0,0,,sí
 0x00659E90,296,reemplazada,CTaskComplexTreatAccident,exacta,CTaskComplexTreatAccident::CreateSubTask,6,6,,
-0x00659FC0,30,B,CTaskComplexTreatAccident,baja,,0,0,,sí
+0x00659FC0,30,reemplazada,CTaskComplexTreatAccident,baja,,0,0,,sí
 0x00659FE0,53,reemplazada,CTaskComplexMedicTreatInjuredPed,exacta,CTaskComplexMedicTreatInjuredPed::CreateFirstSubTask,0,0,,sí
 0x0065A020,202,reemplazada,CTaskComplexMedicTreatInjuredPed,exacta,CTaskComplexMedicTreatInjuredPed::CreateDealWithNextAccidentTask,3,3,,
 0x0065A0F0,30,B,CTaskComplexMedicTreatInjuredPed,baja,,0,0,,sí
@@ -10058,10 +10058,10 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006A04E0,18,reemplazada,CDamageManager,exacta,CDamageManager::ResetDamageStatusAndWheelDamage,0,0,,
 0x006A0520,18,reemplazada,CDamageManager,exacta,CDamageManager::Init,0,0,,
 0x006A0620,37,reemplazada,CEventVehicleDamageCollision,exacta,CEventVehicleDamageCollision::Constructor,1,1,,
-0x006A0650,11,C,CEventVehicleDamageCollision,alta,,2,0,,
-0x006A0660,6,B,CEventVehicleDamageCollision,alta,,0,0,,sí
+0x006A0650,11,reemplazada,CEventVehicleDamageCollision,alta,,2,1,,
+0x006A0660,6,reemplazada,CEventVehicleDamageCollision,alta,,0,0,,sí
 0x006A0670,96,reemplazada,CEventVehicleDamageCollision,exacta,CEventVehicleDamageCollision::CloneEditable,0,0,,sí
-0x006A06D0,30,B,CEventVehicleDamageCollision,baja,,0,0,,sí
+0x006A06D0,30,reemplazada,CEventVehicleDamageCollision,baja,,0,0,,sí
 0x006A06F0,20,reemplazada,CEventVehicleDamageCollision,baja,,1,1,,
 0x006A0770,37,reemplazada,CAutomobile,exacta,CAutomobile::SetupModelNodes,0,0,,
 0x006A07A0,3249,reemplazada,CAutomobile,exacta,CAutomobile::HydraulicControl,1,1,,
@@ -11504,8 +11504,8 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00734DE0,101,reemplazada,RwHelper,alta,,1,1,,
 0x00734E50,64,reemplazada,RwHelper,exacta,RwHelper::RwTexDictionaryFindHashNamedTexture,3,2,,
 0x00734E90,8,reemplazada,RwHelper,baja,,26,26,,
-0x00734EA0,9,A,RwHelper,baja,,6,6,,
-0x00734EC0,9,A,RwHelper,baja,,2,2,,
+0x00734EA0,9,reemplazada,RwHelper,baja,,6,6,,
+0x00734EC0,9,reemplazada,RwHelper,baja,,2,2,,
 0x00734FC0,384,reemplazada,RwHelper,baja,,1,1,,
 0x00735360,381,reemplazada,RwHelper,baja,,1,0,,
 0x007354E0,576,reemplazada,Light,exacta,Light::SetLightsWithTimeOfDayColour,1,1,,

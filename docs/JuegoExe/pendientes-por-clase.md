@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (09/11/2026). Total: **2,288** funciones en 316 clases/módulos (rango 0x401000–0x74FFFF): 2,266 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,266** funciones en 310 clases/módulos (rango 0x401000–0x74FFFF): 2,244 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,12 +10,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| RwHelper | 3 | 45 |
-| C2dEffect | 3 | 46 |
-| CEventGunShot | 7 | 46 |
-| CEventVehicleDamageCollision | 3 | 47 |
-| CEventVehicleDamageWeapon | 3 | 47 |
-| CTaskComplexTreatAccident | 3 | 47 |
 | CText | 2 | 48 |
 | CAEAudioHardware | 2 | 54 |
 | CTheCarGenerators | 3 | 55 |
@@ -327,58 +321,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
 
-## RwHelper (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00734EA0 | 9 | A |  | 6 | 6 |  | baja |
-| 0x00734EC0 | 9 | A |  | 2 | 2 |  | baja |
-| 0x004ABAA0 | 27 | B |  | 0 | 0 | sí | baja |
-
-## C2dEffect (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004C5920 | 7 | C |  | 1 | 0 |  | baja |
-| 0x004C5540 | 18 | D |  | 0 | 0 |  | baja |
-| 0x004C4A60 | 21 | A |  | 9 | 3 |  | baja |
-
-## CEventGunShot (7)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004AC6C0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004AC700 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004AC830 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004AC6D0 | 4 | B |  | 0 | 0 | sí | alta |
-| 0x004AC6B0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004AC710 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004AC6E0 | 21 | B |  | 0 | 0 | sí | alta |
-
-## CEventVehicleDamageCollision (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006A0660 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x006A0650 | 11 | C |  | 2 | 0 |  | alta |
-| 0x006A06D0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CEventVehicleDamageWeapon (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0061C320 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x0061C310 | 11 | C |  | 9 | 0 |  | alta |
-| 0x0061C390 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexTreatAccident (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00658AD0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00658AE0 | 11 | C |  | 1 | 0 |  | alta |
-| 0x00659FC0 | 30 | B |  | 0 | 0 | sí | baja |
-
 ## CText (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -603,7 +545,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x004AB980 | 14 | A |  | 2 | 1 |  | alta |
-| 0x004AB9B0 | 14 | C |  | 1 | 0 |  | alta |
+| 0x004AB9B0 | 14 | A |  | 1 | 1 |  | alta |
 | 0x004ABA20 | 35 | B |  | 0 | 0 | sí | baja |
 
 ## CPedShelterAttractor (2)
@@ -1014,7 +956,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x004B5630 | 49 | C |  | 119 | 0 |  | baja |
+| 0x004B5630 | 49 | A |  | 119 | 2 |  | baja |
 | 0x004B5670 | 77 | B |  | 0 | 0 | sí | baja |
 
 ## CTaskComplexUseSwatRope (2)
@@ -2932,7 +2874,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00659B60 | 96 | B |  | 0 | 0 | sí | baja |
 | 0x0065AFE0 | 97 | B |  | 0 | 0 | sí | baja |
 | 0x006592A0 | 99 | C |  | 1 | 0 |  | baja |
-| 0x00658C30 | 129 | C |  | 1 | 0 |  | alta |
+| 0x00658C30 | 129 | A |  | 1 | 1 |  | alta |
 | 0x0065A110 | 259 | C |  | 4 | 0 |  | baja |
 
 ## CTaskComplexGoToPointAndStandStill (8)

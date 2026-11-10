@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 09/11/2026 (Ciudad de México):** 872 grupos / 9633 funciones reconstruidas; 9633 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 09/11/2026 (Ciudad de México):** 872 grupos / 9655 funciones reconstruidas; 9655 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,26 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-981"></a>
+
+## FxInfoEmWeather_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoEmWeather_c::FxInfoEmWeather_c() | [source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp:7](../../source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp#L7) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmWeather_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp:13](../../source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmWeather_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp:18](../../source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-982"></a>
+
+## FxInfoFlat_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoFlat_c::FxInfoFlat_c() | [source/game_sa/Fx/Blueprints/FxInfoFlat.cpp:7](../../source/game_sa/Fx/Blueprints/FxInfoFlat.cpp#L7) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoFlat_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoFlat.cpp:13](../../source/game_sa/Fx/Blueprints/FxInfoFlat.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoFlat_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoFlat.cpp:18](../../source/game_sa/Fx/Blueprints/FxInfoFlat.cpp#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-983"></a>
 
 ## FxInfoFloat_c
 
@@ -16,7 +36,7 @@
 | FxInfoFloat_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoFloat.cpp:14](../../source/game_sa/Fx/Blueprints/FxInfoFloat.cpp#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoFloat_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoFloat.cpp:19](../../source/game_sa/Fx/Blueprints/FxInfoFloat.cpp#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-982"></a>
+<a id="grupo-984"></a>
 
 ## FxInfoForce_c
 
@@ -26,7 +46,7 @@
 | FxInfoForce_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoForce.cpp:12](../../source/game_sa/Fx/Blueprints/FxInfoForce.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoForce_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoForce.cpp:17](../../source/game_sa/Fx/Blueprints/FxInfoForce.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-983"></a>
+<a id="grupo-985"></a>
 
 ## FxInfoFriction_c
 
@@ -36,7 +56,7 @@
 | FxInfoFriction_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoFriction.cpp:12](../../source/game_sa/Fx/Blueprints/FxInfoFriction.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoFriction_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoFriction.cpp:17](../../source/game_sa/Fx/Blueprints/FxInfoFriction.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-984"></a>
+<a id="grupo-986"></a>
 
 ## FxInfoGroundCollide_c
 
@@ -46,7 +66,7 @@
 | FxInfoGroundCollide_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoGroundCollide.cpp:12](../../source/game_sa/Fx/Blueprints/FxInfoGroundCollide.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoGroundCollide_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoGroundCollide.cpp:17](../../source/game_sa/Fx/Blueprints/FxInfoGroundCollide.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-985"></a>
+<a id="grupo-987"></a>
 
 ## FxInfoHeatHaze_c
 
@@ -56,7 +76,7 @@
 | FxInfoHeatHaze_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoHeatHaze.cpp:13](../../source/game_sa/Fx/Blueprints/FxInfoHeatHaze.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoHeatHaze_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoHeatHaze.cpp:18](../../source/game_sa/Fx/Blueprints/FxInfoHeatHaze.cpp#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-986"></a>
+<a id="grupo-988"></a>
 
 ## FxInfoJitter_c
 
@@ -66,7 +86,7 @@
 | FxInfoJitter_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoJitter.cpp:12](../../source/game_sa/Fx/Blueprints/FxInfoJitter.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoJitter_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoJitter.cpp:17](../../source/game_sa/Fx/Blueprints/FxInfoJitter.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-987"></a>
+<a id="grupo-989"></a>
 
 ## FxInfoManager_c
 
@@ -81,7 +101,7 @@
 | GetInfos() | [source/game_sa/Fx/FxInfoManager.h:50](../../source/game_sa/Fx/FxInfoManager.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetInfos() const | [source/game_sa/Fx/FxInfoManager.h:51](../../source/game_sa/Fx/FxInfoManager.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-988"></a>
+<a id="grupo-990"></a>
 
 ## FxInfoNoise_c
 
@@ -91,7 +111,7 @@
 | FxInfoNoise_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoNoise.cpp:10](../../source/game_sa/Fx/Blueprints/FxInfoNoise.cpp#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoNoise_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoNoise.cpp:15](../../source/game_sa/Fx/Blueprints/FxInfoNoise.cpp#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-989"></a>
+<a id="grupo-991"></a>
 
 ## FxInfoRotSpeed_c
 
@@ -101,7 +121,7 @@
 | FxInfoRotSpeed_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp:13](../../source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoRotSpeed_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp:18](../../source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-990"></a>
+<a id="grupo-992"></a>
 
 ## FxInfoSelfLit_c
 
@@ -111,7 +131,7 @@
 | FxInfoSelfLit_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp:14](../../source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoSelfLit_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp:19](../../source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-991"></a>
+<a id="grupo-993"></a>
 
 ## FxInfoSize_c
 
@@ -121,7 +141,7 @@
 | FxInfoSize_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoSize.cpp:13](../../source/game_sa/Fx/Blueprints/FxInfoSize.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoSize_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoSize.cpp:21](../../source/game_sa/Fx/Blueprints/FxInfoSize.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-992"></a>
+<a id="grupo-994"></a>
 
 ## FxInfoSmoke_c
 
@@ -131,7 +151,7 @@
 | FxInfoSmoke_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp:12](../../source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoSmoke_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp:17](../../source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-993"></a>
+<a id="grupo-995"></a>
 
 ## FxInfoSpriteRect_c
 
@@ -141,7 +161,7 @@
 | FxInfoSpriteRect_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp:12](../../source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoSpriteRect_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp:17](../../source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-994"></a>
+<a id="grupo-996"></a>
 
 ## FxInfoTrail_c
 
@@ -151,7 +171,7 @@
 | FxInfoTrail_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoTrail.cpp:12](../../source/game_sa/Fx/Blueprints/FxInfoTrail.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoTrail_c::GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoTrail.cpp:17](../../source/game_sa/Fx/Blueprints/FxInfoTrail.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-995"></a>
+<a id="grupo-997"></a>
 
 ## FxInfoUnderwater_c
 
@@ -161,7 +181,7 @@
 | FxInfoUnderwater_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp:13](../../source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoUnderwater_c::GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp:18](../../source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-996"></a>
+<a id="grupo-998"></a>
 
 ## FxInfoWind_c
 
@@ -171,7 +191,7 @@
 | FxInfoWind_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoWind.cpp:13](../../source/game_sa/Fx/Blueprints/FxInfoWind.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoWind_c::GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoWind.cpp:18](../../source/game_sa/Fx/Blueprints/FxInfoWind.cpp#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
 
-<a id="grupo-997"></a>
+<a id="grupo-999"></a>
 
 ## FxInfo_c
 
@@ -179,7 +199,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfo_c::~FxInfo_c() | [source/game_sa/Fx/Blueprints/FxInfo.cpp:5](../../source/game_sa/Fx/Blueprints/FxInfo.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-998"></a>
+<a id="grupo-1000"></a>
 
 ## FxInterpInfo255_c
 
@@ -190,28 +210,3 @@
 | FxInterpInfo255_c::Load(FILESTREAM file) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:44](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
 | FxInterpInfo255_c::Allocate(int32 count) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:66](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
 | FxInterpInfo255_c::GetVal(float* outValues, float delta) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:72](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo255_c::GetVal 0x004A8B80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-999"></a>
-
-## FxInterpInfo32_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInterpInfo32_c::InjectHooks() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:31](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfo32_c::FxInterpInfo32_c() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:39](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfo32_c::Load(FILESTREAM file) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:44](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxInterpInfo32_c::Allocate(int32 count) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:66](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxInterpInfo32_c::GetVal(float* outValues, float delta) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:72](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo32_c::GetVal 0x004A89C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1000"></a>
-
-## FxInterpInfoFloat_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInterpInfoFloat_c::InjectHooks() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:31](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfoFloat_c::FxInterpInfoFloat_c() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:39](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfoFloat_c::Load(FILESTREAM file) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:44](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxInterpInfoFloat_c::Allocate(int32 count) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:66](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxInterpInfoFloat_c::GetVal(int32 attrib, float time, float deltaTime) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:72](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L72) | C++ · Envoltura al EXE | Revalidada en migración: FxInterpInfoFloat_c::GetVal-values 0x004A8470 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Delegación por dirección 0x004A85C0: fuera del catálogo consultado; ruta efectiva sin resolver |
-| FxInterpInfoFloat_c::GetVal(float* outValues, float delta) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:77](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfoFloat_c::GetVal-values 0x004A8470 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 09/11/2026 (Ciudad de México):** 872 grupos / 9633 funciones reconstruidas; 9633 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 09/11/2026 (Ciudad de México):** 872 grupos / 9655 funciones reconstruidas; 9655 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,13 +8,29 @@
 
 <a id="grupo-1141"></a>
 
+## Globales y helpers: source/game_sa/Enums/eWeaponType.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| IsWeaponTypeProjectile(eWeaponType weaponType) | [source/game_sa/Enums/eWeaponType.h:82](../../source/game_sa/Enums/eWeaponType.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1142"></a>
+
+## Globales y helpers: source/game_sa/Enums/eWeatherType.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| IsExtraSunny(eWeatherType wt) | [source/game_sa/Enums/eWeatherType.h:39](../../source/game_sa/Enums/eWeatherType.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1143"></a>
+
 ## Globales y helpers: source/game_sa/Events/EventAcquaintancePed.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | AcquaintancePedDestructorBody(CEventAcquaintancePed* self, void* /*edx*/) | [source/game_sa/Events/EventAcquaintancePed.cpp:26](../../source/game_sa/Events/EventAcquaintancePed.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventAcquaintancePed::Destructor 0x004AF890 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1142"></a>
+<a id="grupo-1144"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventAreaCodes.cpp
 
@@ -22,7 +38,7 @@
 | --- | --- | --- | --- | --- | --- |
 | AreaCodesDestructorBody(CEventAreaCodes* self, void* /*edx*/) | [source/game_sa/Events/EventAreaCodes.cpp:26](../../source/game_sa/Events/EventAreaCodes.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventAreaCodes::Destructor 0x004B2210 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1143"></a>
+<a id="grupo-1145"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventAttractor.cpp
 
@@ -30,7 +46,7 @@
 | --- | --- | --- | --- | --- | --- |
 | AttractorDestructorBody(CEventAttractor* self, void* /*edx*/) | [source/game_sa/Events/EventAttractor.cpp:28](../../source/game_sa/Events/EventAttractor.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventAttractor::Destructor 0x004AF400 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1144"></a>
+<a id="grupo-1146"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventBuildingCollision.cpp
 
@@ -38,7 +54,7 @@
 | --- | --- | --- | --- | --- | --- |
 | BuildingCollisionDestructorBody(CEventBuildingCollision* self, void* /*edx*/) | [source/game_sa/Events/EventBuildingCollision.cpp:26](../../source/game_sa/Events/EventBuildingCollision.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventBuildingCollision::Destructor 0x004ACFF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1145"></a>
+<a id="grupo-1147"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventDamage.cpp
 
@@ -46,7 +62,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ComputeHitAnimDelayTimer(float delay) | [source/game_sa/Events/EventDamage.cpp:447](../../source/game_sa/Events/EventDamage.cpp#L447) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1146"></a>
+<a id="grupo-1148"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventDanger.cpp
 
@@ -54,7 +70,7 @@
 | --- | --- | --- | --- | --- | --- |
 | DangerDestructorBody(CEventDanger* self, void* /*edx*/) | [source/game_sa/Events/EventDanger.cpp:26](../../source/game_sa/Events/EventDanger.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventDanger::Destructor 0x004B26A0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1147"></a>
+<a id="grupo-1149"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventDeadPed.cpp
 
@@ -62,7 +78,7 @@
 | --- | --- | --- | --- | --- | --- |
 | DeadPedDestructorBody(CEventDeadPed* self, void* /*edx*/) | [source/game_sa/Events/EventDeadPed.cpp:28](../../source/game_sa/Events/EventDeadPed.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1148"></a>
+<a id="grupo-1150"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventDontJoinPlayerGroup.cpp
 
@@ -70,7 +86,7 @@
 | --- | --- | --- | --- | --- | --- |
 | DontJoinPlayerGroupDestructorBody(CEventDontJoinPlayerGroup* self, void* /*edx*/) | [source/game_sa/Events/EventDontJoinPlayerGroup.cpp:30](../../source/game_sa/Events/EventDontJoinPlayerGroup.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventDontJoinPlayerGroup::Destructor 0x00609140 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1149"></a>
+<a id="grupo-1151"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventDraggedOutCar.cpp
 
@@ -78,7 +94,16 @@
 | --- | --- | --- | --- | --- | --- |
 | DraggedOutCarDestructorBody(CEventDraggedOutCar* self, void* /*edx*/) | [source/game_sa/Events/EventDraggedOutCar.cpp:26](../../source/game_sa/Events/EventDraggedOutCar.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1150"></a>
+<a id="grupo-1152"></a>
+
+## Globales y helpers: source/game_sa/Events/EventGlobalGroup.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| EventGlobalGroupDestructorBody(CEventGlobalGroup* self, void* /*edx*/) | [source/game_sa/Events/EventGlobalGroup.cpp:25](../../source/game_sa/Events/EventGlobalGroup.cpp#L25) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Lote143AEventGroupDestructorBody() | [source/game_sa/Events/EventGlobalGroup.cpp:39](../../source/game_sa/Events/EventGlobalGroup.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1153"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventGotKnockedOverByCar.cpp
 
@@ -86,7 +111,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GotKnockedOverByCarDestructorBody(CEventGotKnockedOverByCar* self, void* /*edx*/) | [source/game_sa/Events/EventGotKnockedOverByCar.cpp:26](../../source/game_sa/Events/EventGotKnockedOverByCar.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1151"></a>
+<a id="grupo-1154"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventGunAimedAt.cpp
 
@@ -94,7 +119,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GunAimedAtDestructorBody(CEventGunAimedAt* self, void* /*edx*/) | [source/game_sa/Events/EventGunAimedAt.cpp:28](../../source/game_sa/Events/EventGunAimedAt.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1152"></a>
+<a id="grupo-1155"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventGunShotWhizzedBy.cpp
 
@@ -102,7 +127,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GunShotWhizzedByDestructorBody(CEventGunShotWhizzedBy* self, void* /*edx*/) | [source/game_sa/Events/EventGunShotWhizzedBy.cpp:29](../../source/game_sa/Events/EventGunShotWhizzedBy.cpp#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventGunShotWhizzedBy::Destructor 0x004B2070 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1153"></a>
+<a id="grupo-1156"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventKnockOffBike.cpp
 
@@ -112,7 +137,7 @@
 | KnockOffScale(const CVector& v, float k) | [source/game_sa/Events/EventKnockOffBike.cpp:180](../../source/game_sa/Events/EventKnockOffBike.cpp#L180) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | KnockOffCombine(const CVector& up, float upK, const CVector& side, float sideK) | [source/game_sa/Events/EventKnockOffBike.cpp:187](../../source/game_sa/Events/EventKnockOffBike.cpp#L187) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1154"></a>
+<a id="grupo-1157"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventObjectCollision.cpp
 
@@ -120,7 +145,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ObjectCollisionDestructorBody(CEventObjectCollision* self, void* /*edx*/) | [source/game_sa/Events/EventObjectCollision.cpp:26](../../source/game_sa/Events/EventObjectCollision.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventObjectCollision::Destructor 0x004ACDD0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1155"></a>
+<a id="grupo-1158"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPassObject.cpp
 
@@ -128,7 +153,7 @@
 | --- | --- | --- | --- | --- | --- |
 | PassObjectDestructorBody(CEventPassObject* self, void* /*edx*/) | [source/game_sa/Events/EventPassObject.cpp:30](../../source/game_sa/Events/EventPassObject.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventPassObject::Destructor 0x0065DCF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1156"></a>
+<a id="grupo-1159"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPedCollisionWithPed.cpp
 
@@ -136,34 +161,10 @@
 | --- | --- | --- | --- | --- | --- |
 | PedCollisionWithPedDestructorBody(CEventPedCollisionWithPed* self, void* /*edx*/) | [source/game_sa/Events/EventPedCollisionWithPed.cpp:27](../../source/game_sa/Events/EventPedCollisionWithPed.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventPedCollisionWithPed::Destructor 0x004ACA70 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1157"></a>
+<a id="grupo-1160"></a>
 
 ## Globales y helpers: source/game_sa/Events/EventPedToChase.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | PedToChaseDestructorBody(CEventPedToChase* self, void* /*edx*/) | [source/game_sa/Events/EventPedToChase.cpp:26](../../source/game_sa/Events/EventPedToChase.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1158"></a>
-
-## Globales y helpers: source/game_sa/Events/EventPedToFlee.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| PedToFleeDestructorBody(CEventPedToFlee* self, void* /*edx*/) | [source/game_sa/Events/EventPedToFlee.cpp:26](../../source/game_sa/Events/EventPedToFlee.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1159"></a>
-
-## Globales y helpers: source/game_sa/Events/EventPlayerCommandToGroup.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| PlayerCommandToGroupDestructorBody(CEventPlayerCommandToGroup* self, void* /*edx*/) | [source/game_sa/Events/EventPlayerCommandToGroup.cpp:26](../../source/game_sa/Events/EventPlayerCommandToGroup.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventPlayerCommandToGroup::Destructor 0x004B2470 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1160"></a>
-
-## Globales y helpers: source/game_sa/Events/EventPotentialGetRunOver.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| PotentialGetRunOverDestructorBody(CEventPotentialGetRunOver* self, void* /*edx*/) | [source/game_sa/Events/EventPotentialGetRunOver.cpp:25](../../source/game_sa/Events/EventPotentialGetRunOver.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

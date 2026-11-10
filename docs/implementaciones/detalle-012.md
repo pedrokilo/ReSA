@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 09/11/2026 (Ciudad de México):** 872 grupos / 9633 funciones reconstruidas; 9633 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 09/11/2026 (Ciudad de México):** 872 grupos / 9655 funciones reconstruidas; 9655 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,27 +8,47 @@
 
 <a id="grupo-221"></a>
 
+## CEventGunAimedAt
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CEventGunAimedAt::InjectHooks() | [source/game_sa/Events/EventGunAimedAt.cpp:35](../../source/game_sa/Events/EventGunAimedAt.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventGunAimedAt::CEventGunAimedAt(CPed* ped) | [source/game_sa/Events/EventGunAimedAt.cpp:44](../../source/game_sa/Events/EventGunAimedAt.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventGunAimedAt::Constructor 0x004B0700 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventGunAimedAt::~CEventGunAimedAt() | [source/game_sa/Events/EventGunAimedAt.cpp:50](../../source/game_sa/Events/EventGunAimedAt.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventGunAimedAt::Destructor 0x004B07B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CEventGunAimedAt::Constructor(CPed* ped) | [source/game_sa/Events/EventGunAimedAt.cpp:55](../../source/game_sa/Events/EventGunAimedAt.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventGunAimedAt::Constructor 0x004B0700 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventGunAimedAt::AffectsPed(CPed* ped) | [source/game_sa/Events/EventGunAimedAt.cpp:61](../../source/game_sa/Events/EventGunAimedAt.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventGunAimedAt::ReportCriminalEvent(CPed* ped) | [source/game_sa/Events/EventGunAimedAt.cpp:82](../../source/game_sa/Events/EventGunAimedAt.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventGunAimedAt::TakesPriorityOver(const CEvent& refEvent) | [source/game_sa/Events/EventGunAimedAt.cpp:88](../../source/game_sa/Events/EventGunAimedAt.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CEventGunAimedAt::CloneEditable() const noexcept | [source/game_sa/Events/EventGunAimedAt.cpp:105](../../source/game_sa/Events/EventGunAimedAt.cpp#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetEventType() const override | [source/game_sa/Events/EventGunAimedAt.h:18](../../source/game_sa/Events/EventGunAimedAt.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetEventPriority() const override | [source/game_sa/Events/EventGunAimedAt.h:19](../../source/game_sa/Events/EventGunAimedAt.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetLifeTime() override | [source/game_sa/Events/EventGunAimedAt.h:20](../../source/game_sa/Events/EventGunAimedAt.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsCriminalEvent() override | [source/game_sa/Events/EventGunAimedAt.h:22](../../source/game_sa/Events/EventGunAimedAt.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetSourceEntity() const override | [source/game_sa/Events/EventGunAimedAt.h:24](../../source/game_sa/Events/EventGunAimedAt.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-222"></a>
+
 ## CEventGunShot
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | CEventGunShot::InjectHooks() | [source/game_sa/Events/EventGunShot.cpp:34](../../source/game_sa/Events/EventGunShot.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CEventGunShot::Constructor(CEntity* entity, CVector startPoint, CVector endPoint, bool bHasNoSound) | [source/game_sa/Events/EventGunShot.cpp:46](../../source/game_sa/Events/EventGunShot.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::Constructor 0x004AC610 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEventGunShot::CEventGunShot(CEntity* entity, CVector startPoint, CVector endPoint, bool bHasNoSound) | [source/game_sa/Events/EventGunShot.cpp:49](../../source/game_sa/Events/EventGunShot.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::Constructor 0x004AC610 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEventGunShot::~CEventGunShot() | [source/game_sa/Events/EventGunShot.cpp:57](../../source/game_sa/Events/EventGunShot.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEventGunShot::AffectsPed(CPed* ped) | [source/game_sa/Events/EventGunShot.cpp:62](../../source/game_sa/Events/EventGunShot.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::AffectsPed 0x00000000 | 0 / 0 | Posible dato fijo ms_fGunShotSenseRangeForRiot2: source/game_sa/Events/EventGunShot.h:13 (0x008A625C) |
-| CEventGunShot::IsCriminalEvent() | [source/game_sa/Events/EventGunShot.cpp:121](../../source/game_sa/Events/EventGunShot.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::IsCriminalEvent 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEventGunShot::TakesPriorityOver(const CEvent& refEvent) | [source/game_sa/Events/EventGunShot.cpp:126](../../source/game_sa/Events/EventGunShot.cpp#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::TakesPriorityOver 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CEventGunShot::CloneEditable() const noexcept | [source/game_sa/Events/EventGunShot.cpp:145](../../source/game_sa/Events/EventGunShot.cpp#L145) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::CloneEditable 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetEventType() const override | [source/game_sa/Events/EventGunShot.h:19](../../source/game_sa/Events/EventGunShot.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetEventPriority() const override | [source/game_sa/Events/EventGunShot.h:20](../../source/game_sa/Events/EventGunShot.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetLifeTime() override | [source/game_sa/Events/EventGunShot.h:21](../../source/game_sa/Events/EventGunShot.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ReportCriminalEvent(CPed* ped) override | [source/game_sa/Events/EventGunShot.h:24](../../source/game_sa/Events/EventGunShot.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetSourceEntity() const override | [source/game_sa/Events/EventGunShot.h:25](../../source/game_sa/Events/EventGunShot.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetLocalSoundLevel() override | [source/game_sa/Events/EventGunShot.h:27](../../source/game_sa/Events/EventGunShot.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CanBeInterruptedBySameEvent() override | [source/game_sa/Events/EventGunShot.h:28](../../source/game_sa/Events/EventGunShot.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CEventGunShot::Constructor(CEntity* entity, CVector startPoint, CVector endPoint, bool bHasNoSound) | [source/game_sa/Events/EventGunShot.cpp:54](../../source/game_sa/Events/EventGunShot.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::Constructor 0x004AC610 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventGunShot::CEventGunShot(CEntity* entity, CVector startPoint, CVector endPoint, bool bHasNoSound) | [source/game_sa/Events/EventGunShot.cpp:57](../../source/game_sa/Events/EventGunShot.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::Constructor 0x004AC610 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventGunShot::~CEventGunShot() | [source/game_sa/Events/EventGunShot.cpp:65](../../source/game_sa/Events/EventGunShot.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventGunShot::AffectsPed(CPed* ped) | [source/game_sa/Events/EventGunShot.cpp:70](../../source/game_sa/Events/EventGunShot.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::AffectsPed 0x00000000 | 0 / 0 | Posible dato fijo ms_fGunShotSenseRangeForRiot2: source/game_sa/Events/EventGunShot.h:13 (0x008A625C) |
+| CEventGunShot::IsCriminalEvent() | [source/game_sa/Events/EventGunShot.cpp:129](../../source/game_sa/Events/EventGunShot.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::IsCriminalEvent 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CEventGunShot::TakesPriorityOver(const CEvent& refEvent) | [source/game_sa/Events/EventGunShot.cpp:134](../../source/game_sa/Events/EventGunShot.cpp#L134) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::TakesPriorityOver 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CEventGunShot::CloneEditable() const noexcept | [source/game_sa/Events/EventGunShot.cpp:153](../../source/game_sa/Events/EventGunShot.cpp#L153) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::CloneEditable 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetEventType() const override | [source/game_sa/Events/EventGunShot.h:19](../../source/game_sa/Events/EventGunShot.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::GetEventType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetEventPriority() const override | [source/game_sa/Events/EventGunShot.h:20](../../source/game_sa/Events/EventGunShot.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::GetEventPriority 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetLifeTime() override | [source/game_sa/Events/EventGunShot.h:21](../../source/game_sa/Events/EventGunShot.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::GetLifeTime 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ReportCriminalEvent(CPed* ped) override | [source/game_sa/Events/EventGunShot.h:24](../../source/game_sa/Events/EventGunShot.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::ReportCriminalEvent 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetSourceEntity() const override | [source/game_sa/Events/EventGunShot.h:25](../../source/game_sa/Events/EventGunShot.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::GetSourceEntity 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetLocalSoundLevel() override | [source/game_sa/Events/EventGunShot.h:27](../../source/game_sa/Events/EventGunShot.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::GetLocalSoundLevel 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CanBeInterruptedBySameEvent() override | [source/game_sa/Events/EventGunShot.h:28](../../source/game_sa/Events/EventGunShot.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventGunShot::CanBeInterruptedBySameEvent 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-222"></a>
+<a id="grupo-223"></a>
 
 ## CEventGunShotBody
 
@@ -36,7 +56,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Destructor(CEventGunShot* self, void* /*edx*/) | [source/game_sa/Events/EventGunShot.cpp:27](../../source/game_sa/Events/EventGunShot.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventGunShot::Destructor 0x004AC720 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-223"></a>
+<a id="grupo-224"></a>
 
 ## CEventGunShotWhizzedBy
 
@@ -52,7 +72,7 @@
 | CanBeInterruptedBySameEvent() override | [source/game_sa/Events/EventGunShotWhizzedBy.h:20](../../source/game_sa/Events/EventGunShotWhizzedBy.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventGunShotWhizzedBy::CanBeInterruptedBySameEvent 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventGunShotWhizzedBy.h:21](../../source/game_sa/Events/EventGunShotWhizzedBy.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-224"></a>
+<a id="grupo-225"></a>
 
 ## CEventHandler
 
@@ -140,7 +160,7 @@
 | * Constructor(CPed * ped) | [source/game_sa/Events/EventHandler.h:165](../../source/game_sa/Events/EventHandler.h#L165) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventHandler::Constructor 0x004C3E80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Events/EventHandler.h:171](../../source/game_sa/Events/EventHandler.h#L171) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CEventHandler::Destructor 0x004C3EC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-225"></a>
+<a id="grupo-226"></a>
 
 ## CEventHandlerHistory
 
@@ -164,7 +184,7 @@
 | RecordAbortedTask(CTask* task) | [source/game_sa/Events/EventHandlerHistory.h:30](../../source/game_sa/Events/EventHandlerHistory.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetAbortedTask() const | [source/game_sa/Events/EventHandlerHistory.h:31](../../source/game_sa/Events/EventHandlerHistory.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-226"></a>
+<a id="grupo-227"></a>
 
 ## CEventHealthLow
 
@@ -176,7 +196,7 @@
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventHealthLow.h:17](../../source/game_sa/Events/EventHealthLow.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventHealthLow.h:18](../../source/game_sa/Events/EventHealthLow.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-227"></a>
+<a id="grupo-228"></a>
 
 ## CEventHealthReallyLow
 
@@ -188,7 +208,7 @@
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventHealthReallyLow.h:17](../../source/game_sa/Events/EventHealthReallyLow.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventHealthReallyLow.h:18](../../source/game_sa/Events/EventHealthReallyLow.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-228"></a>
+<a id="grupo-229"></a>
 
 ## CEventHighAngerAtPlayer
 
@@ -200,7 +220,7 @@
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventHighAngerAtPlayer.h:17](../../source/game_sa/Events/EventHighAngerAtPlayer.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventHighAngerAtPlayer.h:18](../../source/game_sa/Events/EventHighAngerAtPlayer.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-229"></a>
+<a id="grupo-230"></a>
 
 ## CEventHitByWaterCannon
 
@@ -217,7 +237,7 @@
 | * Clone() const noexcept override | [source/game_sa/Events/EventHitByWaterCannon.h:19](../../source/game_sa/Events/EventHitByWaterCannon.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetLocalSoundLevel() override | [source/game_sa/Events/EventHitByWaterCannon.h:21](../../source/game_sa/Events/EventHitByWaterCannon.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-230"></a>
+<a id="grupo-231"></a>
 
 ## CEventInAir
 
@@ -232,7 +252,7 @@
 | GetLifeTime() override | [source/game_sa/Events/EventInAir.h:14](../../source/game_sa/Events/EventInAir.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CEventInAir::GetLifeTime 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const noexcept override | [source/game_sa/Events/EventInAir.h:15](../../source/game_sa/Events/EventInAir.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-231"></a>
+<a id="grupo-232"></a>
 
 ## CEventInWater
 
@@ -249,7 +269,7 @@
 | GetLifeTime() override | [source/game_sa/Events/EventInWater.h:17](../../source/game_sa/Events/EventInWater.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const noexcept override | [source/game_sa/Events/EventInWater.h:18](../../source/game_sa/Events/EventInWater.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-232"></a>
+<a id="grupo-233"></a>
 
 ## CEventInteriorUseInfo
 
@@ -263,7 +283,7 @@
 | GetLifeTime() override | [source/game_sa/Events/EventInteriorUseInfo.h:23](../../source/game_sa/Events/EventInteriorUseInfo.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const noexcept override | [source/game_sa/Events/EventInteriorUseInfo.h:24](../../source/game_sa/Events/EventInteriorUseInfo.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-233"></a>
+<a id="grupo-234"></a>
 
 ## CEventKnockOffBike
 
@@ -289,7 +309,7 @@
 | IsCriminalEvent() override | [source/game_sa/Events/EventKnockOffBike.h:43](../../source/game_sa/Events/EventKnockOffBike.h#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | operator=(const CEventKnockOffBike& right) | [source/game_sa/Events/EventKnockOffBike.h:47](../../source/game_sa/Events/EventKnockOffBike.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-234"></a>
+<a id="grupo-235"></a>
 
 ## CEventLeaderEnteredCarAsDriver
 
@@ -308,7 +328,7 @@
 | CanBeInterruptedBySameEvent() override | [source/game_sa/Events/EventLeaderEnteredCarAsDriver.h:27](../../source/game_sa/Events/EventLeaderEnteredCarAsDriver.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventLeaderEnteredCarAsDriver.h:28](../../source/game_sa/Events/EventLeaderEnteredCarAsDriver.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-235"></a>
+<a id="grupo-236"></a>
 
 ## CEventLeaderEntryExit
 
@@ -324,7 +344,7 @@
 | TakesPriorityOver(const CEvent& refEvent) override | [source/game_sa/Events/EventLeaderEntryExit.h:23](../../source/game_sa/Events/EventLeaderEntryExit.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CanBeInterruptedBySameEvent() override | [source/game_sa/Events/EventLeaderEntryExit.h:24](../../source/game_sa/Events/EventLeaderEntryExit.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-236"></a>
+<a id="grupo-237"></a>
 
 ## CEventLeaderExitedCarAsDriver
 
@@ -340,7 +360,7 @@
 | TakesPriorityOver(const CEvent& refEvent) override | [source/game_sa/Events/EventLeaderExitedCarAsDriver.h:21](../../source/game_sa/Events/EventLeaderExitedCarAsDriver.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventLeaderExitedCarAsDriver.h:22](../../source/game_sa/Events/EventLeaderExitedCarAsDriver.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-237"></a>
+<a id="grupo-238"></a>
 
 ## CEventLeaderQuitEnteringCarAsDriver
 
@@ -356,7 +376,7 @@
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventLeaderQuitEnteringCarAsDriver.h:22](../../source/game_sa/Events/EventLeaderQuitEnteringCarAsDriver.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | TakesPriorityOver(const CEvent& refEvent) override | [source/game_sa/Events/EventLeaderQuitEnteringCarAsDriver.h:24](../../source/game_sa/Events/EventLeaderQuitEnteringCarAsDriver.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-238"></a>
+<a id="grupo-239"></a>
 
 ## CEventLeanOnVehicle
 
@@ -373,7 +393,7 @@
 | * Clone() const noexcept override | [source/game_sa/Events/EventLeanOnVehicle.h:20](../../source/game_sa/Events/EventLeanOnVehicle.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventLeanOnVehicle.h:21](../../source/game_sa/Events/EventLeanOnVehicle.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-239"></a>
+<a id="grupo-240"></a>
 
 ## CEventLowAngerAtPlayer
 
@@ -384,19 +404,3 @@
 | GetLifeTime() override | [source/game_sa/Events/EventLowAngerAtPlayer.h:15](../../source/game_sa/Events/EventLowAngerAtPlayer.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AffectsPed(CPed* ped) override | [source/game_sa/Events/EventLowAngerAtPlayer.h:16](../../source/game_sa/Events/EventLowAngerAtPlayer.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CloneEditable() const noexcept override | [source/game_sa/Events/EventLowAngerAtPlayer.h:17](../../source/game_sa/Events/EventLowAngerAtPlayer.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-240"></a>
-
-## CEventNewGangMember
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CEventNewGangMember::InjectHooks() | [source/game_sa/Events/EventNewGangMember.cpp:23](../../source/game_sa/Events/EventNewGangMember.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEventNewGangMember::CEventNewGangMember(CPed* member) | [source/game_sa/Events/EventNewGangMember.cpp:32](../../source/game_sa/Events/EventNewGangMember.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventNewGangMember::Constructor 0x00608F70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CEventNewGangMember::~CEventNewGangMember() | [source/game_sa/Events/EventNewGangMember.cpp:38](../../source/game_sa/Events/EventNewGangMember.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CEventNewGangMember::Constructor(CPed* member) | [source/game_sa/Events/EventNewGangMember.cpp:44](../../source/game_sa/Events/EventNewGangMember.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CEventNewGangMember::Constructor 0x00608F70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetEventType() const override | [source/game_sa/Events/EventNewGangMember.h:17](../../source/game_sa/Events/EventNewGangMember.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetEventPriority() const override | [source/game_sa/Events/EventNewGangMember.h:18](../../source/game_sa/Events/EventNewGangMember.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetLifeTime() override | [source/game_sa/Events/EventNewGangMember.h:19](../../source/game_sa/Events/EventNewGangMember.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const noexcept override | [source/game_sa/Events/EventNewGangMember.h:20](../../source/game_sa/Events/EventNewGangMember.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AffectsPed(CPed* ped) override | [source/game_sa/Events/EventNewGangMember.h:21](../../source/game_sa/Events/EventNewGangMember.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
