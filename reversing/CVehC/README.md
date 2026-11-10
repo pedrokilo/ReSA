@@ -106,3 +106,9 @@ Ninguna de estas funciones tiene desviaciones `FIX_BUGS`/`NOTSA` que cambien el 
 
 `python reversing/CVehC/build_probe.py` y después `python reversing/CVehC/run_local.py`. Filtro opcional: fichero `cvehc-only.txt` con `Clase::Función`
 (p. ej. `CVehicle::GetSpecialColModel`).
+
+## Revalidación del 10/11/2026 (caso CVEHC)
+
+Con las fuentes de main el banco fallaba en `CVehicle::GetUpgrade` (caso 0) con un acceso inválido en `FindUpgradeCB+58` (llamado desde `RpClumpForAllAtomics+89`), con y sin los cambios del lote 136A. Causa raíz: defecto del banco, no de producción. El lote 102A dio hook a `RpClumpForAllAtomics` (0x749B70), `RpAtomicSetFrame` (0x74BF20) y `RpGeometryForAllMaterials` (0x74C790) y la DLL pasó a llamar a su propio cuerpo C++ (ya no a la dirección del EXE); el banco solo parcheaba la dirección del EXE, así que el recorrido real de la DLL leía el clump falso (la lista de átomos no existe en la estructura sintética), `GetModelInfo` devolvía nulo y `FindUpgradeCB` desreferenciaba `CarMod`. `GetUpgrade` y `FindUpgradeCB` no cambiaron desde el 04/11 (el diff de `Vehicle.cpp` desde la última aprobación no los toca).
+Arreglo (solo el banco, `LiveComparison.hpp`): los tres falsos (`S_ClumpForAllAtomics`, `S_AtomicSetFrame`, `S_GeometryForAllMaterials`) se instalan también en el símbolo de la DLL (`Dll(&RpClumpForAllAtomics)`, etc.), como AutomobileFinal4, Cutscene35 y FileLoader47. El código de producción no cambió.
+Resultado: corrida `20261110-041029-736262`, APROBADO, 8640 pares, estado restaurado (evidencia en `reversing/CppTwelveLevel6Final/runs/CVehC-20261110-041029-736262`).

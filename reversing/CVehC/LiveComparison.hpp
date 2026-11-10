@@ -414,6 +414,8 @@ inline void Update() {
     P.Add(0x74A4C0,S_ClumpRemoveAtomic); P.Add(0x749DC0,S_AtomicDestroy); P.Add(0x7F05A0,S_FrameDestroy); P.Add(0x749E60,S_AtomicClone); P.Add(0x74A490,S_ClumpAddAtomic);
     P.Add(0x74BF20,S_AtomicSetFrame); P.Add(0x7F0B00,S_FrameAddChild); P.Add(0x7F18A0,S_MatrixUpdate); P.Add(0x7F3820,S_TextureDestroy);
     P.Add(0x749B70,S_ClumpForAllAtomics); P.Add(0x7F1200,S_FrameForAllObjects); P.Add(0x7F0DC0,S_FrameForAllChildren); P.Add(0x74C790,S_GeometryForAllMaterials);
+    // 0x749B70, 0x74BF20 y 0x74C790 tienen hook desde el lote 102A: la DLL (GetUpgrade, CreateUpgradeAtomic...) llama a su cuerpo C++, no a la direccion del EXE; el falso tambien va en el simbolo de la DLL (como AutomobileFinal4, Cutscene35 y FileLoader47)
+    P.Add(Dll(&RpClumpForAllAtomics),S_ClumpForAllAtomics); P.Add(Dll(&RpAtomicSetFrame),S_AtomicSetFrame); P.Add(Dll(&RpGeometryForAllMaterials),S_GeometryForAllMaterials);
 
     bool passed=layoutOk; int pair=0;
     for(size_t f=0;f<fns.size();++f) {
