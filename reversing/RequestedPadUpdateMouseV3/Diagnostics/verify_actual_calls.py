@@ -13,7 +13,8 @@ update=sym('CPad::UpdateMouse')
 # Derive call sites from the compiled body: every E8 instruction boundary in the dumpbin listing of UpdateMouse (no fixed addresses).
 import struct
 lo,hi=update['body'],update['body']+update['size']
-sites=[int(m.group(1),16) for m in re.finditer(r'^\s+([0-9A-F]{8}): E8 ',asm('CPad::UpdateMouse'),re.M)];sites=[a for a in sites if lo<=a<hi]
+# CASO-CONGELADOS: solo lineas de instruccion `call`; las lineas de continuacion de dumpbin (bytes de una instruccion larga) tambien pueden empezar por E8
+sites=[int(m.group(1),16) for m in re.finditer(r'^\s+([0-9A-F]{8}): E8 (?:[0-9A-F]{2} ){4}\s*call',asm('CPad::UpdateMouse'),re.M)];rets=[int(m.group(1),16) for m in re.finditer(r'^\s+([0-9A-F]{8}): C3\s+ret',asm('CPad::UpdateMouse'),re.M)];assert rets;end_of_code=max(rets);sites=[a for a in sites if lo<=a<=end_of_code]   # tras el ultimo `ret` el rango del simbolo contiene la tabla de marcos de RTC (datos que dumpbin decodifica como instrucciones)
 assert sites and all(lo<=a and a+5<=hi for a in sites)
 expected={'foreground':'IsForegroundApp','exclusive':'IsVideoModeExclusive','init':'WinInput::diMouseInit','getmouse':'CPad::GetMouseState','checkinput':'CMouseControllerState::CheckForInput','settouched':'CPad::SetTouched'}
 resolved=[(a,call_at(a)) for a in sites];calls={};last=-1

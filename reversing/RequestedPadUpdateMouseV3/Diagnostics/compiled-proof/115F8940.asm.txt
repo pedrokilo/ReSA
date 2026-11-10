@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115F8940: 55                 push        ebp
+  115F8941: 8B EC              mov         ebp,esp
+  115F8943: 81 EC CC 00 00 00  sub         esp,0CCh
+  115F8949: 53                 push        ebx
+  115F894A: 56                 push        esi
+  115F894B: 57                 push        edi
+  115F894C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115F894F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F8952: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  115F8955: 89 08              mov         dword ptr [eax],ecx
+  115F8957: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F895A: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  115F895D: 89 48 04           mov         dword ptr [eax+4],ecx
+  115F8960: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F8963: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  115F8966: 89 48 08           mov         dword ptr [eax+8],ecx
+  115F8969: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F896C: 5F                 pop         edi
+  115F896D: 5E                 pop         esi
+  115F896E: 5B                 pop         ebx
+  115F896F: 8B E5              mov         esp,ebp
+  115F8971: 5D                 pop         ebp
+  115F8972: C2 0C 00           ret         0Ch
+  115F8975: CC                 int         3
+  115F8976: CC                 int         3
+  115F8977: CC                 int         3
+  115F8978: CC                 int         3
+  115F8979: CC                 int         3
+  115F897A: CC                 int         3
+  115F897B: CC                 int         3
+  115F897C: CC                 int         3
+  115F897D: CC                 int         3
+  115F897E: CC                 int         3
+  115F897F: CC                 int         3
+  115F8980: CC                 int         3
+
+  Summary
+
+     2475000 .text

@@ -1,0 +1,160 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11E92E20: 55                 push        ebp
+  11E92E21: 8B EC              mov         ebp,esp
+  11E92E23: 81 EC F8 00 00 00  sub         esp,0F8h
+  11E92E29: 53                 push        ebx
+  11E92E2A: 56                 push        esi
+  11E92E2B: 57                 push        edi
+  11E92E2C: 51                 push        ecx
+  11E92E2D: 8D 7D C8           lea         edi,[ebp-38h]
+  11E92E30: B9 0E 00 00 00     mov         ecx,0Eh
+  11E92E35: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11E92E3A: F3 AB              rep stos    dword ptr es:[edi]
+  11E92E3C: 59                 pop         ecx
+  11E92E3D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11E92E40: A1 DC 21 CE 13     mov         eax,dword ptr ds:[13CE21DCh]
+  11E92E45: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11E92E48: 83 79 1C 00        cmp         dword ptr [ecx+1Ch],0
+  11E92E4C: 75 0A              jne         11E92E58
+  11E92E4E: B8 01 00 00 00     mov         eax,1
+  11E92E53: E9 A2 01 00 00     jmp         11E92FFA
+  11E92E58: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11E92E5B: C7 40 08 00 00 00  mov         dword ptr [eax+8],0
+            00
+  11E92E62: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11E92E65: C7 41 04 00 00 00  mov         dword ptr [ecx+4],0
+            00
+  11E92E6C: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11E92E6F: C7 02 00 00 00 00  mov         dword ptr [edx],0
+  11E92E75: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],0
+            00 00 00 00
+  11E92E7F: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11E92E82: 83 C0 0C           add         eax,0Ch
+  11E92E85: 50                 push        eax
+  11E92E86: E8 4D B0 35 FF     call        111EDED8
+  11E92E8B: 83 C4 04           add         esp,4
+  11E92E8E: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11E92E94: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11E92E97: 83 C1 0C           add         ecx,0Ch
+  11E92E9A: 51                 push        ecx
+  11E92E9B: E8 9A DA 35 FF     call        111F093A
+  11E92EA0: 83 C4 04           add         esp,4
+  11E92EA3: 89 85 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],eax
+  11E92EA9: 8D 95 20 FF FF FF  lea         edx,[ebp+FFFFFF20h]
+  11E92EAF: 52                 push        edx
+  11E92EB0: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11E92EB6: 50                 push        eax
+  11E92EB7: 8B 8D 08 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF08h]
+  11E92EBD: 51                 push        ecx
+  11E92EBE: E8 01 26 38 FF     call        112154C4
+  11E92EC3: 83 C4 0C           add         esp,0Ch
+  11E92EC6: A1 DC 21 CE 13     mov         eax,dword ptr ds:[13CE21DCh]
+  11E92ECB: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11E92ECE: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11E92ED1: 89 95 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],edx
+  11E92ED7: A1 DC 21 CE 13     mov         eax,dword ptr ds:[13CE21DCh]
+  11E92EDC: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11E92EDF: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11E92EE2: 8B 02              mov         eax,dword ptr [edx]
+  11E92EE4: 8B 48 24           mov         ecx,dword ptr [eax+24h]
+  11E92EE7: 89 8D 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],ecx
+  11E92EED: 8B F4              mov         esi,esp
+  11E92EEF: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11E92EF2: 52                 push        edx
+  11E92EF3: 6A 14              push        14h
+  11E92EF5: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11E92EFB: 50                 push        eax
+  11E92EFC: FF 95 08 FF FF FF  call        dword ptr [ebp+FFFFFF08h]
+  11E92F02: 3B F4              cmp         esi,esp
+  11E92F04: E8 62 6E 34 FF     call        111D9D6B
+  11E92F09: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11E92F0C: 83 7D EC 00        cmp         dword ptr [ebp-14h],0
+  11E92F10: 7C 07              jl          11E92F19
+  11E92F12: 33 C0              xor         eax,eax
+  11E92F14: E9 E1 00 00 00     jmp         11E92FFA
+  11E92F19: A1 DC 21 CE 13     mov         eax,dword ptr ds:[13CE21DCh]
+  11E92F1E: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11E92F21: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11E92F24: A1 DC 21 CE 13     mov         eax,dword ptr ds:[13CE21DCh]
+  11E92F29: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11E92F2C: 8B 41 1C           mov         eax,dword ptr [ecx+1Ch]
+  11E92F2F: 8B 0A              mov         ecx,dword ptr [edx]
+  11E92F31: 8B F4              mov         esi,esp
+  11E92F33: 50                 push        eax
+  11E92F34: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11E92F37: FF D2              call        edx
+  11E92F39: 3B F4              cmp         esi,esp
+  11E92F3B: E8 2B 6E 34 FF     call        111D9D6B
+  11E92F40: 3D 1E 00 07 80     cmp         eax,8007001Eh
+  11E92F45: 75 02              jne         11E92F49
+  11E92F47: EB D0              jmp         11E92F19
+  11E92F49: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11E92F4C: C7 40 08 00 00 00  mov         dword ptr [eax+8],0
+            00
+  11E92F53: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11E92F56: C7 41 04 00 00 00  mov         dword ptr [ecx+4],0
+            00
+  11E92F5D: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11E92F60: C7 02 00 00 00 00  mov         dword ptr [edx],0
+  11E92F66: C7 85 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],0
+            00 00 00 00
+  11E92F70: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11E92F73: 83 C0 0C           add         eax,0Ch
+  11E92F76: 50                 push        eax
+  11E92F77: E8 5C AF 35 FF     call        111EDED8
+  11E92F7C: 83 C4 04           add         esp,4
+  11E92F7F: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11E92F85: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11E92F88: 83 C1 0C           add         ecx,0Ch
+  11E92F8B: 51                 push        ecx
+  11E92F8C: E8 A9 D9 35 FF     call        111F093A
+  11E92F91: 83 C4 04           add         esp,4
+  11E92F94: 89 85 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],eax
+  11E92F9A: 8D 95 14 FF FF FF  lea         edx,[ebp+FFFFFF14h]
+  11E92FA0: 52                 push        edx
+  11E92FA1: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11E92FA7: 50                 push        eax
+  11E92FA8: 8B 8D 08 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF08h]
+  11E92FAE: 51                 push        ecx
+  11E92FAF: E8 10 25 38 FF     call        112154C4
+  11E92FB4: 83 C4 0C           add         esp,0Ch
+  11E92FB7: A1 DC 21 CE 13     mov         eax,dword ptr ds:[13CE21DCh]
+  11E92FBC: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11E92FBF: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11E92FC2: 89 95 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],edx
+  11E92FC8: A1 DC 21 CE 13     mov         eax,dword ptr ds:[13CE21DCh]
+  11E92FCD: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11E92FD0: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11E92FD3: 8B 02              mov         eax,dword ptr [edx]
+  11E92FD5: 8B 48 24           mov         ecx,dword ptr [eax+24h]
+  11E92FD8: 89 8D 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],ecx
+  11E92FDE: 8B F4              mov         esi,esp
+  11E92FE0: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11E92FE3: 52                 push        edx
+  11E92FE4: 6A 14              push        14h
+  11E92FE6: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11E92FEC: 50                 push        eax
+  11E92FED: FF 95 08 FF FF FF  call        dword ptr [ebp+FFFFFF08h]
+  11E92FF3: 3B F4              cmp         esi,esp
+  11E92FF5: E8 71 6D 34 FF     call        111D9D6B
+  11E92FFA: 5F                 pop         edi
+  11E92FFB: 5E                 pop         esi
+  11E92FFC: 5B                 pop         ebx
+  11E92FFD: 81 C4 F8 00 00 00  add         esp,0F8h
+  11E93003: 3B EC              cmp         ebp,esp
+  11E93005: E8 61 6D 34 FF     call        111D9D6B
+  11E9300A: 8B E5              mov         esp,ebp
+  11E9300C: 5D                 pop         ebp
+  11E9300D: C2 04 00           ret         4
+  11E93010: CC                 int         3
+
+  Summary
+
+     2475000 .text

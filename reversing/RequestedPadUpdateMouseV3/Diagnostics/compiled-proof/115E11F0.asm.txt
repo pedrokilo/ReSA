@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115E11F0: 55                 push        ebp
+  115E11F1: 8B EC              mov         ebp,esp
+  115E11F3: 81 EC CC 00 00 00  sub         esp,0CCh
+  115E11F9: 53                 push        ebx
+  115E11FA: 56                 push        esi
+  115E11FB: 57                 push        edi
+  115E11FC: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  115E1200: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115E1203: 5F                 pop         edi
+  115E1204: 5E                 pop         esi
+  115E1205: 5B                 pop         ebx
+  115E1206: 8B E5              mov         esp,ebp
+  115E1208: 5D                 pop         ebp
+  115E1209: C3                 ret
+  115E120A: CC                 int         3
+  115E120B: CC                 int         3
+  115E120C: CC                 int         3
+  115E120D: CC                 int         3
+  115E120E: CC                 int         3
+  115E120F: CC                 int         3
+  115E1210: 55                 push        ebp
+  115E1211: 8B EC              mov         ebp,esp
+  115E1213: 81 EC CC 00 00 00  sub         esp,0CCh
+  115E1219: 53                 push        ebx
+  115E121A: 56                 push        esi
+  115E121B: 57                 push        edi
+  115E121C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  115E1220: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115E1223: 5F                 pop         edi
+  115E1224: 5E                 pop         esi
+  115E1225: 5B                 pop         ebx
+  115E1226: 8B E5              mov         esp,ebp
+  115E1228: 5D                 pop         ebp
+  115E1229: C3                 ret
+  115E122A: CC                 int         3
+  115E122B: CC                 int         3
+  115E122C: CC                 int         3
+  115E122D: CC                 int         3
+  115E122E: CC                 int         3
+  115E122F: CC                 int         3
+  115E1230: 55                 push        ebp
+
+  Summary
+
+     2475000 .text

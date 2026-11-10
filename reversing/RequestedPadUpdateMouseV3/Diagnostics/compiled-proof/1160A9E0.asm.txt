@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1160A9E0: 55                 push        ebp
+  1160A9E1: 8B EC              mov         ebp,esp
+  1160A9E3: 81 EC D0 00 00 00  sub         esp,0D0h
+  1160A9E9: 53                 push        ebx
+  1160A9EA: 56                 push        esi
+  1160A9EB: 57                 push        edi
+  1160A9EC: 51                 push        ecx
+  1160A9ED: 8D 7D F0           lea         edi,[ebp-10h]
+  1160A9F0: B9 04 00 00 00     mov         ecx,4
+  1160A9F5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1160A9FA: F3 AB              rep stos    dword ptr es:[edi]
+  1160A9FC: 59                 pop         ecx
+  1160A9FD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1160AA00: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  1160AA04: 74 1D              je          1160AA23
+  1160AA06: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1160AA09: E8 21 DD BE FF     call        111F872F
+  1160AA0E: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  1160AA11: 75 10              jne         1160AA23
+  1160AA13: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1160AA16: E8 70 30 BF FF     call        111FDA8B
+  1160AA1B: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  1160AA21: EB 0A              jmp         1160AA2D
+  1160AA23: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  1160AA2D: 8B 85 30 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF30h]
+  1160AA33: 5F                 pop         edi
+  1160AA34: 5E                 pop         esi
+  1160AA35: 5B                 pop         ebx
+  1160AA36: 81 C4 D0 00 00 00  add         esp,0D0h
+  1160AA3C: 3B EC              cmp         ebp,esp
+  1160AA3E: E8 28 F3 BC FF     call        111D9D6B
+  1160AA43: 8B E5              mov         esp,ebp
+  1160AA45: 5D                 pop         ebp
+  1160AA46: C2 08 00           ret         8
+  1160AA49: CC                 int         3
+
+  Summary
+
+     2475000 .text

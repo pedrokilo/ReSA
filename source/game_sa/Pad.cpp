@@ -306,7 +306,9 @@ void CPad::UpdateMouse() {
     TempMouseControllerState.isMouseMiddleButtonPressed = state.rgbButtons[2] & 0x80;
     TempMouseControllerState.isMouseFirstXPressed = state.rgbButtons[3] & 0x80;
     TempMouseControllerState.isMouseSecondXPressed = state.rgbButtons[4] & 0x80;
-    OldMouseControllerState = std::exchange(NewMouseControllerState, TempMouseControllerState);
+    // 0x53F4E9-0x53F509: dos `rep movs` de 20 bytes; el byte de relleno de +7 viaja con ellos (la asignacion miembro a miembro de C++ no lo copia): Old = New y despues New = Temp.
+    std::memcpy(&OldMouseControllerState, &NewMouseControllerState, sizeof(CMouseControllerState));
+    std::memcpy(&NewMouseControllerState, &TempMouseControllerState, sizeof(CMouseControllerState));
     if (NewMouseControllerState.CheckForInput()) {
         SetTouched();
     }

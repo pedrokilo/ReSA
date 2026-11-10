@@ -19,3 +19,9 @@ El banco usa interfaces COM controladas para DeviceState, Acquire y Poll. Compar
 No comprueba todos los mandos físicos, drivers, hotplug, latencias, todas las teclas ni estabilidad general. Las pruebas de rutas Windows/SDL y menú son un banco separado.
 
 Ejecución autónoma: `python reversing/UnlockInput/run_local.py`. INI, ASI y PDB restaurados; partidas verificadas por hash. La captura temprana de aserciones evita dejar los bancos detenidos en un diálogo.
+
+## Repeticion del 10/11/2026 (caso CASO-CONGELADOS)
+
+El resumen de Fn135A lo daba por "congelado y no repetible". La causa era mecanica, no del codigo: `run_local.py` fijaba `PROBE_HASH` a la sonda del 23/09/2026 (`abf0b06e...`), `build_probe.py` dejaba la sonda recompilada solo en `artifacts/` (el runner la busca en `_baseline` del clon de pruebas) y `run_case` abortaba con "Ejecutable o sonda no coincide con el hash aprobado". Adaptado solo el banco (como `CPlayerInfo` y `GroupTasksCompletion`): `build_probe.py` instala la sonda en `_baseline` y `run_local.py` lee el hash de `artifacts/build-manifest.json` (con el antiguo como respaldo). Los fixtures, las compuertas y los falsos no cambiaron, y no hizo falta tocar produccion por este banco (el unico cambio de produccion de la sesion, `CPad::UpdateMouse` copia los estados con `memcpy` de 20 bytes como el EXE, salio de la repeticion del banco V3 y este banco se repitio despues de el: aprobado igual).
+
+`bash reversing/_handoff/bench_here.sh UnlockInput` compila la sonda y corre el banco: **APROBADO** con los mismos 6.144 pares (2.048 `UpdateMouse` + 4.096 `ProcessPad`), cero diferencias, ambos hooks activos y sin bloqueo. Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-unlock-input/20261110-044908-352315`, archivada en `reversing/CppTwelveLevel6Final/runs/UnlockInput-20261110-044908-352315`; `validation-summary.json` refrescado con `refresh_bank.py`.

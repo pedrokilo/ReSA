@@ -32,10 +32,10 @@
       "startup_calls": 2
     }
   ],
-  "log_sha256": "7cb8a82be3258b4679fd1d558599afd30b0df10c446bc933a47d1e1856c8ff21",
+  "log_sha256": "2b46e85e1c482ac16e299ff6c27233bbc1804d3e253aec07dc3a77265cba91c5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-input\\20260923-121517-657498",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-input\\20261110-044908-352315",
   "build_manifest": {
     "binaries": {
       "asi": "abf0b06e3a7a9b0bde9f0248cb309ce58dacf1321d11ed846d65cc2b74786631",
@@ -59,5 +59,32 @@
       "source/app/platform/win/WinPs.cpp": "e3f1e2b42540940b06d2e4b105ad4a12de1d5a94acababdfe048bc191bbc9514"
     }
   },
-  "scope": "Dispositivos DirectInput controlados; igualdad de bytes y llamadas, no todos los controladores físicos."
+  "scope": "Dispositivos DirectInput controlados; igualdad de bytes y llamadas, no todos los controladores físicos.",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "38e752aa6c6f94684704e3eab192a02155a822f134e4a8fa3699cd8499ae9916",
+      "pdb": "7e5fa2323c2b6fdad57f46fdcc4748c2a990fe05143fbed68d1030f04105d461"
+    },
+    "sources": {
+      "source\\game_sa\\Pad.cpp": "63d6d67f949bd805e7091b35676145cb21d49bff890c96a6f9a38cda39e1820c",
+      "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+      "source\\dllmain.cpp": "c08fff10148b181f59468361e10b4579e18c05ab8fc7c7f4563e37cf446a3c6a"
+    },
+    "instrumentation": {
+      "Probe.hpp": "39f803f1f4fbb8bf16689b04650b84cdfc23310cff44efa6e98445ce4bd2adc8",
+      "LiveComparison.hpp": "3f3798425294b25b898c7bc6dcf90ef895119dc15b22c207c0696600e1d08d08",
+      "build_probe.py": "1a9d3e76780af6a4d5c94fefdc0c472072907d630ff1bf627a07c4a56adf753f"
+    },
+    "dependencies": {
+      "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
+      "source/game_sa/MouseControllerState.h": "9c22fe3408e4a89413bd310ec1208f0fd786a09b996240350a580afbc04adc7b",
+      "source/app/platform/SDLWrapper.cpp": "9b8e9bfac2b533b69ac5d6651a56e6314f03464a498672759cf1fa9756c57dac",
+      "source/app/platform/win/WinMain.cpp": "5251233421eed091cdbeeb750e892e466a1425161d396100209834d7ec438df9",
+      "source/app/platform/win/WinPs.cpp": "d01fef6cefbddadf0219ae98f444d293ad457a8f2b4830022d324e0e3ba7d6b9"
+    }
+  },
+  "limitations": [
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
+    "Repetido el 2026-11-10 (caso CASO-CONGELADOS, corrida 20261110-044908-352315): el banco estaba \"congelado\" porque run_local.py fijaba PROBE_HASH a la sonda del 2026-09-23 (abf0b06e...) y build_probe.py no instalaba la sonda recompilada en _baseline; ahora build_probe.py la instala y run_local.py lee el hash de artifacts/build-manifest.json. Unico cambio de produccion, sacado de la repeticion de Fn136A/V3 (ver RequestedPadUpdateMouseV3/README.md): CPad::UpdateMouse copia los estados de raton con memcpy de 20 bytes como el EXE (rep movs) en lugar de la asignacion miembro a miembro, que no copia el relleno +7; la sonda actual esta en probe_build_manifest. Ver README.md."
+  ]
 }

@@ -1,0 +1,92 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1160FE20: 55                 push        ebp
+  1160FE21: 8B EC              mov         ebp,esp
+  1160FE23: 6A FF              push        0FFFFFFFFh
+  1160FE25: 68 06 D9 53 13     push        1353D906h
+  1160FE2A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1160FE30: 50                 push        eax
+  1160FE31: 81 EC 18 01 00 00  sub         esp,118h
+  1160FE37: 53                 push        ebx
+  1160FE38: 56                 push        esi
+  1160FE39: 57                 push        edi
+  1160FE3A: 8D 7D 9C           lea         edi,[ebp-64h]
+  1160FE3D: B9 16 00 00 00     mov         ecx,16h
+  1160FE42: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1160FE47: F3 AB              rep stos    dword ptr es:[edi]
+  1160FE49: A1 40 BD CB 13     mov         eax,dword ptr ds:[13CBBD40h]
+  1160FE4E: 33 C5              xor         eax,ebp
+  1160FE50: 50                 push        eax
+  1160FE51: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1160FE54: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1160FE5A: 83 3D 44 7D CD 13  cmp         dword ptr ds:[13CD7D44h],0
+            00
+  1160FE61: 74 09              je          1160FE6C
+  1160FE63: C6 85 DF FE FF FF  mov         byte ptr [ebp+FFFFFEDFh],1
+            01
+  1160FE6A: EB 07              jmp         1160FE73
+  1160FE6C: C6 85 DF FE FF FF  mov         byte ptr [ebp+FFFFFEDFh],0
+            00
+  1160FE73: 8A 85 DF FE FF FF  mov         al,byte ptr [ebp+FFFFFEDFh]
+  1160FE79: 88 45 EF           mov         byte ptr [ebp-11h],al
+  1160FE7C: 68 D4 75 66 13     push        136675D4h
+  1160FE81: 8D 8D E4 FE FF FF  lea         ecx,[ebp+FFFFFEE4h]
+  1160FE87: E8 03 ED BD FF     call        111EEB8F
+  1160FE8C: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1160FE93: 8D 45 EF           lea         eax,[ebp-11h]
+  1160FE96: 50                 push        eax
+  1160FE97: 8D 8D FC FE FF FF  lea         ecx,[ebp+FFFFFEFCh]
+  1160FE9D: E8 85 3B BE FF     call        111F3A27
+  1160FEA2: C7 45 FC 01 00 00  mov         dword ptr [ebp-4],1
+            00
+  1160FEA9: 8D 8D 14 FF FF FF  lea         ecx,[ebp+FFFFFF14h]
+  1160FEAF: 51                 push        ecx
+  1160FEB0: 8D 95 E4 FE FF FF  lea         edx,[ebp+FFFFFEE4h]
+  1160FEB6: 52                 push        edx
+  1160FEB7: 8D 8D 1C FF FF FF  lea         ecx,[ebp+FFFFFF1Ch]
+  1160FEBD: E8 E0 56 BE FF     call        111F55A2
+  1160FEC2: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1160FEC5: 51                 push        ecx
+  1160FEC6: 8B 10              mov         edx,dword ptr [eax]
+  1160FEC8: 52                 push        edx
+  1160FEC9: B9 30 7D CD 13     mov         ecx,13CD7D30h
+  1160FECE: E8 55 CE C0 FF     call        1121CD28
+  1160FED3: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1160FEDA: 68 9A 75 20 11     push        1120759Ah
+  1160FEDF: 6A 02              push        2
+  1160FEE1: 6A 18              push        18h
+  1160FEE3: 8D 85 E4 FE FF FF  lea         eax,[ebp+FFFFFEE4h]
+  1160FEE9: 50                 push        eax
+  1160FEEA: E8 A1 B5 BC FF     call        111DB490
+  1160FEEF: 90                 nop
+  1160FEF0: 0F B6 45 EF        movzx       eax,byte ptr [ebp-11h]
+  1160FEF4: 52                 push        edx
+  1160FEF5: 8B CD              mov         ecx,ebp
+  1160FEF7: 50                 push        eax
+  1160FEF8: 8D 15 24 FF 60 11  lea         edx,ds:[1160FF24h]
+  1160FEFE: E8 FF F7 BC FF     call        111DF702
+  1160FF03: 58                 pop         eax
+  1160FF04: 5A                 pop         edx
+  1160FF05: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1160FF08: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1160FF0F: 59                 pop         ecx
+  1160FF10: 5F                 pop         edi
+  1160FF11: 5E                 pop         esi
+  1160FF12: 5B                 pop         ebx
+  1160FF13: 81 C4 24 01 00 00  add         esp,124h
+  1160FF19: 3B EC              cmp         ebp,esp
+  1160FF1B: E8 4B 9E BC FF     call        111D9D6B
+  1160FF20: 8B
+
+  Summary
+
+     2475000 .text

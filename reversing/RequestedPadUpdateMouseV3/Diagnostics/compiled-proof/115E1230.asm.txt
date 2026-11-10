@@ -1,0 +1,46 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115E1230: 55                 push        ebp
+  115E1231: 8B EC              mov         ebp,esp
+  115E1233: 81 EC CC 00 00 00  sub         esp,0CCh
+  115E1239: 53                 push        ebx
+  115E123A: 56                 push        esi
+  115E123B: 57                 push        edi
+  115E123C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  115E1240: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115E1243: 5F                 pop         edi
+  115E1244: 5E                 pop         esi
+  115E1245: 5B                 pop         ebx
+  115E1246: 8B E5              mov         esp,ebp
+  115E1248: 5D                 pop         ebp
+  115E1249: C3                 ret
+  115E124A: CC                 int         3
+  115E124B: CC                 int         3
+  115E124C: CC                 int         3
+  115E124D: CC                 int         3
+  115E124E: CC                 int         3
+  115E124F: CC                 int         3
+  115E1250: 55                 push        ebp
+  115E1251: 8B EC              mov         ebp,esp
+  115E1253: 6A FF              push        0FFFFFFFFh
+  115E1255: 68 AD 80 53 13     push        135380ADh
+  115E125A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  115E1260: 50                 push        eax
+  115E1261: 81 EC 28 01 00 00  sub         esp,128h
+  115E1267: 53                 push        ebx
+  115E1268: 56                 push        esi
+  115E1269: 57                 push        edi
+  115E126A: 51                 push        ecx
+  115E126B: 8D 7D 8C           lea         edi,[ebp-74h]
+  115E126E: B9
+  115E126F: 1A 00              sbb         al,byte ptr [eax]
+
+  Summary
+
+     2475000 .text

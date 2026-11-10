@@ -37,3 +37,7 @@ Dos rondas de mutaciones (`mutate.py`, una por funcion y ronda; se aplican a las
 
 ## Bancos repetidos
 Ningun banco de `reversing/` cita 0x6FD7C0, 0x6FE260 ni 0x709CF0 (grep sin contar este banco ni la evidencia archivada), asi que no hay repeticion obligatoria. Como control se probo `CVehC` (usa `CCustomCarPlateMgr::CreatePlateTexture` y cabeceras del grupo): falla con un acceso invalido en `FindUpgradeCB` (via `CVehicle::GetUpgrade`) tanto con los cambios del lote (`resultados-cvehc/20261108-233504-520072`) como SIN ellos (fuentes del lote retiradas con `git stash`, `20261108-234135-003694`): es un fallo anterior y ajeno al lote (el banco aprobo el 06/10; el codigo de `GetUpgrade` ha cambiado desde entonces) y queda por revisar.
+
+## Actualizacion (10/11/2026, caso CASO-CONGELADOS)
+
+0x709CF0 (`CShadows::ShadowRenderTriangleCB`) si se puede validar sin hook y sin `__asm` en `source/game_sa`: la politica solo prohibe el ensamblador en ese directorio y los bancos de `reversing/` invocan el EXE con registros de entrada con un envoltorio propio. Banco `Fn709CF0` (16.384 pares, oraculo Python, prueba negativa de dos rondas); ver su README. Tambien existia `reversing/ShadowTriangle355` (historico, con el hook `naked` retirado), cuya direccion se escribia `0709CF0h` y por eso el grep de este lote no la encontro.

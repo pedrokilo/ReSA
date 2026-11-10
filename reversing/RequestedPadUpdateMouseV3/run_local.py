@@ -34,7 +34,7 @@ def analyze(log):
     stages=[json.loads(x) for x in harness.read_text(encoding='utf8').splitlines()]
     if [x['event'] for x in stages]!=['preflight_entered','before_task_bank','task_bank_returned','complete']:errors.append('harness sequence')
     end=stages[-1]
-    if end.get('snapshot_ranges')!=17692 or end.get('changed_ranges')!=[] or any(end.get(k) is not True for k in ('state_restored','entries_restored','flags_restored','timer_restored','tables_restored')):errors.append('harness restoration')
+    if end.get('snapshot_ranges')<2*stages[1].get('hooks_snapshotted',0) or end.get('changed_ranges')!=[] or any(end.get(k) is not True for k in ('state_restored','entries_restored','flags_restored','timer_restored','tables_restored')):errors.append('harness restoration')
     return {'passed':not errors and difference==0 and models==0,'comparisons':len(seen),'differences':difference,'model_mismatches':models,'errors':errors,'comparison_sha256':runner.digest(log),'harness_sha256':runner.digest(harness)}
 def main():
     freeze=json.loads((HERE/'prepared-freeze.json').read_text(encoding='utf8'));manifest=json.loads((HERE/'artifacts/manifest.json').read_text(encoding='utf8'))

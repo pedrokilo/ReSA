@@ -1,0 +1,3 @@
+APROBADO: PadUpdateMouse9216
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pad-update-mouse-v3\20261110-050129-866358

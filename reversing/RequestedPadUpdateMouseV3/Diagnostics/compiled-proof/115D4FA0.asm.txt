@@ -1,0 +1,80 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115D4FA0: 55                 push        ebp
+  115D4FA1: 8B EC              mov         ebp,esp
+  115D4FA3: 81 EC 08 01 00 00  sub         esp,108h
+  115D4FA9: 53                 push        ebx
+  115D4FAA: 56                 push        esi
+  115D4FAB: 57                 push        edi
+  115D4FAC: 51                 push        ecx
+  115D4FAD: 8D 7D B8           lea         edi,[ebp-48h]
+  115D4FB0: B9 12 00 00 00     mov         ecx,12h
+  115D4FB5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115D4FBA: F3 AB              rep stos    dword ptr es:[edi]
+  115D4FBC: 59                 pop         ecx
+  115D4FBD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115D4FC0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  115D4FC3: E8 F7 7D C3 FF     call        1120CDBF
+  115D4FC8: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  115D4FCB: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  115D4FCE: E8 D8 04 C4 FF     call        112154AB
+  115D4FD3: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  115D4FD6: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  115D4FD9: E8 AD FB BF FF     call        111D4B8B
+  115D4FDE: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  115D4FE1: EB 09              jmp         115D4FEC
+  115D4FE3: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  115D4FE6: 83 C0 08           add         eax,8
+  115D4FE9: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  115D4FEC: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  115D4FEF: 3B 45 D4           cmp         eax,dword ptr [ebp-2Ch]
+  115D4FF2: 74 55              je          115D5049
+  115D4FF4: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  115D4FF7: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  115D4FFA: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  115D4FFD: E8 E6 B6 C0 FF     call        111E06E8
+  115D5002: 8B C8              mov         ecx,eax
+  115D5004: E8 5A 5C C3 FF     call        1120AC63
+  115D5009: 85 C0              test        eax,eax
+  115D500B: 75 3A              jne         115D5047
+  115D500D: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  115D5010: E8 F0 16 C1 FF     call        111E6705
+  115D5015: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  115D5018: 8B 4D BC           mov         ecx,dword ptr [ebp-44h]
+  115D501B: E8 0F 37 C2 FF     call        111F872F
+  115D5020: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  115D5023: 8B 11              mov         edx,dword ptr [ecx]
+  115D5025: 3B 02              cmp         eax,dword ptr [edx]
+  115D5027: 75 1E              jne         115D5047
+  115D5029: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115D502C: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  115D502F: 8B 55 BC           mov         edx,dword ptr [ebp-44h]
+  115D5032: 89 11              mov         dword ptr [ecx],edx
+  115D5034: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115D5037: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  115D503A: 8B 11              mov         edx,dword ptr [ecx]
+  115D503C: 83 C2 01           add         edx,1
+  115D503F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115D5042: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  115D5045: 89 11              mov         dword ptr [ecx],edx
+  115D5047: EB 9A              jmp         115D4FE3
+  115D5049: 5F                 pop         edi
+  115D504A: 5E                 pop         esi
+  115D504B: 5B                 pop         ebx
+  115D504C: 81 C4 08 01 00 00  add         esp,108h
+  115D5052: 3B EC              cmp         ebp,esp
+  115D5054: E8 12 4D C0 FF     call        111D9D6B
+  115D5059: 8B E5              mov         esp,ebp
+  115D505B: 5D                 pop         ebp
+  115D505C: C2 04 00           ret         4
+  115D505F: CC                 int         3
+
+  Summary
+
+     2475000 .text

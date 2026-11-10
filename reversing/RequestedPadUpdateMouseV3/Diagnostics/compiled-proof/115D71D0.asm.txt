@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115D71D0: 55                 push        ebp
+  115D71D1: 8B EC              mov         ebp,esp
+  115D71D3: 81 EC C0 00 00 00  sub         esp,0C0h
+  115D71D9: 53                 push        ebx
+  115D71DA: 56                 push        esi
+  115D71DB: 57                 push        edi
+  115D71DC: 8B FD              mov         edi,ebp
+  115D71DE: 33 C9              xor         ecx,ecx
+  115D71E0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115D71E5: F3 AB              rep stos    dword ptr es:[edi]
+  115D71E7: EB 09              jmp         115D71F2
+  115D71E9: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115D71EC: 83 C0 08           add         eax,8
+  115D71EF: 89 45 08           mov         dword ptr [ebp+8],eax
+  115D71F2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115D71F5: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  115D71F8: 74 2A              je          115D7224
+  115D71FA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115D71FD: 50                 push        eax
+  115D71FE: 8D 4D 14           lea         ecx,[ebp+14h]
+  115D7201: 51                 push        ecx
+  115D7202: E8 48 37 C1 FF     call        111EA94F
+  115D7207: 83 C4 08           add         esp,8
+  115D720A: 50                 push        eax
+  115D720B: 8D 55 10           lea         edx,[ebp+10h]
+  115D720E: 52                 push        edx
+  115D720F: E8 54 F5 C1 FF     call        111F6768
+  115D7214: 83 C4 08           add         esp,8
+  115D7217: 0F B6 C0           movzx       eax,al
+  115D721A: 85 C0              test        eax,eax
+  115D721C: 74 04              je          115D7222
+  115D721E: B0 01              mov         al,1
+  115D7220: EB 04              jmp         115D7226
+  115D7222: EB C5              jmp         115D71E9
+  115D7224: 32 C0              xor         al,al
+  115D7226: 5F                 pop         edi
+  115D7227: 5E                 pop         esi
+  115D7228: 5B                 pop         ebx
+  115D7229: 81 C4 C0 00 00 00  add         esp,0C0h
+  115D722F: 3B EC              cmp         ebp,esp
+  115D7231: E8 35 2B C0 FF     call        111D9D6B
+  115D7236: 8B E5              mov         esp,ebp
+  115D7238: 5D                 pop         ebp
+  115D7239: C3                 ret
+  115D723A: CC                 int         3
+
+  Summary
+
+     2475000 .text

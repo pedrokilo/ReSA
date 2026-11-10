@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 9216,
+  "differences": 0,
+  "model_mismatches": 0,
+  "functions": {
+    "CPad::UpdateMouse": 9216
+  },
+  "scope": "9216 casos aislados en CPU de CPad::UpdateMouse (EXE 0x0053F3C0): original (hook apagado) contra candidato (hook activo) con helpers sustituidos por falsos identicos en el EXE y en la DLL (IsForegroundApp, IsVideoModeExclusive, diMouseInit, GetMouseState con sus dos ABI), CheckForInput nativo real en ambos lados, oraculo del modelo (model.py) y puertas estrictas de FP y de restauracion de los globales y de los hooks. No cubre NaN/Inf/INT_MIN, COM/DirectInput real ni entrada real. Repetido el 2026-11-10 (CASO-CONGELADOS): ver README.md.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/RequestedPadUpdateMouseV3-20261110-050129-866358",
+  "summary_sha256": "e8533cb9e901cba913e41a813fb81de8503a2635bc5565053fc7852deb806711",
+  "result_txt_sha256": "9173c791b9b494516746c4512ca2db2fbcc9cee1a80fb8f0d4caee8be0979703",
+  "comparison_sha256": "7e287a2589a48c23825c24a69ba241d92f246397bc99cdb1368006821feb4d68",
+  "harness_sha256": "9f7e12af0a4079e013b2bf6b27a73826be1c5738d7a2b17777a760e514d18f3c",
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RequestedPadUpdateMouseV3-20261110-050129-866358/comparisons.jsonl.gz",
+    "compressed_sha256": "a24e04ea578a8009ea30b557ac436f7638aaa97dfafea47e5777b87eaac92278",
+    "uncompressed_sha256": "7e287a2589a48c23825c24a69ba241d92f246397bc99cdb1368006821feb4d68"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "executed_probe_sha256": "20e0bc205cabcffad3f194a5f8480ffecdd882639d5b12a5c57b30728aad23fc",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Pad.cpp": "63d6d67f949bd805e7091b35676145cb21d49bff890c96a6f9a38cda39e1820c",
+      "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
+      "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
+      "source/game_sa/MouseControllerState.h": "9c22fe3408e4a89413bd310ec1208f0fd786a09b996240350a580afbc04adc7b",
+      "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/app/platform/win/WinInput.cpp": "3c2d331b28f2d99157cd13aa33a562863a06c288893284e941615909e6515a39",
+      "source/app/platform/win/WinInput.h": "7dea82c320c922eea5b8c1e046fb65b241cd975197c84236311ba89881bc1be8",
+      "source/app/platform/win/WinPlatform.cpp": "373221a0b57e7d7e8ec2adf1c2bba03bef40e31aca94568fa668239cb77568ef",
+      "source/app/platform/win/WinPlatform.h": "33ae05f2ad7409fabc0450f981be7cef6d2154190dbf61bb4f67be25c2ae8814",
+      "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
+      "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
+    }
+  }
+}

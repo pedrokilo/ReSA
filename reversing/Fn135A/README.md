@@ -50,3 +50,6 @@ Ninguno de los bancos repetidos cambio de ficheros versionados salvo su `validat
 
 ## Actualizacion (10/11/2026)
 La funcion saltada 0x607A90 se reconstruyo y valido despues en el banco `Fn607A` (CASO-607A90: `CPedAcquaintanceScanner::ScanEntities`, 16384 pares, cero diferencias); `EventScanner.cpp` ya la llama directamente. Ver [Fn607A](../Fn607A/README.md).
+## Actualizacion (10/11/2026, caso CASO-CONGELADOS)
+
+Los cuatro bancos "congelados y no repetibles" del resumen anterior se revisaron: `UnlockInput` es repetible y esta aprobado de nuevo (su `run_local.py` fijaba el hash de una sonda antigua y `build_probe.py` no la instalaba en `_baseline`; ver su README); `RequestedPadUpdateMouseV3` es repetible y esta aprobado (9.216 pares; ver su README, que lista las siete causas, entre ellas un defecto real de `CPad::UpdateMouse` en el byte de relleno de los estados de raton, ya corregido); `RequestedPadUpdateMouse` (V1) y `RequestedPadUpdateMouseV2` quedan documentados como no repetibles y sustituidos por V3 (V1 nunca compilo; V2 termino con 0 comparaciones por defectos del arnes que V3 corrige). Sus funciones (`CPad::UpdateMouse`) estan cubiertas por V3, `PadMouse1` y `UnlockInput`.

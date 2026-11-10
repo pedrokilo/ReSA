@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115F8770: 55                 push        ebp
+  115F8771: 8B EC              mov         ebp,esp
+  115F8773: 81 EC CC 00 00 00  sub         esp,0CCh
+  115F8779: 53                 push        ebx
+  115F877A: 56                 push        esi
+  115F877B: 57                 push        edi
+  115F877C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115F877F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F8782: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  115F8785: 89 08              mov         dword ptr [eax],ecx
+  115F8787: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F878A: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  115F878D: 89 48 04           mov         dword ptr [eax+4],ecx
+  115F8790: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F8793: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  115F8796: 89 48 08           mov         dword ptr [eax+8],ecx
+  115F8799: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F879C: 5F                 pop         edi
+  115F879D: 5E                 pop         esi
+  115F879E: 5B                 pop         ebx
+  115F879F: 8B E5              mov         esp,ebp
+  115F87A1: 5D                 pop         ebp
+  115F87A2: C2 0C 00           ret         0Ch
+  115F87A5: CC                 int         3
+  115F87A6: CC                 int         3
+  115F87A7: CC                 int         3
+  115F87A8: CC                 int         3
+  115F87A9: CC                 int         3
+  115F87AA: CC                 int         3
+  115F87AB: CC                 int         3
+  115F87AC: CC                 int         3
+  115F87AD: CC                 int         3
+  115F87AE: CC                 int         3
+  115F87AF: CC                 int         3
+  115F87B0: CC                 int         3
+
+  Summary
+
+     2475000 .text

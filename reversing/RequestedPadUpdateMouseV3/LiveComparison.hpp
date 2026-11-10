@@ -43,8 +43,12 @@ struct Gate{const char* name;uintptr_t native{},dll{};std::vector<uintptr_t> ent
 inline void Update(){
  char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);std::ofstream log(std::filesystem::path(exe).parent_path()/"pad-update-mouse-v3-runtime.jsonl");auto write=[&](const json& row){log<<row.dump()<<'\n';log.flush();};
  auto* target=Find("CPad","UpdateMouse");auto* check=Find("CMouseControllerState","CheckForInput");if(!target||!check||uintptr_t(target->GetHookGTAAddress())!=0x53F3C0||uintptr_t(check->GetHookGTAAddress())!=0x53F270){write({{"event","error"},{"reason","missing target/pure dependency"}});return;}
+ ReversingProbe::InstallFailureCapture("pad-update-mouse-v3");   // CASO-CONGELADOS: un acceso invalido deja traza (antes el banco moria sin registro)
  const auto savedPads=pads;const auto savedOpaque=opaque;const auto savedTrace=trace;const auto savedRoute=route,savedProfile=profile,savedFlags=flags,savedReceiver=receiver;const bool savedValid=valid;const unsigned savedFP=_controlfp(0,0),savedSSE=_mm_getcsr();
- const std::array<std::pair<uintptr_t,size_t>,6> globals{{{0xB733F4,100},{0xC8CFA4,4},{0xBA67A4,1},{0xBA6744,2},{0xB7CB7C,12},{0xB73458,616}}};std::vector<std::vector<uint8>> saved;for(auto [p,n]:globals)saved.push_back(ReversingProbe::Bytes(reinterpret_cast<void*>(p),n));
+ const std::array<std::pair<uintptr_t,size_t>,7> globals{{{0xB733F4,100},{0xC8CFA4,4},{0xBA67A4,1},{0xBA6744,2},{0xB7CB7C,12},{0xB73458,616},{0xC17054,4}}};std::vector<std::vector<uint8>> saved;for(auto [p,n]:globals)saved.push_back(ReversingProbe::Bytes(reinterpret_cast<void*>(p),n));
+ // CASO-CONGELADOS: la sonda corre al principio de NOTSA_WinMain, antes de psInitialize (que fija RsGlobal.ps = &PsGlobal): el EXE y la DLL leen PSGLOBAL(diMouse) a traves de RsGlobal.ps (0xC17054) y sin
+ // esto desreferencian un nulo. Se apunta a la estructura estatica (0xC8CF88) y el puntero se restaura con el resto de globales (esta en `globals`).
+ if(!*reinterpret_cast<uintptr_t*>(0xC17054))*reinterpret_cast<uintptr_t*>(0xC17054)=0xC8CF88;
  const std::array<bool,4> hookFlags{target->Hooked(),target->Locked(),check->Hooked(),check->Locked()};
  // V3: resolve our CheckForInput entry/body and snapshot the initial native bytes BEFORE unhooking; unhooking rewrites our thunk to E9->0x53F270, making Body() end in native.
  const auto checkOwn=uintptr_t(check->GetHookOurAddress());uintptr_t checkBody=checkOwn;

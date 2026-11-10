@@ -1,0 +1,347 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115C46F0: 53                 push        ebx
+  115C46F1: 8B DC              mov         ebx,esp
+  115C46F3: 83 EC 08           sub         esp,8
+  115C46F6: 83 E4 F8           and         esp,0FFFFFFF8h
+  115C46F9: 83 C4 04           add         esp,4
+  115C46FC: 55                 push        ebp
+  115C46FD: 8B 6B 04           mov         ebp,dword ptr [ebx+4]
+  115C4700: 89 6C 24 04        mov         dword ptr [esp+4],ebp
+  115C4704: 8B EC              mov         ebp,esp
+  115C4706: 81 EC C0 03 00 00  sub         esp,3C0h
+  115C470C: 56                 push        esi
+  115C470D: 57                 push        edi
+  115C470E: 8D BD C0 FD FF FF  lea         edi,[ebp+FFFFFDC0h]
+  115C4714: B9 90 00 00 00     mov         ecx,90h
+  115C4719: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115C471E: F3 AB              rep stos    dword ptr es:[edi]
+  115C4720: A1 78 78 CD 13     mov         eax,dword ptr ds:[13CD7878h]
+  115C4725: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  115C4728: 8B 51 18           mov         edx,dword ptr [ecx+18h]
+  115C472B: 89 95 48 FC FF FF  mov         dword ptr [ebp+FFFFFC48h],edx
+  115C4731: A1 78 78 CD 13     mov         eax,dword ptr ds:[13CD7878h]
+  115C4736: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  115C4739: 8B 51 18           mov         edx,dword ptr [ecx+18h]
+  115C473C: 8B 02              mov         eax,dword ptr [edx]
+  115C473E: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  115C4741: 89 8D 44 FC FF FF  mov         dword ptr [ebp+FFFFFC44h],ecx
+  115C4747: 8B F4              mov         esi,esp
+  115C4749: 6A 00              push        0
+  115C474B: 8B 15 78 78 CD 13  mov         edx,dword ptr ds:[13CD7878h]
+  115C4751: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  115C4754: 83 C0 1C           add         eax,1Ch
+  115C4757: 50                 push        eax
+  115C4758: 68 B0 C9 8E 13     push        138EC9B0h
+  115C475D: 8B 8D 48 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFC48h]
+  115C4763: 51                 push        ecx
+  115C4764: FF 95 44 FC FF FF  call        dword ptr [ebp+FFFFFC44h]
+  115C476A: 3B F4              cmp         esi,esp
+  115C476C: E8 FA 55 C1 FF     call        111D9D6B
+  115C4771: 89 45 F8           mov         dword ptr [ebp-8],eax
+  115C4774: 83 7D F8 00        cmp         dword ptr [ebp-8],0
+  115C4778: 0F 8D F7 00 00 00  jge         115C4875
+  115C477E: E8 F8 52 C3 FF     call        111F9A7B
+  115C4783: 89 85 48 FC FF FF  mov         dword ptr [ebp+FFFFFC48h],eax
+  115C4789: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115C478C: 89 85 48 FE FF FF  mov         dword ptr [ebp+FFFFFE48h],eax
+  115C4792: C7 85 38 FE FF FF  mov         dword ptr [ebp+FFFFFE38h],13665568h
+            68 55 66 13
+  115C479C: C7 85 3C FE FF FF  mov         dword ptr [ebp+FFFFFE3Ch],5Fh
+            5F 00 00 00
+  115C47A6: 8B 8D 38 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFE38h]
+  115C47AC: 8B 95 3C FE FF FF  mov         edx,dword ptr [ebp+FFFFFE3Ch]
+  115C47B2: 89 8D F8 FD FF FF  mov         dword ptr [ebp+FFFFFDF8h],ecx
+  115C47B8: 89 95 FC FD FF FF  mov         dword ptr [ebp+FFFFFDFCh],edx
+  115C47BE: 8B 85 F8 FD FF FF  mov         eax,dword ptr [ebp+FFFFFDF8h]
+  115C47C4: 8B 8D FC FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDFCh]
+  115C47CA: 89 85 D0 FD FF FF  mov         dword ptr [ebp+FFFFFDD0h],eax
+  115C47D0: 89 8D D4 FD FF FF  mov         dword ptr [ebp+FFFFFDD4h],ecx
+  115C47D6: 68 DC 55 66 13     push        136655DCh
+  115C47DB: 68 87 00 00 00     push        87h
+  115C47E0: 68 F8 55 66 13     push        136655F8h
+  115C47E5: 8D 8D 24 FE FF FF  lea         ecx,[ebp+FFFFFE24h]
+  115C47EB: E8 CA 9F C3 FF     call        111FE7BA
+  115C47F0: 8B 10              mov         edx,dword ptr [eax]
+  115C47F2: 89 95 08 FE FF FF  mov         dword ptr [ebp+FFFFFE08h],edx
+  115C47F8: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  115C47FB: 89 8D 0C FE FF FF  mov         dword ptr [ebp+FFFFFE0Ch],ecx
+  115C4801: 8B 50 08           mov         edx,dword ptr [eax+8]
+  115C4804: 89 95 10 FE FF FF  mov         dword ptr [ebp+FFFFFE10h],edx
+  115C480A: 8B 85 08 FE FF FF  mov         eax,dword ptr [ebp+FFFFFE08h]
+  115C4810: 89 85 E0 FD FF FF  mov         dword ptr [ebp+FFFFFDE0h],eax
+  115C4816: 8B 8D 0C FE FF FF  mov         ecx,dword ptr [ebp+FFFFFE0Ch]
+  115C481C: 89 8D E4 FD FF FF  mov         dword ptr [ebp+FFFFFDE4h],ecx
+  115C4822: 8B 95 10 FE FF FF  mov         edx,dword ptr [ebp+FFFFFE10h]
+  115C4828: 89 95 E8 FD FF FF  mov         dword ptr [ebp+FFFFFDE8h],edx
+  115C482E: 8D 85 48 FE FF FF  lea         eax,[ebp+FFFFFE48h]
+  115C4834: 50                 push        eax
+  115C4835: 8B 8D D4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDD4h]
+  115C483B: 51                 push        ecx
+  115C483C: 8B 95 D0 FD FF FF  mov         edx,dword ptr [ebp+FFFFFDD0h]
+  115C4842: 52                 push        edx
+  115C4843: 6A 01              push        1
+  115C4845: 83 EC 0C           sub         esp,0Ch
+  115C4848: 8B C4              mov         eax,esp
+  115C484A: 8B 8D E0 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDE0h]
+  115C4850: 89 08              mov         dword ptr [eax],ecx
+  115C4852: 8B 95 E4 FD FF FF  mov         edx,dword ptr [ebp+FFFFFDE4h]
+  115C4858: 89 50 04           mov         dword ptr [eax+4],edx
+  115C485B: 8B 8D E8 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDE8h]
+  115C4861: 89 48 08           mov         dword ptr [eax+8],ecx
+  115C4864: 8B 8D 48 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFC48h]
+  115C486A: E8 A1 7E C5 FF     call        1121C710
+  115C486F: 90                 nop
+  115C4870: E9 03 04 00 00     jmp         115C4C78
+  115C4875: 33 C0              xor         eax,eax
+  115C4877: 0F 85 A3 FE FF FF  jne         115C4720
+  115C487D: A1 78 78 CD 13     mov         eax,dword ptr ds:[13CD7878h]
+  115C4882: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  115C4885: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  115C4888: 89 95 48 FC FF FF  mov         dword ptr [ebp+FFFFFC48h],edx
+  115C488E: A1 78 78 CD 13     mov         eax,dword ptr ds:[13CD7878h]
+  115C4893: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  115C4896: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  115C4899: 8B 02              mov         eax,dword ptr [edx]
+  115C489B: 8B 48 2C           mov         ecx,dword ptr [eax+2Ch]
+  115C489E: 89 8D 44 FC FF FF  mov         dword ptr [ebp+FFFFFC44h],ecx
+  115C48A4: 8B F4              mov         esi,esp
+  115C48A6: 68 40 B7 A3 13     push        13A3B740h
+  115C48AB: 8B 95 48 FC FF FF  mov         edx,dword ptr [ebp+FFFFFC48h]
+  115C48B1: 52                 push        edx
+  115C48B2: FF 95 44 FC FF FF  call        dword ptr [ebp+FFFFFC44h]
+  115C48B8: 3B F4              cmp         esi,esp
+  115C48BA: E8 AC 54 C1 FF     call        111D9D6B
+  115C48BF: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  115C48C2: 83 7D EC 00        cmp         dword ptr [ebp-14h],0
+  115C48C6: 0F 8D F7 00 00 00  jge         115C49C3
+  115C48CC: E8 AA 51 C3 FF     call        111F9A7B
+  115C48D1: 89 85 48 FC FF FF  mov         dword ptr [ebp+FFFFFC48h],eax
+  115C48D7: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  115C48DA: 89 85 C4 FD FF FF  mov         dword ptr [ebp+FFFFFDC4h],eax
+  115C48E0: C7 85 B4 FD FF FF  mov         dword ptr [ebp+FFFFFDB4h],13665638h
+            38 56 66 13
+  115C48EA: C7 85 B8 FD FF FF  mov         dword ptr [ebp+FFFFFDB8h],45h
+            45 00 00 00
+  115C48F4: 8B 8D B4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDB4h]
+  115C48FA: 8B 95 B8 FD FF FF  mov         edx,dword ptr [ebp+FFFFFDB8h]
+  115C4900: 89 8D 78 FD FF FF  mov         dword ptr [ebp+FFFFFD78h],ecx
+  115C4906: 89 95 7C FD FF FF  mov         dword ptr [ebp+FFFFFD7Ch],edx
+  115C490C: 8B 85 78 FD FF FF  mov         eax,dword ptr [ebp+FFFFFD78h]
+  115C4912: 8B 8D 7C FD FF FF  mov         ecx,dword ptr [ebp+FFFFFD7Ch]
+  115C4918: 89 85 50 FD FF FF  mov         dword ptr [ebp+FFFFFD50h],eax
+  115C491E: 89 8D 54 FD FF FF  mov         dword ptr [ebp+FFFFFD54h],ecx
+  115C4924: 68 DC 55 66 13     push        136655DCh
+  115C4929: 68 88 00 00 00     push        88h
+  115C492E: 68 F8 55 66 13     push        136655F8h
+  115C4933: 8D 8D A0 FD FF FF  lea         ecx,[ebp+FFFFFDA0h]
+  115C4939: E8 7C 9E C3 FF     call        111FE7BA
+  115C493E: 8B 10              mov         edx,dword ptr [eax]
+  115C4940: 89 95 88 FD FF FF  mov         dword ptr [ebp+FFFFFD88h],edx
+  115C4946: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  115C4949: 89 8D 8C FD FF FF  mov         dword ptr [ebp+FFFFFD8Ch],ecx
+  115C494F: 8B 50 08           mov         edx,dword ptr [eax+8]
+  115C4952: 89 95 90 FD FF FF  mov         dword ptr [ebp+FFFFFD90h],edx
+  115C4958: 8B 85 88 FD FF FF  mov         eax,dword ptr [ebp+FFFFFD88h]
+  115C495E: 89 85 60 FD FF FF  mov         dword ptr [ebp+FFFFFD60h],eax
+  115C4964: 8B 8D 8C FD FF FF  mov         ecx,dword ptr [ebp+FFFFFD8Ch]
+  115C496A: 89 8D 64 FD FF FF  mov         dword ptr [ebp+FFFFFD64h],ecx
+  115C4970: 8B 95 90 FD FF FF  mov         edx,dword ptr [ebp+FFFFFD90h]
+  115C4976: 89 95 68 FD FF FF  mov         dword ptr [ebp+FFFFFD68h],edx
+  115C497C: 8D 85 C4 FD FF FF  lea         eax,[ebp+FFFFFDC4h]
+  115C4982: 50                 push        eax
+  115C4983: 8B 8D 54 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFD54h]
+  115C4989: 51                 push        ecx
+  115C498A: 8B 95 50 FD FF FF  mov         edx,dword ptr [ebp+FFFFFD50h]
+  115C4990: 52                 push        edx
+  115C4991: 6A 01              push        1
+  115C4993: 83 EC 0C           sub         esp,0Ch
+  115C4996: 8B C4              mov         eax,esp
+  115C4998: 8B 8D 60 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFD60h]
+  115C499E: 89 08              mov         dword ptr [eax],ecx
+  115C49A0: 8B 95 64 FD FF FF  mov         edx,dword ptr [ebp+FFFFFD64h]
+  115C49A6: 89 50 04           mov         dword ptr [eax+4],edx
+  115C49A9: 8B 8D 68 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFD68h]
+  115C49AF: 89 48 08           mov         dword ptr [eax+8],ecx
+  115C49B2: 8B 8D 48 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFC48h]
+  115C49B8: E8 53 7D C5 FF     call        1121C710
+  115C49BD: 90                 nop
+  115C49BE: E9 B5 02 00 00     jmp         115C4C78
+  115C49C3: 33 C0              xor         eax,eax
+  115C49C5: 0F 85 B2 FE FF FF  jne         115C487D
+  115C49CB: A1 78 78 CD 13     mov         eax,dword ptr ds:[13CD7878h]
+  115C49D0: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  115C49D3: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  115C49D6: 89 95 48 FC FF FF  mov         dword ptr [ebp+FFFFFC48h],edx
+  115C49DC: A1 78 78 CD 13     mov         eax,dword ptr ds:[13CD7878h]
+  115C49E1: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  115C49E4: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  115C49E7: 8B 02              mov         eax,dword ptr [edx]
+  115C49E9: 8B 48 34           mov         ecx,dword ptr [eax+34h]
+  115C49EC: 89 8D 44 FC FF FF  mov         dword ptr [ebp+FFFFFC44h],ecx
+  115C49F2: 0F B6 53 08        movzx       edx,byte ptr [ebx+8]
+  115C49F6: 85 D2              test        edx,edx
+  115C49F8: 74 0C              je          115C4A06
+  115C49FA: C7 85 40 FC FF FF  mov         dword ptr [ebp+FFFFFC40h],1
+            01 00 00 00
+  115C4A04: EB 0A              jmp         115C4A10
+  115C4A06: C7 85 40 FC FF FF  mov         dword ptr [ebp+FFFFFC40h],2
+            02 00 00 00
+  115C4A10: 8B 85 40 FC FF FF  mov         eax,dword ptr [ebp+FFFFFC40h]
+  115C4A16: 83 C8 04           or          eax,4
+  115C4A19: 8B 0D 78 78 CD 13  mov         ecx,dword ptr ds:[13CD7878h]
+  115C4A1F: 8B 51 14           mov         edx,dword ptr [ecx+14h]
+  115C4A22: 8B F4              mov         esi,esp
+  115C4A24: 50                 push        eax
+  115C4A25: 8B 02              mov         eax,dword ptr [edx]
+  115C4A27: 50                 push        eax
+  115C4A28: 8B 8D 48 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFC48h]
+  115C4A2E: 51                 push        ecx
+  115C4A2F: FF 95 44 FC FF FF  call        dword ptr [ebp+FFFFFC44h]
+  115C4A35: 3B F4              cmp         esi,esp
+  115C4A37: E8 2F 53 C1 FF     call        111D9D6B
+  115C4A3C: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  115C4A3F: 83 7D E0 00        cmp         dword ptr [ebp-20h],0
+  115C4A43: 0F 8D F7 00 00 00  jge         115C4B40
+  115C4A49: E8 2D 50 C3 FF     call        111F9A7B
+  115C4A4E: 89 85 48 FC FF FF  mov         dword ptr [ebp+FFFFFC48h],eax
+  115C4A54: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  115C4A57: 89 85 44 FD FF FF  mov         dword ptr [ebp+FFFFFD44h],eax
+  115C4A5D: C7 85 34 FD FF FF  mov         dword ptr [ebp+FFFFFD34h],13665690h
+            90 56 66 13
+  115C4A67: C7 85 38 FD FF FF  mov         dword ptr [ebp+FFFFFD38h],95h
+            95 00 00 00
+  115C4A71: 8B 8D 34 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFD34h]
+  115C4A77: 8B 95 38 FD FF FF  mov         edx,dword ptr [ebp+FFFFFD38h]
+  115C4A7D: 89 8D F8 FC FF FF  mov         dword ptr [ebp+FFFFFCF8h],ecx
+  115C4A83: 89 95 FC FC FF FF  mov         dword ptr [ebp+FFFFFCFCh],edx
+  115C4A89: 8B 85 F8 FC FF FF  mov         eax,dword ptr [ebp+FFFFFCF8h]
+  115C4A8F: 8B 8D FC FC FF FF  mov         ecx,dword ptr [ebp+FFFFFCFCh]
+  115C4A95: 89 85 D0 FC FF FF  mov         dword ptr [ebp+FFFFFCD0h],eax
+  115C4A9B: 89 8D D4 FC FF FF  mov         dword ptr [ebp+FFFFFCD4h],ecx
+  115C4AA1: 68 DC 55 66 13     push        136655DCh
+  115C4AA6: 68 89 00 00 00     push        89h
+  115C4AAB: 68 F8 55 66 13     push        136655F8h
+  115C4AB0: 8D 8D 20 FD FF FF  lea         ecx,[ebp+FFFFFD20h]
+  115C4AB6: E8 FF 9C C3 FF     call        111FE7BA
+  115C4ABB: 8B 10              mov         edx,dword ptr [eax]
+  115C4ABD: 89 95 08 FD FF FF  mov         dword ptr [ebp+FFFFFD08h],edx
+  115C4AC3: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  115C4AC6: 89 8D 0C FD FF FF  mov         dword ptr [ebp+FFFFFD0Ch],ecx
+  115C4ACC: 8B 50 08           mov         edx,dword ptr [eax+8]
+  115C4ACF: 89 95 10 FD FF FF  mov         dword ptr [ebp+FFFFFD10h],edx
+  115C4AD5: 8B 85 08 FD FF FF  mov         eax,dword ptr [ebp+FFFFFD08h]
+  115C4ADB: 89 85 E0 FC FF FF  mov         dword ptr [ebp+FFFFFCE0h],eax
+  115C4AE1: 8B 8D 0C FD FF FF  mov         ecx,dword ptr [ebp+FFFFFD0Ch]
+  115C4AE7: 89 8D E4 FC FF FF  mov         dword ptr [ebp+FFFFFCE4h],ecx
+  115C4AED: 8B 95 10 FD FF FF  mov         edx,dword ptr [ebp+FFFFFD10h]
+  115C4AF3: 89 95 E8 FC FF FF  mov         dword ptr [ebp+FFFFFCE8h],edx
+  115C4AF9: 8D 85 44 FD FF FF  lea         eax,[ebp+FFFFFD44h]
+  115C4AFF: 50                 push        eax
+  115C4B00: 8B 8D D4 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFCD4h]
+  115C4B06: 51                 push        ecx
+  115C4B07: 8B 95 D0 FC FF FF  mov         edx,dword ptr [ebp+FFFFFCD0h]
+  115C4B0D: 52                 push        edx
+  115C4B0E: 6A 01              push        1
+  115C4B10: 83 EC 0C           sub         esp,0Ch
+  115C4B13: 8B C4              mov         eax,esp
+  115C4B15: 8B 8D E0 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFCE0h]
+  115C4B1B: 89 08              mov         dword ptr [eax],ecx
+  115C4B1D: 8B 95 E4 FC FF FF  mov         edx,dword ptr [ebp+FFFFFCE4h]
+  115C4B23: 89 50 04           mov         dword ptr [eax+4],edx
+  115C4B26: 8B 8D E8 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFCE8h]
+  115C4B2C: 89 48 08           mov         dword ptr [eax+8],ecx
+  115C4B2F: 8B 8D 48 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFC48h]
+  115C4B35: E8 D6 7B C5 FF     call        1121C710
+  115C4B3A: 90                 nop
+  115C4B3B: E9 38 01 00 00     jmp         115C4C78
+  115C4B40: 33 C0              xor         eax,eax
+  115C4B42: 0F 85 83 FE FF FF  jne         115C49CB
+  115C4B48: A1 78 78 CD 13     mov         eax,dword ptr ds:[13CD7878h]
+  115C4B4D: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  115C4B50: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  115C4B53: A1 78 78 CD 13     mov         eax,dword ptr ds:[13CD7878h]
+  115C4B58: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  115C4B5B: 8B 41 1C           mov         eax,dword ptr [ecx+1Ch]
+  115C4B5E: 8B 0A              mov         ecx,dword ptr [edx]
+  115C4B60: 8B F4              mov         esi,esp
+  115C4B62: 50                 push        eax
+  115C4B63: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  115C4B66: FF D2              call        edx
+  115C4B68: 3B F4              cmp         esi,esp
+  115C4B6A: E8 FC 51 C1 FF     call        111D9D6B
+  115C4B6F: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  115C4B72: 83 7D D4 00        cmp         dword ptr [ebp-2Ch],0
+  115C4B76: 0F 8D F4 00 00 00  jge         115C4C70
+  115C4B7C: E8 FA 4E C3 FF     call        111F9A7B
+  115C4B81: 89 85 48 FC FF FF  mov         dword ptr [ebp+FFFFFC48h],eax
+  115C4B87: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  115C4B8A: 89 85 C4 FC FF FF  mov         dword ptr [ebp+FFFFFCC4h],eax
+  115C4B90: C7 85 B4 FC FF FF  mov         dword ptr [ebp+FFFFFCB4h],13665744h
+            44 57 66 13
+  115C4B9A: C7 85 B8 FC FF FF  mov         dword ptr [ebp+FFFFFCB8h],32h
+            32 00 00 00
+  115C4BA4: 8B 8D B4 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFCB4h]
+  115C4BAA: 8B 95 B8 FC FF FF  mov         edx,dword ptr [ebp+FFFFFCB8h]
+  115C4BB0: 89 8D 78 FC FF FF  mov         dword ptr [ebp+FFFFFC78h],ecx
+  115C4BB6: 89 95 7C FC FF FF  mov         dword ptr [ebp+FFFFFC7Ch],edx
+  115C4BBC: 8B 85 78 FC FF FF  mov         eax,dword ptr [ebp+FFFFFC78h]
+  115C4BC2: 8B 8D 7C FC FF FF  mov         ecx,dword ptr [ebp+FFFFFC7Ch]
+  115C4BC8: 89 85 50 FC FF FF  mov         dword ptr [ebp+FFFFFC50h],eax
+  115C4BCE: 89 8D 54 FC FF FF  mov         dword ptr [ebp+FFFFFC54h],ecx
+  115C4BD4: 68 DC 55 66 13     push        136655DCh
+  115C4BD9: 68 8A 00 00 00     push        8Ah
+  115C4BDE: 68 F8 55 66 13     push        136655F8h
+  115C4BE3: 8D 8D A0 FC FF FF  lea         ecx,[ebp+FFFFFCA0h]
+  115C4BE9: E8 CC 9B C3 FF     call        111FE7BA
+  115C4BEE: 8B 10              mov         edx,dword ptr [eax]
+  115C4BF0: 89 95 88 FC FF FF  mov         dword ptr [ebp+FFFFFC88h],edx
+  115C4BF6: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  115C4BF9: 89 8D 8C FC FF FF  mov         dword ptr [ebp+FFFFFC8Ch],ecx
+  115C4BFF: 8B 50 08           mov         edx,dword ptr [eax+8]
+  115C4C02: 89 95 90 FC FF FF  mov         dword ptr [ebp+FFFFFC90h],edx
+  115C4C08: 8B 85 88 FC FF FF  mov         eax,dword ptr [ebp+FFFFFC88h]
+  115C4C0E: 89 85 60 FC FF FF  mov         dword ptr [ebp+FFFFFC60h],eax
+  115C4C14: 8B 8D 8C FC FF FF  mov         ecx,dword ptr [ebp+FFFFFC8Ch]
+  115C4C1A: 89 8D 64 FC FF FF  mov         dword ptr [ebp+FFFFFC64h],ecx
+  115C4C20: 8B 95 90 FC FF FF  mov         edx,dword ptr [ebp+FFFFFC90h]
+  115C4C26: 89 95 68 FC FF FF  mov         dword ptr [ebp+FFFFFC68h],edx
+  115C4C2C: 8D 85 C4 FC FF FF  lea         eax,[ebp+FFFFFCC4h]
+  115C4C32: 50                 push        eax
+  115C4C33: 8B 8D 54 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFC54h]
+  115C4C39: 51                 push        ecx
+  115C4C3A: 8B 95 50 FC FF FF  mov         edx,dword ptr [ebp+FFFFFC50h]
+  115C4C40: 52                 push        edx
+  115C4C41: 6A 01              push        1
+  115C4C43: 83 EC 0C           sub         esp,0Ch
+  115C4C46: 8B C4              mov         eax,esp
+  115C4C48: 8B 8D 60 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFC60h]
+  115C4C4E: 89 08              mov         dword ptr [eax],ecx
+  115C4C50: 8B 95 64 FC FF FF  mov         edx,dword ptr [ebp+FFFFFC64h]
+  115C4C56: 89 50 04           mov         dword ptr [eax+4],edx
+  115C4C59: 8B 8D 68 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFC68h]
+  115C4C5F: 89 48 08           mov         dword ptr [eax+8],ecx
+  115C4C62: 8B 8D 48 FC FF FF  mov         ecx,dword ptr [ebp+FFFFFC48h]
+  115C4C68: E8 A3 7A C5 FF     call        1121C710
+  115C4C6D: 90                 nop
+  115C4C6E: EB 08              jmp         115C4C78
+  115C4C70: 33 C0              xor         eax,eax
+  115C4C72: 0F 85 D0 FE FF FF  jne         115C4B48
+  115C4C78: 5F                 pop         edi
+  115C4C79: 5E                 pop         esi
+  115C4C7A: 8B E5              mov         esp,ebp
+  115C4C7C: 5D                 pop         ebp
+  115C4C7D: 8B E3              mov         esp,ebx
+  115C4C7F: 5B                 pop         ebx
+  115C4C80: C3                 ret
+  115C4C81: CC                 int         3
+
+  Summary
+
+     2475000 .text

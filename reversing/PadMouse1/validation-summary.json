@@ -7,26 +7,26 @@
   },
   "scope": "9216 isolated CPU pairs for CPad::UpdateMouse (EXE 0x0053F3C0), simple pair bench: original (hook off) vs candidate; zero differences, natural completion event with state_restored, saves unchanged, configs restored. Corpus: 6 paths (no foreground; init leaving the device null; read E_FAIL; read 0; positive HRESULT 1; E_ACCESSDENIED) x 12 DIMOUSESTATE2 states x 8 menu/invert-X/invert-Y combinations x 4 seed patterns x previous device yes/no x 2 clocks. Limits: no NaN/Inf/INT_MIN; no real COM (device is an opaque token); diMouseInit, GetMouseState, IsForegroundApp and IsVideoModeExclusive are stubbed and traced (calls and arguments only), so those helpers get no credit; CheckForInput and SetTouched run for real; padding bytes 7/27/47 of CMouseControllerState are NOT compared (MouseBytes() zeroes them: the EXE propagates byte 7 with rep movs, the compiler copies member by member); stubs ignore foreign threads (audio threads call IsForegroundApp); x87 forced to 24-bit precision. An earlier run (20261009-000614-797633) showed 579 differences in 1752 pairs plus an access violation; all of it was bench noise (padding byte and foreign-thread traces), fixed in LiveComparison.hpp, not a source/EXE difference. Historical evidence approved with explicit limits; no current dependency accreditation. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PadMouse1-20261109-003817-584629",
-  "summary_sha256": "9ad7b35a0670c700fe930835b119c63c48c27b5517d7ddce2b37c3b826f63922",
-  "result_txt_sha256": "042a609e40f1a914e4f1503a69a70bc8dc8905baf7574d614225bb3444b7638a",
-  "log_sha256": "05d2becfebf547bf4bcc485b1c4a6a02a7c735f9f3fa7d4331e491d6194b62e4",
+  "run": "reversing/CppTwelveLevel6Final/runs/PadMouse1-20261110-045506-563012",
+  "summary_sha256": "ccaa8ef9c45ff8f9dcbeab17c1552fdb5f462b4b7f682f3f30f1d7a9e3952b6d",
+  "result_txt_sha256": "7da9c3900ea68206fb02b024226007a9263d562c9927d62774b029338709cd7b",
+  "log_sha256": "e56f177c533a99f6764614138197589a35dabbb7b3c908917c1b3a9a5f0d1822",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PadMouse1-20261109-003817-584629/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PadMouse1-20261110-045506-563012/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "c3e43ac3167af95b26edf703e4bfb0aafc03b2187192441c09bb51326ba98b12",
-    "uncompressed_sha256": "05d2becfebf547bf4bcc485b1c4a6a02a7c735f9f3fa7d4331e491d6194b62e4"
+    "compressed_sha256": "a510aa2597668b2b0b4381d59b22d3073a4436bfbe82069e274b9e776dbd9144",
+    "uncompressed_sha256": "e56f177c533a99f6764614138197589a35dabbb7b3c908917c1b3a9a5f0d1822"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "6d3bfddf9a9f5a00f78619acebddddf3a6aef4e97d1ffec485e753a14dd1851b",
+  "executed_probe_sha256": "447f6ac78b4a3b0cb1e3923540eb7ddd6857f5b2f1c0d29c3594c9c25608dfb8",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Pad.cpp": "4f99003909f0f7f4eb69f0aec50c2389c92c58f4faca4fc31c760e6add24a78f",
+      "source/game_sa/Pad.cpp": "63d6d67f949bd805e7091b35676145cb21d49bff890c96a6f9a38cda39e1820c",
       "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
       "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
       "source/game_sa/MouseControllerState.h": "9c22fe3408e4a89413bd310ec1208f0fd786a09b996240350a580afbc04adc7b"

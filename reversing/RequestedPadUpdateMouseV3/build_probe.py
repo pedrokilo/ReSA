@@ -30,7 +30,7 @@ def main():
     lock=ROOT/'reversing/.pad-update-mouse-v3-build.lock'
     with lock.open('x') as handle:handle.write('Root-coordinated serial build')
     try:
-        source=saved.decode('utf8');signature='INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdLine, INT nCmdShow) {';assert source.count(signature)==1;start=source.index(signature);anchor='    SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0u, nullptr, 2);';offset=source.index(anchor,start);source=source[:offset]+'    RequestedPreflightPadUpdateMouseLive::Update();\n    return 0;\n'+source[offset:];source=source.replace('#include "StdInc.h"','#include "StdInc.h"\n#include "'+(HERE/'Preflight.hpp').as_posix()+'"',1);win.write_text(source,encoding='utf8',newline='\n');manifest['compiled_instruments']={'source/app/platform/win/WinMain.cpp':digest(win)};env=os.environ.copy();env['_CL_']='/MP6';cmake=next((ROOT/'reversing/CVehicle/conan-cache/p').glob('cmake*/p/bin/cmake.exe'))
+        source=saved.decode('utf8');signature='INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdLine, INT nCmdShow) {';assert source.count(signature)==1;start=source.index(signature);anchor='    SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0u, nullptr, 2);';offset=source.index(anchor,start);source=source[:offset]+'    RequestedPreflightPadUpdateMouseLive::Update();\n    return 0;\n'+source[offset:];source=source.replace('#include "StdInc.h"','#include "StdInc.h"\n#include "'+(HERE/'Preflight.hpp').as_posix()+'"',1);win.write_text(source,encoding='utf8',newline='\n');manifest['compiled_instruments']={'source/app/platform/win/WinMain.cpp':digest(win)};env=os.environ.copy();env['_CL_']=env.get('_CL_','/MP6');cmake=next((ROOT/'reversing/CVehicle/conan-cache/p').glob('cmake*/p/bin/cmake.exe'))
         with (ART/'build.log').open('w',encoding='utf8') as log:subprocess.run([str(cmake),'--build',str(ROOT/'build'),'--config','Debug','--parallel','1'],stdout=log,stderr=subprocess.STDOUT,env=env,check=True)
         for label in ('tested_sources','bank_sources'):
             for p,h in manifest[label].items():assert digest(ROOT/p)==h,p
@@ -45,4 +45,11 @@ def main():
                 restored_write(p,(ART/f'before.{ext}').read_bytes());assert digest(p)==before[ext]
             except Exception as e:errors.append(ext+' '+repr(e))
         lock.unlink(missing_ok=True);report={'errors':errors,'WinMain_restored':win.read_bytes()==saved,'binaries_restored':{ext:digest(p)==before[ext] for ext,p in bins.items()}};(ART/'restoration.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8');assert not errors,errors
-if __name__=='__main__':main()
+def prove():
+    # CASO-CONGELADOS: la prueba estatica de las rutas de llamada (inspect_compiled.py + Diagnostics/verify_actual_calls.py) se genera aqui, para que `bench_here.sh` baste (antes se hacia a mano y por separado).
+    for script in ('inspect_compiled.py','Diagnostics/verify_actual_calls.py'):
+        done=subprocess.run([sys.executable,'-B',str(HERE/script)],cwd=ROOT,capture_output=True,text=True)
+        (ART/(Path(script).stem+'.out')).write_text(done.stdout+done.stderr,encoding='utf8')
+        if done.returncode:raise SystemExit('Fallo '+script+': '+(done.stderr or done.stdout)[-600:])
+    print('Prueba estatica de rutas de llamada generada')
+if __name__=='__main__':main();prove()

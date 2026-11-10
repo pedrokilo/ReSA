@@ -1,0 +1,91 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1160A7E0: 55                 push        ebp
+  1160A7E1: 8B EC              mov         ebp,esp
+  1160A7E3: 81 EC 00 01 00 00  sub         esp,100h
+  1160A7E9: 53                 push        ebx
+  1160A7EA: 56                 push        esi
+  1160A7EB: 57                 push        edi
+  1160A7EC: 51                 push        ecx
+  1160A7ED: 8D 7D C0           lea         edi,[ebp-40h]
+  1160A7F0: B9 10 00 00 00     mov         ecx,10h
+  1160A7F5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1160A7FA: F3 AB              rep stos    dword ptr es:[edi]
+  1160A7FC: 59                 pop         ecx
+  1160A7FD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1160A800: C7 45 EC 00 00 00  mov         dword ptr [ebp-14h],0
+            00
+  1160A807: C7 45 E0 00 00 00  mov         dword ptr [ebp-20h],0
+            00
+  1160A80E: E8 C5 C2 BE FF     call        111F6AD8
+  1160A813: 89 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],eax
+  1160A819: 8D 45 E0           lea         eax,[ebp-20h]
+  1160A81C: 50                 push        eax
+  1160A81D: 8D 4D EC           lea         ecx,[ebp-14h]
+  1160A820: 51                 push        ecx
+  1160A821: 8D 55 08           lea         edx,[ebp+8]
+  1160A824: 52                 push        edx
+  1160A825: 8D 8D 0C FF FF FF  lea         ecx,[ebp+FFFFFF0Ch]
+  1160A82B: E8 AE B9 BC FF     call        111D61DE
+  1160A830: 89 85 00 FF FF FF  mov         dword ptr [ebp+FFFFFF00h],eax
+  1160A836: 8B 85 00 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF00h]
+  1160A83C: 50                 push        eax
+  1160A83D: 8B 8D 04 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF04h]
+  1160A843: E8 33 3C C0 FF     call        1120E47B
+  1160A848: 90                 nop
+  1160A849: 83 7D E0 01        cmp         dword ptr [ebp-20h],1
+  1160A84D: 75 0B              jne         1160A85A
+  1160A84F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1160A852: 89 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],eax
+  1160A858: EB 0A              jmp         1160A864
+  1160A85A: C7 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],0
+            00 00 00 00
+  1160A864: 8B 85 04 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF04h]
+  1160A86A: 52                 push        edx
+  1160A86B: 8B CD              mov         ecx,ebp
+  1160A86D: 50                 push        eax
+  1160A86E: 8D 15 94 A8 60 11  lea         edx,ds:[1160A894h]
+  1160A874: E8 89 4E BD FF     call        111DF702
+  1160A879: 58                 pop         eax
+  1160A87A: 5A                 pop         edx
+  1160A87B: 5F                 pop         edi
+  1160A87C: 5E                 pop         esi
+  1160A87D: 5B                 pop         ebx
+  1160A87E: 81 C4 00 01 00 00  add         esp,100h
+  1160A884: 3B EC              cmp         ebp,esp
+  1160A886: E8 E0 F4 BC FF     call        111D9D6B
+  1160A88B: 8B E5              mov         esp,ebp
+  1160A88D: 5D                 pop         ebp
+  1160A88E: C2 04 00           ret         4
+  1160A891: 0F 1F 00           nop         dword ptr [eax]
+  1160A894: 02 00              add         al,byte ptr [eax]
+  1160A896: 00 00              add         byte ptr [eax],al
+  1160A898: 9C                 pushfd
+  1160A899: A8 60              test        al,60h
+  1160A89B: 11 EC              adc         esp,ebp
+  1160A89D: FF
+  1160A89E: FF
+  1160A89F: FF 04 00           inc         dword ptr [eax+eax]
+  1160A8A2: 00 00              add         byte ptr [eax],al
+  1160A8A4: B9 A8 60 11 E0     mov         ecx,0E01160A8h
+  1160A8A9: FF
+  1160A8AA: FF
+  1160A8AB: FF 04 00           inc         dword ptr [eax+eax]
+  1160A8AE: 00 00              add         byte ptr [eax],al
+  1160A8B0: B4 A8              mov         ah,0A8h
+  1160A8B2: 60                 pushad
+  1160A8B3: 11 68 69           adc         dword ptr [eax+69h],ebp
+  1160A8B6: 74 73              je          1160A92B
+  1160A8B8: 00 66 6F           add         byte ptr [esi+6Fh],ah
+  1160A8BB: 75 6E              jne         1160A92B
+  1160A8BD: 64 00 CC           add         ah,cl
+
+  Summary
+
+     2475000 .text

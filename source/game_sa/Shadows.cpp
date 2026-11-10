@@ -1680,7 +1680,14 @@ CVector* ShadowRenderTriangleCB(CVector* normal, CVector* trianglePos, _Projecti
     RwIm3DVertex* vertices;
     RenderBuffer::StartStoring(3, 3, indices, vertices);
     for (int32 vertex = 0; vertex < 3; ++vertex) {
-        vertices[vertex].objVertex.x = world[vertex].x;
+        // 0x709E87-0x709E8F: solo la x del primer vertice pasa por la x87 (fld/fstp: un NaN senalizador sale silenciado); el resto de coordenadas son copias de 32 bits (mov).
+        if (vertex == 0) {
+            const uint32 xBits = std::bit_cast<uint32>(world[vertex].x);
+            const bool signalling = (xBits & 0x7F800000u) == 0x7F800000u && (xBits & 0x007FFFFFu) != 0u;
+            vertices[vertex].objVertex.x = std::bit_cast<float>(signalling ? (xBits | 0x00400000u) : xBits);
+        } else {
+            vertices[vertex].objVertex.x = world[vertex].x;
+        }
         vertices[vertex].objVertex.y = world[vertex].y;
         vertices[vertex].objVertex.z = float(double(world[vertex].z) + double(0.06f));
         vertices[vertex].u = projected[vertex].x;

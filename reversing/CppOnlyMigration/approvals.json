@@ -25481,5 +25481,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn607A con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 8f02c8dfdb con los cambios del caso (ver artifacts/build-manifest.json). Una funcion del EXE sin hook antes del caso: 0x607A90, el escaneo de entidades de CPedAcquaintanceScanner (hook ScanEntities; el listado la atribuia a CDecisionMakerTypesFileLoader). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL: con hook RH (apagado durante el banco) CPed::IsAlive 0x5E0170, CVector::Normalise 0x59C910, CAcquaintance::GetAcquaintances 0x608970, CPedType::GetPedFlag 0x608830, CGameLogic::LaRiotsActiveHere 0x441C10, CPedGeometryAnalyser::CanPedTargetPed 0x5F1C40 y CDecisionMakerTypes::GetInstance 0x4684F0 (SEH en el EXE); sin hook y reconstruidos por este caso como funciones propias de la DLL (el falso va en la direccion del EXE y en esa funcion): 0x603AF0 (CPedAcquaintanceScanner::CanJoinRiotAgainst), 0x6042B0 (CDecisionMakerTypes::HasResponseToAnyEvent) y 0x607560 (CPedAcquaintanceScanner::FindAcquaintance). Esas tres funciones propias NO estan validadas por este banco (solo se prueba que ScanEntities las llama con los argumentos y en el orden del EXE y que usa su resultado como el EXE); 0x607560 llama por direccion a 0x606BA0 (sin reconstruir) y ScanForPedAcquaintances sigue llamando por direccion a 0x603A30. La aritmetica x87 (resta candidato - ped y producto escalar contra el umbral de 0xC0B034) vive en X87Math.cpp (AcquaintanceDeltaCpp, AcquaintanceInViewCpp) y es la validada. Se observan bytes cambiados de las cuatro arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos con todos sus argumentos, EAX (numero de candidatos), pila, no volatiles, DF, SEH y x87 vacia; el umbral global 0xC0B034 se guarda y se restaura tras cada lado; cada lado coincide con el oraculo independiente fixture_oracle.py (x87 de 24 bits con fracciones exactas). Fuera de los fixtures: mas de 16 candidatos aceptados (desbordan la tabla local del EXE y sus registros guardados), ped sin matriz (el EXE desreferencia +0x14), peaton y candidato reales construidos por el EXE, dos NaN con cargas utiles distintas en una misma resta, el quinto elemento de la lista del decision maker (en el EXE es un resto de pila sin inicializar; la DLL repite el cuarto), el valor de EAX/ECX/EDX tras la llamada (informativo; los llamadores del EXE no lo leen) y la exactitud de los colaboradores falseados (tienen bancos propios, salvo las tres funciones propias)."
+  },
+  "0x00709CF0": {
+    "identity": "CShadows::ShadowRenderTriangleCB",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Shadows.cpp",
+    "bank": "Fn709CF0",
+    "run": "20261110-052051-840016",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn709CF0-20261110-052051-840016/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn709CF0 con 16384 pares y cero diferencias (EXE por direccion con envoltorio del banco, sin hook); sin cobertura exhaustiva más allá de los fixtures del banco."
   }
 }

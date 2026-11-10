@@ -1,0 +1,67 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115BB130: 55                 push        ebp
+  115BB131: 8B EC              mov         ebp,esp
+  115BB133: 81 EC E4 00 00 00  sub         esp,0E4h
+  115BB139: 53                 push        ebx
+  115BB13A: 56                 push        esi
+  115BB13B: 57                 push        edi
+  115BB13C: 8D 7D DC           lea         edi,[ebp-24h]
+  115BB13F: B9 09 00 00 00     mov         ecx,9
+  115BB144: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115BB149: F3 AB              rep stos    dword ptr es:[edi]
+  115BB14B: A1 40 BD CB 13     mov         eax,dword ptr ds:[13CBBD40h]
+  115BB150: 33 C5              xor         eax,ebp
+  115BB152: 89 45 FC           mov         dword ptr [ebp-4],eax
+  115BB155: A1 D0 77 CD 13     mov         eax,dword ptr ds:[13CD77D0h]
+  115BB15A: 8B 08              mov         ecx,dword ptr [eax]
+  115BB15C: 51                 push        ecx
+  115BB15D: 8D 55 E0           lea         edx,[ebp-20h]
+  115BB160: 52                 push        edx
+  115BB161: E8 2F 2C C6 FF     call        1121DD95
+  115BB166: 83 C4 08           add         esp,8
+  115BB169: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  115BB16C: 83 E0 01           and         eax,1
+  115BB16F: 52                 push        edx
+  115BB170: 8B CD              mov         ecx,ebp
+  115BB172: 50                 push        eax
+  115BB173: 8D 15 A0 B1 5B 11  lea         edx,ds:[115BB1A0h]
+  115BB179: E8 84 45 C2 FF     call        111DF702
+  115BB17E: 58                 pop         eax
+  115BB17F: 5A                 pop         edx
+  115BB180: 5F                 pop         edi
+  115BB181: 5E                 pop         esi
+  115BB182: 5B                 pop         ebx
+  115BB183: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  115BB186: 33 CD              xor         ecx,ebp
+  115BB188: E8 C1 D1 C1 FF     call        111D834E
+  115BB18D: 81 C4 E4 00 00 00  add         esp,0E4h
+  115BB193: 3B EC              cmp         ebp,esp
+  115BB195: E8 D1 EB C1 FF     call        111D9D6B
+  115BB19A: 8B E5              mov         esp,ebp
+  115BB19C: 5D                 pop         ebp
+  115BB19D: C3                 ret
+  115BB19E: 66 90              nop
+  115BB1A0: 01 00              add         dword ptr [eax],eax
+  115BB1A2: 00 00              add         byte ptr [eax],al
+  115BB1A4: A8 B1              test        al,0B1h
+  115BB1A6: 5B                 pop         ebx
+  115BB1A7: 11 E0              adc         eax,esp
+  115BB1A9: FF
+  115BB1AA: FF
+  115BB1AB: FF 18              call        fword ptr [eax]
+  115BB1AD: 00 00              add         byte ptr [eax],al
+  115BB1AF: 00 B4 B1 5B 11 76  add         byte ptr [ecx+esi*4+6D76115Bh],dh
+            6D
+  115BB1B6: 69
+  115BB1B7: 00 CC              add         ah,cl
+
+  Summary
+
+     2475000 .text

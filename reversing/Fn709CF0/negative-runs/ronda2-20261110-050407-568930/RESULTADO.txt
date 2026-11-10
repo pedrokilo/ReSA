@@ -1,0 +1,3 @@
+FALLO: Fn709CF0
+Funciones con diferencias: CShadows::ShadowRenderTriangleCB: 317/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn709cf0\20261110-050407-568930

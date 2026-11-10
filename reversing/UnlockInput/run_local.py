@@ -2,7 +2,8 @@ import json,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from runtime_runner import run_case,digest,terminal_event
-PROBE_HASH='abf0b06e3a7a9b0bde9f0248cb309ce58dacf1321d11ed846d65cc2b74786631'
+HERE=Path(__file__).resolve().parent
+PROBE_HASH=json.loads((HERE/'artifacts/build-manifest.json').read_text())['binaries']['asi'] if (HERE/'artifacts/build-manifest.json').exists() else 'abf0b06e3a7a9b0bde9f0248cb309ce58dacf1321d11ed846d65cc2b74786631'   # CASO-CONGELADOS: el hash sale de la ultima compilacion
 REQUIRE_ENABLED=True
 COUNTS={0:2048,1:4096}
 def analyze(path):

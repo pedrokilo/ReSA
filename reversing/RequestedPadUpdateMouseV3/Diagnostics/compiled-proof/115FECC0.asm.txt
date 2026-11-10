@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115FECC0: 55                 push        ebp
+  115FECC1: 8B EC              mov         ebp,esp
+  115FECC3: 6A FF              push        0FFFFFFFFh
+  115FECC5: 68 00 A6 53 13     push        1353A600h
+  115FECCA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  115FECD0: 50                 push        eax
+  115FECD1: 81 EC CC 00 00 00  sub         esp,0CCh
+  115FECD7: 53                 push        ebx
+  115FECD8: 56                 push        esi
+  115FECD9: 57                 push        edi
+  115FECDA: 51                 push        ecx
+  115FECDB: 8D 7D E8           lea         edi,[ebp-18h]
+  115FECDE: B9 03 00 00 00     mov         ecx,3
+  115FECE3: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115FECE8: F3 AB              rep stos    dword ptr es:[edi]
+  115FECEA: 59                 pop         ecx
+  115FECEB: A1 40 BD CB 13     mov         eax,dword ptr ds:[13CBBD40h]
+  115FECF0: 33 C5              xor         eax,ebp
+  115FECF2: 50                 push        eax
+  115FECF3: 8D 45 F4           lea         eax,[ebp-0Ch]
+  115FECF6: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  115FECFC: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  115FECFF: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  115FED02: 50                 push        eax
+  115FED03: E8 78 4A FF FF     call        115F3780
+  115FED08: 83 C4 04           add         esp,4
+  115FED0B: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  115FED0E: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  115FED15: 59                 pop         ecx
+  115FED16: 5F                 pop         edi
+  115FED17: 5E                 pop         esi
+  115FED18: 5B                 pop         ebx
+  115FED19: 81 C4 D8 00 00 00  add         esp,0D8h
+  115FED1F: 3B EC              cmp         ebp,esp
+  115FED21: E8 45 B0 BD FF     call        111D9D6B
+  115FED26: 8B E5              mov         esp,ebp
+  115FED28: 5D                 pop         ebp
+  115FED29: C3                 ret
+  115FED2A: CC                 int         3
+  115FED2B: CC                 int         3
+  115FED2C: CC                 int         3
+  115FED2D: CC                 int         3
+  115FED2E: CC                 int         3
+  115FED2F: CC                 int         3
+
+  Summary
+
+     2475000 .text

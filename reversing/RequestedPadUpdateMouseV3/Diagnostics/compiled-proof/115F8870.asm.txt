@@ -1,0 +1,51 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-6\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115F8870: 55                 push        ebp
+  115F8871: 8B EC              mov         ebp,esp
+  115F8873: 81 EC CC 00 00 00  sub         esp,0CCh
+  115F8879: 53                 push        ebx
+  115F887A: 56                 push        esi
+  115F887B: 57                 push        edi
+  115F887C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115F887F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F8882: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  115F8885: 89 08              mov         dword ptr [eax],ecx
+  115F8887: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F888A: 5F                 pop         edi
+  115F888B: 5E                 pop         esi
+  115F888C: 5B                 pop         ebx
+  115F888D: 8B E5              mov         esp,ebp
+  115F888F: 5D                 pop         ebp
+  115F8890: C2 04 00           ret         4
+  115F8893: CC                 int         3
+  115F8894: CC                 int         3
+  115F8895: CC                 int         3
+  115F8896: CC                 int         3
+  115F8897: CC                 int         3
+  115F8898: CC                 int         3
+  115F8899: CC                 int         3
+  115F889A: CC                 int         3
+  115F889B: CC                 int         3
+  115F889C: CC                 int         3
+  115F889D: CC                 int         3
+  115F889E: CC                 int         3
+  115F889F: CC                 int         3
+  115F88A0: 55                 push        ebp
+  115F88A1: 8B EC              mov         ebp,esp
+  115F88A3: 81 EC CC 00 00 00  sub         esp,0CCh
+  115F88A9: 53                 push        ebx
+  115F88AA: 56                 push        esi
+  115F88AB: 57                 push        edi
+  115F88AC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115F88AF: 8B
+  115F88B0: 45                 inc         ebp
+
+  Summary
+
+     2475000 .text
