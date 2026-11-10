@@ -51,7 +51,7 @@ void CPedGroupIntelligence::InjectHooks() {
     RH_ScopedInstall(SetScriptCommandTask, 0x5F8560);
     RH_ScopedInstall(IsCurrentEventValid, 0x5F77A0);
     RH_ScopedInstall(IsGroupResponding, 0x5F7760);
-    //RH_ScopedInstall(SetEventResponseTask, 0x5F8510); // Register allocation is weird, better not to hook it at all
+    RH_ScopedOverloadedInstall(SetEventResponseTask, "", 0x5F8510, void(CPedGroupIntelligence::*)(CPed*, bool, const CTask&, bool, const CTask&, eSecondaryTask)); // lote 149A (banco Fn149A): validado par a par (el aviso de asignacion de registros se descarto)
     RH_ScopedInstall(SetEventResponseTaskAllocator, 0x5F7440);
     RH_ScopedInstall(SetPrimaryTaskAllocator, 0x5F7410);
     RH_ScopedInstall(SetGroupDecisionMakerType, 0x5F7340);
@@ -308,7 +308,8 @@ void CPedGroupIntelligence::SetPrimaryTaskAllocator(CTaskAllocator* ta) {
     m_PrimaryTaskAllocator = ta;
 }
 
-// 0x5F8510
+// 0x5F8510 (lote 149A, banco Fn149A; thiscall, seis argumentos de pila, `ret 18h`, 77 bytes): con hasMainTask (BYTE) llama a SetTask (0x5F7540, con hook) con (ped, tarea, pares de tareas principales (+0xC), slot -1, force 0);
+// con hasSecondaryTask (BYTE) otra vez con (ped, tarea secundaria, pares secundarios (+0xAC), slot, force 0). Primero la principal. SetTask no se expande en linea (noinline) para que el banco pueda sustituirla.
 void CPedGroupIntelligence::SetEventResponseTask(CPed* ped, bool hasMainTask, const CTask& mainTask, bool hasSecondaryTask, const CTask& secondaryTask, eSecondaryTask slot) {
     if (hasMainTask) {
         SetTask(ped, mainTask, m_PedTaskPairs);
@@ -350,7 +351,7 @@ bool CPedGroupIntelligence::ReportFinishedTask(const CPed* ped, const CTask* tas
 }
 
 // 0x5F7540
-void CPedGroupIntelligence::SetTask(CPed* ped, const CTask& task, PedTaskPairs& taskPairs, eSecondaryTask slot, bool force) const {
+__declspec(noinline) void CPedGroupIntelligence::SetTask(CPed* ped, const CTask& task, PedTaskPairs& taskPairs, eSecondaryTask slot, bool force) const {
     // Commented out as script tasks are `new`'d, and deleted after this finishes.
     //assert(!GetTaskPool()->IsObjectValid(&task)); // Shouldn't be `new`'d [Keep in mind that there might be false positives]
 

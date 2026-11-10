@@ -435,6 +435,7 @@
 #include "TaskSimpleCarSetPedInAsDriver.h"
 #include "TaskComplexWaitForBus.h"
 #include "TaskSimpleWaitForBus.h"
+#include "TaskSimpleWaitForPizza.h"
 #include "TaskSimpleStandUp.h"
 #include "TaskComplexWander.h"
 #include "TaskSimplePutDownEntity.h"
@@ -1332,7 +1333,7 @@ void InjectHooksMain() {
         CTaskSimpleUseAtm::InjectHooks();
         CTaskSimpleTurn180::InjectHooks();
         CTaskSimpleWaitForBus::InjectHooks();
-        // CTaskSimpleWaitForPizza::InjectHooks();
+        CTaskSimpleWaitForPizza::InjectHooks(); // lote 149A (banco Fn149A): destructor con borrado
         CTaskSimpleWaitUntilAreaCodesMatch::InjectHooks();
         CTaskSimpleWaitUntilLeaderAreaCodesMatch::InjectHooks();
         CTaskSimpleWaitUntilPedIsInCar::InjectHooks();

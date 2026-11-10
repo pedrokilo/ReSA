@@ -56,10 +56,15 @@ public:
     }
     ePedGroupDefaultTaskAllocatorType GetType() const override { return ePedGroupDefaultTaskAllocatorType::RANDOM; }; // 0x5F6530
 
+private:
+    CPedGroupDefaultTaskAllocatorRandom* Constructor(); // 0x5F6510 (lote 149A, banco Fn149A)
+
 public:
     static inline void InjectHooks() {
         RH_ScopedVirtualClass(CPedGroupDefaultTaskAllocatorRandom, 0x86C77C, 2);
         RH_ScopedCategory("Tasks/Allocators/PedGroup");
+
+        RH_ScopedInstall(Constructor, 0x5F6510); // lote 149A (banco Fn149A)
 
         RH_ScopedVMTInstall(AllocateDefaultTasks, 0x5F6E90);
         RH_ScopedVMTInstall(GetType, 0x5F6530);

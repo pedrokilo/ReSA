@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "aa4f976bc565d30a756ecc435e2866c2146582279a4f64ff6c3b48ec20bd7502",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 11296,
+  "pairs_per_function": {
+    "CPedGroupDefaultTaskAllocatorChat::AllocateDefaultTasks": 1024,
+    "CPedGroupDefaultTaskAllocatorChat::GetType": 64,
+    "CPedGroupDefaultTaskAllocatorFollowAnyMeans::AllocateDefaultTasks": 1024,
+    "CPedGroupDefaultTaskAllocatorFollowAnyMeans::GetType": 64,
+    "CPedGroupDefaultTaskAllocatorFollowLimited::AllocateDefaultTasks": 1024,
+    "CPedGroupDefaultTaskAllocatorFollowLimited::GetType": 64,
+    "CPedGroupDefaultTaskAllocatorRandom::GetType": 64,
+    "CPedGroupDefaultTaskAllocatorSitInLeaderCar::GetType": 64,
+    "CPedGroupDefaultTaskAllocatorStandStill::AllocateDefaultTasks": 1024,
+    "CPedGroupDefaultTaskAllocatorStandStill::GetType": 64,
+    "CPedGroups::Process": 1024,
+    "CPedGroups::RemoveGroup": 256,
+    "CTaskAllocatorKillThreatsBasicRandomGroup::AllocateTasks": 1024,
+    "CTaskAllocatorKillThreatsBasicRandomGroup::GetType": 64,
+    "CTaskComplexDragPedFromCar::ControlSubTask": 512,
+    "CTaskComplexDragPedFromCar::CreateFirstSubTask": 1024,
+    "CTaskSequences::CleanUpForShutdown": 128,
+    "CTaskSequences::Init": 128,
+    "CTaskSimpleFinishBrain::Clone": 128,
+    "CTaskSimpleFinishBrain::GetTaskType": 32,
+    "CTaskSimpleLeaveGroup::Constructor": 64,
+    "CTaskSimpleLeaveGroup::Destructor": 64,
+    "CTaskSimplePlayHandSignalAnim::ProcessPed": 1024,
+    "CTaskSimplePlayHandSignalAnim::StartAnim": 1024,
+    "CTaskSimpleScratchHead::Clone": 128,
+    "CTaskSimpleScratchHead::IsInterruptable": 64,
+    "CTimeModelInfo::GetModelType": 64,
+    "CTimeModelInfo::GetTimeInfo": 64
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "5b02908c13fe9bbc251b1e78cce238633c4d0b9f6ce29eb652625e2807d0c077",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -47,12 +47,40 @@ static std::array<uint32, 48> s_EAXEnvironments = {
 };
 #endif
 
+namespace {
+// 0x4D7C00 (lote 149A, banco Fn149A): destructor con borrado de CAEAudioChannel del EXE (ranura 0 de su vtable 0x85F03C; thiscall, un argumento de pila, `ret 4`, 81 bytes). El cuerpo del destructor va EN LINEA y
+// en este orden (que un Release de COM puede observar a traves de `this`): vtable de la clase (0x85F03C) al principio; si hay buffer DirectSound (+8) decrementa el contador de canales usados (0xB5F898); relee +8 y,
+// si no es nulo, lo libera con Release (ranura 2 de su vtable, stdcall); pone +8 a 0; LEE +0xC DESPUES de ese primer Release y, si no es nulo, lo libera tambien; pone +0xC a 0; con el bit 0 del BYTE de banderas
+// llama a operator delete del CRT (0x8214BD) con `this`; devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CAEAudioChannel* __fastcall AEAudioChannelScalarDeletingDestructor(CAEAudioChannel* self, void* /*edx*/, uint8 flags) {
+    *reinterpret_cast<uint32*>(self) = 0x85F03C;
+    if (self->m_pDirectSoundBuffer) {
+        --g_numSoundChannelsUsed;
+    }
+    if (self->m_pDirectSoundBuffer) {
+        self->m_pDirectSoundBuffer->Release();
+    }
+    IDirectSound3DBuffer* const buffer3D = self->m_pDirectSound3DBuffer; // Como el original: se lee DESPUES del primer Release
+    self->m_pDirectSoundBuffer = nullptr;
+    if (buffer3D) {
+        buffer3D->Release();
+    }
+    self->m_pDirectSound3DBuffer = nullptr;
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 /**
  * Registra las operaciones comunes de un canal DirectSound.
  */
 void CAEAudioChannel::InjectHooks() {
     RH_ScopedVirtualClass(CAEAudioChannel, 0x85F03C, 9);
     RH_ScopedCategory("Audio/Hardware");
+    RH_ScopedNamedGlobalInstall(AEAudioChannelScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4D7C00); // lote 149A (banco Fn149A)
+    RH_ScopedInstall(IsBufferPlaying, 0x4D7990);                                                               // lote 149A (banco Fn149A)
 
     RH_ScopedInstall(SetPosition, 0x4D7950);
     RH_ScopedInstall(UpdateStatus, 0x4D7BD0);
@@ -179,6 +207,11 @@ void CAEAudioChannel::SetVolume(float volume) {
 
     AESmoothFadeThread.SetBufferVolume(m_pDirectSoundBuffer, volume);
     m_Volume = volume;
+}
+
+// 0x4D7990 (lote 149A, banco Fn149A; thiscall, `ret`, 7 bytes: `mov eax,[ecx+5Ch]; and eax,1`): bit 0 (DSBSTATUS_PLAYING) del estado del buffer (+0x5C).
+bool CAEAudioChannel::IsBufferPlaying() const {
+    return m_nBufferStatus & DSBSTATUS_PLAYING;
 }
 
 // 0x4D79A0

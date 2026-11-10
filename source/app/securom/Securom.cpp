@@ -30,7 +30,25 @@ namespace Securom {
         RH_ScopedCategoryGlobal();
         RH_ScopedGlobalInstall(SecuromDisplayInit, 0x744A70);
         RH_ScopedGlobalInstall(SecuromStateDisplay, 0x744AE0);
+        RH_ScopedGlobalInstall(SecuromAnyPairPending, 0x744D50); // lote 149A (banco Fn149A)
+        RH_ScopedGlobalInstall(SecuromFirstPairPending, 0x744D90); // lote 149A (banco Fn149A)
     }
+}
+
+// 0x744D50 (lote 149A, banco Fn149A; sin argumentos de pila, `ret`, 49 bytes; el unico llamador (0x748B9D) pasa un puntero en ECX que no se lee): lee cuatro palabras de 16 bits del estado global de Securom
+// (0xB733F6, 0xB73186, 0xB733F8 y 0xB73188) y devuelve 1 si (0xB733F6 != 0 y 0xB73186 == 0) o (0xB733F8 != 0 y 0xB73188 == 0); si no, 0. EAX completo es 0 o 1 (`mov eax,1` / `xor eax,eax`).
+bool SecuromAnyPairPending() {
+    const auto word = [](uintptr_t address) { return *reinterpret_cast<const uint16*>(address); };
+    if (word(0xB733F6) == 0 || word(0xB73186) != 0) {
+        return word(0xB733F8) != 0 && word(0xB73188) == 0;
+    }
+    return true;
+}
+
+// 0x744D90 (lote 149A, banco Fn149A; sin argumentos de pila, `ret`, 29 bytes; el unico llamador (0x748BB1) pasa un puntero en ECX que no se lee): devuelve 1 si la palabra de 16 bits de 0xB733E6 no es cero y
+// la de 0xB73176 si lo es; si no, 0.
+bool SecuromFirstPairPending() {
+    return *reinterpret_cast<const uint16*>(0xB733E6) != 0 && *reinterpret_cast<const uint16*>(0xB73176) == 0;
 }
 
 // 0x744A70

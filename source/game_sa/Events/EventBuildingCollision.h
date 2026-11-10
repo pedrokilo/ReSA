@@ -24,11 +24,11 @@ public:
     CEventBuildingCollision(int16 pieceType, float damageIntensity, CBuilding* building, const CVector& collisionImpactVelocity, const CVector& collisionPos, int16 moveState);
     ~CEventBuildingCollision() override;
 
-    eEventType GetEventType() const override { return EVENT_BUILDING_COLLISION; }
-    bool TakesPriorityOver(const CEvent& refEvent) override { return refEvent.GetEventType() != GetEventType(); }
-    bool CanBeInterruptedBySameEvent() override { return true; }
-    int32 GetEventPriority() const override { return 59; }
-    int32 GetLifeTime() override { return 0; }
+    eEventType GetEventType() const override;                          // 0x4ACFB0 (lote 149A, banco Fn149A: definido en el .cpp)
+    bool TakesPriorityOver(const CEvent& refEvent) override;           // 0x4AD050
+    bool CanBeInterruptedBySameEvent() override;                       // 0x4ACFD0
+    int32 GetEventPriority() const override;                           // 0x4ACFE0
+    int32 GetLifeTime() override;                                      // 0x4ACFC0
     CEventBuildingCollision* Clone() const noexcept override { return new CEventBuildingCollision(m_pieceType, m_damageIntensity, m_building, m_impactNormal, m_impactPos, m_moveState); }
     bool AffectsPed(CPed* ped) override;
 

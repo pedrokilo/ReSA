@@ -21,6 +21,29 @@ END GENERATED HOOK STATUS */
 #include "Building.h"
 #include "Pools/PoolRawDelete.h"
 
+namespace {
+// Destructor de CEntity (0x535E90, con hook: CEntity::Destructor) llamado por el cuerpo del destructor de CBuilding como el `jmp 0x535E90` del EXE. Funcion propia sin expansion en linea para que el banco
+// Fn149A pueda sustituirla (el hook de CEntity::Destructor lleva la misma llamada, pero esta es la que llama este cuerpo).
+__declspec(noinline) void __fastcall BuildingEntityDestructor(CEntity* self, void* /*edx*/) { self->CEntity::~CEntity(); }
+
+// 0x404180 (lote 149A, banco Fn149A): cuerpo del destructor de CBuilding del EXE (thiscall, sin argumentos, 5 bytes: `jmp 0x535E90`): no escribe la vtable (CBuilding no tiene destructor propio) y salta al
+// destructor de CEntity. Lo llama el destructor con borrado (0x404130). Funcion propia sin expansion en linea para que el banco pueda sustituirla.
+__declspec(noinline) void __fastcall BuildingDestructorBody(CBuilding* self, void* /*edx*/) { BuildingEntityDestructor(self, nullptr); }
+
+// 0x404130 (lote 149A, banco Fn149A): destructor con borrado de CBuilding del EXE (ranura 0 de su vtable 0x8585C8; thiscall, un argumento de pila, `ret 4`, 78 bytes: `push esi; push edi; mov edi,ecx;
+// call 0x404180; test byte [esp+0Ch],1; je ..;` y, con el bit 0 del BYTE de banderas, el operator delete de CBuilding EN LINEA (la ranura del pool de edificios 0xB74498, como el hook de 0x4040A0); devuelve `this`).
+// Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CBuilding* __fastcall BuildingScalarDeletingDestructor(CBuilding* self, void* /*edx*/, uint8 flags) {
+    BuildingDestructorBody(self, nullptr);
+    if (flags & 1) {
+        PoolFreeSlotRaw(GetBuildingPool(), self, sizeof(CBuilding));
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote149ABuildingEntityDestructor() { return reinterpret_cast<uintptr_t>(&BuildingEntityDestructor); } // para el banco Fn149A
+
 /**
  * Registra las operaciones específicas de edificios estáticos y su pool.
  */
@@ -28,6 +51,8 @@ void CBuilding::InjectHooks()
 {
     RH_ScopedVirtualClass(CBuilding, 0x8585C8, 22);
     RH_ScopedCategory("Entity");
+    RH_ScopedNamedGlobalInstall(BuildingDestructorBody, "DestructorBody", 0x404180);                       // lote 149A (banco Fn149A)
+    RH_ScopedNamedGlobalInstall(BuildingScalarDeletingDestructor, "ScalarDeletingDestructor", 0x404130);   // lote 149A (banco Fn149A)
 
     RH_ScopedInstall(ReplaceWithNewModel, 0x403EC0);
     RH_ScopedInstall(operator new, 0x404090);    // lote 146A (banco Fn146A)

@@ -1,0 +1,3 @@
+APROBADO: Tareas complejas y repartidor (lista de 19)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ctasks19\20261110-000926-249560

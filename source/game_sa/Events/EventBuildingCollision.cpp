@@ -37,6 +37,11 @@ void CEventBuildingCollision::InjectHooks()
     RH_ScopedNamedGlobalInstall(BuildingCollisionDestructorBody, "Destructor", 0x4ACFF0);
 
     RH_ScopedInstall(Constructor, 0x4ACF00);
+    RH_ScopedVMTInstall(GetEventType, 0x4ACFB0);               // lote 149A (banco Fn149A)
+    RH_ScopedVMTInstall(GetLifeTime, 0x4ACFC0);                // lote 149A (banco Fn149A)
+    RH_ScopedVMTInstall(CanBeInterruptedBySameEvent, 0x4ACFD0); // lote 149A (banco Fn149A)
+    RH_ScopedVMTInstall(GetEventPriority, 0x4ACFE0);           // lote 149A (banco Fn149A)
+    RH_ScopedVMTInstall(TakesPriorityOver, 0x4AD050);          // lote 149A (banco Fn149A)
     RH_ScopedVMTInstall(AffectsPed, 0x4AD070);
     RH_ScopedInstall(IsHeadOnCollision, 0x4AD1E0);
     RH_ScopedInstall(CanTreatBuildingAsObject, 0x4B3120);
@@ -64,6 +69,39 @@ CEventBuildingCollision* CEventBuildingCollision::Constructor(int16 pieceType, f
 {
     this->CEventBuildingCollision::CEventBuildingCollision(pieceType, damageIntensity, building, collisionImpactVelocity, collisionPos, moveState);
     return this;
+}
+
+// 0x4ACFB0 (lote 149A, banco Fn149A; thiscall, `ret`, 6 bytes: `mov eax,6`): EVENT_BUILDING_COLLISION (6); no lee el objeto.
+eEventType CEventBuildingCollision::GetEventType() const
+{
+    return EVENT_BUILDING_COLLISION;
+}
+
+// 0x4ACFC0 (lote 149A, banco Fn149A; thiscall, `ret`, 3 bytes: `xor eax,eax`): tiempo de vida 0; no lee el objeto.
+int32 CEventBuildingCollision::GetLifeTime()
+{
+    return 0;
+}
+
+// 0x4ACFD0 (lote 149A, banco Fn149A; thiscall, `ret`, 3 bytes: `mov al,1`): siempre verdadero (solo se define AL); no lee el objeto.
+bool CEventBuildingCollision::CanBeInterruptedBySameEvent()
+{
+    return true;
+}
+
+// 0x4ACFE0 (lote 149A, banco Fn149A; thiscall, `ret`, 6 bytes: `mov eax,3Bh`): prioridad 59; no lee el objeto.
+int32 CEventBuildingCollision::GetEventPriority() const
+{
+    return 59;
+}
+
+// 0x4AD050 (lote 149A, banco Fn149A; thiscall, un argumento de pila, `ret 4`, 32 bytes): verdadero si el tipo del evento dado (llamada virtual de la ranura 1 del argumento, PRIMERO) es distinto del propio
+// (ranura 1 de `this`, DESPUES); solo se define AL (`setne al`). Sin expansion en linea de GetEventType: son llamadas virtuales como en el EXE.
+bool CEventBuildingCollision::TakesPriorityOver(const CEvent& refEvent)
+{
+    const eEventType refType = refEvent.GetEventType();
+    const eEventType ownType = GetEventType();
+    return refType != ownType;
 }
 
 // 0x4AD070

@@ -66,7 +66,7 @@ public:
     void   SetPosition(const CVector& vecPos) const;
     float  GetVolume() const { return m_Volume; };
     void   SetVolume(float volume);
-    bool   IsBufferPlaying() const { return m_nBufferStatus & DSBSTATUS_PLAYING; };
+    bool   IsBufferPlaying() const; // 0x4D7990 (lote 149A, banco Fn149A: definido en el .cpp)
     uint32 GetCurrentPlaybackPosition() const;
     uint32 ConvertFromBytesToMS(uint32 bytes) const;
     uint32 ConvertFromMsToBytes(uint32 ms) const;

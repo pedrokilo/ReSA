@@ -37,6 +37,7 @@ void CEventDraggedOutCar::InjectHooks() {
     RH_ScopedNamedGlobalInstall(DraggedOutCarDestructorBody, "Destructor", 0x4AD330);
 
     RH_ScopedInstall(Constructor, 0x4AD250);
+    RH_ScopedVMTInstall(AffectsPed, 0x4AD3A0); // lote 149A (banco Fn149A)
 }
 
 // 0x4AD250
@@ -60,7 +61,8 @@ CEventDraggedOutCar* CEventDraggedOutCar::Constructor(CVehicle* vehicle, CPed* c
     return this;
 }
 
-// 0x4AD3A0
+// 0x4AD3A0 (lote 149A, banco Fn149A; thiscall, un argumento de pila, `ret 4`, 32 bytes): llama a CPed::IsAlive (0x5E0170, con hook) con el ped y, solo si el AL devuelto no es cero, devuelve si el atacante (+0x14) no es
+// nulo; solo se define AL.
 bool CEventDraggedOutCar::AffectsPed(CPed* ped) {
     return ped->IsAlive() && m_CarJacker;
 }

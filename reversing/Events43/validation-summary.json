@@ -58,10 +58,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "e6792c1c3fc0f9c57f5fa0ce6dad30fd3d5d86dcfe0abf37f6535d3c0f5a8537",
+  "log_sha256": "44cde44718fe8d7cba3ef15af7c4f59b4a98085814aabbfa84000e3d7c409f98",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-events43\\20261002-184242-714754",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-events43\\20261110-002320-100020",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CEventGunShot::AffectsPed": true,
@@ -112,38 +112,39 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "bfec013358f6bc2f5facc3f88661fa35d97faca20ba708e039fb44ba8addb17b",
-      "pdb": "86a9eaadd019ea9528bbb070cc84e5642c5646729f7c1add97fba3b85ab6da3d"
+      "asi": "24773d95c9f4d6ffeb07b62bda6fc9358637c26dbd26f83b600568fa5f2ccaab",
+      "pdb": "763ac95cd24fbf7a429a50a455934485f4fc18b50d99dcab3568e2c9d7875b6a"
     },
     "sources": {
-      "source/game_sa/Events/EventGunShot.cpp": "94b3fb44c534e91dcd82310d360854e126bd19639e6123bbf3429fb9f062845f",
+      "source/game_sa/Events/EventGunShot.cpp": "0e43da50604168b80ad1ab92d0bcd7eb83f0fd979cb8c1087dfae0b329c119b2",
       "source/game_sa/Events/EventGunShot.h": "0493eee5be532d58d91200813088fdee9a3e37f5de8f9c7e3a821f1d2deca583",
-      "source/game_sa/Events/EventVehicleDamage.cpp": "2d5615546f9442520e9ba3c1fcb29f9b6991f63ade8d6341b87870f83c2de76a",
+      "source/game_sa/Events/EventVehicleDamage.cpp": "bba387a8ebd9477a662bb89a4cdba884af35f9d7b0e722f60d5b1fbef68d7a8c",
       "source/game_sa/Events/EventVehicleDamage.h": "771a6ea50ce03a60da0c4f37a4d462da4484061b0b91b79805195f5a8fe6268d",
-      "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.cpp": "27b6bab84afa23c7d8a57931f2a20c0fc0d90e5876ef3b44502063047207d2e5",
-      "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "16b5f92c42a13ca584de0b599d6b6d6681e457dbf4e94069b6f03ecec286fec2",
-      "source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp": "0e61cf08992e1dc8bbee800f5455f8bdd1bc9583faa58d2be08e0c06e6aade6c",
-      "source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h": "6df054695557234503d5d86871d3319126ce5789a1afe5707186b89e6d6380f5",
-      "source/game_sa/Tasks/PedScriptedTaskRecord.cpp": "6a08fab5a9e1d7c63ab8072e0f58f6edacf5aba6ba48b22c5405241747d404c8",
+      "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.cpp": "0d910c888c634bcf9bea31d56ce96d47e91c1d96b6c00968bff0d3ebd0d78020",
+      "source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h": "f905aad281c88e341aabc6a9d46dfeb0eeb6ea01ac928a9fbcd08561a63aae85",
+      "source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp": "9a4f9c1059b091bb1b587fdb5853c09ddc6f33edbd8312f18f0e8d3294751676",
+      "source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h": "b4df0d0bb4e9f9546b2a8a34d8032e0f500762cc038c5aea28193b9443020e61",
+      "source/game_sa/Tasks/PedScriptedTaskRecord.cpp": "a80dd375843ac990075d893efc91dcb8321ea2f3bcff0442ee70e6aa59854e5c",
       "source/game_sa/Tasks/PedScriptedTaskRecord.h": "7f68827e4b6f920abb394b9d132c41988ba6059ae7b60b0e07a2884c722cfd5a",
-      "source/game_sa/PlayerPedData.cpp": "4260c0ed471dd3653523d6f4bf430f39fa55a48634b2a44c2295583740ac8de2",
+      "source/game_sa/PlayerPedData.cpp": "9128c464bc08af02c0cd5ed2a240b6a09b286807c14c60432aa3725d80daeee0",
       "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
-      "source/game_sa/UpsideDownCarCheck.cpp": "d7640999e0dbcdcd43e31abc18359e998dee22e4d4f65fe171d8d4b1a25f1d02",
+      "source/game_sa/UpsideDownCarCheck.cpp": "30409faaa57706329224a0f36cc8521bf2eeb2eaacce50914e844b2fc1f76f2e",
       "source/game_sa/UpsideDownCarCheck.h": "53d73b541590e947547ff7be327c5ffbb91f06c49cc16b8dc518cecd5fa836d5",
-      "source/game_sa/VehicleAnimGroupData.cpp": "2e5f8d45f86d0f834c597e9c203b8ce9cd60578606fd1bd99ec1c51ff56aec49",
+      "source/game_sa/VehicleAnimGroupData.cpp": "b672748fe5c39518ef2e3e9378405276db29618b6d3d49745ac331c78fc4cf32",
       "source/game_sa/VehicleAnimGroupData.h": "63f5c5c3f6e38e99cd5113afcd7557e7ee82a3654e31b03118ed50efc79e8915",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "339b109138beadc3bd354cbeb91671dc19bc48a78d8466936ad56a196386506a",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "e5bab0d39861798628d71233106ece0b0582d9c94e729dfcb8b98210a4a94d78"
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "b85ff471ec3202cd3d77775fbd63d919796045975deae4121a999584ecf78875",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "f9d6e381e20f5bace3a3da2ddc520868278f1309c325fd753cd4199bb7812105"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "d3e85999f1d451c5e26e7a0b736444a163d4e462ec40381854ca934def39154a",
+      "LiveComparison.hpp": "bfc2e0dc440ce962e7c57dee91add0f137771991ee042e5435dc076ba37e3393",
       "build_probe.py": "8fc3d8ef324f4ea9a8d584dac088039259696e624f2e23ae37a1e356ec360ef5",
       "run_local.py": "c0828e7f372b955fa78e3d586bc74167fff6adbbeb934f37ade044afc3e2a53b"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Sin desbordes de exponente extendido, indices de pool fuera de -1..3, puertas >= 8 ni secuencias comprimidas."
+    "Sin desbordes de exponente extendido, indices de pool fuera de -1..3, puertas >= 8 ni secuencias comprimidas.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

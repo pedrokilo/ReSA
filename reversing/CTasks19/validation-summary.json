@@ -49,10 +49,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "8524cdf1977404e2ac0796a5854cd179f61e92e15cc9044c7781557f2e484a6b",
+  "log_sha256": "6bf70e3bc0103beada1d68265055626e53db351669b0dd07970a9d5ae3f83b2a",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks19\\20261002-172932-739731",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks19\\20261110-000926-249560",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTask::IsTaskPtr": true,
@@ -94,41 +94,42 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "1368bf78065c8c3254324f08b8b3e354b5a5f3b5bc62e0c09499fb2c8a2d0e41",
-      "pdb": "2d6d0ad794ffaf77026f9964fc5610c3d89684730322fb3cdf89e214312d1606"
+      "asi": "79ef78451aa8ea74bc3108fccc9515125171a8701be701df99449354654b64a9",
+      "pdb": "d4e45fd28df6c407ab47e8c1c8c89ace8abd9cdb1b9e82bcc610eb00203207db"
     },
     "sources": {
-      "source/game_sa/Tasks/Task.cpp": "e6ea22161d01314341e078aab8b5ceedf3b4d5b10eeb040d812532372e876311",
-      "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
-      "source/game_sa/Pools/TaskPool.h": "c0873d69a474d40271eeba2c09e1d4aba91c3d9b38174068f809fddb8f168656",
-      "source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.cpp": "ee6237140cb3f18dcc804226ca9996f469c98bbda6e3dc363d030b2dbf18daee",
+      "source/game_sa/Tasks/Task.cpp": "be8bc85ded7b60208f987af721340a13aa0db0d50272406ad67ec86f4101c0e6",
+      "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
+      "source/game_sa/Pools/TaskPool.h": "69ff1cd75564c116bddbfa02d85d12da356689ef459afa4cfddb19124a0db638",
+      "source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.cpp": "dff22e69ec311e191ae66b662d282c17fc35009c4bbef14092f09d9ca7def91f",
       "source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h": "e839d0f43e84a20b82785f40fee647fe47fb3f15b581a41a755e6bc253850af5",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp": "b6b92bab3be9ab0a9c97d7826bf671ecc89632de20fe5322ec6797d27e54cac9",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h": "86d0b05916e76dcbfb50e9654509ecd9dc16e9975f3504ecfcd335b5f5991f55",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.cpp": "253a1232b3ccdaeb534cc8c302248b92db5d06a1c32fc5ed15c02d0e8ee4854f",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h": "d642d88811d1a0153310ef1f3ca6ead0bf31dbd49a4fef33e09e155a80aa4d24",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexClimb.cpp": "ed1a5e94284316a1cdfd571ebb7f27bd5fce06943471dec9b34779d6fde99004",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexClimb.h": "ab53e884d3efc469e5cbee6b098c84e77466d9ca0c273c59347eb6bf48318c9b",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexInAirAndLand.cpp": "9830ebc1683475cb3e608daf7f6efb804f1982d2d3076843f648a5408932d750",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp": "ebd312832d3e8fe1419f7b8a6be799c4b0cfdf7786b8c5e94d731185481fcfc7",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h": "a0cf8e93bed3c68b6f346dc7371e39bf78c8e39e7470aebd15d78c20e0be92f3",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.cpp": "60d110f0442f9b311af50c123e2d891c4557973c9c3b694809fa5a1a745b0c03",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h": "836cce680885d9111506da1ef220395e297aca1c84d0543bb3c9c95e6d9912ad",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexClimb.cpp": "36daaf8f4bc269388bdebe96dae12c9da7aff59135a9c73753ce60ce17523ffa",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexClimb.h": "402a84fef05f6025c6b62f0ca9b9d7c28c600b0b754d18179be720149dfb7759",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexInAirAndLand.cpp": "01bf0344fadc6445aab301c4be83430001cd5e1f2450065164db0fee95ef2070",
       "source/game_sa/Tasks/TaskTypes/TaskComplexInAirAndLand.h": "b2565a9ca3c502d608b6664109724f42ca8a3a51b617c5e843f7b62c14952321",
       "source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.cpp": "b2fb96895725451152ffbb5fc30c6cc627f1df71c49b7fd64b545759de018108",
       "source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.h": "8bef67183f5fa9c60c2b4e8b5655e6e71c063d574bc408444c2348f6ce87e139",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "50399b91eb065c6eba35da5d48f1ea82ecb833277901c46780362f7ce6216591",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "40a2db44b471d8168bd9fadb98a85dd876fc5800e09ec784981aaf75f7d02360",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "d74ea72217e771c5b40c2541a9442a0ad33c39e95ce3ee01e36723256893ac02",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "659db469a8f3c2cdcd49777d10e7c475ec7c53a567a71d6f2b4d4c0594e8155e",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWanderGang.cpp": "6c6868d651b1460e22ffe784b1a9e909bdedd2460169d1a3d40226eef1777176",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWanderGang.h": "c3ebda4fb9d53a369ea9322ab7433f2e689b8ccafe58a4fc60fefd8256ab2fff",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderMedic.cpp": "0559e12502d9e6e28df04ff23f2b533cf434339e1adecf80f31a71128ca24fc5",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderMedic.h": "10a58240853a3a45f6dc672ca71c3884578f6cf972401ae497a36c4b567d069a"
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderMedic.cpp": "52beae29fe391e0abdf29f2357cd0c821724190593b519392f3777381f1be84e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderMedic.h": "acdf9e7af874901d5abef6f527fe5b48f247ab0505a8a37a3f72e5a834f59051"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "0f64aee621a68c895637694d77b7864fcb60d82ca4ab436d73602f4f1a0cd723",
+      "LiveComparison.hpp": "3d335b8e845e15735bd1ea6949e55af7d3676c790376786cd5924da498626103",
       "build_probe.py": "ab12e8d5113bde1a0eb519ec51298ac1115dfefe3d060dfaa957407eb592a41e",
       "run_local.py": "9751f40f85000e4f6785229c6521acbbbab3a42fbe78d4ced758ccc3d68301ef"
     }
   },
   "limitations": [
     "Peatones, vehiculos, grupo, inteligencia, pad y subtareas falsos; constructores en buferes 0xCD; new/delete sobre slots libres reales con el pool restaurado.",
-    "Sin delete nullptr (FIX_BUGS), pool lleno, bool distintos de 0/1 ni AllocateTasks con 0xC1A554 activo sin objetivo (el EXE desreferencia nulo)."
+    "Sin delete nullptr (FIX_BUGS), pool lleno, bool distintos de 0/1 ni AllocateTasks con 0xC1A554 activo sin objetivo (el EXE desreferencia nulo).",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

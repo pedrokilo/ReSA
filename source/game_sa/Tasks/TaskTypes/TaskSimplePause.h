@@ -12,7 +12,7 @@ public:
     ~CTaskSimplePause() = default;
 
     CTask* Clone() const override { return new CTaskSimplePause{*this}; }
-    eTaskType GetTaskType() const override { return TASK_SIMPLE_PAUSE; };
+    eTaskType GetTaskType() const override; // 0x48E800 (lote 149A, banco Fn149A: definido en el .cpp)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;
 

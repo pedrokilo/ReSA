@@ -1,0 +1,66 @@
+# Fn149A: 23 funciones diminutas del EXE (lote 149A)
+
+Estado: **APROBADO dentro del juego** (09/11/2026, worktree `wv-3` sobre main 4150aad15b + los cambios del lote). Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn149a/20261109-230235-847445` (archivada en `reversing/CppTwelveLevel6Final/runs/Fn149A-20261109-230235-847445`; `comparisons.jsonl.gz` de 44,1 MB, bajo el limite de GitHub). 23 x 16384 = **376832 pares** EXE/DLL, cero diferencias, compuertas de ABI/ruta/SEH/DF/restauracion en ambos lados, x87 vacia y cada lado coincide con el oraculo Python independiente (`fixture_oracle.py`). SHA256 de la sonda ejecutada: `b7d2bab7e2166583db318e5db7f6fd51f8d92d66b4d3fce417452ec1fc1fd83f`; del EXE original: `72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b`.
+
+Encargo: 24 direcciones. **0x00638A40 se salto**: ya tiene hook en el codigo (`RH_ScopedVMTOverloadedInstall(CreateNextSubTask, "V", 0x638A40, ...)` de `CTaskComplexSequence`; es el `CreateNextSubTask` de la secuencia y no un destructor de `CTaskComplexWaitForBus`). Ninguna de las otras 23 tenia hook (se comprobo el codigo, `docs/hooks.csv` y `git worktree list`). Las clases del listado se atribuian por cercania y **casi todas eran incorrectas**: los nombres reales salen del desensamblado, de las vtables leidas del PE y de los llamadores.
+
+| # | Funcion real (el listado decia) | Entrada | Bytes | Fuente (`source/`) | Tipo |
+|---|---|---|---|---|---|
+| 0 | `CTaskSimplePause::GetTaskType` (202; vtable 0x85A278, ranura 4; CTaskSimplePause, B) | 0x48E800 | 6 | `game_sa/Tasks/TaskTypes/TaskSimplePause.cpp` (+ `.h`) | V |
+| 1 | `CTaskSimplePause` cuerpo del destructor: `mov [ecx],0x85A278; jmp 0x61A3A0` (CTaskSimplePause, C) | 0x48E8A0 | 11 | idem | S |
+| 2 | `CTaskSimplePause` destructor con borrado (ranura 0 de 0x85A278; CTaskSimplePause, B) | 0x48E880 | 30 | idem | S |
+| 3 | `CTaskSimpleCower` destructor con borrado (vtable 0x85A0D0; cuerpo 0x48E900; CTaskSimplePause, B) | 0x48E8E0 | 30 | `game_sa/Tasks/TaskTypes/TaskSimpleCower.cpp` | S |
+| 4 | Securom: `(w[0xB733F6] && !w[0xB73186]) \|\| (w[0xB733F8] && !w[0xB73188])`, palabras de 16 bits (Securom, C) | 0x744D50 | 49 | `app/securom/Securom.cpp` (+ `.h`) | S |
+| 5 | Securom: `w[0xB733E6] && !w[0xB73176]` (Securom, C) | 0x744D90 | 29 | idem | S |
+| 6 | `CTaskComplexEnterAnyCarAsDriver::Constructor` (vtable 0x86EA14; `call 0x61A3B0`; CTaskComplexDrivePointRoute, D) | 0x63D0D0 | 18 | `.../TaskComplexEnterAnyCarAsDriver.cpp` | S |
+| 7 | `CTaskComplexEnterAnyCarAsDriver` destructor con borrado (cuerpo 0x63D100; CTaskComplexDrivePointRoute, B) | 0x6434F0 | 30 | idem | S |
+| 8 | `CTaskComplexEnterCar` destructor con borrado (vtable 0x86E6F0; cuerpo 0x63DFA0; CTaskComplexDrivePointRoute, B) | 0x643A40 | 30 | `.../TaskComplexEnterCar.cpp` | S |
+| 9 | `CTaskSimpleWaitForBus` destructor con borrado (vtable 0x86E1B8; cuerpo 0x632A90; CTaskComplexWaitForBus, B) | 0x6389B0 | 30 | `.../TaskSimpleWaitForBus.cpp` | S |
+| 10 | `CTaskSimpleWaitForPizza` destructor con borrado (vtable 0x86E1DC; cuerpo 0x632B70, sin hook; CTaskComplexWaitForBus, B) | 0x6389D0 | 30 | `.../TaskSimpleWaitForPizza.cpp` | S |
+| 11 | `CEventBuildingCollision::GetEventType` (6; vtable 0x85ACE8, ranura 1; CEventBuildingCollision, B) | 0x4ACFB0 | 6 | `game_sa/Events/EventBuildingCollision.cpp` (+ `.h`) | V |
+| 12 | `CEventBuildingCollision::GetLifeTime` (0; ranura 3) | 0x4ACFC0 | 3 | idem | V |
+| 13 | `CEventBuildingCollision::CanBeInterruptedBySameEvent` (`mov al,1`; ranura 15) | 0x4ACFD0 | 3 | idem | V |
+| 14 | `CEventBuildingCollision::GetEventPriority` (59; ranura 2) | 0x4ACFE0 | 6 | idem | V |
+| 15 | `CEventBuildingCollision::TakesPriorityOver` (ranura 11: dos llamadas virtuales a `GetEventType`, la del argumento primero) | 0x4AD050 | 32 | idem | V |
+| 16 | `CEventDraggedOutCar::AffectsPed` (vtable 0x85AD30, ranura 5; `CPed::IsAlive` y `m_CarJacker`; CEventBuildingCollision, D) | 0x4AD3A0 | 32 | `game_sa/Events/EventDraggedOutCar.cpp` | V |
+| 17 | `CBuilding` cuerpo del destructor: `jmp 0x535E90` (~CEntity; CBuilding, C) | 0x404180 | 5 | `game_sa/Entity/Building.cpp` | S |
+| 18 | `CBuilding` destructor con borrado (vtable 0x8585C8; operator delete de CBuilding EN LINEA sobre el pool 0xB74498; CBuilding, B) | 0x404130 | 78 | idem | S |
+| 19 | `CPedGroupDefaultTaskAllocatorRandom::Constructor` (vtable 0x86C77C; el listado decia ...Chat, C) | 0x5F6510 | 9 | `game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.cpp` (nuevo, + `.h`) | S |
+| 20 | `CAEAudioChannel::IsBufferPlaying` (`mov eax,[ecx+5Ch]; and eax,1`; CAEAudioChannel, A) | 0x4D7990 | 7 | `game_sa/Audio/Hardware/AEAudioChannel.cpp` (+ `.h`) | S |
+| 21 | `CAEAudioChannel` destructor con borrado (vtable 0x85F03C; cuerpo en linea con dos `Release` de COM; CAEAudioChannel, B) | 0x4D7C00 | 81 | idem | S |
+| 22 | `CPedGroupIntelligence::SetEventResponseTask` (seis dwords de pila, `ret 18h`; el listado decia ...Chat, A) | 0x5F8510 | 77 | `game_sa/PedGroupIntelligence.cpp` (hook que estaba comentado) | S |
+
+Cambios de produccion: los `GetTaskType`, `GetEventType`, `GetLifeTime`, `GetEventPriority`, `CanBeInterruptedBySameEvent`, `TakesPriorityOver` y `IsBufferPlaying` estaban en linea en la cabecera: ahora se declaran en el `.h` y se definen en el `.cpp` (un hook V/S necesita una direccion propia). `CPedGroupDefaultTaskAllocatorRandom` no tenia `.cpp`: se anade (dos archivos por clase, como `...Chat`, `...StandStill` y `...SitInLeaderCar`). `CTaskSimpleWaitForPizza` (plantilla sin reconstruir) se registra en `InjectHooksMain` con `RH_ScopedClass` (su vtable no se exporta mientras sea abstracta) y gana el cuerpo del destructor y el destructor con borrado. `CPedGroupIntelligence::SetTask` pasa a `__declspec(noinline)` (como `Flush` en el lote 147A) para que el banco pueda sustituirla.
+
+## Que se compara
+Cada caso llama a la **entrada del EXE** con objetos sinteticos en tres arenas propias (A, B, C; guardas de 0x40). *Original* = bytes del EXE con el hook RH apagado; *candidato* = DLL con SOLO ese hook encendido (`HookRoute`). Compuertas en ambos lados: pila, registros no volatiles, DF, SEH, ruta (EXE salta a la DLL solo en el candidato), colaboradores (sin hook: codigo del EXE; con hook: salto a la DLL), restauracion de las arenas, de la memoria global y de la x87 (vacia). Los colaboradores se sustituyen por el **mismo falso en la direccion del EXE y en el cuerpo de la DLL** (`MakeCollab` / `Pair`): cuerpos de destructor con hook propio (el hook se apaga y el falso va en la funcion de la DLL, `H`), sin hook (`U`: `~CTaskSimpleWaitForPizza` 0x632B70), otra funcion del lote (`Rt`: 0x48E8A0 y 0x404180), `~CTask` 0x61A3A0, constructor de `CTaskComplex` 0x61A3B0, `~CEntity` 0x535E90, `CPed::IsAlive` 0x5E0170, `CPedGroupIntelligence::SetTask` 0x5F7540, `CTask::operator delete` 0x61A5B0 y `operator delete` del CRT 0x8214BD (sin hook; la DLL lo llama por esa direccion). Las llamadas virtuales de `TakesPriorityOver` y los dos `Release` de COM del canal de audio van a falsos colocados en vtables de las arenas (la misma funcion en ambos lados, sin parches).
+
+Se observa: bytes cambiados de las tres arenas y de la memoria global (seis palabras de Securom, contador de canales 0xB5F898 y puntero del pool de edificios 0xB74498, que se guardan y se restauran), eventos de los falsos con todos sus argumentos (incluido el contenido de `this` en cada `Release`: prueba el orden de las escrituras del destructor), valor devuelto (`this` como etiqueta en destructores con borrado y constructores; EAX completo en las constantes de 32 bits; solo AL en los booleanos) y estado x87 final (vacio). **EAX, ECX, EDX y EFLAGS tras la llamada** quedan en `original_residue` / `candidate_residue` (informativos).
+16 familias de 1024 casos por funcion (ver `Fixtures.hpp`): posicion de `this` x relleno de las arenas; vtable previa igual, con otro bit o ajena; banderas 0, 1, 2, 3, 0xFF, 0x100, 0x101, bits altos y aleatorias (solo cuenta el bit 0 del BYTE bajo); palabras de Securom nulas, con la mitad alta puesta y aleatorias; pool de edificios con indice negativo, cero, positivo, alrededor del cursor y restos no nulos; canal de audio con buffers nulos, distintos, el mismo objeto dos veces y contadores que acarrean; tipos de evento iguales y distintos, con el argumento igual al propio objeto; `IsAlive` con AL cero y no cero y bits altos; `SetEventResponseTask` con banderas solo en la mitad alta del dword y slots arbitrarios.
+`python -I fixture_selfcheck.py` (sin juego) pasa los 376832 casos por el oraculo y mide la cobertura de ramas (marcas de `KEYS`, minimo 50 por funcion).
+
+## Oraculo independiente
+`fixture_oracle.py` reimplementa solo lo observable desde el desensamblado; no usa ninguna constante ni rama del C++ de produccion.
+
+## Observaciones del diseno
+- `CAEAudioChannel` destructor con borrado: el cuerpo va en linea y **lee `+0xC` despues del primer `Release`**, pone `+8` a 0 antes del segundo y `+0xC` a 0 al final (el fuente anterior usaba `std::exchange`, que pone el puntero a cero antes de liberar); el banco lo observa porque el `Release` falso anota `[this+0]`, `[this+8]` y `[this+0xC]` en el momento de la llamada.
+- `CBuilding` destructor con borrado: no llama a `CBuilding::operator delete` (0x4040A0, con hook) sino que lo lleva en linea, con la misma ranura del pool que `PoolFreeSlotRaw`.
+- `SetEventResponseTask`: el aviso antiguo ("asignacion de registros rara") no se confirma; la funcion es un `thiscall` normal de seis dwords de pila (las banderas se leen como BYTE) con `ret 18h`. El banco la valida con cuatro bytes de bandera distintos y SetTask falseado.
+- Los dos Securom reciben un puntero en ECX (el llamador 0x748B9D/0x748BB1 lo pasa) que no leen: se leen palabras absolutas del estado global.
+
+## Fuera de los fixtures
+`this` nulo o crudo, objetos reales construidos por el EXE (se usan objetos sinteticos), el cuerpo real de los colaboradores falseados (tienen sus propios bancos), objetos COM reales de DirectSound y la exactitud de `CPed::IsAlive`.
+
+## Prueba negativa
+Dos rondas de mutaciones (`mutate.py`, una por funcion y ronda, 23 por ronda; se aplican a las fuentes de produccion, se recompila la sonda y se corre con `FN149A_CASES=2048` casos por funcion; el banco y `run_local.py` leen la misma variable y la corrida aprobada usa 16384). Las mutaciones se condicionan a entradas que el juego no produce (`this` desalineado, banderas con el bit 1 o el 7, palabras 0x8000/0xFFFF, estado 0x80000000/0x80000001, slot 0x7FFFFFFF) porque los hooks de la DLL estan activos antes de que empiece el banco. **Las 23 funciones fallan en ambas rondas** (`negative-runs/`: ronda 1 `20261109-232633-816358` con 12190 de 47104 pares con diferencias; ronda 2 `20261109-235646-778066` con 12533 de 47104 (la primera version de la ronda 2 dejo sin detectar `SecuromFirstPairPending` porque su mutacion era equivalente al original (`&& w != 0x8000` sobre `w == 0`): se corrigio la mutacion y se repitio la ronda completa; la carpeta de la primera version no se conserva); el lado EXE coincide con el oraculo en todos los pares: "lado EXE fuera del oraculo 0"). Fuentes restauradas con `mutate.py restore` (SHA256 igual a las copias buenas, comprobado: `restauradas 13 fuentes`).
+
+## Bancos repetidos
+Citan direcciones del lote (grep de `0x...` con y sin ceros y de la forma `...h` en `reversing/`, sin contar este banco, `_handoff`, `artifacts`, la evidencia archivada, el registro ni las copias fuente de `CppIntegerWorld10/runs`): `Tasks70`, `CTasks19`, `CTasks6a` y `Events43` (las cuatro parchean 0x5F8510 = `SetEventResponseTask`, ahora con hook, tanto en el EXE como en el cuerpo de la DLL) y `RequestedPadMutationRemaining3` / `RequestedPadSourceProposals` (solo coinciden con 0x744D50 y 0x744D90 en copias de `Pad.h` de sus archivos de linea base: no son bancos del lote ni ejecutan esas funciones). Repetidos con el codigo final, de uno en uno y bajo los candados compartidos (`refresh_bank.py` actualizo las filas del registro; evidencia archivada en `reversing/CppTwelveLevel6Final/runs/`); **los cuatro aprobaron sin adaptar** (los parches de entrada propios de cada banco en el EXE y en el cuerpo de la DLL siguen valiendo con el hook activo):
+- `Tasks70` (cita 0x5F8510): **aprobado**, `20261110-000632-188289`, 11296 pares, sonda `aa4f976bc565d30a...`.
+- `CTasks19` (0x5F8510): **aprobado**, `20261110-000926-249560`, 12544 pares, sonda `79ef78451aa8ea74...`.
+- `CTasks6a` (0x5F8510): **aprobado**, `20261110-001702-274835`, 14784 pares, sonda `7885cfa39327aca0...`.
+- `Events43` (0x5F8510): **aprobado**, `20261110-002320-100020`, 13824 pares, sonda `24773d95c9f4d6ff...`.
+No se repitio ningun otro banco (los de las clases tocadas que no citan estas direcciones no se vuelven a correr).
+
+## Tiempo
+Una corrida de los 376832 pares: unos 16 min (el `comparisons.jsonl` crudo ocupa 682 MB; se archiva como `.gz` y se borra el crudo). Compilacion de la sonda: unos 3 min (incremental); las dos rondas negativas de 2048 casos por funcion, unos 4 min de juego cada una (mas la espera de los candados compartidos).

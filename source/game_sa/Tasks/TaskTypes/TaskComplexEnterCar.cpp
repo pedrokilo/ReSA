@@ -55,9 +55,29 @@ END GENERATED HOOK STATUS */
 #include "EventLeaderExitedCarAsDriver.h"
 #include "EventLeaderEnteredCarAsDriver.h"
 
+namespace {
+// 0x63DFA0 (con hook propio (Destructor); vtable 0x86E6F0): cuerpo del destructor de CTaskComplexEnterCar del EXE. Funcion propia sin expansion en linea para que el banco Fn149A pueda sustituirla; la llama el
+// destructor con borrado como el `call 0x63DFA0` del EXE.
+__declspec(noinline) void __fastcall EnterCarDestructorBody(CTaskComplexEnterCar* self, void* /*edx*/) { self->CTaskComplexEnterCar::~CTaskComplexEnterCar(); }
+
+// 0x643A40 (lote 149A, banco Fn149A): destructor con borrado de CTaskComplexEnterCar del EXE (ranura 0 de su vtable 0x86E6F0; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x63DFA0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this`
+// con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexEnterCar* __fastcall EnterCarScalarDeletingDestructor(CTaskComplexEnterCar* self, void* /*edx*/, uint8 flags) {
+    EnterCarDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote149ABody_CTaskComplexEnterCar() { return reinterpret_cast<uintptr_t>(&EnterCarDestructorBody); } // para el banco Fn149A
+
 void CTaskComplexEnterCar::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexEnterCar, 0x86e6f0, 12);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(EnterCarScalarDeletingDestructor, "ScalarDeletingDestructor", 0x643A40); // lote 149A (banco Fn149A)
 
     RH_ScopedInstall(Constructor, 0x63A220);
     RH_ScopedInstall(Destructor, 0x63DFA0);
