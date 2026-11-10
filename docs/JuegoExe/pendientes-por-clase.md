@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,266** funciones en 310 clases/módulos (rango 0x401000–0x74FFFF): 2,244 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,244** funciones en 299 clases/módulos (rango 0x401000–0x74FFFF): 2,222 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -19,17 +19,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CTaskSimpleTired | 2 | 57 |
 | CVehicleAnimGroup | 2 | 58 |
 | CAudioEngine | 3 | 58 |
-| CAEWMADecoder | 2 | 59 |
-| CTaskComplexCarSlowBeDraggedOut | 2 | 60 |
-| CTaskComplexFleeAnyMeans | 2 | 60 |
-| CTaskComplexFollowPointRoute | 2 | 60 |
-| CTaskComplexHitResponse | 2 | 60 |
-| CTaskComplexKillPedOnFootArmed | 2 | 60 |
-| CTaskComplexOnFire | 2 | 60 |
-| CTaskComplexPassObject | 2 | 60 |
-| CTaskComplexUseAttractor | 2 | 60 |
-| CTaskComplexUsePairedAttractor | 2 | 60 |
-| CTaskComplexWanderCriminal | 2 | 60 |
 | CTaskInteriorBeInOffice | 2 | 60 |
 | CTaskSimpleCreateCarAndGetIn | 2 | 60 |
 | CTaskSimpleEvasiveStep | 2 | 60 |
@@ -390,83 +379,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00507400 | 14 | A |  | 1 | 1 |  | alta |
 | 0x005074B0 | 17 | C |  | 1 | 0 |  | baja |
 | 0x00506DC0 | 27 | D |  | 0 | 0 |  | alta |
-
-## CAEWMADecoder (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00502C40 | 27 | B |  | 0 | 0 | sí | alta |
-| 0x00502BF0 | 32 | A |  | 1 | 1 |  | alta |
-
-## CTaskComplexCarSlowBeDraggedOut (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064C930 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0064C950 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexFleeAnyMeans (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0065D0C0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0065D0E0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexFollowPointRoute (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00671610 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x00671730 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexHitResponse (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00638160 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00638180 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexKillPedOnFootArmed (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006275E0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00628780 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexOnFire (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00639310 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00639330 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexPassObject (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00664A80 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00664AA0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexUseAttractor (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00638900 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00638920 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexUsePairedAttractor (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00638F00 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00639F90 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexWanderCriminal (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0048E700 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x00670400 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CTaskInteriorBeInOffice (2)
 
@@ -1735,7 +1647,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00623750 | 106 | B |  | 0 | 0 | sí | baja |
-| 0x006218C0 | 148 | A |  | 7 | 3 |  | baja |
+| 0x006218C0 | 148 | A |  | 7 | 4 |  | baja |
 
 ## CClumpModelInfo (4)
 
@@ -2064,7 +1976,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x0066E050 | 90 | C |  | 1 | 0 |  | baja |
+| 0x0066E050 | 90 | A |  | 1 | 1 |  | baja |
 | 0x00668D50 | 292 | A |  | 4 | 4 |  | alta |
 
 ## VideoMode (2)
@@ -3288,7 +3200,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006396A0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x006348A0 | 47 | C |  | 1 | 0 |  | baja |
 | 0x006348F0 | 62 | C |  | 2 | 0 |  | baja |
-| 0x006396C0 | 108 | C |  | 1 | 0 |  | baja |
+| 0x006396C0 | 108 | A |  | 1 | 1 |  | baja |
 | 0x00636FD0 | 130 | B |  | 0 | 0 | sí | baja |
 | 0x00634930 | 262 | B |  | 0 | 0 | sí | baja |
 | 0x00634C10 | 330 | B |  | 0 | 0 | sí | baja |
