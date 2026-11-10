@@ -34,6 +34,24 @@ void __fastcall KnockOffBikeDestructorBody(CEventKnockOffBike* self, void* /*edx
     CEntity::SafeCleanUpRef(self->m_ped);
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }
+
+// 0x4B4AA0 (lote 152A, banco Fn152A; thiscall, un puntero de pila, `ret 4`, 19 bytes; el listado lo atribuia a CEventPotentialWalkIntoObject): operator= de CEventKnockOffBike del EXE. Como el original: llama a
+// From(otro) (0x4AFDD0, con hook) y devuelve `this` en EAX (la version inline de la cabecera es void: no cambia).
+CEventKnockOffBike* __fastcall KnockOffBikeAssignExe(CEventKnockOffBike* self, void* /*edx*/, const CEventKnockOffBike* other) {
+    self->From(*other);
+    return self;
+}
+
+// 0x4B4A50 (lote 152A, banco Fn152A; thiscall, un puntero de pila, `ret 4`, 77 bytes con marco SEH que solo desenrolla; el listado lo atribuia a CEventPotentialWalkIntoObject): constructor de copia de
+// CEventKnockOffBike del EXE. Como el original: deja a cero el dword +4 (m_nTimeActive) y SOLO el byte +8 (m_bValid), escribe la vtable de la clase del EXE (0x85B2E0) y copia con From(otro) (0x4AFDD0,
+// con hook); devuelve `this`. El constructor generado por el compilador dejaria la vtable de la DLL.
+CEventKnockOffBike* __fastcall KnockOffBikeCopyConstructorExe(CEventKnockOffBike* self, void* /*edx*/, const CEventKnockOffBike* other) {
+    self->m_nTimeActive = 0;
+    self->m_bValid = false;
+    *reinterpret_cast<uint32*>(self) = 0x85B2E0;
+    self->From(*other);
+    return self;
+}
 } // namespace
 
 void CEventKnockOffBike::InjectHooks()
@@ -44,6 +62,8 @@ void CEventKnockOffBike::InjectHooks()
     RH_ScopedOverloadedInstall(Constructor, "first", 0x4AFCF0, CEventKnockOffBike*(CEventKnockOffBike::*)(CVehicle*, CVector*, CVector*, float, float, uint8, uint8, int32, CPed*, bool, bool));
     RH_ScopedOverloadedInstall(Constructor, "second", 0x4AFC70, CEventKnockOffBike*(CEventKnockOffBike::*)());
     RH_ScopedNamedGlobalInstall(KnockOffBikeDestructorBody, "Destructor", 0x4AFE70);
+    RH_ScopedNamedGlobalInstall(KnockOffBikeAssignExe, "operator=", 0x4B4AA0); // lote 152A (banco Fn152A)
+    RH_ScopedNamedGlobalInstall(KnockOffBikeCopyConstructorExe, "CopyConstructor", 0x4B4A50); // lote 152A (banco Fn152A)
     RH_ScopedVMTInstall(AffectsPed, 0x4AFEE0);
     RH_ScopedVMTInstall(ReportCriminalEvent, 0x4B4E80);
     RH_ScopedInstall(From, 0x4AFDD0);

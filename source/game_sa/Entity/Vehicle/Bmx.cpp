@@ -57,11 +57,40 @@ bool BmxNeedsNewAnim(const CAnimBlendAssociation* a) {
 }
 } // namespace
 
+namespace {
+// 0x6BF9D0 (lote 152A, banco Fn152A; thiscall, sin argumentos de pila, 85 bytes con marco SEH que solo desenrolla; el listado lo atribuia a CBmx): cuerpo del destructor de CBmx del EXE. Como el original: deja
+// la vtable de CBmx del EXE (0x871528), termina el audio del vehiculo (m_vehicleAudio, +0x138: CAEVehicleAudioEntity::Terminate, 0x4FB8C0, con hook) y sigue con el cuerpo de ~CBike (0x6B57A0, con hook
+// propio; llamada no virtual en una funcion propia sin expansion en linea para que el banco pueda sustituirla). El destructor generado ~CBmx deja la vtable de la DLL.
+__declspec(noinline) void __fastcall CBmxBaseDestructorCall(CBmx* self, void* /*edx*/) { self->CBike::~CBike(); }
+__declspec(noinline) void __fastcall CBmxDestructorBodyExe(CBmx* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x871528;
+    self->m_vehicleAudio.Terminate();
+    CBmxBaseDestructorCall(self, nullptr);
+}
+
+// 0x6C0570 (lote 152A, banco Fn152A): destructor con borrado de CBmx del EXE (ranura 0 de su vtable 0x871528; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6BF9D0; test byte [esp+8],1; je ..; push esi; call 0x6E2D90; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6BF9D0),
+// libera `this` con CVehicle::operator delete (0x6E2D90, sin hook: marca el hueco del pool de vehiculos 0xB74494) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S
+// (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CBmx* __fastcall CBmxScalarDeletingDestructor(CBmx* self, void* /*edx*/, uint8 flags) {
+    CBmxDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CVehicle::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote152ABody_CBmxBaseDestructor() { return reinterpret_cast<uintptr_t>(&CBmxBaseDestructorCall); } // para el banco Fn152A
+
 void CBmx::InjectHooks() {
     RH_ScopedVirtualClass(CBmx, 0x871528, 67);
     RH_ScopedCategory("Vehicle");
 
     RH_ScopedInstall(Constructor, 0x6BF820);
+    RH_ScopedNamedGlobalInstall(CBmxDestructorBodyExe, "DestructorBody", 0x6BF9D0); // lote 152A (banco Fn152A)
+    RH_ScopedNamedGlobalInstall(CBmxScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6C0570); // lote 152A (banco Fn152A)
+    RH_ScopedVMTInstall(BlowUpCar, 0x6C0560); // lote 152A (banco Fn152A)
     RH_ScopedVMTInstall(SetUpWheelColModel, 0x6BF9B0);
     RH_ScopedVMTInstall(BurstTyre, 0x6BF9C0);
     RH_ScopedVMTInstall(FindWheelWidth, 0x6C0550);

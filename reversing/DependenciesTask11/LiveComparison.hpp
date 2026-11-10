@@ -84,6 +84,9 @@ inline void Update(){
  std::array<std::unique_ptr<OriginalDependencies499::HookRoute>,2> routes;
  routes[0]=std::make_unique<OriginalDependencies499::HookRoute>("CDecisionMakerTypes","GetInstance",0x4684F0,&CDecisionMakerTypes::GetInstance);
  routes[1]=std::make_unique<OriginalDependencies499::HookRoute>("CTaskComplexSunbathe","CanSunbathe",0x632140,&CanSunbathe);
+ // Lote 152A: 0x62F2D0 (la comprobacion EXTRASUNNY que llama CanSunbathe del EXE) tiene ahora hook RH (CTaskComplexSunbathe::IsExtraSunnyWeather). Este banco exige que el helper sea el codigo canonico del EXE
+ // y que ECX/EDX salgan intactos de CanSunbathe: se apaga ese hook (HookRoute lo deja apagado) mientras corre el banco y se restaura al final.
+ OriginalDependencies499::HookRoute helperRoute("CTaskComplexSunbathe","IsExtraSunnyWeather",0x62F2D0,OriginalDependencies499::HookRoute::RegisteredTarget{});
  std::vector<Helper> helpers;for(auto at:{0x4650F0u,0x4650A0u,0x6040C0u,0x600530u,0x821D30u,0x82119Au,0x8214BDu,0x824257u,0x82413Fu,0x62F2D0u})helpers.emplace_back(at);
  auto helpersOK=[&]{for(const auto& h:helpers)if(!h.Check())return false;return true;};
  static const bool diskOK=CanonicalOnDisk(0x4650F0,canonical_4650F0.data(),canonical_4650F0.size())&&CanonicalOnDisk(0x62F2D0,canonical_62F2D0.data(),canonical_62F2D0.size());
@@ -139,7 +142,7 @@ inline void Update(){
   passed&=ok;failures+=!ok;Write({{"event","comparison"},{"function",std::string(fns[fn].cls)+"::"+fns[fn].name},{"pair",pair++},{"case",scenario},{"original",original},{"candidate",candidate},{"equal",ok},{"accepted",ok}});RestoreFP(fp);
  }
  Write({{"event","function_summary"},{"function",std::string(fns[fn].cls)+"::"+fns[fn].name},{"cases",2048},{"failures",failures}});RestoreFP(fp);}
- restore();bool final=restored()&&helpersOK()&&nativeOK();for(auto& route:routes){const bool one=route->Restore();final&=one;}RestoreFP(fp);
- Write({{"event",passed&&final?"complete":"error"},{"pairs",pair},{"state_restored",final},{"original_singleton_intact",originalIntact()},{"helper_route_ok",helpersOK()},{"native_complete_bodies_ok",nativeOK()},{"floating_state_restored",CaptureFP()==fp}});RestoreFP(fp);
+ restore();bool final=restored()&&helpersOK()&&nativeOK();const bool helpersFinal=helpersOK(),nativeFinal=nativeOK();for(auto& route:routes){const bool one=route->Restore();final&=one;}final&=helperRoute.Restore();RestoreFP(fp);   // helpersFinal/nativeFinal: antes de volver a encender el hook del helper 0x62F2D0
+ Write({{"event",passed&&final?"complete":"error"},{"pairs",pair},{"state_restored",final},{"original_singleton_intact",originalIntact()},{"helper_route_ok",helpersFinal},{"native_complete_bodies_ok",nativeFinal},{"floating_state_restored",CaptureFP()==fp}});RestoreFP(fp);
 }
 }

@@ -68,3 +68,6 @@ Evidencia archivada en `reversing/CppTwelveLevel6Final/runs/<Banco>-<corrida>` y
 
 ## Tiempo
 Una corrida de los 327680 pares: unos 14 min (616 MB crudos, 40,7 MB comprimidos). Compilacion completa del worktree: unos 12 min (`CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1`); sondas incrementales: de segundos a unos minutos.
+
+## Adaptacion del lote 152A (10/11/2026)
+El cuerpo 0x678D50 (colaborador del destructor con borrado 0x67D340) paso a tener hook propio en el lote 152A (banco Fn152A). El destructor con borrado llama ahora a `CTaskSimpleInAirDestructorBodyExe` (el cuerpo con hook) y el banco lo falsea como colaborador con hook (`F`) en lugar de la funcion propia de la DLL (`U`). Repetido y aprobado: `reversing/CppTwelveLevel6Final/runs/Fn148A-20261110-035550-418461`.

@@ -45,11 +45,32 @@ static auto& byte_B73403 = StaticRef<bool>(0xB73403); // TODO: Find out what mod
 static auto& byte_8CD782 = StaticRef<bool>(0x8CD782); // true by default, left here for documentation purposes, as it's used in multiple CPad functions
 static auto& byte_B73401 = StaticRef<char>(0xB73401); // unused, unknown
 
+namespace {
+// Lote 152A (banco Fn152A): cinco copias de "boton pulsado en este fotograma y no en el anterior" que el EXE tiene como funciones propias (thiscall, sin pila, `ret`): comparan la palabra de NewState
+// con 0 y la de OldState (0x30 mas arriba) con 0, y devuelven 1 o 0 en EAX COMPLETO (`mov eax,1` / `xor eax,eax`). Funciones estaticas de este .cpp con EAX completo (las inline de Pad.h, de tipo bool,
+// no cambian); se enganchan con RH_ScopedNamedGlobalInstall.
+// 0x53EDC0 (el listado lo atribuia a App): LeftShoulder1 (palabras +0x08 y +0x38)
+int32 __fastcall PadLeftShoulder1PressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.LeftShoulder1 != 0 && self->OldState.LeftShoulder1 == 0) ? 1 : 0; }
+// 0x53EE20: RightShoulder1 (palabras +0x0C y +0x3C)
+int32 __fastcall PadRightShoulder1PressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.RightShoulder1 != 0 && self->OldState.RightShoulder1 == 0) ? 1 : 0; }
+// 0x53EE60: DPadUp (palabras +0x10 y +0x40)
+int32 __fastcall PadDPadUpPressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.DPadUp != 0 && self->OldState.DPadUp == 0) ? 1 : 0; }
+// 0x53EF40: ButtonTriangle (palabras +0x1E y +0x4E)
+int32 __fastcall PadTrianglePressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.ButtonTriangle != 0 && self->OldState.ButtonTriangle == 0) ? 1 : 0; }
+// 0x53EF60: ButtonCircle (palabras +0x22 y +0x52)
+int32 __fastcall PadCirclePressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.ButtonCircle != 0 && self->OldState.ButtonCircle == 0) ? 1 : 0; }
+} // namespace
+
 void CPad::InjectHooks() {
     RH_ScopedClass(CPad);
     RH_ScopedCategoryGlobal();
     RH_ScopedInstall(GetPad, 0x53FB70);
     RH_ScopedInstall(IsRadioTrackSkipPressed, 0x4E7F20); // lote 146A (banco Fn146A): cuerpo inline en la cabecera
+    RH_ScopedNamedGlobalInstall(PadLeftShoulder1PressedExe, "IsLeftShoulder1Pressed", 0x53EDC0); // lote 152A (banco Fn152A)
+    RH_ScopedNamedGlobalInstall(PadRightShoulder1PressedExe, "IsRightShoulder1Pressed", 0x53EE20); // lote 152A (banco Fn152A)
+    RH_ScopedNamedGlobalInstall(PadDPadUpPressedExe, "IsDPadUpPressed", 0x53EE60); // lote 152A (banco Fn152A)
+    RH_ScopedNamedGlobalInstall(PadTrianglePressedExe, "IsTrianglePressed", 0x53EF40); // lote 152A (banco Fn152A)
+    RH_ScopedNamedGlobalInstall(PadCirclePressedExe, "IsCirclePressed", 0x53EF60); // lote 152A (banco Fn152A)
     RH_ScopedInstall(GetCameraCycleUp, 0x5404A0);
     RH_ScopedInstall(GetMouseCameraStickHorizontal, 0x540E80);
     RH_ScopedInstall(GetMouseCameraStickVertical, 0x540F80);

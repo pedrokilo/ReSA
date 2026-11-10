@@ -38,7 +38,7 @@
   "log_sha256": "2bfd5dad4b318aa6d1a3496c9636fd12432f0aa56f08bfd83b6f8cac5d6eaffc",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-game22\\20261110-004918-828914",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-game22\\20261110-041321-862665",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CGame::CanSeeOutSideFromCurrArea": true,
@@ -66,8 +66,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c750e1b7f700702643d82eff73a55b124c92e9f9546cb7beb4a6d32c3bc53e59",
-      "pdb": "387569bfe62c521dc3a7b0ba2debe723782a782bf6f9a924fc20bf3c849ae3bb"
+      "asi": "d510185cad2ec6b8a489723249c04106b7214552b50584a4aa0e74d0c3deeda0",
+      "pdb": "94b81b24a7fe5de5bfaf35ca34ac7bb6cfe79556f484fabc004d6236c0dc8763"
     },
     "sources": {
       "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",

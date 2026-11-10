@@ -26,13 +26,13 @@ HOOKS = dict(zip(NAMES, oracle.ENTRIES))
 SLOTS = ()
 # colaboradores sustituidos por falsos, en el orden de env.stubs del banco: (direccion del EXE, hooked). Con hook RH en la DLL (apagado durante el banco) el mismo falso va en el cuerpo de la DLL; sin hook, en
 # la funcion propia de la DLL (DLL_BODY_WITHOUT_HOOK) o solo en la direccion del EXE (operator delete 0x8214BD: la DLL lo llama por esa direccion).
-DLL_BODY_WITHOUT_HOOK = {0x678D50, 0x678EE0}
-# colaboradores con hook RH en la DLL (apagado durante el banco): el mismo falso en el cuerpo de la DLL; los cuerpos 0x678D50 y 0x678EE0 (sin hook) llevan el falso en la funcion propia de la DLL; operator delete[]
+DLL_BODY_WITHOUT_HOOK = {0x678EE0}
+# colaboradores con hook RH en la DLL (apagado durante el banco): el mismo falso en el cuerpo de la DLL; el cuerpo 0x678D50 (con hook desde el lote 152A) lleva el falso en el cuerpo del hook y 0x678EE0 (sin hook) en la funcion propia de la DLL; operator delete[]
 # 0x8213AE (la DLL lo llama por la direccion del EXE): solo en esa direccion. (direccion del EXE, hooked) en el orden de env.stubs del banco.
 STUBBED = {NAMES[3]: [(0x4EF660, True)], NAMES[5]: [(0x5F7540, True)], NAMES[6]: [(0x5F7730, True)], NAMES[7]: [(0x63CA40, True)],
            NAMES[8]: [(0x63CCC0, True), (0x61A5B0, True)], NAMES[9]: [(0x63CE70, True), (0x61A5B0, True)], NAMES[10]: [(0x5F7FD0, True), (0x61A5B0, True)],
            NAMES[11]: [(0x5F80D0, True)], NAMES[14]: [(0x8213AE, False)], NAMES[17]: [(0x61A3D0, True)],
-           NAMES[18]: [(0x678D50, False), (0x61A5B0, True)], NAMES[19]: [(0x678EE0, False), (0x61A5B0, True)]}
+           NAMES[18]: [(0x678D50, True), (0x61A5B0, True)], NAMES[19]: [(0x678EE0, False), (0x61A5B0, True)]}
 REAL = {}
 WATCHED = set(HOOKS.values()) | set(SLOTS) | {a for lst in STUBBED.values() for a, _ in lst} | {a for lst in REAL.values() for a, _ in lst}
 COVER_FLOOR = 50

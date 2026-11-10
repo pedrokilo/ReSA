@@ -39,6 +39,12 @@ int32 CanSunbathe() {
 }
 
 
+// 0x62F2D0 (lote 152A, banco Fn152A; cdecl, un argumento de pila de 32 bits del que solo se lee la PALABRA baja, `ret`, 49 bytes; el listado lo atribuia a CTaskComplexLeaveCarAndDie): el tiempo es "muy soleado"
+// (EXTRASUNNY de LA, SMOG LA, SF, VEGAS, COUNTRYSIDE o DESERT: 0, 2, 6, 11, 13 o 17). Devuelve solo AL (el EXE hace `xor al,al` con falso y `mov eax,1` con verdadero); lo llama CanSunbathe (0x632140).
+bool IsExtraSunnyWeather(int16 weather) {
+    return weather == 0 || weather == 2 || weather == 13 || weather == 6 || weather == 11 || weather == 17;
+}
+
 namespace {
 bool SunbatheWeatherAllows() {
     const auto hour = CClock::GetGameClockHours();
@@ -90,6 +96,7 @@ void CTaskComplexSunbathe::InjectHooks() {
     {
         RH_ScopedCategory("Tasks/TaskTypes");
         RH_ScopedGlobalInstall(CanSunbathe, 0x632140);
+        RH_ScopedGlobalInstall(IsExtraSunnyWeather, 0x62F2D0); // lote 152A (banco Fn152A)
     }
     //RH_ScopedGlobalInstall(ShouldLoadSunbatheAnims, 0x632190, { .reversed = false });
 

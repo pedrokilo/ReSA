@@ -48,6 +48,10 @@ struct tUserList {
     //! 0x5FE960 (lote 148A, banco Fn148A; thiscall, un argumento de pila, `ret 4`): si la lista no se usa (byte +0x20 a cero) admite cualquier tipo de peaton; si no, admite el tipo `pedType` solo si alguna de las
     //! cuatro entradas tiene el marcador -2 en m_UserTypes y ese tipo en m_UserTypesByPedType. Devuelve AL (el EXE no normaliza el resto de EAX).
     bool IsPedTypeAllowed(int32 pedType) const;
+
+    //! 0x492CB0 (lote 152A, banco Fn152A; thiscall, un argumento de pila, `ret 4`; el listado lo atribuia a CTaskSimpleHandsUp): pone el byte +0x20 (m_bUseList) a 1 y ocupa la PRIMERA de las cuatro entradas libres
+    //! (m_UserTypes == -1) con el marcador -2 y el tipo de peaton en m_UserTypesByPedType. Si no hay ninguna libre solo queda la bandera. No devuelve nada (el EXE deja AL = 1 si ocupo una; el llamador no lo lee).
+    void AddPedType(int32 pedType);
 };
 VALIDATE_SIZE(tUserList, 0x24);
 

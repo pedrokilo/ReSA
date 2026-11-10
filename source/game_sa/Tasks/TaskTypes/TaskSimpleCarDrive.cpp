@@ -53,6 +53,7 @@ void CTaskSimpleCarDrive::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x63C340);
     RH_ScopedInstall(Destructor, 0x63C460);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6426E0); // lote 152A (banco Fn152A)
 
     RH_ScopedInstall(TriggerIK, 0x63C500);
     RH_ScopedInstall(UpdateBopping, 0x63C900);
@@ -60,12 +61,27 @@ void CTaskSimpleCarDrive::InjectHooks() {
     RH_ScopedInstall(ProcessHeadBopping, 0x6428C0);
     RH_ScopedInstall(ProcessArmBopping, 0x642AE0);
     RH_ScopedInstall(ProcessBopping, 0x642E70);
+    RH_ScopedInstall(StartRollingDoor, 0x642700); // lote 152A (banco Fn152A): el listado lo atribuia a CTaskComplexScreamInCarThenLeave
     RH_ScopedInstall(FinishAnimCloseDoorRollingCB, 0x63C840);
     RH_ScopedVMTInstall(Clone, 0x63DC20);
     RH_ScopedVMTInstall(GetTaskType, 0x63C450);
     RH_ScopedVMTInstall(MakeAbortable, 0x63C670);
     RH_ScopedVMTInstall(ProcessPed, 0x644470);
     RH_ScopedVMTInstall(SetPedPosition, 0x63C770);
+}
+
+uintptr_t Lote152ACallback_CarDriveRollDoor() { return reinterpret_cast<uintptr_t>(&CTaskSimpleCarDrive::FinishAnimCloseDoorRollingCB); } // para el banco Fn152A
+
+// 0x6426E0 (lote 152A, banco Fn152A): destructor con borrado de CTaskSimpleCarDrive del EXE (ranura 0 de su vtable 0x86E904; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x63C460; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`; el listado lo atribuia a CTaskComplexScreamInCarThenLeave). Como el
+// original: destruye con el cuerpo de la clase (0x63C460; aqui su envoltura Destructor()), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y
+// devuelve `this`.
+CTaskSimpleCarDrive* CTaskSimpleCarDrive::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x63C340
@@ -176,9 +192,10 @@ static const RwV3d s_AxisX{ 1.0f, 0.0f, 0.0f };
 static const RwV3d s_AxisZ{ 0.0f, 0.0f, 1.0f };
 
 // 0x642700 (sin catalogar): empieza la animación de cerrar la puerta rodando
+// Lote 152A (banco Fn152A): como el original, lee el puntero del clump (+0x18) sin comprobarlo (GetRpClump() tiene un assert que desreferencia el objeto RenderWare).
 void CTaskSimpleCarDrive::StartRollingDoor(CPed* ped) {
     const auto group = CVehicleAnimGroupData::GetVehicleAnimGroup(ped->m_pVehicle->m_pHandlingData->m_nAnimGroup).GetGroup(ANIM_ID_CAR_ROLLDOOR);
-    m_pAnimCloseDoorRolling = CAnimManager::AddAnimation(ped->GetRpClump(), group, ANIM_ID_CAR_ROLLDOOR);
+    m_pAnimCloseDoorRolling = CAnimManager::AddAnimation(reinterpret_cast<RpClump*>(ped->GetRwObject()), group, ANIM_ID_CAR_ROLLDOOR);
     m_pAnimCloseDoorRolling->SetFinishCallback(FinishAnimCloseDoorRollingCB, this);
 }
 

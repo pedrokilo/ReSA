@@ -26,11 +26,11 @@ public:
     CEventPotentialWalkIntoObject(CObject* object, int32 moveState);
     ~CEventPotentialWalkIntoObject() override;
 
-    eEventType GetEventType() const override { return EVENT_POTENTIAL_WALK_INTO_OBJECT; }
-    bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
+    eEventType GetEventType() const override;                       // 0x4AE640 (lote 152A, banco Fn152A): `mov eax,2Ch; ret` (ranura 1)
+    bool TakesPriorityOver(const CEvent& refEvent) override;        // 0x4AE6D0 (lote 152A, banco Fn152A): `mov al,1; ret 4` (ranura 11)
     CEventPotentialWalkIntoObject* CloneEditable() const noexcept override { return new CEventPotentialWalkIntoObject(m_object, m_moveState); }
-    int32 GetEventPriority() const override { return 27; }
-    int32 GetLifeTime() override { return 0; }
+    int32 GetEventPriority() const override;                        // 0x4AE660 (lote 152A, banco Fn152A): `mov eax,1Bh; ret` (ranura 2)
+    int32 GetLifeTime() override;                                   // 0x4AE650 (lote 152A, banco Fn152A): `xor eax,eax; ret` (ranura 3)
     bool AffectsPed(CPed* ped) override;
 
 private:

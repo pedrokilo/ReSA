@@ -65,7 +65,8 @@ private:
     static void InjectHooks();
 
     CTaskSimpleCarDrive* Constructor(CVehicle* pVehicle, CTaskUtilityLineUpPedWithCar* pUtilityTask, int8_t bUpdateCurrentVehicle) { this->CTaskSimpleCarDrive::CTaskSimpleCarDrive(pVehicle, pUtilityTask, bUpdateCurrentVehicle); return this; }
-    CTaskSimpleCarDrive* Destructor() { this->CTaskSimpleCarDrive::~CTaskSimpleCarDrive(); return this; }
+    __declspec(noinline) CTaskSimpleCarDrive* Destructor() { this->CTaskSimpleCarDrive::~CTaskSimpleCarDrive(); return this; }   // 0x63C460 (sin expansion en linea: el banco Fn152A sustituye este cuerpo)
+    CTaskSimpleCarDrive* ScalarDeletingDestructor(uint8 flags); // 0x6426E0 (lote 152A, banco Fn152A): destructor con borrado (ranura 0 de la vtable 0x86E904), `ret 4`
                     };
 
 VALIDATE_SIZE(CTaskSimpleCarDrive, 0x60);

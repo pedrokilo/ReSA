@@ -194,6 +194,7 @@ void ModelIndices::InjectHooks() {
     // TODO: Move functions into ModelIndices namespace
     RH_ScopedGlobalInstall(InitModelIndices, 0x5BCA10);
     RH_ScopedGlobalInstall(MatchAllModelStrings, 0x5B57C0);
+    RH_ScopedGlobalInstall(TestModelIndices, 0x53ED30); // lote 152A (banco Fn152A): cdecl sin argumentos, `ret` (vacia)
 }
 
 // 0x5BCA10

@@ -21,12 +21,11 @@
 // V (RH_ScopedVMTInstall: ranura de la vtable del EXE; el Virtual lleva dentro un Simple sobre la entrada del EXE, que es lo que el banco enciende). El banco invoca la direccion del EXE con objetos
 // sinteticos en tres arenas propias (A, B, C con guardas de 0x40). Falsos de los colaboradores: el mismo falso en el EXE y en el cuerpo de la DLL (MakeCollab / Pair): CAESound::Destructor (0x4EF660), SetTask
 // (0x5F7540), ReportAllTasksFinished (0x5F7730), RemoveMember (0x5F80D0), ~CTaskComplexCarDrive (0x63CA40), cuerpos de destructor (0x63CCC0, 0x63CE70, 0x5F7FD0), ~CTaskComplex (0x61A3D0) y CTask::operator
-// delete (0x61A5B0), todos con hook (apagado durante el banco); los cuerpos 0x678D50 y 0x678EE0 no tienen hook: falso en la direccion del EXE y en la funcion propia de la DLL (Lote148ABody_*); operator delete[]
+// delete (0x61A5B0), todos con hook (apagado durante el banco); el cuerpo 0x678D50 tiene hook desde el lote 152A (falso en su cuerpo, F) y 0x678EE0 no lo tiene: falso en la direccion del EXE y en la funcion propia de la DLL (Lote148ABody_*); operator delete[]
 // 0x8213AE (la DLL lo llama por la direccion del EXE: falso solo ahi).
 // Se observan: los bytes cambiados de las tres arenas (y, en CLinkList::Insert, los dwords cambiados con los punteros a arena como etiquetas), los eventos de los falsos (con sus argumentos), el valor devuelto
 // (EAX completo, etiqueta de this, o AL) y el estado x87 (vacio) y el contrato de ABI. EAX/ECX/EDX tras la llamada quedan en original_residue / candidate_residue (informativos).
 
-uintptr_t Lote148ABody_CTaskSimpleInAir();   // 0x678D50 (sin hook), TaskSimpleInAir.cpp
 uintptr_t Lote148ABody_CTaskSimpleLand();    // 0x678EE0 (sin hook), TaskSimpleLand.cpp
 
 namespace F148ALive {
@@ -411,7 +410,7 @@ inline void Update() {
     env.stubs[kIdxMembershipDtor] = {F(0x5F80D0, &FkRemoveMember)};
     env.stubs[kIdxLinkShutdown] = {ByExeAddress(0x8213AE, &FkDeleteArray)};
     env.stubs[kIdxInAirLandDtor] = {F(0x61A3D0, &FkBody<0x61A3D0>)};
-    env.stubs[kIdxSimpleInAirSdd] = {U(0x678D50, Lote148ABody_CTaskSimpleInAir(), &FkBody<0x678D50>), ctaskDelete};
+    env.stubs[kIdxSimpleInAirSdd] = {F(0x678D50, &FkBody<0x678D50>), ctaskDelete};
     env.stubs[kIdxSimpleLandSdd] = {U(0x678EE0, Lote148ABody_CTaskSimpleLand(), &FkBody<0x678EE0>), ctaskDelete};
     const char* dllReal[kFunctions];
     for (unsigned f = 0; f < kFunctions; ++f) dllReal[f] = "toda la funcion (sin colaboradores)";

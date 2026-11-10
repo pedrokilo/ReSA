@@ -37,6 +37,10 @@ void CEventPotentialWalkIntoObject::InjectHooks()
     RH_ScopedNamedGlobalInstall(PotentialWalkIntoObjectDestructorBody, "Destructor", 0x4AE670);
 
     RH_ScopedInstall(Constructor, 0x4AE5D0);
+    RH_ScopedVMTInstall(GetEventType, 0x4AE640); // lote 152A (banco Fn152A)
+    RH_ScopedVMTInstall(GetLifeTime, 0x4AE650); // lote 152A (banco Fn152A)
+    RH_ScopedVMTInstall(GetEventPriority, 0x4AE660); // lote 152A (banco Fn152A)
+    RH_ScopedVMTInstall(TakesPriorityOver, 0x4AE6D0); // lote 152A (banco Fn152A)
     RH_ScopedVMTInstall(AffectsPed, 0x4B4950);
 }
 
@@ -56,6 +60,18 @@ CEventPotentialWalkIntoObject* CEventPotentialWalkIntoObject::Constructor(CObjec
     this->CEventPotentialWalkIntoObject::CEventPotentialWalkIntoObject(object, moveState);
     return this;
 }
+
+// 0x4AE640 (lote 152A, banco Fn152A): `mov eax,2Ch; ret`
+eEventType CEventPotentialWalkIntoObject::GetEventType() const { return EVENT_POTENTIAL_WALK_INTO_OBJECT; }
+
+// 0x4AE6D0 (lote 152A, banco Fn152A): `mov al,1; ret 4` (solo AL; el evento recibido no se lee)
+bool CEventPotentialWalkIntoObject::TakesPriorityOver(const CEvent& refEvent) { return true; }
+
+// 0x4AE660 (lote 152A, banco Fn152A): `mov eax,1Bh; ret`
+int32 CEventPotentialWalkIntoObject::GetEventPriority() const { return 27; }
+
+// 0x4AE650 (lote 152A, banco Fn152A): `xor eax,eax; ret`
+int32 CEventPotentialWalkIntoObject::GetLifeTime() { return 0; }
 
 // 0x4B4950
 bool CEventPotentialWalkIntoObject::AffectsPed(CPed* ped) {

@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "5795dd2f26dfb2fccaa627faa756a30b03e3fd218d9649eefdc6edeb7b9462f9",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: tUserList::AddPedType: 884/2048; CTaskSimpleInAir::GetTaskType: 884/2048; CTaskSimpleInAir::DestructorBody: 892/2048; TestModelIndices: 2048/2048; CPad::IsLeftShoulder1Pressed: 722/2048; CPad::IsRightShoulder1Pressed: 721/2048; CPad::IsDPadUpPressed: 705/2048; CPad::IsTrianglePressed: 687/2048; CPad::IsCirclePressed: 694/2048; CEventPotentialWalkIntoObject::GetEventType: 905/2048; CEventPotentialWalkIntoObject::GetLifeTime: 906/2048; CEventPotentialWalkIntoObject::GetEventPriority: 901/2048; CEventPotentialWalkIntoObject::TakesPriorityOver: 899/2048; CEventKnockOffBike::operator=: 896/2048; CEventKnockOffBike::CopyConstructor: 909/2048; CTaskSimpleCarDrive::ScalarDeletingDestructor: 358/2048; CTaskSimpleCarDrive::StartRollingDoor: 882/2048; CBmx::BlowUpCar: 820/2048; CBmx::ScalarDeletingDestructor: 352/2048; CBmx::DestructorBody: 908/2048; CTaskComplexLeaveCarAndDie::DestructorBody: 894/2048; CTaskComplexLeaveCarAndDie::ScalarDeletingDestructor: 332/2048; CTaskComplexLeaveCarAndWander::ScalarDeletingDestructor: 358/2048; IsExtraSunnyWeather: 225/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

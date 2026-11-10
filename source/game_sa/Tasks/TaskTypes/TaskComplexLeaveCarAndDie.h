@@ -19,5 +19,6 @@ public:
     CTask*    CreateFirstSubTask(CPed * ped) override;
 
 private:
+    CTaskComplexLeaveCarAndDie* ScalarDeletingDestructor(uint8 flags); // 0x62F250 (lote 152A, banco Fn152A): destructor con borrado (ranura 0 de la vtable 0x86DD00), `ret 4`
     CTaskComplexLeaveCarAndDie* Constructor(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime) { this->CTaskComplexLeaveCarAndDie::CTaskComplexLeaveCarAndDie(targetVehicle, nTargetDoor, nDelayTime); return this; }
 };

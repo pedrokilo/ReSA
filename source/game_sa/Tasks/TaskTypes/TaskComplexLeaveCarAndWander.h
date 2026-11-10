@@ -40,8 +40,9 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x63BE50
-    CTaskComplexLeaveCarAndWander* Destructor() {
+    __declspec(noinline) CTaskComplexLeaveCarAndWander* Destructor() {   // sin expansion en linea: el banco Fn152A sustituye este cuerpo
         this->CTaskComplexLeaveCarAndWander::~CTaskComplexLeaveCarAndWander();
         return this;
     }
+    CTaskComplexLeaveCarAndWander* ScalarDeletingDestructor(uint8 flags); // 0x6422A0 (lote 152A, banco Fn152A): destructor con borrado (ranura 0 de la vtable 0x86E880), `ret 4`
 };

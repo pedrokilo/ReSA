@@ -130245,7 +130245,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::CanSeeOutSideFromCurrArea"
@@ -130272,7 +130272,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::CanSeeWaterFromCurrArea"
@@ -130299,7 +130299,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::ValidateVersion"
@@ -130326,7 +130326,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::CameraDestroy"
@@ -130353,7 +130353,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::TidyUpMemory"
@@ -130380,7 +130380,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::DrasticTidyUpMemory"
@@ -130407,7 +130407,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::ReloadIPLs"
@@ -130434,7 +130434,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::InitialiseOnceBeforeRW"
@@ -130461,7 +130461,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::InitialiseEssentialsAfterRW"
@@ -130488,7 +130488,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::InitialiseCoreDataAfterRW"
@@ -130515,7 +130515,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::InitialiseRenderWare"
@@ -130542,7 +130542,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::ShutdownRenderWare"
@@ -130569,7 +130569,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::FinalShutdown"
@@ -130596,7 +130596,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::Init1"
@@ -130623,7 +130623,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::Init2"
@@ -130650,7 +130650,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::Init3"
@@ -130677,7 +130677,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::Initialise"
@@ -130704,7 +130704,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::ReInitGameObjectVariables"
@@ -130731,7 +130731,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::InitialiseWhenRestarting"
@@ -130758,7 +130758,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::ShutDownForRestart"
@@ -130785,7 +130785,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::Shutdown"
@@ -130812,7 +130812,7 @@
       },
       "evidence": {
         "path": "reversing/Game22/validation-summary.json",
-        "sha256": "1e71995fcadd00549c61c4f3294a86785b96c9e1c83d8976c9617fb7a7503138",
+        "sha256": "af798513a0113e33842ec44d20d4d6dd8657d066ee1a758dd32b2b46df090260",
         "passed_path": [
           "covered_functions",
           "CGame::Process"

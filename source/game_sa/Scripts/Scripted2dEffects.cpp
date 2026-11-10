@@ -47,6 +47,7 @@ void CScripted2dEffects::InjectHooks() {
         RH_ScopedClass(tUserList);
         RH_ScopedCategory("Scripts");
         RH_ScopedInstall(IsPedTypeAllowed, 0x5FE960); // lote 148A (banco Fn148A)
+        RH_ScopedInstall(AddPedType, 0x492CB0); // lote 152A (banco Fn152A)
     }
 }
 
@@ -62,6 +63,18 @@ bool tUserList::IsPedTypeAllowed(int32 pedType) const {
         }
     }
     return false;
+}
+
+// 0x492CB0 (lote 152A, banco Fn152A): ver la declaracion. Como el original: la bandera se escribe ANTES del bucle (un solo byte) y el bucle se detiene en la primera entrada libre; las comparaciones son de 32 bits.
+void tUserList::AddPedType(int32 pedType) {
+    *reinterpret_cast<uint8*>(&m_bUseList) = 1;
+    for (size_t i = 0; i < m_UserTypes.size(); i++) {
+        if (m_UserTypes[i] == -1) {
+            m_UserTypes[i] = -2;
+            m_UserTypesByPedType[i] = pedType;
+            break;
+        }
+    }
 }
 
 // 0x6F9EB0 (lote 132A, banco Fn132A): en cada uno de los cuatro pares, Effect, WaitingTask y PartnerUseMode de los dos efectos a -1, el PartnerTask del PRIMER efecto a -1 (el del segundo no se
