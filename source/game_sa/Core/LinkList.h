@@ -36,8 +36,11 @@ public:
         }
     }
 
+    // Como el original (instancia 0x4161D0 de CLinkList<CCollisionData*>, lote 148A, banco Fn148A): libera el vector con delete[] (sin comprobar si es nulo) y SOLO DESPUES anula el puntero.
+    // No es noinline en el .h: el hook se registra sobre la instancia concreta (Collision.cpp).
     void Shutdown() {
-        delete[] std::exchange(links, nullptr);
+        delete[] links;
+        links = nullptr;
     }
 
     /*!
@@ -49,6 +52,7 @@ public:
         link.Insert(&usedListHead);
     }
 
+    // Instancia 0x4161F0 de CLinkList<CCollisionData*> (lote 148A, banco Fn148A): `ret 4`, devuelve el enlace usado o nulo si no hay libres; escribe el dato, desengancha el enlace de la lista libre y lo pone en la cabeza de la usada.
     CLink<T>* Insert(T const& data) {
         CLink<T>* link = freeListHead.next;
         if (link == &freeListTail)

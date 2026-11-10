@@ -28,12 +28,24 @@ __declspec(noinline) void __fastcall DriveToPointDestructorBody(CTaskComplexDriv
     *reinterpret_cast<uint32*>(self) = 0x86E9DC;
     static_cast<CTaskComplexCarDrive*>(self)->Destructor();
 }
+
+// 0x643280 (lote 148A, banco Fn148A): destructor con borrado de CTaskComplexDriveToPoint del EXE (ranura 0 de su vtable 0x86E9DC; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x63CE70; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`; el listado lo atribuia a CTaskComplexCarDriveWander). Como el original: destruye con el
+// cuerpo de la clase (0x63CE70, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+CTaskComplexDriveToPoint* __fastcall DriveToPointScalarDeletingDestructor(CTaskComplexDriveToPoint* self, void* /*edx*/, uint8 flags) {
+    DriveToPointDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskComplexDriveToPoint::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDriveToPoint, 0x86E9DC, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(DriveToPointDestructorBody, "Destructor", 0x63CE70); // lote 141A (banco Fn141A)
+    RH_ScopedNamedGlobalInstall(DriveToPointScalarDeletingDestructor, "ScalarDeletingDestructor", 0x643280); // lote 148A (banco Fn148A)
 
     RH_ScopedInstall(Constructor, 0x63CE00);
 

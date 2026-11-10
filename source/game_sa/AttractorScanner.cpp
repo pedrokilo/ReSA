@@ -146,7 +146,7 @@ void CAttractorScanner::ScanForAttractors(CPed& ped) {
                     break;
                 }
             }
-            if (!listed && !plugin::CallMethodAndReturn<bool, 0x5FE960, tUserList*, int32>(&userList, ped.m_nPedType)) {
+            if (!listed && !userList.IsPedTypeAllowed(ped.m_nPedType)) {
                 continue;
             }
         }

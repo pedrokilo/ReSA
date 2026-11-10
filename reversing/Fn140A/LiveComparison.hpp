@@ -325,7 +325,7 @@ inline void Update() {
     env.stubs[kIdxAnimDelete] = {F(0x537A70, &FkBody<0x537A70>), F(0x4040A0, &FkDelete<0x4040A0>)};
     env.stubs[kIdxAnimBody] = {H(0x535E90, Lote140AAnimatedBuildingEntityDestructor(), &FkBody<0x535E90>)};
     env.stubs[kIdxPolice] = {F(0x68D880, &FkBody<0x68D880>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
-    env.stubs[kIdxWander] = {U(0x63CB50, Lote140ACarDriveWanderDestructorBody(), &FkBody<0x63CB50>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
+    env.stubs[kIdxWander] = {H(0x63CB50, Lote140ACarDriveWanderDestructorBody(), &FkBody<0x63CB50>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[kIdxHasslePed] = {F(0x65FF60, &FkBody<0x65FF60>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     const char* dllReal[kFunctions];
     for (unsigned f = 0; f < kFunctions; ++f) dllReal[f] = "toda la funcion (sin colaboradores)";
@@ -335,7 +335,7 @@ inline void Update() {
     dllReal[kIdxAnimDelete] = "toda la funcion salvo el cuerpo de CAnimatedBuilding (0x537A70, con hook propio del lote, falso identico) y CBuilding::operator delete (0x4040A0, con hook desde el lote 146A, falso identico en la direccion del EXE y en su cuerpo)";
     dllReal[kIdxAnimBody] = "toda la funcion salvo ~CEntity (0x535E90, con hook; la DLL llama a su funcion propia AnimatedBuildingEntityDestructor, falso identico en la direccion del EXE y en ella)";
     dllReal[kIdxPolice] = "toda la funcion salvo ~CTaskComplexPolicePursuit (0x68D880, envoltura Destructor() con falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)";
-    dllReal[kIdxWander] = "toda la funcion salvo el cuerpo ~CTaskComplexCarDriveWander (0x63CB50, funcion propia sin hook, falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)";
+    dllReal[kIdxWander] = "toda la funcion salvo el cuerpo ~CTaskComplexCarDriveWander (0x63CB50, con hook desde el lote 148A, funcion propia de la DLL, falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)";
     dllReal[kIdxHasslePed] = "toda la funcion salvo ~CTaskGangHasslePed (0x65FF60, envoltura Destructor() con falso identico) y CTask::operator delete (0x61A5B0, con hook, falso identico)";
     for (unsigned f = 0; f < kFunctions; ++f) {
         json stubbed = json::array(), real = json::array();

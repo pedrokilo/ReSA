@@ -22,4 +22,12 @@ public:
     virtual void AddParticle(const RwMatrix& mat, const CVector& vel, float timeSince, const FxPrtMult_c& fxMults, float rotZ, float brightness, bool createLocal) = 0;
 
     void Enable(bool enabled);
+
+    static void InjectHooks();
+
+private: // Envoltorios para los hooks
+    // 0x4A9F20 (lote 148A, banco Fn148A): constructor del EXE (vtable de la clase del EXE, 0x85A9E0; la de la DLL no vale)
+    FxPrim_c* Constructor();
+    // 0x4A9F40 (lote 148A, banco Fn148A): cuerpo no virtual del destructor del EXE (vtable 0x85A9E0 y punteros a cero)
+    void Destructor();
 };

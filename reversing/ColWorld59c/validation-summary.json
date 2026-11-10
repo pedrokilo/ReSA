@@ -36,7 +36,7 @@
   "log_sha256": "4ac5fecf10e6d371cca8bfa642550485595d986b277c317e0d70fcc18112e65c",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-colworld59c\\20261005-161312-517680",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-colworld59c\\20261110-004803-613172",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CCollision::Init": true,
@@ -62,22 +62,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "03bdb1d3b3fbf3cc46d93b60eabba419cac3deab7d1d47b0294cf08df84c0ede",
-      "pdb": "3df48eaa45c161a44f96dee89d6cce033054b28c780b4e93c49908b29f34cf6a"
+      "asi": "3f8f38f48e038c412bfeb68e2688021abc134b694cdbc32eab4f43e6977e8de5",
+      "pdb": "380c822e4742e61f6114c2ed2b4527e94f122c70d79bababa9a7905eaf99aaa7"
     },
     "sources": {
-      "source/game_sa/Collision/Collision.cpp": "fb805a5def52f68e2dbd01b42ae04220dcd92363cbe1e3fa103f8c05f29e0df3",
+      "source/game_sa/Collision/Collision.cpp": "17db7eb46826448c85136e664ffa79a617bc0c5b85a5537e19d0c519376e9340",
       "source/game_sa/Collision/Collision.h": "7599a8ffa177a18e2e957f485acd21d46db5c28bd66ee145880f520809deaaf7"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "e34048a8ec2d43394027eb52890907070dbac93cc198419e410030c276ff56bc",
+      "LiveComparison.hpp": "2677110d803d64660c22993afb56f84a1f61cbe56f525e9681f953afce07ea1a",
       "build_probe.py": "2527593d2eb26fef12a16ad7d913be0f61d208ee52930ab9747cc22587b3a461",
       "run_local.py": "e5bd6f7b5a5525fcdf07dbfe80b311613aa41056a06e3d2b276697996c4d3aba"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

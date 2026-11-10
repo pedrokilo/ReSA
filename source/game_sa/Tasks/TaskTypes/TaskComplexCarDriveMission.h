@@ -26,7 +26,8 @@ private:
     static void InjectHooks();
 
     CTaskComplexCarDriveMission* Constructor(CVehicle* vehicle, CEntity* targetVehicle, eCarMission carDriveMission, eCarDrivingStyle carDrivingStyle, float fSpeed) { this->CTaskComplexCarDriveMission::CTaskComplexCarDriveMission(vehicle, targetVehicle, carDriveMission, carDrivingStyle, fSpeed); return this; }
-    CTaskComplexCarDriveMission* Destructor() { this->CTaskComplexCarDriveMission::~CTaskComplexCarDriveMission(); return this; }
+    __declspec(noinline) CTaskComplexCarDriveMission* Destructor() { this->CTaskComplexCarDriveMission::~CTaskComplexCarDriveMission(); return this; } // sin expansion en linea (lote 148A: el banco sustituye su cuerpo)
+    CTaskComplexCarDriveMission* ScalarDeletingDestructor(uint8 flags); // 0x643260 (lote 148A, banco Fn148A): destructor con borrado (ranura 0 de la vtable 0x86E9A4), `ret 4`
 };
 VALIDATE_SIZE(CTaskComplexCarDriveMission, 0x2C);
 

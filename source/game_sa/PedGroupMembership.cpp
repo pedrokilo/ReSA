@@ -30,6 +30,12 @@ CPedGroupMembership::~CPedGroupMembership() {
     Flush();
 }
 
+// 0x5FB990 (lote 148A, banco Fn148A; thiscall, sin argumentos de pila, `ret`, 42 bytes; el listado lo atribuia a CPedGroups): cuerpo del destructor de CPedGroupMembership del EXE. Es byte a byte el de Flush
+// (0x5FB160, sin hook): para cada hueco 0..7 con un miembro no nulo (leido en cada vuelta) llama a RemoveMember(hueco) (0x5F80D0, con hook, ECX = this). Solo lo alcanza el funclet 0x83E4B0 (ECX = grupo + 8).
+void CPedGroupMembership::Destructor() {
+    Flush();
+}
+
 // 0x5F7FE0
 void CPedGroupMembership::From(const CPedGroupMembership& obj) {
     // Como el original: AddMember con los 8 huecos (tambien el lider), sin limpiar los actuales
@@ -399,6 +405,7 @@ void CPedGroupMembership::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(GetObjectForPedToHold, 0x5F6950);
+    RH_ScopedInstall(Destructor, 0x5FB990); // lote 148A (banco Fn148A)
     RH_ScopedInstall(From, 0x5F7FE0);
     RH_ScopedInstall(CountMembersExcludingLeader, 0x5F6AA0);
     RH_ScopedInstall(CountMembers, 0x5F6A50);

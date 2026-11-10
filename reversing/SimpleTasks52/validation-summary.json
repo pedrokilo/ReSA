@@ -64,7 +64,7 @@
   "log_sha256": "42a13f6a7089bb55ce3bfdf152bb208d06b2a7affbb59c7f40d2b770d93996f6",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks52\\20261002-145120-861185",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks52\\20261110-003937-359981",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleHitByGunFromFront::Constructor": true,
@@ -118,8 +118,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "883c828c9b0ef94ccb1dbf6b8d1bbec81ef2d3d29ef5f1e5c48b3e0e646704df",
-      "pdb": "be0272db4545611fc79d5abc70e2905dda7f8f79249aa1a90b5425a9eed35820"
+      "asi": "efc8367aab31511d76af951ec15298edee747ea1a082a59d8f0fa9a488564f95",
+      "pdb": "53a81b628dc7d3915397be579c37eb5e46f2ad07ba7ae7e4e1578d86174be57e"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromFront.cpp": "c11c783ade53f6645e9fc3b1250ba71ea66d2525509bc23b77fd6e7866d69742",
@@ -146,32 +146,33 @@
       "source/game_sa/Tasks/TaskTypes/TaskSimpleLookAbout.h": "33e56b5efe1a4ad82d78a9eabd8c8d4e32fdaa3a14cb843286d0eac76c69357f",
       "source/game_sa/Tasks/TaskTypes/TaskSimplePutDownEntity.cpp": "c79e44784c475c1b033e1847a63d378d0584d47b5468e96c2892b1c518599335",
       "source/game_sa/Tasks/TaskTypes/TaskSimplePutDownEntity.h": "3153dc1eec93a2483170f2c47dc7404dcc56ba0b809ff790f98a6fc1f5a0d927",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp": "7419921d7cb59dc7bae48528613f980225679d7473a786d2042c4e295c12faae",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.h": "becf3ff4e4f2b494f75905588ec00bad57f4a0686f46fa711cbe5e4d8aa3a2e8",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "5d14c0b128ed6ebd3608b7a440c8b54a14b344912968d26f46d0427932bfa4f7",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "ab3e34e1f33a22c7fadf358fa164241e936226fa2505f31a47f168a63f2687c7",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "5245345869c8e22c6db81971c5161fd67b9e73739b06b00cfce4395aed339503",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp": "bf5b025ccba29c8e4bdc498815b44543ee8936b39159222cf98a171319a1462d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleTired.h": "20152f9643fecbc3008604d22a9dd8c929fff0fc053517ac39287d514d7413b1",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "a7c654ee0fba03753964eba94ac8493f642e6da63ae38615b245290b9600e4a7",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "f02acd19b60e59c701a94317e0fcd0bb689819de380a1531f1bd31c695d2c2c4",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "b74e8752b1f5f1d79f1324ed927de63add41cbbaa65b5dd190aae09406d6e254",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "899f4d5cadd6018558e90ea2e172f56f76d76fa970f77f54be63fec2e0a3d3b8",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunTimedAnim.cpp": "9dc19710301fc8754eef4658b445e5a9664bd2e4ba5d512342ca7d34d0fb7bda",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunTimedAnim.cpp": "9b4633f32eff98aae1a36998c8e58db6a56ac44e89ec1077448a3c9ded32e353",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleRunTimedAnim.h": "f52e3d472105eaeca32e1dfa0eddf1ba3ab64e9d7a5a528ca94622aeaebefc8f",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "3247b89927aca83d258e76a0ac5ab42988304441aed765f561ae8d5f2ea66fa5",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "b4f9a9afa80c1f715e62e161e05bfcb6cba13495ab5a9663853b450177991213",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "4041c65038644cf2aaaf3683bb5c8cf02b46271cbb183e6b0ca4ffc562262c82",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "8c13c108cc1d453ca58d6113e12b2a523b2bdcf3366dafac08a0ea356e6b9c73",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp": "d8b2dbb10c9e8e49d7bcd932a0af6c2137560a6a88c6285cf092573474a27f73",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.h": "522f239d8b1b57ed8b2d4416af3b19b497994967da6d04bdda9f4262617cd90e",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp": "b56aa1b30e31b50c92a7fedef9f17db9af512e8eb4263285ade18917a9ae2342",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp": "f3b282a0e69596371cdcfd6c39bdc0ead4c78aa1c4a65f98d3dc4b65e8bf2f75",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.h": "57dbeccf436c4225e915497aaa41dc356c4463bded9cf0cfd65b4127611fff36"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "b614175351630f789d55b500bb711262457ff5fd0994f448582cd65a03b306e5",
+      "LiveComparison.hpp": "f8e7aa78cfe3e2ba29c8d174c99776d4ae944c3691b733b495c87e1a6b6e8918",
       "build_probe.py": "02ca7786e9e641561dd834bf9a84460b1beb89f5fe6cd03656db1e5bdcc7d6e7",
       "run_local.py": "7c64447263a0be9d6d9fb072ad3a486f67f3608003b3cb70072f73381c4db83d"
     }
   },
   "limitations": [
     "Constructores en buferes 0xCD; peatones falsos con vtable trazada; animaciones, movimiento, agacharse, armas y punteria simulados.",
-    "Pool de tareas con el slot libre restaurado; en la ejecucion original se desactivan tambien los hooks de los constructores base."
+    "Pool de tareas con el slot libre restaurado; en la ejecucion original se desactivan tambien los hooks de los constructores base.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

@@ -21,6 +21,14 @@ END GENERATED HOOK STATUS */
 #include "PedType.h"
 CAcquaintance* CPedType::ms_apPedTypesOld = {}; // NOTSA (ver s_PedTypesOldStorage)
 
+namespace {
+// 0x5FE9C0 (lote 148A, banco Fn148A; cdecl, un argumento de pila que NO limpia la funcion, `ret`, 23 bytes: `mov eax,[esp+4]; cmp eax,7; jl no; cmp eax,10h; jg no; mov eax,1; ret; no: xor eax,eax; ret`; el listado
+// lo atribuia a CPedIK): IsPedTypeGang del EXE (cabecera ePedType.h, expandida en linea en el resto del codigo). Comparaciones CON SIGNO sobre [7, 16] (PED_TYPE_GANG1..GANG10); devuelve EAX completo, 0 o 1.
+__declspec(noinline) int32 __cdecl IsPedTypeGangExe(int32 pedType) {
+    return IsPedTypeGang(static_cast<ePedType>(pedType)) ? 1 : 0;
+}
+} // namespace
+
 void CPedType::InjectHooks() {
     RH_ScopedClass(CPedType);
     RH_ScopedCategoryGlobal();
@@ -38,6 +46,7 @@ void CPedType::InjectHooks() {
     RH_ScopedInstall(ClearPedTypeAcquaintances, 0x608A20);
     RH_ScopedInstall(ClearPedTypeAsAcquaintance, 0x6089F0);
     RH_ScopedInstall(PoliceDontCareAboutCrimesAgainstPedType, 0x608A40);
+    RH_ScopedNamedGlobalInstall(IsPedTypeGangExe, "IsPedTypeGang", 0x5FE9C0); // lote 148A (banco Fn148A)
 }
 
 // NOTSA: copia de seguridad que usa MayhemCheat (Cheat.cpp). Vive en almacenamiento propio para no añadir

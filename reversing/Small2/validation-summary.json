@@ -90,7 +90,7 @@
   "log_sha256": "0e4dda2ee54a046da537994367f55d65a118e1a6d286a48caa1816fb02753a4c",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-small2\\20261106-120824-959778",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-small2\\20261110-003706-247897",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CMaths::InitMathsTables": true,
@@ -170,22 +170,22 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "56f3c4ed239014a98b082976fec7cf18364b5940d7ae206d78919ba7d4af74b2",
-      "pdb": "752cbcdf32b415948070720b8b4cd6128e0e6b823c210a1644e6aeb3a82003ab"
+      "asi": "d46505c956bb254bf6ebff460fa502b31595b79695ba539f944636d81e261c6c",
+      "pdb": "27a1d13126814b1bad5f887275a1e9ead34d682620d3f725dd6f9e72ee01650a"
     },
     "sources": {
-      "source/game_sa/Maths.cpp": "1e68175b403253226bfb278ed2658993e344d4619e39f8e402b0976f0ea1f323",
+      "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
       "source/game_sa/Core/MatrixLink.cpp": "38c7a9a95b2c8c9c4a90063d38f42a1c88182c6a2d518bd98badc81dcee74320",
       "source/game_sa/Core/MatrixLinkList.cpp": "3cd88e9890a2edd57d30aa4c6c2dc95f6c47fd2d5cee86f9085a584a6a9ad6f9",
-      "source/game_sa/Models/LodTimeModelInfo.cpp": "41668fa89fe7f6450d2faf048a9ff51bee69ca55c67304f5b006e79548d2b897",
+      "source/game_sa/Models/LodTimeModelInfo.cpp": "2b80530c229050df8836adaf9aa224e3b22230ad68117f5fc542d3ac40987c9e",
       "source/game_sa/Text/MissionTextOffsets.cpp": "16bc96bde23fc0b19560a70e11691f9897787ba9ff440e230f31deb20cd7a149",
-      "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "cce41d98cbf00de29ee39aa72fcd62b03ff9fd8d5402978f00afc761896e112e",
-      "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
+      "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "adb0c6d60e4856d8bff98b6ff17697cd8aebc7c778a8d1337e96e8094707fceb",
+      "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
       "source/game_sa/Audio/AEAudioUtility.cpp": "040acc4cb40030ee8ef3c038f084c80484cf5758002ba7ba52c48d23c426d2f2",
       "source/game_sa/Audio/AEAudioUtility.h": "ea4d1eb95c63065e11eca92a622fc646a726f87630e5a239c507fd62a1039fdc",
       "source/game_sa/Audio/AEAudioEnvironment.cpp": "aacb7069839a75ba875a727eb6de7b090ddb4c2f9e0d17fc0e820a6f2d3e35c4",
-      "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "1984eea646f0c98017e764894a660cbdfa5d3204a86108ccea91cb0cd13f20c4",
-      "source/game_sa/Audio/Entities/AEExplosionAudioEntity.h": "f3d23a729d8132bfbb765b025e9b95d69adbd4bf6a0997d33a4cc145fcaef73b",
+      "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
+      "source/game_sa/Audio/Entities/AEExplosionAudioEntity.h": "93f05f1afabeb83bdaece51eaa806d5355042d5906da834fca2da4cc4a618e6f",
       "source/game_sa/Audio/Entities/AEDoorAudioEntity.cpp": "4b7bbf4297ad7feb82a01a4a4724d586ebcda72ef668873f17dda9b6a8b7c8db",
       "source/game_sa/Models/ModelInfo.cpp": "a3f1ffad0c4d744509d45f82f97a29fa0e5a04b3317f7dc6cb4472f1ff98827a"
     },

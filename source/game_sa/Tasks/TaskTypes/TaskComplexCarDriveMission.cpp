@@ -44,6 +44,7 @@ void CTaskComplexCarDriveMission::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x63CC30);
     RH_ScopedInstall(Destructor, 0x63CCC0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x643260); // lote 148A (banco Fn148A)
     RH_ScopedVMTInstall(Clone, 0x63DD70);
     RH_ScopedVMTInstall(GetTaskType, 0x63CCB0);
     RH_ScopedVMTInstall(SetUpCar, 0x63CD20);
@@ -102,6 +103,17 @@ void CTaskComplexCarDriveMission::SetUpCar() {
     CEntity::SafeRegisterRef(autopilot.m_TargetEntity);
 
     m_Veh->vehicleFlags.bEngineOn = m_Veh->vehicleFlags.bEngineBroken ? false : true;
+}
+
+// 0x643260 (lote 148A, banco Fn148A) : destructor con borrado de CTaskComplexCarDriveMission del EXE (ranura 0 de su vtable 0x86E9A4; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x63CCC0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`; el listado lo atribuia a CTaskComplexCarDriveWander). Como el original: destruye con el
+// cuerpo de la clase (0x63CCC0; aqui su envoltura Destructor(), con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskComplexCarDriveMission* CTaskComplexCarDriveMission::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x4B89D0 (lote 125A, banco Fn125A) : destructor con borrado de CTaskComplexCarDriveMissionFleeScene del EXE (ranura 0 de su vtable 0x85B95C; thiscall, un argumento de pila, `ret 4`, 30 bytes:

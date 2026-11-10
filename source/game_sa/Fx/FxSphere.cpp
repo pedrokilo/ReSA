@@ -28,13 +28,15 @@ void FxSphere_c::InjectHooks() {
     RH_ScopedClass(FxSphere_c);
     RH_ScopedCategory("Fx");
 
+    RH_ScopedInstall(Constructor, 0x4A9F70); // lote 148A (banco Fn148A)
     RH_ScopedInstall(operator new, 0x4A9F80);
     RH_ScopedOverloadedInstall(operator delete, "", 0x4A9FB0, void(*)(void*));
     RH_ScopedInstall(IsCollision, 0x4A9FC0);
     RH_ScopedInstall(GetDistToPlane, 0x4AA010);
 }
 
-// 0x4A9F70
+// 0x4A9F70 (lote 148A, banco Fn148A; thiscall, sin argumentos de pila, `ret`, 10 bytes: `mov eax,ecx; mov dword [eax+10h],0; ret`; el listado lo atribuia a FxPrimBP_c): constructor de FxSphere_c del EXE;
+// ver el envoltorio Constructor() del .h (solo escribe m_nNumPlanesPassed y devuelve this).
 FxSphere_c::FxSphere_c() {
     m_nNumPlanesPassed = 0;
 }

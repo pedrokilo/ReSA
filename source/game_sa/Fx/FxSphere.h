@@ -21,6 +21,8 @@ public:
     static void  operator delete(void* data, bool32 bUseGlobalHeep);
 
     FxSphere_c();
+    // 0x4A9F70 (lote 148A, banco Fn148A): constructor del EXE (solo anula m_nNumPlanesPassed; centro, radio y planos quedan sin escribir); devuelve this
+    FxSphere_c* Constructor() { m_nNumPlanesPassed = 0; return this; }
 
     // NOTSA
     FxSphere_c(CVector center, float radius) : CSphere(center, radius), m_nNumPlanesPassed(0) {}

@@ -54,6 +54,7 @@ public:
     void Process();
     void ProcessIgnorePlayerGroup();
     void ReportAllBarScriptTasksFinished();
+    void ReportAllBarDefaultTasksFinished(); // 0x5F8750 (lote 148A, banco Fn148A)
     void ReportAllTasksFinished(PedTaskPairs& taskPairs);
     //void ReportAllTasksFinished();
     bool ReportFinishedTask(const CPed* ped, const CTask* task, PedTaskPairs& taskpair);

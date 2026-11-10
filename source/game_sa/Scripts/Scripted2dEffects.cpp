@@ -33,6 +33,26 @@ void CScripted2dEffects::InjectHooks() {
 
     // lote 132A (banco Fn132A)
     RH_ScopedNamedGlobalInstall(CScriptedEffectPairs::Reset, "ResetEffectPairs", 0x6F9EB0);
+
+    {
+        RH_ScopedClass(tUserList);
+        RH_ScopedCategory("Scripts");
+        RH_ScopedInstall(IsPedTypeAllowed, 0x5FE960); // lote 148A (banco Fn148A)
+    }
+}
+
+// 0x5FE960 (lote 148A, banco Fn148A; el listado lo atribuia a CPedIK): el byte +0x20 se lee como BYTE (puede traer basura distinta de 0 y 1); con ese byte a cero devuelve verdadero sin mirar la lista; si no,
+// recorre las cuatro entradas y devuelve verdadero en la primera con m_UserTypes[i] == -2 y m_UserTypesByPedType[i] == pedType (comparaciones de 32 bits).
+bool tUserList::IsPedTypeAllowed(int32 pedType) const {
+    if (*reinterpret_cast<const uint8*>(&m_bUseList) == 0) {
+        return true;
+    }
+    for (size_t i = 0; i < m_UserTypes.size(); i++) {
+        if (m_UserTypes[i] == -2 && m_UserTypesByPedType[i] == pedType) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // 0x6F9EB0 (lote 132A, banco Fn132A): en cada uno de los cuatro pares, Effect, WaitingTask y PartnerUseMode de los dos efectos a -1, el PartnerTask del PRIMER efecto a -1 (el del segundo no se

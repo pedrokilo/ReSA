@@ -31,6 +31,9 @@ public:
     CPedGroupMembership(const CPedGroupMembership&) = default; // 0x5FB140
     ~CPedGroupMembership();
 
+    //! 0x5FB990 (lote 148A, banco Fn148A): cuerpo del destructor del EXE (copia byte a byte de Flush 0x5FB160; lo alcanza el funclet de desenrollado 0x83E4B0 con ECX = grupo + 8)
+    void Destructor();
+
     //! R*'s implementation of `operator=` xD [0x5F7FE0]
     //! Como el original: llama a AddMember con los 8 huecos (registra referencias) y luego copia grupo y separacion
     void From(const CPedGroupMembership& obj);

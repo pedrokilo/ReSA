@@ -44,6 +44,10 @@ struct tUserList {
     std::array<int32, 4> m_UserTypes{ -1, -1, -1, -1 };
     std::array<int32, 4> m_UserTypesByPedType{ -1, -1, -1, -1 };
     bool  m_bUseList{};
+
+    //! 0x5FE960 (lote 148A, banco Fn148A; thiscall, un argumento de pila, `ret 4`): si la lista no se usa (byte +0x20 a cero) admite cualquier tipo de peaton; si no, admite el tipo `pedType` solo si alguna de las
+    //! cuatro entradas tiene el marcador -2 en m_UserTypes y ese tipo en m_UserTypesByPedType. Devuelve AL (el EXE no normaliza el resto de EAX).
+    bool IsPedTypeAllowed(int32 pedType) const;
 };
 VALIDATE_SIZE(tUserList, 0x24);
 

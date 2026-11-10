@@ -12,25 +12,25 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main e154848ab (lote 92B) con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: CTaskManager::GetActiveTask 0x681720, CEventGroup::Add 0x4AB420 (devuelve un valor del caso), CEntity::RegisterReference 0x571B70 y CleanUpOldReference 0x571A00; sin hook (la DLL los llama por su direccion del EXE): 0x6034B0 (explorador de la lista de un sector), 0x5FFFD0 (explorador de un efecto), 0x5FE960 (la lista de usuarios admite el tipo de ped), 0x600180 (mejor candidato) y 0x603570 (usuario del efecto). Registran sus argumentos en orden y, en Add, los campos definidos del evento (tipo por GetEventType virtual). NO se sustituyen y corren de verdad en ambos lados: el temporizador en linea, CAttractorScanner::Clear 0x5FFF90 (hook activo), CTask::GetTaskType sobre una arena con vtabla propia, los constructores y destructores de CEventAttractor (0x4AF350, hook activo) y CEventScriptedAttractor frente al destructor del EXE 0x4AF400, y toda la aritmetica x87 del EXE frente al C++ de la DLL, con CTimer::m_snTimeInMilliseconds (0xB7CB84), CScripted2dEffects::ms_activated (0xC3A1A0) y ms_userLists (0xC3A200) como memoria real del juego restaurada tras cada lado. AttractorScanner.cpp se compila completo con /O2 /Oi /arch:IA32 /fp:fast (por Clear); el banco comprueba la funcion nueva compilada asi. El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de todas las arenas y los punteros +0x10/+0x14 del escaner como etiquetas de arena; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: ped sin matriz y sin placement valido, mas de 16 efectos activados a la vez, bucles de sectores mayores de 256 eventos, NaN con cargas distintas de 0xFFC00000, NaN senalizantes, tareas con GetTaskType que escriben y valores de retorno de los falsos. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn92C-20261106-045501-739132",
-  "summary_sha256": "d3771e7bab6b1e3c5f8825a1503bfd36030ce9cba4baf5e6c12a611d8c852ddb",
-  "result_txt_sha256": "3c6aefec065c4a63108baf4a03881f1d1644f390d66f8697a6ed6ecb25672fc9",
-  "log_sha256": "414a2c3c387b5cc26bcb37f15e1c8e9fad54c9f058bb3b74ad9e7597419f0340",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn92C-20261110-010536-821505",
+  "summary_sha256": "e587ca239159666559df749753499d364c90c68c04d86a14053e3c3eff48c623",
+  "result_txt_sha256": "b2b2123cd93aac2de8134fca87256931654a9d4de2593ca8b208c54967a2e647",
+  "log_sha256": "fe689e6b8a57bc069fbfd34dab4c5096c910082b5ca6190a75d6bc925050af6e",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "355a49bbc9c143649206fb652e4f3a55a97da702cb7c56e9741c3d3468359cee",
+  "executed_probe_sha256": "6b5021a4ee90e4931fa743b21ba37761a5f61c58dfb4e4aab98d0a573cb9d031",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "da5d442de30d6c4888dc60e15a1766a7462cababedda4392600df9739760e955",
-      "source/InjectHooksMain.cpp": "6bc97dfd1834167939c395f743a93ffc37e39187a3216a55901f4f22ae5e9e18",
-      "source/game_sa/X87Math.cpp": "eff5c8c8ea00d89e0aaf0f77f8130b7d750d1c71d7e7d5eba92397ab36fec671",
-      "source/game_sa/X87Math.h": "7cf3ddb817d1f7c1d76b4a9548f38a6467ef28c52d85ba5e4621522c8eed6af5",
-      "source/game_sa/Events/EventScanner.cpp": "6f32096b36b933e4bd6c1925e190c12e0e048eb248cb9cb7f454c03cdb51074b",
-      "source/game_sa/Events/EventScanner.h": "89b1738801e4ad0ad5b63f7523773a8d00133a7d8a4550aa17c31ccf74f7e58b",
-      "source/game_sa/AttractorScanner.cpp": "e325473e90724e61aa8efcc2713c037e934f6c8efdd0a9ba2bd56fd9922e76eb",
+      "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+      "source/InjectHooksMain.cpp": "0c4033028a3d55bdabc9b6074e31e28404f7d0202d447c4c7c56fbbb94e0d78e",
+      "source/game_sa/X87Math.cpp": "5d441cb94f6f3a970319cb3ee8bf075feec5f365ddbc6a69f867f8bcca3a170c",
+      "source/game_sa/X87Math.h": "548face1fb99e35e42d171524821c70a1f7082d01159bd32da415da637f7b8e1",
+      "source/game_sa/Events/EventScanner.cpp": "78455ae533c66f5a884374d854054006f9efb7b8f2c0c3a7e54047f051b305d4",
+      "source/game_sa/Events/EventScanner.h": "5e7ee5883e35b1f370d2c529993df33a71d0f397a893c95bf9431ff584ac0369",
+      "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
       "source/game_sa/AttractorScanner.h": "9958bec3bdfddf93f10b80f7d8cb56868273a078a5fae35d3447aa9600f4b7d5",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Fn92C/LiveComparison.hpp": "219138739f745e352137c65472db36bfecb09f4f6904cd1189ce2948eaeb705f",
@@ -41,10 +41,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn92C-20261106-045501-739132/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn92C-20261110-010536-821505/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "4b8f9b2e2b8718031c9716f2733a6962addea18a35ed261ece319f91c519879b",
-    "uncompressed_sha256": "414a2c3c387b5cc26bcb37f15e1c8e9fad54c9f058bb3b74ad9e7597419f0340"
+    "compressed_sha256": "87860d6e0e4e5326cf2a28f21923636f0650cc98bb1fd1ff8f5564ffdc7e88a0",
+    "uncompressed_sha256": "fe689e6b8a57bc069fbfd34dab4c5096c910082b5ca6190a75d6bc925050af6e"
   }
 }

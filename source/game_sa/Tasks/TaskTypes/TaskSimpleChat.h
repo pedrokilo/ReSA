@@ -18,9 +18,10 @@ public:
     virtual bool   IsInterruptable(CPed const* ped) { return false; }
  
 private:
-    // 0x5F7FD0
-    CTaskSimpleChat* Destructor() {
+    // 0x5F7FD0 (sin expansion en linea desde el lote 148A: el banco sustituye su cuerpo)
+    __declspec(noinline) CTaskSimpleChat* Destructor() {
         this->CTaskSimpleChat::~CTaskSimpleChat();
         return this;
     }
+    CTaskSimpleChat* ScalarDeletingDestructor(uint8 flags); // 0x5F7FB0 (lote 148A, banco Fn148A): destructor con borrado (ranura 0 de la vtable 0x86C78C), `ret 4`
 };

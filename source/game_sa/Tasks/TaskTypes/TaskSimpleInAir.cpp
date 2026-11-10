@@ -23,12 +23,33 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexInAirAndLand.h"
 #include "TaskSimpleClimb.h"
 
+namespace {
+// 0x678D50 (lote 148A, banco Fn148A): cuerpo del destructor de CTaskSimpleInAir del EXE (sin hook propio; vtable 0x8704D8). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// el destructor con borrado como el `call 0x678D50` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleInAirDestructorBody(CTaskSimpleInAir* self, void* /*edx*/) { self->CTaskSimpleInAir::~CTaskSimpleInAir(); }
+
+// 0x67D340 (lote 148A, banco Fn148A): destructor con borrado de CTaskSimpleInAir del EXE (ranura 0 de su vtable 0x8704D8; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x678D50; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`; el listado lo atribuia a CTaskComplexInAirAndLand). Como el original: destruye con
+// el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar
+// la ranura del destructor).
+CTaskSimpleInAir* __fastcall CTaskSimpleInAirScalarDeletingDestructor(CTaskSimpleInAir* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleInAirDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote148ABody_CTaskSimpleInAir() { return reinterpret_cast<uintptr_t>(&CTaskSimpleInAirDestructorBody); } // para el banco Fn148A
+
 void CTaskSimpleInAir::InjectHooks()
 {
     RH_ScopedVirtualClass(CTaskSimpleInAir, 0x8704D8, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x678CD0);
+    RH_ScopedNamedGlobalInstall(CTaskSimpleInAirScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67D340); // lote 148A (banco Fn148A)
     RH_ScopedInstall(DeleteAnimCB, 0x678E60);
     RH_ScopedInstall(ApplyRollAndPitch, 0x678E80);
     RH_ScopedVMTInstall(ProcessPed, 0x680600);

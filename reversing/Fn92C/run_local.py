@@ -23,7 +23,7 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = dict(zip(NAMES, (0x6060A0,)))
 # (direccion del EXE, hooked): con hook RH en la DLL (apagado durante el banco) el mismo falso va en el cuerpo de la DLL; sin hook (hooked False) la DLL llama a la direccion del EXE
-STUBBED = {NAMES[0]: [(0x681720, True), (0x6034B0, False), (0x5FFFD0, False), (0x5FE960, False), (0x600180, False), (0x603570, False), (0x4AB420, True), (0x571B70, True), (0x571A00, True)]}
+STUBBED = {NAMES[0]: [(0x681720, True), (0x6034B0, False), (0x5FFFD0, False), (0x5FE960, True), (0x600180, False), (0x603570, False), (0x4AB420, True), (0x571B70, True), (0x571A00, True)]}
 DLL_BODY_WITHOUT_HOOK = set()
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | set(HOOKS.values())
 COVER_FLOOR = 50

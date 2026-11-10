@@ -1565,6 +1565,7 @@ void InjectHooksMain() {
         FxSphere_c::InjectHooks();
         FxFrustumInfo_c::InjectHooks();
         FxPrimBP_c::InjectHooks();
+        FxPrim_c::InjectHooks();
         FxMemoryPool_c::InjectHooks();
         FxInfoManager_c::InjectHooks();
         FxInterpInfoFloat_c::InjectHooks();

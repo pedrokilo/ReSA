@@ -32,11 +32,11 @@ public:
     static float GetDefaultVolume(eAudioEvents event);
 
 private: // Envoltorios para los hooks
-    // 0x5DE9E0
+    // 0x5DE9E0 y, copia byte a byte, 0x4A9F60 (lote 148A, banco Fn148A; solo la alcanzan funclets de desenrollado de excepciones: 0x4A9F60 la llama el de 0x839928)
     CAEAudioEntity* Destructor() {
-        // Como el original: restaura la vtable base del EXE (0x859988) y destruye m_tempSound.
+        // Como el original: restaura la vtable base del EXE (0x859988) y destruye m_tempSound con CAESound::Destructor (0x4EF660, con hook; envoltura sin expansion en linea: los bancos sustituyen su cuerpo).
         *reinterpret_cast<uintptr_t*>(this) = 0x859988;
-        m_tempSound.~CAESound();
+        m_tempSound.Destructor();
         return this;
     }
 };

@@ -25,6 +25,7 @@ void CTaskSimpleChat::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Destructor, 0x5F7FD0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x5F7FB0); // lote 148A (banco Fn148A)
     RH_ScopedVMTInstall(Clone, 0x5F65E0);
     RH_ScopedVMTInstall(IsInterruptable, 0x5F6650);
 }
@@ -48,6 +49,17 @@ CTaskSimpleChat::CTaskSimpleChat(uint32 duration) :
 CTaskSimpleChat::CTaskSimpleChat(const CTaskSimpleChat& o) :
     CTaskSimpleChat{ o.m_durationMs }
 {
+}
+
+// 0x5F7FB0 (lote 148A, banco Fn148A) : destructor con borrado de CTaskSimpleChat del EXE (ranura 0 de su vtable 0x86C78C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x5F7FD0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`; el listado lo atribuia a CPedGroups). Como el original: destruye con el cuerpo
+// de la clase (0x5F7FD0; aqui su envoltura Destructor(), con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleChat* CTaskSimpleChat::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x5F7FD0

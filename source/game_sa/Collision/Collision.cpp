@@ -4293,6 +4293,14 @@ void CCollision::InjectHooks() {
     RH_ScopedOverloadedInstall(RemoveTrianglePlanes, "colData", 0x416400, void (*)(CCollisionData*));
     RH_ScopedOverloadedInstall(CalculateTrianglePlanes, "colModel", 0x418580, void (*)(CColModel*));
     RH_ScopedOverloadedInstall(RemoveTrianglePlanes, "colModel", 0x4185A0, void (*)(CColModel*));
+
+    // Instancias de la plantilla CLinkList<CCollisionData*> que el EXE tiene fuera de linea (lote 148A, banco Fn148A)
+    {
+        RH_ScopedClass(CLinkList<CCollisionData*>);
+        RH_ScopedCategory("Collision");
+        RH_ScopedInstall(Shutdown, 0x4161D0);
+        RH_ScopedOverloadedInstall(Insert, "Data", 0x4161F0, CLink<CCollisionData*>* (CLinkList<CCollisionData*>::*)(CCollisionData* const&));
+    }
 }
 
 void CCollision::Tests(int32 i) {

@@ -27,11 +27,28 @@ END GENERATED HOOK STATUS */
 
 #include "PedClothesDesc.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+static_assert(TASK_COMPLEX_IN_AIR_AND_LAND == 240); // 0xF0 (0x678CB0)
+
+// 0x678CC0 (lote 148A, banco Fn148A; thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],0x8704AC; jmp 0x61A3D0`; el listado lo atribuia a CTaskComplexInAirAndLand sin nombre): cuerpo no virtual de
+// ~CTaskComplexInAirAndLand del EXE (ningun llamador directo: lo alcanzan funclets de desenrollado). Deja la vtable de la clase del EXE (0x8704AC) y sigue con ~CTaskComplex (0x61A3D0, con hook).
+void __fastcall InAirAndLandDestructorBody(CTaskComplexInAirAndLand* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x8704AC;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexInAirAndLand::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexInAirAndLand, 0x8704AC, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x678C80);
+    RH_ScopedNamedGlobalInstall(InAirAndLandDestructorBody, "Destructor", 0x678CC0); // lote 148A (banco Fn148A)
+    RH_ScopedVMTInstall(GetTaskType, 0x678CB0); // lote 148A (banco Fn148A): retorno de constante (240), ranura 4
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x67CC30);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x67CCB0);
     RH_ScopedVMTInstall(ControlSubTask, 0x67D230);

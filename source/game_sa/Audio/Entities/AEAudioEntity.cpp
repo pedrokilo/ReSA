@@ -39,6 +39,7 @@ void CAEAudioEntity::InjectHooks() {
     // 0x5DE9E0: restaura la vtable 0x859988 y salta a ~CAESound (0x4EF660) sobre
     // m_tempSound (+0x8). Solo lo llaman funclets de desenrollado de excepciones.
     RH_ScopedInstall(Destructor, 0x5DE9E0);
+    RH_ScopedNamedInstall(Destructor, "Destructor-2", 0x4A9F60); // lote 148A (banco Fn148A): copia byte a byte del cuerpo de 0x5DE9E0
     RH_ScopedVMTInstall(UpdateParameters, 0x4D7E30);
 
     // StaticInitialise y Shutdown están inlineadas en el original (NOTSA) y

@@ -56,7 +56,7 @@
   "log_sha256": "a6f3a706227844b4d000129fd0225759f013d18358256a57e268cb6d9bfe631e",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks43\\20261002-184029-302053",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks43\\20261110-004110-733056",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexAttractorPartnerWait::Clone": true,
@@ -102,39 +102,40 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "79c2f0a135f8f485a28d9f04cd1e48cbac94eaa7127affa1ae59fe3a44bf9ddc",
-      "pdb": "a1a43c175e8a70678867804c734cc3a3a7b1eeb7fe139f5b9854422c5b5d6558"
+      "asi": "791a1ae291997f47c2e2025083284095e23191f3a87c5fa05b7ff8e68c6149cc",
+      "pdb": "5690e6f0b97ab59bf3e24d80b7f4ad289b81607310a2ced2ced0a0dc4cd1a0ad"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "4164119d2a6546d6cb9546f4af1d3ea7c367b61e16529e39552067a809767f03",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp": "90a3a34f6e87172aaa9373ae784ea52bceee45fc01e1cec98ba7b4b8f3fc8e1e",
       "source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h": "9374a1113af3f614fbbc7e400d5939539bc4bb6c7e0fe1c81fc345ea87faa93b",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp": "1e0ba8201450e93bdccb308031b892412130fd31458f7159f8b8cd618e6b1ed2",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h": "86d0b05916e76dcbfb50e9654509ecd9dc16e9975f3504ecfcd335b5f5991f55",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.cpp": "253a1232b3ccdaeb534cc8c302248b92db5d06a1c32fc5ed15c02d0e8ee4854f",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h": "d642d88811d1a0153310ef1f3ca6ead0bf31dbd49a4fef33e09e155a80aa4d24",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "a95f61dbf85b0d7135f7558b206cdc6e11cdd8765c5001bebbb31631e2946d57",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "7182be36cbc08af8a32c8342d13746d1c84ae01df37390c420f0d653be73264d",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDie.cpp": "0ab3635c7b66acaf8dd1691db1b657b3d74ee67b36e50792c4b732a5af4811a2",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDie.h": "38455faf6ffc1d23d30361fb9f18e267a12ffcdcc2520d5ed925243c1ab3e00b",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterAnyCarAsDriver.cpp": "86bd121973145eb3ba5533b4c245ed6fd91d55d51e09e1e2458ea9ad8a085674",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp": "271cc6b21a6dc62fa674b925f4edd122e9e0f7ca73f0fb02c9a609f3c630e145",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h": "de56b5cb45ce96055357d9d6f7bf453f04367cce6ad1601907970f6482f8fcc4",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.cpp": "60d110f0442f9b311af50c123e2d891c4557973c9c3b694809fa5a1a745b0c03",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h": "836cce680885d9111506da1ef220395e297aca1c84d0543bb3c9c95e6d9912ad",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "6d5d984041ced852474e43a164c02f5d6b117f713ac6bec0ac1f5050b1de3e24",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDie.cpp": "6944076a369ff9e0f7877cf49310b13cdd44269be112cf5812200c24788b2eae",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDie.h": "8289fca2ec777d8ea5d45eb24e1c36812c07984baa66da8f533fbc340e5cb44f",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterAnyCarAsDriver.cpp": "94f3dbe016663dd037e2688375129b2f042b08c2527c7118c7189c125aa097d9",
       "source/game_sa/Tasks/TaskTypes/TaskComplexEnterAnyCarAsDriver.h": "cdca52bd24ad7a7d87cec367a23b46ba52407c02a364f78fa267b6368346faf3",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "36f61639f11937d8d9f9463fb138121906e0773d637a47db26f32f70a7646e3b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp": "af960dc4ecda5eb864d7d6d6ad28b569d33dae4c7e22db648452ad78f593e988",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.h": "c596424bcf302607a0c36d3b0fd8f168466cf8716034607a84e9c1c222285569",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "c8303c10125530cc59d1e057614aa88653485d25a92eede170c9b8402c7593d8",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "216f7e08c805b34cc5d44dabb2bc152695c587a972cf046a3e91c7ff9c402417",
-      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.cpp": "ca5936b8812248d4c403887e7a69277c98d197d78855c5de0bd23dcaa1ffb960",
-      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.h": "c316a43506fc2ffb1240fbdd91f08fc9b9a15487a3123a1214ad52b31da58c1e",
-      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeans.h": "dad135f14e2021a7877e6066a6068a074667a4a768bcd040fae93e6667343e6c"
+      "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "2196d3b9b10a8a21ccd0e606d3caf96756fe183a9b3ec9856c6d2cef3b3c3f53",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h": "ca0a9677017fe1f5a714957d51886d678e56b9a727ce9719d5a985fa84318730",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.cpp": "e99ec948ddeafd0333881bc3a7bbf2540d446aedf16302922522f2d22de2fc19",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.h": "fd6153917cca67e13c540bb46ac6759cffac8a51ec90543c9d5f5c21f4706649",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeans.h": "3b6fe09950f6686cfca23d5c156257aefa9e071118a2a3b295a3b84a619287ed"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "1d5f25d0e0993bc639604ca0004d0c07083140365574306318171a4b982a6aba",
+      "LiveComparison.hpp": "aaefb3ba6815862214b185a996cb6827b907077d098ea15c5e0e239126c44163",
       "build_probe.py": "545723bccff7761b4f4ca3ce8dad4db81aee3aa9838ab4a5fc6700f488f7ac51",
       "run_local.py": "9c81fa3e0d824ba2c9da4b6043c563dd940a1e434f0f35d857838c6b785534dc"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Sin direccion de caida fuera de 0..3, entidad nula en Seek ni indices de secuencia fuera de 0..63."
+    "Sin direccion de caida fuera de 0..3, entidad nula en Seek ni indices de secuencia fuera de 0..63.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

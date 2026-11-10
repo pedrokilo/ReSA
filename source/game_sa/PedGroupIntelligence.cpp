@@ -43,12 +43,14 @@ void CPedGroupIntelligence::InjectHooks() {
     RH_ScopedInstall(ComputeDefaultTasks, 0x5F88D0);
     RH_ScopedInstall(ProcessIgnorePlayerGroup, 0x5F87A0);
     RH_ScopedInstall(ReportAllBarScriptTasksFinished, 0x5F8780);
+    RH_ScopedInstall(ReportAllBarDefaultTasksFinished, 0x5F8750); // lote 148A (banco Fn148A)
     RH_ScopedInstall(GetTaskDefault, 0x5F86C0);
     RH_ScopedInstall(GetTaskScriptCommand, 0x5F8690);
     RH_ScopedInstall(GetTaskSecondarySlot, 0x5F8650);
     RH_ScopedInstall(GetTaskSecondary, 0x5F8620);
     RH_ScopedInstall(GetTaskMain, 0x5F85A0);
     RH_ScopedInstall(SetScriptCommandTask, 0x5F8560);
+    RH_ScopedInstall(SetDefaultTask, 0x5F8580); // lote 148A (banco Fn148A)
     RH_ScopedInstall(IsCurrentEventValid, 0x5F77A0);
     RH_ScopedInstall(IsGroupResponding, 0x5F7760);
     RH_ScopedOverloadedInstall(SetEventResponseTask, "", 0x5F8510, void(CPedGroupIntelligence::*)(CPed*, bool, const CTask&, bool, const CTask&, eSecondaryTask)); // lote 149A (banco Fn149A): validado par a par (el aviso de asignacion de registros se descarto)
@@ -383,7 +385,8 @@ void CPedGroupIntelligence::SetScriptCommandTask(CPed* ped, const CTask& task) {
     SetTask(ped, task, m_ScriptCommandPedTaskPairs, TASK_SECONDARY_INVALID, true); // Como el original: forzada (push 1)
 }
 
-// @unk
+// 0x5F8580 (lote 148A, banco Fn148A; thiscall, dos argumentos de pila, `ret 8`, 29 bytes: `mov edx,[esp+8]; push 0; push -1; lea eax,[ecx+1ECh]; push eax; mov eax,[esp+10h]; push edx; push eax; call 0x5F7540 (SetTask); ret 8`;
+// el listado lo atribuia a CPedGroupIntelligence sin nombre): SetTask(ped, tarea, m_DefaultPedTaskPairs (+0x1EC), ranura -1, sin forzar). La llamada a SetTask del EXE conserva ECX = this.
 void CPedGroupIntelligence::SetDefaultTask(CPed* ped, const CTask& task) {
     SetTask(ped, task, m_DefaultPedTaskPairs);
 }
@@ -465,6 +468,14 @@ void CPedGroupIntelligence::ProcessIgnorePlayerGroup() {
 // 0x5F8780
 void CPedGroupIntelligence::ReportAllBarScriptTasksFinished() {
     ReportAllTasksFinished(m_PedTaskPairs);
+    ReportAllTasksFinished(m_SecondaryPedTaskPairs);
+}
+
+// 0x5F8750 (lote 148A, banco Fn148A; thiscall, sin argumentos de pila, `ret`, 42 bytes: tres llamadas a ReportAllTasksFinished (0x5F7730, ECX = this, con hook) con las tablas +0xC, +0x14C y +0xAC en ese orden;
+// el listado lo atribuia a CPedGroupIntelligence sin nombre; ningun llamador directo en el EXE): informa de que terminaron todas las tareas salvo las de la tabla por defecto (+0x1EC): principal, de comando de script y secundaria.
+void CPedGroupIntelligence::ReportAllBarDefaultTasksFinished() {
+    ReportAllTasksFinished(m_PedTaskPairs);
+    ReportAllTasksFinished(m_ScriptCommandPedTaskPairs);
     ReportAllTasksFinished(m_SecondaryPedTaskPairs);
 }
 

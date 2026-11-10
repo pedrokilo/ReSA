@@ -20,10 +20,31 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleLand.h"
 
+namespace {
+// 0x678EE0 (lote 148A, banco Fn148A): cuerpo del destructor de CTaskSimpleLand del EXE (sin hook propio; vtable 0x8704FC). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// el destructor con borrado como el `call 0x678EE0` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleLandDestructorBody(CTaskSimpleLand* self, void* /*edx*/) { self->CTaskSimpleLand::~CTaskSimpleLand(); }
+
+// 0x67D360 (lote 148A, banco Fn148A): destructor con borrado de CTaskSimpleLand del EXE (ranura 0 de su vtable 0x8704FC; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x678EE0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`; el listado lo atribuia a CTaskComplexInAirAndLand). Como el original: destruye con
+// el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar
+// la ranura del destructor).
+CTaskSimpleLand* __fastcall CTaskSimpleLandScalarDeletingDestructor(CTaskSimpleLand* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleLandDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote148ABody_CTaskSimpleLand() { return reinterpret_cast<uintptr_t>(&CTaskSimpleLandDestructorBody); } // para el banco Fn148A
+
 void CTaskSimpleLand::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleLand, 0x8704FC, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x678E90);
+    RH_ScopedNamedGlobalInstall(CTaskSimpleLandScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67D360); // lote 148A (banco Fn148A)
     RH_ScopedInstall(LeftFootLanded, 0x679010);
     RH_ScopedInstall(RightFootLanded, 0x678FE0);
     RH_ScopedInstall(FinishAnimCB, 0x678FA0);

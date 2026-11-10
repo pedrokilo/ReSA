@@ -22,9 +22,13 @@ END GENERATED HOOK STATUS */
 #include "CarCtrl.h"
 
 namespace {
-// 0x63CB50 (lote 140A, banco Fn140A): cuerpo del destructor de CTaskComplexCarDriveWander del EXE (vtable 0x86E96C y salto al cuerpo de ~CTaskComplexCarDrive 0x63CA40; sin hook propio: el destructor de la
-// clase es el generado por el compilador). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x63CB50` del EXE.
-__declspec(noinline) void __fastcall CarDriveWanderDestructorBody(CTaskComplexCarDriveWander* self, void* /*edx*/) { self->CTaskComplexCarDriveWander::~CTaskComplexCarDriveWander(); }
+// 0x63CB50 (lote 140A, banco Fn140A; con hook desde el lote 148A, banco Fn148A; thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],0x86E96C; jmp 0x63CA40 (~CTaskComplexCarDrive, con hook, envoltura Destructor())`):
+// cuerpo no virtual de ~CTaskComplexCarDriveWander del EXE. Deja la vtable de la clase del EXE (0x86E96C) y sigue con ese cuerpo. Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
+// ScalarDeletingDestructor como el `call 0x63CB50` del EXE.
+__declspec(noinline) void __fastcall CarDriveWanderDestructorBody(CTaskComplexCarDriveWander* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86E96C;
+    static_cast<CTaskComplexCarDrive*>(self)->Destructor();
+}
 } // namespace
 
 uintptr_t Lote140ACarDriveWanderDestructorBody() { return reinterpret_cast<uintptr_t>(&CarDriveWanderDestructorBody); } // para el banco Fn140A
@@ -45,6 +49,7 @@ void CTaskComplexCarDriveWander::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x63CB10);
+    RH_ScopedNamedGlobalInstall(CarDriveWanderDestructorBody, "Destructor", 0x63CB50); // lote 148A (banco Fn148A)
     RH_ScopedInstall(ScalarDeletingDestructor, 0x643220); // lote 140A (banco Fn140A)
 
     RH_ScopedVMTInstall(Clone, 0x63DD00);
