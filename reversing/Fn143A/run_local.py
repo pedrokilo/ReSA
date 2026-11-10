@@ -27,7 +27,7 @@ SLOTS = ()
 # colaboradores sustituidos por falsos: (direccion del EXE, hooked). Con hook RH en la DLL (apagado durante el banco): el mismo falso va en el cuerpo de la DLL. Sin hook (hooked False) y con funcion propia de la DLL:
 # el falso va tambien en esa funcion (DLL_BODY_WITHOUT_HOOK); operator delete del CRT (0x8214BD): sin hook, la DLL lo llama por la direccion del EXE (un solo parche).
 DLL_BODY_WITHOUT_HOOK = {0x4AB9B0, 0x4B5630, 0x658C30}
-STUBBED = {NAMES[0]: [(0x4AB9B0, False), (0x8214BD, False)],
+STUBBED = {NAMES[0]: [(0x4AB9B0, True), (0x8214BD, False)],
            NAMES[4]: [(0x4C4A60, True)],
            NAMES[13]: [(0x4B1990, True)],
            NAMES[15]: [(0x6A0650, True), (0x4B5630, False)],

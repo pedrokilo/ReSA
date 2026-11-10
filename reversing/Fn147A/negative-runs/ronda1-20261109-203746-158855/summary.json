@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "e6e59c3460c2a06403bc752183c33f3c6464d1b6550493fe687cd254cdcac11e",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CEventGroup::Destructor: 884/2048; CEventGlobalGroup::Destructor: 884/2048; CEventGroup::ScalarDeletingDestructor: 352/2048; SArraySizeStride20: 848/2048; SArraySizeStride12: 864/2048; CTaskComplexGoToPointShooting::Destructor: 919/2048; CTaskComplexGoToPointShooting::ScalarDeletingDestructor: 392/2048; CTaskComplexGoToPointAndStandStillAndAchieveHeading::ScalarDeletingDestructor: 350/2048; CTaskSimpleFinishBrain::Constructor: 920/2048; CTaskSimpleWaitUntilLeaderAreaCodesMatch::Destructor: 905/2048; CTaskComplexSequence::GetTaskType: 906/2048; CTaskComplexBeInGroup::ScalarDeletingDestructor: 359/2048; CTaskComplexUseSequence::GetTaskType: 899/2048; CTaskSimpleWaitUntilAreaCodesMatch::ScalarDeletingDestructor: 366/2048; CTaskComplexUseScriptedBrain::ScalarDeletingDestructor: 381/2048; FxSystem_c::OpenFileThunk: 151/2048; FxSystem_c::ReadLineThunk: 186/2048; FxSystem_c::CloseFileThunk: 145/2048; FxPrtMult_c::SetUp: 908/2048; CTaskComplexDiveFromAttachedEntityAndGetUp::ScalarDeletingDestructor: 388/2048; CEntitySeekPosCalculator::DestructorCopy: 894/2048; CTaskComplexWalkRoundFire::ScalarDeletingDestructor: 332/2048; CTaskSimpleRunAnim::GetTaskType: 534/2048; CTaskSimpleScratchHead::Destructor: 912/2048; CTaskSimpleScratchHead::ScalarDeletingDestructor: 384/2048; CTaskSimpleUseAtm::ScalarDeletingDestructor: 375/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

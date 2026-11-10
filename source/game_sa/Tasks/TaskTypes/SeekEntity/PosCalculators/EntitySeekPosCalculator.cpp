@@ -32,4 +32,5 @@ void CEntitySeekPosCalculator::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes/SeekPosCalculators");
 
     RH_ScopedNamedGlobalInstall(EntitySeekPosCalculatorDestructorBody, "Destructor", 0x46A610);
+    RH_ScopedNamedGlobalInstall(EntitySeekPosCalculatorDestructorBody, "DestructorCopy", 0x492F60); // lote 147A (banco Fn147A): segunda copia identica del cuerpo (`mov [ecx],0x859DC4; ret`, 7 bytes)
 }

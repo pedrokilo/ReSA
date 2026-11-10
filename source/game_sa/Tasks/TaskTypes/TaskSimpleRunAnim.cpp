@@ -28,8 +28,14 @@ void CTaskSimpleRunAnim::InjectHooks()
     RH_ScopedInstall(Constructor2, 0x61A900);
     RH_ScopedInstall(StartAnim, 0x61A950);
     //VTABLE
+    RH_ScopedVMTInstall(GetTaskType, 0x48DEA0); // lote 147A (banco Fn147A): devuelve m_nTaskType (word en +0x1C, ampliado a cero); el EXE comparte esta copia con las tareas derivadas
     RH_ScopedVMTInstall(Clone, 0x61B6D0);
     RH_ScopedVMTInstall(ProcessPed, 0x61BAC0);
+}
+
+// 0x48DEA0 (lote 147A, banco Fn147A; thiscall, `ret`, 5 bytes: `movzx eax,word [ecx+1Ch]`): devuelve m_nTaskType (word sin signo en +0x1C, ampliado a cero). El EXE comparte esta copia con las tareas derivadas.
+eTaskType CTaskSimpleRunAnim::GetTaskType() const {
+    return static_cast<eTaskType>(m_nTaskType);
 }
 
 CTaskSimpleRunAnim* CTaskSimpleRunAnim::Constructor(AssocGroupId animGroup, AnimationId animId, float fBlendDelta, bool bHoldLastFrame)

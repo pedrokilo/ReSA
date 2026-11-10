@@ -19,7 +19,20 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "TaskSimpleFinishBrain.h"
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
 namespace {
+// 0x463640 (lote 147A, banco Fn147A; thiscall, sin argumentos de pila, `ret`, 18 bytes: `push esi; mov esi,ecx; call 0x61A390; mov [esi],0x859D20; mov eax,esi; pop esi; ret`): constructor de
+// CTaskSimpleFinishBrain del EXE. Llama al cuerpo del constructor de CTaskSimple (0x61A390, con hook: pone +4 a 0 y deja la vtable de CTaskSimple), deja la vtable de CTaskSimpleFinishBrain del EXE
+// (0x859D20) y devuelve `this`. La clase no tiene constructor propio (la cadena CTaskSimpleNone queda plegada en el del EXE).
+__declspec(noinline) CTaskSimpleFinishBrain* __fastcall FinishBrainConstructorBody(CTaskSimpleFinishBrain* self, void* /*edx*/) {
+    CTaskSimpleBody::Constructor(self, nullptr);
+    *reinterpret_cast<uint32*>(self) = 0x859D20;
+    return self;
+}
+
 // 0x4636E0 (lote 142A, banco Fn142A; thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CTaskSimpleFinishBrain del EXE (`mov [ecx],0x859CFC; jmp 0x61A3A0`): como la clase no tiene
 // destructor propio, el del EXE deja la vtable de su base CTaskSimpleNone (0x859CFC) y sigue con el cuerpo de ~CTask (0x61A3A0, con hook). Sin expansion en linea para que el banco pueda sustituirla.
 __declspec(noinline) void __fastcall FinishBrainDestructorBody(CTaskSimpleFinishBrain* self, void* /*edx*/) {
@@ -31,6 +44,7 @@ __declspec(noinline) void __fastcall FinishBrainDestructorBody(CTaskSimpleFinish
 void CTaskSimpleFinishBrain::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleFinishBrain, 0x859d20, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(FinishBrainConstructorBody, "Constructor", 0x463640); // lote 147A (banco Fn147A)
     RH_ScopedNamedGlobalInstall(FinishBrainDestructorBody, "Destructor", 0x4636E0);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x4636C0);
 

@@ -10,23 +10,23 @@
   "covered_functions": {
     "FxInfoManager_c::Load": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Colaboradores sustituidos por falsos trazados idénticos en ambos lados: ReadLine (0x4AB250, flujo sintético con semántica de fgets), FxMemoryPool_c::GetMem (0x4A9CA0), FxInfoManager_c::AddFxInfo (0x4A7B00) y el Load virtual de FxInfo_c (falso); no se valida aquí el cuerpo real de esos colaboradores. sscanf: la función llama al sscanf del EXE por dirección (0x8220AD, CRT estático del juego), igual en ambos lados. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal salvo FxMemoryPool.cpp/.h (sólo finales de línea, CRLF frente a LF). sscanf: Load llama al sscanf del EXE por dirección (0x8220AD, CRT estático del juego) en ambos lados, como CFileLoader::Load2dEffect; no se sondeó el CRT de la DLL. Colaboradores sustituidos por falsos trazados idénticos: ReadLine, FxMemoryPool_c::GetMem, FxInfoManager_c::AddFxInfo y el Load virtual de FxInfo_c.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Colaboradores sustituidos por falsos trazados idénticos en ambos lados: ReadLine (0x4AB250, flujo sintético con semántica de fgets), FxMemoryPool_c::GetMem (0x4A9CA0), FxInfoManager_c::AddFxInfo (0x4A7B00) y el Load virtual de FxInfo_c (falso); no se valida aquí el cuerpo real de esos colaboradores. sscanf: la función llama al sscanf del EXE por dirección (0x8220AD, CRT estático del juego), igual en ambos lados. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal salvo FxMemoryPool.cpp/.h (sólo finales de línea, CRLF frente a LF). sscanf: Load llama al sscanf del EXE por dirección (0x8220AD, CRT estático del juego) en ambos lados, como CFileLoader::Load2dEffect; no se sondeó el CRT de la DLL. Colaboradores sustituidos por falsos trazados idénticos: ReadLine, FxMemoryPool_c::GetMem, FxInfoManager_c::AddFxInfo y el Load virtual de FxInfo_c. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FxInfoLoad28-20261018-175941-988715",
-  "summary_sha256": "248a4a0adeb52a698323834a769e9039755e3394feae6d8ce0dee769ee99e086",
-  "result_txt_sha256": "ed7e1a48078baab8d210fe52354e2953e7d3c547ae33073f1e018305c0521d68",
-  "log_sha256": "66632628a8f7e274bf491233d16643875d70601e95dfbba56694b7ee1ada4742",
+  "run": "reversing/CppTwelveLevel6Final/runs/FxInfoLoad28-20261109-221606-820846",
+  "summary_sha256": "3dc87fd98f21c271561779ded460333d7facf8134dc2ec003c653685a2a786f9",
+  "result_txt_sha256": "2b090836da78b3c35be835636f66ecf4a351d26067e9449e504a988660aec584",
+  "log_sha256": "ba749c899a557293d90816a92a44c825e43c5c909d1eb6a33ed868ffdc9de87f",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "00c63003501f5c6812c524710474e58b59af4486eb5ccfe92c1f56a78a9cd67b",
+  "executed_probe_sha256": "399c8fe61262541865f05ac6cc639b639925bde5e6fab28286f47e32d9a94da7",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
-      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
-      "source/game_sa/Fx/FxInfoManager.cpp": "97f02b82afb759411e38f5ba6a9503f16e7489176750c638e7c3fd37906be435",
+      "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+      "source/InjectHooksMain.cpp": "7833587048be7d25f03cea7d577e7f60fadaacce26d4c7e32964a960152ced94",
+      "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
       "source/game_sa/Fx/FxInfoManager.h": "732c9394986e6f778c7d8a0d62a39609352af65d423c0aced391dbf960fce09c",
       "source/game_sa/Fx/FxMemoryPool.cpp": "99710e9d4ddc6e662087f76a0288751f225d7b08511a24cb27e8478a6b8ce790",
       "source/game_sa/Fx/FxMemoryPool.h": "c1cdb364ba657edcb60a3242573e96bd0bca6ff8b137c5a67b29fef79a619091",
@@ -38,10 +38,17 @@
       "source/game_sa/Fx/eFxInfoType.h": "e2b63b7b9845dc48dc34c779ffd15856023bab68cd12c7fb9dfe2dfc716f4042",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/FxInfoLoad28/LiveComparison.hpp": "d974fb623961d30969371f5518e182f76cfd7e750f7a1ad62259d2cd7fdd6b94",
-      "reversing/FxInfoLoad28/Core.hpp": "63ab2e9e066c7d876811e4194ed29d889200b7deda40218afa27a82f24f3fdb7",
-      "reversing/FxInfoLoad28/Fixtures.hpp": "91e99b08b532a90f0a2866b8596707c2afbb46e00a5f40426630d9a87872916b",
+      "reversing/FxInfoLoad28/Core.hpp": "17317838293751d96c56e50736f6be78a61b24a0acbc70049c13dda9c29f3f3c",
+      "reversing/FxInfoLoad28/Fixtures.hpp": "a259a690b977d80afd67723f2bbf8048a98a156c7f007758978b0a86e93568f5",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FxInfoLoad28-20261109-221606-820846/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "1d723671582e26d3efe5b5e3422fdf442b342340b9311363c88b29527ed17ad2",
+    "uncompressed_sha256": "ba749c899a557293d90816a92a44c825e43c5c909d1eb6a33ed868ffdc9de87f"
   }
 }

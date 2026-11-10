@@ -25,10 +25,23 @@ END GENERATED HOOK STATUS */
 #include "FxEmitterPrt.h"
 #include "FxBox.h"
 #include "Particle.h"
+#include "FileMgr.h"
+
+namespace {
+// 0x4AB240 / 0x4AB250 / 0x4AB260 (lote 147A, banco Fn147A; cdecl, 5 bytes cada una: `jmp 0x538900` / `jmp 0x5389B0` / `jmp 0x5389D0`): copias del EXE en el rango de FxSystem_c que solo saltan a
+// CFileMgr::OpenFile, ReadLine y CloseFile (todas con hook). Reenvian los mismos argumentos y devuelven lo que devuelve la funcion de destino (ReadLine: bool en AL, el resto de EAX no se lee).
+FILESTREAM __cdecl FxOpenFileThunk(const char* path, const char* mode) { return CFileMgr::OpenFile(path, mode); }
+bool __cdecl FxReadLineThunk(FILESTREAM file, char* str, int32 num) { return CFileMgr::ReadLine(file, str, num); }
+int32 __cdecl FxCloseFileThunk(FILESTREAM file) { return CFileMgr::CloseFile(file); }
+} // namespace
 
 void FxSystem_c::InjectHooks() {
     RH_ScopedClass(FxSystem_c);
     RH_ScopedCategory("Fx");
+
+    RH_ScopedNamedGlobalInstall(FxOpenFileThunk, "OpenFileThunk", 0x4AB240);   // lote 147A (banco Fn147A)
+    RH_ScopedNamedGlobalInstall(FxReadLineThunk, "ReadLineThunk", 0x4AB250);   // lote 147A
+    RH_ScopedNamedGlobalInstall(FxCloseFileThunk, "CloseFileThunk", 0x4AB260); // lote 147A
 
     RH_ScopedInstall(Constructor, 0x4AAF00);
     RH_ScopedInstall(Destructor, 0x4AA260);

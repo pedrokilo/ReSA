@@ -45,11 +45,17 @@ void CTaskComplexUseSequence::InjectHooks() {
     RH_ScopedNamedGlobalInstall(CTaskComplexUseSequenceScalarDeletingDestructor, "ScalarDeletingDestructor", 0x639F90); // lote 145A (banco Fn145A)
 
     RH_ScopedInstall(Constructor, 0x635450);
+    RH_ScopedVMTInstall(GetTaskType, 0x635490); // lote 147A (banco Fn147A): retorno de constante (TASK_COMPLEX_USE_SEQUENCE = 275)
     RH_ScopedVMTInstall(Clone, 0x637100);
     RH_ScopedVMTInstall(MakeAbortable, 0x639730);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x6354A0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x6354D0);
     RH_ScopedVMTInstall(ControlSubTask, 0x635530);
+}
+
+// 0x635490 (lote 147A, banco Fn147A; thiscall, `ret`, 6 bytes: `mov eax,113h`): TASK_COMPLEX_USE_SEQUENCE (275); no lee el objeto.
+eTaskType CTaskComplexUseSequence::GetTaskType() const {
+    return Type;
 }
 
 // 0x635450

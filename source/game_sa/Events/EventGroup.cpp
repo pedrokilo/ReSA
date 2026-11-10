@@ -21,9 +21,34 @@ END GENERATED HOOK STATUS */
 #include "Event.h"
 #include "EventGroup.h"
 
+namespace {
+// 0x4AB980 (lote 147A, banco Fn147A; thiscall, sin argumentos de pila, `ret`, 14 bytes: `push 0; mov [ecx],0x85AAB0; call 0x4AB370; ret`): cuerpo no virtual de ~CEventGroup del EXE. Deja la
+// vtable de CEventGroup del EXE (0x85AAB0) ANTES de vaciar el grupo con Flush(false) (0x4AB370, con hook; el argumento va como dword en la pila). Los llamadores (limpiezas SEH de objetos que llevan un
+// grupo) no leen EAX, ECX ni EDX. Sin expansion en linea (Flush tampoco la admite) para que el banco pueda sustituir el colaborador.
+__declspec(noinline) void __fastcall EventGroupDestructorBody(CEventGroup* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85AAB0;
+    self->Flush(false);
+}
+
+// 0x4ABA20 (lote 147A, banco Fn147A): destructor con borrado de CEventGroup del EXE (ranura 0 de su vtable 0x85AAB0; thiscall, un argumento de pila, `ret 4`, 35 bytes: `push esi; mov esi,ecx; push 0;
+// mov [esi],0x85AAB0; call 0x4AB370; test byte [esp+8],1; je ..; push esi; call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original lleva el cuerpo del destructor en linea: vtable,
+// Flush(false) y, solo con el bit 0 del BYTE de banderas, `operator delete` (CRT, 0x8214BD) de `this`; devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CEventGroup* __fastcall EventGroupScalarDeletingDestructor(CEventGroup* self, void* /*edx*/, uint8 flags) {
+    *reinterpret_cast<uint32*>(self) = 0x85AAB0;
+    self->Flush(false);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 void CEventGroup::InjectHooks() {
     RH_ScopedVirtualClass(CEventGroup, 0x85AAB0, 1);
     RH_ScopedCategory("Events");
+
+    RH_ScopedNamedGlobalInstall(EventGroupDestructorBody, "Destructor", 0x4AB980);                         // lote 147A (banco Fn147A)
+    RH_ScopedNamedGlobalInstall(EventGroupScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4ABA20); // lote 147A (banco Fn147A)
 
     RH_ScopedInstall(Constructor, 0x4AB340);
 
@@ -216,7 +241,7 @@ void CEventGroup::Reorganise() {
 }
 
 // 0x4AB370
-void CEventGroup::Flush(bool bKeepJoinGroupScriptCommands) {
+__declspec(noinline) void CEventGroup::Flush(bool bKeepJoinGroupScriptCommands) {   // sin expansion en linea (lote 147A: los destructores del EXE la llaman por 0x4AB370 y el banco la sustituye)
     const auto eScriptCmdBeInGroup = [=, this]() -> CEvent* {
         if (bKeepJoinGroupScriptCommands) {
             for (auto& event : GetEvents()) {

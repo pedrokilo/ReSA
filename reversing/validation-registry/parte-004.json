@@ -86226,7 +86226,7 @@
       },
       "evidence": {
         "path": "reversing/PartnerShoveSeq28/validation-summary.json",
-        "sha256": "9254a2bbb02013b0e145c81815ff05f299a7f87f12c66ce0b0622005df7adcd3",
+        "sha256": "4be63e86739d98541ecde082f2c3ae26396b564f2aed864391cc0ecc06739445",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartnerShove::GetPartnerSequence"
@@ -86236,18 +86236,18 @@
         "original_address": "0x00683120"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "d80de777ac5a20cbfbe5d0d285a3a601af69365a82ef393939ab13d5d2097a73",
-        "source/InjectHooksMain.cpp": "52f079e9863766f588a5177d8ddcbf77cd547c0f8cb408b21f354aeee259c45b",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "7833587048be7d25f03cea7d577e7f60fadaacce26d4c7e32964a960152ced94",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp": "3e0afd777fdda3874b1ced37ddc79d2815470bf5d02698a7208d280e60655e14",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.h": "6d76ce304306d331298c307011b285e4299737c243e33afe48b6eda8eb8dbf86",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f75e8b2a374f13bb42390a47f667f76a5d65300f13a35c75acd628b54d7dd4ad",
-        "source/game_sa/Tasks/TaskComplexSequence.cpp": "3497ea85aebba258669ea20dbd06fd3628f1e443bca554bfbdd257f1984d5df5",
-        "source/game_sa/Tasks/TaskComplexSequence.h": "9d2404579563e19da54b6c829f3f98129484cc3d10c6c2732e5845d5660926aa",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "4bbae03f5620abee5d2859b6ec9e33bfb4a26b31ed2fedd6c3d7d21722bd1cfb",
+        "source/game_sa/Tasks/TaskComplexSequence.cpp": "2f3ff7f1e953a98c1fafa4f0e3e41bf724c11fb8c3000692826cf8992a60f1b9",
+        "source/game_sa/Tasks/TaskComplexSequence.h": "2acb24745fc11461702a16b8f1e7e2c6923432ca2670fa1b32e15b87fc6c8a88",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp": "921d5f3f7fe35d7c4bc106ea20c88a25b50577a3296ee6a50937860b5a450a81",
         "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.h": "c457da7020506df591768909a62af77e2ea43356744d84edb2b771de336ae71f",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "b4f9a9afa80c1f715e62e161e05bfcb6cba13495ab5a9663853b450177991213",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "4041c65038644cf2aaaf3683bb5c8cf02b46271cbb183e6b0ca4ffc562262c82",
-        "source/game_sa/Tasks/Task.cpp": "23b303826ad108736f38102ebf5180adaa7264f765f9f6e26a89a863bf595ae0",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "61e06d400837ed3587f9e28d39290186986b72ecd2f134cd1d03a07a091dd027",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "0a791ddb110d3a9190ee35db8059b3dcb2d2cdea978907b64324432bc9e6b4fd",
+        "source/game_sa/Tasks/Task.cpp": "be8bc85ded7b60208f987af721340a13aa0db0d50272406ad67ec86f4101c0e6",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/PartnerShoveSeq28/LiveComparison.hpp": "2044c39473cea09ea5ebea908334df15189ef160545b2e4c97bc54c2ac710c90",
@@ -86272,7 +86272,7 @@
       },
       "evidence": {
         "path": "reversing/FxInfoLoad28/validation-summary.json",
-        "sha256": "d0de768382f3ce3b41c40906d3989e995ab4eb5062e9d256ab0221719734237b",
+        "sha256": "8ed015d7852f7263d6f08655ed07d2c707c7267e2e2da41efab3eff4d4d67133",
         "passed_path": [
           "covered_functions",
           "FxInfoManager_c::Load"
@@ -86281,9 +86281,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
-        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
-        "source/game_sa/Fx/FxInfoManager.cpp": "97f02b82afb759411e38f5ba6a9503f16e7489176750c638e7c3fd37906be435",
+        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+        "source/InjectHooksMain.cpp": "7833587048be7d25f03cea7d577e7f60fadaacce26d4c7e32964a960152ced94",
+        "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
         "source/game_sa/Fx/FxInfoManager.h": "732c9394986e6f778c7d8a0d62a39609352af65d423c0aced391dbf960fce09c",
         "source/game_sa/Fx/FxMemoryPool.cpp": "99710e9d4ddc6e662087f76a0288751f225d7b08511a24cb27e8478a6b8ce790",
         "source/game_sa/Fx/FxMemoryPool.h": "c1cdb364ba657edcb60a3242573e96bd0bca6ff8b137c5a67b29fef79a619091",
@@ -86295,8 +86295,8 @@
         "source/game_sa/Fx/eFxInfoType.h": "e2b63b7b9845dc48dc34c779ffd15856023bab68cd12c7fb9dfe2dfc716f4042",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/FxInfoLoad28/LiveComparison.hpp": "d974fb623961d30969371f5518e182f76cfd7e750f7a1ad62259d2cd7fdd6b94",
-        "reversing/FxInfoLoad28/Core.hpp": "63ab2e9e066c7d876811e4194ed29d889200b7deda40218afa27a82f24f3fdb7",
-        "reversing/FxInfoLoad28/Fixtures.hpp": "91e99b08b532a90f0a2866b8596707c2afbb46e00a5f40426630d9a87872916b",
+        "reversing/FxInfoLoad28/Core.hpp": "17317838293751d96c56e50736f6be78a61b24a0acbc70049c13dda9c29f3f3c",
+        "reversing/FxInfoLoad28/Fixtures.hpp": "a259a690b977d80afd67723f2bbf8048a98a156c7f007758978b0a86e93568f5",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },

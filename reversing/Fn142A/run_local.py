@@ -30,7 +30,7 @@ DLL_BODY_WITHOUT_HOOK = {0x59F660, 0x5A1F20, 0x4F0B50, 0x5F67E0}
 STUBBED = {NAMES[0]: [(0x658850, True), (0x61A5B0, True)], NAMES[1]: [(0x669D20, True)], NAMES[2]: [(0x48E600, True), (0x61A5B0, True)], NAMES[3]: [(0x669D20, True)],
            NAMES[4]: [(0x4636E0, True), (0x61A5B0, True)], NAMES[5]: [(0x61A3A0, True)], NAMES[6]: [(0x61A3A0, True)], NAMES[7]: [(0x492D40, True), (0x61A5B0, True)],
            NAMES[10]: [(0x59F660, False)], NAMES[11]: [(0x5A40E0, True), (0x5A1F20, False)], NAMES[12]: [(0x4F0B50, False), (0x8214BD, False)],
-           NAMES[15]: [(0x697330, True), (0x61A5B0, True)], NAMES[17]: [(0x5F67E0, False), (0x61A5B0, True)], NAMES[18]: [(0x699DB0, True)], NAMES[22]: [(0x5DF8F0, True)]}
+           NAMES[15]: [(0x697330, True), (0x61A5B0, True)], NAMES[17]: [(0x5F67E0, True), (0x61A5B0, True)], NAMES[18]: [(0x699DB0, True)], NAMES[22]: [(0x5DF8F0, True)]}
 REAL = {}
 # 0x4C4A60 (constructor de CBaseModelInfo, sin hook) y 0x699F00 (pone a cero el CPointList, sin hook): el EXE las sigue llamando y la DLL las lleva en linea; se vigila que sus entradas sigan siendo las originales.
 # 0x8580E0: casilla de la IAT del EXE de DeleteCriticalSection (se sustituye durante la llamada y se restaura).

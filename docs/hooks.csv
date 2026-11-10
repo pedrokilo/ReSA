@@ -3380,6 +3380,8 @@ CEventGroup,Remove,0x004AB5A0,1,0,1,S
 CEventGroup,RemoveInvalidEvents,0x004AB760,1,0,1,S
 CEventGroup,Reorganise,0x004AB700,1,0,1,S
 CEventGroup,TickEvents,0x004AB6D0,1,0,1,S
+CEventGroup,Destructor,0x004AB980,1,0,1,S
+CEventGroup,ScalarDeletingDestructor,0x004ABA20,1,0,1,S
 CEventGroupEvent,Constructor,0x004ADFD0,1,0,1,S
 CEventGroupEvent,Destructor,0x004AE070,1,0,1,S
 CEventGlobalGroup,AddEventsToGroup,0x004AB8A0,1,0,1,S
@@ -4159,6 +4161,9 @@ FxSystem_c,SetZTestEnable,0x004AAC50,1,0,1,S
 FxSystem_c,Stop,0x004AA390,1,0,1,S
 FxSystem_c,Update,0x004AAF70,1,0,1,S
 FxSystem_c,UpdateBoundingBoxCB,0x004AA9A0,1,0,1,S
+FxSystem_c,OpenFileThunk,0x004AB240,1,0,1,S
+FxSystem_c,ReadLineThunk,0x004AB250,1,0,1,S
+FxSystem_c,CloseFileThunk,0x004AB260,1,0,1,S
 FxSystemBP_c,Constructor,0x004AA0D0,1,0,1,S
 FxSystemBP_c,Destructor,0x004AA0F0,1,0,1,S
 FxSystemBP_c,FreePrtFromSystem,0x004AA1B0,1,0,1,S
@@ -5031,6 +5036,7 @@ CTaskSimpleWaitUntilAreaCodesMatch,Destructor,0x006355E0,1,0,1,S
 CTaskSimpleWaitUntilAreaCodesMatch,GetTaskType,0x00000000,1,0,1,V
 CTaskSimpleWaitUntilAreaCodesMatch,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleWaitUntilAreaCodesMatch,ProcessPed,0x00000000,1,0,1,V
+CTaskSimpleWaitUntilAreaCodesMatch,ScalarDeletingDestructor,0x006397A0,1,0,1,S
 CTaskSimpleWaitForBus,Clone,0x00000000,1,0,1,V
 CTaskSimpleWaitForBus,Constructor,0x00632A50,1,0,1,S
 CTaskSimpleWaitForBus,Destructor,0x00632A90,1,0,1,S
@@ -5060,6 +5066,7 @@ CTaskSimpleUseAtm,Clone,0x00000000,1,0,1,V
 CTaskSimpleUseAtm,Constructor,0x0048DFE0,1,0,1,S
 CTaskSimpleUseAtm,Destructor,0x0048E960,1,0,1,S
 CTaskSimpleUseAtm,IsInterruptable,0x00000000,1,0,1,V
+CTaskSimpleUseAtm,ScalarDeletingDestructor,0x0048E940,1,0,1,S
 CTaskSimpleUninterruptable,Constructor,0x0043E2E0,1,0,1,S
 CTaskSimpleTurn180,Clone,0x00000000,1,0,1,V
 CTaskSimpleTurn180,Constructor,0x00631CC0,1,0,1,S
@@ -5187,6 +5194,7 @@ CTaskSimpleRunAnim,Constructor,0x0061A8B0,1,0,1,S
 CTaskSimpleRunAnim,Constructor2,0x0061A900,1,0,1,S
 CTaskSimpleRunAnim,ProcessPed,0x00000000,1,0,1,V
 CTaskSimpleRunAnim,StartAnim,0x0061A950,1,0,1,S
+CTaskSimpleRunAnim,GetTaskType,0x00000000,1,0,1,V
 CTaskSimplePutDownEntity,Clone,0x00000000,1,0,1,V
 CTaskSimplePutDownEntity,Constructor,0x00691990,1,0,1,S
 CTaskSimplePutDownEntity,GetTaskType,0x00000000,1,0,1,V
@@ -5737,6 +5745,7 @@ CTaskComplexWalkRoundFire,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexWalkRoundFire,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexWalkRoundFire,Destructor,0x00655780,1,0,1,S
 CTaskComplexWalkRoundFire,GetTaskType,0x00000000,1,0,1,V
+CTaskComplexWalkRoundFire,ScalarDeletingDestructor,0x006579F0,1,0,1,S
 CTaskComplexWalkRoundCar,Clone,0x00000000,1,0,1,V
 CTaskComplexWalkRoundCar,ComputeRoute,0x00657B80,1,0,1,S
 CTaskComplexWalkRoundCar,ComputeRouteRoundBigCar,0x00656BB0,1,0,1,S
@@ -5820,6 +5829,7 @@ CTaskComplexUseScriptedBrain,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexUseScriptedBrain,Destructor,0x00635900,1,0,1,S
 CTaskComplexUseScriptedBrain,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexUseScriptedBrain,MakeAbortable,0x00000000,1,0,1,V
+CTaskComplexUseScriptedBrain,ScalarDeletingDestructor,0x006397C0,1,0,1,S
 CTaskComplexUseScriptedAttractor,Clone,0x00000000,1,0,1,V
 CTaskComplexUseScriptedAttractor,Constructor,0x00633330,1,0,1,S
 CTaskComplexUseScriptedAttractor,ControlSubTask,0x00000000,1,0,1,V
@@ -6253,6 +6263,8 @@ CTaskComplexGotoDoorAndOpen,Destructor,0x0066BC00,1,0,1,S
 CTaskComplexGoToPointShooting,Clone,0x0066CE10,1,0,1,V
 CTaskComplexGoToPointShooting,Constructor,0x00668C70,1,0,1,S
 CTaskComplexGoToPointShooting,GetTaskType,0x00668CC0,1,0,1,V
+CTaskComplexGoToPointShooting,Destructor,0x0066DFA0,1,0,1,S
+CTaskComplexGoToPointShooting,ScalarDeletingDestructor,0x0066DF80,1,0,1,S
 CTaskComplexGoToPointAnyMeans,Constructor-1,0x0066B720,1,0,1,S
 CTaskComplexGoToPointAnyMeans,Constructor-2,0x0066B790,1,0,1,S
 CTaskComplexGoToPointAnyMeans,ControlSubTask,0x00000000,1,0,1,V
@@ -6273,6 +6285,7 @@ CTaskComplexGoToPointAndStandStillAndAchieveHeading,CreateFirstSubTask,0x0000000
 CTaskComplexGoToPointAndStandStillAndAchieveHeading,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexGoToPointAndStandStillAndAchieveHeading,Destructor,0x00668D40,1,0,1,S
 CTaskComplexGoToPointAndStandStillAndAchieveHeading,GetTaskType,0x00000000,1,0,1,V
+CTaskComplexGoToPointAndStandStillAndAchieveHeading,ScalarDeletingDestructor,0x0066DFB0,1,0,1,S
 CTaskComplexGoToPointAndStandStill,Clone,0x00000000,1,0,1,V
 CTaskComplexGoToPointAndStandStill,Constructor,0x00668120,1,0,1,S
 CTaskComplexGoToPointAndStandStill,ControlSubTask,0x00000000,1,0,1,V
@@ -6547,6 +6560,7 @@ CTaskComplexDiveFromAttachedEntityAndGetUp,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexDiveFromAttachedEntityAndGetUp,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexDiveFromAttachedEntityAndGetUp,Destructor,0x00492F10,1,0,1,S
 CTaskComplexDiveFromAttachedEntityAndGetUp,GetTaskType,0x00000000,1,0,1,V
+CTaskComplexDiveFromAttachedEntityAndGetUp,ScalarDeletingDestructor,0x00492EF0,1,0,1,S
 CTaskComplexDieInCar,ControlSubTask,0x00000000,1,0,1,V
 CTaskComplexDieInCar,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexDieInCar,CreateNextSubTask,0x00000000,1,0,1,V
@@ -6645,6 +6659,7 @@ CTaskComplexBeInGroup,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexBeInGroup,MakeAbortable,0x00000000,1,0,1,V
 CTaskComplexBeInGroup,MonitorMainGroupTask,0x00633010,1,0,1,S
 CTaskComplexBeInGroup,MonitorSecondaryGroupTask,0x006330B0,1,0,1,S
+CTaskComplexBeInGroup,ScalarDeletingDestructor,0x00638A80,1,0,1,S
 CTaskComplexAvoidOtherPedWhileWandering,Clone,0x00000000,1,0,1,V
 CTaskComplexAvoidOtherPedWhileWandering,ComputeAvoidSphere,0x00672080,1,0,1,S
 CTaskComplexAvoidOtherPedWhileWandering,ComputeDetourTarget,0x00672180,1,0,1,S
@@ -6754,6 +6769,7 @@ CTaskComplexSequence,DeRegister,0x00636BC0,1,0,1,S
 CTaskComplexSequence,Flush,0x00632C10,1,0,1,S
 CTaskComplexSequence,MakeAbortable,0x00000000,1,0,1,V
 CTaskComplexSequence,SetCanBeEmptied,0x00463610,1,0,1,S
+CTaskComplexSequence,GetTaskType,0x00000000,1,0,1,V
 CTask,IsGoToTask,0x0061A360,1,0,1,S
 CTask,IsTaskPtr,0x0061A4B0,1,0,1,S
 CTask,StopTimer,0x00000000,1,0,1,V
@@ -8553,6 +8569,8 @@ CPedShelterAttractor,BroadcastDeparture,0x005EF570,1,0,1,V
 CPedShelterAttractor,ComputeAttractHeading,0x005E9690,1,0,1,V
 CPedShelterAttractor,ComputeAttractPos,0x005EFC40,1,0,1,V
 CPedShelterAttractor,GetDisplacement,0x005EF420,1,0,1,S
+CPedShelterAttractor,SArraySizeStride20,0x005E9800,1,0,1,S
+CPedShelterAttractor,SArraySizeStride12,0x005E9850,1,0,1,S
 CPlayerSkin,GetSkinTexture,0x006FFA10,1,0,1,S
 CPlayerSkin,Initialise,0x006FF8A0,1,0,1,S
 CPlayerSkin,RenderFrontendSkinEdit,0x006FF900,1,0,1,S
@@ -9176,6 +9194,8 @@ CNodeAddress,operator!=,0x00420950,1,0,1,S
 CNodeAddress,operator<,0x00420980,1,0,1,S
 CWorld,AdvanceCurrentScanCode,0x004072E0,1,0,1,S
 CTaskSimpleScratchHead,Constructor,0x0048DF30,1,0,1,S
+CTaskSimpleScratchHead,Destructor,0x0048E930,1,0,1,S
+CTaskSimpleScratchHead,ScalarDeletingDestructor,0x0048E910,1,0,1,S
 CTaskSimpleAchieveHeading,Constructor,0x00667E20,1,0,1,S
 CColModel,Constructor,0x0040FB60,1,0,1,S
 CEventDeath,Constructor,0x004ADDF0,1,0,1,S
@@ -9251,6 +9271,7 @@ CMatrix,CopyToRwMatrix,0x0059B8B0,1,0,1,S
 CMatrix,Invert-2,0x0059BDD0,1,0,1,S
 CVector,FromMultiply,0x0059C670,1,0,1,S
 FxPrtMult_c,Constructor7f,0x004AB290,1,0,1,S
+FxPrtMult_c,SetUp,0x004AB2D0,1,0,1,S
 CSimpleTransform,UpdateMatrix,0x0054F1B0,1,0,1,S
 CSimpleTransform,UpdateRwMatrix,0x0054EF40,1,0,1,S
 CVector,SquaredMagnitudeExe,0x00406DA0,1,0,1,S
@@ -9398,6 +9419,7 @@ CTaskComplexLeaveCar,ComputeTargetDoor,0x0063BAB0,1,0,1,S
 CWaterLevel,CalculateWavesOnlyForCoordinate2,0x006E8550,1,0,1,S
 CTaskAllocator,Destructor,0x0069BB40,1,0,1,S
 CEntitySeekPosCalculator,Destructor,0x0046A610,1,0,1,S
+CEntitySeekPosCalculator,DestructorCopy,0x00492F60,1,0,1,S
 CPedGroupDefaultTaskAllocatorFollowLimited,Constructor,0x005F6480,1,0,1,S
 CPedGroupDefaultTaskAllocatorStandStill,Constructor,0x005F64B0,1,0,1,S
 CPedGroupDefaultTaskAllocatorChat,Constructor,0x005F64E0,1,0,1,S
@@ -9591,6 +9613,7 @@ CTaskComplexWanderStandard,ScalarDeletingDestructor,0x0048E5E0,1,0,1,S
 CTaskComplexWanderStandard,Destructor,0x0048E600,1,0,1,S
 CTaskSimpleFinishBrain,ScalarDeletingDestructor,0x004636C0,1,0,1,S
 CTaskSimpleFinishBrain,Destructor,0x004636E0,1,0,1,S
+CTaskSimpleFinishBrain,Constructor,0x00463640,1,0,1,S
 CTaskSimpleTogglePedThreatScanner,Destructor,0x00492D40,1,0,1,S
 CTaskSimpleTogglePedThreatScanner,ScalarDeletingDestructor,0x00492DF0,1,0,1,S
 CTimeModelInfo,Destructor,0x004C5680,1,0,1,S
@@ -9603,6 +9626,7 @@ CAEStreamThread,Destructor,0x004F11E0,1,0,1,S
 CTaskComplexWaitForBackup,ScalarDeletingDestructor,0x00697EF0,1,0,1,S
 CPointList,Constructor,0x006986E0,1,0,1,S
 CTaskSimpleWaitUntilLeaderAreaCodesMatch,ScalarDeletingDestructor,0x005F6880,1,0,1,S
+CTaskSimpleWaitUntilLeaderAreaCodesMatch,Destructor,0x005F67E0,1,0,1,S
 CPedList,Constructor,0x005F68A0,1,0,1,S
 CEventDanger,GetEventType,0x00000000,1,0,1,V
 CEventDanger,GetLifeTime,0x00000000,1,0,1,V
@@ -9633,6 +9657,7 @@ CTaskComplexUseEffectRunning,Destructor,0x00636850,1,0,1,S
 CTaskComplexUseEffectSprinting,ScalarDeletingDestructor,0x00636910,1,0,1,S
 CTaskComplexUseEffectSprinting,Destructor,0x00636930,1,0,1,S
 CEventGlobalGroup,ScalarDeletingDestructor,0x004ABAA0,1,0,1,S
+CEventGlobalGroup,Destructor,0x004AB9B0,1,0,1,S
 RwHelper,RwIm2DRenderIndexedPrimitiveThunk,0x00734EA0,1,0,1,S
 RwHelper,RwIm2DRenderLineThunk,0x00734EC0,1,0,1,S
 CBaseModelInfo,ConstructorBody,0x004C4A60,1,0,1,S
@@ -9674,6 +9699,7 @@ CTaskComplexWaitForDryWeather,ScalarDeletingDestructor,0x00638900,1,0,1,S
 CTaskComplexWaitForBus,ScalarDeletingDestructor,0x00638920,1,0,1,S
 CTaskComplexAttractorPartnerWait,ScalarDeletingDestructor,0x00638F00,1,0,1,S
 CTaskComplexUseSequence,ScalarDeletingDestructor,0x00639F90,1,0,1,S
+CTaskComplexUseSequence,GetTaskType,0x00000000,1,0,1,V
 CTaskComplexWanderCriminal,ScalarDeletingDestructor,0x0048E700,1,0,1,S
 CTaskComplexGoToAttractor,ScalarDeletingDestructor,0x00670400,1,0,1,S
 CKeyArray,Destructor,0x0069FFA0,1,0,1,S

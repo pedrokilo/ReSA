@@ -23,9 +23,29 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleStandStill.h"
 #include "TaskSimpleGoToPoint.h"
 
+namespace {
+// 0x668D40 (lote 147A, banco Fn147A): cuerpo del destructor de CTaskComplexGoToPointAndStandStillAndAchieveHeading del EXE (con hook propio (Destructor); vtable 0x86FE58). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor
+// con borrado como el `call 0x668D40` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexGoToPointAndStandStillAndAchieveHeadingDestructorBody(CTaskComplexGoToPointAndStandStillAndAchieveHeading* self, void* /*edx*/) { self->CTaskComplexGoToPointAndStandStillAndAchieveHeading::~CTaskComplexGoToPointAndStandStillAndAchieveHeading(); }
+
+// 0x66DFB0 (lote 147A, banco Fn147A): destructor con borrado de CTaskComplexGoToPointAndStandStillAndAchieveHeading del EXE (ranura 0 de su vtable 0x86FE58; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x668D40; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexGoToPointAndStandStillAndAchieveHeading* __fastcall CTaskComplexGoToPointAndStandStillAndAchieveHeadingScalarDeletingDestructor(CTaskComplexGoToPointAndStandStillAndAchieveHeading* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexGoToPointAndStandStillAndAchieveHeadingDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote147ABody_CTaskComplexGoToPointAndStandStillAndAchieveHeading() { return reinterpret_cast<uintptr_t>(&CTaskComplexGoToPointAndStandStillAndAchieveHeadingDestructorBody); } // para el banco Fn147A
+
 void CTaskComplexGoToPointAndStandStillAndAchieveHeading::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGoToPointAndStandStillAndAchieveHeading, 0x86FE58, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexGoToPointAndStandStillAndAchieveHeadingScalarDeletingDestructor, "ScalarDeletingDestructor", 0x66DFB0); // lote 147A (banco Fn147A)
 
     RH_ScopedInstall(Constructor, 0x668CD0);
     RH_ScopedInstall(Destructor, 0x668D40);

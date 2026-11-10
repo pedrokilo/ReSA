@@ -21,9 +21,29 @@ END GENERATED HOOK STATUS */
 #include "ScriptedBrainTaskStore.h"
 #include "TaskSimplePause.h"
 
+namespace {
+// 0x635900 (lote 147A, banco Fn147A): cuerpo del destructor de CTaskComplexUseScriptedBrain del EXE (con hook propio (Destructor); vtable 0x86E568). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor
+// con borrado como el `call 0x635900` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexUseScriptedBrainDestructorBody(CTaskComplexUseScriptedBrain* self, void* /*edx*/) { self->CTaskComplexUseScriptedBrain::~CTaskComplexUseScriptedBrain(); }
+
+// 0x6397C0 (lote 147A, banco Fn147A): destructor con borrado de CTaskComplexUseScriptedBrain del EXE (ranura 0 de su vtable 0x86E568; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x635900; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexUseScriptedBrain* __fastcall CTaskComplexUseScriptedBrainScalarDeletingDestructor(CTaskComplexUseScriptedBrain* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexUseScriptedBrainDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote147ABody_CTaskComplexUseScriptedBrain() { return reinterpret_cast<uintptr_t>(&CTaskComplexUseScriptedBrainDestructorBody); } // para el banco Fn147A
+
 void CTaskComplexUseScriptedBrain::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexUseScriptedBrain, 0x86e568, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexUseScriptedBrainScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6397C0); // lote 147A (banco Fn147A)
 
     RH_ScopedInstall(Constructor, 0x6358B0);
     RH_ScopedInstall(Destructor, 0x635900);

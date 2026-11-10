@@ -20,9 +20,29 @@ END GENERATED HOOK STATUS */
 
 #include "TaskComplexBeInGroup.h"
 
+namespace {
+// 0x632EA0 (lote 147A, banco Fn147A): cuerpo del destructor de CTaskComplexBeInGroup del EXE (con hook propio (Destructor); vtable 0x86E22C). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor
+// con borrado como el `call 0x632EA0` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexBeInGroupDestructorBody(CTaskComplexBeInGroup* self, void* /*edx*/) { self->CTaskComplexBeInGroup::~CTaskComplexBeInGroup(); }
+
+// 0x638A80 (lote 147A, banco Fn147A): destructor con borrado de CTaskComplexBeInGroup del EXE (ranura 0 de su vtable 0x86E22C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x632EA0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexBeInGroup* __fastcall CTaskComplexBeInGroupScalarDeletingDestructor(CTaskComplexBeInGroup* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexBeInGroupDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote147ABody_CTaskComplexBeInGroup() { return reinterpret_cast<uintptr_t>(&CTaskComplexBeInGroupDestructorBody); } // para el banco Fn147A
+
 void CTaskComplexBeInGroup::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexBeInGroup, 0x86E22C, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexBeInGroupScalarDeletingDestructor, "ScalarDeletingDestructor", 0x638A80); // lote 147A (banco Fn147A)
 
     RH_ScopedInstall(Constructor, 0x632E50);
     RH_ScopedInstall(Destructor, 0x632EA0);

@@ -42,6 +42,7 @@ void CTaskComplexSequence::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x632BD0);
 
+    RH_ScopedVMTInstall(GetTaskType, 0x632C60); // lote 147A (banco Fn147A): retorno de constante (TASK_COMPLEX_SEQUENCE = 244)
     RH_ScopedVMTInstall(Clone, 0x5F6710);
     RH_ScopedVMTInstall(MakeAbortable, 0x632C00);
     RH_ScopedVMTOverloadedInstall(CreateNextSubTask, "V", 0x638A40, CTask*(CTaskComplexSequence::*)(CPed*));
@@ -71,6 +72,11 @@ CTaskComplexSequence::CTaskComplexSequence(const CTaskComplexSequence& o) :
 // 0x6389F0
 CTaskComplexSequence::~CTaskComplexSequence() {
     Flush();
+}
+
+// 0x632C60 (lote 147A, banco Fn147A; thiscall, `ret`, 6 bytes: `mov eax,0F4h`): TASK_COMPLEX_SEQUENCE (244); no lee el objeto.
+eTaskType CTaskComplexSequence::GetTaskType() const {
+    return Type;
 }
 
 // 0x632C10

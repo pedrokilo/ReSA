@@ -114,9 +114,32 @@ bool CPedShelterAttractor::BroadcastDeparture(CPed* ped) {
     return true;
 }
 
+namespace {
+// 0x5E9800 / 0x5E9850 (lote 147A, banco Fn147A; thiscall, sin argumentos de pila, `ret`, 33 y 32 bytes): `size()` de dos instancias de vector (disposicion STL de MSVC 6, como SArray: +4 inicio, +8 fin) que
+// el EXE no expande en linea en el codigo de insercion: elementos de 20 bytes (0x5E9800: `imul 0x66666667; sar 3`) y de 12 bytes (0x5E9850, la de CVector de ms_displacements: `imul 0x2AAAAAAB; sar 1`).
+// Sin inicio devuelve 0 (EAX = el inicio nulo); si no, la diferencia de bytes (palabra de 32 bits con signo) entre el final y el inicio dividida por el tamano del elemento, truncada hacia cero.
+__declspec(noinline) int32 __fastcall SArraySizeStride20(const void* self, void* /*edx*/) {
+    const uint32* const words = static_cast<const uint32*>(self);
+    if (words[1] == 0) {
+        return 0;
+    }
+    return static_cast<int32>(words[2] - words[1]) / 20;
+}
+__declspec(noinline) int32 __fastcall SArraySizeStride12(const void* self, void* /*edx*/) {
+    const uint32* const words = static_cast<const uint32*>(self);
+    if (words[1] == 0) {
+        return 0;
+    }
+    return static_cast<int32>(words[2] - words[1]) / 12;
+}
+} // namespace
+
 void CPedShelterAttractor::InjectHooks() {
     RH_ScopedVirtualClass(CPedShelterAttractor, 0x86C5B4, 6);
     RH_ScopedCategory("Attractors");
+
+    RH_ScopedNamedGlobalInstall(SArraySizeStride20, "SArraySizeStride20", 0x5E9800); // lote 147A (banco Fn147A)
+    RH_ScopedNamedGlobalInstall(SArraySizeStride12, "SArraySizeStride12", 0x5E9850); // lote 147A (banco Fn147A)
 
     RH_ScopedInstall(GetDisplacement, 0x5EF420);
     RH_ScopedVMTInstall(ComputeAttractPos, 0x5EFC40);

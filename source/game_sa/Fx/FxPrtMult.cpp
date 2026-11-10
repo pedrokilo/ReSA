@@ -26,6 +26,7 @@ void FxPrtMult_c::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x4AB270);
     RH_ScopedInstall(Constructor7f, 0x4AB290);
+    RH_ScopedInstall(SetUp, 0x4AB2D0); // lote 147A (banco Fn147A)
 }
 
 // 0x4AB270
@@ -53,10 +54,15 @@ FxPrtMult_c::FxPrtMult_c(float red, float green, float blue, float alpha, float 
     SetUp(red, green, blue, alpha, size, rot, life);
 }
 
-// 0x4AB2D0
+// 0x4AB2D0 (lote 147A, banco Fn147A; thiscall, siete dwords de pila, `ret 1Ch`, 51 bytes): copia los siete argumentos tal cual (movimientos enteros, sin pasar por la x87: un NaN senalizante conserva sus
+// bits) a +0x00 rojo, +0x04 verde, +0x08 azul, +0x0C alfa, +0x10 tamano, +0x14 rot y +0x18 vida; no lee la estructura ni devuelve nada.
 void FxPrtMult_c::SetUp(float red, float green, float blue, float alpha, float size, float rot, float life) {
-    SetColor(red, green, blue, alpha);
-    m_fSize = size;
-    m_Rot = rot;
-    m_fLife = life;
+    uint32* const words = reinterpret_cast<uint32*>(this);
+    words[0] = std::bit_cast<uint32>(red);
+    words[1] = std::bit_cast<uint32>(green);
+    words[2] = std::bit_cast<uint32>(blue);
+    words[3] = std::bit_cast<uint32>(alpha);
+    words[4] = std::bit_cast<uint32>(size);
+    words[5] = std::bit_cast<uint32>(rot);
+    words[6] = std::bit_cast<uint32>(life);
 }

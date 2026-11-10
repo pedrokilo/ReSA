@@ -341,7 +341,7 @@ inline void Update() {
     };
     using VoidDelete = void (*)(void*);
     const uintptr_t eventDelete = reinterpret_cast<uintptr_t>(static_cast<VoidDelete>(&CEvent::operator delete));
-    env.stubs[kIdxGroupDelete] = {U(0x4AB9B0, Lote143AEventGroupDestructorBody(), &FkBody<0x4AB9B0>), E(0x8214BD, &FkDelete<0x8214BD>)};
+    env.stubs[kIdxGroupDelete] = {H(0x4AB9B0, Lote143AEventGroupDestructorBody(), &FkBody<0x4AB9B0>), E(0x8214BD, &FkDelete<0x8214BD>)};
     env.stubs[kIdxAtomicCtor] = {F(0x4C4A60, &FkBody<0x4C4A60>)};
     env.stubs[kIdxCollBody] = {F(0x4B1990, &FkBody<0x4B1990>)};
     env.stubs[kIdxCollDelete] = {F(0x6A0650, &FkBody<0x6A0650>), U(0x4B5630, eventDelete, &FkDelete<0x4B5630>)};
@@ -351,7 +351,7 @@ inline void Update() {
     env.stubs[kIdxMedicDelete] = {U(0x658C30, Lote143AMedicTreatInjuredPedDestructorBody(), &FkBody<0x658C30>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     const char* dllReal[kFunctions];
     for (unsigned f = 0; f < kFunctions; ++f) dllReal[f] = "toda la funcion (sin colaboradores)";
-    dllReal[kIdxGroupDelete] = "toda la funcion salvo el cuerpo de CEventGroup (0x4AB9B0, funcion propia sin hook, falso identico) y operator delete (0x8214BD, sin hook: la DLL lo llama por esa direccion, un solo parche)";
+    dllReal[kIdxGroupDelete] = "toda la funcion salvo el cuerpo de CEventGroup (0x4AB9B0, con hook propio desde el lote 147A: el hook se apaga y el falso va en la funcion de la DLL, falso identico) y operator delete (0x8214BD, sin hook: la DLL lo llama por esa direccion, un solo parche)";
     dllReal[kIdxIndexed] = "toda la funcion (la funcion falsa del dispositivo va en el RwGlobals falso, no es un parche de codigo)";
     dllReal[kIdxLine] = "toda la funcion (la funcion falsa del dispositivo va en el RwGlobals falso, no es un parche de codigo)";
     dllReal[kIdxAtomicCtor] = "toda la funcion salvo el cuerpo del constructor de CBaseModelInfo (0x4C4A60, con hook propio del lote, falso identico en la direccion del EXE y en el cuerpo de la DLL)";

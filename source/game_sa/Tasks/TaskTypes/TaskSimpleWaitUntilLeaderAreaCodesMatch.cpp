@@ -22,16 +22,22 @@ END GENERATED HOOK STATUS */
 namespace {
 // 0x5F67E0 (lote 142A, banco Fn142A): cuerpo del destructor de CTaskSimpleWaitUntilLeaderAreaCodesMatch del EXE (`mov [ecx],0x86C7E8; jmp 0x6355E0` = ~CTaskSimpleWaitUntilAreaCodesMatch; sin hook propio: el
 // destructor de la clase es el generado por el compilador). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x5F67E0` del EXE.
+// Lote 147A (banco Fn147A): tambien se engancha como S en 0x5F67E0. Como el EXE (`mov [ecx],0x86C7E8; jmp 0x6355E0`, 11 bytes): deja la vtable de la clase del EXE (0x86C7E8) y sigue con el cuerpo de
+// ~CTaskSimpleWaitUntilAreaCodesMatch (0x6355E0, con hook propio; llamada no virtual en una funcion propia sin expansion en linea para que el banco pueda sustituirla).
+__declspec(noinline) void __fastcall LeaderAreaCodesMatchBaseDestructorCall(CTaskSimpleWaitUntilLeaderAreaCodesMatch* self, void* /*edx*/) { self->CTaskSimpleWaitUntilAreaCodesMatch::~CTaskSimpleWaitUntilAreaCodesMatch(); }
 __declspec(noinline) void __fastcall LeaderAreaCodesMatchDestructorBody(CTaskSimpleWaitUntilLeaderAreaCodesMatch* self, void* /*edx*/) {
-    self->CTaskSimpleWaitUntilLeaderAreaCodesMatch::~CTaskSimpleWaitUntilLeaderAreaCodesMatch();
+    *reinterpret_cast<uint32*>(self) = 0x86C7E8;
+    LeaderAreaCodesMatchBaseDestructorCall(self, nullptr);
 }
 } // namespace
 
+uintptr_t Lote147ALeaderAreaCodesMatchBaseDestructorCall() { return reinterpret_cast<uintptr_t>(&LeaderAreaCodesMatchBaseDestructorCall); } // para el banco Fn147A
 uintptr_t Lote142ALeaderAreaCodesMatchDestructorBody() { return reinterpret_cast<uintptr_t>(&LeaderAreaCodesMatchDestructorBody); } // para el banco Fn142A
 
 void CTaskSimpleWaitUntilLeaderAreaCodesMatch::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleWaitUntilLeaderAreaCodesMatch, 0x86c7e8, 9);
     RH_ScopedCategory("Tasks/TaskTypes"); 
+    RH_ScopedNamedGlobalInstall(LeaderAreaCodesMatchDestructorBody, "Destructor", 0x5F67E0); // lote 147A (banco Fn147A)
     RH_ScopedInstall(ScalarDeletingDestructor, 0x5F6880);
 
     RH_ScopedVMTInstall(Clone, 0x5F67F0);

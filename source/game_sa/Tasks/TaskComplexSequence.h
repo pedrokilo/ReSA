@@ -34,7 +34,7 @@ public:
     CTaskComplexSequence(const CTaskComplexSequence&);
     ~CTaskComplexSequence() override;
 
-    eTaskType GetTaskType() const override { return Type; } // 0x632C60
+    eTaskType GetTaskType() const override; // 0x632C60 (lote 147A, banco Fn147A: definido en el .cpp)
     CTask* Clone() const override { return new CTaskComplexSequence{*this}; } // 0x5F6710
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;

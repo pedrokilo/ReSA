@@ -315,6 +315,16 @@ inline void Update() {
         if (!it->second.hooked || !it->second.dll) ready = false;   // se esperaba hook RH con cuerpo en el ASI
         return S(it->second, reinterpret_cast<void*>(fake));
     };
+    // Colaborador CON hook RH cuya llamada, en la funcion probada, va a una funcion propia de la DLL (direccion dada): el hook se apaga (ruta) y el falso va en la direccion del EXE y en esa funcion (lote 147A).
+    auto H = [&](uintptr_t exe, uintptr_t dllAddress, auto* fake) {
+        auto it = collabCache.find(exe);
+        if (it == collabCache.end()) it = collabCache.emplace(exe, MakeCollab(env, exe, hooksFound)).first;
+        if (!it->second.hooked) ready = false;
+        Pair p = it->second;
+        p.dll = Body(dllAddress); p.hooked = true;
+        if (!p.dll || ModuleOf(p.dll) != env.asi) ready = false;
+        return S(p, reinterpret_cast<void*>(fake));
+    };
     // Colaborador SIN hook RH que la DLL llama por la direccion del EXE (operator delete 0x8214BD, MemoryMgr.cpp): el falso va solo en la direccion del EXE. Se exige que no tenga hook.
     auto ByExeAddress = [&](uintptr_t exe, auto* fake) {
         std::string cat, name;
@@ -344,7 +354,7 @@ inline void Update() {
     env.stubs[kIdxProjectileSdd] = {F(0x5A40E0, &FkBody<0x5A40E0>), U(0x5A1F20, objectDelete, &FkDelete<0x5A1F20>)};
     env.stubs[kIdxStaticSdd] = {U(0x4F0B50, Lote142AStaticChannelDestructorBody(), &FkBody<0x4F0B50>), ByExeAddress(0x8214BD, &FkDelete<0x8214BD>)};
     env.stubs[kIdxBackupSdd] = {F(0x697330, &FkBody<0x697330>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
-    env.stubs[kIdxLeaderSdd] = {U(0x5F67E0, Lote142ALeaderAreaCodesMatchDestructorBody(), &FkBody<0x5F67E0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
+    env.stubs[kIdxLeaderSdd] = {H(0x5F67E0, Lote142ALeaderAreaCodesMatchDestructorBody(), &FkBody<0x5F67E0>), F(0x61A5B0, &FkDelete<0x61A5B0>)};
     env.stubs[kIdxPedListCtor] = {F(0x699DB0, &FkCollab<0x699DB0>)};
     env.stubs[kIdxHitRunCriminal] = {F(0x5DF8F0, &FkIsPlayer)};
     // DeleteCriticalSection: casilla de la IAT del EXE (0x8580E0) y la de la DLL; las dos deben apuntar a la misma funcion del sistema

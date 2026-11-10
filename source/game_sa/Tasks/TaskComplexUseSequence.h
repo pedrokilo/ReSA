@@ -14,7 +14,7 @@ public:
     CTaskComplexUseSequence(const CTaskComplexUseSequence&);
     ~CTaskComplexUseSequence() override;
 
-    eTaskType GetTaskType() const override { return Type; } // 0x635490
+    eTaskType GetTaskType() const override; // 0x635490 (lote 147A, banco Fn147A: definido en el .cpp)
     CTask* Clone() const override { return new CTaskComplexUseSequence{*this}; } // 0x637100
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;
