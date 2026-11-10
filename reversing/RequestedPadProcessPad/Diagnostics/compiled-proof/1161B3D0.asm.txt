@@ -1,0 +1,44 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1161B3D0: 55                 push        ebp
+  1161B3D1: 8B EC              mov         ebp,esp
+  1161B3D3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1161B3D9: 53                 push        ebx
+  1161B3DA: 56                 push        esi
+  1161B3DB: 57                 push        edi
+  1161B3DC: C7 45 F8 00 00 00  mov         dword ptr [ebp-8],0
+            00
+  1161B3E3: EB 09              jmp         1161B3EE
+  1161B3E5: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1161B3E8: 83 C0 01           add         eax,1
+  1161B3EB: 89 45 F8           mov         dword ptr [ebp-8],eax
+  1161B3EE: 83 7D F8 10        cmp         dword ptr [ebp-8],10h
+  1161B3F2: 7D 20              jge         1161B414
+  1161B3F4: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1161B3F7: 0F B6 08           movzx       ecx,byte ptr [eax]
+  1161B3FA: 81 F9 E9 00 00 00  cmp         ecx,0E9h
+  1161B400: 75 12              jne         1161B414
+  1161B402: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1161B405: 8B 48 01           mov         ecx,dword ptr [eax+1]
+  1161B408: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  1161B40B: 8D 44 0A 05        lea         eax,[edx+ecx+5]
+  1161B40F: 89 45 08           mov         dword ptr [ebp+8],eax
+  1161B412: EB D1              jmp         1161B3E5
+  1161B414: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1161B417: 5F                 pop         edi
+  1161B418: 5E                 pop         esi
+  1161B419: 5B                 pop         ebx
+  1161B41A: 8B E5              mov         esp,ebp
+  1161B41C: 5D                 pop         ebp
+  1161B41D: C3                 ret
+  1161B41E: CC                 int         3
+
+  Summary
+
+     2489000 .text

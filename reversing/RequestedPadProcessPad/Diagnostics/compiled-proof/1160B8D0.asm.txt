@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1160B8D0: 55                 push        ebp
+  1160B8D1: 8B EC              mov         ebp,esp
+  1160B8D3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1160B8D9: 53                 push        ebx
+  1160B8DA: 56                 push        esi
+  1160B8DB: 57                 push        edi
+  1160B8DC: 51                 push        ecx
+  1160B8DD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1160B8E0: B9 03 00 00 00     mov         ecx,3
+  1160B8E5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1160B8EA: F3 AB              rep stos    dword ptr es:[edi]
+  1160B8EC: 59                 pop         ecx
+  1160B8ED: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1160B8F0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1160B8F3: E8 4A DE BE FF     call        111F9742
+  1160B8F8: 90                 nop
+  1160B8F9: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1160B8FC: C7 40 04 00 00 00  mov         dword ptr [eax+4],0
+            00
+  1160B903: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1160B906: C7 40 08 00 00 00  mov         dword ptr [eax+8],0
+            00
+  1160B90D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1160B910: C7 40 0C 00 00 00  mov         dword ptr [eax+0Ch],0
+            00
+  1160B917: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1160B91A: 5F                 pop         edi
+  1160B91B: 5E                 pop         esi
+  1160B91C: 5B                 pop         ebx
+  1160B91D: 81 C4 CC 00 00 00  add         esp,0CCh
+  1160B923: 3B EC              cmp         ebp,esp
+  1160B925: E8 0F 84 BD FF     call        111E3D39
+  1160B92A: 8B E5              mov         esp,ebp
+  1160B92C: 5D                 pop         ebp
+  1160B92D: C3                 ret
+  1160B92E: CC                 int         3
+
+  Summary
+
+     2489000 .text

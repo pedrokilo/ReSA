@@ -1,0 +1,60 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "de36304ab5e8a537c91db366c20bbbbf6c586aa405fa91bf3bb260c81cedb506",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
+    "tested_sources": {
+      "source/game_sa/Pools.cpp": "80e370e0d6e87061896deb730df5685900043cec352c860a1303551ac462fda6",
+      "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
+      "source/game_sa/Pools/VehiclePool.h": "e2381e0d1c8f4c9b4746e8620f9d2132b52d5a8bd8831ff1afe149bc3b31c469",
+      "source/game_sa/Pools/ObjectPool.h": "bd955f4234ff48176159e9bb278b422e9d8b1fefdecc14b163a94286852096b6",
+      "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
+      "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+      "source/game_sa/Entity/Object/CutsceneObject.h": "501efe15c3b8b57cc449543cc710e9b14d622f5d463fa21d427919d97cb6b97c"
+    },
+    "bank_sources": {
+      "reversing/RequestedPoolsSixGetters/LiveComparison.hpp": "89b385f91240c291e4d73cb44335341efd7d9da0baa7c58229bccc1e855b3b03",
+      "reversing/RequestedPoolsSixGetters/PreflightHarness.hpp": "f73f70e79e47136f40a488f733fb9a0a39672630a76e06dce5b54ecebbfeb033",
+      "reversing/RequestedPoolsSixGetters/VTableRanges.hpp": "08cdab674293e0febffcdb12f440d1730df906e01d6475db4bb5707e071a31f0",
+      "reversing/RequestedPoolsSixGetters/build_probe.py": "a612a7c0e379bf0b03abdc404a837e748963f92738f273c3f1676bfd9e763447",
+      "reversing/RequestedPoolsSixGetters/inspect_compiled.py": "bf0ae942be72143f4d5d56171beafee438a71a85575e63bbc3af2559e93dc119",
+      "reversing/RequestedPoolsSixGetters/restore_winmain.py": "d7011373e0f088604c2f964ca1db31a8d080cffda500f904f4b1cfb3c71428bc",
+      "reversing/RequestedPoolsSixGetters/run_local.py": "aedb3e7ed4582e2fbd1016254eb7cd728a72994c3428b5a1ffb26bc9c3b03125",
+      "reversing/RequestedPoolsSixGetters/corpus-plan.json": "a8ea56604d05635ba07fbd37008944cae59124d541d8e7abc2bc9fb224240ae4",
+      "reversing/RequestedPoolsSixGetters/evidence/GetObject-fullasm.txt": "dcd0c3c8596b0d28b123d6d112ef61efc4b8483c062d6362e90fa976e4965f01",
+      "reversing/RequestedPoolsSixGetters/evidence/GetObjectRef-fullasm.txt": "4aa142a39feafbd8c50cd31c3822e2130ddd7eb8cd08b6695f7cdd214da3d481",
+      "reversing/RequestedPoolsSixGetters/evidence/GetPed-fullasm.txt": "6f31f790e00d7819119b2773a170b70a2b010862d6726c32efa14907d3d3ab12",
+      "reversing/RequestedPoolsSixGetters/evidence/GetPedRef-fullasm.txt": "b8886fb4985b2664c793dcd763af47eb073f74734a6242e7dbc1ffe260814dad",
+      "reversing/RequestedPoolsSixGetters/evidence/GetVehicle-fullasm.txt": "54df83c3ee05dbe1e8c4f1a1688ffea49d01d130db8786b45e886c66560d84d6",
+      "reversing/RequestedPoolsSixGetters/evidence/GetVehicleRef-fullasm.txt": "5d8f97a9362a8a8d05c471ccc6e91890c8dbf106883122f595f425c80467fc7a",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "5251233421eed091cdbeeb750e892e466a1425161d396100209834d7ec438df9",
+    "fixture_scope": "Pregraphics six pool wrappers3072, actual typed borrowed pool headers over bounded raw slot/state arenas. No real actor lifetimes, allocation/destruction assets or constructor/helper accreditation. In-bounds index0/1 activeID0..127; matched and stale/free-bit mismatches.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "b1266464dc7ef47990fc118a9841c661df4c3b450eaab95488c8f17edee54be4"
+    },
+    "asi": "de36304ab5e8a537c91db366c20bbbbf6c586aa405fa91bf3bb260c81cedb506",
+    "pdb": "0cb89615adc0d6555e6413bae612e1fcca0db931a96302049a60ccf11b6cd1c8"
+  },
+  "borrowed_constructor_proof_sha256": "efd198b680c038aae854703bba35f4a20ee6793dd1e1416d1559c35dee12aba7",
+  "runner_sha256": "aedb3e7ed4582e2fbd1016254eb7cd728a72994c3428b5a1ffb26bc9c3b03125"
+}

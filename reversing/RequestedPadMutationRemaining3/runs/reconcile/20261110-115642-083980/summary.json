@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "6fbb61eb368039790a4720f5913fae3156250aec2c0088e1f8d231def6364c95",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "all_equal": true,
+  "bank": "reconcile",
+  "function": "CPad::ReconcileTwoControllersInput",
+  "address": "0x53f530",
+  "comparisons": 2892,
+  "functions": 1,
+  "differences": 0,
+  "failures": [],
+  "current_artifact_proof": {
+    "actual_module_base": 1849425920,
+    "artifact_hash_exact": true,
+    "artifact_sha256": "6fbb61eb368039790a4720f5913fae3156250aec2c0088e1f8d231def6364c95",
+    "encoded_operands": 48,
+    "explicit_highlow_relocations": 48,
+    "function_bytes": 1499,
+    "function_rva": 32350688,
+    "mapped_body_exact": true,
+    "pdb_sha256": "e8a198b4ff982e08ee461a8fdf58391ba4160e45603ade925794102a67e05caa",
+    "scratch_bytes": 48,
+    "scratch_rva": 64097904
+  },
+  "bank_restored": true,
+  "floating_environment_restored": true,
+  "harness_restored": true,
+  "harness_sha256": "ca690654144bbc018dd820632d8de7fea23e572de62036285d5256b0ec5234e8",
+  "scope": "Declared private pad/controllers, readonly globals and two explicitly traced scratch arenas. Reconcile active scratch role only, inactive/guards immutable. No helper/OS input/game startup accreditation.",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

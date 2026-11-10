@@ -1,0 +1,51 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11617470: 55                 push        ebp
+  11617471: 8B EC              mov         ebp,esp
+  11617473: 81 EC CC 00 00 00  sub         esp,0CCh
+  11617479: 53                 push        ebx
+  1161747A: 56                 push        esi
+  1161747B: 57                 push        edi
+  1161747C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1161747F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11617482: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11617485: 89 08              mov         dword ptr [eax],ecx
+  11617487: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1161748A: 5F                 pop         edi
+  1161748B: 5E                 pop         esi
+  1161748C: 5B                 pop         ebx
+  1161748D: 8B E5              mov         esp,ebp
+  1161748F: 5D                 pop         ebp
+  11617490: C2 04 00           ret         4
+  11617493: CC                 int         3
+  11617494: CC                 int         3
+  11617495: CC                 int         3
+  11617496: CC                 int         3
+  11617497: CC                 int         3
+  11617498: CC                 int         3
+  11617499: CC                 int         3
+  1161749A: CC                 int         3
+  1161749B: CC                 int         3
+  1161749C: CC                 int         3
+  1161749D: CC                 int         3
+  1161749E: CC                 int         3
+  1161749F: CC                 int         3
+  116174A0: 55                 push        ebp
+  116174A1: 8B EC              mov         ebp,esp
+  116174A3: 81 EC CC 00 00 00  sub         esp,0CCh
+  116174A9: 53                 push        ebx
+  116174AA: 56                 push        esi
+  116174AB: 57                 push        edi
+  116174AC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  116174AF: 8B
+  116174B0: 45                 inc         ebp
+
+  Summary
+
+     2496000 .text

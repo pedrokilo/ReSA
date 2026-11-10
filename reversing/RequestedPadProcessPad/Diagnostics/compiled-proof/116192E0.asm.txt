@@ -1,0 +1,43 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  116192E0: 55                 push        ebp
+  116192E1: 8B EC              mov         ebp,esp
+  116192E3: 81 EC CC 00 00 00  sub         esp,0CCh
+  116192E9: 53                 push        ebx
+  116192EA: 56                 push        esi
+  116192EB: 57                 push        edi
+  116192EC: 51                 push        ecx
+  116192ED: 8D 7D F4           lea         edi,[ebp-0Ch]
+  116192F0: B9 03 00 00 00     mov         ecx,3
+  116192F5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  116192FA: F3 AB              rep stos    dword ptr es:[edi]
+  116192FC: 59                 pop         ecx
+  116192FD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11619300: E8 5C 72 BD FF     call        111F0561
+  11619305: 0F B6 C0           movzx       eax,al
+  11619308: 85 C0              test        eax,eax
+  1161930A: 74 0D              je          11619319
+  1161930C: E8 8D 61 BE FF     call        111FF49E
+  11619311: 8B C8              mov         ecx,eax
+  11619313: E8 98 6A BC FF     call        111DFDB0
+  11619318: 90                 nop
+  11619319: 5F                 pop         edi
+  1161931A: 5E                 pop         esi
+  1161931B: 5B                 pop         ebx
+  1161931C: 81 C4 CC 00 00 00  add         esp,0CCh
+  11619322: 3B EC              cmp         ebp,esp
+  11619324: E8 10 AA BC FF     call        111E3D39
+  11619329: 8B E5              mov         esp,ebp
+  1161932B: 5D                 pop         ebp
+  1161932C: C3                 ret
+  1161932D: CC                 int         3
+
+  Summary
+
+     2489000 .text

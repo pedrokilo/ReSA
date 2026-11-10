@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1162CDE0: 55                 push        ebp
+  1162CDE1: 8B EC              mov         ebp,esp
+  1162CDE3: 81 EC F0 00 00 00  sub         esp,0F0h
+  1162CDE9: 53                 push        ebx
+  1162CDEA: 56                 push        esi
+  1162CDEB: 57                 push        edi
+  1162CDEC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1162CDEF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1162CDF2: 8B 08              mov         ecx,dword ptr [eax]
+  1162CDF4: 83 C1 04           add         ecx,4
+  1162CDF7: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1162CDFA: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1162CDFD: 83 38 00           cmp         dword ptr [eax],0
+  1162CE00: 74 44              je          1162CE46
+  1162CE02: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1162CE05: 8B 08              mov         ecx,dword ptr [eax]
+  1162CE07: 8B 51 08           mov         edx,dword ptr [ecx+8]
+  1162CE0A: 89 55 E0           mov         dword ptr [ebp-20h],edx
+  1162CE0D: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1162CE10: 8B 08              mov         ecx,dword ptr [eax]
+  1162CE12: 89 4D D4           mov         dword ptr [ebp-2Ch],ecx
+  1162CE15: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1162CE18: 3B 45 08           cmp         eax,dword ptr [ebp+8]
+  1162CE1B: 72 08              jb          1162CE25
+  1162CE1D: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1162CE20: 3B 45 E0           cmp         eax,dword ptr [ebp-20h]
+  1162CE23: 73 0B              jae         1162CE30
+  1162CE25: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1162CE28: 83 C0 04           add         eax,4
+  1162CE2B: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1162CE2E: EB 14              jmp         1162CE44
+  1162CE30: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1162CE33: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  1162CE39: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1162CE3C: 8B 4D D4           mov         ecx,dword ptr [ebp-2Ch]
+  1162CE3F: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  1162CE42: 89 10              mov         dword ptr [eax],edx
+  1162CE44: EB B4              jmp         1162CDFA
+  1162CE46: 5F                 pop         edi
+  1162CE47: 5E                 pop         esi
+  1162CE48: 5B                 pop         ebx
+  1162CE49: 8B E5              mov         esp,ebp
+  1162CE4B: 5D                 pop         ebp
+  1162CE4C: C2 08 00           ret         8
+  1162CE4F: CC                 int         3
+
+  Summary
+
+     2489000 .text

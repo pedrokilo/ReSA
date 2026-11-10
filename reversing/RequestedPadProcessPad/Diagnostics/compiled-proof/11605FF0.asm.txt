@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11605FF0: 55                 push        ebp
+  11605FF1: 8B EC              mov         ebp,esp
+  11605FF3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11605FF9: 53                 push        ebx
+  11605FFA: 56                 push        esi
+  11605FFB: 57                 push        edi
+  11605FFC: 8B FD              mov         edi,ebp
+  11605FFE: 33 C9              xor         ecx,ecx
+  11606000: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11606005: F3 AB              rep stos    dword ptr es:[edi]
+  11606007: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1160600A: E8 D1 32 01 00     call        116192E0
+  1160600F: 90                 nop
+  11606010: 5F                 pop         edi
+  11606011: 5E                 pop         esi
+  11606012: 5B                 pop         ebx
+  11606013: 81 C4 C0 00 00 00  add         esp,0C0h
+  11606019: 3B EC              cmp         ebp,esp
+  1160601B: E8 19 DD BD FF     call        111E3D39
+  11606020: 8B E5              mov         esp,ebp
+  11606022: 5D                 pop         ebp
+  11606023: C3                 ret
+  11606024: CC                 int         3
+  11606025: CC                 int         3
+  11606026: CC                 int         3
+  11606027: CC                 int         3
+  11606028: CC                 int         3
+  11606029: CC                 int         3
+  1160602A: CC                 int         3
+  1160602B: CC                 int         3
+  1160602C: CC                 int         3
+  1160602D: CC                 int         3
+  1160602E: CC                 int         3
+  1160602F: CC                 int         3
+  11606030: CC                 int         3
+
+  Summary
+
+     2489000 .text

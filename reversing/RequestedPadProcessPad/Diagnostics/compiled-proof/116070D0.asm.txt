@@ -1,0 +1,84 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  116070D0: 55                 push        ebp
+  116070D1: 8B EC              mov         ebp,esp
+  116070D3: 6A FF              push        0FFFFFFFFh
+  116070D5: 68 E7 70 55 13     push        135570E7h
+  116070DA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  116070E0: 50                 push        eax
+  116070E1: 81 EC E8 00 00 00  sub         esp,0E8h
+  116070E7: 53                 push        ebx
+  116070E8: 56                 push        esi
+  116070E9: 57                 push        edi
+  116070EA: 8D 7D CC           lea         edi,[ebp-34h]
+  116070ED: B9 0A 00 00 00     mov         ecx,0Ah
+  116070F2: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  116070F7: F3 AB              rep stos    dword ptr es:[edi]
+  116070F9: A1 40 7D D9 13     mov         eax,dword ptr ds:[13D97D40h]
+  116070FE: 33 C5              xor         eax,ebp
+  11607100: 50                 push        eax
+  11607101: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11607104: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1160710A: C7 85 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],0
+            00 00 00 00
+  11607114: 6A 34              push        34h
+  11607116: E8 4A 5D BF FF     call        111FCE65
+  1160711B: 83 C4 04           add         esp,4
+  1160711E: 89 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],eax
+  11607124: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1160712B: 83 BD 20 FF FF FF  cmp         dword ptr [ebp+FFFFFF20h],0
+            00
+  11607132: 74 27              je          1160715B
+  11607134: 8B 45 18           mov         eax,dword ptr [ebp+18h]
+  11607137: 50                 push        eax
+  11607138: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  1160713B: 51                 push        ecx
+  1160713C: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  1160713F: 8B 02              mov         eax,dword ptr [edx]
+  11607141: 50                 push        eax
+  11607142: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11607145: 8B 11              mov         edx,dword ptr [ecx]
+  11607147: 52                 push        edx
+  11607148: 8B 8D 20 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF20h]
+  1160714E: E8 B5 03 C1 FF     call        11217508
+  11607153: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11607159: EB 0A              jmp         11607165
+  1160715B: C7 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],0
+            00 00 00 00
+  11607165: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  1160716B: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  11607171: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  11607178: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  1160717E: 51                 push        ecx
+  1160717F: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11607182: E8 46 E4 C0 FF     call        112155CD
+  11607187: 8B 95 14 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF14h]
+  1160718D: 83 CA 01           or          edx,1
+  11607190: 89 95 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],edx
+  11607196: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11607199: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1160719C: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  116071A3: 59                 pop         ecx
+  116071A4: 5F                 pop         edi
+  116071A5: 5E                 pop         esi
+  116071A6: 5B                 pop         ebx
+  116071A7: 81 C4 F4 00 00 00  add         esp,0F4h
+  116071AD: 3B EC              cmp         ebp,esp
+  116071AF: E8 85 CB BD FF     call        111E3D39
+  116071B4: 8B E5              mov         esp,ebp
+  116071B6: 5D                 pop         ebp
+  116071B7: C3                 ret
+  116071B8: CC                 int         3
+
+  Summary
+
+     2489000 .text

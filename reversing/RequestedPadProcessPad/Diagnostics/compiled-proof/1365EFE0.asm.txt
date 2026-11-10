@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1365EFE0: 55                 push        ebp
+  1365EFE1: 8B EC              mov         ebp,esp
+  1365EFE3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1365EFE9: 53                 push        ebx
+  1365EFEA: 56                 push        esi
+  1365EFEB: 57                 push        edi
+  1365EFEC: 8B FD              mov         edi,ebp
+  1365EFEE: 33 C9              xor         ecx,ecx
+  1365EFF0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1365EFF5: F3 AB              rep stos    dword ptr es:[edi]
+  1365EFF7: B9 48 3C DB 13     mov         ecx,13DB3C48h
+  1365EFFC: E8 50 DE B9 FD     call        111FCE51
+  1365F001: 90                 nop
+  1365F002: 5F                 pop         edi
+  1365F003: 5E                 pop         esi
+  1365F004: 5B                 pop         ebx
+  1365F005: 81 C4 C0 00 00 00  add         esp,0C0h
+  1365F00B: 3B EC              cmp         ebp,esp
+  1365F00D: E8 27 4D B8 FD     call        111E3D39
+  1365F012: 8B E5              mov         esp,ebp
+  1365F014: 5D                 pop         ebp
+  1365F015: C3                 ret
+  1365F016: CC                 int         3
+  1365F017: CC                 int         3
+  1365F018: CC                 int         3
+  1365F019: CC                 int         3
+  1365F01A: CC                 int         3
+  1365F01B: CC                 int         3
+  1365F01C: CC                 int         3
+  1365F01D: CC                 int         3
+  1365F01E: CC                 int         3
+  1365F01F: CC                 int         3
+  1365F020: CC                 int         3
+
+  Summary
+
+     2489000 .text

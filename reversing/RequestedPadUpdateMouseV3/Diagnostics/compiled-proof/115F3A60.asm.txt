@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115F3A60: 55                 push        ebp
+  115F3A61: 8B EC              mov         ebp,esp
+  115F3A63: 81 EC D0 00 00 00  sub         esp,0D0h
+  115F3A69: 53                 push        ebx
+  115F3A6A: 56                 push        esi
+  115F3A6B: 57                 push        edi
+  115F3A6C: 51                 push        ecx
+  115F3A6D: 8D 7D F0           lea         edi,[ebp-10h]
+  115F3A70: B9 04 00 00 00     mov         ecx,4
+  115F3A75: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115F3A7A: F3 AB              rep stos    dword ptr es:[edi]
+  115F3A7C: 59                 pop         ecx
+  115F3A7D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115F3A80: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  115F3A83: E8 8D CC BF FF     call        111F0715
+  115F3A88: 8B C8              mov         ecx,eax
+  115F3A8A: E8 2D 73 C2 FF     call        1121ADBC
+  115F3A8F: 83 F8 01           cmp         eax,1
+  115F3A92: 75 0C              jne         115F3AA0
+  115F3A94: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  115F3A9E: EB 0A              jmp         115F3AAA
+  115F3AA0: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  115F3AAA: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  115F3AB1: 5F                 pop         edi
+  115F3AB2: 5E                 pop         esi
+  115F3AB3: 5B                 pop         ebx
+  115F3AB4: 81 C4 D0 00 00 00  add         esp,0D0h
+  115F3ABA: 3B EC              cmp         ebp,esp
+  115F3ABC: E8 C3 62 BF FF     call        111E9D84
+  115F3AC1: 8B E5              mov         esp,ebp
+  115F3AC3: 5D                 pop         ebp
+  115F3AC4: C2 04 00           ret         4
+  115F3AC7: CC                 int         3
+
+  Summary
+
+     2496000 .text

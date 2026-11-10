@@ -2,58 +2,58 @@ Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 
-Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
+Dump of file D:\Original\wv-1\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
 
 File Type: DLL
 
-  11608BD0: 55                 push        ebp
-  11608BD1: 8B EC              mov         ebp,esp
-  11608BD3: 81 EC C4 00 00 00  sub         esp,0C4h
-  11608BD9: 53                 push        ebx
-  11608BDA: 56                 push        esi
-  11608BDB: 57                 push        edi
-  11608BDC: 8D 7D FC           lea         edi,[ebp-4]
-  11608BDF: B9 01 00 00 00     mov         ecx,1
-  11608BE4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
-  11608BE9: F3 AB              rep stos    dword ptr es:[edi]
-  11608BEB: 0F B6 45 10        movzx       eax,byte ptr [ebp+10h]
-  11608BEF: 85 C0              test        eax,eax
-  11608BF1: 74 2B              je          11608C1E
-  11608BF3: F3 0F 2A 45 0C     cvtsi2ss    xmm0,dword ptr [ebp+0Ch]
-  11608BF8: 51                 push        ecx
-  11608BF9: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
-  11608BFE: F3 0F 2A 45 08     cvtsi2ss    xmm0,dword ptr [ebp+8]
-  11608C03: 51                 push        ecx
-  11608C04: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
-  11608C09: E8 13 71 A5 FF     call        1105FD21
-  11608C0E: 83 C4 08           add         esp,8
-  11608C11: E8 3D 32 A8 FF     call        1108BE53
-  11608C16: 89 85 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],eax
-  11608C1C: EB 31              jmp         11608C4F
-  11608C1E: F3 0F 2A 45 0C     cvtsi2ss    xmm0,dword ptr [ebp+0Ch]
-  11608C23: F3 0F 5C 05 AC A7  subss       xmm0,dword ptr ds:[131CA7ACh]
-            1C 13
-  11608C2B: 51                 push        ecx
-  11608C2C: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
-  11608C31: F3 0F 2A 45 08     cvtsi2ss    xmm0,dword ptr [ebp+8]
-  11608C36: 51                 push        ecx
-  11608C37: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
-  11608C3C: E8 E0 70 A5 FF     call        1105FD21
-  11608C41: 83 C4 08           add         esp,8
-  11608C44: E8 0A 32 A8 FF     call        1108BE53
-  11608C49: 89 85 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],eax
-  11608C4F: 8B 85 3C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF3Ch]
-  11608C55: 5F                 pop         edi
-  11608C56: 5E                 pop         esi
-  11608C57: 5B                 pop         ebx
-  11608C58: 81 C4 C4 00 00 00  add         esp,0C4h
-  11608C5E: 3B EC              cmp         ebp,esp
-  11608C60: E8 2F 30 A5 FF     call        1105BC94
-  11608C65: 8B E5              mov         esp,ebp
-  11608C67: 5D                 pop         ebp
-  11608C68: C3                 ret
-  11608C69: CC                 int         3
+  118EA500: 55                 push        ebp
+  118EA501: 8B EC              mov         ebp,esp
+  118EA503: 81 EC C4 00 00 00  sub         esp,0C4h
+  118EA509: 53                 push        ebx
+  118EA50A: 56                 push        esi
+  118EA50B: 57                 push        edi
+  118EA50C: 8D 7D FC           lea         edi,[ebp-4]
+  118EA50F: B9 01 00 00 00     mov         ecx,1
+  118EA514: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  118EA519: F3 AB              rep stos    dword ptr es:[edi]
+  118EA51B: 0F B6 45 10        movzx       eax,byte ptr [ebp+10h]
+  118EA51F: 85 C0              test        eax,eax
+  118EA521: 74 2B              je          118EA54E
+  118EA523: F3 0F 2A 45 0C     cvtsi2ss    xmm0,dword ptr [ebp+0Ch]
+  118EA528: 51                 push        ecx
+  118EA529: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  118EA52E: F3 0F 2A 45 08     cvtsi2ss    xmm0,dword ptr [ebp+8]
+  118EA533: 51                 push        ecx
+  118EA534: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  118EA539: E8 7E B8 8F FF     call        111E5DBC
+  118EA53E: 83 C4 08           add         esp,8
+  118EA541: E8 87 7C 92 FF     call        112121CD
+  118EA546: 89 85 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],eax
+  118EA54C: EB 31              jmp         118EA57F
+  118EA54E: F3 0F 2A 45 0C     cvtsi2ss    xmm0,dword ptr [ebp+0Ch]
+  118EA553: F3 0F 5C 05 50 B5  subss       xmm0,dword ptr ds:[1366B550h]
+            66 13
+  118EA55B: 51                 push        ecx
+  118EA55C: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  118EA561: F3 0F 2A 45 08     cvtsi2ss    xmm0,dword ptr [ebp+8]
+  118EA566: 51                 push        ecx
+  118EA567: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  118EA56C: E8 4B B8 8F FF     call        111E5DBC
+  118EA571: 83 C4 08           add         esp,8
+  118EA574: E8 54 7C 92 FF     call        112121CD
+  118EA579: 89 85 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],eax
+  118EA57F: 8B 85 3C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF3Ch]
+  118EA585: 5F                 pop         edi
+  118EA586: 5E                 pop         esi
+  118EA587: 5B                 pop         ebx
+  118EA588: 81 C4 C4 00 00 00  add         esp,0C4h
+  118EA58E: 3B EC              cmp         ebp,esp
+  118EA590: E8 63 77 8F FF     call        111E1CF8
+  118EA595: 8B E5              mov         esp,ebp
+  118EA597: 5D                 pop         ebp
+  118EA598: C3                 ret
+  118EA599: CC                 int         3
 
   Summary
 
-     216B000 .text
+     2484000 .text

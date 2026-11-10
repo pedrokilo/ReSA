@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "78d8994f197b9e8e8fb70386de465af348ad9a70bf95c18eb71d7ca67fbb413c",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 256,
+  "differences": 0,
+  "all_equal": true,
+  "state_restored": true,
+  "harness_restored": true,
+  "floating_environment_restored": true,
+  "exact_return_and_ABI_checked": true,
+  "log_sha256": "e543d770225e05dd02a0e18a6857e7cfa96a49849f7703ac465d2c788e8f2ea9",
+  "harness_sha256": "839ccd1f0930926e6d4d991d15408bdf49ecd49f92f5a9c9083780e01b4d9707",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
+    "tested_sources": {
+      "source/game_sa/Pools.cpp": "80e370e0d6e87061896deb730df5685900043cec352c860a1303551ac462fda6",
+      "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+    },
+    "bank_sources": {
+      "reversing/RequestedPoolsAtomicCheck/LiveComparison.hpp": "1664d77e88d15b98cb34f6c2dfef627d9e7336571a6759b65966af81ceec4e8b",
+      "reversing/RequestedPoolsAtomicCheck/PreflightHarness.hpp": "1323f980e4ca6fdad5bb837c0848246e3b3f89c9b959d48be33135e57952f82b",
+      "reversing/RequestedPoolsAtomicCheck/VTableRanges.hpp": "27f63c65774c6c09054f3620ca79fa354d683b52e385d06c363290be89220bdb",
+      "reversing/RequestedPoolsAtomicCheck/build_probe.py": "b20419acb98c12a54db3e03e21954e6ead0733189dcf2b83df6f87d973c9bbfe",
+      "reversing/RequestedPoolsAtomicCheck/inspect_compiled.py": "bccb28af9c79f0221fc078f37afac5f72dd766c42ff278e4fb01280b40946fd2",
+      "reversing/RequestedPoolsAtomicCheck/restore_winmain.py": "d7011373e0f088604c2f964ca1db31a8d080cffda500f904f4b1cfb3c71428bc",
+      "reversing/RequestedPoolsAtomicCheck/run_local.py": "a556e2d91e8ca487e3d6cdf93f3ce9dda65b6aa69ad64a0b434ac3deb6419bc0",
+      "reversing/RequestedPoolsAtomicCheck/corpus-plan.json": "5f45c1e35ae05845ec5aa8e490046f99c8fd07cc57714409027ca6ceeeec8c27",
+      "reversing/RequestedPoolsAtomicCheck/evidence/CheckBuildingAtomics-fullasm.txt": "741ac00c38bdbc2fc8ece0e3f786ae8cb0306601f396112e01c9e8765a45fd54",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "5251233421eed091cdbeeb750e892e466a1425161d396100209834d7ec438df9",
+    "fixture_scope": "Pregraphics constant getter256 caller EAX/guard contexts, uint32 returnFFFFFFFF, cdecl stack/callee-saved ABI, all68 pool-pointer global bytes readonly. No pool allocation/actor/lifetime helpers or class-wide accreditation.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "daf1c50fdb67f9a3161333e561689f73b3aee13495a29b78ffdb89106bc89633"
+    },
+    "asi": "78d8994f197b9e8e8fb70386de465af348ad9a70bf95c18eb71d7ca67fbb413c",
+    "pdb": "75745d13ae5bc01c9cda49bae152ddb7f3af167384f98433df6dd090f15f61c6"
+  },
+  "runner_sha256": "a556e2d91e8ca487e3d6cdf93f3ce9dda65b6aa69ad64a0b434ac3deb6419bc0"
+}

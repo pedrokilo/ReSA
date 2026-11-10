@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11631A10: 55                 push        ebp
+  11631A11: 8B EC              mov         ebp,esp
+  11631A13: 81 EC E0 00 00 00  sub         esp,0E0h
+  11631A19: 53                 push        ebx
+  11631A1A: 56                 push        esi
+  11631A1B: 57                 push        edi
+  11631A1C: 51                 push        ecx
+  11631A1D: 8D 7D E0           lea         edi,[ebp-20h]
+  11631A20: B9 08 00 00 00     mov         ecx,8
+  11631A25: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11631A2A: F3 AB              rep stos    dword ptr es:[edi]
+  11631A2C: 59                 pop         ecx
+  11631A2D: 89 55 EC           mov         dword ptr [ebp-14h],edx
+  11631A30: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11631A33: 0F B6 05 31 20 C6  movzx       eax,byte ptr ds:[13C62031h]
+            13
+  11631A3A: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  11631A40: 8B 0D 50 5D D2 13  mov         ecx,dword ptr ds:[13D25D50h]
+  11631A46: 51                 push        ecx
+  11631A47: E8 52 AC BE FF     call        1121C69E
+  11631A4C: 83 C4 04           add         esp,4
+  11631A4F: 39 45 F8           cmp         dword ptr [ebp-8],eax
+  11631A52: 75 0C              jne         11631A60
+  11631A54: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],1
+            01 00 00 00
+  11631A5E: EB 0A              jmp         11631A6A
+  11631A60: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],0
+            00 00 00 00
+  11631A6A: 8B 95 24 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF24h]
+  11631A70: 23 95 20 FF FF FF  and         edx,dword ptr [ebp+FFFFFF20h]
+  11631A76: 88 15 31 20 C6 13  mov         byte ptr ds:[13C62031h],dl
+  11631A7C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11631A7F: 50                 push        eax
+  11631A80: E8 D4 5D BB FF     call        111E7859
+  11631A85: 83 C4 04           add         esp,4
+  11631A88: 5F                 pop         edi
+  11631A89: 5E                 pop         esi
+  11631A8A: 5B                 pop         ebx
+  11631A8B: 81 C4 E0 00 00 00  add         esp,0E0h
+  11631A91: 3B EC              cmp         ebp,esp
+  11631A93: E8 EC 82 BB FF     call        111E9D84
+  11631A98: 8B E5              mov         esp,ebp
+  11631A9A: 5D                 pop         ebp
+  11631A9B: C2 04 00           ret         4
+  11631A9E: CC                 int         3
+
+  Summary
+
+     2496000 .text

@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115B1320: 55                 push        ebp
+  115B1321: 8B EC              mov         ebp,esp
+  115B1323: 81 EC C0 00 00 00  sub         esp,0C0h
+  115B1329: 53                 push        ebx
+  115B132A: 56                 push        esi
+  115B132B: 57                 push        edi
+  115B132C: 69 45 08 34 01 00  imul        eax,dword ptr [ebp+8],134h
+            00
+  115B1333: 03 05 54 29 DB 13  add         eax,dword ptr ds:[13DB2954h]
+  115B1339: 5F                 pop         edi
+  115B133A: 5E                 pop         esi
+  115B133B: 5B                 pop         ebx
+  115B133C: 8B E5              mov         esp,ebp
+  115B133E: 5D                 pop         ebp
+  115B133F: C3                 ret
+  115B1340: CC                 int         3
+  115B1341: CC                 int         3
+  115B1342: CC                 int         3
+  115B1343: CC                 int         3
+  115B1344: CC                 int         3
+  115B1345: CC                 int         3
+  115B1346: CC                 int         3
+  115B1347: CC                 int         3
+  115B1348: CC                 int         3
+  115B1349: CC                 int         3
+  115B134A: CC                 int         3
+  115B134B: CC                 int         3
+  115B134C: CC                 int         3
+  115B134D: CC                 int         3
+  115B134E: CC                 int         3
+  115B134F: CC                 int         3
+  115B1350: 55                 push        ebp
+  115B1351: 8B EC              mov         ebp,esp
+  115B1353: 81 EC C0 00 00 00  sub         esp,0C0h
+  115B1359: 53                 push        ebx
+  115B135A: 56                 push        esi
+  115B135B: 57                 push        edi
+  115B135C: A1 C4 2C DB 13     mov         eax,dword ptr ds:[13DB2CC4h]
+
+  Summary
+
+     2489000 .text

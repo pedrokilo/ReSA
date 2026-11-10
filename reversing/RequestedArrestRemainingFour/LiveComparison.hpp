@@ -56,7 +56,7 @@ struct Gate {
 };
 inline void Update() {
     char path[MAX_PATH]{};GetModuleFileNameA(nullptr,path,MAX_PATH);const auto dir=std::filesystem::path(path).parent_path();
-    std::ofstream log(dir/"arrest-remaining-four.jsonl");auto write=[&](const json& j){log<<j.dump()<<'\n';log.flush();};
+    std::ofstream log(dir/"arrest-remaining-four-runtime.jsonl");auto write=[&](const json& j){log<<j.dump()<<'\n';log.flush();};
     struct Function{const char* name;uintptr_t native;int count;};
     const Function functions[]{{"Constructor",0x68B990,128},{"Destructor",0x68BA00,256},{"MakeAbortable",0x68BA60,384},{"CreateFirstSubTask",0x6907A0,2048}};
     std::vector<std::unique_ptr<Gate>> gates;

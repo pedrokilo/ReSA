@@ -76,6 +76,7 @@ inline const std::map<std::string,std::pair<uintptr_t,size_t>> vtableRanges{
 {"CEventHitByWaterCannon",{0x0085B488,16}},
 {"CEventInAir",{0x0085B3C0,16}},
 {"CEventInWater",{0x0085B4C8,16}},
+{"CEventInteriorUseInfo",{0x008701A8,16}},
 {"CEventKnockOffBike",{0x0085B2E0,16}},
 {"CEventLeaderEnteredCarAsDriver",{0x0085A198,17}},
 {"CEventLeaderEntryExit",{0x00859540,16}},

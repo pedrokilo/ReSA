@@ -1,0 +1,92 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1162E940: 55                 push        ebp
+  1162E941: 8B EC              mov         ebp,esp
+  1162E943: 6A FF              push        0FFFFFFFFh
+  1162E945: 68 16 D1 56 13     push        1356D116h
+  1162E94A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1162E950: 50                 push        eax
+  1162E951: 81 EC 18 01 00 00  sub         esp,118h
+  1162E957: 53                 push        ebx
+  1162E958: 56                 push        esi
+  1162E959: 57                 push        edi
+  1162E95A: 8D 7D 9C           lea         edi,[ebp-64h]
+  1162E95D: B9 16 00 00 00     mov         ecx,16h
+  1162E962: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1162E967: F3 AB              rep stos    dword ptr es:[edi]
+  1162E969: A1 40 9D D0 13     mov         eax,dword ptr ds:[13D09D40h]
+  1162E96E: 33 C5              xor         eax,ebp
+  1162E970: 50                 push        eax
+  1162E971: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1162E974: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1162E97A: 83 3D 44 5D D2 13  cmp         dword ptr ds:[13D25D44h],0
+            00
+  1162E981: 74 09              je          1162E98C
+  1162E983: C6 85 DF FE FF FF  mov         byte ptr [ebp+FFFFFEDFh],1
+            01
+  1162E98A: EB 07              jmp         1162E993
+  1162E98C: C6 85 DF FE FF FF  mov         byte ptr [ebp+FFFFFEDFh],0
+            00
+  1162E993: 8A 85 DF FE FF FF  mov         al,byte ptr [ebp+FFFFFEDFh]
+  1162E999: 88 45 EF           mov         byte ptr [ebp-11h],al
+  1162E99C: 68 F4 87 69 13     push        136987F4h
+  1162E9A1: 8D 8D E4 FE FF FF  lea         ecx,[ebp+FFFFFEE4h]
+  1162E9A7: E8 8D 02 BD FF     call        111FEC39
+  1162E9AC: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1162E9B3: 8D 45 EF           lea         eax,[ebp-11h]
+  1162E9B6: 50                 push        eax
+  1162E9B7: 8D 8D FC FE FF FF  lea         ecx,[ebp+FFFFFEFCh]
+  1162E9BD: E8 3C 51 BD FF     call        11203AFE
+  1162E9C2: C7 45 FC 01 00 00  mov         dword ptr [ebp-4],1
+            00
+  1162E9C9: 8D 8D 14 FF FF FF  lea         ecx,[ebp+FFFFFF14h]
+  1162E9CF: 51                 push        ecx
+  1162E9D0: 8D 95 E4 FE FF FF  lea         edx,[ebp+FFFFFEE4h]
+  1162E9D6: 52                 push        edx
+  1162E9D7: 8D 8D 1C FF FF FF  lea         ecx,[ebp+FFFFFF1Ch]
+  1162E9DD: E8 A1 6C BD FF     call        11205683
+  1162E9E2: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1162E9E5: 51                 push        ecx
+  1162E9E6: 8B 10              mov         edx,dword ptr [eax]
+  1162E9E8: 52                 push        edx
+  1162E9E9: B9 30 5D D2 13     mov         ecx,13D25D30h
+  1162E9EE: E8 ED E4 BF FF     call        1122CEE0
+  1162E9F3: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1162E9FA: 68 E4 76 21 11     push        112176E4h
+  1162E9FF: 6A 02              push        2
+  1162EA01: 6A 18              push        18h
+  1162EA03: 8D 85 E4 FE FF FF  lea         eax,[ebp+FFFFFEE4h]
+  1162EA09: 50                 push        eax
+  1162EA0A: E8 9A CA BB FF     call        111EB4A9
+  1162EA0F: 90                 nop
+  1162EA10: 0F B6 45 EF        movzx       eax,byte ptr [ebp-11h]
+  1162EA14: 52                 push        edx
+  1162EA15: 8B CD              mov         ecx,ebp
+  1162EA17: 50                 push        eax
+  1162EA18: 8D 15 44 EA 62 11  lea         edx,ds:[1162EA44h]
+  1162EA1E: E8 07 0D BC FF     call        111EF72A
+  1162EA23: 58                 pop         eax
+  1162EA24: 5A                 pop         edx
+  1162EA25: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1162EA28: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1162EA2F: 59                 pop         ecx
+  1162EA30: 5F                 pop         edi
+  1162EA31: 5E                 pop         esi
+  1162EA32: 5B                 pop         ebx
+  1162EA33: 81 C4 24 01 00 00  add         esp,124h
+  1162EA39: 3B EC              cmp         ebp,esp
+  1162EA3B: E8 44 B3 BB FF     call        111E9D84
+  1162EA40: 8B
+
+  Summary
+
+     2496000 .text

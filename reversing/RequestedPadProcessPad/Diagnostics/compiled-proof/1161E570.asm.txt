@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1161E570: 55                 push        ebp
+  1161E571: 8B EC              mov         ebp,esp
+  1161E573: 81 EC C0 00 00 00  sub         esp,0C0h
+  1161E579: 53                 push        ebx
+  1161E57A: 56                 push        esi
+  1161E57B: 57                 push        edi
+  1161E57C: 6B 45 0C 07        imul        eax,dword ptr [ebp+0Ch],7
+  1161E580: 03 45 08           add         eax,dword ptr [ebp+8]
+  1161E583: 5F                 pop         edi
+  1161E584: 5E                 pop         esi
+  1161E585: 5B                 pop         ebx
+  1161E586: 8B E5              mov         esp,ebp
+  1161E588: 5D                 pop         ebp
+  1161E589: C3                 ret
+  1161E58A: CC                 int         3
+  1161E58B: CC                 int         3
+  1161E58C: CC                 int         3
+  1161E58D: CC                 int         3
+  1161E58E: CC                 int         3
+  1161E58F: CC                 int         3
+  1161E590: 55                 push        ebp
+  1161E591: 8B EC              mov         ebp,esp
+  1161E593: 81 EC 50 01 00 00  sub         esp,150h
+  1161E599: 53                 push        ebx
+  1161E59A: 56                 push        esi
+  1161E59B: 57                 push        edi
+  1161E59C: 8D BD 70 FF FF FF  lea         edi,[ebp+FFFFFF70h]
+  1161E5A2: B9 24 00 00 00     mov         ecx,24h
+  1161E5A7: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1161E5AC: F3 AB              rep stos    dword ptr es:[edi]
+  1161E5AE: A1
+  1161E5AF: 40                 inc         eax
+  1161E5B0: 7D
+
+  Summary
+
+     2489000 .text

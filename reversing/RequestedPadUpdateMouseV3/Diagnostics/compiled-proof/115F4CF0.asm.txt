@@ -1,0 +1,107 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115F4CF0: 55                 push        ebp
+  115F4CF1: 8B EC              mov         ebp,esp
+  115F4CF3: 81 EC FC 00 00 00  sub         esp,0FCh
+  115F4CF9: 53                 push        ebx
+  115F4CFA: 56                 push        esi
+  115F4CFB: 57                 push        edi
+  115F4CFC: 51                 push        ecx
+  115F4CFD: 8D 7D C4           lea         edi,[ebp-3Ch]
+  115F4D00: B9 0F 00 00 00     mov         ecx,0Fh
+  115F4D05: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115F4D0A: F3 AB              rep stos    dword ptr es:[edi]
+  115F4D0C: 59                 pop         ecx
+  115F4D0D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115F4D10: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F4D13: 50                 push        eax
+  115F4D14: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  115F4D17: 51                 push        ecx
+  115F4D18: E8 DB 42 C2 FF     call        11218FF8
+  115F4D1D: 83 C4 08           add         esp,8
+  115F4D20: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F4D23: 83 C0 34           add         eax,34h
+  115F4D26: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  115F4D29: 8D 45 E0           lea         eax,[ebp-20h]
+  115F4D2C: 50                 push        eax
+  115F4D2D: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  115F4D30: E8 F0 8F C0 FF     call        111FDD25
+  115F4D35: 90                 nop
+  115F4D36: 8D 45 D4           lea         eax,[ebp-2Ch]
+  115F4D39: 50                 push        eax
+  115F4D3A: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  115F4D3D: E8 C2 07 C4 FF     call        11235504
+  115F4D42: 90                 nop
+  115F4D43: EB 09              jmp         115F4D4E
+  115F4D45: 8D 4D E0           lea         ecx,[ebp-20h]
+  115F4D48: E8 14 28 C4 FF     call        11237561
+  115F4D4D: 90                 nop
+  115F4D4E: 8D 45 D4           lea         eax,[ebp-2Ch]
+  115F4D51: 50                 push        eax
+  115F4D52: 8D 4D E0           lea         ecx,[ebp-20h]
+  115F4D55: E8 F4 4F C3 FF     call        11229D4E
+  115F4D5A: 0F B6 C8           movzx       ecx,al
+  115F4D5D: 85 C9              test        ecx,ecx
+  115F4D5F: 75 1A              jne         115F4D7B
+  115F4D61: 8D 4D E0           lea         ecx,[ebp-20h]
+  115F4D64: E8 45 5C C0 FF     call        111FA9AE
+  115F4D69: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  115F4D6C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F4D6F: 50                 push        eax
+  115F4D70: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  115F4D73: E8 4A 94 BF FF     call        111EE1C2
+  115F4D78: 90                 nop
+  115F4D79: EB CA              jmp         115F4D45
+  115F4D7B: 52                 push        edx
+  115F4D7C: 8B CD              mov         ecx,ebp
+  115F4D7E: 50                 push        eax
+  115F4D7F: 8D 15 A4 4D 5F 11  lea         edx,ds:[115F4DA4h]
+  115F4D85: E8 A0 A9 BF FF     call        111EF72A
+  115F4D8A: 58                 pop         eax
+  115F4D8B: 5A                 pop         edx
+  115F4D8C: 5F                 pop         edi
+  115F4D8D: 5E                 pop         esi
+  115F4D8E: 5B                 pop         ebx
+  115F4D8F: 81 C4 FC 00 00 00  add         esp,0FCh
+  115F4D95: 3B EC              cmp         ebp,esp
+  115F4D97: E8 E8 4F BF FF     call        111E9D84
+  115F4D9C: 8B E5              mov         esp,ebp
+  115F4D9E: 5D                 pop         ebp
+  115F4D9F: C2 04 00           ret         4
+  115F4DA2: 66 90              nop
+  115F4DA4: 02 00              add         al,byte ptr [eax]
+  115F4DA6: 00 00              add         byte ptr [eax],al
+  115F4DA8: AC                 lods        byte ptr [esi]
+  115F4DA9: 4D                 dec         ebp
+  115F4DAA: 5F                 pop         edi
+  115F4DAB: 11 E0              adc         eax,esp
+  115F4DAD: FF
+  115F4DAE: FF
+  115F4DAF: FF 04 00           inc         dword ptr [eax+eax]
+  115F4DB2: 00 00              add         byte ptr [eax],al
+  115F4DB4: CD 4D              int         4Dh
+  115F4DB6: 5F                 pop         edi
+  115F4DB7: 11 D4              adc         esp,edx
+  115F4DB9: FF
+  115F4DBA: FF
+  115F4DBB: FF 04 00           inc         dword ptr [eax+eax]
+  115F4DBE: 00 00              add         byte ptr [eax],al
+  115F4DC0: C4 4D 5F           les         ecx,fword ptr [ebp+5Fh]
+  115F4DC3: 11 3C 65 6E 64 3E  adc         dword ptr ds:[243E646Eh],edi
+            24
+  115F4DCA: 4C                 dec         esp
+  115F4DCB: 30 00              xor         byte ptr [eax],al
+  115F4DCD: 3C 62              cmp         al,62h
+  115F4DCF: 65 67 69 6E 3E 24  imul        ebp,dword ptr gs:[bp+3Eh],304C24h
+            4C 30 00
+  115F4DD8: CC                 int         3
+
+  Summary
+
+     2496000 .text

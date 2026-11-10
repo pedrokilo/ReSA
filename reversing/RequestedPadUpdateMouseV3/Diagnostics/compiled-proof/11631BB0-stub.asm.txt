@@ -1,0 +1,118 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11631BB0: 55                 push        ebp
+  11631BB1: 8B EC              mov         ebp,esp
+  11631BB3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11631BB9: 53                 push        ebx
+  11631BBA: 56                 push        esi
+  11631BBB: 57                 push        edi
+  11631BBC: 8B FD              mov         edi,ebp
+  11631BBE: 33 C9              xor         ecx,ecx
+  11631BC0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11631BC5: F3 AB              rep stos    dword ptr es:[edi]
+  11631BC7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11631BCA: 50                 push        eax
+  11631BCB: E8 89 5C BB FF     call        111E7859
+  11631BD0: 83 C4 04           add         esp,4
+  11631BD3: 5F                 pop         edi
+  11631BD4: 5E                 pop         esi
+  11631BD5: 5B                 pop         ebx
+  11631BD6: 81 C4 C0 00 00 00  add         esp,0C0h
+  11631BDC: 3B EC              cmp         ebp,esp
+  11631BDE: E8 A1 81 BB FF     call        111E9D84
+  11631BE3: 8B E5              mov         esp,ebp
+  11631BE5: 5D                 pop         ebp
+  11631BE6: C3                 ret
+  11631BE7: CC                 int         3
+  11631BE8: CC                 int         3
+  11631BE9: CC                 int         3
+  11631BEA: CC                 int         3
+  11631BEB: CC                 int         3
+  11631BEC: CC                 int         3
+  11631BED: CC                 int         3
+  11631BEE: CC                 int         3
+  11631BEF: CC                 int         3
+  11631BF0: CC                 int         3
+  11631BF1: CC                 int         3
+  11631BF2: CC                 int         3
+  11631BF3: CC                 int         3
+  11631BF4: CC                 int         3
+  11631BF5: CC                 int         3
+  11631BF6: CC                 int         3
+  11631BF7: CC                 int         3
+  11631BF8: CC                 int         3
+  11631BF9: CC                 int         3
+  11631BFA: CC                 int         3
+  11631BFB: CC                 int         3
+  11631BFC: CC                 int         3
+  11631BFD: CC                 int         3
+  11631BFE: CC                 int         3
+  11631BFF: CC                 int         3
+  11631C00: 55                 push        ebp
+  11631C01: 8B EC              mov         ebp,esp
+  11631C03: 6A FF              push        0FFFFFFFFh
+  11631C05: 68 50 D5 56 13     push        1356D550h
+  11631C0A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  11631C10: 50                 push        eax
+  11631C11: 81 EC 3C 01 00 00  sub         esp,13Ch
+  11631C17: 53                 push        ebx
+  11631C18: 56                 push        esi
+  11631C19: 57                 push        edi
+  11631C1A: 51                 push        ecx
+  11631C1B: 8D BD 78 FF FF FF  lea         edi,[ebp+FFFFFF78h]
+  11631C21: B9 1F 00 00 00     mov         ecx,1Fh
+  11631C26: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11631C2B: F3 AB              rep stos    dword ptr es:[edi]
+  11631C2D: 59                 pop         ecx
+  11631C2E: A1 40 9D D0 13     mov         eax,dword ptr ds:[13D09D40h]
+  11631C33: 33 C5              xor         eax,ebp
+  11631C35: 50                 push        eax
+  11631C36: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11631C39: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  11631C3F: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  11631C42: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  11631C45: 83 C1 2C           add         ecx,2Ch
+  11631C48: E8 AD 26 BE FF     call        112142FA
+  11631C4D: 90                 nop
+  11631C4E: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11631C51: 83 C0 1C           add         eax,1Ch
+  11631C54: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  11631C57: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  11631C5A: E8 85 2B C0 FF     call        112347E4
+  11631C5F: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  11631C62: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  11631C65: E8 57 53 BB FF     call        111E6FC1
+  11631C6A: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  11631C6D: EB 09              jmp         11631C78
+  11631C6F: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11631C72: 83 C0 14           add         eax,14h
+  11631C75: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  11631C78: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11631C7B: 3B 45 C8           cmp         eax,dword ptr [ebp-38h]
+  11631C7E: 0F 84 A7 00 00 00  je          11631D2B
+  11631C84: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11631C87: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  11631C8A: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  11631C8D: 50                 push        eax
+  11631C8E: E8 2F DF BF FF     call        1122FBC2
+  11631C93: 83 C4 04           add         esp,4
+  11631C96: 89 45 B0           mov         dword ptr [ebp-50h],eax
+  11631C99: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  11631C9C: 50                 push        eax
+  11631C9D: E8 5C 37 BD FF     call        112053FE
+  11631CA2: 83 C4 04           add         esp,4
+  11631CA5: 89 45 A4           mov         dword ptr [ebp-5Ch],eax
+  11631CA8: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11631CAB: 0F B6 48 3C        movzx       ecx,byte ptr [eax+3Ch]
+  11631CAF: 89
+  11631CB0: 8D
+
+  Summary
+
+     2496000 .text

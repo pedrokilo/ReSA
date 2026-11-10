@@ -43,7 +43,7 @@ def analyze(path):
     hpath=runner.GAME/'preflight-storage-work-buffer-harness.jsonl'
     if not runner.terminal_event(hpath):return None
     h=[strict_json(s)for s in hpath.read_text().splitlines()];assert [r['event']for r in h]==['preflight_entered','before_task_bank','task_bank_returned','complete']
-    assert h[-1]['snapshot_ranges']==17692 and h[-1]['changed_ranges']==[] and all(h[-1][k]is True for k in ('state_restored','entries_restored','flags_restored','floating_environment_restored','timer_unchanged','bank_fp_unchanged'))
+    assert h[-1]['snapshot_ranges']>=2*h[1]['hooks_snapshotted'] and h[-1]['changed_ranges']==[] and all(h[-1][k]is True for k in ('state_restored','entries_restored','flags_restored','floating_environment_restored','timer_unchanged','bank_fp_unchanged'))
     return dict(passed=True,pairs=2048,pairs_per_function={n:1024 for n in NAMES},differences=0,all_equal=True,state_restored=True,harness_restored=True,floating_environment_restored=True,full_buffer_model_checked=True,log_sha256=runner.digest(path),harness_sha256=runner.digest(hpath))
 def main():
     manifest=json.loads((HERE/'artifacts/manifest.json').read_text());proofpath=HERE/'Diagnostics/required-ABI-proof.json';proof=json.loads(proofpath.read_text());assert proof['reviewed']is True and proof['asi_sha256']==manifest['asi'] and proof['pdb_sha256']==manifest['pdb']

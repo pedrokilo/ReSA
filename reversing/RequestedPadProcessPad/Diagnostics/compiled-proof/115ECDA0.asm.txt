@@ -1,0 +1,160 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115ECDA0: 55                 push        ebp
+  115ECDA1: 8B EC              mov         ebp,esp
+  115ECDA3: 81 EC C0 00 00 00  sub         esp,0C0h
+  115ECDA9: 53                 push        ebx
+  115ECDAA: 56                 push        esi
+  115ECDAB: 57                 push        edi
+  115ECDAC: 8B FD              mov         edi,ebp
+  115ECDAE: 33 C9              xor         ecx,ecx
+  115ECDB0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115ECDB5: F3 AB              rep stos    dword ptr es:[edi]
+  115ECDB7: 6A 00              push        0
+  115ECDB9: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECDBE: E8 81 C6 C1 FF     call        11209444
+  115ECDC3: C7 00 40 51 21 11  mov         dword ptr [eax],11215140h
+  115ECDC9: 6A 01              push        1
+  115ECDCB: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECDD0: E8 6F C6 C1 FF     call        11209444
+  115ECDD5: C7 00 DC 6A 20 11  mov         dword ptr [eax],11206ADCh
+  115ECDDB: 6A 02              push        2
+  115ECDDD: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECDE2: E8 5D C6 C1 FF     call        11209444
+  115ECDE7: C7 00 E0 9D 20 11  mov         dword ptr [eax],11209DE0h
+  115ECDED: 6A 03              push        3
+  115ECDEF: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECDF4: E8 4B C6 C1 FF     call        11209444
+  115ECDF9: C7 00 B5 42 1F 11  mov         dword ptr [eax],111F42B5h
+  115ECDFF: 6A 04              push        4
+  115ECE01: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECE06: E8 39 C6 C1 FF     call        11209444
+  115ECE0B: C7 00 07 9F 20 11  mov         dword ptr [eax],11209F07h
+  115ECE11: 6A 05              push        5
+  115ECE13: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECE18: E8 27 C6 C1 FF     call        11209444
+  115ECE1D: C7 00 8C FF 21 11  mov         dword ptr [eax],1121FF8Ch
+  115ECE23: 6A 06              push        6
+  115ECE25: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECE2A: E8 15 C6 C1 FF     call        11209444
+  115ECE2F: C7 00 85 3C 23 11  mov         dword ptr [eax],11233C85h
+  115ECE35: 6A 07              push        7
+  115ECE37: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECE3C: E8 03 C6 C1 FF     call        11209444
+  115ECE41: C7 00 45 ED 20 11  mov         dword ptr [eax],1120ED45h
+  115ECE47: 6A 08              push        8
+  115ECE49: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECE4E: E8 F1 C5 C1 FF     call        11209444
+  115ECE53: C7 00 58 E5 1F 11  mov         dword ptr [eax],111FE558h
+  115ECE59: 6A 09              push        9
+  115ECE5B: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECE60: E8 DF C5 C1 FF     call        11209444
+  115ECE65: C7 00 3F 5D 20 11  mov         dword ptr [eax],11205D3Fh
+  115ECE6B: 6A 0A              push        0Ah
+  115ECE6D: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECE72: E8 CD C5 C1 FF     call        11209444
+  115ECE77: C7 00 F0 20 1F 11  mov         dword ptr [eax],111F20F0h
+  115ECE7D: 6A 0B              push        0Bh
+  115ECE7F: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECE84: E8 BB C5 C1 FF     call        11209444
+  115ECE89: C7 00 88 91 20 11  mov         dword ptr [eax],11209188h
+  115ECE8F: 6A 0C              push        0Ch
+  115ECE91: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECE96: E8 A9 C5 C1 FF     call        11209444
+  115ECE9B: C7 00 A9 CE 21 11  mov         dword ptr [eax],1121CEA9h
+  115ECEA1: 6A 0D              push        0Dh
+  115ECEA3: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECEA8: E8 97 C5 C1 FF     call        11209444
+  115ECEAD: C7 00 54 A7 20 11  mov         dword ptr [eax],1120A754h
+  115ECEB3: 6A 0E              push        0Eh
+  115ECEB5: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECEBA: E8 85 C5 C1 FF     call        11209444
+  115ECEBF: C7 00 C8 E9 1E 11  mov         dword ptr [eax],111EE9C8h
+  115ECEC5: 6A 0F              push        0Fh
+  115ECEC7: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECECC: E8 73 C5 C1 FF     call        11209444
+  115ECED1: C7 00 5B EC 1F 11  mov         dword ptr [eax],111FEC5Bh
+  115ECED7: 6A 10              push        10h
+  115ECED9: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECEDE: E8 61 C5 C1 FF     call        11209444
+  115ECEE3: C7 00 5B 04 21 11  mov         dword ptr [eax],1121045Bh
+  115ECEE9: 6A 11              push        11h
+  115ECEEB: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECEF0: E8 4F C5 C1 FF     call        11209444
+  115ECEF5: C7 00 FC A3 21 11  mov         dword ptr [eax],1121A3FCh
+  115ECEFB: 6A 12              push        12h
+  115ECEFD: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECF02: E8 3D C5 C1 FF     call        11209444
+  115ECF07: C7 00 DF 0F 23 11  mov         dword ptr [eax],11230FDFh
+  115ECF0D: 6A 13              push        13h
+  115ECF0F: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECF14: E8 2B C5 C1 FF     call        11209444
+  115ECF19: C7 00 85 77 1F 11  mov         dword ptr [eax],111F7785h
+  115ECF1F: 6A 14              push        14h
+  115ECF21: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECF26: E8 19 C5 C1 FF     call        11209444
+  115ECF2B: C7 00 F5 E8 1F 11  mov         dword ptr [eax],111FE8F5h
+  115ECF31: 6A 15              push        15h
+  115ECF33: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECF38: E8 07 C5 C1 FF     call        11209444
+  115ECF3D: C7 00 D6 D8 21 11  mov         dword ptr [eax],1121D8D6h
+  115ECF43: 6A 16              push        16h
+  115ECF45: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECF4A: E8 F5 C4 C1 FF     call        11209444
+  115ECF4F: C7 00 2B 86 1F 11  mov         dword ptr [eax],111F862Bh
+  115ECF55: 6A 17              push        17h
+  115ECF57: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECF5C: E8 E3 C4 C1 FF     call        11209444
+  115ECF61: C7 00 3D 6B 23 11  mov         dword ptr [eax],11236B3Dh
+  115ECF67: 6A 18              push        18h
+  115ECF69: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECF6E: E8 D1 C4 C1 FF     call        11209444
+  115ECF73: C7 00 9F 81 23 11  mov         dword ptr [eax],1123819Fh
+  115ECF79: 6A 19              push        19h
+  115ECF7B: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECF80: E8 BF C4 C1 FF     call        11209444
+  115ECF85: C7 00 4F 79 21 11  mov         dword ptr [eax],1121794Fh
+  115ECF8B: 6A 1A              push        1Ah
+  115ECF8D: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECF92: E8 AD C4 C1 FF     call        11209444
+  115ECF97: C7 00 AC 4D 22 11  mov         dword ptr [eax],11224DACh
+  115ECF9D: 6A 1B              push        1Bh
+  115ECF9F: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECFA4: E8 9B C4 C1 FF     call        11209444
+  115ECFA9: C7 00 1F B5 1F 11  mov         dword ptr [eax],111FB51Fh
+  115ECFAF: 6A 1C              push        1Ch
+  115ECFB1: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECFB6: E8 89 C4 C1 FF     call        11209444
+  115ECFBB: C7 00 17 0A 1E 11  mov         dword ptr [eax],111E0A17h
+  115ECFC1: 6A 1D              push        1Dh
+  115ECFC3: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECFC8: E8 77 C4 C1 FF     call        11209444
+  115ECFCD: C7 00 8A 6B 21 11  mov         dword ptr [eax],11216B8Ah
+  115ECFD3: 6A 1E              push        1Eh
+  115ECFD5: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECFDA: E8 65 C4 C1 FF     call        11209444
+  115ECFDF: C7 00 11 2B 21 11  mov         dword ptr [eax],11212B11h
+  115ECFE5: 6A 1F              push        1Fh
+  115ECFE7: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  115ECFEC: E8 53 C4 C1 FF     call        11209444
+  115ECFF1: C7 00 1C 5A 23 11  mov         dword ptr [eax],11235A1Ch
+  115ECFF7: 5F                 pop         edi
+  115ECFF8: 5E                 pop         esi
+  115ECFF9: 5B                 pop         ebx
+  115ECFFA: 81 C4 C0 00 00 00  add         esp,0C0h
+  115ED000: 3B EC              cmp         ebp,esp
+  115ED002: E8 32 6D BF FF     call        111E3D39
+  115ED007: 8B E5              mov         esp,ebp
+  115ED009: 5D                 pop         ebp
+  115ED00A: C3                 ret
+  115ED00B: CC                 int         3
+
+  Summary
+
+     2489000 .text

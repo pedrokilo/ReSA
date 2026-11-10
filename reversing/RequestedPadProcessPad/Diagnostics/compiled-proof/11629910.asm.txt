@@ -1,0 +1,55 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11629910: 55                 push        ebp
+  11629911: 8B EC              mov         ebp,esp
+  11629913: 81 EC CC 00 00 00  sub         esp,0CCh
+  11629919: 53                 push        ebx
+  1162991A: 56                 push        esi
+  1162991B: 57                 push        edi
+  1162991C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1162991F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11629922: 5F                 pop         edi
+  11629923: 5E                 pop         esi
+  11629924: 5B                 pop         ebx
+  11629925: 8B E5              mov         esp,ebp
+  11629927: 5D                 pop         ebp
+  11629928: C3                 ret
+  11629929: CC                 int         3
+  1162992A: CC                 int         3
+  1162992B: CC                 int         3
+  1162992C: CC                 int         3
+  1162992D: CC                 int         3
+  1162992E: CC                 int         3
+  1162992F: CC                 int         3
+  11629930: 55                 push        ebp
+  11629931: 8B EC              mov         ebp,esp
+  11629933: 81 EC CC 00 00 00  sub         esp,0CCh
+  11629939: 53                 push        ebx
+  1162993A: 56                 push        esi
+  1162993B: 57                 push        edi
+  1162993C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1162993F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11629942: 5F                 pop         edi
+  11629943: 5E                 pop         esi
+  11629944: 5B                 pop         ebx
+  11629945: 8B E5              mov         esp,ebp
+  11629947: 5D                 pop         ebp
+  11629948: C3                 ret
+  11629949: CC                 int         3
+  1162994A: CC                 int         3
+  1162994B: CC                 int         3
+  1162994C: CC                 int         3
+  1162994D: CC                 int         3
+  1162994E: CC                 int         3
+  1162994F: CC                 int         3
+  11629950: 55                 push        ebp
+
+  Summary
+
+     2489000 .text

@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1161A990: 55                 push        ebp
+  1161A991: 8B EC              mov         ebp,esp
+  1161A993: 81 EC CC 00 00 00  sub         esp,0CCh
+  1161A999: 53                 push        ebx
+  1161A99A: 56                 push        esi
+  1161A99B: 57                 push        edi
+  1161A99C: 51                 push        ecx
+  1161A99D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1161A9A0: B9 03 00 00 00     mov         ecx,3
+  1161A9A5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1161A9AA: F3 AB              rep stos    dword ptr es:[edi]
+  1161A9AC: 59                 pop         ecx
+  1161A9AD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1161A9B0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1161A9B3: E8 82 C3 BD FF     call        111F6D3A
+  1161A9B8: 90                 nop
+  1161A9B9: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1161A9BC: 83 E0 01           and         eax,1
+  1161A9BF: 74 0E              je          1161A9CF
+  1161A9C1: 6A 34              push        34h
+  1161A9C3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1161A9C6: 50                 push        eax
+  1161A9C7: E8 DD 1A C0 FF     call        1121C4A9
+  1161A9CC: 83 C4 08           add         esp,8
+  1161A9CF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1161A9D2: 5F                 pop         edi
+  1161A9D3: 5E                 pop         esi
+  1161A9D4: 5B                 pop         ebx
+  1161A9D5: 81 C4 CC 00 00 00  add         esp,0CCh
+  1161A9DB: 3B EC              cmp         ebp,esp
+  1161A9DD: E8 57 93 BC FF     call        111E3D39
+  1161A9E2: 8B E5              mov         esp,ebp
+  1161A9E4: 5D                 pop         ebp
+  1161A9E5: C2 04 00           ret         4
+  1161A9E8: CC                 int         3
+
+  Summary
+
+     2489000 .text

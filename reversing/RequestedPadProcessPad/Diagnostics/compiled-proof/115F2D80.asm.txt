@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115F2D80: 55                 push        ebp
+  115F2D81: 8B EC              mov         ebp,esp
+  115F2D83: 81 EC E4 00 00 00  sub         esp,0E4h
+  115F2D89: 53                 push        ebx
+  115F2D8A: 56                 push        esi
+  115F2D8B: 57                 push        edi
+  115F2D8C: 51                 push        ecx
+  115F2D8D: 8D 7D DC           lea         edi,[ebp-24h]
+  115F2D90: B9 09 00 00 00     mov         ecx,9
+  115F2D95: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115F2D9A: F3 AB              rep stos    dword ptr es:[edi]
+  115F2D9C: 59                 pop         ecx
+  115F2D9D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115F2DA0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F2DA3: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  115F2DA6: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  115F2DA9: 83 C0 08           add         eax,8
+  115F2DAC: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  115F2DAF: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  115F2DB2: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  115F2DB5: 8B 10              mov         edx,dword ptr [eax]
+  115F2DB7: 3B 51 0C           cmp         edx,dword ptr [ecx+0Ch]
+  115F2DBA: 74 0E              je          115F2DCA
+  115F2DBC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F2DBF: 50                 push        eax
+  115F2DC0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  115F2DC3: E8 72 B5 C2 FF     call        1121E33A
+  115F2DC8: EB 12              jmp         115F2DDC
+  115F2DCA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F2DCD: 50                 push        eax
+  115F2DCE: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  115F2DD1: 8B 11              mov         edx,dword ptr [ecx]
+  115F2DD3: 52                 push        edx
+  115F2DD4: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  115F2DD7: E8 A3 79 C3 FF     call        1122A77F
+  115F2DDC: 5F                 pop         edi
+  115F2DDD: 5E                 pop         esi
+  115F2DDE: 5B                 pop         ebx
+  115F2DDF: 81 C4 E4 00 00 00  add         esp,0E4h
+  115F2DE5: 3B EC              cmp         ebp,esp
+  115F2DE7: E8 4D 0F BF FF     call        111E3D39
+  115F2DEC: 8B E5              mov         esp,ebp
+  115F2DEE: 5D                 pop         ebp
+  115F2DEF: C2 04 00           ret         4
+  115F2DF2: CC                 int         3
+
+  Summary
+
+     2489000 .text

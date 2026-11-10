@@ -1,0 +1,14 @@
+# RequestedPadMutationRemaining3
+
+## Repeticion del 10/11/2026 (REPARAR-REQUESTED)
+
+Estado: **subbancos `reconcile` y `update` REPETIBLES y APROBADOS** con el codigo actual de `main`; `shake` (V1) sin repetir con exito, ver abajo.
+
+Ejecucion: `BENCH_ARGS="--bank reconcile" bash reversing/RequestedTools/bench_here_args.sh RequestedPadMutationRemaining3` (el banco exige `--bank {reconcile,update,shake}` en `build_probe.py` y `run_local.py`; `bench_here.sh` sin argumentos no sirve).
+- `reconcile` (CPad::ReconcileTwoControllersInput): **2892 pares, cero diferencias**, corrida `20261110-115642-083980`.
+- `update` (CPad::Update): **2560 pares, cero diferencias**, corrida `20261110-115744-330246`.
+Archivadas en `reversing/CppTwelveLevel6Final/runs/RequestedPadMutationRemaining3-<corrida>`; `validation-summary-reconcile.json`, `validation-summary-update.json` y sus filas del registro se refrescaron.
+
+`shake` (CPad::StartShake, 89600 pares): la corrida `20261110-115841-925447` termino con `GTA termino antes de completar (3221225786)` (0xC000013A, Ctrl+C: el proceso fue cerrado desde fuera) tras ~415 MB de registro; no se repitio. La misma funcion y el mismo corpus de 89600 pares estan aprobados hoy en `RequestedPadMutationRemaining3Hex` (registrado), `RequestedPadMutationRemaining3Cached` y `RequestedPadMutationRemaining3Phased`.
+
+Que fallaba: `VTableRanges.hpp` estaba congelado en octubre (454 filas) y el preflight paraba con `unknown_vtable_category` (primero `CEventDraggedOutCar`) en cuanto una clase con hooks virtuales no figuraba en la tabla: faltaban 17 clases `CEvent*` registradas despues (`CEventChatPartner`, `CEventDeadPed`, `CEventDraggedOutCar`, `CEventFireNearby`, `CEventGotKnockedOverByCar`, `CEventGroupEvent`, `CEventGunAimedAt`, `CEventInWater`, `CEventInteriorUseInfo`, `CEventPedEnteredMyVehicle`, `CEventPedToChase`, `CEventPedToFlee`, `CEventPotentialGetRunOver`, `CEventRevived`, `CEventSexyPed`, `CEventSexyVehicle`, `CEventSpecial`). Arreglo solo en el banco: `reversing/RequestedTools/vtable_ranges_sync.py --apply` anade las filas ausentes con direccion y ranuras de `RH_ScopedVirtualClass` (0 filas eliminadas, 0 filas con datos distintos), `reversing/RequestedTools/refreeze_generic.py` recalcula los SHA256 del congelado (LF de git y versiones actuales de los ficheros compartidos) y `build_probe*.py` respeta `_CL_` (compilacion en serie bajo candado; antes forzaba `/MP6`).

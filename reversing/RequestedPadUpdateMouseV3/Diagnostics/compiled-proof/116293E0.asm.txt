@@ -1,0 +1,91 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  116293E0: 55                 push        ebp
+  116293E1: 8B EC              mov         ebp,esp
+  116293E3: 81 EC 00 01 00 00  sub         esp,100h
+  116293E9: 53                 push        ebx
+  116293EA: 56                 push        esi
+  116293EB: 57                 push        edi
+  116293EC: 51                 push        ecx
+  116293ED: 8D 7D C0           lea         edi,[ebp-40h]
+  116293F0: B9 10 00 00 00     mov         ecx,10h
+  116293F5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  116293FA: F3 AB              rep stos    dword ptr es:[edi]
+  116293FC: 59                 pop         ecx
+  116293FD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11629400: C7 45 EC 00 00 00  mov         dword ptr [ebp-14h],0
+            00
+  11629407: C7 45 E0 00 00 00  mov         dword ptr [ebp-20h],0
+            00
+  1162940E: E8 AB D7 BD FF     call        11206BBE
+  11629413: 89 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],eax
+  11629419: 8D 45 E0           lea         eax,[ebp-20h]
+  1162941C: 50                 push        eax
+  1162941D: 8D 4D EC           lea         ecx,[ebp-14h]
+  11629420: 51                 push        ecx
+  11629421: 8D 55 08           lea         edx,[ebp+8]
+  11629424: 52                 push        edx
+  11629425: 8D 8D 0C FF FF FF  lea         ecx,[ebp+FFFFFF0Ch]
+  1162942B: E8 B8 CD BB FF     call        111E61E8
+  11629430: 89 85 00 FF FF FF  mov         dword ptr [ebp+FFFFFF00h],eax
+  11629436: 8B 85 00 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF00h]
+  1162943C: 50                 push        eax
+  1162943D: 8B 8D 04 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF04h]
+  11629443: E8 9B 51 BF FF     call        1121E5E3
+  11629448: 90                 nop
+  11629449: 83 7D E0 01        cmp         dword ptr [ebp-20h],1
+  1162944D: 75 0B              jne         1162945A
+  1162944F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11629452: 89 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],eax
+  11629458: EB 0A              jmp         11629464
+  1162945A: C7 85 04 FF FF FF  mov         dword ptr [ebp+FFFFFF04h],0
+            00 00 00 00
+  11629464: 8B 85 04 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF04h]
+  1162946A: 52                 push        edx
+  1162946B: 8B CD              mov         ecx,ebp
+  1162946D: 50                 push        eax
+  1162946E: 8D 15 94 94 62 11  lea         edx,ds:[11629494h]
+  11629474: E8 B1 62 BC FF     call        111EF72A
+  11629479: 58                 pop         eax
+  1162947A: 5A                 pop         edx
+  1162947B: 5F                 pop         edi
+  1162947C: 5E                 pop         esi
+  1162947D: 5B                 pop         ebx
+  1162947E: 81 C4 00 01 00 00  add         esp,100h
+  11629484: 3B EC              cmp         ebp,esp
+  11629486: E8 F9 08 BC FF     call        111E9D84
+  1162948B: 8B E5              mov         esp,ebp
+  1162948D: 5D                 pop         ebp
+  1162948E: C2 04 00           ret         4
+  11629491: 0F 1F 00           nop         dword ptr [eax]
+  11629494: 02 00              add         al,byte ptr [eax]
+  11629496: 00 00              add         byte ptr [eax],al
+  11629498: 9C                 pushfd
+  11629499: 94                 xchg        eax,esp
+  1162949A: 62 11              bound       edx,qword ptr [ecx]
+  1162949C: EC                 in          al,dx
+  1162949D: FF
+  1162949E: FF
+  1162949F: FF 04 00           inc         dword ptr [eax+eax]
+  116294A2: 00 00              add         byte ptr [eax],al
+  116294A4: B9 94 62 11 E0     mov         ecx,0E0116294h
+  116294A9: FF
+  116294AA: FF
+  116294AB: FF 04 00           inc         dword ptr [eax+eax]
+  116294AE: 00 00              add         byte ptr [eax],al
+  116294B0: B4 94              mov         ah,94h
+  116294B2: 62 11              bound       edx,qword ptr [ecx]
+  116294B4: 68 69 74 73 00     push        737469h
+  116294B9: 66 6F              outs        dx,word ptr [esi]
+  116294BB: 75 6E              jne         1162952B
+  116294BD: 64 00 CC           add         ah,cl
+
+  Summary
+
+     2496000 .text

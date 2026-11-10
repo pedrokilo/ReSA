@@ -1,0 +1,83 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1162E1D0: 55                 push        ebp
+  1162E1D1: 8B EC              mov         ebp,esp
+  1162E1D3: 81 EC 08 01 00 00  sub         esp,108h
+  1162E1D9: 53                 push        ebx
+  1162E1DA: 56                 push        esi
+  1162E1DB: 57                 push        edi
+  1162E1DC: 51                 push        ecx
+  1162E1DD: 8D 7D B8           lea         edi,[ebp-48h]
+  1162E1E0: B9 12 00 00 00     mov         ecx,12h
+  1162E1E5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1162E1EA: F3 AB              rep stos    dword ptr es:[edi]
+  1162E1EC: 59                 pop         ecx
+  1162E1ED: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1162E1F0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1162E1F3: E8 EF 38 BC FF     call        111F1AE7
+  1162E1F8: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1162E1FB: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1162E1FE: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1162E201: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1162E204: 83 C0 04           add         eax,4
+  1162E207: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1162E20A: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1162E20D: 83 C0 08           add         eax,8
+  1162E210: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  1162E213: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1162E216: 83 C0 0C           add         eax,0Ch
+  1162E219: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  1162E21C: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  1162E21F: E8 18 F8 BB FF     call        111EDA3C
+  1162E224: 90                 nop
+  1162E225: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1162E228: 83 38 00           cmp         dword ptr [eax],0
+  1162E22B: 74 50              je          1162E27D
+  1162E22D: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1162E230: 50                 push        eax
+  1162E231: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  1162E234: 8B 11              mov         edx,dword ptr [ecx]
+  1162E236: 52                 push        edx
+  1162E237: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1162E23A: 8B 08              mov         ecx,dword ptr [eax]
+  1162E23C: 51                 push        ecx
+  1162E23D: E8 5C DC BB FF     call        111EBE9E
+  1162E242: 83 C4 0C           add         esp,0Ch
+  1162E245: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  1162E248: 8B 4D D4           mov         ecx,dword ptr [ebp-2Ch]
+  1162E24B: 8B 10              mov         edx,dword ptr [eax]
+  1162E24D: 2B 11              sub         edx,dword ptr [ecx]
+  1162E24F: C1 FA 02           sar         edx,2
+  1162E252: 52                 push        edx
+  1162E253: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1162E256: 8B 08              mov         ecx,dword ptr [eax]
+  1162E258: 51                 push        ecx
+  1162E259: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1162E25C: E8 1B 10 BE FF     call        1120F27C
+  1162E261: 90                 nop
+  1162E262: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1162E265: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  1162E26B: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  1162E26E: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  1162E274: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  1162E277: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  1162E27D: 5F                 pop         edi
+  1162E27E: 5E                 pop         esi
+  1162E27F: 5B                 pop         ebx
+  1162E280: 81 C4 08 01 00 00  add         esp,108h
+  1162E286: 3B EC              cmp         ebp,esp
+  1162E288: E8 AC 5A BB FF     call        111E3D39
+  1162E28D: 8B E5              mov         esp,ebp
+  1162E28F: 5D                 pop         ebp
+  1162E290: C3                 ret
+  1162E291: CC                 int         3
+
+  Summary
+
+     2489000 .text

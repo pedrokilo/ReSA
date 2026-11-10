@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115EE080: 55                 push        ebp
+  115EE081: 8B EC              mov         ebp,esp
+  115EE083: 81 EC C0 00 00 00  sub         esp,0C0h
+  115EE089: 53                 push        ebx
+  115EE08A: 56                 push        esi
+  115EE08B: 57                 push        edi
+  115EE08C: 8B FD              mov         edi,ebp
+  115EE08E: 33 C9              xor         ecx,ecx
+  115EE090: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115EE095: F3 AB              rep stos    dword ptr es:[edi]
+  115EE097: EB 09              jmp         115EE0A2
+  115EE099: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115EE09C: 83 C0 04           add         eax,4
+  115EE09F: 89 45 08           mov         dword ptr [ebp+8],eax
+  115EE0A2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115EE0A5: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  115EE0A8: 74 2A              je          115EE0D4
+  115EE0AA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115EE0AD: 50                 push        eax
+  115EE0AE: 8D 4D 14           lea         ecx,[ebp+14h]
+  115EE0B1: 51                 push        ecx
+  115EE0B2: E8 C7 B6 C0 FF     call        111F977E
+  115EE0B7: 83 C4 08           add         esp,8
+  115EE0BA: 50                 push        eax
+  115EE0BB: 8D 55 10           lea         edx,[ebp+10h]
+  115EE0BE: 52                 push        edx
+  115EE0BF: E8 C2 54 C0 FF     call        111F3586
+  115EE0C4: 83 C4 08           add         esp,8
+  115EE0C7: 0F B6 C0           movzx       eax,al
+  115EE0CA: 85 C0              test        eax,eax
+  115EE0CC: 75 04              jne         115EE0D2
+  115EE0CE: 32 C0              xor         al,al
+  115EE0D0: EB 04              jmp         115EE0D6
+  115EE0D2: EB C5              jmp         115EE099
+  115EE0D4: B0 01              mov         al,1
+  115EE0D6: 5F                 pop         edi
+  115EE0D7: 5E                 pop         esi
+  115EE0D8: 5B                 pop         ebx
+  115EE0D9: 81 C4 C0 00 00 00  add         esp,0C0h
+  115EE0DF: 3B EC              cmp         ebp,esp
+  115EE0E1: E8 53 5C BF FF     call        111E3D39
+  115EE0E6: 8B E5              mov         esp,ebp
+  115EE0E8: 5D                 pop         ebp
+  115EE0E9: C3                 ret
+  115EE0EA: CC                 int         3
+
+  Summary
+
+     2489000 .text

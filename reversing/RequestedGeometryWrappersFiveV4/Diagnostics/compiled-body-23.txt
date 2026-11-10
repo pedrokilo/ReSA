@@ -2,37 +2,39 @@ Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 
-Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
+Dump of file D:\Original\wv-1\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
 
 File Type: DLL
 
-  11CCE880: 55                 push        ebp
-  11CCE881: 8B EC              mov         ebp,esp
-  11CCE883: 81 EC C0 00 00 00  sub         esp,0C0h
-  11CCE889: 53                 push        ebx
-  11CCE88A: 56                 push        esi
-  11CCE88B: 57                 push        edi
-  11CCE88C: 8B FD              mov         edi,ebp
-  11CCE88E: 33 C9              xor         ecx,ecx
-  11CCE890: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
-  11CCE895: F3 AB              rep stos    dword ptr es:[edi]
-  11CCE897: 6A 00              push        0
-  11CCE899: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
-  11CCE89D: 50                 push        eax
-  11CCE89E: 6A 00              push        0
-  11CCE8A0: E8 3C C6 3A FF     call        1107AEE1
-  11CCE8A5: 83 C4 0C           add         esp,0Ch
-  11CCE8A8: 5F                 pop         edi
-  11CCE8A9: 5E                 pop         esi
-  11CCE8AA: 5B                 pop         ebx
-  11CCE8AB: 81 C4 C0 00 00 00  add         esp,0C0h
-  11CCE8B1: 3B EC              cmp         ebp,esp
-  11CCE8B3: E8 DC D3 38 FF     call        1105BC94
-  11CCE8B8: 8B E5              mov         esp,ebp
-  11CCE8BA: 5D                 pop         ebp
-  11CCE8BB: C3                 ret
-  11CCE8BC: CC                 int         3
+  11616900: 55                 push        ebp
+  11616901: 8B EC              mov         ebp,esp
+  11616903: 81 EC CC 00 00 00  sub         esp,0CCh
+  11616909: 53                 push        ebx
+  1161690A: 56                 push        esi
+  1161690B: 57                 push        edi
+  1161690C: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1161690F: B9 03 00 00 00     mov         ecx,3
+  11616914: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11616919: F3 AB              rep stos    dword ptr es:[edi]
+  1161691B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1161691E: 50                 push        eax
+  1161691F: 6A 38              push        38h
+  11616921: E8 FD 6F BC FF     call        111DD923
+  11616926: 83 C4 08           add         esp,8
+  11616929: 89 85 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],eax
+  1161692F: 8B 8D 38 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF38h]
+  11616935: E8 15 C8 BF FF     call        1121314F
+  1161693A: 5F                 pop         edi
+  1161693B: 5E                 pop         esi
+  1161693C: 5B                 pop         ebx
+  1161693D: 81 C4 CC 00 00 00  add         esp,0CCh
+  11616943: 3B EC              cmp         ebp,esp
+  11616945: E8 AE B3 BC FF     call        111E1CF8
+  1161694A: 8B E5              mov         esp,ebp
+  1161694C: 5D                 pop         ebp
+  1161694D: C3                 ret
+  1161694E: CC                 int         3
 
   Summary
 
-     216B000 .text
+     2484000 .text

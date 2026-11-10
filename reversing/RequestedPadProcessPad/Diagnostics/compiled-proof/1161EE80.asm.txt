@@ -1,0 +1,83 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1161EE80: 55                 push        ebp
+  1161EE81: 8B EC              mov         ebp,esp
+  1161EE83: 81 EC FC 00 00 00  sub         esp,0FCh
+  1161EE89: 53                 push        ebx
+  1161EE8A: 56                 push        esi
+  1161EE8B: 57                 push        edi
+  1161EE8C: 8D 7D C4           lea         edi,[ebp-3Ch]
+  1161EE8F: B9 0F 00 00 00     mov         ecx,0Fh
+  1161EE94: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1161EE99: F3 AB              rep stos    dword ptr es:[edi]
+  1161EE9B: 33 C0              xor         eax,eax
+  1161EE9D: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1161EEA0: 89 01              mov         dword ptr [ecx],eax
+  1161EEA2: 89 41 04           mov         dword ptr [ecx+4],eax
+  1161EEA5: 89 41 08           mov         dword ptr [ecx+8],eax
+  1161EEA8: 89 41 0C           mov         dword ptr [ecx+0Ch],eax
+  1161EEAB: 89 41 10           mov         dword ptr [ecx+10h],eax
+  1161EEAE: 89 41 14           mov         dword ptr [ecx+14h],eax
+  1161EEB1: 89 41 18           mov         dword ptr [ecx+18h],eax
+  1161EEB4: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1161EEB7: E8 76 3F BE FF     call        11202E32
+  1161EEBC: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1161EEBF: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1161EEC2: D9 30              fnstenv     [eax]
+  1161EEC4: D9 20              fldenv      [eax]
+  1161EEC6: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1161EEC9: 52                 push        edx
+  1161EECA: 8B CD              mov         ecx,ebp
+  1161EECC: 50                 push        eax
+  1161EECD: 8D 15 F0 EE 61 11  lea         edx,ds:[1161EEF0h]
+  1161EED3: E8 B7 A7 BC FF     call        111E968F
+  1161EED8: 58                 pop         eax
+  1161EED9: 5A                 pop         edx
+  1161EEDA: 5F                 pop         edi
+  1161EEDB: 5E                 pop         esi
+  1161EEDC: 5B                 pop         ebx
+  1161EEDD: 81 C4 FC 00 00 00  add         esp,0FCh
+  1161EEE3: 3B EC              cmp         ebp,esp
+  1161EEE5: E8 4F 4E BC FF     call        111E3D39
+  1161EEEA: 8B E5              mov         esp,ebp
+  1161EEEC: 5D                 pop         ebp
+  1161EEED: C3                 ret
+  1161EEEE: 66 90              nop
+  1161EEF0: 02 00              add         al,byte ptr [eax]
+  1161EEF2: 00 00              add         byte ptr [eax],al
+  1161EEF4: F8                 clc
+  1161EEF5: EE                 out         dx,al
+  1161EEF6: 61                 popad
+  1161EEF7: 11 E0              adc         eax,esp
+  1161EEF9: FF
+  1161EEFA: FF
+  1161EEFB: FF 1C 00           call        fword ptr [eax+eax]
+  1161EEFE: 00 00              add         byte ptr [eax],al
+  1161EF00: 1B EF              sbb         ebp,edi
+  1161EF02: 61                 popad
+  1161EF03: 11 C8              adc         eax,ecx
+  1161EF05: FF
+  1161EF06: FF
+  1161EF07: FF 04 00           inc         dword ptr [eax+eax]
+  1161EF0A: 00 00              add         byte ptr [eax],al
+  1161EF0C: 10 EF              adc         bh,ch
+  1161EF0E: 61                 popad
+  1161EF0F: 11 5F 24           adc         dword ptr [edi+24h],ebx
+  1161EF12: 41                 inc         ecx
+  1161EF13: 72 72              jb          1161EF87
+  1161EF15: 61                 popad
+  1161EF16: 79 50              jns         1161EF68
+  1161EF18: 61                 popad
+  1161EF19: 64 00 69 6D        add         byte ptr fs:[ecx+6Dh],ch
+  1161EF1D: 61                 popad
+  1161EF1E: 67 65 00 CC        add         ah,cl
+
+  Summary
+
+     2489000 .text

@@ -1,445 +1,445 @@
 {
-  "asi_sha256": "20e0bc205cabcffad3f194a5f8480ffecdd882639d5b12a5c57b30728aad23fc",
-  "pdb_sha256": "795c4a94d26c1d19490cc0b21b8fac21a61c2fd9cd8c89ac3c86c056f3da36d2",
+  "asi_sha256": "ead65f956b902fd5d380a5e5aeb94df72824c0bedabebb8ccc5afaf442fa579e",
+  "pdb_sha256": "61d963f1c88e6984344d6fb69957e6329c99cc880c7eb514cb4824175a106a07",
   "pdb_rsds_match": true,
-  "pdb_guid_raw": "7fb4b04b6e0a464a87037a8ce92b9f0b",
-  "pdb_age": 8,
+  "pdb_guid_raw": "9c4783018d29694e83c5b6ba6b9674c3",
+  "pdb_age": 2,
   "base": 268435456,
   "symbols": [
     {
       "name": "IsVideoModeExclusive",
-      "address": 291221808,
+      "address": 291347760,
       "size": 136,
       "tag": 5,
-      "body": 291221808,
+      "body": 291347760,
       "e9_chain": [],
-      "first128": "558bec81ece40000005356578d7ddcb909000000b8ccccccccf3aba140bdcb1333c58945fca1d077cd138b08518d55e052e82f2cc6ff83c4088b45ec83e001528bcd508d15a0b15b11e88445c2ff585a5f5e5b8b4dfc33cde8c1d1c1ff81c4e40000003bece8d1ebc1ff8be55dc3669001000000a8b15b11e0ffffff18000000"
+      "first128": "558bec81ece40000005356578d7ddcb909000000b8ccccccccf3aba1409dd01333c58945fca1d057d2138b08518d55e052e8fb41c5ff83c4088b45ec83e001528bcd508d15a09d5d11e8ac59c1ff585a5f5e5b8b4dfc33cde8d5e5c0ff81c4e40000003bece8eaffc0ff8be55dc3669001000000a89d5d11e0ffffff18000000"
     },
     {
       "name": "WinInput::diMouseInit",
-      "address": 291260144,
+      "address": 291386096,
       "size": 1425,
       "tag": 5,
-      "body": 291260144,
+      "body": 291386096,
       "e9_chain": [],
-      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec81ecc003000056578dbdc0fdffffb990000000b8ccccccccf3aba17878cd138b48148b5118899548fcffffa17878cd138b48148b51188b028b480c898d44fcffff8bf46a008b157878cd138b421483c01c5068b0c98e138b8d48fcffff51ff9544fcffff3bf4e8fa55c1"
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec81ecc003000056578dbdc0fdffffb990000000b8ccccccccf3aba17858d2138b48148b5118899548fcffffa17858d2138b48148b51188b028b480c898d44fcffff8bf46a008b157858d2138b421483c01c5068d09493138b8d48fcffff51ff9544fcffff3bf4e8136ac0"
     },
     {
       "name": "std::ranges::_Any_of_fn::operator()<std::vector<std::shared_ptr<ReversibleHooks::ReversibleHook::Base>,std::allocator<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> > > &,std::identity,``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
-      "address": 291321200,
+      "address": 291447152,
       "size": 227,
       "tag": 5,
-      "body": 291321200,
+      "body": 291447152,
       "e9_chain": [],
-      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e8b73cc0ff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e8c3d4c0ff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
+      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e8c150bfff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e8fae8bfff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
     },
     {
       "name": "std::ranges::_All_of_fn::operator()<std::vector<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> >,std::allocator<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > > > &,std::identity,`RequestedPadUpdateMouse::Update'::`2'::<lambda_4> >",
-      "address": 291321648,
+      "address": 291447600,
       "size": 227,
       "tag": 5,
-      "body": 291321648,
+      "body": 291447600,
       "e9_chain": [],
-      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e8f73ac0ff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e8ffc7c0ff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
+      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e8014fbfff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e831dcbfff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
     },
     {
       "name": "std::ranges::_All_of_fn::operator()<std::vector<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> >,std::allocator<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > > > &,std::identity,`RequestedPadUpdateMouse::Update'::`33'::<lambda_5> >",
-      "address": 291321936,
+      "address": 291447888,
       "size": 227,
       "tag": 5,
-      "body": 291321936,
+      "body": 291447888,
       "e9_chain": [],
-      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e8d739c0ff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e8085cc1ff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
+      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e8e14dbfff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e87b70c0ff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
     },
     {
       "name": "``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1>::operator()<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> >",
-      "address": 291327584,
+      "address": 291453536,
       "size": 103,
       "tag": 5,
-      "body": 291327584,
+      "body": 291453536,
       "e9_chain": [],
-      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df88b4d08e860b8c0ff8bc8e8d45dc3ff83f801750cc78530ffffff01000000eb0ac78530ffffff000000000fb68530ffffff5f5e5b81c4d00000003bece8aa4ec0ff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccc"
+      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df88b4d08e88dccbfff8bc8e82d73c2ff83f801750cc78530ffffff01000000eb0ac78530ffffff000000000fb68530ffffff5f5e5b81c4d00000003bece8c362bfff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccc"
     },
     {
       "name": "`RequestedPadUpdateMouse::Update'::`2'::<lambda_4>::operator()<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > >",
-      "address": 291327712,
+      "address": 291453664,
       "size": 66,
       "tag": 5,
-      "body": 291327712,
+      "body": 291453664,
       "e9_chain": [],
-      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4d08e84a1ac2ff0fb6403c5f5e5b81c4cc0000003bece84f4ec0ff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4d08e8302fc1ff0fb6403c5f5e5b81c4cc0000003bece86862bfff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
     },
     {
       "name": "`RequestedPadUpdateMouse::Update'::`33'::<lambda_5>::operator()<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > >",
-      "address": 291327808,
+      "address": 291453760,
       "size": 69,
       "tag": 5,
-      "body": 291327808,
+      "body": 291453760,
       "e9_chain": [],
-      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4d08e8ea19c2ff8bc8e87228c0ff5f5e5b81c4cc0000003bece8ec4dc0ff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ec08010000535657518d7db8b912000000b8ccccccccf3ab59894df8"
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4d08e8d02ec1ff8bc8e8813cbfff5f5e5b81c4cc0000003bece80562bfff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ec08010000535657518d7db8b912000000b8ccccccccf3ab59894df8"
     },
     {
       "name": "``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1>::operator()<ReversibleHooks::HookCategory>",
-      "address": 291327904,
+      "address": 291453856,
       "size": 191,
       "tag": 5,
-      "body": 291327904,
+      "body": 291453856,
       "e9_chain": [],
-      "first128": "558bec81ec08010000535657518d7db8b912000000b8ccccccccf3ab59894df88b4d08e8f77dc3ff8945ec8b4dece8d804c4ff8945e08b4dece8adfbbfff8945d4eb098b45e083c0088945e08b45e03b45d474558b45e08945c88b4dc8e8e6b6c0ff8bc8e85a5cc3ff85c0753a8b4dc8e8f016c1ff8945bc8b4dbce80f37c2ff"
+      "first128": "558bec81ec08010000535657518d7db8b912000000b8ccccccccf3ab59894df88b4d08e85a93c2ff8945ec8b4dece8631ac3ff8945e08b4dece8b70fbfff8945d4eb098b45e083c0088945e08b45e03b45d474558b45e08945c88b4dc8e813cbbfff8bc8e8b371c2ff85c0753a8b4dc8e8452bc0ff8945bc8b4dbce8fa4bc1ff"
     },
     {
       "name": "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>",
-      "address": 291328752,
+      "address": 291454704,
       "size": 1108,
       "tag": 5,
-      "body": 291328752,
+      "body": 291454704,
       "e9_chain": [],
-      "first128": "558bec6aff68ec77531364a1000000005081ec8c030000535657518dbde8fdffffb983000000b8ccccccccf3ab59a140bdcb1333c58945f0508d45f464a300000000894de833c0888517feffff8a8d17feffff888df3fdffff8a950bfeffff8895fffdffff8b4d08e8627ac3ff89856cfcffff0fb685f3fdffff500fb68dfffd"
+      "first128": "558bec6aff68ec70561364a1000000005081ec8c030000535657518dbde8fdffffb983000000b8ccccccccf3ab59a1409dd01333c58945f0508d45f464a300000000894de833c0888517feffff8a8d17feffff888df3fdffff8a950bfeffff8895fffdffff8b4d08e8c58fc2ff89856cfcffff0fb685f3fdffff500fb68dfffd"
     },
     {
       "name": "ReversibleHooks::HookCategory::ForEachCategory<``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1> &>",
-      "address": 291330432,
+      "address": 291456384,
       "size": 232,
       "tag": 5,
-      "body": 291330432,
+      "body": 291456384,
       "e9_chain": [],
-      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e8a723c0ff83c4088b45f883c0348945ec8d45e0508b4dece8c582c1ff908d45d4508b4dece839f9c4ff90eb098d4de0e88619c5ff908d45d4508d4de0e8c541c4ff0fb6c885c9751a8d4de0e8334fc1ff8945c88b450850"
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e8bb37bfff83c4088b45f883c0348945ec8d45e0508b4dece86097c0ff908d45d4508b4dece8370fc4ff90eb098d4de0e8892fc4ff908d45d4508d4de0e86957c3ff0fb6c885c9751a8d4de0e8b563c0ff8945c88b450850"
     },
     {
       "name": "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2> &>",
-      "address": 291331344,
+      "address": 291457296,
       "size": 232,
       "tag": 5,
-      "body": 291331344,
+      "body": 291457296,
       "e9_chain": [],
-      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e87631c3ff83c4088b45f883c0348945ec8d45e0508b4dece8357fc1ff908d45d4508b4dece8a9f5c4ff90eb098d4de0e8f615c5ff908d45d4508d4de0e8353ec4ff0fb6c885c9751a8d4de0e8a34bc1ff8945c88b450850"
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e8c046c2ff83c4088b45f883c0348945ec8d45e0508b4dece8d093c0ff908d45d4508b4dece8a70bc4ff90eb098d4de0e8f92bc4ff908d45d4508d4de0e8d953c3ff0fb6c885c9751a8d4de0e82560c0ff8945c88b450850"
     },
     {
       "name": "ReversibleHooks::HookCategory::ForEachCategory<``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1> >",
-      "address": 291331648,
+      "address": 291457600,
       "size": 232,
       "tag": 5,
-      "body": 291331648,
+      "body": 291457600,
       "e9_chain": [],
-      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e8e71ec0ff83c4088b45f883c0348945ec8d45e0508b4dece8057ec1ff908d45d4508b4dece879f4c4ff90eb098d4de0e8c614c5ff908d45d4508d4de0e8053dc4ff0fb6c885c9751a8d4de0e8734ac1ff8945c88b450850"
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e8fb32bfff83c4088b45f883c0348945ec8d45e0508b4dece8a092c0ff908d45d4508b4dece8770ac4ff90eb098d4de0e8c92ac4ff908d45d4508d4de0e8a952c3ff0fb6c885c9751a8d4de0e8f55ec0ff8945c88b450850"
     },
     {
       "name": "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2> >",
-      "address": 291332560,
+      "address": 291458512,
       "size": 232,
       "tag": 5,
-      "body": 291332560,
+      "body": 291458512,
       "e9_chain": [],
-      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e8b62cc3ff83c4088b45f883c0348945ec8d45e0508b4dece8757ac1ff908d45d4508b4dece8e9f0c4ff90eb098d4de0e83611c5ff908d45d4508d4de0e87539c4ff0fb6c885c9751a8d4de0e8e346c1ff8945c88b450850"
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e80042c2ff83c4088b45f883c0348945ec8d45e0508b4dece8108fc0ff908d45d4508b4dece8e706c4ff90eb098d4de0e83927c4ff908d45d4508d4de0e8194fc3ff0fb6c885c9751a8d4de0e8655bc0ff8945c88b450850"
     },
     {
       "name": "std::ranges::_All_of_fn::_All_of_unchecked<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::identity,`RequestedPadUpdateMouse::Update'::`2'::<lambda_4> >",
-      "address": 291335616,
+      "address": 291461568,
       "size": 106,
       "tag": 5,
-      "body": 291335616,
+      "body": 291461568,
       "e9_chain": [],
-      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0048945088b45083b450c742a8b4508508d4d1451e8e11cc5ff83c408508d551052e83e0ec4ff83c4080fb6c085c0750432c0eb04ebc5b0015f5e5b81c4c00000003bece8452fc0ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0048945088b45083b450c742a8b4508508d4d1451e8ee32c4ff83c408508d551052e8d823c3ff83c4080fb6c085c0750432c0eb04ebc5b0015f5e5b81c4c00000003bece85e43bfff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
     },
     {
       "name": "std::ranges::_All_of_fn::_All_of_unchecked<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::identity,`RequestedPadUpdateMouse::Update'::`33'::<lambda_5> >",
-      "address": 291335760,
+      "address": 291461712,
       "size": 106,
       "tag": 5,
-      "body": 291335760,
+      "body": 291461712,
       "e9_chain": [],
-      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0048945088b45083b450c742a8b4508508d4d1451e8511cc5ff83c408508d551052e82be9c0ff83c4080fb6c085c0750432c0eb04ebc5b0015f5e5b81c4c00000003bece8b52ec0ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0048945088b45083b450c742a8b4508508d4d1451e85e32c4ff83c408508d551052e880fdbfff83c4080fb6c085c0750432c0eb04ebc5b0015f5e5b81c4c00000003bece8ce42bfff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
     },
     {
       "name": "std::ranges::_Any_of_fn::_Any_of_unchecked<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> *,std::shared_ptr<ReversibleHooks::ReversibleHook::Base> *,std::identity,``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
-      "address": 291336656,
+      "address": 291462608,
       "size": 106,
       "tag": 5,
-      "body": 291336656,
+      "body": 291462608,
       "e9_chain": [],
-      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0088945088b45083b450c742a8b4508508d4d1451e84837c1ff83c408508d551052e854f5c1ff83c4080fb6c085c07404b001eb04ebc532c05f5e5b81c4c00000003bece8352bc0ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0088945088b45083b450c742a8b4508508d4d1451e8ca4bc0ff83c408508d551052e83a0ac1ff83c4080fb6c085c07404b001eb04ebc532c05f5e5b81c4c00000003bece84e3fbfff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
     },
     {
       "name": "std::_Pass_fn<``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
-      "address": 291377648,
+      "address": 291503600,
       "size": 26,
       "tag": 5,
-      "body": 291377648,
+      "body": 291503600,
       "e9_chain": [],
-      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec6aff68ad80531364a1000000005081ec28010000535657518d7d8cb91a"
+      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec6aff68ad79561364a1000000005081ec28010000535657518d7d8cb91a"
     },
     {
       "name": "std::_Pass_fn<`RequestedPadUpdateMouse::Update'::`2'::<lambda_4> >",
-      "address": 291377680,
+      "address": 291503632,
       "size": 26,
       "tag": 5,
-      "body": 291377680,
+      "body": 291503632,
       "e9_chain": [],
-      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec6aff68ad80531364a1000000005081ec28010000535657518d7d8cb91a000000b8ccccccccf3ab59a140bdcb1333c5508d45f464a300000000894dec8b"
+      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec6aff68ad79561364a1000000005081ec28010000535657518d7d8cb91a000000b8ccccccccf3ab59a1409dd01333c5508d45f464a300000000894dec8b"
     },
     {
       "name": "std::_Pass_fn<`RequestedPadUpdateMouse::Update'::`33'::<lambda_5> >",
-      "address": 291377712,
+      "address": 291503664,
       "size": 26,
       "tag": 5,
-      "body": 291377712,
+      "body": 291503664,
       "e9_chain": [],
-      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec6aff68ad80531364a1000000005081ec28010000535657518d7d8cb91a000000b8ccccccccf3ab59a140bdcb1333c5508d45f464a300000000894dec8b4dece88eabc1ff8945e08b45ec8945d48b45d483c0048945c88b45d483c00889"
+      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec6aff68ad79561364a1000000005081ec28010000535657518d7d8cb91a000000b8ccccccccf3ab59a1409dd01333c5508d45f464a300000000894dec8b4dece88dc0c0ff8945e08b45ec8945d48b45d483c0048945c88b45d483c00889"
     },
     {
       "name": "std::invoke<``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> &,std::shared_ptr<ReversibleHooks::ReversibleHook::Base> &>",
-      "address": 291452464,
+      "address": 291578416,
       "size": 55,
       "tag": 5,
-      "body": 291452464,
+      "body": 291578416,
       "e9_chain": [],
-      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e88002c0ff5f5e5b81c4c00000003bece80867beff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc0000005356578d7df4b903000000b8ccccccccf3ab83ec088bcc89a538ffffff8b450c50e8e32dc1ff8b"
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e85717bfff5f5e5b81c4c00000003bece8217bbdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc0000005356578d7df4b903000000b8ccccccccf3ab83ec088bcc89a538ffffff8b450c50e82343c0ff8b"
     },
     {
       "name": "std::invoke<``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1> &,ReversibleHooks::HookCategory &>",
-      "address": 291452640,
+      "address": 291578592,
       "size": 56,
       "tag": 5,
-      "body": 291452640,
+      "body": 291578592,
       "e9_chain": [],
-      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8a484beff905f5e5b81c4c00000003bece85766beff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e81eb4bfff905f5e5b81c4c00000003bece8"
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8c298bdff905f5e5b81c4c00000003bece8707abdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8c8c8beff905f5e5b81c4c00000003bece8"
     },
     {
       "name": "std::invoke<`NOTSA_WinMain'::`2'::<lambda_1> &>",
-      "address": 291452800,
+      "address": 291578752,
       "size": 52,
       "tag": 5,
-      "body": 291452800,
+      "body": 291578752,
       "e9_chain": [],
-      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b4d08e8d1670100905f5e5b81c4c00000003bece8bb65beff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8b6d0bfff905f5e5b81c4c00000003bece8"
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b4d08e8d1670100905f5e5b81c4c00000003bece8d479bdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e86ae5beff905f5e5b81c4c00000003bece8"
     },
     {
       "name": "std::invoke<`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2> &,ReversibleHooks::HookCategory &>",
-      "address": 291452960,
+      "address": 291578912,
       "size": 56,
       "tag": 5,
-      "body": 291452960,
+      "body": 291578912,
       "e9_chain": [],
-      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e85cc5c0ff905f5e5b81c4c00000003bece81765beff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e88894c0ff5f5e5b81c4c00000003bece8c8"
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e86fdabfff905f5e5b81c4c00000003bece83079bdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e891a9bfff5f5e5b81c4c00000003bece8e1"
     },
     {
       "name": "std::invoke<`RequestedPadUpdateMouse::Update'::`2'::<lambda_4> &,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > &>",
-      "address": 291453040,
+      "address": 291578992,
       "size": 55,
       "tag": 5,
-      "body": 291453040,
+      "body": 291578992,
       "e9_chain": [],
-      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e88894c0ff5f5e5b81c4c00000003bece8c864beff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8bcebc1ff5f5e5b81c4c00000003bece878"
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e891a9bfff5f5e5b81c4c00000003bece8e178bdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e83801c1ff5f5e5b81c4c00000003bece891"
     },
     {
       "name": "std::invoke<`RequestedPadUpdateMouse::Update'::`33'::<lambda_5> &,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > &>",
-      "address": 291453120,
+      "address": 291579072,
       "size": 55,
       "tag": 5,
-      "body": 291453120,
+      "body": 291579072,
       "e9_chain": [],
-      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8bcebc1ff5f5e5b81c4c00000003bece87864beff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df832c05f5e5b8be55dc20400cccccccccccc558bec81ecd0000000535657894df883"
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e83801c1ff5f5e5b81c4c00000003bece89178bdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df832c05f5e5b8be55dc20400cccccccccccc558bec81ecd0000000535657894df883"
     },
     {
       "name": "``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1>::<lambda_1>",
-      "address": 291473264,
+      "address": 291599216,
       "size": 53,
       "tag": 5,
-      "body": 291473264,
+      "body": 291599216,
       "e9_chain": [],
       "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f88b4d108948088b45f85f5e5b8be55dc20c00cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f88b4d108948088b45f85f5e5b8b"
     },
     {
       "name": "`RequestedPadUpdateMouse::Update'::`2'::<lambda_1>::<lambda_1>",
-      "address": 291473472,
+      "address": 291599424,
       "size": 35,
       "tag": 5,
-      "body": 291473472,
+      "body": 291599424,
       "e9_chain": [],
       "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d088b1189108b45f88b4d0c8b"
     },
     {
       "name": "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_1>::<lambda_1>",
-      "address": 291473520,
+      "address": 291599472,
       "size": 35,
       "tag": 5,
-      "body": 291473520,
+      "body": 291599472,
       "e9_chain": [],
       "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d088b1189108b45f88b4d0c8b118950048b45f88b4d108a118850088b45f88b4d148b1189500c8b45f88b4d188b118950108b45f85f5e5b8be55dc214"
     },
     {
       "name": "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::<lambda_2>",
-      "address": 291473728,
+      "address": 291599680,
       "size": 53,
       "tag": 5,
-      "body": 291473728,
+      "body": 291599680,
       "e9_chain": [],
-      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f88b4d108948088b45f85f5e5b8be55dc20c00cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e854eabeff908b45f85f5e5b81"
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f88b4d108948088b45f85f5e5b8be55dc20c00cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e8b3febdff908b45f85f5e5b81"
     },
     {
       "name": "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
-      "address": 291473888,
+      "address": 291599840,
       "size": 27,
       "tag": 5,
-      "body": 291473888,
+      "body": 291599840,
       "e9_chain": [],
       "first128": "558bec81eccc000000535657894df88b45f85f5e5b8be55dc20400cccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f8c74004000000008b45f85f5e5b8be55dc20400cccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b"
     },
     {
       "name": "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::~ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
-      "address": 291499200,
+      "address": 291625152,
       "size": 111,
       "tag": 5,
-      "body": 291499200,
+      "body": 291625152,
       "e9_chain": [],
-      "first128": "558bec6aff6800a6531364a1000000005081eccc000000535657518d7de8b903000000b8ccccccccf3ab59a140bdcb1333c5508d45f464a300000000894dec8b45ec50e8784affff83c4048b4df464890d00000000595f5e5b81c4d80000003bece845b0bdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+      "first128": "558bec6aff68009f561364a1000000005081eccc000000535657518d7de8b903000000b8ccccccccf3ab59a1409dd01333c5508d45f464a300000000894dec8b45ec50e8784affff83c4048b4df464890d00000000595f5e5b81c4d80000003bece85ec4bcff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
     },
     {
       "name": "`NOTSA_WinMain'::`2'::<lambda_1>::operator()",
-      "address": 291544944,
+      "address": 291670896,
       "size": 77,
       "tag": 5,
-      "body": 291544944,
+      "body": 291670896,
       "e9_chain": [],
-      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8e8b2c6bdff0fb6c085c0740de8f7b5beff8bc8e821bebcff905f5e5b81c4cc0000003bece8b2fdbcff8be55dc3cccccccccccccccccccccccccccccccccccccc558bec6aff6881b1531364a1000000005081eca0010000535657518dbd14ffff"
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8e807dbbcff0fb6c085c0740de8d8cabdff8bc8e82bd2bbff905f5e5b81c4cc0000003bece8cb11bcff8be55dc3cccccccccccccccccccccccccccccccccccccc558bec6aff6881aa561364a1000000005081eca0010000535657518dbd14ffff"
     },
     {
       "name": "`RequestedPadUpdateMouse::Update'::`2'::<lambda_1>::operator()",
-      "address": 291545552,
+      "address": 291671504,
       "size": 243,
       "tag": 5,
-      "body": 291545552,
+      "body": 291671504,
       "e9_chain": [],
-      "first128": "558bec6aff68e0b1531364a1000000005081ec04010000535657518d7db0b911000000b8ccccccccf3ab59a140bdcb1333c58945f0508d45f464a300000000894de88b45e88b08898dfcfeffff6a006a006a206aff8d9504ffffff528b4d08e87429c0ff8985f8feffff8b85f8feffff8985f4feffffc745fc000000008b8df4"
+      "first128": "558bec6aff68e0aa561364a1000000005081ec04010000535657518d7db0b911000000b8ccccccccf3ab59a1409dd01333c58945f0508d45f464a300000000894de88b45e88b08898dfcfeffff6a006a006a206aff8d9504ffffff528b4d08e8d73ebfff8985f8feffff8b85f8feffff8985f4feffffc745fc000000008b8df4"
     },
     {
       "name": "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_1>::operator()",
-      "address": 291545856,
+      "address": 291671808,
       "size": 243,
       "tag": 5,
-      "body": 291545856,
+      "body": 291671808,
       "e9_chain": [],
-      "first128": "558bec6aff6830b2531364a1000000005081ec04010000535657518d7db0b911000000b8ccccccccf3ab59a140bdcb1333c58945f0508d45f464a300000000894de88b45e88b08898dfcfeffff6a006a006a206aff8d9504ffffff528b4d08e84428c0ff8985f8feffff8b85f8feffff8985f4feffffc745fc000000008b8df4"
+      "first128": "558bec6aff6830ab561364a1000000005081ec04010000535657518d7db0b911000000b8ccccccccf3ab59a1409dd01333c58945f0508d45f464a300000000894de88b45e88b08898dfcfeffff6a006a006a206aff8d9504ffffff528b4d08e8a73dbfff8985f8feffff8b85f8feffff8985f4feffffc745fc000000008b8df4"
     },
     {
       "name": "`RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()",
-      "address": 291547104,
+      "address": 291673056,
       "size": 223,
       "tag": 5,
-      "body": 291547104,
+      "body": 291673056,
       "e9_chain": [],
-      "first128": "558bec81ec00010000535657518d7dc0b910000000b8ccccccccf3ab59894df8c745ec00000000c745e000000000e8c5c2beff898504ffffff8d45e0508d4dec518d5508528d8d0cffffffe8aeb9bcff898500ffffff8b8500ffffff508b8d04ffffffe8333cc0ff90837de001750b8b45ec898504ffffffeb0ac78504ffffff"
+      "first128": "558bec81ec00010000535657518d7dc0b910000000b8ccccccccf3ab59894df8c745ec00000000c745e000000000e8abd7bdff898504ffffff8d45e0508d4dec518d5508528d8d0cffffffe8b8cdbbff898500ffffff8b8500ffffff508b8d04ffffffe89b51bfff90837de001750b8b45ec898504ffffffeb0ac78504ffffff"
     },
     {
       "name": "`RequestedPadUpdateMouse::Update'::`2'::<lambda_3>::operator()",
-      "address": 291547616,
+      "address": 291673568,
       "size": 105,
       "tag": 5,
-      "body": 291547616,
+      "body": 291673568,
       "e9_chain": [],
-      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df8837d0800741d8b4d08e821ddbeff3b450c75108b4d08e87030bfff898530ffffffeb0ac78530ffffff000000008b8530ffffff5f5e5b81c4d00000003bece828f3bcff8be55dc20800cccccccccccccccccccccccccccccccccccccccccccccc"
+      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df8837d0800741d8b4d08e80cf2bdff3b450c75108b4d08e87945beff898530ffffffeb0ac78530ffffff000000008b8530ffffff5f5e5b81c4d00000003bece84107bcff8be55dc20800cccccccccccccccccccccccccccccccccccccccccccccc"
     },
     {
       "name": "IsForegroundApp",
-      "address": 291574608,
+      "address": 291700560,
       "size": 94,
       "tag": 5,
-      "body": 291574608,
+      "body": 291700560,
       "e9_chain": [],
-      "first128": "558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3ab681c628d00e8aad2bfff83c404833800740cc7853cffffff01000000eb0ac7853cffffff000000000fb6853cffffff5f5e5b81c4c40000003bece8c189bcff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      "first128": "558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3ab681c628d00e812e8beff83c404833800740cc7853cffffff01000000eb0ac7853cffffff000000000fb6853cffffff5f5e5b81c4c40000003bece8da9dbbff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
     },
     {
       "name": "NOTSA_WinMain",
-      "address": 291576448,
+      "address": 291702400,
       "size": 1778,
       "tag": 5,
-      "body": 291576448,
+      "body": 291702400,
       "e9_chain": [],
-      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff685ddb531364a100000000505381ec2802000056578dbd88feffffb95a000000b8ccccccccf3aba140bdcb1333c58945ec508d45f464a3000000000fb685a7feffff508d4de7e8fd6efeffc745fc00000000e836cec0ff90c78598feffff00000000c745fcffffff"
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff686dd4561364a100000000505381ec2802000056578dbd88feffffb95a000000b8ccccccccf3aba1409dd01333c58945ec508d45f464a3000000000fb685a7feffff508d4de7e8fd6efeffc745fc00000000e802e4bfff90c78598feffff00000000c745fcffffff"
     },
     {
       "name": "RequestedPadUpdateMouse::Read",
-      "address": 291580848,
+      "address": 291706800,
       "size": 657,
       "tag": 5,
-      "body": 291580848,
+      "body": 291706800,
       "e9_chain": [],
-      "first128": "558bec6aff68e7db531364a1000000005081ecb40100005356578dbd00ffffffb93d000000b8ccccccccf3aba140bdcb1333c58945f0508d45f464a300000000e82ae1c0ff8945e88b45e88b4808894ddc8b45e88b4804894dd08b45088945c48b45c43b45dc72148b4dd083e914394dc47709c6854bfeffff01eb07c6854bfe"
+      "first128": "558bec6aff68f7d4561364a1000000005081ecb40100005356578dbd00ffffffb93d000000b8ccccccccf3aba1409dd01333c58945f0508d45f464a300000000e814f7bfff8945e88b45e88b4808894ddc8b45e88b4804894dd08b45088945c48b45c43b45dc72148b4dd083e914394dc47709c6854bfeffff01eb07c6854bfe"
     },
     {
       "name": "RequestedPadUpdateMouse::ReadDll",
-      "address": 291581680,
+      "address": 291707632,
       "size": 142,
       "tag": 5,
-      "body": 291581680,
+      "body": 291707632,
       "e9_chain": [],
-      "first128": "558bec81ece0000000535657518d7de0b908000000b8ccccccccf3ab598955ec894df80fb6053140c113898524ffffff8b0d507dcd1351e81496bfff83c4043945f8750cc78520ffffff01000000eb0ac78520ffffff000000008b9524ffffff239520ffffff88153140c1138b450850e8e548bcff83c4045f5e5b81c4e00000"
+      "first128": "558bec81ece0000000535657518d7de0b908000000b8ccccccccf3ab598955ec894df80fb6053120c613898524ffffff8b0d505dd21351e877abbeff83c4043945f8750cc78520ffffff01000000eb0ac78520ffffff000000008b9524ffffff239520ffffff88153120c6138b450850e8f45cbbff83c4045f5e5b81c4e00000"
     },
     {
       "name": "RequestedPadUpdateMouse::ReadExe",
-      "address": 291581872,
+      "address": 291707824,
       "size": 55,
       "tag": 5,
-      "body": 291581872,
+      "body": 291707824,
       "e9_chain": [],
-      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450850e87a48bcff83c4045f5e5b81c4c00000003bece8886dbcff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec6aff6840dc531364a1000000005081ec3c010000535657518dbd78ffffffb91f000000b8ccccccccf3ab59a140"
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450850e8895cbbff83c4045f5e5b81c4c00000003bece8a181bbff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec6aff6850d5561364a1000000005081ec3c010000535657518dbd78ffffffb91f000000b8ccccccccf3ab59a140"
     },
     {
       "name": "RequestedPadUpdateMouse::Update",
-      "address": 291587648,
+      "address": 291713600,
       "size": 19328,
       "tag": 5,
-      "body": 291587648,
+      "body": 291713600,
       "e9_chain": [],
-      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff68e6ed531364a1000000005053b858330000e82c49bdff56578dbd98d2ffffb9560b0000b8ccccccccf3aba140bdcb1333c58945ec508d45f464a300000000c785c8e1ffff0000000068040100006a008d85e0feffff50e81257c0ff83c40c8bf468040100008d85"
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff68f6e6561364a1000000005053b858330000e89a5dbcff56578dbd98d2ffffb9560b0000b8ccccccccf3aba1409dd01333c58945ec508d45f464a300000000c785c8e1ffff0000000068040100006a008d85e0feffff50e8b66cbfff83c40c8bf468040100008d85"
     },
     {
       "name": "RequestedPreflightPadUpdateMouseLive::Update",
-      "address": 291611808,
+      "address": 291737760,
       "size": 4859,
       "tag": 5,
-      "body": 291611808,
+      "body": 291737760,
       "e9_chain": [],
-      "first128": "558bec6aff687df5531364a10000000050b868100000e8e0eabcff5356578dbd0cf4ffffb9fa020000b8ccccccccf3aba140bdcb1333c58945f0508d45f464a30000000068040100006a008d85e8feffff50e8cff8bfff83c40c8bf468040100008d85e8feffff506a00ff15e474d1133bf4e854f8bbff906a008d85e8feffff"
+      "first128": "558bec6aff688dee561364a10000000050b868100000e84effbbff5356578dbd0cf4ffffb9fa020000b8ccccccccf3aba1409dd01333c58945f0508d45f464a30000000068040100006a008d85e8feffff50e8730ebfff83c40c8bf468040100008d85e8feffff506a00ff15e464d6133bf4e86d0cbbff906a008d85e8feffff"
     },
     {
       "name": "CMouseControllerState::CheckForInput",
-      "address": 300409232,
+      "address": 300558112,
       "size": 175,
       "tag": 5,
-      "body": 300409232,
+      "body": 300558112,
       "e9_chain": [],
-      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df88b45f80fb60885c975608b55f80fb6420185c075558b4df80fb6510285d2754a8b45f80fb6480385c9753f8b55f80fb6420485c075348b4df80fb6510585d275298b45f80fb6480685c9751e8b4df883c10ce87bd239ff0fb6d085d2740cc785"
+      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df88b45f80fb60885c975608b55f80fb6420185c075558b4df80fb6510285d2754a8b45f80fb6480385c9753f8b55f80fb6420485c075348b4df80fb6510585d275298b45f80fb6480685c9751e8b4df883c10ce89e8e38ff0fb6d085d2740cc785"
     },
     {
       "name": "CPad::GetMouseState",
-      "address": 300494368,
+      "address": 300643584,
       "size": 496,
       "tag": 5,
-      "body": 300494368,
+      "body": 300643584,
       "e9_chain": [],
-      "first128": "558bec81ecf8000000535657518d7dc8b90e000000b8ccccccccf3ab59894df8a1dc21ce138b481483791c00750ab801000000e9a20100008b4508c74008000000008b4d08c74104000000008b5508c70200000000c78520ffffff000000008b450883c00c50e84db035ff83c40489850cffffff8b4d0883c10c51e89ada35ff"
+      "first128": "558bec81ecf8000000535657518d7dc8b90e000000b8ccccccccf3ab59894df8a1dc01d3138b481483791c00750ab801000000e9a20100008b4508c74008000000008b4d08c74104000000008b5508c70200000000c78520ffffff000000008b450883c00c50e8086a34ff83c40489850cffffff8b4d0883c10c51e86e9434ff"
     },
     {
       "name": "CPad::SetTouched",
-      "address": 300537952,
+      "address": 300689632,
       "size": 66,
       "tag": 5,
-      "body": 300537952,
+      "body": 300689632,
       "e9_chain": [],
-      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8e89b6b37ff8b4df88981200100005f5e5b81c4cc0000003bece8cdc433ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df8"
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8e8a11c36ff8b4df88981200100005f5e5b81c4cc0000003bece8667432ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df8"
     },
     {
       "name": "CPad::UpdateMouse",
-      "address": 300541120,
+      "address": 300692800,
       "size": 730,
       "tag": 5,
-      "body": 300541120,
+      "body": 300692800,
       "e9_chain": [],
-      "first128": "558bec81ec18010000535657518d7da8b916000000b8ccccccccf3ab59a140bdcb1333c58945fc894df4e8086037ff0fb6c085c07505e953020000a1dc21ce138b481483791c007539a1e81bce130fb6485c85c97515e87aae36ff0fb6d085d27409c685ebfeffff01eb07c685ebfeffff000fb685ebfeffff50e8712937ff83"
+      "first128": "558bec81ec18010000535657518d7da8b916000000b8ccccccccf3ab59a1409dd01333c58945fc894df4e80e1136ff0fb6c085c07505e953020000a1dc01d3138b481483791c007539a1e8fbd2130fb6485c85c97515e8445f35ff0fb6d085d27409c685ebfeffff01eb07c685ebfeffff000fb685ebfeffff50e863da35ff83"
     }
   ],
-  "manifest_sha256": "9299322900624acd1c3f2a4321f388e2237acab28f91b74076463dca6264640b",
+  "manifest_sha256": "b1055268af16d13f71fe94da4a0f27f359eaa97f41c3ae400949a32e84aa9726",
   "compiled_header_sha256": "c5b0af0f2aad3f5cf528e85537b801523670b40f98ecbaa04b2c2b91a57761d6",
   "limitations": [
     "Static PE/PDB and disassembly only. No runtime, helper behavior or approval. Human inspection required for call-path/return-branch proof."

@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115EDC70: 55                 push        ebp
+  115EDC71: 8B EC              mov         ebp,esp
+  115EDC73: 81 EC C0 00 00 00  sub         esp,0C0h
+  115EDC79: 53                 push        ebx
+  115EDC7A: 56                 push        esi
+  115EDC7B: 57                 push        edi
+  115EDC7C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115EDC7F: 5F                 pop         edi
+  115EDC80: 5E                 pop         esi
+  115EDC81: 5B                 pop         ebx
+  115EDC82: 8B E5              mov         esp,ebp
+  115EDC84: 5D                 pop         ebp
+  115EDC85: C3                 ret
+  115EDC86: CC                 int         3
+  115EDC87: CC                 int         3
+  115EDC88: CC                 int         3
+  115EDC89: CC                 int         3
+  115EDC8A: CC                 int         3
+  115EDC8B: CC                 int         3
+  115EDC8C: CC                 int         3
+  115EDC8D: CC                 int         3
+  115EDC8E: CC                 int         3
+  115EDC8F: CC                 int         3
+  115EDC90: 55                 push        ebp
+  115EDC91: 8B EC              mov         ebp,esp
+  115EDC93: 81 EC C0 00 00 00  sub         esp,0C0h
+  115EDC99: 53                 push        ebx
+  115EDC9A: 56                 push        esi
+  115EDC9B: 57                 push        edi
+  115EDC9C: 8B FD              mov         edi,ebp
+  115EDC9E: 33 C9              xor         ecx,ecx
+  115EDCA0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115EDCA5: F3 AB              rep stos    dword ptr es:[edi]
+  115EDCA7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115EDCAA: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  115EDCAD: 8B 10              mov         edx,dword ptr [eax]
+  115EDCAF: 3B 11              cmp         edx,dword ptr [ecx]
+
+  Summary
+
+     2489000 .text

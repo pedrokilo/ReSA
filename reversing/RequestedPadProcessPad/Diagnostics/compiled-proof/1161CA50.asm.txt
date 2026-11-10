@@ -1,0 +1,81 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1161CA50: 53                 push        ebx
+  1161CA51: 8B DC              mov         ebx,esp
+  1161CA53: 83 EC 08           sub         esp,8
+  1161CA56: 83 E4 F8           and         esp,0FFFFFFF8h
+  1161CA59: 83 C4 04           add         esp,4
+  1161CA5C: 55                 push        ebp
+  1161CA5D: 8B 6B 04           mov         ebp,dword ptr [ebx+4]
+  1161CA60: 89 6C 24 04        mov         dword ptr [esp+4],ebp
+  1161CA64: 8B EC              mov         ebp,esp
+  1161CA66: 81 EC 00 01 00 00  sub         esp,100h
+  1161CA6C: 56                 push        esi
+  1161CA6D: 57                 push        edi
+  1161CA6E: 8D 7D C0           lea         edi,[ebp-40h]
+  1161CA71: B9 10 00 00 00     mov         ecx,10h
+  1161CA76: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1161CA7B: F3 AB              rep stos    dword ptr es:[edi]
+  1161CA7D: 33 C0              xor         eax,eax
+  1161CA7F: 88 85 2F FF FF FF  mov         byte ptr [ebp+FFFFFF2Fh],al
+  1161CA85: 0F B6 8D 2F FF FF  movzx       ecx,byte ptr [ebp+FFFFFF2Fh]
+            FF
+  1161CA8C: 51                 push        ecx
+  1161CA8D: E8 80 30 C1 FF     call        1122FB12
+  1161CA92: 83 C4 04           add         esp,4
+  1161CA95: 6A 07              push        7
+  1161CA97: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  1161CA9C: E8 A3 C9 BE FF     call        11209444
+  1161CAA1: C7 00 2B 0F 23 11  mov         dword ptr [eax],11230F2Bh
+  1161CAA7: 6A 09              push        9
+  1161CAA9: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  1161CAAE: E8 91 C9 BE FF     call        11209444
+  1161CAB3: C7 00 E3 A6 1E 11  mov         dword ptr [eax],111EA6E3h
+  1161CAB9: 6A 19              push        19h
+  1161CABB: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  1161CAC0: E8 7F C9 BE FF     call        11209444
+  1161CAC5: C7 00 AD 00 1E 11  mov         dword ptr [eax],111E00ADh
+  1161CACB: C7 45 F8 00 00 00  mov         dword ptr [ebp-8],0
+            00
+  1161CAD2: EB 09              jmp         1161CADD
+  1161CAD4: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1161CAD7: 83 C0 01           add         eax,1
+  1161CADA: 89 45 F8           mov         dword ptr [ebp-8],eax
+  1161CADD: 83 7D F8 02        cmp         dword ptr [ebp-8],2
+  1161CAE1: 73 52              jae         1161CB35
+  1161CAE3: B9 A0 39 DB 13     mov         ecx,13DB39A0h
+  1161CAE8: E8 5F 12 BE FF     call        111FDD4C
+  1161CAED: 89 85 1C FF FF FF  mov         dword ptr [ebp+FFFFFF1Ch],eax
+  1161CAF3: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1161CAF6: 89 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],eax
+  1161CAFC: 8B 8D 1C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF1Ch]
+  1161CB02: 8B 95 20 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF20h]
+  1161CB08: 89 8D 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],ecx
+  1161CB0E: 89 95 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],edx
+  1161CB14: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1161CB17: 50                 push        eax
+  1161CB18: B9 3C 3A DB 13     mov         ecx,13DB3A3Ch
+  1161CB1D: E8 DA 5B BF FF     call        112126FC
+  1161CB22: 8B 8D 08 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF08h]
+  1161CB28: 8B 95 0C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF0Ch]
+  1161CB2E: 89 08              mov         dword ptr [eax],ecx
+  1161CB30: 89 50 04           mov         dword ptr [eax+4],edx
+  1161CB33: EB 9F              jmp         1161CAD4
+  1161CB35: 5F                 pop         edi
+  1161CB36: 5E                 pop         esi
+  1161CB37: 8B E5              mov         esp,ebp
+  1161CB39: 5D                 pop         ebp
+  1161CB3A: 8B E3              mov         esp,ebx
+  1161CB3C: 5B                 pop         ebx
+  1161CB3D: C3                 ret
+  1161CB3E: CC                 int         3
+
+  Summary
+
+     2489000 .text

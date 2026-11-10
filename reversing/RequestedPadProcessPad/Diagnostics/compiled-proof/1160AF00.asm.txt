@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1160AF00: 55                 push        ebp
+  1160AF01: 8B EC              mov         ebp,esp
+  1160AF03: 81 EC CC 00 00 00  sub         esp,0CCh
+  1160AF09: 53                 push        ebx
+  1160AF0A: 56                 push        esi
+  1160AF0B: 57                 push        edi
+  1160AF0C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1160AF0F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1160AF12: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1160AF15: 89 08              mov         dword ptr [eax],ecx
+  1160AF17: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1160AF1A: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1160AF1D: 89 48 04           mov         dword ptr [eax+4],ecx
+  1160AF20: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1160AF23: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1160AF26: 89 48 08           mov         dword ptr [eax+8],ecx
+  1160AF29: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1160AF2C: 5F                 pop         edi
+  1160AF2D: 5E                 pop         esi
+  1160AF2E: 5B                 pop         ebx
+  1160AF2F: 8B E5              mov         esp,ebp
+  1160AF31: 5D                 pop         ebp
+  1160AF32: C2 08 00           ret         8
+  1160AF35: CC                 int         3
+  1160AF36: CC                 int         3
+  1160AF37: CC                 int         3
+  1160AF38: CC                 int         3
+  1160AF39: CC                 int         3
+  1160AF3A: CC                 int         3
+  1160AF3B: CC                 int         3
+  1160AF3C: CC                 int         3
+  1160AF3D: CC                 int         3
+  1160AF3E: CC                 int         3
+  1160AF3F: CC                 int         3
+  1160AF40: CC                 int         3
+
+  Summary
+
+     2489000 .text

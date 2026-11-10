@@ -1,0 +1,255 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "13078b17e2fe17f65b8734f81aec03c3eee55fdc9393eca7de6924cd7a10c23e",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "GTA termino antes de completar (0).",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
+    "tested_sources": {
+      "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+      "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
+      "source/game_sa/MouseControllerState.cpp": "18e197799eee103cd1c48ea25f62b6577c6ef276959a458c843135af0fc88eb3",
+      "source/game_sa/MouseControllerState.h": "9c22fe3408e4a89413bd310ec1208f0fd786a09b996240350a580afbc04adc7b",
+      "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/app/platform/win/WinInput.cpp": "3c2d331b28f2d99157cd13aa33a562863a06c288893284e941615909e6515a39",
+      "source/app/platform/win/WinInput.h": "7dea82c320c922eea5b8c1e046fb65b241cd975197c84236311ba89881bc1be8",
+      "source/app/platform/win/WinPlatform.cpp": "373221a0b57e7d7e8ec2adf1c2bba03bef40e31aca94568fa668239cb77568ef",
+      "source/app/platform/win/WinPlatform.h": "33ae05f2ad7409fabc0450f981be7cef6d2154190dbf61bb4f67be25c2ae8814",
+      "source/app/platform/win/VideoMode.cpp": "a1b09e04d7a8e1c21b12472ff306324b1dd446df98c24335b987ed5a4e2322ab",
+      "source/app/platform/win/VideoMode.h": "4f604c0b85cb5e9d41f7e0c3d1de47d478269c77cb89ef96af2cb7ac59868fe9"
+    },
+    "bank_sources": {
+      "reversing/RequestedPadUpdateMouseV3/LiveComparison.hpp": "c5b0af0f2aad3f5cf528e85537b801523670b40f98ecbaa04b2c2b91a57761d6",
+      "reversing/RequestedPadUpdateMouseV3/Preflight.hpp": "ca2db626beb80f2c97c5d3fd150f260849ea43c47758df478464a76c8ffcba3b",
+      "reversing/RequestedPadUpdateMouseV3/VTableRanges.hpp": "66613460f3247bad4aa8a558bb5d4d5d096a18bb661891a464a5cf81080b2d22",
+      "reversing/RequestedPadUpdateMouseV3/model.py": "955ed9f5f209a8a815ded89f006e9d4933485655b87b84862c5e7c1ec5e78d24",
+      "reversing/RequestedPadUpdateMouseV3/build_probe.py": "6e1229b67cdfc02381bfc63e3fdb919982cd8bcc1e59ed2c1ce3af88b2b0475c",
+      "reversing/RequestedPadUpdateMouseV3/run_local.py": "749aa20ad2a3b85d97515df215f47fecfdfbd77f1194e2e0727ef882385861aa",
+      "reversing/RequestedPadUpdateMouseV3/inspect_compiled.py": "1fd339e0cc3f61c75e6cd7d68a3a607c6238c1a164c91cc8ff7a08d858d32daf",
+      "reversing/RequestedPadUpdateMouseV3/preparation-plan.json": "b27e852292d74ea71888f28c975be1d34fe19823c873f5440f9610ac64030053",
+      "reversing/RequestedPadUpdateMouseV3/DESIGN.md": "894ea51ad3d8f0d9ecd6f59c18dc23564b53b5a153205671ccd2077d9320c69b",
+      "reversing/RequestedPadUpdateMouseV3/evidence/UpdateMouse-fresh-combo.txt": "b26ea86958c9f25f2fc28bdf6784e929b0e3bdd993b91f15b17f01d8fa6e0806",
+      "reversing/RequestedPadUpdateMouseV3/evidence/NativeCheckForInput.asm.txt": "2917c9ffd059094a31267f743c713efd17e76a689d69b89ecdbf48b2e77fd8ac",
+      "reversing/RequestedPadUpdateMouseV3/evidence/NativeGetMouseState.asm.txt": "7f00fce07caef71ded41c4599f5915d079715138060dcba16ea276d1727a5a38",
+      "reversing/RequestedPadUpdateMouseV3/evidence/native-constant-zero.json": "497ae87ae3a5941a37dc74d995f25a268d0b9e10c42106844c951791576f2e04",
+      "reversing/RequestedPadUpdateMouseV3/prepared-freeze.json": "415ca0ddfe378d7cc2193b3b8b9a7993d3d8a2db23b117ede5c89ea2dd58b2b2",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/ProbeRuntime.hpp": "8e7a7badac510d0a3d0f96104607989b8efae936cf4583b6e546dfaa8be889d3",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "5251233421eed091cdbeeb750e892e466a1425161d396100209834d7ec438df9",
+    "expected_pairs": 9216,
+    "fixture_scope": "9216 finite isolated UpdateMouse CPU cases; real unmodified native CheckForInput used by both legs, helpers identity/ABI traced. FullprivatePad+mouse/guard/device/preferences/timer byte comparison; strict rawFP/control gates and all17692globalharness restoration. No devices/COM/realinput/helpers/actorintegration/dependencies accredited. MatchingPE/PDB calls/ABI must be reviewed after coordinator build.",
+    "compiled_callpath_review_required": true,
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "4d448c6274df70ade2cde7fd0208af6a3ee241f43ee3665f9b52b6bd7857ba5f"
+    },
+    "asi": "13078b17e2fe17f65b8734f81aec03c3eee55fdc9393eca7de6924cd7a10c23e",
+    "pdb": "860897ece6f492e9ca4096d10aa86d43f67247832a2fed96eea92b3453cddda1"
+  },
+  "runner_sha256": "749aa20ad2a3b85d97515df215f47fecfdfbd77f1194e2e0727ef882385861aa",
+  "compiled_callpath_proof": {
+    "asi_sha256": "13078b17e2fe17f65b8734f81aec03c3eee55fdc9393eca7de6924cd7a10c23e",
+    "pdb_sha256": "860897ece6f492e9ca4096d10aa86d43f67247832a2fed96eea92b3453cddda1",
+    "manifest_sha256": "eadc0e3c8ba3421dbc55320f3ead0c554575a03146099ffe3572d4681ab5a296",
+    "pdb_rsds_match": true,
+    "passed": true,
+    "helper_call_paths_verified": true,
+    "separate_getmouse_ABIs_verified": true,
+    "actual_target_calls": {
+      "foreground": {
+        "site": "0x11ec348a",
+        "entry": "0x11224678",
+        "body": "0x1162fe70",
+        "chain": [
+          [
+            "0x11224678",
+            "0x1162fe70"
+          ]
+        ]
+      },
+      "exclusive": {
+        "site": "0x11ec34b6",
+        "entry": "0x112194da",
+        "body": "0x115d9cd0",
+        "chain": [
+          [
+            "0x112194da",
+            "0x115d9cd0"
+          ]
+        ]
+      },
+      "init": {
+        "site": "0x11ec34da",
+        "entry": "0x1122101d",
+        "body": "0x115e3290",
+        "chain": [
+          [
+            "0x1122101d",
+            "0x115e3290"
+          ]
+        ]
+      },
+      "getmouse": {
+        "site": "0x11ec34f7",
+        "entry": "0x11211997",
+        "body": "0x11eb7420",
+        "chain": [
+          [
+            "0x11211997",
+            "0x11eb7420"
+          ]
+        ]
+      },
+      "checkinput": {
+        "site": "0x11ec36d9",
+        "entry": "0x111f7ac4",
+        "body": "0x11ea2640",
+        "chain": [
+          [
+            "0x111f7ac4",
+            "0x11ea2640"
+          ]
+        ]
+      },
+      "settouched": {
+        "site": "0x11ec36e8",
+        "entry": "0x1121634d",
+        "body": "0x11ec2800",
+        "chain": [
+          [
+            "0x1121634d",
+            "0x11ec2800"
+          ]
+        ]
+      }
+    },
+    "gate_operand_mapping": {
+      "foreground": {
+        "native": "0x746060",
+        "original": {
+          "operand_site": "0x116339c1",
+          "stub_entry": "0x11215691",
+          "stub_body": "0x1162e940",
+          "chain": [
+            [
+              "0x11215691",
+              "0x1162e940"
+            ]
+          ]
+        },
+        "candidate": {
+          "operand_site": "0x116339bc",
+          "stub_entry": "0x11215691",
+          "stub_body": "0x1162e940",
+          "chain": [
+            [
+              "0x11215691",
+              "0x1162e940"
+            ]
+          ]
+        }
+      },
+      "exclusive": {
+        "native": "0x745ca0",
+        "original": {
+          "operand_site": "0x11633a4c",
+          "stub_entry": "0x1122fc53",
+          "stub_body": "0x1162d8c0",
+          "chain": [
+            [
+              "0x1122fc53",
+              "0x1162d8c0"
+            ]
+          ]
+        },
+        "candidate": {
+          "operand_site": "0x11633a47",
+          "stub_entry": "0x1122fc53",
+          "stub_body": "0x1162d8c0",
+          "chain": [
+            [
+              "0x1122fc53",
+              "0x1162d8c0"
+            ]
+          ]
+        }
+      },
+      "init": {
+        "native": "0x7469a0",
+        "original": {
+          "operand_site": "0x11633aba",
+          "stub_entry": "0x11201e98",
+          "stub_body": "0x1162ed60",
+          "chain": [
+            [
+              "0x11201e98",
+              "0x1162ed60"
+            ]
+          ]
+        },
+        "candidate": {
+          "operand_site": "0x11633ab5",
+          "stub_entry": "0x11201e98",
+          "stub_body": "0x1162ed60",
+          "chain": [
+            [
+              "0x11201e98",
+              "0x1162ed60"
+            ]
+          ]
+        }
+      },
+      "getmouse": {
+        "native": "0x746ed0",
+        "original": {
+          "operand_site": "0x11633b28",
+          "stub_entry": "0x11226ec8",
+          "stub_body": "0x11631ad0",
+          "chain": [
+            [
+              "0x11226ec8",
+              "0x11631ad0"
+            ]
+          ]
+        },
+        "candidate": {
+          "operand_site": "0x11633b23",
+          "stub_entry": "0x111eb73d",
+          "stub_body": "0x11631a10",
+          "chain": [
+            [
+              "0x111eb73d",
+              "0x11631a10"
+            ]
+          ]
+        }
+      }
+    },
+    "pure_check_input": {
+      "native": "0x53f270",
+      "own_entry": "0x11ea2640",
+      "own_body": "0x11ea2640",
+      "compiled_redirect_operand": "0x116338b1",
+      "native_bytes_preserved_by_runtime_gate": 128
+    },
+    "limitations": [
+      "Static call/ABI preparation only; native/DLL hook gates, all52 byte entry restores, strictFP and all17692 globals require runtime. No helper accreditation."
+    ]
+  },
+  "compiled_callpath_proof_sha256": "5cd8f1c1be7a3bf5c9b649d4b585118ce9e33453709b6f0d487f105905857f09"
+}

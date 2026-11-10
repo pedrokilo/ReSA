@@ -1,0 +1,3 @@
+FALLO: Pad distance/train/NOP13952
+Strict Pad distance/train/NOP analyzer rejected: Unexpected bank event 13953; No exact complete event; Incomplete bank restoration; FP state differs
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pad-distance-train-nop-hex\20261110-115010-451885

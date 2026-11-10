@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115F88B0: 55                 push        ebp
+  115F88B1: 8B EC              mov         ebp,esp
+  115F88B3: 81 EC C0 00 00 00  sub         esp,0C0h
+  115F88B9: 53                 push        ebx
+  115F88BA: 56                 push        esi
+  115F88BB: 57                 push        edi
+  115F88BC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F88BF: 5F                 pop         edi
+  115F88C0: 5E                 pop         esi
+  115F88C1: 5B                 pop         ebx
+  115F88C2: 8B E5              mov         esp,ebp
+  115F88C4: 5D                 pop         ebp
+  115F88C5: C3                 ret
+  115F88C6: CC                 int         3
+  115F88C7: CC                 int         3
+  115F88C8: CC                 int         3
+  115F88C9: CC                 int         3
+  115F88CA: CC                 int         3
+  115F88CB: CC                 int         3
+  115F88CC: CC                 int         3
+  115F88CD: CC                 int         3
+  115F88CE: CC                 int         3
+  115F88CF: CC                 int         3
+  115F88D0: 55                 push        ebp
+  115F88D1: 8B EC              mov         ebp,esp
+  115F88D3: 81 EC C0 00 00 00  sub         esp,0C0h
+  115F88D9: 53                 push        ebx
+  115F88DA: 56                 push        esi
+  115F88DB: 57                 push        edi
+  115F88DC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F88DF: 5F                 pop         edi
+  115F88E0: 5E                 pop         esi
+  115F88E1: 5B                 pop         ebx
+  115F88E2: 8B E5              mov         esp,ebp
+  115F88E4: 5D                 pop         ebp
+  115F88E5: C3                 ret
+  115F88E6: CC                 int         3
+  115F88E7: CC                 int         3
+  115F88E8: CC                 int         3
+  115F88E9: CC                 int         3
+  115F88EA: CC                 int         3
+  115F88EB: CC                 int         3
+  115F88EC: CC                 int         3
+  115F88ED: CC                 int         3
+  115F88EE: CC                 int         3
+  115F88EF: CC                 int         3
+  115F88F0: 55                 push        ebp
+
+  Summary
+
+     2489000 .text

@@ -1,0 +1,54 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11630E10: 55                 push        ebp
+  11630E11: 8B EC              mov         ebp,esp
+  11630E13: 81 EC D8 00 00 00  sub         esp,0D8h
+  11630E19: 53                 push        ebx
+  11630E1A: 56                 push        esi
+  11630E1B: 57                 push        edi
+  11630E1C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11630E1F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11630E22: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11630E25: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11630E28: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  11630E2B: 8B 40 0C           mov         eax,dword ptr [eax+0Ch]
+  11630E2E: 2B 41 04           sub         eax,dword ptr [ecx+4]
+  11630E31: C1 F8 02           sar         eax,2
+  11630E34: 5F                 pop         edi
+  11630E35: 5E                 pop         esi
+  11630E36: 5B                 pop         ebx
+  11630E37: 8B E5              mov         esp,ebp
+  11630E39: 5D                 pop         ebp
+  11630E3A: C3                 ret
+  11630E3B: CC                 int         3
+  11630E3C: CC                 int         3
+  11630E3D: CC                 int         3
+  11630E3E: CC                 int         3
+  11630E3F: CC                 int         3
+  11630E40: CC                 int         3
+  11630E41: CC                 int         3
+  11630E42: CC                 int         3
+  11630E43: CC                 int         3
+  11630E44: CC                 int         3
+  11630E45: CC                 int         3
+  11630E46: CC                 int         3
+  11630E47: CC                 int         3
+  11630E48: CC                 int         3
+  11630E49: CC                 int         3
+  11630E4A: CC                 int         3
+  11630E4B: CC                 int         3
+  11630E4C: CC                 int         3
+  11630E4D: CC                 int         3
+  11630E4E: CC                 int         3
+  11630E4F: CC                 int         3
+  11630E50: 55                 push        ebp
+
+  Summary
+
+     2489000 .text

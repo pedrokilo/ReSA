@@ -1,0 +1,87 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "a892bca5d61ed884a759a6098cc63e66214f0e61003cff9b0d1a36eadd488abb",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "comparisons": 2816,
+  "counts": {
+    "Constructor": 128,
+    "Destructor": 256,
+    "MakeAbortable": 384,
+    "CreateFirstSubTask": 2048
+  },
+  "differences": 0,
+  "model_mismatches": 0,
+  "errors": [
+    {
+      "harness_restore": {
+        "changed_ranges": [],
+        "entries_restored": true,
+        "event": "complete",
+        "flags_restored": true,
+        "snapshot_ranges": 20614,
+        "state_restored": true,
+        "tables_restored": true,
+        "timer_restored": true
+      }
+    }
+  ],
+  "harness_sha256": "2a9bdedf18524d0e319f0cfbd2e03950f32622582f6bda765efcd3577cd7fe2e",
+  "comparison_sha256": "9a0890f638935b14e6f7cb08f1060d66635e9c46e514ecb9b0e1eca38999d99c",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "c09c2429259a326f21bb7e921933f0a0ba61849a81759f3df166cc7617e29341",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "0a0743beed4f90e2a628168d1ac3b401dc77a135ddcebc50724ac35ae905e6b5",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
+      "source/game_sa/Tasks/Task.cpp": "f55b521efb046d5c9564d62102e8cbe862334641203ff8be8f65031ddbf3beb7",
+      "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
+      "source/game_sa/Entity/Entity.cpp": "6f9dc3b8ced38440b6c1fc191d3e593941729124759c92ca039d6cb4295c76d9",
+      "source/game_sa/Entity/Ped/Ped.h": "7d4f653e046e428073f2b3eae35c29eb9a771bfbffee79b86589e69f27e55404",
+      "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "5f84b9d4b74327f0f40913ce007f62be7f89e44ee74aaa0929036d5116e022e0",
+      "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed",
+      "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0"
+    },
+    "bank_sources": {
+      "reversing/RequestedArrestRemainingFour/LiveComparison.hpp": "a4fe18c32582e744c8ebd57b69eeb2d96d239fe37907f2a4468e1ff8ff6a15d8",
+      "reversing/RequestedArrestRemainingFour/Preflight.hpp": "15486ef61d1e4a7e7f1cc1448434e22e2e1e286e74a0226e71cc8f583d1e4999",
+      "reversing/RequestedArrestRemainingFour/VTableRanges.hpp": "8ae54b689947958e55f7875d7bf878dda429b89f3db94af780108477142e3967",
+      "reversing/RequestedArrestRemainingFour/build_probe.py": "b6519a0874c30c920a28e6998873028e0c3185fc4ed9016fe70dd99c8e77193f",
+      "reversing/RequestedArrestRemainingFour/run_local.py": "70be7b45def7089bb7b6f215d0f42dd1d5f4dc9f5dfd3488d935213b757a8321",
+      "reversing/RequestedArrestRemainingFour/model.py": "c04cd5f3073119b38520e74acc27dc8188577156fb3331ca3a487edd701e2706",
+      "reversing/RequestedArrestRemainingFour/prepared-freeze.json": "8c0e2b9e3feaa8c94eed01c308be67664320034972b30075cc77de3085b41097",
+      "reversing/RequestedArrestRemainingFour/preparation-plan.json": "7008dfbb9e1844a73bc9808d6c13868ade1178fed41f4eca806a906dec948520",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/ProbeRuntime.hpp": "8e7a7badac510d0a3d0f96104607989b8efae936cf4583b6e546dfaa8be889d3",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "5251233421eed091cdbeeb750e892e466a1425161d396100209834d7ec438df9",
+    "expected_pairs": 2816,
+    "fixture_scope": "Four ArrestPed pending entries, 2816 paired isolated cases; raw native/DLL vptr role checked, full task/ped/vehicle/private payload and ordered helper traces; no real actors, assets, task delegation or helper accreditation. All mismatches remain failure.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "f27a0cf04974df1b48520305614669fb2a09b1d41a1432d02e5203e2ead47e8a"
+    },
+    "asi": "a892bca5d61ed884a759a6098cc63e66214f0e61003cff9b0d1a36eadd488abb",
+    "pdb": "fcb01b742fffc78ffbffe6759e8e6cc9d22400a66a07fc223085cb37ae74bf74"
+  },
+  "runner_sha256": "70be7b45def7089bb7b6f215d0f42dd1d5f4dc9f5dfd3488d935213b757a8321",
+  "reproduction_diagnostics": {}
+}

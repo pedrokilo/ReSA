@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115F21F0: 55                 push        ebp
+  115F21F1: 8B EC              mov         ebp,esp
+  115F21F3: 81 EC D4 00 00 00  sub         esp,0D4h
+  115F21F9: 53                 push        ebx
+  115F21FA: 56                 push        esi
+  115F21FB: 57                 push        edi
+  115F21FC: 51                 push        ecx
+  115F21FD: 8D 7D EC           lea         edi,[ebp-14h]
+  115F2200: B9 05 00 00 00     mov         ecx,5
+  115F2205: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115F220A: F3 AB              rep stos    dword ptr es:[edi]
+  115F220C: 59                 pop         ecx
+  115F220D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115F2210: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F2213: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  115F2216: 51                 push        ecx
+  115F2217: E8 FA 42 BF FF     call        111E6516
+  115F221C: 83 C4 04           add         esp,4
+  115F221F: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  115F2225: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  115F2228: 8B 42 08           mov         eax,dword ptr [edx+8]
+  115F222B: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  115F2231: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  115F2234: 51                 push        ecx
+  115F2235: 8B 95 30 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF30h]
+  115F223B: 52                 push        edx
+  115F223C: 8B 85 2C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF2Ch]
+  115F2242: 50                 push        eax
+  115F2243: E8 AA 64 C1 FF     call        112086F2
+  115F2248: 83 C4 0C           add         esp,0Ch
+  115F224B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F224E: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  115F2251: 83 C1 04           add         ecx,4
+  115F2254: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  115F2257: 89 4A 04           mov         dword ptr [edx+4],ecx
+  115F225A: 5F                 pop         edi
+  115F225B: 5E                 pop         esi
+  115F225C: 5B                 pop         ebx
+  115F225D: 81 C4 D4 00 00 00  add         esp,0D4h
+  115F2263: 3B EC              cmp         ebp,esp
+  115F2265: E8 CF 1A BF FF     call        111E3D39
+  115F226A: 8B E5              mov         esp,ebp
+  115F226C: 5D                 pop         ebp
+  115F226D: C2 04 00           ret         4
+  115F2270: CC                 int         3
+
+  Summary
+
+     2489000 .text

@@ -1,0 +1,90 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11628820: 55                 push        ebp
+  11628821: 8B EC              mov         ebp,esp
+  11628823: 81 EC 08 01 00 00  sub         esp,108h
+  11628829: 53                 push        ebx
+  1162882A: 56                 push        esi
+  1162882B: 57                 push        edi
+  1162882C: 51                 push        ecx
+  1162882D: 8D 7D B8           lea         edi,[ebp-48h]
+  11628830: B9 12 00 00 00     mov         ecx,12h
+  11628835: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1162883A: F3 AB              rep stos    dword ptr es:[edi]
+  1162883C: 59                 pop         ecx
+  1162883D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11628840: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11628843: E8 9F 92 BC FF     call        111F1AE7
+  11628848: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1162884B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1162884E: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  11628851: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11628854: 83 C0 04           add         eax,4
+  11628857: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1162885A: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1162885D: 83 C0 08           add         eax,8
+  11628860: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  11628863: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11628866: 83 C0 0C           add         eax,0Ch
+  11628869: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  1162886C: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  1162886F: E8 C8 51 BC FF     call        111EDA3C
+  11628874: 90                 nop
+  11628875: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11628878: 83 38 00           cmp         dword ptr [eax],0
+  1162887B: 74 35              je          116288B2
+  1162887D: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11628880: 50                 push        eax
+  11628881: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  11628884: 8B 11              mov         edx,dword ptr [ecx]
+  11628886: 52                 push        edx
+  11628887: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1162888A: 8B 08              mov         ecx,dword ptr [eax]
+  1162888C: 51                 push        ecx
+  1162888D: E8 0C 36 BC FF     call        111EBE9E
+  11628892: 83 C4 0C           add         esp,0Ch
+  11628895: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  11628898: 8B 4D D4           mov         ecx,dword ptr [ebp-2Ch]
+  1162889B: 8B 10              mov         edx,dword ptr [eax]
+  1162889D: 2B 11              sub         edx,dword ptr [ecx]
+  1162889F: C1 FA 02           sar         edx,2
+  116288A2: 52                 push        edx
+  116288A3: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  116288A6: 8B 08              mov         ecx,dword ptr [eax]
+  116288A8: 51                 push        ecx
+  116288A9: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  116288AC: E8 CB 69 BE FF     call        1120F27C
+  116288B1: 90                 nop
+  116288B2: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  116288B5: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  116288B8: 89 08              mov         dword ptr [eax],ecx
+  116288BA: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  116288BD: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  116288C0: 8D 14 81           lea         edx,[ecx+eax*4]
+  116288C3: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  116288C6: 89 10              mov         dword ptr [eax],edx
+  116288C8: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  116288CB: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  116288CE: 8D 14 81           lea         edx,[ecx+eax*4]
+  116288D1: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  116288D4: 89 10              mov         dword ptr [eax],edx
+  116288D6: 5F                 pop         edi
+  116288D7: 5E                 pop         esi
+  116288D8: 5B                 pop         ebx
+  116288D9: 81 C4 08 01 00 00  add         esp,108h
+  116288DF: 3B EC              cmp         ebp,esp
+  116288E1: E8 53 B4 BB FF     call        111E3D39
+  116288E6: 8B E5              mov         esp,ebp
+  116288E8: 5D                 pop         ebp
+  116288E9: C2 0C 00           ret         0Ch
+  116288EC: CC                 int         3
+
+  Summary
+
+     2489000 .text

@@ -20,3 +20,9 @@ Coordinator serial commands after all other builds/replays end:
     python -B reversing/RequestedPadDistanceTrainNopHex/run_negative_baseline.py
 
 Preserve complete negative evidence before the separately authorized Train logic fix; afterward rebuild and run ordinary run_local.py for the positive replay. No registry writes during preparation.
+
+## Repeticion del 10/11/2026 (REPARAR-REQUESTED)
+
+Estado: **NO aprobable; sustituido por `RequestedPadDistanceTrainNopHexV2`** (mismas 13952 comparaciones, aprobado hoy).
+
+Con `VTableRanges.hpp` reparado, la corrida `20261110-115010-451885` completa las 13952 comparaciones con 0 diferencias pero el analizador la rechaza: `fp_restored=false` (`fp_status_after=288` frente a `fp_status_before=32`: la palabra de estado x87 no se restaura) y `state_restored=false`; en octubre fue rechazada ademas por el oraculo independiente (`20261008-164703-580513`). V2 corrige la restauracion del entorno x87. No se modifica.

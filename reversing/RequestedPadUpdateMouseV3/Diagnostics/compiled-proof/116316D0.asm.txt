@@ -1,0 +1,195 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  116316D0: 55                 push        ebp
+  116316D1: 8B EC              mov         ebp,esp
+  116316D3: 6A FF              push        0FFFFFFFFh
+  116316D5: 68 F7 D3 56 13     push        1356D3F7h
+  116316DA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  116316E0: 50                 push        eax
+  116316E1: 81 EC B4 01 00 00  sub         esp,1B4h
+  116316E7: 53                 push        ebx
+  116316E8: 56                 push        esi
+  116316E9: 57                 push        edi
+  116316EA: 8D BD 00 FF FF FF  lea         edi,[ebp+FFFFFF00h]
+  116316F0: B9 3D 00 00 00     mov         ecx,3Dh
+  116316F5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  116316FA: F3 AB              rep stos    dword ptr es:[edi]
+  116316FC: A1 40 9D D0 13     mov         eax,dword ptr ds:[13D09D40h]
+  11631701: 33 C5              xor         eax,ebp
+  11631703: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  11631706: 50                 push        eax
+  11631707: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1163170A: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  11631710: E8 EF F7 BF FF     call        11230F04
+  11631715: 89 45 E8           mov         dword ptr [ebp-18h],eax
+  11631718: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  1163171B: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  1163171E: 89 4D DC           mov         dword ptr [ebp-24h],ecx
+  11631721: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  11631724: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11631727: 89 4D D0           mov         dword ptr [ebp-30h],ecx
+  1163172A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1163172D: 89 45 C4           mov         dword ptr [ebp-3Ch],eax
+  11631730: 8B 45 C4           mov         eax,dword ptr [ebp-3Ch]
+  11631733: 3B 45 DC           cmp         eax,dword ptr [ebp-24h]
+  11631736: 72 14              jb          1163174C
+  11631738: 8B 4D D0           mov         ecx,dword ptr [ebp-30h]
+  1163173B: 83 E9 14           sub         ecx,14h
+  1163173E: 39 4D C4           cmp         dword ptr [ebp-3Ch],ecx
+  11631741: 77 09              ja          1163174C
+  11631743: C6 85 4B FE FF FF  mov         byte ptr [ebp+FFFFFE4Bh],1
+            01
+  1163174A: EB 07              jmp         11631753
+  1163174C: C6 85 4B FE FF FF  mov         byte ptr [ebp+FFFFFE4Bh],0
+            00
+  11631753: 8A 95 4B FE FF FF  mov         dl,byte ptr [ebp+FFFFFE4Bh]
+  11631759: 88 55 BB           mov         byte ptr [ebp-45h],dl
+  1163175C: 0F B6 05 31 20 C6  movzx       eax,byte ptr ds:[13C62031h]
+            13
+  11631763: 89 85 48 FE FF FF  mov         dword ptr [ebp+FFFFFE48h],eax
+  11631769: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  1163176D: 74 24              je          11631793
+  1163176F: 0F B6 4D BB        movzx       ecx,byte ptr [ebp-45h]
+  11631773: 85 C9              test        ecx,ecx
+  11631775: 74 1C              je          11631793
+  11631777: E8 4E 13 C0 FF     call        11232ACA
+  1163177C: 8B F0              mov         esi,eax
+  1163177E: E8 CE 83 BE FF     call        11219B51
+  11631783: 39 06              cmp         dword ptr [esi],eax
+  11631785: 75 0C              jne         11631793
+  11631787: C7 85 44 FE FF FF  mov         dword ptr [ebp+FFFFFE44h],1
+            01 00 00 00
+  11631791: EB 0A              jmp         1163179D
+  11631793: C7 85 44 FE FF FF  mov         dword ptr [ebp+FFFFFE44h],0
+            00 00 00 00
+  1163179D: 8B 95 48 FE FF FF  mov         edx,dword ptr [ebp+FFFFFE48h]
+  116317A3: 23 95 44 FE FF FF  and         edx,dword ptr [ebp+FFFFFE44h]
+  116317A9: 88 15 31 20 C6 13  mov         byte ptr ds:[13C62031h],dl
+  116317AF: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  116317B3: 74 27              je          116317DC
+  116317B5: 0F B6 45 BB        movzx       eax,byte ptr [ebp-45h]
+  116317B9: 85 C0              test        eax,eax
+  116317BB: 74 1F              je          116317DC
+  116317BD: 6A 14              push        14h
+  116317BF: A1 48 5D D2 13     mov         eax,dword ptr ds:[13D25D48h]
+  116317C4: 50                 push        eax
+  116317C5: B9 18 88 69 13     mov         ecx,13698818h
+  116317CA: E8 14 98 BD FF     call        1120AFE3
+  116317CF: 50                 push        eax
+  116317D0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  116317D3: 51                 push        ecx
+  116317D4: E8 68 20 BE FF     call        11213841
+  116317D9: 83 C4 0C           add         esp,0Ch
+  116317DC: 83 3D 44 5D D2 13  cmp         dword ptr ds:[13D25D44h],2
+            02
+  116317E3: 75 0C              jne         116317F1
+  116317E5: C7 85 48 FE FF FF  mov         dword ptr [ebp+FFFFFE48h],80004005h
+            05 40 00 80
+  116317EF: EB 4C              jmp         1163183D
+  116317F1: 83 3D 44 5D D2 13  cmp         dword ptr ds:[13D25D44h],5
+            05
+  116317F8: 75 0C              jne         11631806
+  116317FA: C7 85 44 FE FF FF  mov         dword ptr [ebp+FFFFFE44h],80070005h
+            05 00 07 80
+  11631804: EB 2B              jmp         11631831
+  11631806: 83 3D 44 5D D2 13  cmp         dword ptr ds:[13D25D44h],4
+            04
+  1163180D: 75 0C              jne         1163181B
+  1163180F: C7 85 40 FE FF FF  mov         dword ptr [ebp+FFFFFE40h],1
+            01 00 00 00
+  11631819: EB 0A              jmp         11631825
+  1163181B: C7 85 40 FE FF FF  mov         dword ptr [ebp+FFFFFE40h],0
+            00 00 00 00
+  11631825: 8B 85 40 FE FF FF  mov         eax,dword ptr [ebp+FFFFFE40h]
+  1163182B: 89 85 44 FE FF FF  mov         dword ptr [ebp+FFFFFE44h],eax
+  11631831: 8B 8D 44 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFE44h]
+  11631837: 89 8D 48 FE FF FF  mov         dword ptr [ebp+FFFFFE48h],ecx
+  1163183D: 8B 95 48 FE FF FF  mov         edx,dword ptr [ebp+FFFFFE48h]
+  11631843: 89 55 AC           mov         dword ptr [ebp-54h],edx
+  11631846: 68 38 89 69 13     push        13698938h
+  1163184B: 8D 8D 50 FE FF FF  lea         ecx,[ebp+FFFFFE50h]
+  11631851: E8 0B EA BF FF     call        11230261
+  11631856: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1163185D: 8B 45 AC           mov         eax,dword ptr [ebp-54h]
+  11631860: 89 85 E0 FE FF FF  mov         dword ptr [ebp+FFFFFEE0h],eax
+  11631866: 8D 8D E0 FE FF FF  lea         ecx,[ebp+FFFFFEE0h]
+  1163186C: 51                 push        ecx
+  1163186D: 8D 8D 68 FE FF FF  lea         ecx,[ebp+FFFFFE68h]
+  11631873: E8 B1 25 BC FF     call        111F3E29
+  11631878: C6 45 FC 01        mov         byte ptr [ebp-4],1
+  1163187C: 6A 14              push        14h
+  1163187E: 8B 15 48 5D D2 13  mov         edx,dword ptr ds:[13D25D48h]
+  11631884: 52                 push        edx
+  11631885: B9 18 88 69 13     mov         ecx,13698818h
+  1163188A: E8 54 97 BD FF     call        1120AFE3
+  1163188F: 50                 push        eax
+  11631890: 8D 85 C8 FE FF FF  lea         eax,[ebp+FFFFFEC8h]
+  11631896: 50                 push        eax
+  11631897: E8 F8 96 BC FF     call        111FAF94
+  1163189C: 83 C4 0C           add         esp,0Ch
+  1163189F: 89 85 48 FE FF FF  mov         dword ptr [ebp+FFFFFE48h],eax
+  116318A5: 8B 8D 48 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFE48h]
+  116318AB: 89 8D 44 FE FF FF  mov         dword ptr [ebp+FFFFFE44h],ecx
+  116318B1: C6 45 FC 02        mov         byte ptr [ebp-4],2
+  116318B5: 8B 95 44 FE FF FF  mov         edx,dword ptr [ebp+FFFFFE44h]
+  116318BB: 52                 push        edx
+  116318BC: 8D 8D 80 FE FF FF  lea         ecx,[ebp+FFFFFE80h]
+  116318C2: E8 19 ED BF FF     call        112305E0
+  116318C7: C6 45 FC 03        mov         byte ptr [ebp-4],3
+  116318CB: 68 31 20 C6 13     push        13C62031h
+  116318D0: 8D 8D 98 FE FF FF  lea         ecx,[ebp+FFFFFE98h]
+  116318D6: E8 F6 B3 BC FF     call        111FCCD1
+  116318DB: C6 45 FC 05        mov         byte ptr [ebp-4],5
+  116318DF: 8D 85 B0 FE FF FF  lea         eax,[ebp+FFFFFEB0h]
+  116318E5: 50                 push        eax
+  116318E6: 8D 8D 50 FE FF FF  lea         ecx,[ebp+FFFFFE50h]
+  116318EC: 51                 push        ecx
+  116318ED: 8D 8D B8 FE FF FF  lea         ecx,[ebp+FFFFFEB8h]
+  116318F3: E8 8B 3D BD FF     call        11205683
+  116318F8: 8B 50 04           mov         edx,dword ptr [eax+4]
+  116318FB: 52                 push        edx
+  116318FC: 8B 00              mov         eax,dword ptr [eax]
+  116318FE: 50                 push        eax
+  116318FF: B9 30 5D D2 13     mov         ecx,13D25D30h
+  11631904: E8 D7 B5 BF FF     call        1122CEE0
+  11631909: C6 45 FC 04        mov         byte ptr [ebp-4],4
+  1163190D: 68 E4 76 21 11     push        112176E4h
+  11631912: 6A 04              push        4
+  11631914: 6A 18              push        18h
+  11631916: 8D 8D 50 FE FF FF  lea         ecx,[ebp+FFFFFE50h]
+  1163191C: 51                 push        ecx
+  1163191D: E8 87 9B BB FF     call        111EB4A9
+  11631922: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  11631929: 8D 8D C8 FE FF FF  lea         ecx,[ebp+FFFFFEC8h]
+  1163192F: E8 AD 01 BE FF     call        11211AE1
+  11631934: 90                 nop
+  11631935: 8B 45 AC           mov         eax,dword ptr [ebp-54h]
+  11631938: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1163193B: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11631942: 59                 pop         ecx
+  11631943: 5F                 pop         edi
+  11631944: 5E                 pop         esi
+  11631945: 5B                 pop         ebx
+  11631946: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  11631949: 33 CD              xor         ecx,ebp
+  1163194B: E8 12 6A BB FF     call        111E8362
+  11631950: 81 C4 C0 01 00 00  add         esp,1C0h
+  11631956: 3B EC              cmp         ebp,esp
+  11631958: E8 27 84 BB FF     call        111E9D84
+  1163195D: 8B E5              mov         esp,ebp
+  1163195F: 5D                 pop         ebp
+  11631960: C3                 ret
+  11631961: CC                 int         3
+
+  Summary
+
+     2496000 .text

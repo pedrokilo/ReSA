@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1161D8C0: 55                 push        ebp
+  1161D8C1: 8B EC              mov         ebp,esp
+  1161D8C3: 6A FF              push        0FFFFFFFFh
+  1161D8C5: 68 00 9F 56 13     push        13569F00h
+  1161D8CA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1161D8D0: 50                 push        eax
+  1161D8D1: 81 EC CC 00 00 00  sub         esp,0CCh
+  1161D8D7: 53                 push        ebx
+  1161D8D8: 56                 push        esi
+  1161D8D9: 57                 push        edi
+  1161D8DA: 51                 push        ecx
+  1161D8DB: 8D 7D E8           lea         edi,[ebp-18h]
+  1161D8DE: B9 03 00 00 00     mov         ecx,3
+  1161D8E3: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1161D8E8: F3 AB              rep stos    dword ptr es:[edi]
+  1161D8EA: 59                 pop         ecx
+  1161D8EB: A1 40 9D D0 13     mov         eax,dword ptr ds:[13D09D40h]
+  1161D8F0: 33 C5              xor         eax,ebp
+  1161D8F2: 50                 push        eax
+  1161D8F3: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1161D8F6: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1161D8FC: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1161D8FF: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1161D902: 50                 push        eax
+  1161D903: E8 78 4A FF FF     call        11612380
+  1161D908: 83 C4 04           add         esp,4
+  1161D90B: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1161D90E: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1161D915: 59                 pop         ecx
+  1161D916: 5F                 pop         edi
+  1161D917: 5E                 pop         esi
+  1161D918: 5B                 pop         ebx
+  1161D919: 81 C4 D8 00 00 00  add         esp,0D8h
+  1161D91F: 3B EC              cmp         ebp,esp
+  1161D921: E8 5E C4 BC FF     call        111E9D84
+  1161D926: 8B E5              mov         esp,ebp
+  1161D928: 5D                 pop         ebp
+  1161D929: C3                 ret
+  1161D92A: CC                 int         3
+  1161D92B: CC                 int         3
+  1161D92C: CC                 int         3
+  1161D92D: CC                 int         3
+  1161D92E: CC                 int         3
+  1161D92F: CC                 int         3
+
+  Summary
+
+     2496000 .text

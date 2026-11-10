@@ -1,0 +1,79 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "7c0dba0ab6a03ab237093a485bfd3d6304d37fc971b471187d39a5d538d3ec0e",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "GTA termino antes de completar (3221225786).",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
+    "tested_sources": {
+      "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+      "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
+      "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+      "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+      "source/game_sa/CutsceneMgr.h": "ea5d5ca8f14f1bc99af7d07cdafa6de91cf47981f6dc6e980bd752cccc0825eb",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+      "source/game_sa/Entity/Ped/Ped.h": "7d4f653e046e428073f2b3eae35c29eb9a771bfbffee79b86589e69f27e55404",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911"
+    },
+    "bank_sources": {
+      "reversing/RequestedPadMutationRemaining3/archive_log.py": "6276c74428dcaf7a6625bf8a5e4f4419af4a81e05c9a79dc7cacaf9928bbee34",
+      "reversing/RequestedPadMutationRemaining3/build_probe.py": "6955b4fec1ad2954b630f19e1eba912b15327f13dc7192c751c0a0d4d37ffd55",
+      "reversing/RequestedPadMutationRemaining3/DESIGN.md": "6c06e8d39eabc30be1c61cd88cdf09a1c6ce5cd590eaff9c92e953ca5173b85f",
+      "reversing/RequestedPadMutationRemaining3/evidence/0591-0x0053F530.json": "ad3f746ce0146587435e5df1690789cf7b68c7bf216ba831deff849faf3afaa9",
+      "reversing/RequestedPadMutationRemaining3/evidence/0598-0x0053F920.json": "14cf4a9ade26f210517e9739b84a69f68a31c907d5425817fd7c2abbacadd00f",
+      "reversing/RequestedPadMutationRemaining3/evidence/0602-0x00541C40.json": "0a301e55ac91805f1df13ddd1c6eb415df3eefbd4f28f4396437446aa63ed605",
+      "reversing/RequestedPadMutationRemaining3/evidence/candidate-reconcile-fullbody.json": "f5433e50a0ef5b7c3418bb1da6486653319a6b79a178fee07ee2aacb6e027b94",
+      "reversing/RequestedPadMutationRemaining3/evidence/candidate-scratch-current-artifact-proof.json": "77b16eb97a4f7e16175fdbab6a6dd2932c38abb10184d79271150133e6be4ab1",
+      "reversing/RequestedPadMutationRemaining3/evidence/candidate-scratch-dia.json": "ae0b041dbb0dfe1ee9a7d57ead1315a4358d5641ee4d12d422695d5a85111bca",
+      "reversing/RequestedPadMutationRemaining3/evidence/candidate-scratch-symbol.json": "3f05ba2b947d9a71a540b3ff8a7e0e795ce168aaa7544afff6299e177660ade2",
+      "reversing/RequestedPadMutationRemaining3/evidence/helper-ControllerCheckForInput.json": "5c8867de86cc85c0aa5c13819aff6f759c5ec4302deee330787153b5c201f6de",
+      "reversing/RequestedPadMutationRemaining3/evidence/helper-ControllerClear.json": "ab67248c5891bbf8288e2dc442a540d8078ef7d875d8a306f4cf3917453ff160",
+      "reversing/RequestedPadMutationRemaining3/evidence/ReconcileTwoControllersInput.exe.json": "3b8c394f5dd3cec9bfaacaaf7e57c25df9845128f3867d0e25cf36402c69139e",
+      "reversing/RequestedPadMutationRemaining3/evidence/StartShake.exe.json": "8f36ae6754638c20b6ab616dd364503ad70324c2e61924b7d84b54f9024d1f4a",
+      "reversing/RequestedPadMutationRemaining3/evidence/Update.exe.json": "8e9ef5928e37d3df6881aa5dac5df0bbfa38dde3100bd24d4a179cc9b8c9b19d",
+      "reversing/RequestedPadMutationRemaining3/Fixtures.hpp": "11b7e4e3b43365f0e5ff75929dbc815401f8b0ae2870063e6182f0d2d7c06dd9",
+      "reversing/RequestedPadMutationRemaining3/LiveComparison.hpp": "366a3746d6a313fbaef5e928e9092e966bf584332f088339f470e8154afe3221",
+      "reversing/RequestedPadMutationRemaining3/locate_scratch.py": "ae2e67e688fc30cd477561f3b79088d559facc8c516c546980f760572de4a3e6",
+      "reversing/RequestedPadMutationRemaining3/PreflightHarness.hpp": "f7586ad43c29317c29c13843a580c48ac1048dd56e093ff7ff6d73c6716503df",
+      "reversing/RequestedPadMutationRemaining3/run_local.py": "cc2565e1bc01469a7c132eacc79440b97f5583593bab28aeedcf18fdec1bd2aa",
+      "reversing/RequestedPadMutationRemaining3/scope.json": "0865857df9dd21cf72204563a54e412a8489fb23c55b5f777ea70f8efa47ee6b",
+      "reversing/RequestedPadMutationRemaining3/ScratchProof.hpp": "049fa91562629f1f4182cf5447aa087bf7f8502c6679f8ff3a3f8e7e9645dc8d",
+      "reversing/RequestedPadMutationRemaining3/source-consumer-impact.json": "697e60dc3a903f1580487b2b72f7ae35d139ec0dfb496efb12ddc901036265a1",
+      "reversing/RequestedPadMutationRemaining3/VTableRanges.hpp": "fd0d49ef7e3e0dd1609b116307a9d60699eab869b128b81869cccf785d5448d5",
+      "reversing/RequestedPadMutationRemaining3/corpus-frozen.json": "57f9898e13107cb1d0a5373a55a648c22fed8037c89d7c3e9fa6d701c920d501",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "5251233421eed091cdbeeb750e892e466a1425161d396100209834d7ec438df9",
+    "fixture_scope": "Exactly one CPad remaining mutation subbank selected per manifest: Reconcile2892/Update2560/StartShake89600. Private bounded pad/controllers, explicit two physical scratch arenas and active-role contract only for Reconcile, current final ASI/PDB layout hash and mapped fullbody/HIGHLOW operands verified at runtime. Full guards/globals/FP and allentry/vtable/flags restored; pregraphics natural0. No helper/realinput/game startup accreditation.",
+    "selected_bank": "shake",
+    "comparisons": 89600,
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "1bccdd8c6cdc52cceaf8a73256ea49c5a5ca02087c204b9cda4ab42eb9f9c83a"
+    },
+    "asi": "7c0dba0ab6a03ab237093a485bfd3d6304d37fc971b471187d39a5d538d3ec0e",
+    "pdb": "71be0a0f15f7b7a3e5c65207f69d5da6473bf4bfbcac1c59c2e94e047450f492",
+    "layout_proof_sha256": "eafa3290e30afce883884455be70789dca5730254a323c01b1d7477369c91a39"
+  },
+  "runner_sha256": "cc2565e1bc01469a7c132eacc79440b97f5583593bab28aeedcf18fdec1bd2aa",
+  "layout_proof_sha256": "eafa3290e30afce883884455be70789dca5730254a323c01b1d7477369c91a39",
+  "layout_file_restored": true
+}

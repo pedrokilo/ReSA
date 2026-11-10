@@ -1,0 +1,67 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115D9D30: 55                 push        ebp
+  115D9D31: 8B EC              mov         ebp,esp
+  115D9D33: 81 EC E4 00 00 00  sub         esp,0E4h
+  115D9D39: 53                 push        ebx
+  115D9D3A: 56                 push        esi
+  115D9D3B: 57                 push        edi
+  115D9D3C: 8D 7D DC           lea         edi,[ebp-24h]
+  115D9D3F: B9 09 00 00 00     mov         ecx,9
+  115D9D44: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115D9D49: F3 AB              rep stos    dword ptr es:[edi]
+  115D9D4B: A1 40 9D D0 13     mov         eax,dword ptr ds:[13D09D40h]
+  115D9D50: 33 C5              xor         eax,ebp
+  115D9D52: 89 45 FC           mov         dword ptr [ebp-4],eax
+  115D9D55: A1 D0 57 D2 13     mov         eax,dword ptr ds:[13D257D0h]
+  115D9D5A: 8B 08              mov         ecx,dword ptr [eax]
+  115D9D5C: 51                 push        ecx
+  115D9D5D: 8D 55 E0           lea         edx,[ebp-20h]
+  115D9D60: 52                 push        edx
+  115D9D61: E8 FB 41 C5 FF     call        1122DF61
+  115D9D66: 83 C4 08           add         esp,8
+  115D9D69: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  115D9D6C: 83 E0 01           and         eax,1
+  115D9D6F: 52                 push        edx
+  115D9D70: 8B CD              mov         ecx,ebp
+  115D9D72: 50                 push        eax
+  115D9D73: 8D 15 A0 9D 5D 11  lea         edx,ds:[115D9DA0h]
+  115D9D79: E8 AC 59 C1 FF     call        111EF72A
+  115D9D7E: 58                 pop         eax
+  115D9D7F: 5A                 pop         edx
+  115D9D80: 5F                 pop         edi
+  115D9D81: 5E                 pop         esi
+  115D9D82: 5B                 pop         ebx
+  115D9D83: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  115D9D86: 33 CD              xor         ecx,ebp
+  115D9D88: E8 D5 E5 C0 FF     call        111E8362
+  115D9D8D: 81 C4 E4 00 00 00  add         esp,0E4h
+  115D9D93: 3B EC              cmp         ebp,esp
+  115D9D95: E8 EA FF C0 FF     call        111E9D84
+  115D9D9A: 8B E5              mov         esp,ebp
+  115D9D9C: 5D                 pop         ebp
+  115D9D9D: C3                 ret
+  115D9D9E: 66 90              nop
+  115D9DA0: 01 00              add         dword ptr [eax],eax
+  115D9DA2: 00 00              add         byte ptr [eax],al
+  115D9DA4: A8 9D              test        al,9Dh
+  115D9DA6: 5D                 pop         ebp
+  115D9DA7: 11 E0              adc         eax,esp
+  115D9DA9: FF
+  115D9DAA: FF
+  115D9DAB: FF 18              call        fword ptr [eax]
+  115D9DAD: 00 00              add         byte ptr [eax],al
+  115D9DAF: 00 B4 9D 5D 11 76  add         byte ptr [ebp+ebx*4+6D76115Dh],dh
+            6D
+  115D9DB6: 69
+  115D9DB7: 00 CC              add         ah,cl
+
+  Summary
+
+     2496000 .text

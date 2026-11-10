@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1161C700: 55                 push        ebp
+  1161C701: 8B EC              mov         ebp,esp
+  1161C703: 81 EC CC 00 00 00  sub         esp,0CCh
+  1161C709: 53                 push        ebx
+  1161C70A: 56                 push        esi
+  1161C70B: 57                 push        edi
+  1161C70C: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1161C70F: B9 03 00 00 00     mov         ecx,3
+  1161C714: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1161C719: F3 AB              rep stos    dword ptr es:[edi]
+  1161C71B: C7 85 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],0
+            00 00 00 00
+  1161C725: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1161C728: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1161C72B: 51                 push        ecx
+  1161C72C: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  1161C72F: 8B 02              mov         eax,dword ptr [edx]
+  1161C731: 50                 push        eax
+  1161C732: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1161C735: 51                 push        ecx
+  1161C736: E8 B5 70 BF FF     call        112137F0
+  1161C73B: 83 C4 0C           add         esp,0Ch
+  1161C73E: 8B 95 38 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF38h]
+  1161C744: 83 CA 01           or          edx,1
+  1161C747: 89 95 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],edx
+  1161C74D: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1161C750: 5F                 pop         edi
+  1161C751: 5E                 pop         esi
+  1161C752: 5B                 pop         ebx
+  1161C753: 81 C4 CC 00 00 00  add         esp,0CCh
+  1161C759: 3B EC              cmp         ebp,esp
+  1161C75B: E8 D9 75 BC FF     call        111E3D39
+  1161C760: 8B E5              mov         esp,ebp
+  1161C762: 5D                 pop         ebp
+  1161C763: C3                 ret
+  1161C764: CC                 int         3
+
+  Summary
+
+     2489000 .text

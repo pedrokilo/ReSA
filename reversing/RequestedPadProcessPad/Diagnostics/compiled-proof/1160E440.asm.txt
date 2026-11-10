@@ -1,0 +1,75 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1160E440: 55                 push        ebp
+  1160E441: 8B EC              mov         ebp,esp
+  1160E443: 6A FF              push        0FFFFFFFFh
+  1160E445: 68 E0 78 55 13     push        135578E0h
+  1160E44A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1160E450: 50                 push        eax
+  1160E451: 81 EC E8 00 00 00  sub         esp,0E8h
+  1160E457: 53                 push        ebx
+  1160E458: 56                 push        esi
+  1160E459: 57                 push        edi
+  1160E45A: 51                 push        ecx
+  1160E45B: 8D 7D CC           lea         edi,[ebp-34h]
+  1160E45E: B9 0A 00 00 00     mov         ecx,0Ah
+  1160E463: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1160E468: F3 AB              rep stos    dword ptr es:[edi]
+  1160E46A: 59                 pop         ecx
+  1160E46B: A1 40 7D D9 13     mov         eax,dword ptr ds:[13D97D40h]
+  1160E470: 33 C5              xor         eax,ebp
+  1160E472: 50                 push        eax
+  1160E473: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1160E476: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1160E47C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1160E47F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1160E482: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  1160E488: 0F B6 8D 23 FF FF  movzx       ecx,byte ptr [ebp+FFFFFF23h]
+            FF
+  1160E48F: 51                 push        ecx
+  1160E490: 8B 8D 0C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF0Ch]
+  1160E496: E8 87 B1 C1 FF     call        11229622
+  1160E49B: 90                 nop
+  1160E49C: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1160E49F: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  1160E4A5: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1160E4A8: E8 3A 36 BE FF     call        111F1AE7
+  1160E4AD: 50                 push        eax
+  1160E4AE: 8D 8D 17 FF FF FF  lea         ecx,[ebp+FFFFFF17h]
+  1160E4B4: 51                 push        ecx
+  1160E4B5: E8 AE E2 BD FF     call        111EC768
+  1160E4BA: 83 C4 08           add         esp,8
+  1160E4BD: 50                 push        eax
+  1160E4BE: 8B 8D 0C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF0Ch]
+  1160E4C4: E8 3E 32 C0 FF     call        11211707
+  1160E4C9: 90                 nop
+  1160E4CA: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1160E4CD: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1160E4D0: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1160E4D7: 59                 pop         ecx
+  1160E4D8: 5F                 pop         edi
+  1160E4D9: 5E                 pop         esi
+  1160E4DA: 5B                 pop         ebx
+  1160E4DB: 81 C4 F4 00 00 00  add         esp,0F4h
+  1160E4E1: 3B EC              cmp         ebp,esp
+  1160E4E3: E8 51 58 BD FF     call        111E3D39
+  1160E4E8: 8B E5              mov         esp,ebp
+  1160E4EA: 5D                 pop         ebp
+  1160E4EB: C3                 ret
+  1160E4EC: CC                 int         3
+  1160E4ED: CC                 int         3
+  1160E4EE: CC                 int         3
+  1160E4EF: CC                 int         3
+  1160E4F0: CC                 int         3
+  1160E4F1: CC                 int         3
+
+  Summary
+
+     2489000 .text

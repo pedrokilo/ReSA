@@ -5,7 +5,7 @@
     "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
     "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
   },
-  "executed_probe_sha256": "dd894da46d3656b8e675ae86b7f22c029def435d314774a20fb872918989a88b",
+  "executed_probe_sha256": "b683d73660713907385d4754abd3f4bbfcd46c761643507244c5c2f4eac57e46",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "config_hashes_before": {
     "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
@@ -24,43 +24,26 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "b9796867fec704454a1cb1469764e4ea6791f1d67c4561aab6954bad220fc5a7",
-  "scope": "private task storage; reference/animation collaborators stubbed; subtask destructor trace only; exact terminal vptr and bytes checked",
+  "log_sha256": "0a4deae76194064f1ae478ef8a329465932b3d7f84683af9004f24266ee9d1f3",
+  "scope": "private task storage; reference/animation collaborators stubbed; subtask destructor trace only; exact terminal vptr and bytes checked Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "harness_restored": true,
   "harness_sha256": "86e8c6f57f7ab2c8c11c3e580fb5796a7bbfab05fece371cd90a0f3c039a064b",
   "saves_unchanged": true,
   "configs_restored": true,
   "manifest": {
-    "head": "cbf6d72fd35d49d4a148a8f7a7b200a8833d85af",
-    "tested_sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "92609802434d262b305b81f67aa28138e2c07e36d4e397fd80a22cc84b525e5a",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "0b223617bd34423a7170f4f82be2ce1f9b8b6a85861fdc1b97173dbabe87a2b3",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "76e3780181bd9268da7a7f731d74f06652e2f690011f547d6808a5c8bb607b7d",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "c14959a3a77c72193d28677c99672a31057b7542390c045606f279fcfa3e5fc5",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
-      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
-      "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
-      "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
-      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
-      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
-      "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
-      "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
-      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
-      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
-    },
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
     "bank_sources": {
-      "reversing/RequestedPreflightTaskCtorDtor/LiveComparison.hpp": "02dc8d6bbc24b8439399c5564182c2f41bf3abe750c1e6fcb71d6597d51b5448",
-      "reversing/RequestedPreflightTaskCtorDtor/TaskCtorDtorBank.hpp": "16ab83d3793dca21e73153e5132fd40ae1fe57105f8427a13f2366f96b6d9bf7",
-      "reversing/RequestedPreflightTaskCtorDtor/VTableRanges.hpp": "232ad42e2dd92d3d256c0599fccf970db0659d56d71124ac4c16e9c536222676",
-      "reversing/RequestedPreflightTaskCtorDtor/build_probe.py": "59f615ac929ca65690faab097e2bbf1b6cc9d40d4f34f13f8b9191f47c5da662",
-      "reversing/RequestedPreflightTaskCtorDtor/run_local.py": "bfca8471a6a67c582c2f1bade19db593794c2f6ac6f365c45f1e34a9edb50c6e",
-      "reversing/RequestedParallelReplay/TaskCtorDtor/LiveComparison.hpp": "773547bb8dd4baa70eea7158ae5efae8a5f124625a07d9226810522ff5d59650",
-      "reversing/RequestedParallelReplay/TaskCtorDtor/run_local.py": "410f9492c62bf305f4de19891f1d7ab88f40611acc50ca2728276da3a6a6fc60",
+      "reversing/RequestedPreflightTaskCtorDtor/LiveComparison.hpp": "5f8590fb7d80e7d683dec39a1558bfcb0f4dd6d45a7e3d52f44282d2427abc08",
+      "reversing/RequestedPreflightTaskCtorDtor/TaskCtorDtorBank.hpp": "685f3462ba3934bd2a7418b5f4ab080c3db0262e8245878bebfe2a5e846ad502",
+      "reversing/RequestedPreflightTaskCtorDtor/VTableRanges.hpp": "e0f4db81d8f2161e3146645af0c821704617154ef86f9f0b7972a0166e5f0161",
+      "reversing/RequestedPreflightTaskCtorDtor/build_probe.py": "6b45b24e5d1b0242d19b13634e8f3d5e8f4d748e0f75f38c125a4f71e36df333",
+      "reversing/RequestedPreflightTaskCtorDtor/register_historical.py": "e0244fdf9d49ed9d240c66b844591e11459006489b4ca0e1987c980b8d082a68",
+      "reversing/RequestedPreflightTaskCtorDtor/run_local.py": "d39537e0918cd4c77a049ae5fe8889dc270f9da67ff8a71e536da5d33b1fc02e",
+      "reversing/RequestedParallelReplay/TaskCtorDtor/LiveComparison.hpp": "116d2d36be469b46bcc9a4ac2d5462e73deadfa9b643b4a9b890b7aaab8a7850",
+      "reversing/RequestedParallelReplay/TaskCtorDtor/run_local.py": "e5cdf9b405aa39c4c202e26336657bd9c9bd38d6a6aeaf5b9f6e6cbe0b603fba",
       "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
       "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
-      "reversing/runtime_runner.py": "e99f8627950bdfb92d0ce66d8d4becc7fc4dc3899ee80f223a900dbb7096fc0c",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb",
       "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
     },
     "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
@@ -70,10 +53,55 @@
       "source/app/platform/win/WinMain.cpp": "f89888677b7fbc5f9bcba946e7b0a245bc01b3eda3ae4963a57f3834a7e90466"
     },
     "asi": "dd894da46d3656b8e675ae86b7f22c029def435d314774a20fb872918989a88b",
-    "pdb": "c517968345c5e5b0517358d55caf30d5d221bf957a8b598cb94b6e9b92152ac6"
+    "pdb": "c517968345c5e5b0517358d55caf30d5d221bf957a8b598cb94b6e9b92152ac6",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "e8b61ed3242ed17687efc4de5aba4c54ce37f8df16b7cc03c6cd5f2998cdad48",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp": "d773ed0f1735eba3ba7b3abc26d240e2435f8f0115cec90b4ce7118351aa4841",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.h": "ff5f8cae1c33f4e2f7a65b110cb0161bed2dedaec28a29c8aa512d0f146e8986",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp": "5d622aee538420bbed9924b272321bbdf0a89dc90975876bb1f190cef0c31d08",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.h": "c73ff593e8e5c98f50ffc8e010a5eb11a7b06ec3f82c8606513b855416079c91",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
+      "source/game_sa/Tasks/Task.cpp": "f55b521efb046d5c9564d62102e8cbe862334641203ff8be8f65031ddbf3beb7",
+      "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
+      "source/game_sa/Entity/Entity.cpp": "6f9dc3b8ced38440b6c1fc191d3e593941729124759c92ca039d6cb4295c76d9",
+      "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+      "source/game_sa/Animation/AnimManager.cpp": "dcf44058c56ead0dfa27408d600785516bb9b291b3715026e8af83840ff3a134",
+      "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
   },
   "runner_sha256": "bfca8471a6a67c582c2f1bade19db593794c2f6ac6f365c45f1e34a9edb50c6e",
   "approved_scope": "Six constructor/destructor identities, 256 cases each; exact full payload, native terminal CTask vptr and collaborator trace comparison. Pregraphics only. Reference and animation collaborators stubbed, no game startup, pools or general task integration accredited.",
   "evidence_run": "reversing/RequestedPreflightTaskCtorDtor/runs/20261008-122535-223756",
-  "enriched_summary_sha256": "f6ea1c5f492546b25da503e37e05580eeb3a8783d2808deae19b9b362cd34cbb"
+  "enriched_summary_sha256": "f6ea1c5f492546b25da503e37e05580eeb3a8783d2808deae19b9b362cd34cbb",
+  "run": "reversing/CppTwelveLevel6Final/runs/RequestedPreflightTaskCtorDtor-20261110-110128-820467",
+  "summary_sha256": "745ae0cd2db8d5b54e40b52a6c2f551c977ac6229b6212675f26eaeaa27feddf",
+  "result_txt_sha256": "431ea3da66fd4bc94040149cfefe3f3cf52d0525fa5859384d8f89e2a2f04198",
+  "functions": {
+    "CTaskComplexKillPedFromBoat::Constructor": 256,
+    "CTaskComplexKillPedFromBoat::Destructor": 256,
+    "CTaskComplexHitPedWithCar::Constructor": 256,
+    "CTaskComplexHitPedWithCar::Destructor": 256,
+    "CTaskComplexSunbathe::Constructor": 256,
+    "CTaskComplexSunbathe::Destructor": 256
+  },
+  "covered_functions": {
+    "CTaskComplexKillPedFromBoat::Constructor": true,
+    "CTaskComplexKillPedFromBoat::Destructor": true,
+    "CTaskComplexHitPedWithCar::Constructor": true,
+    "CTaskComplexHitPedWithCar::Destructor": true,
+    "CTaskComplexSunbathe::Constructor": true,
+    "CTaskComplexSunbathe::Destructor": true
+  },
+  "registered_pairs": 1536,
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RequestedPreflightTaskCtorDtor-20261110-110128-820467/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "95a22403e30f8cf17ebd2e25171a9dd3c56db0cc03ca2cd156449372efee2c75",
+    "uncompressed_sha256": "0a4deae76194064f1ae478ef8a329465932b3d7f84683af9004f24266ee9d1f3"
+  }
 }

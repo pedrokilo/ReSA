@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11617370: 55                 push        ebp
+  11617371: 8B EC              mov         ebp,esp
+  11617373: 81 EC CC 00 00 00  sub         esp,0CCh
+  11617379: 53                 push        ebx
+  1161737A: 56                 push        esi
+  1161737B: 57                 push        edi
+  1161737C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1161737F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11617382: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11617385: 89 08              mov         dword ptr [eax],ecx
+  11617387: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1161738A: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1161738D: 89 48 04           mov         dword ptr [eax+4],ecx
+  11617390: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11617393: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11617396: 89 48 08           mov         dword ptr [eax+8],ecx
+  11617399: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1161739C: 5F                 pop         edi
+  1161739D: 5E                 pop         esi
+  1161739E: 5B                 pop         ebx
+  1161739F: 8B E5              mov         esp,ebp
+  116173A1: 5D                 pop         ebp
+  116173A2: C2 0C 00           ret         0Ch
+  116173A5: CC                 int         3
+  116173A6: CC                 int         3
+  116173A7: CC                 int         3
+  116173A8: CC                 int         3
+  116173A9: CC                 int         3
+  116173AA: CC                 int         3
+  116173AB: CC                 int         3
+  116173AC: CC                 int         3
+  116173AD: CC                 int         3
+  116173AE: CC                 int         3
+  116173AF: CC                 int         3
+  116173B0: CC                 int         3
+
+  Summary
+
+     2496000 .text

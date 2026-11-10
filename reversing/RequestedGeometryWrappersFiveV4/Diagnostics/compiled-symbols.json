@@ -1,136 +1,126 @@
 {
-  "asi_sha256": "ac4b86f836d2239fc5c371485bb0c9334357913ddc7b098a592f97f9e82d46b5",
-  "pdb_sha256": "e4e4ef5c313e33b69b704013fcd281c7d2b31e55b5222e011887fa95b6e37985",
+  "asi_sha256": "7d468cd2a3f7f9c4060f21b1a0a9b3cfcbff6e175ebabd040483e245f3d94b30",
+  "pdb_sha256": "9f775c8b82f67473cdec245d40d9171a404fc37be8cd1c1cfe3c913ccc60deb0",
   "base": 268435456,
   "symbols": [
     {
       "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanesUncachedAll",
-      "address": 297073488,
+      "address": 300952448,
       "size": 211
     },
     {
       "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncachedAll",
-      "address": 297072784,
+      "address": 300951744,
       "size": 172
     },
     {
       "name": "`CPedGeometryAnalyser::ComputeEntityBoundingBoxCornersUncached'::`10'::<lambda_1>::<lambda_1>",
-      "address": 297057744,
+      "address": 300934352,
       "size": 62
     },
     {
       "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanesUncached",
-      "address": 297073104,
+      "address": 300952064,
       "size": 298
     },
     {
       "name": "`CPedGeometryAnalyser::ComputeEntityBoundingBoxCornersUncached'::`10'::<lambda_1>::operator()",
-      "address": 297059776,
+      "address": 300936240,
       "size": 800
     },
     {
       "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCentreUncachedAll",
-      "address": 297068016,
+      "address": 300946976,
       "size": 168
     },
     {
       "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanes",
-      "address": 297073008,
+      "address": 300951968,
       "size": 74
     },
     {
       "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCentre",
-      "address": 297067472,
+      "address": 300946432,
       "size": 70
     },
     {
       "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCentreUncached",
-      "address": 297067568,
+      "address": 300946528,
       "size": 354
     },
     {
       "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCorners",
-      "address": 297068240,
+      "address": 300947200,
       "size": 70
     },
     {
       "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanes",
-      "address": 297072320,
+      "address": 300951280,
       "size": 74
     },
     {
       "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxCornersUncached",
-      "address": 297068336,
+      "address": 300947296,
       "size": 3183
     },
     {
       "name": "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncached",
-      "address": 297072416,
+      "address": 300951376,
       "size": 286
     },
     {
       "name": "CEntity::CEntity",
-      "address": 292619744,
+      "address": 295783568,
       "size": 322
     },
     {
       "name": "CEntity::CEntity",
-      "address": 287482224,
+      "address": 290134240,
       "size": 1404
     },
     {
       "name": "CGeneral::GetRandomNumberInRange<unsigned int>",
-      "address": 289482928,
-      "size": 59
+      "address": 292202704,
+      "size": 21
     },
     {
       "name": "CGeneral::GetRandomNumberInRange<unsigned int>",
-      "address": 289483008,
-      "size": 344
+      "address": 292202736,
+      "size": 231
     },
     {
       "name": "CGeneral::GetRandomNumber",
-      "address": 295595376,
+      "address": 299371856,
       "size": 48
     },
     {
       "name": "CGeneral::GetRandomNumberInRange<short>",
-      "address": 310538288,
+      "address": 315245152,
       "size": 168
     },
     {
       "name": "CGeneral::GetRandomNumberInRange<unsigned short>",
-      "address": 310538512,
+      "address": 315245376,
       "size": 168
     },
     {
       "name": "CGeneral::GetRandomNumberInRange<char>",
-      "address": 292399984,
+      "address": 295521296,
       "size": 166
     },
     {
       "name": "CGeneral::GetRandomNumberInRange<float>",
-      "address": 295592656,
-      "size": 37
+      "address": 299369440,
+      "size": 82
     },
     {
       "name": "CGeneral::GetRandomNumberInRange<int>",
-      "address": 291539920,
+      "address": 294561024,
       "size": 153
     },
     {
-      "name": "CGeneral::GetRandomNumberInRange<unsigned char>",
-      "address": 298641536,
-      "size": 60
-    },
-    {
-      "name": "CGeneral::GetRandomNumberInRange<unsigned char>",
-      "address": 298641616,
-      "size": 166
-    },
-    {
       "name": "RequestedGeometryWrappersFiveV4Live::ConstructFixture",
-      "address": 288918032,
+      "address": 291596544,
       "size": 78
     }
   ]

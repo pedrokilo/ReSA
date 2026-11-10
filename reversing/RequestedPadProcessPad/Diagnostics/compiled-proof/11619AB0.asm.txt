@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11619AB0: 55                 push        ebp
+  11619AB1: 8B EC              mov         ebp,esp
+  11619AB3: 81 EC DC 00 00 00  sub         esp,0DCh
+  11619AB9: 53                 push        ebx
+  11619ABA: 56                 push        esi
+  11619ABB: 57                 push        edi
+  11619ABC: 51                 push        ecx
+  11619ABD: 8D 7D E4           lea         edi,[ebp-1Ch]
+  11619AC0: B9 07 00 00 00     mov         ecx,7
+  11619AC5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11619ACA: F3 AB              rep stos    dword ptr es:[edi]
+  11619ACC: 59                 pop         ecx
+  11619ACD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11619AD0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11619AD3: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  11619AD9: 83 BD 2C FF FF FF  cmp         dword ptr [ebp+FFFFFF2Ch],0
+            00
+  11619AE0: 74 15              je          11619AF7
+  11619AE2: 6A 01              push        1
+  11619AE4: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  11619AEA: E8 9D 8D BF FF     call        1121288C
+  11619AEF: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  11619AF5: EB 0A              jmp         11619B01
+  11619AF7: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  11619B01: 5F                 pop         edi
+  11619B02: 5E                 pop         esi
+  11619B03: 5B                 pop         ebx
+  11619B04: 81 C4 DC 00 00 00  add         esp,0DCh
+  11619B0A: 3B EC              cmp         ebp,esp
+  11619B0C: E8 28 A2 BC FF     call        111E3D39
+  11619B11: 8B E5              mov         esp,ebp
+  11619B13: 5D                 pop         ebp
+  11619B14: C2 04 00           ret         4
+  11619B17: CC                 int         3
+
+  Summary
+
+     2489000 .text

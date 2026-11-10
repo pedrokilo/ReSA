@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1162E4D0: 55                 push        ebp
+  1162E4D1: 8B EC              mov         ebp,esp
+  1162E4D3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1162E4D9: 53                 push        ebx
+  1162E4DA: 56                 push        esi
+  1162E4DB: 57                 push        edi
+  1162E4DC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1162E4DF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1162E4E2: 5F                 pop         edi
+  1162E4E3: 5E                 pop         esi
+  1162E4E4: 5B                 pop         ebx
+  1162E4E5: 8B E5              mov         esp,ebp
+  1162E4E7: 5D                 pop         ebp
+  1162E4E8: C3                 ret
+  1162E4E9: CC                 int         3
+  1162E4EA: CC                 int         3
+  1162E4EB: CC                 int         3
+  1162E4EC: CC                 int         3
+  1162E4ED: CC                 int         3
+  1162E4EE: CC                 int         3
+  1162E4EF: CC                 int         3
+  1162E4F0: 55                 push        ebp
+  1162E4F1: 8B EC              mov         ebp,esp
+  1162E4F3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1162E4F9: 53                 push        ebx
+  1162E4FA: 56                 push        esi
+  1162E4FB: 57                 push        edi
+  1162E4FC: 51                 push        ecx
+  1162E4FD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1162E500: B9 03 00 00 00     mov         ecx,3
+  1162E505: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1162E50A: F3 AB              rep stos    dword ptr es:[edi]
+  1162E50C: 59                 pop         ecx
+  1162E50D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1162E510: 8B
+
+  Summary
+
+     2489000 .text

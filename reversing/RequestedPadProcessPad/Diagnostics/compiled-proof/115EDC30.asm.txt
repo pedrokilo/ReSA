@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115EDC30: 55                 push        ebp
+  115EDC31: 8B EC              mov         ebp,esp
+  115EDC33: 81 EC C0 00 00 00  sub         esp,0C0h
+  115EDC39: 53                 push        ebx
+  115EDC3A: 56                 push        esi
+  115EDC3B: 57                 push        edi
+  115EDC3C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115EDC3F: 5F                 pop         edi
+  115EDC40: 5E                 pop         esi
+  115EDC41: 5B                 pop         ebx
+  115EDC42: 8B E5              mov         esp,ebp
+  115EDC44: 5D                 pop         ebp
+  115EDC45: C3                 ret
+  115EDC46: CC                 int         3
+  115EDC47: CC                 int         3
+  115EDC48: CC                 int         3
+  115EDC49: CC                 int         3
+  115EDC4A: CC                 int         3
+  115EDC4B: CC                 int         3
+  115EDC4C: CC                 int         3
+  115EDC4D: CC                 int         3
+  115EDC4E: CC                 int         3
+  115EDC4F: CC                 int         3
+  115EDC50: 55                 push        ebp
+  115EDC51: 8B EC              mov         ebp,esp
+  115EDC53: 81 EC C0 00 00 00  sub         esp,0C0h
+  115EDC59: 53                 push        ebx
+  115EDC5A: 56                 push        esi
+  115EDC5B: 57                 push        edi
+  115EDC5C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115EDC5F: 5F                 pop         edi
+  115EDC60: 5E                 pop         esi
+  115EDC61: 5B                 pop         ebx
+  115EDC62: 8B E5              mov         esp,ebp
+  115EDC64: 5D                 pop         ebp
+  115EDC65: C3                 ret
+  115EDC66: CC                 int         3
+  115EDC67: CC                 int         3
+  115EDC68: CC                 int         3
+  115EDC69: CC                 int         3
+  115EDC6A: CC                 int         3
+  115EDC6B: CC                 int         3
+  115EDC6C: CC                 int         3
+  115EDC6D: CC                 int         3
+  115EDC6E: CC                 int         3
+  115EDC6F: CC                 int         3
+  115EDC70: 55                 push        ebp
+
+  Summary
+
+     2489000 .text

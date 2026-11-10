@@ -1,0 +1,123 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "b893c464335995090a302fc9e64dd0e90dda04d92fef43a63bf382e195f9a24c",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 9936,
+  "pairs_per_function": {
+    "CInterestingEvents::InvalidateEvent": 720,
+    "CPedDamageResponseCalculator::ComputeWillKillPed": 9216
+  },
+  "differences": 1560,
+  "model_mismatches": 1560,
+  "validation_errors": [
+    "Unexpected bank event at line 9937",
+    "Bank did not complete exactly 9936 pairs",
+    "Nonzero differences or mismatch with model"
+  ],
+  "all_equal": false,
+  "state_restored": true,
+  "harness_restored": true,
+  "log_sha256": "b08be7ac555c91ab1085ed869c83dac20927b375be83de8d7a6824a246303043",
+  "harness_sha256": "2a9bdedf18524d0e319f0cfbd2e03950f32622582f6bda765efcd3577cd7fe2e",
+  "scope": "finite private fixtures; references, force-death and speech isolated; no real-actor integration",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
+    "tested_sources": {
+      "source/game_sa/InterestingEvents.cpp": "07b2b25fcbf43fd3d813cdd84ee0d0186063cf85977ba66ab5480df35bed2adb",
+      "source/game_sa/InterestingEvents.h": "853f84778900d78d3f496e72ec48d083169b15b0d0ccd9a5a89fb5922b8bbc76",
+      "source/game_sa/PedDamageResponseCalculator.cpp": "c769c53d2779d6aa96f74e87e926c9da13ab607dbcc4ea978537dc9958eb406b",
+      "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+      "source/game_sa/PedDamageResponse.h": "b8d633254cf96a2b99ffefbc71901d9a49d73f5da3c56d37554bd2fce675f46f",
+      "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+      "source/game_sa/Entity/Ped/Ped.h": "7d4f653e046e428073f2b3eae35c29eb9a771bfbffee79b86589e69f27e55404",
+      "source/game_sa/Entity/Entity.cpp": "6f9dc3b8ced38440b6c1fc191d3e593941729124759c92ca039d6cb4295c76d9",
+      "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
+      "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e",
+      "source/game_sa/Enums/eWeaponType.h": "0a245360d64947392a192b571637f47063068b1fd891d1d9cf23b23692a13269",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
+    },
+    "bank_sources": {
+      "reversing/RequestedRemainingLeafPair/LiveComparison.hpp": "aa71c279399fe4ca5524464c2873450651cab67d3db7cfc037913196116790e8",
+      "reversing/RequestedRemainingLeafPair/Preflight.hpp": "c9f443d3521ece42125c85292137c1982b9f23111575b44c2ac87f0ee0227514",
+      "reversing/RequestedRemainingLeafPair/VTableRanges.hpp": "87a79e2a5d33d3ba9d8aa8680d64a9d78b8948049641d7653aa0919b213e2bac",
+      "reversing/RequestedRemainingLeafPair/build_probe.py": "e141d4ccee9abc779eeaa3d7b99ecb42e2213a8c28f928577b41953eb588f5a0",
+      "reversing/RequestedRemainingLeafPair/run_local.py": "9e46c5035e3eea92ab523a98e466a02cb8873861d639cb6886df4b47e201ac83",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "5251233421eed091cdbeeb750e892e466a1425161d396100209834d7ec438df9",
+    "expected_pairs": 9936,
+    "fixture_scope": "Remaining leaf pair before graphics; finite event/ref and damage/player ABI fixtures, force and speech stubbed; no WinMain/startup or actual actors equivalence. All mismatches remain failure.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "04ee2a1d2e6e7b7dd8180b6df394ac00cb657ed51b09b8e93bfc9c021aa4e00e"
+    },
+    "asi": "b893c464335995090a302fc9e64dd0e90dda04d92fef43a63bf382e195f9a24c",
+    "pdb": "0cb54cfb7c0904bf1bfdcccf6a494384a03852b2c22299128f6f1ad49b92c92c"
+  },
+  "runner_sha256": "9e46c5035e3eea92ab523a98e466a02cb8873861d639cb6886df4b47e201ac83",
+  "reproduction_diagnostics": {
+    "pairs": 9936,
+    "pairs_per_function": {
+      "CInterestingEvents::InvalidateEvent": 720,
+      "CPedDamageResponseCalculator::ComputeWillKillPed": 9216
+    },
+    "differences": 1560,
+    "model_mismatches": 1560,
+    "validation_errors": [
+      "Unexpected bank event at line 9937",
+      "Bank did not complete exactly 9936 pairs",
+      "Nonzero differences or mismatch with model"
+    ],
+    "terminal_bank_record": {
+      "cheats_restored": true,
+      "collaborator_entries_restored": true,
+      "differences": 1560,
+      "entries_restored": true,
+      "event": "error",
+      "flags_restored": true,
+      "pairs": 9936,
+      "scope": "finite private fixtures; references, force-death and speech isolated; no real-actor integration",
+      "state_restored": true
+    },
+    "terminal_harness_record": {
+      "changed_ranges": [],
+      "entries_restored": true,
+      "event": "complete",
+      "flags_restored": true,
+      "snapshot_ranges": 20614,
+      "state_restored": true,
+      "tables_restored": true,
+      "timer_restored": true
+    }
+  },
+  "comparison_storage": {
+    "uncompressed_path": "reversing/RequestedRemainingLeafPair/runs/20261110-110211-795319/comparisons.jsonl",
+    "uncompressed_sha256": "b08be7ac555c91ab1085ed869c83dac20927b375be83de8d7a6824a246303043",
+    "uncompressed_bytes": 119437371,
+    "compressed_path": "reversing/RequestedRemainingLeafPair/runs/20261110-110211-795319/comparisons.jsonl.gz",
+    "compressed_sha256": "5341e712980b1c806035bdbf5ae1826ad5aa292f4c1c0caeb3a98a23ad488ac5",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "lossless_roundtrip_sha256": "b08be7ac555c91ab1085ed869c83dac20927b375be83de8d7a6824a246303043"
+  }
+}

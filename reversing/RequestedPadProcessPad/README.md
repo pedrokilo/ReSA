@@ -67,3 +67,11 @@ python -B reversing/RequestedPadProcessPad/run_local.py
 - El número de rangos del preflight (`snapshot_ranges`) no se fija; el analizador exige solo `changed_ranges==[]`.
 - Comprobar que `Pads` globales sembradas con patrón no dispara código ajeno durante el banco (se ejecuta al inicio de WinMain, hooks inactivos).
 - Alcance: ningún crédito para DirectInput/COM, RsPadEventHandler, GetPad, FTOL, integración, jugabilidad ni vigencia de dependencias.
+
+## Repeticion del 10/11/2026 (REPARAR-REQUESTED)
+
+Estado: **REPETIBLE y APROBADO** con el codigo actual de `main` (`bash reversing/_handoff/bench_here.sh RequestedPadProcessPad`): **17256 (CPad::ProcessPad) pares EXE/DLL, cero diferencias**, restauracion exacta, salida natural. Corrida `20261110-112419-912679` (archivada en `reversing/CppTwelveLevel6Final/runs/RequestedPadProcessPad-20261110-112419-912679`).
+
+Que fallaba: `VTableRanges.hpp` estaba congelado en octubre (454 filas) y el preflight paraba con `unknown_vtable_category` (primero `CEventDraggedOutCar`) en cuanto una clase con hooks virtuales no figuraba en la tabla: faltaban 17 clases `CEvent*` registradas despues (`CEventChatPartner`, `CEventDeadPed`, `CEventDraggedOutCar`, `CEventFireNearby`, `CEventGotKnockedOverByCar`, `CEventGroupEvent`, `CEventGunAimedAt`, `CEventInWater`, `CEventInteriorUseInfo`, `CEventPedEnteredMyVehicle`, `CEventPedToChase`, `CEventPedToFlee`, `CEventPotentialGetRunOver`, `CEventRevived`, `CEventSexyPed`, `CEventSexyVehicle`, `CEventSpecial`). Arreglo solo en el banco: `reversing/RequestedTools/vtable_ranges_sync.py --apply` anade las filas ausentes con direccion y ranuras de `RH_ScopedVirtualClass` (0 filas eliminadas, 0 filas con datos distintos), `reversing/RequestedTools/refreeze_generic.py` recalcula los SHA256 del congelado (LF de git y versiones actuales de los ficheros compartidos) y `build_probe*.py` respeta `_CL_` (compilacion en serie bajo candado; antes forzaba `/MP6`). Ademas, `run_local.py` exige `Diagnostics/compiled-runtime-proof.json` ligada al hash del ASI compilado y esa prueba estatica era un paso manual: ahora `build_probe.py` ejecuta `inspect_compiled.py` y `Diagnostics/verify_compiled_calls.py` tras compilar (funcion `prove()`).
+
+Sin cambios de produccion. Evidencia y registro refrescados con `refresh_bank.py`.

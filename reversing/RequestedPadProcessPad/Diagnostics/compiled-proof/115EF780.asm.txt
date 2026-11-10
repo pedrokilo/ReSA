@@ -1,0 +1,60 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115EF780: 55                 push        ebp
+  115EF781: 8B EC              mov         ebp,esp
+  115EF783: 81 EC CC 00 00 00  sub         esp,0CCh
+  115EF789: 53                 push        ebx
+  115EF78A: 56                 push        esi
+  115EF78B: 57                 push        edi
+  115EF78C: 8D 7D F4           lea         edi,[ebp-0Ch]
+  115EF78F: B9 03 00 00 00     mov         ecx,3
+  115EF794: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115EF799: F3 AB              rep stos    dword ptr es:[edi]
+  115EF79B: E8 2C 0E C3 FF     call        112205CC
+  115EF7A0: 0F B6 C0           movzx       eax,al
+  115EF7A3: 85 C0              test        eax,eax
+  115EF7A5: 74 1B              je          115EF7C2
+  115EF7A7: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  115EF7AA: 50                 push        eax
+  115EF7AB: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  115EF7AE: 51                 push        ecx
+  115EF7AF: E8 88 15 C4 FF     call        11230D3C
+  115EF7B4: 83 C4 04           add         esp,4
+  115EF7B7: 50                 push        eax
+  115EF7B8: E8 94 A1 C3 FF     call        11229951
+  115EF7BD: 83 C4 08           add         esp,8
+  115EF7C0: EB 2D              jmp         115EF7EF
+  115EF7C2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115EF7C5: 50                 push        eax
+  115EF7C6: E8 71 15 C4 FF     call        11230D3C
+  115EF7CB: 83 C4 04           add         esp,4
+  115EF7CE: 50                 push        eax
+  115EF7CF: 6A 04              push        4
+  115EF7D1: E8 4D 01 BF FF     call        111DF923
+  115EF7D6: 83 C4 08           add         esp,8
+  115EF7D9: 89 85 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],eax
+  115EF7DF: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  115EF7E2: 51                 push        ecx
+  115EF7E3: 8B 8D 38 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF38h]
+  115EF7E9: E8 55 13 C4 FF     call        11230B43
+  115EF7EE: 90                 nop
+  115EF7EF: 5F                 pop         edi
+  115EF7F0: 5E                 pop         esi
+  115EF7F1: 5B                 pop         ebx
+  115EF7F2: 81 C4 CC 00 00 00  add         esp,0CCh
+  115EF7F8: 3B EC              cmp         ebp,esp
+  115EF7FA: E8 3A 45 BF FF     call        111E3D39
+  115EF7FF: 8B E5              mov         esp,ebp
+  115EF801: 5D                 pop         ebp
+  115EF802: C3                 ret
+  115EF803: CC                 int         3
+
+  Summary
+
+     2489000 .text

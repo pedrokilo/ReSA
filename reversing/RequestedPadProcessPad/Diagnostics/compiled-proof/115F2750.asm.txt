@@ -1,0 +1,65 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115F2750: 55                 push        ebp
+  115F2751: 8B EC              mov         ebp,esp
+  115F2753: 81 EC F0 00 00 00  sub         esp,0F0h
+  115F2759: 53                 push        ebx
+  115F275A: 56                 push        esi
+  115F275B: 57                 push        edi
+  115F275C: 51                 push        ecx
+  115F275D: 8D 7D D0           lea         edi,[ebp-30h]
+  115F2760: B9 0C 00 00 00     mov         ecx,0Ch
+  115F2765: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115F276A: F3 AB              rep stos    dword ptr es:[edi]
+  115F276C: 59                 pop         ecx
+  115F276D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115F2770: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115F2773: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  115F2776: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  115F2779: 83 C0 08           add         eax,8
+  115F277C: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  115F277F: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F2782: 50                 push        eax
+  115F2783: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  115F2786: 8B 11              mov         edx,dword ptr [ecx]
+  115F2788: 52                 push        edx
+  115F2789: E8 4C CF BE FF     call        111DF6DA
+  115F278E: 83 C4 08           add         esp,8
+  115F2791: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  115F2794: 8B 08              mov         ecx,dword ptr [eax]
+  115F2796: 51                 push        ecx
+  115F2797: 8B 55 E0           mov         edx,dword ptr [ebp-20h]
+  115F279A: 8B 02              mov         eax,dword ptr [edx]
+  115F279C: 50                 push        eax
+  115F279D: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  115F27A0: E8 01 34 C0 FF     call        111F5BA6
+  115F27A5: 90                 nop
+  115F27A6: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  115F27A9: 8B 08              mov         ecx,dword ptr [eax]
+  115F27AB: 89 4D D4           mov         dword ptr [ebp-2Ch],ecx
+  115F27AE: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  115F27B1: 8B 08              mov         ecx,dword ptr [eax]
+  115F27B3: 83 C1 04           add         ecx,4
+  115F27B6: 8B 55 E0           mov         edx,dword ptr [ebp-20h]
+  115F27B9: 89 0A              mov         dword ptr [edx],ecx
+  115F27BB: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  115F27BE: 5F                 pop         edi
+  115F27BF: 5E                 pop         esi
+  115F27C0: 5B                 pop         ebx
+  115F27C1: 81 C4 F0 00 00 00  add         esp,0F0h
+  115F27C7: 3B EC              cmp         ebp,esp
+  115F27C9: E8 6B 15 BF FF     call        111E3D39
+  115F27CE: 8B E5              mov         esp,ebp
+  115F27D0: 5D                 pop         ebp
+  115F27D1: C2 04 00           ret         4
+  115F27D4: CC                 int         3
+
+  Summary
+
+     2489000 .text

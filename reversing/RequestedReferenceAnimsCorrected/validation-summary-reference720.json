@@ -5,7 +5,7 @@
     "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
     "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
   },
-  "executed_probe_sha256": "a4e19e6e2225d753c6a4f373777203829362a644fa787185f3bc39b40909187a",
+  "executed_probe_sha256": "bad29bfaa33a3255fbbece1bd316a3f0c5f1cc9ff6ac07bde180b0e6cae9c647",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "config_hashes_before": {
     "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
@@ -42,38 +42,24 @@
   },
   "log_sha256": "3d06ab8dfb280c4b1d0aaac4be62bce4055f9762cefeb93a8dc667b91f617e99",
   "harness_sha256": "7f6e5e09eb581d7116132a102f4c4dcb321f46215c5a767f536365bdb8a93a4e",
-  "scope": "Historical720 finite valid-group private reference fixtures:3types xreferenced0/1/-1 x4indices0/1/127/179 xrawloadedbyte0..4 x4poisons. Independent188byte arena and exact lookup240/ref48/request192 traces match original/candidate, strict target/helper entry gates. Reads animationblock rawbyte exactly1 via public contiguous underlying180array pointer even takeviewcount0; modelstreamingglobal is not substituted. Lookup/ref/request are isolated collaborators, no real assets/refcount/helper or invalidenum/indices/currentdependency accreditation. Naturalexit0/all17692entry-vtable/hooks/flags/timer/FP/blockloadbytes/configs restored; previousmixed48fail and initialtimeout retained.",
+  "scope": "Historical720 finite valid-group private reference fixtures:3types xreferenced0/1/-1 x4indices0/1/127/179 xrawloadedbyte0..4 x4poisons. Independent188byte arena and exact lookup240/ref48/request192 traces match original/candidate, strict target/helper entry gates. Reads animationblock rawbyte exactly1 via public contiguous underlying180array pointer even takeviewcount0; modelstreamingglobal is not substituted. Lookup/ref/request are isolated collaborators, no real assets/refcount/helper or invalidenum/indices/currentdependency accreditation. Naturalexit0/all17692entry-vtable/hooks/flags/timer/FP/blockloadbytes/configs restored; previousmixed48fail and initialtimeout retained. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "saves_unchanged": true,
   "configs_restored": true,
   "manifest": {
-    "head": "65fcf1bf7f3f55818144cb1f8b7e5028bfd64d17",
-    "tested_sources": {
-      "source/game_sa/Interior/InteriorGroup_c.cpp": "6c55e17625a1f0b826b9b3e07b9a40c63c655134f90f4c92a19db113375d5078",
-      "source/game_sa/Interior/InteriorGroup_c.h": "80ad6d255a9d4aa13013bb714b3f2afd9eda5bd6029270db143ce1f811fc14db",
-      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
-      "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
-      "source/game_sa/Streaming.h": "7b5c70a1f45fb905831e5e0b8c27b5a44aa35c04192eb9b59a1224df0f35c1c3",
-      "source/game_sa/StreamingInfo.h": "2c0ebf455d8000cd8252ccc6ca3bd77b2f40afc111c2f30dd8323b0b74851e29",
-      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
-      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
-      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
-      "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
-    },
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
     "bank_sources": {
-      "reversing/RequestedReferenceAnimsCorrected/LiveComparison.hpp": "597159bbe00eb4357e334f2ef54b9445aaa8af1a9ead0bc84fb212d902ed0faa",
-      "reversing/RequestedReferenceAnimsCorrected/Preflight.hpp": "3487e047a5c72c772cb653094acc98e22d6b1b1431488a4f2edf28d1381754a8",
-      "reversing/RequestedReferenceAnimsCorrected/VTableRanges.hpp": "27ebeba0a3971f2dd474ca6c5b6883baf2ffa47f8f45591116424a07a99c1d9b",
-      "reversing/RequestedReferenceAnimsCorrected/build_probe.py": "0d1d794d2c479931d2908ad19e6a424e701d4e16787dff6f1d3dbf7bef5b6751",
-      "reversing/RequestedReferenceAnimsCorrected/run_local.py": "70ed0c026d9fd6008fe9a3c8b7b82575d72c0514b691dc95ced58107d86de909",
-      "reversing/RequestedReferenceAnimsCorrected/prepared-freeze.json": "93c42588e7ba374f152bb9a9df99ac2d1d522e20147f68a054dfa05ceb2c05b1",
-      "reversing/RequestedReferenceAnimsCorrected/preparation-plan.json": "002de6946a5bb624bb4c89d3dcc358c9a7ba2a1a2f658acfbb3f802ff98a10d5",
-      "reversing/RequestedReferenceAnimsCorrected/evidence/1510-0x005950D0-body.json": "157f46a67eb7ff5558820f710bdf46e7d542be2ba8506a26f0179991a99f7376",
+      "reversing/RequestedReferenceAnimsCorrected/LiveComparison.hpp": "755c1b79e6751d39293362e233da89faaaecf9a07517ed7d7a38999e74cd65ea",
+      "reversing/RequestedReferenceAnimsCorrected/Preflight.hpp": "010f20599ae91f8d07e387b351575b37cb16d46714bde0e5d5e971a3dc35bb0a",
+      "reversing/RequestedReferenceAnimsCorrected/VTableRanges.hpp": "ca2692d3a2b1166a195856a647fa7904ac2cb14cac8c461a1d8496747de08c9a",
+      "reversing/RequestedReferenceAnimsCorrected/build_probe.py": "a6f0df8a07fc76835a4930948a019c593a0038d2fc95597de1db77972f6a991c",
+      "reversing/RequestedReferenceAnimsCorrected/run_local.py": "9c00f60cfbe6dfed95932268d7a8b2fb1998960bae1889a234213f516355dc7e",
+      "reversing/RequestedReferenceAnimsCorrected/prepared-freeze.json": "3c4b36da5e43f63204226ce9bbc1d1662ba073cd3cb7282d72a0cc164299bb5b",
+      "reversing/RequestedReferenceAnimsCorrected/preparation-plan.json": "9488a7ecb1b7a2c4d94ef12e7f85903ab6331b259ffdea41e175a7a0a0b6fee7",
+      "reversing/RequestedReferenceAnimsCorrected/evidence/1510-0x005950D0-body.json": "66786e3a9b23a04484f48c92dd65097f4c10466f08e95b3756f99d850c84c476",
       "reversing/RequestedReferenceAnimsCorrected/evidence/1510-0x005950D0.json": "5eb2dadb1d190062a0e6fbd7673373e3d2884a781385c58a9ab2d31e41429d86",
       "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
       "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
-      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb"
     },
     "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
     "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
@@ -83,7 +69,21 @@
       "source/app/platform/win/WinMain.cpp": "7c45d28e479007b31c7be46037b562828050dc1bc233080e275b2a12c61e6885"
     },
     "asi": "a4e19e6e2225d753c6a4f373777203829362a644fa787185f3bc39b40909187a",
-    "pdb": "c1d753398c1eaf245738fdb06a1c788cd2e70d91be7f422a82b38da3f20d1b26"
+    "pdb": "c1d753398c1eaf245738fdb06a1c788cd2e70d91be7f422a82b38da3f20d1b26",
+    "tested_sources": {
+      "source/game_sa/Interior/InteriorGroup_c.cpp": "dd007307ddbfc31283d0f8dcf4560ee6417b74713d6ec22a0794f64fb5c99efb",
+      "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
+      "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+      "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+      "source/game_sa/Streaming.h": "0055e9284d015c283c2e31bf4b82a6e57fc44f0658b7d20e0e98cd7db9d4ebf7",
+      "source/game_sa/StreamingInfo.h": "2c0ebf455d8000cd8252ccc6ca3bd77b2f40afc111c2f30dd8323b0b74851e29",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
+    }
   },
   "runner_sha256": "70ed0c026d9fd6008fe9a3c8b7b82575d72c0514b691dc95ced58107d86de909",
   "reproduction_diagnostics": {
@@ -126,5 +126,22 @@
   "audit_script_path": "reversing/RequestedReferenceAnimsCorrected/Diagnostics/audit_and_register.py",
   "audit_script_sha256": "0eb3f691190cd19a72f5503b816d1e15ec70d7e35e625ac16ee21eaba49206e6",
   "parent_summary_path": "reversing/RequestedReferenceAnimsCorrected/runs/20261008-151017-318027/enriched-summary.json",
-  "parent_summary_sha256": "a8cb1dd580a2f92ad81bfcdce7bc801c4729abd5da69d8dc2cbdab5313d77c9d"
+  "parent_summary_sha256": "a8cb1dd580a2f92ad81bfcdce7bc801c4729abd5da69d8dc2cbdab5313d77c9d",
+  "run": "reversing/CppTwelveLevel6Final/runs/RequestedReferenceAnimsCorrected-20261110-110946-860362",
+  "summary_sha256": "7d00d977d0d6e88c68fb9e8e2fa525fe4eeb9f00003a08c0f192f7e0565b9215",
+  "result_txt_sha256": "f51e45572a176efeca2a7e1b7a9f639ce746fd4d26ecb01dded51111bcfaa50f",
+  "functions": {
+    "InteriorGroup_c::ReferenceAnims": 720
+  },
+  "covered_functions": {
+    "InteriorGroup_c::ReferenceAnims": true
+  },
+  "registered_pairs": 720,
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RequestedReferenceAnimsCorrected-20261110-110946-860362/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "c799cf4b459717a63136f807dbec48dbabe9576cec3727e7ef8fe78e6d6b005a",
+    "uncompressed_sha256": "3d06ab8dfb280c4b1d0aaac4be62bce4055f9762cefeb93a8dc667b91f617e99"
+  }
 }

@@ -1,0 +1,94 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  1162EE40: 55                 push        ebp
+  1162EE41: 8B EC              mov         ebp,esp
+  1162EE43: 6A FF              push        0FFFFFFFFh
+  1162EE45: 68 76 D2 56 13     push        1356D276h
+  1162EE4A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1162EE50: 50                 push        eax
+  1162EE51: 81 EC 0C 01 00 00  sub         esp,10Ch
+  1162EE57: 53                 push        ebx
+  1162EE58: 56                 push        esi
+  1162EE59: 57                 push        edi
+  1162EE5A: 8D 7D A8           lea         edi,[ebp-58h]
+  1162EE5D: B9 13 00 00 00     mov         ecx,13h
+  1162EE62: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1162EE67: F3 AB              rep stos    dword ptr es:[edi]
+  1162EE69: A1 40 9D D0 13     mov         eax,dword ptr ds:[13D09D40h]
+  1162EE6E: 33 C5              xor         eax,ebp
+  1162EE70: 50                 push        eax
+  1162EE71: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1162EE74: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1162EE7A: 68 10 88 69 13     push        13698810h
+  1162EE7F: 8D 8D F0 FE FF FF  lea         ecx,[ebp+FFFFFEF0h]
+  1162EE85: E8 DC 13 C0 FF     call        11230266
+  1162EE8A: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1162EE91: 8D 45 08           lea         eax,[ebp+8]
+  1162EE94: 50                 push        eax
+  1162EE95: 8D 8D 08 FF FF FF  lea         ecx,[ebp+FFFFFF08h]
+  1162EE9B: E8 31 DE BC FF     call        111FCCD1
+  1162EEA0: C7 45 FC 01 00 00  mov         dword ptr [ebp-4],1
+            00
+  1162EEA7: 8D 8D 20 FF FF FF  lea         ecx,[ebp+FFFFFF20h]
+  1162EEAD: 51                 push        ecx
+  1162EEAE: 8D 95 F0 FE FF FF  lea         edx,[ebp+FFFFFEF0h]
+  1162EEB4: 52                 push        edx
+  1162EEB5: 8D 8D 28 FF FF FF  lea         ecx,[ebp+FFFFFF28h]
+  1162EEBB: E8 C3 67 BD FF     call        11205683
+  1162EEC0: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1162EEC3: 51                 push        ecx
+  1162EEC4: 8B 10              mov         edx,dword ptr [eax]
+  1162EEC6: 52                 push        edx
+  1162EEC7: B9 30 5D D2 13     mov         ecx,13D25D30h
+  1162EECC: E8 14 E0 BF FF     call        1122CEE5
+  1162EED1: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1162EED8: 68 E9 76 21 11     push        112176E9h
+  1162EEDD: 6A 02              push        2
+  1162EEDF: 6A 18              push        18h
+  1162EEE1: 8D 85 F0 FE FF FF  lea         eax,[ebp+FFFFFEF0h]
+  1162EEE7: 50                 push        eax
+  1162EEE8: E8 BC C5 BB FF     call        111EB4A9
+  1162EEED: 90                 nop
+  1162EEEE: 83 3D 44 5D D2 13  cmp         dword ptr ds:[13D25D44h],1
+            01
+  1162EEF5: 75 0C              jne         1162EF03
+  1162EEF7: C7 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],0
+            00 00 00 00
+  1162EF01: EB 0B              jmp         1162EF0E
+  1162EF03: E8 4E AC BE FF     call        11219B56
+  1162EF08: 89 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],eax
+  1162EF0E: E8 BC 3B C0 FF     call        11232ACF
+  1162EF13: 8B 8D E8 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEE8h]
+  1162EF19: 89 08              mov         dword ptr [eax],ecx
+  1162EF1B: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1162EF1E: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1162EF25: 59                 pop         ecx
+  1162EF26: 5F                 pop         edi
+  1162EF27: 5E                 pop         esi
+  1162EF28: 5B                 pop         ebx
+  1162EF29: 81 C4 18 01 00 00  add         esp,118h
+  1162EF2F: 3B EC              cmp         ebp,esp
+  1162EF31: E8 4E AE BB FF     call        111E9D84
+  1162EF36: 8B E5              mov         esp,ebp
+  1162EF38: 5D                 pop         ebp
+  1162EF39: C3                 ret
+  1162EF3A: CC                 int         3
+  1162EF3B: CC                 int         3
+  1162EF3C: CC                 int         3
+  1162EF3D: CC                 int         3
+  1162EF3E: CC                 int         3
+  1162EF3F: CC                 int         3
+  1162EF40: CC                 int         3
+
+  Summary
+
+     2496000 .text

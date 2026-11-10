@@ -1,0 +1,9 @@
+# RequestedGeometryWrappersFiveV4
+
+## Repeticion del 10/11/2026 (REPARAR-REQUESTED)
+
+Estado: **REPETIBLE y APROBADO** con el codigo actual de `main` (`bash reversing/_handoff/bench_here.sh RequestedGeometryWrappersFiveV4`): **5120 (cinco CPedGeometryAnalyser::ComputeEntityBoundingBox*, 1024 cada una) pares EXE/DLL, cero diferencias**, restauracion exacta, salida natural. Corrida `20261110-125911-902397` (archivada en `reversing/CppTwelveLevel6Final/runs/RequestedGeometryWrappersFiveV4-20261110-125911-902397`).
+
+Que fallaba: `VTableRanges.hpp` estaba congelado en octubre (454 filas) y el preflight paraba con `unknown_vtable_category` (primero `CEventDraggedOutCar`) en cuanto una clase con hooks virtuales no figuraba en la tabla: faltaban 17 clases `CEvent*` registradas despues (`CEventChatPartner`, `CEventDeadPed`, `CEventDraggedOutCar`, `CEventFireNearby`, `CEventGotKnockedOverByCar`, `CEventGroupEvent`, `CEventGunAimedAt`, `CEventInWater`, `CEventInteriorUseInfo`, `CEventPedEnteredMyVehicle`, `CEventPedToChase`, `CEventPedToFlee`, `CEventPotentialGetRunOver`, `CEventRevived`, `CEventSexyPed`, `CEventSexyVehicle`, `CEventSpecial`). Arreglo solo en el banco: `reversing/RequestedTools/vtable_ranges_sync.py --apply` anade las filas ausentes con direccion y ranuras de `RH_ScopedVirtualClass` (0 filas eliminadas, 0 filas con datos distintos), `reversing/RequestedTools/refreeze_generic.py` recalcula los SHA256 del congelado (LF de git y versiones actuales de los ficheros compartidos) y `build_probe*.py` respeta `_CL_` (compilacion en serie bajo candado; antes forzaba `/MP6`). Ademas `build_probe.py` ejecuta ahora la prueba estatica del ASI compilado (`inspect_compiled.py`, `Diagnostics/inspect_update.py`, `Diagnostics/prove_calls.py`) mediante `prove()`; las pruebas de `Diagnostics/` se regeneraron con el ASI nuevo.
+
+Sin cambios de produccion. Evidencia y registro refrescados con `refresh_bank.py`.

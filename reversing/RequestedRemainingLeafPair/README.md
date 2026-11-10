@@ -22,3 +22,9 @@ Los dossiers REA originales se copiaron byte por byte a `artifacts/rea`; pseudoc
 `run_local.py` audita por streaming el producto exacto de 9936 fixtures y pares únicos, resultados frente al modelo, trazas, gates, colaboradores y restauración. Retorna passed=false con diagnósticos en lugar de aprobar diferencias. El runner compartido corregido conserva ese veredicto y exige cierre natural 0; quedan archivados el log completo, harness, summary y manifest enriquecido. Nada de este apartado fue compilado ni ejecutado todavía.
 
 Los logs de más de 90 MB se conservan íntegros localmente y se agregan como gzip determinístico sin pérdida (mtime=0), con SHA comprimido/descomprimido y verificación de roundtrip. Sólo ese archivo crudo en su carpeta de run queda ignorado por Git; los veredictos y demás datos no cambian.
+
+## Repeticion del 10/11/2026 (REPARAR-REQUESTED)
+
+Estado: **NO repetible como banco completo; sustituido por `RequestedRemainingLeafPairV2`** (aprobado hoy, 19152 pares, cero diferencias, cubre las mismas dos funciones: `CInterestingEvents::InvalidateEvent` y `CPedDamageResponseCalculator::ComputeWillKillPed`).
+
+Con `VTableRanges.hpp` reparado (17 clases `CEvent*` ausentes, ver `reversing/RequestedTools/README.md`) el banco corre y la corrida `20261110-110211-795319` da FALLO: 9936 pares, **EXE y DLL identicos en los 9936** (los bytes `original` y `candidate` coinciden fila a fila), pero 1560 de los 9216 casos de `ComputeWillKillPed` difieren del oraculo `model.py` (p. ej. arma 54, frontera 4: el EXE devuelve 0x409FFFFF y el modelo calcula 5.0 = 0x40A00000: el resto de caida sin redondear). Es el defecto del modelo que corrige V2 (`NATIVE_DIAG.md`). Los 720 pares de `InvalidateEvent` pasan. Como el analizador exige cero discrepancias con el modelo, el banco no se aprueba; el modelo V1 esta congelado y no se modifica. `validation-summary-event720.json` conserva la evidencia de octubre.

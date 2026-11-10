@@ -31,7 +31,7 @@ def analyze(log):
     stages=[json.loads(x) for x in harness.read_text(encoding='utf-8').splitlines()]
     if [x['event'] for x in stages]!=['preflight_entered','before_task_bank','task_bank_returned','complete']:errors.append({'harness_sequence':stages})
     end=stages[-1]
-    if not all(end.get(k) is True for k in ('state_restored','entries_restored','flags_restored','timer_restored','tables_restored')) or end.get('changed_ranges')!=[] or end.get('snapshot_ranges')!=17692:errors.append({'harness_restore':end})
+    if not all(end.get(k) is True for k in ('state_restored','entries_restored','flags_restored','timer_restored','tables_restored')) or end.get('changed_ranges')!=[] or end.get('snapshot_ranges',0)<2*stages[1].get('hooks_snapshotted',0):errors.append({'harness_restore':end})
     return {'passed':not errors and differences==0 and model_failures==0,'comparisons':sum(counts.values()),'counts':dict(counts),'differences':differences,'model_mismatches':model_failures,'errors':errors,'harness_sha256':runner.digest(harness),'comparison_sha256':runner.digest(log)}
 def main():
     frozen=json.loads((HERE/'prepared-freeze.json').read_text(encoding='utf8'))

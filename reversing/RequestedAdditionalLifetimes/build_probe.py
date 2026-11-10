@@ -19,7 +19,7 @@ def main():
         p=ROOT/paths[1];s=saved[paths[1]].decode('utf-8');anchor='        LoadConfigurations();';assert s.count(anchor)==1
         s=s.replace('#include "StdInc.h"','#include "StdInc.h"\n#include "'+(ROOT/'reversing/ProbeRuntime.hpp').as_posix()+'"',1).replace(anchor,'        ReversingProbe::InstallFailureCapture("additional-lifetime");\n'+anchor);p.write_text(s,encoding='utf-8')
         manifest['compiled_instruments']={p:digest(ROOT/p) for p in paths}
-        env=os.environ.copy();env['_CL_']='/MP6';cmake=next((ROOT/'reversing/CVehicle/conan-cache/p').glob('cmake*/p/bin/cmake.exe'))
+        env=os.environ.copy();env['_CL_']=os.environ.get('_CL_','/MP6');cmake=next((ROOT/'reversing/CVehicle/conan-cache/p').glob('cmake*/p/bin/cmake.exe'))
         with (ART/'build.log').open('w',encoding='utf-8') as log:subprocess.run([str(cmake),'--build',str(ROOT/'build'),'--config','Debug','--parallel','1'],stdout=log,stderr=subprocess.STDOUT,env=env,check=True)
         assert freeze()==manifest['frozen_inputs']
         for ext,p in bins.items():out=ART/f'gta_reversed-additional-lifetime.{ext}';shutil.copy2(p,out);manifest[ext]=digest(out)

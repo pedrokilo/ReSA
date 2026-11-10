@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11611170: 55                 push        ebp
+  11611171: 8B EC              mov         ebp,esp
+  11611173: 81 EC D4 00 00 00  sub         esp,0D4h
+  11611179: 53                 push        ebx
+  1161117A: 56                 push        esi
+  1161117B: 57                 push        edi
+  1161117C: 51                 push        ecx
+  1161117D: 8D 7D EC           lea         edi,[ebp-14h]
+  11611180: B9 05 00 00 00     mov         ecx,5
+  11611185: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1161118A: F3 AB              rep stos    dword ptr es:[edi]
+  1161118C: 59                 pop         ecx
+  1161118D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11611190: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11611193: 83 38 00           cmp         dword ptr [eax],0
+  11611196: 74 2C              je          116111C4
+  11611198: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1161119B: E8 78 93 C1 FF     call        1122A518
+  116111A0: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  116111A6: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  116111A9: 8B 08              mov         ecx,dword ptr [eax]
+  116111AB: 89 8D 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],ecx
+  116111B1: 8B 95 2C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF2Ch]
+  116111B7: 52                 push        edx
+  116111B8: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  116111BE: E8 65 F3 BF FF     call        11210528
+  116111C3: 90                 nop
+  116111C4: 5F                 pop         edi
+  116111C5: 5E                 pop         esi
+  116111C6: 5B                 pop         ebx
+  116111C7: 81 C4 D4 00 00 00  add         esp,0D4h
+  116111CD: 3B EC              cmp         ebp,esp
+  116111CF: E8 65 2B BD FF     call        111E3D39
+  116111D4: 8B E5              mov         esp,ebp
+  116111D6: 5D                 pop         ebp
+  116111D7: C3                 ret
+  116111D8: CC                 int         3
+
+  Summary
+
+     2489000 .text

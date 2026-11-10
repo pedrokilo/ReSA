@@ -10,7 +10,7 @@ try:
  p=ROOT/paths[0];s=saved[paths[0]].decode('utf-8');anchor='void FrontendIdle() {';assert s.count(anchor)==1;s=s.replace('#include "StdInc.h"','#include "StdInc.h"\n#include "'+(HERE/'LiveComparison.hpp').as_posix()+'"',1).replace(anchor,anchor+'\n    RequestedMenuLive::Update();');p.write_text(s,encoding='utf-8')
  p=ROOT/paths[1];s=saved[paths[1]].decode('utf-8').replace('#include "StdInc.h"','#include "StdInc.h"\n#include "'+(ROOT/'reversing/ProbeRuntime.hpp').as_posix()+'"',1).replace('        LoadConfigurations();','        ReversingProbe::InstallFailureCapture("requested-menu");\n        LoadConfigurations();');p.write_text(s,encoding='utf-8')
  manifest['compiled_instruments']={p:digest(ROOT/p) for p in paths}
- task_env=os.environ.copy();task_env['_CL_']='/MP6';cmake=next((ROOT/'reversing/CVehicle/conan-cache/p').glob('cmake*/p/bin/cmake.exe'))
+ task_env=os.environ.copy();task_env['_CL_']=os.environ.get('_CL_','/MP6');cmake=next((ROOT/'reversing/CVehicle/conan-cache/p').glob('cmake*/p/bin/cmake.exe'))
  with (ART/'build.log').open('w',encoding='utf-8') as log:subprocess.run([str(cmake),'--build',str(ROOT/'build'),'--config','Debug','--parallel','1'],stdout=log,stderr=subprocess.STDOUT,env=task_env,check=True)
  for p,h in manifest['tested_sources'].items():assert digest(ROOT/p)==h
  for p,h in manifest['bank_sources'].items():assert digest(ROOT/p)==h

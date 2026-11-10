@@ -8,6 +8,10 @@
 
 `bash reversing/_handoff/bench_here.sh RequestedPadUpdateMouseV3` compila la sonda (con la prueba estatica de las rutas de llamada) y corre el banco: **9.216 pares EXE/DLL, cero diferencias y cero discrepancias con el modelo (`model.py`)**, salida natural, restauracion exacta de 17.692+ rangos de hooks, tablas, banderas y reloj. Corrida `20261110-050129-866358` (`E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-pad-update-mouse-v3/`), archivada en `reversing/CppTwelveLevel6Final/runs/RequestedPadUpdateMouseV3-20261110-050129-866358`; resumen en `validation-summary.json`. SHA256 de la sonda ejecutada: `20e0bc205cabcffad3f194a5f8480ffecdd882639d5b12a5c57b30728aad23fc`.
 
+### Repeticion del 10/11/2026 (REPARAR-REQUESTED)
+
+Tras los lotes posteriores (`CEventInteriorUseInfo` con hooks virtuales) el preflight volvia a parar con `unknown_vtable_category CEventInteriorUseInfo` (falta `{"CEventInteriorUseInfo",{0x008701A8,16}}` en `VTableRanges.hpp`). Arreglo solo en el banco: `reversing/_handoff/vtable_ranges_sync.py --apply` (extrae direccion y ranuras de todos los `RH_ScopedVirtualClass` de `source/`, incluidas clases plantilla) y `refreeze_generic.py` para el congelado. Repetido con `bench_here.sh`: **9216 pares, cero diferencias**, corrida `20261110-105856-006252` (archivada en `reversing/CppTwelveLevel6Final/runs/RequestedPadUpdateMouseV3-20261110-105856-006252`; `validation-summary.json` regenerado con `register_run.py`). Sin cambios de produccion. (Un primer intento, `20261110-105647-327874`, fallo en el preflight con `CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>` porque la primera version del guion de sincronizacion no leia las filas de clases plantilla y la elimino del fichero; corregido y verificado que no se pierde ninguna fila.)
+
 ### Por que estaba "congelado y no repetible" (Fn135A) y que se hizo
 
 El paquete se preparo y congelo el 08/10/2026 (`prepared-freeze.json`) y sus dos corridas del mismo dia (`runs/20261008-*`, V3 incluido) terminaron en FALLO con 0 comparaciones. Causas, todas de arnes salvo la ultima, y arreglos (solo en el banco, salvo el punto 7):

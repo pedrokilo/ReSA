@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11609D70: 55                 push        ebp
+  11609D71: 8B EC              mov         ebp,esp
+  11609D73: 81 EC CC 00 00 00  sub         esp,0CCh
+  11609D79: 53                 push        ebx
+  11609D7A: 56                 push        esi
+  11609D7B: 57                 push        edi
+  11609D7C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11609D7F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11609D82: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11609D85: 89 08              mov         dword ptr [eax],ecx
+  11609D87: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11609D8A: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11609D8D: 89 48 04           mov         dword ptr [eax+4],ecx
+  11609D90: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11609D93: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11609D96: 89 48 08           mov         dword ptr [eax+8],ecx
+  11609D99: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11609D9C: 5F                 pop         edi
+  11609D9D: 5E                 pop         esi
+  11609D9E: 5B                 pop         ebx
+  11609D9F: 8B E5              mov         esp,ebp
+  11609DA1: 5D                 pop         ebp
+  11609DA2: C2 0C 00           ret         0Ch
+  11609DA5: CC                 int         3
+  11609DA6: CC                 int         3
+  11609DA7: CC                 int         3
+  11609DA8: CC                 int         3
+  11609DA9: CC                 int         3
+  11609DAA: CC                 int         3
+  11609DAB: CC                 int         3
+  11609DAC: CC                 int         3
+  11609DAD: CC                 int         3
+  11609DAE: CC                 int         3
+  11609DAF: CC                 int         3
+  11609DB0: CC                 int         3
+
+  Summary
+
+     2489000 .text

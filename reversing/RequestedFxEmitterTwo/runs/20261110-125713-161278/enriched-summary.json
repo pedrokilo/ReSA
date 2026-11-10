@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "dc68886570cf1c87c0e14d1ac79ace0c40033bcddcd7a86c0cd979ecb8bb513e",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "comparisons": 5632,
+  "counts": {
+    "Constructor": 512,
+    "LoadTextures": 5120
+  },
+  "differences": 0,
+  "model_mismatches": 0,
+  "errors": [],
+  "harness_sha256": "2a9bdedf18524d0e319f0cfbd2e03950f32622582f6bda765efcd3577cd7fe2e",
+  "comparison_sha256": "e8cf08602c6eac5d6dc9a7d7250948962c0cf5a54772241aeebdb118469c68fb",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
+    "tested_sources": {
+      "source/game_sa/Fx/FxEmitterBP.cpp": "1a8661dc93fb50d1e66ded53c81c621496a1df41b8bdc377cbe45b1ca9106755",
+      "source/game_sa/Fx/FxEmitterBP.h": "56a2a609dd12fc61d2218966cc0cbbd306e68a0a6e6a00068b81df6438c2875a",
+      "source/game_sa/Fx/FxPrimBP.cpp": "a50405dd75d0be3083d46acb0d40613a1950f6a1f1a31165c9dc087f64dd8159",
+      "source/game_sa/Fx/FxPrimBP.h": "9ea02baa23d54ffeb2610ac5e8af04ac4af6d8a17034c66514ebbf9fba05a8c4",
+      "source/game_sa/Fx/FxInfoManager.h": "732c9394986e6f778c7d8a0d62a39609352af65d423c0aced391dbf960fce09c",
+      "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9",
+      "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+      "source/game_sa/RenderWare/rw/rwcore.h": "706baae6c072c28ebf9fb0948c3f5dd187f2dc1e8e032f3e98550afe2ff83930",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0"
+    },
+    "bank_sources": {
+      "reversing/RequestedFxEmitterTwo/LiveComparison.hpp": "e2157879147e4773e8e01496e1320d49dcce312d0b4c2ba13831e562d12ce47d",
+      "reversing/RequestedFxEmitterTwo/Preflight.hpp": "aed2c1e68824541556dc615bbc67c3a2e3e3f64a05f9103e7b4fd34920270c0a",
+      "reversing/RequestedFxEmitterTwo/VTableRanges.hpp": "59a71643a14ecf5676b0d4fae5f4236d70d10348eef40dc77689e0078b7366e6",
+      "reversing/RequestedFxEmitterTwo/build_probe.py": "8825226459c8132de0754db2b4bbeb23cba9a0be35320e59e66b7675b53568fe",
+      "reversing/RequestedFxEmitterTwo/run_local.py": "1cf2fd9966dcaea5ede17b7393e7629d22fe7d15ef495ed848290f0852cf8870",
+      "reversing/RequestedFxEmitterTwo/model.py": "f526cd34a22ae73d9eb5a42bf016fb52306fa5c796c42bf6c56bf5efae96546e",
+      "reversing/RequestedFxEmitterTwo/prepared-freeze.json": "d96f91d66a348dbdce98984397c0b57ad05accc564532edd885147b8090a5f17",
+      "reversing/RequestedFxEmitterTwo/preparation-plan.json": "57be090e5f146d157e6ce181631704d5a0b8043e466e54fb2333afd6add3ef75",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/ProbeRuntime.hpp": "8e7a7badac510d0a3d0f96104607989b8efae936cf4583b6e546dfaa8be889d3",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "5251233421eed091cdbeeb750e892e466a1425161d396100209834d7ec438df9",
+    "expected_pairs": 5632,
+    "fixture_scope": "512 complete CPU emitter constructors and 5120 texture-load fixtures; no target/base constructor stubs. Names bounded to31chars, real CRT string operations, native/DLL texture reads controlled. Raw vptr role plus full64bytes/guards preserved. No assets, ownership/destructor or renderer accreditation. All mismatches remain failure.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "fbcbf2fc0915999777c7ad1260b424103f68daf2745ecdd1e5bc01587d83354d"
+    },
+    "asi": "dc68886570cf1c87c0e14d1ac79ace0c40033bcddcd7a86c0cd979ecb8bb513e",
+    "pdb": "7eb7dbe760cb85c635d530af647080e1841627d6b61ab3012d3ba08385c81f40"
+  },
+  "runner_sha256": "1cf2fd9966dcaea5ede17b7393e7629d22fe7d15ef495ed848290f0852cf8870",
+  "reproduction_diagnostics": {}
+}

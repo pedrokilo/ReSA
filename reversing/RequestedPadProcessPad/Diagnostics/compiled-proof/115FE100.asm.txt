@@ -1,0 +1,43 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115FE100: 55                 push        ebp
+  115FE101: 8B EC              mov         ebp,esp
+  115FE103: 81 EC C0 00 00 00  sub         esp,0C0h
+  115FE109: 53                 push        ebx
+  115FE10A: 56                 push        esi
+  115FE10B: 57                 push        edi
+  115FE10C: 8B FD              mov         edi,ebp
+  115FE10E: 33 C9              xor         ecx,ecx
+  115FE110: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115FE115: F3 AB              rep stos    dword ptr es:[edi]
+  115FE117: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  115FE11A: 50                 push        eax
+  115FE11B: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  115FE11E: 51                 push        ecx
+  115FE11F: E8 2D B8 C2 FF     call        11229951
+  115FE124: 83 C4 08           add         esp,8
+  115FE127: 5F                 pop         edi
+  115FE128: 5E                 pop         esi
+  115FE129: 5B                 pop         ebx
+  115FE12A: 81 C4 C0 00 00 00  add         esp,0C0h
+  115FE130: 3B EC              cmp         ebp,esp
+  115FE132: E8 02 5C BE FF     call        111E3D39
+  115FE137: 8B E5              mov         esp,ebp
+  115FE139: 5D                 pop         ebp
+  115FE13A: C3                 ret
+  115FE13B: CC                 int         3
+  115FE13C: CC                 int         3
+  115FE13D: CC                 int         3
+  115FE13E: CC                 int         3
+  115FE13F: CC                 int         3
+  115FE140: CC                 int         3
+
+  Summary
+
+     2489000 .text

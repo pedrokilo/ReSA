@@ -5,9 +5,9 @@
   "type": "S",
   "pairs": 89600,
   "differences": 0,
-  "scope": "89600 isolated StartShake cases: product 4 delays x 4 deadline relations x 8 uint32 clocks x 5 stored frequencies x 5 requested frequencies x 7 signed duration pairs x 4 frontend/cutscene gate states. Full guarded private pad/controllers, readonly globals, both inactive physical scratch arenas and FP state compared without byte normalization; exact switches and native helper gates. Negative durations and wrapped clocks are declared characterization inputs. No real controller, operating-system vibration, actor integration, helper or general dependency accreditation.",
+  "scope": "89600 isolated StartShake cases: product 4 delays x 4 deadline relations x 8 uint32 clocks x 5 stored frequencies x 5 requested frequencies x 7 signed duration pairs x 4 frontend/cutscene gate states. Full guarded private pad/controllers, readonly globals, both inactive physical scratch arenas and FP state compared without byte normalization; exact switches and native helper gates. Negative durations and wrapped clocks are declared characterization inputs. No real controller, operating-system vibration, actor integration, helper or general dependency accreditation. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/RequestedPadMutationRemaining3Hex/runs/shake/20261008-160945-068337",
+  "run": "reversing/CppTwelveLevel6Final/runs/RequestedPadMutationRemaining3Hex-20261110-121256-639754",
   "asi_sha256": "015d30f78ffaf760ab56193d6040c5e7479fae42ea5cc339c95d7cde96efc75f",
   "pdb_sha256": "5af8d52c8d465b461f5d05f4271880aeb6a110497d601ab8542acf1f6cb9f370",
   "tested_sources": {
@@ -34,5 +34,77 @@
   "baseline_transport_audit_sha256": "2b858f9dcbca42b04e914ca72a7f3c27dc5a12063a50c71054a969944c378e1b",
   "baseline_differences": 17800,
   "natural_exit0": true,
-  "all_ranges_flags_restored": true
+  "all_ranges_flags_restored": true,
+  "log_sha256": "d09ec0b0fc66936050bc117670c586038d83c42c0cd579ed5794d3bcb089533e",
+  "state_restored": true,
+  "all_equal": true,
+  "summary_sha256": "e0ced5232a12acf8cf0776703e0bfac97fe309cdee5acd5cddebd3eee2c80730",
+  "result_txt_sha256": "4d6ba45b56a71700739b8bd20c496d69d8c3f739268f64580378156e3b6b4f2a",
+  "executed_probe_sha256": "9142d6570c09140a513780e37fcc4c009ba6ddc3136bf038377a76323a6010e5",
+  "functions": {
+    "CPad::StartShake": 89600
+  },
+  "covered_functions": {
+    "CPad::StartShake": true
+  },
+  "registered_pairs": 89600,
+  "manifest": {
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
+    "bank_sources": {
+      "reversing/RequestedPadMutationRemaining3Hex/archive_log.py": "6276c74428dcaf7a6625bf8a5e4f4419af4a81e05c9a79dc7cacaf9928bbee34",
+      "reversing/RequestedPadMutationRemaining3Hex/build_probe.py": "420168d574e5d4ede6aab986d5d9fc2ed258e9c949803f7010417c5ed4f02541",
+      "reversing/RequestedPadMutationRemaining3Hex/DESIGN.md": "6c06e8d39eabc30be1c61cd88cdf09a1c6ce5cd590eaff9c92e953ca5173b85f",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/0591-0x0053F530.json": "ad3f746ce0146587435e5df1690789cf7b68c7bf216ba831deff849faf3afaa9",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/0598-0x0053F920.json": "14cf4a9ade26f210517e9739b84a69f68a31c907d5425817fd7c2abbacadd00f",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/0602-0x00541C40.json": "0a301e55ac91805f1df13ddd1c6eb415df3eefbd4f28f4396437446aa63ed605",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/candidate-reconcile-fullbody.json": "f5433e50a0ef5b7c3418bb1da6486653319a6b79a178fee07ee2aacb6e027b94",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/candidate-scratch-current-artifact-proof.json": "77b16eb97a4f7e16175fdbab6a6dd2932c38abb10184d79271150133e6be4ab1",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/candidate-scratch-dia.json": "ae0b041dbb0dfe1ee9a7d57ead1315a4358d5641ee4d12d422695d5a85111bca",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/candidate-scratch-symbol.json": "3f05ba2b947d9a71a540b3ff8a7e0e795ce168aaa7544afff6299e177660ade2",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/helper-ControllerCheckForInput.json": "5c8867de86cc85c0aa5c13819aff6f759c5ec4302deee330787153b5c201f6de",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/helper-ControllerClear.json": "ab67248c5891bbf8288e2dc442a540d8078ef7d875d8a306f4cf3917453ff160",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/ReconcileTwoControllersInput.exe.json": "3b8c394f5dd3cec9bfaacaaf7e57c25df9845128f3867d0e25cf36402c69139e",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/StartShake.exe.json": "8f36ae6754638c20b6ab616dd364503ad70324c2e61924b7d84b54f9024d1f4a",
+      "reversing/RequestedPadMutationRemaining3Hex/evidence/Update.exe.json": "8e9ef5928e37d3df6881aa5dac5df0bbfa38dde3100bd24d4a179cc9b8c9b19d",
+      "reversing/RequestedPadMutationRemaining3Hex/Fixtures.hpp": "632138665b6df3945582ad3b73197aac100333121a9fc90484ba51d0b8af4f1e",
+      "reversing/RequestedPadMutationRemaining3Hex/LiveComparison.hpp": "d2e01e1b04e5bdf18c0c3ea1366537acea0eeca7c6fa1922ebfd7952f659f2f7",
+      "reversing/RequestedPadMutationRemaining3Hex/locate_scratch.py": "ae2e67e688fc30cd477561f3b79088d559facc8c516c546980f760572de4a3e6",
+      "reversing/RequestedPadMutationRemaining3Hex/PreflightHarness.hpp": "a972350817b315c1ad7f019e654e5b335243cf958d7ce35a1b29cba402d45c01",
+      "reversing/RequestedPadMutationRemaining3Hex/run_local.py": "c89027bb11c9ea8c5ab3d08808fa621afead1943b87b769b3ddbedad23bddf4e",
+      "reversing/RequestedPadMutationRemaining3Hex/scope.json": "0865857df9dd21cf72204563a54e412a8489fb23c55b5f777ea70f8efa47ee6b",
+      "reversing/RequestedPadMutationRemaining3Hex/ScratchProof.hpp": "e18f7c4a2414e6f5ff78c69bc07e00233addb4ba9a0bb62360ec8aba30ff733e",
+      "reversing/RequestedPadMutationRemaining3Hex/source-consumer-impact.json": "697e60dc3a903f1580487b2b72f7ae35d139ec0dfb496efb12ddc901036265a1",
+      "reversing/RequestedPadMutationRemaining3Hex/VTableRanges.hpp": "3e7a23c198c5e38c7e041f06c939fdae3088a16f0b0daee69cd6d78d7a47a36e",
+      "reversing/RequestedPadMutationRemaining3Hex/restore_winmain.py": "d7011373e0f088604c2f964ca1db31a8d080cffda500f904f4b1cfb3c71428bc",
+      "reversing/RequestedPadMutationRemaining3Hex/revision.json": "d20062eff9e6cfa1c297fd7672956975e85fa89aeb9515a7ab72a9f7c33d60de",
+      "reversing/RequestedPadMutationRemaining3Hex/HexTransport.hpp": "f64946480245cb30f7b288b201016d844888c610d60b4a35c6d6a8adc4c9e497",
+      "reversing/RequestedPadMutationRemaining3Hex/hex_wire.py": "025279a040bccf43cca09325098e4357683160496da4c30e0a8e4a057f112037",
+      "reversing/RequestedPadMutationRemaining3Hex/corpus-frozen.json": "5911da99f7fb874a7a6a9c8cb378af090a848ca566f7ee5d138ac6b1c81579f2",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "tested_sources": {
+      "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+      "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
+      "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
+      "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+      "source/game_sa/CutsceneMgr.h": "ea5d5ca8f14f1bc99af7d07cdafa6de91cf47981f6dc6e980bd752cccc0825eb",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+      "source/game_sa/Entity/Ped/Ped.h": "7d4f653e046e428073f2b3eae35c29eb9a771bfbffee79b86589e69f27e55404",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911"
+    }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RequestedPadMutationRemaining3Hex-20261110-121256-639754/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "00326f9ce8e6fb4d83f378b70e24101563064bfa944a380c768eb7eb5673fceb",
+    "uncompressed_sha256": "d09ec0b0fc66936050bc117670c586038d83c42c0cd579ed5794d3bcb089533e"
+  }
 }

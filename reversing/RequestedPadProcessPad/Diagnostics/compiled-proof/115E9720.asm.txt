@@ -1,0 +1,80 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115E9720: 55                 push        ebp
+  115E9721: 8B EC              mov         ebp,esp
+  115E9723: 81 EC 08 01 00 00  sub         esp,108h
+  115E9729: 53                 push        ebx
+  115E972A: 56                 push        esi
+  115E972B: 57                 push        edi
+  115E972C: 51                 push        ecx
+  115E972D: 8D 7D B8           lea         edi,[ebp-48h]
+  115E9730: B9 12 00 00 00     mov         ecx,12h
+  115E9735: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115E973A: F3 AB              rep stos    dword ptr es:[edi]
+  115E973C: 59                 pop         ecx
+  115E973D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115E9740: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  115E9743: E8 2D D5 C2 FF     call        11216C75
+  115E9748: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  115E974B: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  115E974E: E8 D2 5B C3 FF     call        1121F325
+  115E9753: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  115E9756: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  115E9759: E8 1E 54 BF FF     call        111DEB7C
+  115E975E: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  115E9761: EB 09              jmp         115E976C
+  115E9763: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  115E9766: 83 C0 08           add         eax,8
+  115E9769: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  115E976C: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  115E976F: 3B 45 D4           cmp         eax,dword ptr [ebp-2Ch]
+  115E9772: 74 55              je          115E97C9
+  115E9774: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  115E9777: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  115E977A: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  115E977D: E8 EE 0E C0 FF     call        111EA670
+  115E9782: 8B C8              mov         ecx,eax
+  115E9784: E8 81 B3 C2 FF     call        11214B0A
+  115E9789: 85 C0              test        eax,eax
+  115E978B: 75 3A              jne         115E97C7
+  115E978D: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  115E9790: E8 85 6E C0 FF     call        111F061A
+  115E9795: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  115E9798: 8B 4D BC           mov         ecx,dword ptr [ebp-44h]
+  115E979B: E8 5E 8E C1 FF     call        112025FE
+  115E97A0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  115E97A3: 8B 11              mov         edx,dword ptr [ecx]
+  115E97A5: 3B 02              cmp         eax,dword ptr [edx]
+  115E97A7: 75 1E              jne         115E97C7
+  115E97A9: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115E97AC: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  115E97AF: 8B 55 BC           mov         edx,dword ptr [ebp-44h]
+  115E97B2: 89 11              mov         dword ptr [ecx],edx
+  115E97B4: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115E97B7: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  115E97BA: 8B 11              mov         edx,dword ptr [ecx]
+  115E97BC: 83 C2 01           add         edx,1
+  115E97BF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115E97C2: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  115E97C5: 89 11              mov         dword ptr [ecx],edx
+  115E97C7: EB 9A              jmp         115E9763
+  115E97C9: 5F                 pop         edi
+  115E97CA: 5E                 pop         esi
+  115E97CB: 5B                 pop         ebx
+  115E97CC: 81 C4 08 01 00 00  add         esp,108h
+  115E97D2: 3B EC              cmp         ebp,esp
+  115E97D4: E8 60 A5 BF FF     call        111E3D39
+  115E97D9: 8B E5              mov         esp,ebp
+  115E97DB: 5D                 pop         ebp
+  115E97DC: C2 04 00           ret         4
+  115E97DF: CC                 int         3
+
+  Summary
+
+     2489000 .text

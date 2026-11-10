@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115F62F0: 55                 push        ebp
+  115F62F1: 8B EC              mov         ebp,esp
+  115F62F3: 81 EC C0 00 00 00  sub         esp,0C0h
+  115F62F9: 53                 push        ebx
+  115F62FA: 56                 push        esi
+  115F62FB: 57                 push        edi
+  115F62FC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F62FF: 8B 00              mov         eax,dword ptr [eax]
+  115F6301: 5F                 pop         edi
+  115F6302: 5E                 pop         esi
+  115F6303: 5B                 pop         ebx
+  115F6304: 8B E5              mov         esp,ebp
+  115F6306: 5D                 pop         ebp
+  115F6307: C3                 ret
+  115F6308: CC                 int         3
+  115F6309: CC                 int         3
+  115F630A: CC                 int         3
+  115F630B: CC                 int         3
+  115F630C: CC                 int         3
+  115F630D: CC                 int         3
+  115F630E: CC                 int         3
+  115F630F: CC                 int         3
+  115F6310: 55                 push        ebp
+  115F6311: 8B EC              mov         ebp,esp
+  115F6313: 81 EC C0 00 00 00  sub         esp,0C0h
+  115F6319: 53                 push        ebx
+  115F631A: 56                 push        esi
+  115F631B: 57                 push        edi
+  115F631C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F631F: 8B 00              mov         eax,dword ptr [eax]
+  115F6321: 5F                 pop         edi
+  115F6322: 5E                 pop         esi
+  115F6323: 5B                 pop         ebx
+  115F6324: 8B E5              mov         esp,ebp
+  115F6326: 5D                 pop         ebp
+  115F6327: C3                 ret
+  115F6328: CC                 int         3
+  115F6329: CC                 int         3
+  115F632A: CC                 int         3
+  115F632B: CC                 int         3
+  115F632C: CC                 int         3
+  115F632D: CC                 int         3
+  115F632E: CC                 int         3
+  115F632F: CC                 int         3
+  115F6330: 55                 push        ebp
+
+  Summary
+
+     2489000 .text

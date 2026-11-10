@@ -1,75 +1,75 @@
 {
-  "asi_sha256": "20e0bc205cabcffad3f194a5f8480ffecdd882639d5b12a5c57b30728aad23fc",
-  "pdb_sha256": "795c4a94d26c1d19490cc0b21b8fac21a61c2fd9cd8c89ac3c86c056f3da36d2",
-  "manifest_sha256": "9299322900624acd1c3f2a4321f388e2237acab28f91b74076463dca6264640b",
+  "asi_sha256": "ead65f956b902fd5d380a5e5aeb94df72824c0bedabebb8ccc5afaf442fa579e",
+  "pdb_sha256": "61d963f1c88e6984344d6fb69957e6329c99cc880c7eb514cb4824175a106a07",
+  "manifest_sha256": "b1055268af16d13f71fe94da4a0f27f359eaa97f41c3ae400949a32e84aa9726",
   "pdb_rsds_match": true,
   "passed": true,
   "helper_call_paths_verified": true,
   "separate_getmouse_ABIs_verified": true,
   "actual_target_calls": {
     "foreground": {
-      "site": "0x11e9e4ea",
-      "entry": "0x112144f7",
-      "body": "0x11611350",
+      "site": "0x11ec356a",
+      "entry": "0x1122467d",
+      "body": "0x1162ff50",
       "chain": [
         [
-          "0x112144f7",
-          "0x11611350"
+          "0x1122467d",
+          "0x1162ff50"
         ]
       ]
     },
     "exclusive": {
-      "site": "0x11e9e516",
-      "entry": "0x11209395",
-      "body": "0x115bb130",
+      "site": "0x11ec3596",
+      "entry": "0x112194df",
+      "body": "0x115d9d30",
       "chain": [
         [
-          "0x11209395",
-          "0x115bb130"
+          "0x112194df",
+          "0x115d9d30"
         ]
       ]
     },
     "init": {
-      "site": "0x11e9e53a",
-      "entry": "0x11210eb0",
-      "body": "0x115c46f0",
+      "site": "0x11ec35ba",
+      "entry": "0x11221022",
+      "body": "0x115e32f0",
       "chain": [
         [
-          "0x11210eb0",
-          "0x115c46f0"
+          "0x11221022",
+          "0x115e32f0"
         ]
       ]
     },
     "getmouse": {
-      "site": "0x11e9e557",
-      "entry": "0x1120187a",
-      "body": "0x11e92e20",
+      "site": "0x11ec35d7",
+      "entry": "0x11211997",
+      "body": "0x11eb7500",
       "chain": [
         [
-          "0x1120187a",
-          "0x11e92e20"
+          "0x11211997",
+          "0x11eb7500"
         ]
       ]
     },
     "checkinput": {
-      "site": "0x11e9e739",
-      "entry": "0x111e7a60",
-      "body": "0x11e7e190",
+      "site": "0x11ec37b9",
+      "entry": "0x111f7ac4",
+      "body": "0x11ea2720",
       "chain": [
         [
-          "0x111e7a60",
-          "0x11e7e190"
+          "0x111f7ac4",
+          "0x11ea2720"
         ]
       ]
     },
     "settouched": {
-      "site": "0x11e9e748",
-      "entry": "0x11206212",
-      "body": "0x11e9d860",
+      "site": "0x11ec37c8",
+      "entry": "0x11216352",
+      "body": "0x11ec28e0",
       "chain": [
         [
-          "0x11206212",
-          "0x11e9d860"
+          "0x11216352",
+          "0x11ec28e0"
         ]
       ]
     }
@@ -78,24 +78,24 @@
     "foreground": {
       "native": "0x746060",
       "original": {
-        "operand_site": "0x11614ea1",
-        "stub_entry": "0x1120555b",
-        "stub_body": "0x1160fe20",
+        "operand_site": "0x11633aa1",
+        "stub_entry": "0x11215696",
+        "stub_body": "0x1162ea20",
         "chain": [
           [
-            "0x1120555b",
-            "0x1160fe20"
+            "0x11215696",
+            "0x1162ea20"
           ]
         ]
       },
       "candidate": {
-        "operand_site": "0x11614e9c",
-        "stub_entry": "0x1120555b",
-        "stub_body": "0x1160fe20",
+        "operand_site": "0x11633a9c",
+        "stub_entry": "0x11215696",
+        "stub_body": "0x1162ea20",
         "chain": [
           [
-            "0x1120555b",
-            "0x1160fe20"
+            "0x11215696",
+            "0x1162ea20"
           ]
         ]
       }
@@ -103,24 +103,24 @@
     "exclusive": {
       "native": "0x745ca0",
       "original": {
-        "operand_site": "0x11614f2c",
-        "stub_entry": "0x1121fa82",
-        "stub_body": "0x1160eda0",
+        "operand_site": "0x11633b2c",
+        "stub_entry": "0x1122fc58",
+        "stub_body": "0x1162d9a0",
         "chain": [
           [
-            "0x1121fa82",
-            "0x1160eda0"
+            "0x1122fc58",
+            "0x1162d9a0"
           ]
         ]
       },
       "candidate": {
-        "operand_site": "0x11614f27",
-        "stub_entry": "0x1121fa82",
-        "stub_body": "0x1160eda0",
+        "operand_site": "0x11633b27",
+        "stub_entry": "0x1122fc58",
+        "stub_body": "0x1162d9a0",
         "chain": [
           [
-            "0x1121fa82",
-            "0x1160eda0"
+            "0x1122fc58",
+            "0x1162d9a0"
           ]
         ]
       }
@@ -128,24 +128,24 @@
     "init": {
       "native": "0x7469a0",
       "original": {
-        "operand_site": "0x11614f9a",
-        "stub_entry": "0x111f1de4",
-        "stub_body": "0x11610240",
+        "operand_site": "0x11633b9a",
+        "stub_entry": "0x11201e98",
+        "stub_body": "0x1162ee40",
         "chain": [
           [
-            "0x111f1de4",
-            "0x11610240"
+            "0x11201e98",
+            "0x1162ee40"
           ]
         ]
       },
       "candidate": {
-        "operand_site": "0x11614f95",
-        "stub_entry": "0x111f1de4",
-        "stub_body": "0x11610240",
+        "operand_site": "0x11633b95",
+        "stub_entry": "0x11201e98",
+        "stub_body": "0x1162ee40",
         "chain": [
           [
-            "0x111f1de4",
-            "0x11610240"
+            "0x11201e98",
+            "0x1162ee40"
           ]
         ]
       }
@@ -153,24 +153,24 @@
     "getmouse": {
       "native": "0x746ed0",
       "original": {
-        "operand_site": "0x11615008",
-        "stub_entry": "0x11216d33",
-        "stub_body": "0x11612fb0",
+        "operand_site": "0x11633c08",
+        "stub_entry": "0x11226ecd",
+        "stub_body": "0x11631bb0",
         "chain": [
           [
-            "0x11216d33",
-            "0x11612fb0"
+            "0x11226ecd",
+            "0x11631bb0"
           ]
         ]
       },
       "candidate": {
-        "operand_site": "0x11615003",
-        "stub_entry": "0x111db724",
-        "stub_body": "0x11612ef0",
+        "operand_site": "0x11633c03",
+        "stub_entry": "0x111eb73d",
+        "stub_body": "0x11631af0",
         "chain": [
           [
-            "0x111db724",
-            "0x11612ef0"
+            "0x111eb73d",
+            "0x11631af0"
           ]
         ]
       }
@@ -178,9 +178,9 @@
   },
   "pure_check_input": {
     "native": "0x53f270",
-    "own_entry": "0x11e7e190",
-    "own_body": "0x11e7e190",
-    "compiled_redirect_operand": "0x11614d91",
+    "own_entry": "0x11ea2720",
+    "own_body": "0x11ea2720",
+    "compiled_redirect_operand": "0x11633991",
     "native_bytes_preserved_by_runtime_gate": 128
   },
   "limitations": [

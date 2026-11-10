@@ -1,0 +1,46 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11610440: 55                 push        ebp
+  11610441: 8B EC              mov         ebp,esp
+  11610443: 81 EC CC 00 00 00  sub         esp,0CCh
+  11610449: 53                 push        ebx
+  1161044A: 56                 push        esi
+  1161044B: 57                 push        edi
+  1161044C: 51                 push        ecx
+  1161044D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11610450: B9 03 00 00 00     mov         ecx,3
+  11610455: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1161045A: F3 AB              rep stos    dword ptr es:[edi]
+  1161045C: 59                 pop         ecx
+  1161045D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11610460: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11610463: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11610466: 51                 push        ecx
+  11610467: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1161046A: 8B 42 04           mov         eax,dword ptr [edx+4]
+  1161046D: 50                 push        eax
+  1161046E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11610471: 8B 11              mov         edx,dword ptr [ecx]
+  11610473: 52                 push        edx
+  11610474: E8 25 BA BD FF     call        111EBE9E
+  11610479: 83 C4 0C           add         esp,0Ch
+  1161047C: 5F                 pop         edi
+  1161047D: 5E                 pop         esi
+  1161047E: 5B                 pop         ebx
+  1161047F: 81 C4 CC 00 00 00  add         esp,0CCh
+  11610485: 3B EC              cmp         ebp,esp
+  11610487: E8 AD 38 BD FF     call        111E3D39
+  1161048C: 8B E5              mov         esp,ebp
+  1161048E: 5D                 pop         ebp
+  1161048F: C3                 ret
+  11610490: CC                 int         3
+
+  Summary
+
+     2489000 .text

@@ -1,0 +1,89 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1162C8A0: 55                 push        ebp
+  1162C8A1: 8B EC              mov         ebp,esp
+  1162C8A3: 6A FF              push        0FFFFFFFFh
+  1162C8A5: 68 7D BF 55 13     push        1355BF7Dh
+  1162C8AA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1162C8B0: 50                 push        eax
+  1162C8B1: 81 EC D8 00 00 00  sub         esp,0D8h
+  1162C8B7: 53                 push        ebx
+  1162C8B8: 56                 push        esi
+  1162C8B9: 57                 push        edi
+  1162C8BA: 51                 push        ecx
+  1162C8BB: 8D 7D DC           lea         edi,[ebp-24h]
+  1162C8BE: B9 06 00 00 00     mov         ecx,6
+  1162C8C3: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1162C8C8: F3 AB              rep stos    dword ptr es:[edi]
+  1162C8CA: 59                 pop         ecx
+  1162C8CB: A1 40 7D D9 13     mov         eax,dword ptr ds:[13D97D40h]
+  1162C8D0: 33 C5              xor         eax,ebp
+  1162C8D2: 50                 push        eax
+  1162C8D3: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1162C8D6: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1162C8DC: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1162C8DF: 6A 03              push        3
+  1162C8E1: 8D 4D E0           lea         ecx,[ebp-20h]
+  1162C8E4: E8 3A 25 BC FF     call        111EEE23
+  1162C8E9: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1162C8F0: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1162C8F3: 50                 push        eax
+  1162C8F4: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1162C8F7: 51                 push        ecx
+  1162C8F8: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1162C8FB: E8 96 2C BF FF     call        1121F596
+  1162C900: 90                 nop
+  1162C901: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1162C908: 8D 4D E0           lea         ecx,[ebp-20h]
+  1162C90B: E8 D2 D4 BB FF     call        111E9DE2
+  1162C910: 90                 nop
+  1162C911: 52                 push        edx
+  1162C912: 8B CD              mov         ecx,ebp
+  1162C914: 50                 push        eax
+  1162C915: 8D 15 44 C9 62 11  lea         edx,ds:[1162C944h]
+  1162C91B: E8 6F CD BB FF     call        111E968F
+  1162C920: 58                 pop         eax
+  1162C921: 5A                 pop         edx
+  1162C922: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1162C925: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1162C92C: 59                 pop         ecx
+  1162C92D: 5F                 pop         edi
+  1162C92E: 5E                 pop         esi
+  1162C92F: 5B                 pop         ebx
+  1162C930: 81 C4 E4 00 00 00  add         esp,0E4h
+  1162C936: 3B EC              cmp         ebp,esp
+  1162C938: E8 FC 73 BB FF     call        111E3D39
+  1162C93D: 8B E5              mov         esp,ebp
+  1162C93F: 5D                 pop         ebp
+  1162C940: C2 08 00           ret         8
+  1162C943: 90                 nop
+  1162C944: 01 00              add         dword ptr [eax],eax
+  1162C946: 00 00              add         byte ptr [eax],al
+  1162C948: 4C                 dec         esp
+  1162C949: C9                 leave
+  1162C94A: 62 11              bound       edx,qword ptr [ecx]
+  1162C94C: E0 FF              loopne      1162C94D
+  1162C94E: FF
+  1162C94F: FF 04 00           inc         dword ptr [eax+eax]
+  1162C952: 00 00              add         byte ptr [eax],al
+  1162C954: 58                 pop         eax
+  1162C955: C9                 leave
+  1162C956: 62 11              bound       edx,qword ptr [ecx]
+  1162C958: 5F                 pop         edi
+  1162C959: 4C                 dec         esp
+  1162C95A: 6F                 outs        dx,dword ptr [esi]
+  1162C95B: 63 6B 00           arpl        word ptr [ebx],bp
+  1162C95E: CC                 int         3
+
+  Summary
+
+     2489000 .text

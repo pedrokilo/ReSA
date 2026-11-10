@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1162D530: 55                 push        ebp
+  1162D531: 8B EC              mov         ebp,esp
+  1162D533: 81 EC CC 00 00 00  sub         esp,0CCh
+  1162D539: 53                 push        ebx
+  1162D53A: 56                 push        esi
+  1162D53B: 57                 push        edi
+  1162D53C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1162D53F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1162D542: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1162D545: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  1162D548: 89 10              mov         dword ptr [eax],edx
+  1162D54A: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1162D54D: 8B 40 04           mov         eax,dword ptr [eax+4]
+  1162D550: 5F                 pop         edi
+  1162D551: 5E                 pop         esi
+  1162D552: 5B                 pop         ebx
+  1162D553: 8B E5              mov         esp,ebp
+  1162D555: 5D                 pop         ebp
+  1162D556: C3                 ret
+  1162D557: CC                 int         3
+  1162D558: CC                 int         3
+  1162D559: CC                 int         3
+  1162D55A: CC                 int         3
+  1162D55B: CC                 int         3
+  1162D55C: CC                 int         3
+  1162D55D: CC                 int         3
+  1162D55E: CC                 int         3
+  1162D55F: CC                 int         3
+  1162D560: 55                 push        ebp
+  1162D561: 8B EC              mov         ebp,esp
+  1162D563: 81 EC CC 00 00 00  sub         esp,0CCh
+  1162D569: 53                 push        ebx
+  1162D56A: 56                 push        esi
+  1162D56B: 57                 push        edi
+  1162D56C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1162D56F: 8B
+  1162D570: 45                 inc         ebp
+
+  Summary
+
+     2489000 .text

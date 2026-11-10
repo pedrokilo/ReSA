@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11629500: 55                 push        ebp
+  11629501: 8B EC              mov         ebp,esp
+  11629503: 81 EC D0 00 00 00  sub         esp,0D0h
+  11629509: 53                 push        ebx
+  1162950A: 56                 push        esi
+  1162950B: 57                 push        edi
+  1162950C: 51                 push        ecx
+  1162950D: 8D 7D F0           lea         edi,[ebp-10h]
+  11629510: B9 04 00 00 00     mov         ecx,4
+  11629515: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1162951A: F3 AB              rep stos    dword ptr es:[edi]
+  1162951C: 59                 pop         ecx
+  1162951D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11629520: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  11629524: 74 1D              je          11629543
+  11629526: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11629529: E8 EC F2 BD FF     call        1120881A
+  1162952E: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  11629531: 75 10              jne         11629543
+  11629533: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11629536: E8 59 46 BE FF     call        1120DB94
+  1162953B: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  11629541: EB 0A              jmp         1162954D
+  11629543: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  1162954D: 8B 85 30 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF30h]
+  11629553: 5F                 pop         edi
+  11629554: 5E                 pop         esi
+  11629555: 5B                 pop         ebx
+  11629556: 81 C4 D0 00 00 00  add         esp,0D0h
+  1162955C: 3B EC              cmp         ebp,esp
+  1162955E: E8 21 08 BC FF     call        111E9D84
+  11629563: 8B E5              mov         esp,ebp
+  11629565: 5D                 pop         ebp
+  11629566: C2 08 00           ret         8
+  11629569: CC                 int         3
+
+  Summary
+
+     2496000 .text

@@ -1,0 +1,89 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11628CF0: 55                 push        ebp
+  11628CF1: 8B EC              mov         ebp,esp
+  11628CF3: 6A FF              push        0FFFFFFFFh
+  11628CF5: 68 F0 A9 56 13     push        1356A9F0h
+  11628CFA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  11628D00: 50                 push        eax
+  11628D01: 81 EC 04 01 00 00  sub         esp,104h
+  11628D07: 53                 push        ebx
+  11628D08: 56                 push        esi
+  11628D09: 57                 push        edi
+  11628D0A: 51                 push        ecx
+  11628D0B: 8D 7D B0           lea         edi,[ebp-50h]
+  11628D0E: B9 11 00 00 00     mov         ecx,11h
+  11628D13: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11628D18: F3 AB              rep stos    dword ptr es:[edi]
+  11628D1A: 59                 pop         ecx
+  11628D1B: A1 40 9D D0 13     mov         eax,dword ptr ds:[13D09D40h]
+  11628D20: 33 C5              xor         eax,ebp
+  11628D22: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  11628D25: 50                 push        eax
+  11628D26: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11628D29: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  11628D2F: 89 4D E8           mov         dword ptr [ebp-18h],ecx
+  11628D32: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  11628D35: 8B 08              mov         ecx,dword ptr [eax]
+  11628D37: 89 8D FC FE FF FF  mov         dword ptr [ebp+FFFFFEFCh],ecx
+  11628D3D: 6A 00              push        0
+  11628D3F: 6A 00              push        0
+  11628D41: 6A 20              push        20h
+  11628D43: 6A FF              push        0FFFFFFFFh
+  11628D45: 8D 95 04 FF FF FF  lea         edx,[ebp+FFFFFF04h]
+  11628D4B: 52                 push        edx
+  11628D4C: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11628D4F: E8 B2 3F BF FF     call        1121CD06
+  11628D54: 89 85 F8 FE FF FF  mov         dword ptr [ebp+FFFFFEF8h],eax
+  11628D5A: 8B 85 F8 FE FF FF  mov         eax,dword ptr [ebp+FFFFFEF8h]
+  11628D60: 89 85 F4 FE FF FF  mov         dword ptr [ebp+FFFFFEF4h],eax
+  11628D66: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  11628D6D: 8B 8D F4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEF4h]
+  11628D73: 89 8D F0 FE FF FF  mov         dword ptr [ebp+FFFFFEF0h],ecx
+  11628D79: 8B 95 F0 FE FF FF  mov         edx,dword ptr [ebp+FFFFFEF0h]
+  11628D7F: 52                 push        edx
+  11628D80: 8B 85 FC FE FF FF  mov         eax,dword ptr [ebp+FFFFFEFCh]
+  11628D86: 50                 push        eax
+  11628D87: E8 B4 FB BE FF     call        11218940
+  11628D8C: 83 C4 08           add         esp,8
+  11628D8F: 6A 0A              push        0Ah
+  11628D91: 50                 push        eax
+  11628D92: E8 78 07 BC FF     call        111E950F
+  11628D97: 83 C4 08           add         esp,8
+  11628D9A: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  11628DA1: 8D 8D 04 FF FF FF  lea         ecx,[ebp+FFFFFF04h]
+  11628DA7: E8 CD F5 BD FF     call        11208379
+  11628DAC: 90                 nop
+  11628DAD: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  11628DB0: 8B 08              mov         ecx,dword ptr [eax]
+  11628DB2: E8 A8 D3 BD FF     call        1120615F
+  11628DB7: 90                 nop
+  11628DB8: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11628DBB: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11628DC2: 59                 pop         ecx
+  11628DC3: 5F                 pop         edi
+  11628DC4: 5E                 pop         esi
+  11628DC5: 5B                 pop         ebx
+  11628DC6: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  11628DC9: 33 CD              xor         ecx,ebp
+  11628DCB: E8 92 F5 BB FF     call        111E8362
+  11628DD0: 81 C4 10 01 00 00  add         esp,110h
+  11628DD6: 3B EC              cmp         ebp,esp
+  11628DD8: E8 A7 0F BC FF     call        111E9D84
+  11628DDD: 8B E5              mov         esp,ebp
+  11628DDF: 5D                 pop         ebp
+  11628DE0: C2 04 00           ret         4
+  11628DE3: CC                 int         3
+
+  Summary
+
+     2496000 .text

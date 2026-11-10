@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "7d468cd2a3f7f9c4060f21b1a0a9b3cfcbff6e175ebabd040483e245f3d94b30",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 5120,
+  "pairs_per_function": {
+    "CPedGeometryAnalyser::ComputeEntityBoundingBoxCorners": 1024,
+    "CPedGeometryAnalyser::ComputeEntityBoundingBoxCentreUncachedAll": 1024,
+    "CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanesUncachedAll": 1024,
+    "CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanes": 1024,
+    "CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanesUncachedAll": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "8cb6c39e33b4257af8d8b8da59e5d0f906c74beae26e1bdade2ed66df073c9b5",
+  "explicit_fullarena_trace_model_checked": true,
+  "pointer_producer_consumer_identity_checked": true,
+  "typed_constructor_rand_controlled": true,
+  "harness_restored": true,
+  "floating_environment_restored": true,
+  "timer_unchanged": true,
+  "harness_sha256": "839ccd1f0930926e6d4d991d15408bdf49ecd49f92f5a9c9083780e01b4d9707",
+  "bank_fp_unchanged": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
+    "tested_sources": {
+      "source/game_sa/PedGeometryAnalyser.cpp": "48521842cb242b76b663ac4ba0803b44933787838427f7445bb3da1dc629df17",
+      "source/game_sa/PedGeometryAnalyser.h": "daab59a35f4fc128924e6c715af81b92a38c78102f53afd261588512707c943e",
+      "source/game_sa/Entity/Entity.cpp": "6f9dc3b8ced38440b6c1fc191d3e593941729124759c92ca039d6cb4295c76d9",
+      "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
+      "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
+      "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff"
+    },
+    "bank_sources": {
+      "reversing/RequestedGeometryWrappersFiveV4/FixtureContracts.hpp": "ebe0f1c6e347b6b87fe0433bd919553837dcd2174f3a012f9c8e0988506fb261",
+      "reversing/RequestedGeometryWrappersFiveV4/LiveComparison.hpp": "03ad3f6f3cbff4a24bf76478b3763aed6a3a2dce6d169c0ec7a1adfe87f22e5c",
+      "reversing/RequestedGeometryWrappersFiveV4/PreflightHarness.hpp": "0e20c7703f3ba59dac107ccf9837583d89bc5176829a1defc6fa929c6548c5b2",
+      "reversing/RequestedGeometryWrappersFiveV4/VTableRanges.hpp": "dedbba3bb12f52d59ca33df55514d3d63107ab5b3f9f63e070ceac6d274f28e5",
+      "reversing/RequestedGeometryWrappersFiveV4/build_probe.py": "a312d360aaf0eab41f7ed10d04698e3c92ea7af5143b52f16fa0022de61e7b0f",
+      "reversing/RequestedGeometryWrappersFiveV4/inspect_compiled.py": "dcb4fd9349e6bdcb4b8379a97c88c68c8cd2f5b52bb9f5a67616c869945b7329",
+      "reversing/RequestedGeometryWrappersFiveV4/restore_winmain.py": "d7011373e0f088604c2f964ca1db31a8d080cffda500f904f4b1cfb3c71428bc",
+      "reversing/RequestedGeometryWrappersFiveV4/run_local.py": "915b75184824405ac568a8b378e579317c7b188e8064e43a84ca192ece568897",
+      "reversing/RequestedGeometryWrappersFiveV4/corpus-plan.json": "13b582a7c2dde0f1b40834eacb56e234e3908093e657b0d1a375178dc3b9ab43",
+      "reversing/RequestedGeometryWrappersFiveV4/revision.json": "612d527292cfb152a77bcdfe010b79c4787a83b18fdfefe34072b339d3335637",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/CentreAll-fullasm.txt": "0a1c4b75526df4206d7f4270143818e75f4e7d600ddc68001f1cb88e1c657368",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/Corners-fullasm.txt": "e5ebded9948c0522e616b404c6fea318c8cf849a30936e78ee30b676642b6343",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/native-call-proof.json": "49046d7ac5d2207d9e5b7fec774f520cdb90a0dca2a6be7c8c41e386dcecedae",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/PlanesAll-fullasm.txt": "a7a6ac56fa3e187f05da3e884b0ae73e188d1378750b93996b12cc72886651e9",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/REA-Corners.json": "ca71847287024cf1fe6b1fc4ea19d29fce7bfd7d1702199b9187dba3f258bd65",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/Segment-fullasm.txt": "ef6133831986e8c596e8ca11d835e79e5e92dc29b5755b40216686f58bedd5d2",
+      "reversing/RequestedGeometryWrappersFiveV4/evidence/SegmentAll-fullasm.txt": "89b3e00e34da06c4619fb957c884d2256cfe62ee3930eec5b6dd87743b69c242",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb",
+      "reversing/probe_case.py": "61e876d0f6eca4971cfe67bb205771524cc1691c9c24249ed6318892238dad44"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "5251233421eed091cdbeeb750e892e466a1425161d396100209834d7ec438df9",
+    "fixture_scope": "Pregraphics five geometry wrappers1024each, full guarded outputs/inert typed entity, primitive helpers privately controlled native+DLL, dynamic exactlayoutCtorCALLproof sourceGeneralentry/body privatefixed55; pointer roles proven by producer/consumer identity, no dangling reads. No physics or helper/ctor/dtor integration accreditation.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "f69b5615e95da3863ac3599285aa4b7ab0007f3d2a01aacc16ee3ca1d591567c"
+    },
+    "asi": "7d468cd2a3f7f9c4060f21b1a0a9b3cfcbff6e175ebabd040483e245f3d94b30",
+    "pdb": "9f775c8b82f67473cdec245d40d9171a404fc37be8cd1c1cfe3c913ccc60deb0"
+  },
+  "runner_sha256": "915b75184824405ac568a8b378e579317c7b188e8064e43a84ca192ece568897"
+}

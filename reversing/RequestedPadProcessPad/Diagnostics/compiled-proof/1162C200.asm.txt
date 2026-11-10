@@ -1,0 +1,54 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1162C200: 55                 push        ebp
+  1162C201: 8B EC              mov         ebp,esp
+  1162C203: 81 EC CC 00 00 00  sub         esp,0CCh
+  1162C209: 53                 push        ebx
+  1162C20A: 56                 push        esi
+  1162C20B: 57                 push        edi
+  1162C20C: 51                 push        ecx
+  1162C20D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1162C210: B9 03 00 00 00     mov         ecx,3
+  1162C215: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1162C21A: F3 AB              rep stos    dword ptr es:[edi]
+  1162C21C: 59                 pop         ecx
+  1162C21D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1162C220: E8 A7 43 BF FF     call        112205CC
+  1162C225: 0F B6 C0           movzx       eax,al
+  1162C228: 85 C0              test        eax,eax
+  1162C22A: 74 13              je          1162C23F
+  1162C22C: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1162C22F: 50                 push        eax
+  1162C230: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1162C233: 51                 push        ecx
+  1162C234: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1162C237: E8 5A 33 BF FF     call        1121F596
+  1162C23C: 90                 nop
+  1162C23D: EB 11              jmp         1162C250
+  1162C23F: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1162C242: 50                 push        eax
+  1162C243: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1162C246: 51                 push        ecx
+  1162C247: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1162C24A: E8 19 2E C0 FF     call        1122F068
+  1162C24F: 90                 nop
+  1162C250: 5F                 pop         edi
+  1162C251: 5E                 pop         esi
+  1162C252: 5B                 pop         ebx
+  1162C253: 81 C4 CC 00 00 00  add         esp,0CCh
+  1162C259: 3B EC              cmp         ebp,esp
+  1162C25B: E8 D9 7A BB FF     call        111E3D39
+  1162C260: 8B E5              mov         esp,ebp
+  1162C262: 5D                 pop         ebp
+  1162C263: C2 08 00           ret         8
+  1162C266: CC                 int         3
+
+  Summary
+
+     2489000 .text

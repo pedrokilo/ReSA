@@ -1,0 +1,77 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115F2450: 55                 push        ebp
+  115F2451: 8B EC              mov         ebp,esp
+  115F2453: 81 EC 28 01 00 00  sub         esp,128h
+  115F2459: 53                 push        ebx
+  115F245A: 56                 push        esi
+  115F245B: 57                 push        edi
+  115F245C: 8D 7D 98           lea         edi,[ebp-68h]
+  115F245F: B9 1A 00 00 00     mov         ecx,1Ah
+  115F2464: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115F2469: F3 AB              rep stos    dword ptr es:[edi]
+  115F246B: 8D 45 10           lea         eax,[ebp+10h]
+  115F246E: 50                 push        eax
+  115F246F: E8 E1 4D BF FF     call        111E7255
+  115F2474: 83 C4 04           add         esp,4
+  115F2477: 88 85 3B FF FF FF  mov         byte ptr [ebp+FFFFFF3Bh],al
+  115F247D: 8A 8D 3B FF FF FF  mov         cl,byte ptr [ebp+FFFFFF3Bh]
+  115F2483: 88 8D 17 FF FF FF  mov         byte ptr [ebp+FFFFFF17h],cl
+  115F2489: 8A 95 17 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF17h]
+  115F248F: 88 95 FF FE FF FF  mov         byte ptr [ebp+FFFFFEFFh],dl
+  115F2495: 8A 85 FF FE FF FF  mov         al,byte ptr [ebp+FFFFFEFFh]
+  115F249B: 88 85 E7 FE FF FF  mov         byte ptr [ebp+FFFFFEE7h],al
+  115F24A1: 8D 4D 0C           lea         ecx,[ebp+0Ch]
+  115F24A4: 51                 push        ecx
+  115F24A5: 8D 95 2F FF FF FF  lea         edx,[ebp+FFFFFF2Fh]
+  115F24AB: 52                 push        edx
+  115F24AC: E8 7B 70 C0 FF     call        111F952C
+  115F24B1: 83 C4 08           add         esp,8
+  115F24B4: 0F B6 00           movzx       eax,byte ptr [eax]
+  115F24B7: 88 85 23 FF FF FF  mov         byte ptr [ebp+FFFFFF23h],al
+  115F24BD: 8A 8D 23 FF FF FF  mov         cl,byte ptr [ebp+FFFFFF23h]
+  115F24C3: 88 8D 0B FF FF FF  mov         byte ptr [ebp+FFFFFF0Bh],cl
+  115F24C9: 8A 95 0B FF FF FF  mov         dl,byte ptr [ebp+FFFFFF0Bh]
+  115F24CF: 88 95 F3 FE FF FF  mov         byte ptr [ebp+FFFFFEF3h],dl
+  115F24D5: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F24D8: 50                 push        eax
+  115F24D9: E8 D5 EE BF FF     call        111F13B3
+  115F24DE: 83 C4 04           add         esp,4
+  115F24E1: 89 85 DC FE FF FF  mov         dword ptr [ebp+FFFFFEDCh],eax
+  115F24E7: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  115F24EA: 51                 push        ecx
+  115F24EB: E8 2B E5 C0 FF     call        11200A1B
+  115F24F0: 83 C4 04           add         esp,4
+  115F24F3: 89 85 D8 FE FF FF  mov         dword ptr [ebp+FFFFFED8h],eax
+  115F24F9: 0F B6 95 E7 FE FF  movzx       edx,byte ptr [ebp+FFFFFEE7h]
+            FF
+  115F2500: 52                 push        edx
+  115F2501: 0F B6 85 F3 FE FF  movzx       eax,byte ptr [ebp+FFFFFEF3h]
+            FF
+  115F2508: 50                 push        eax
+  115F2509: 8B 8D DC FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEDCh]
+  115F250F: 51                 push        ecx
+  115F2510: 8B 95 D8 FE FF FF  mov         edx,dword ptr [ebp+FFFFFED8h]
+  115F2516: 52                 push        edx
+  115F2517: E8 EB 9D C1 FF     call        1120C307
+  115F251C: 83 C4 10           add         esp,10h
+  115F251F: 5F                 pop         edi
+  115F2520: 5E                 pop         esi
+  115F2521: 5B                 pop         ebx
+  115F2522: 81 C4 28 01 00 00  add         esp,128h
+  115F2528: 3B EC              cmp         ebp,esp
+  115F252A: E8 55 78 BF FF     call        111E9D84
+  115F252F: 8B E5              mov         esp,ebp
+  115F2531: 5D                 pop         ebp
+  115F2532: C3                 ret
+  115F2533: CC                 int         3
+
+  Summary
+
+     2496000 .text

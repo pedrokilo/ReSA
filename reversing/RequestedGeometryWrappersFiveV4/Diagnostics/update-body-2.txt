@@ -2,34 +2,34 @@ Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 
-Dump of file D:\Original\gta-reversed-master\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
+Dump of file D:\Original\wv-1\reversing\RequestedGeometryWrappersFiveV4\artifacts\gta_reversed-geometry-wrappers-five-v4.asi
 
 File Type: DLL
 
-  113594C0: 55                 push        ebp
-  113594C1: 8B EC              mov         ebp,esp
-  113594C3: 81 EC D0 00 00 00  sub         esp,0D0h
-  113594C9: 53                 push        ebx
-  113594CA: 56                 push        esi
-  113594CB: 57                 push        edi
-  113594CC: 89 4D F8           mov         dword ptr [ebp-8],ecx
-  113594CF: 83 7D 08 00        cmp         dword ptr [ebp+8],0
-  113594D3: 75 0C              jne         113594E1
-  113594D5: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+  115E7580: 55                 push        ebp
+  115E7581: 8B EC              mov         ebp,esp
+  115E7583: 81 EC D0 00 00 00  sub         esp,0D0h
+  115E7589: 53                 push        ebx
+  115E758A: 56                 push        esi
+  115E758B: 57                 push        edi
+  115E758C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115E758F: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  115E7593: 75 0C              jne         115E75A1
+  115E7595: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
             01 00 00 00
-  113594DF: EB 0A              jmp         113594EB
-  113594E1: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+  115E759F: EB 0A              jmp         115E75AB
+  115E75A1: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
             00 00 00 00
-  113594EB: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+  115E75AB: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
             FF
-  113594F2: 5F                 pop         edi
-  113594F3: 5E                 pop         esi
-  113594F4: 5B                 pop         ebx
-  113594F5: 8B E5              mov         esp,ebp
-  113594F7: 5D                 pop         ebp
-  113594F8: C2 04 00           ret         4
-  113594FB: CC                 int         3
+  115E75B2: 5F                 pop         edi
+  115E75B3: 5E                 pop         esi
+  115E75B4: 5B                 pop         ebx
+  115E75B5: 8B E5              mov         esp,ebp
+  115E75B7: 5D                 pop         ebp
+  115E75B8: C2 04 00           ret         4
+  115E75BB: CC                 int         3
 
   Summary
 
-     216B000 .text
+     2484000 .text

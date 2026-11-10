@@ -43,7 +43,7 @@ def main():
         win.write_text(source,encoding='utf-8',newline='\n')
         manifest['selected_bank']=args.bank;manifest['comparisons']=[2892,2560,89600][index]
         manifest['compiled_instruments']={'source/app/platform/win/WinMain.cpp':digest(win)}
-        task_env=os.environ.copy();task_env['_CL_']='/MP6'
+        task_env=os.environ.copy();task_env['_CL_']=os.environ.get('_CL_','/MP6')
         cmake=next((ROOT/'reversing/CVehicle/conan-cache/p').glob('cmake*/p/bin/cmake.exe'))
         with (ART/'build.log').open('w',encoding='utf-8') as log:
             subprocess.run([str(cmake),'--build',str(ROOT/'build'),'--config','Debug','--parallel','1'],stdout=log,stderr=subprocess.STDOUT,env=task_env,check=True)

@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115DE6F0: 55                 push        ebp
+  115DE6F1: 8B EC              mov         ebp,esp
+  115DE6F3: 81 EC CC 00 00 00  sub         esp,0CCh
+  115DE6F9: 53                 push        ebx
+  115DE6FA: 56                 push        esi
+  115DE6FB: 57                 push        edi
+  115DE6FC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115DE6FF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115DE702: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  115DE705: 8B 11              mov         edx,dword ptr [ecx]
+  115DE707: 89 10              mov         dword ptr [eax],edx
+  115DE709: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115DE70C: 5F                 pop         edi
+  115DE70D: 5E                 pop         esi
+  115DE70E: 5B                 pop         ebx
+  115DE70F: 8B E5              mov         esp,ebp
+  115DE711: 5D                 pop         ebp
+  115DE712: C2 08 00           ret         8
+  115DE715: CC                 int         3
+  115DE716: CC                 int         3
+  115DE717: CC                 int         3
+  115DE718: CC                 int         3
+  115DE719: CC                 int         3
+  115DE71A: CC                 int         3
+  115DE71B: CC                 int         3
+  115DE71C: CC                 int         3
+  115DE71D: CC                 int         3
+  115DE71E: CC                 int         3
+  115DE71F: CC                 int         3
+  115DE720: 55                 push        ebp
+  115DE721: 8B EC              mov         ebp,esp
+  115DE723: 81 EC CC 00 00 00  sub         esp,0CCh
+  115DE729: 53                 push        ebx
+  115DE72A: 56                 push        esi
+  115DE72B: 57                 push        edi
+  115DE72C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115DE72F: 8B
+  115DE730: 45                 inc         ebp
+
+  Summary
+
+     2489000 .text

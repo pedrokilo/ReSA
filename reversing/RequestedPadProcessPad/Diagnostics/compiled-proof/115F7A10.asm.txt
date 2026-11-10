@@ -1,0 +1,58 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115F7A10: 55                 push        ebp
+  115F7A11: 8B EC              mov         ebp,esp
+  115F7A13: 81 EC CC 00 00 00  sub         esp,0CCh
+  115F7A19: 53                 push        ebx
+  115F7A1A: 56                 push        esi
+  115F7A1B: 57                 push        edi
+  115F7A1C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  115F7A20: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F7A23: 5F                 pop         edi
+  115F7A24: 5E                 pop         esi
+  115F7A25: 5B                 pop         ebx
+  115F7A26: 8B E5              mov         esp,ebp
+  115F7A28: 5D                 pop         ebp
+  115F7A29: C3                 ret
+  115F7A2A: CC                 int         3
+  115F7A2B: CC                 int         3
+  115F7A2C: CC                 int         3
+  115F7A2D: CC                 int         3
+  115F7A2E: CC                 int         3
+  115F7A2F: CC                 int         3
+  115F7A30: 55                 push        ebp
+  115F7A31: 8B EC              mov         ebp,esp
+  115F7A33: 81 EC C0 00 00 00  sub         esp,0C0h
+  115F7A39: 53                 push        ebx
+  115F7A3A: 56                 push        esi
+  115F7A3B: 57                 push        edi
+  115F7A3C: 5F                 pop         edi
+  115F7A3D: 5E                 pop         esi
+  115F7A3E: 5B                 pop         ebx
+  115F7A3F: 8B E5              mov         esp,ebp
+  115F7A41: 5D                 pop         ebp
+  115F7A42: C3                 ret
+  115F7A43: CC                 int         3
+  115F7A44: CC                 int         3
+  115F7A45: CC                 int         3
+  115F7A46: CC                 int         3
+  115F7A47: CC                 int         3
+  115F7A48: CC                 int         3
+  115F7A49: CC                 int         3
+  115F7A4A: CC                 int         3
+  115F7A4B: CC                 int         3
+  115F7A4C: CC                 int         3
+  115F7A4D: CC                 int         3
+  115F7A4E: CC                 int         3
+  115F7A4F: CC                 int         3
+  115F7A50: 55                 push        ebp
+
+  Summary
+
+     2489000 .text

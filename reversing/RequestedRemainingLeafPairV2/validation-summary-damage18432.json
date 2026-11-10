@@ -5,7 +5,7 @@
     "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
     "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
   },
-  "executed_probe_sha256": "c7f0f48d4f886706c44572698d5d4207ffc082cc7b5063bb5d7c527bf0eac200",
+  "executed_probe_sha256": "fce83dee704b8981ba81d7d2e0e0d28910ce8306001fe57352f371c5f15796a1",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "config_hashes_before": {
     "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
@@ -13,7 +13,7 @@
   },
   "natural_exit": true,
   "exit_code": 0,
-  "pairs": 18432,
+  "pairs": 19152,
   "pairs_per_function": {
     "CInterestingEvents::InvalidateEvent": 720,
     "CPedDamageResponseCalculator::ComputeWillKillPed": 18432
@@ -26,40 +26,20 @@
   "harness_restored": true,
   "log_sha256": "90cde680f7e7679676bb51b7bd46e9d50e93ffa4f4ea71b301890191c71b1eeb",
   "harness_sha256": "7f6e5e09eb581d7116132a102f4c4dcb321f46215c5a767f536365bdb8a93a4e",
-  "scope": "Historical finite private CPed/calculator/response fixtures only: 3 ped types x64 independent controls (native infinite-health61, irrelevant gang77, mega67, force, member speech and call speech) x8 weapon IDs x12 finite boundaries. All bytes/traces/gates matched independent native-address model; x87 fall sequence exact for this finite corpus (double proof max25 bits). Cleanup, force-death and speech collaborators isolated; no helper/actor integration accreditation. Natural exit0 and full entries/vtables/hooks/timer/cheat/flags/config restoration. Original rejected9936 corpus/model77 preserved. No exhaustive float/NaN/infinity or dependency accreditation.",
+  "scope": "Historical finite private CPed/calculator/response fixtures only: 3 ped types x64 independent controls (native infinite-health61, irrelevant gang77, mega67, force, member speech and call speech) x8 weapon IDs x12 finite boundaries. All bytes/traces/gates matched independent native-address model; x87 fall sequence exact for this finite corpus (double proof max25 bits). Cleanup, force-death and speech collaborators isolated; no helper/actor integration accreditation. Natural exit0 and full entries/vtables/hooks/timer/cheat/flags/config restoration. Original rejected9936 corpus/model77 preserved. No exhaustive float/NaN/infinity or dependency accreditation. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "saves_unchanged": true,
   "configs_restored": true,
   "manifest": {
-    "head": "626f2d8d4fbe9208140d831b498ec17a6a0bec34",
-    "tested_sources": {
-      "source/game_sa/InterestingEvents.cpp": "9bbd2b4f9e6e5077bbe1ca0d11c2eb03f1435e4eae942ffbc752324c03154f2d",
-      "source/game_sa/InterestingEvents.h": "a4b35e4b6b9ce1a8077d4c76e4bbdd474c0bf85887efcbde0867a607e6774834",
-      "source/game_sa/PedDamageResponseCalculator.cpp": "9c2fbe5da98d2050db03a4a0b525a3173d526a4fc45e0657adafe6d17bad8119",
-      "source/game_sa/PedDamageResponseCalculator.h": "171cf52530ce70ddbfe877fd2c82feda5d7094f9677c1e54b0769d74d49f5134",
-      "source/game_sa/PedDamageResponse.h": "b8d633254cf96a2b99ffefbc71901d9a49d73f5da3c56d37554bd2fce675f46f",
-      "source/game_sa/Entity/Ped/Ped.cpp": "90d80d2d8b15f900cee469afc299eabd3e7494c0d04275699bec1fefe8b3f324",
-      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
-      "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e",
-      "source/game_sa/Enums/eCheats.h": "a4a7f216bc256263bfe815475d10039fe22e491a303f47ffbfc05b6f7cae4fd0",
-      "source/game_sa/Enums/eWeaponType.h": "0a245360d64947392a192b571637f47063068b1fd891d1d9cf23b23692a13269",
-      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
-      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
-      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
-      "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
-    },
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
     "bank_sources": {
-      "reversing/RequestedRemainingLeafPairV2/LiveComparison.hpp": "dcfd0caa9df39b52fc06d0e11ffb243ae02c2b950d212fa3cee2b09dc86ebf6e",
-      "reversing/RequestedRemainingLeafPairV2/Preflight.hpp": "de19f4245b94948c8b749081acd7510b62dd8f2065a680745732576f18cf540b",
-      "reversing/RequestedRemainingLeafPairV2/VTableRanges.hpp": "00450c689d86de75208b768e6d4ac41e0d5e90c7b41719271ddfaf8e88e76c64",
-      "reversing/RequestedRemainingLeafPairV2/build_probe.py": "8da6d1a338c6dcf6e5a8f31d03f163e94b9736727ff51ff5e3e7df5433408786",
-      "reversing/RequestedRemainingLeafPairV2/run_local.py": "938336e42193ddf2ca3bf74205adcb2761da04d4274e523ae9e720c472d35fe0",
+      "reversing/RequestedRemainingLeafPairV2/LiveComparison.hpp": "31f6fd4db1149af4b88b34cdb4eb1d4e1f3823035ee8a28ea126e25e1da89b25",
+      "reversing/RequestedRemainingLeafPairV2/Preflight.hpp": "6557bd6b433a9dd745319f346d3278ecbb709e7080cf6d256f3ecb6a9c99ef6b",
+      "reversing/RequestedRemainingLeafPairV2/VTableRanges.hpp": "a6247180755ebb5304bbe3905060847fa253800caa2144d4ad78135ab86b0555",
+      "reversing/RequestedRemainingLeafPairV2/build_probe.py": "170431af3fddebd53fd7f097ee77a04182c67a03165d1b8849f13719ea78857d",
+      "reversing/RequestedRemainingLeafPairV2/run_local.py": "d4eb7a2b1f4190384c25ae79b06b571ea050dc3484febbc5bdb826e86633bc9a",
       "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
       "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
-      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb"
     },
     "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
     "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
@@ -69,7 +49,27 @@
       "source/app/platform/win/WinMain.cpp": "a8298b23c93ea4f13229028e0b29cd5b03d6c87e11d5a7459da5bb6cf5e6e408"
     },
     "asi": "c7f0f48d4f886706c44572698d5d4207ffc082cc7b5063bb5d7c527bf0eac200",
-    "pdb": "e5cb1a7af2b5953dadb96eea6e259cb64d4e39b50d1169d1f21d63f0c403e262"
+    "pdb": "e5cb1a7af2b5953dadb96eea6e259cb64d4e39b50d1169d1f21d63f0c403e262",
+    "tested_sources": {
+      "source/game_sa/InterestingEvents.cpp": "07b2b25fcbf43fd3d813cdd84ee0d0186063cf85977ba66ab5480df35bed2adb",
+      "source/game_sa/InterestingEvents.h": "853f84778900d78d3f496e72ec48d083169b15b0d0ccd9a5a89fb5922b8bbc76",
+      "source/game_sa/PedDamageResponseCalculator.cpp": "c769c53d2779d6aa96f74e87e926c9da13ab607dbcc4ea978537dc9958eb406b",
+      "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+      "source/game_sa/PedDamageResponse.h": "b8d633254cf96a2b99ffefbc71901d9a49d73f5da3c56d37554bd2fce675f46f",
+      "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+      "source/game_sa/Entity/Ped/Ped.h": "7d4f653e046e428073f2b3eae35c29eb9a771bfbffee79b86589e69f27e55404",
+      "source/game_sa/Entity/Entity.cpp": "6f9dc3b8ced38440b6c1fc191d3e593941729124759c92ca039d6cb4295c76d9",
+      "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
+      "source/game_sa/Cheat.h": "b706a75a1e6d628a5ce0a690a5e36405ebcc2b79ce34d86d8e09e62085eda59e",
+      "source/game_sa/Enums/eCheats.h": "a4a7f216bc256263bfe815475d10039fe22e491a303f47ffbfc05b6f7cae4fd0",
+      "source/game_sa/Enums/eWeaponType.h": "0a245360d64947392a192b571637f47063068b1fd891d1d9cf23b23692a13269",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Base.h": "36eebcfa0393266496fb0604b2492e02779e894dfd82c69d63a201133f7eb095"
+    }
   },
   "runner_sha256": "938336e42193ddf2ca3bf74205adcb2761da04d4274e523ae9e720c472d35fe0",
   "reproduction_diagnostics": {
@@ -104,14 +104,11 @@
     }
   },
   "comparison_storage": {
-    "uncompressed_path": "reversing/RequestedRemainingLeafPairV2/runs/20261008-134804-625681/comparisons.jsonl",
-    "uncompressed_sha256": "90cde680f7e7679676bb51b7bd46e9d50e93ffa4f4ea71b301890191c71b1eeb",
-    "uncompressed_bytes": 235655228,
-    "compressed_path": "reversing/RequestedRemainingLeafPairV2/runs/20261008-134804-625681/comparisons.jsonl.gz",
-    "compressed_sha256": "5990f809ef509a841b95055584298671de04a3a8f38959471b02ac36844bb3f8",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RequestedRemainingLeafPairV2-20261110-110448-031829/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "lossless_roundtrip_sha256": "90cde680f7e7679676bb51b7bd46e9d50e93ffa4f4ea71b301890191c71b1eeb"
+    "compressed_sha256": "7aa5d8aea34e6c85f6d8b3b46a0ab0784838180f3c54905b29e9e0456e45beca",
+    "uncompressed_sha256": "90cde680f7e7679676bb51b7bd46e9d50e93ffa4f4ea71b301890191c71b1eeb"
   },
   "historical_only": true,
   "function": "CPedDamageResponseCalculator::ComputeWillKillPed",
@@ -126,5 +123,17 @@
     "gzip_roundtrip_verified": true,
     "cheat61_and77_independent": true,
     "cheat67_independent": true
-  }
+  },
+  "run": "reversing/CppTwelveLevel6Final/runs/RequestedRemainingLeafPairV2-20261110-110448-031829",
+  "summary_sha256": "0cb61d6e0d3bc37c269984f8d2cee8161ce5881652ff56709c2e5bb8a3d97c1f",
+  "result_txt_sha256": "ba2d3af707cb8da9c5ea5f2bc15e03130cdd3517296eeb2a425696c22d6b6200",
+  "functions": {
+    "CInterestingEvents::InvalidateEvent": 720,
+    "CPedDamageResponseCalculator::ComputeWillKillPed": 18432
+  },
+  "covered_functions": {
+    "CInterestingEvents::InvalidateEvent": true,
+    "CPedDamageResponseCalculator::ComputeWillKillPed": true
+  },
+  "registered_pairs": 19152
 }

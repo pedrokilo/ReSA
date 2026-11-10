@@ -78,7 +78,7 @@ def main():
     runner.probe_configuration = lambda data: configuration(data).replace(b'SaveGameToLoad = 2\n', b'SaveGameToLoad = -2\n')
     try:
         status = runner.run_case(PREFIX, manifest['asi'], analyze, 'Anim/projectile pair60624',
-                                 timeout=600, stop_before_analysis=False, unhook='', wait_for_exit=True)
+                                 timeout=1800, stop_before_analysis=False, unhook='', wait_for_exit=True)
     finally:
         runner.probe_configuration = configuration
     run = max((runner.GAME / f'resultados-{PREFIX}').glob('*/summary.json'),

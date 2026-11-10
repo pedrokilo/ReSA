@@ -29,7 +29,7 @@ inline Base* Find(const char* name){Base* result{};ReversibleHooks::GetRootCateg
 inline std::pair<uintptr_t,uintptr_t> Entries(Base* h){if(h->Type()==Base::HookType::Simple){auto* p=static_cast<Simple*>(h);return {uintptr_t(p->GetHookGTAAddress()),uintptr_t(p->GetHookOurAddress())};}auto* p=static_cast<Virtual*>(h);return {uintptr_t(p->GetHookGTAAddress()),uintptr_t(p->GetHookOurAddress())};}
 inline void Update(){
     char path[MAX_PATH]{};GetModuleFileNameA(nullptr,path,MAX_PATH);const auto dir=std::filesystem::path(path).parent_path();
-    std::ofstream log(dir/"fx-emitter-two.jsonl");auto write=[&](const json& row){log<<row.dump()<<'\n';log.flush();};
+    std::ofstream log(dir/"fx-emitter-two-runtime.jsonl");auto write=[&](const json& row){log<<row.dump()<<'\n';log.flush();};
     auto* ctor=Find("Constructor");auto* loader=Find("LoadTextures");
     if(!ctor||!loader){write({{"event","error"},{"reason","missing target hooks"}});write({{"event","complete"},{"comparisons",0},{"all_equal",false},{"state_restored",true}});return;}
     const auto ctorEntries=Entries(ctor),loadEntries=Entries(loader);

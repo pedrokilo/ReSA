@@ -1,0 +1,41 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1162A850: 55                 push        ebp
+  1162A851: 8B EC              mov         ebp,esp
+  1162A853: 81 EC CC 00 00 00  sub         esp,0CCh
+  1162A859: 53                 push        ebx
+  1162A85A: 56                 push        esi
+  1162A85B: 57                 push        edi
+  1162A85C: 51                 push        ecx
+  1162A85D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1162A860: B9 03 00 00 00     mov         ecx,3
+  1162A865: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1162A86A: F3 AB              rep stos    dword ptr es:[edi]
+  1162A86C: 59                 pop         ecx
+  1162A86D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1162A870: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1162A873: E8 D9 D6 C0 FF     call        11237F51
+  1162A878: 5F                 pop         edi
+  1162A879: 5E                 pop         esi
+  1162A87A: 5B                 pop         ebx
+  1162A87B: 81 C4 CC 00 00 00  add         esp,0CCh
+  1162A881: 3B EC              cmp         ebp,esp
+  1162A883: E8 B1 94 BB FF     call        111E3D39
+  1162A888: 8B E5              mov         esp,ebp
+  1162A88A: 5D                 pop         ebp
+  1162A88B: C3                 ret
+  1162A88C: CC                 int         3
+  1162A88D: CC                 int         3
+  1162A88E: CC                 int         3
+  1162A88F: CC                 int         3
+  1162A890: CC                 int         3
+
+  Summary
+
+     2489000 .text

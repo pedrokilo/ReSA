@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115FA5E0: 55                 push        ebp
+  115FA5E1: 8B EC              mov         ebp,esp
+  115FA5E3: 81 EC C0 00 00 00  sub         esp,0C0h
+  115FA5E9: 53                 push        ebx
+  115FA5EA: 56                 push        esi
+  115FA5EB: 57                 push        edi
+  115FA5EC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115FA5EF: 5F                 pop         edi
+  115FA5F0: 5E                 pop         esi
+  115FA5F1: 5B                 pop         ebx
+  115FA5F2: 8B E5              mov         esp,ebp
+  115FA5F4: 5D                 pop         ebp
+  115FA5F5: C3                 ret
+  115FA5F6: CC                 int         3
+  115FA5F7: CC                 int         3
+  115FA5F8: CC                 int         3
+  115FA5F9: CC                 int         3
+  115FA5FA: CC                 int         3
+  115FA5FB: CC                 int         3
+  115FA5FC: CC                 int         3
+  115FA5FD: CC                 int         3
+  115FA5FE: CC                 int         3
+  115FA5FF: CC                 int         3
+  115FA600: 55                 push        ebp
+  115FA601: 8B EC              mov         ebp,esp
+  115FA603: 81 EC C0 00 00 00  sub         esp,0C0h
+  115FA609: 53                 push        ebx
+  115FA60A: 56                 push        esi
+  115FA60B: 57                 push        edi
+  115FA60C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115FA60F: 5F                 pop         edi
+  115FA610: 5E                 pop         esi
+  115FA611: 5B                 pop         ebx
+  115FA612: 8B E5              mov         esp,ebp
+  115FA614: 5D                 pop         ebp
+  115FA615: C3                 ret
+  115FA616: CC                 int         3
+  115FA617: CC                 int         3
+  115FA618: CC                 int         3
+  115FA619: CC                 int         3
+  115FA61A: CC                 int         3
+  115FA61B: CC                 int         3
+  115FA61C: CC                 int         3
+  115FA61D: CC                 int         3
+  115FA61E: CC                 int         3
+  115FA61F: CC                 int         3
+  115FA620: 55                 push        ebp
+
+  Summary
+
+     2489000 .text

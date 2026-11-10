@@ -5,13 +5,13 @@
   "inputs": {
     "reversing/RequestedPadUpdateMouseV3/LiveComparison.hpp": "c5b0af0f2aad3f5cf528e85537b801523670b40f98ecbaa04b2c2b91a57761d6",
     "reversing/RequestedPadUpdateMouseV3/Preflight.hpp": "ca2db626beb80f2c97c5d3fd150f260849ea43c47758df478464a76c8ffcba3b",
-    "reversing/RequestedPadUpdateMouseV3/VTableRanges.hpp": "8a3d987e8fcaeb7c7bff5c8416654508329f2f2973eada513916f7beadc66b50",
+    "reversing/RequestedPadUpdateMouseV3/VTableRanges.hpp": "f859c1b2058cda8a99b4bdba6fa4dbc7d8e501de3806a38b05ebd78bc8de0125",
     "reversing/RequestedPadUpdateMouseV3/model.py": "955ed9f5f209a8a815ded89f006e9d4933485655b87b84862c5e7c1ec5e78d24",
     "reversing/RequestedPadUpdateMouseV3/build_probe.py": "6e1229b67cdfc02381bfc63e3fdb919982cd8bcc1e59ed2c1ce3af88b2b0475c",
     "reversing/RequestedPadUpdateMouseV3/run_local.py": "749aa20ad2a3b85d97515df215f47fecfdfbd77f1194e2e0727ef882385861aa",
     "reversing/RequestedPadUpdateMouseV3/inspect_compiled.py": "1fd339e0cc3f61c75e6cd7d68a3a607c6238c1a164c91cc8ff7a08d858d32daf",
     "reversing/RequestedPadUpdateMouseV3/preparation-plan.json": "b27e852292d74ea71888f28c975be1d34fe19823c873f5440f9610ac64030053",
-    "reversing/RequestedPadUpdateMouseV3/DESIGN.md": "152624e982a0ee66431461ea6c2049b7fb757635e4d2bbdc25b450704f9d6691",
+    "reversing/RequestedPadUpdateMouseV3/DESIGN.md": "894ea51ad3d8f0d9ecd6f59c18dc23564b53b5a153205671ccd2077d9320c69b",
     "reversing/RequestedPadUpdateMouseV3/evidence/UpdateMouse-fresh-combo.txt": "b26ea86958c9f25f2fc28bdf6784e929b0e3bdd993b91f15b17f01d8fa6e0806",
     "reversing/RequestedPadUpdateMouseV3/evidence/NativeCheckForInput.asm.txt": "2917c9ffd059094a31267f743c713efd17e76a689d69b89ecdbf48b2e77fd8ac",
     "reversing/RequestedPadUpdateMouseV3/evidence/NativeGetMouseState.asm.txt": "7f00fce07caef71ded41c4599f5915d079715138060dcba16ea276d1727a5a38",
@@ -26,6 +26,6 @@
   "revision_reason": "V3 corrige dos defectos del arnes del V2 rechazado en LiveComparison.hpp (checkOwn/checkBody antes de desenganchar; checkHookedNative para restauracion). Corpus de 9216 casos y model.py sin cambios.",
   "refrozen": {
     "date": "2026-11-10",
-    "reason": "hashes recalculados sobre ficheros con LF y sobre las versiones actuales de ProbeRuntime.hpp/runtime_runner.py (CASO-CONGELADOS)"
+    "reason": "REPARAR-REQUESTED: hashes recalculados sobre LF y versiones actuales de ProbeRuntime.hpp/runtime_runner.py/VTableRanges.hpp"
   }
 }

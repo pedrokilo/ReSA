@@ -1,0 +1,104 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115F9EA0: 55                 push        ebp
+  115F9EA1: 8B EC              mov         ebp,esp
+  115F9EA3: 6A FF              push        0FFFFFFFFh
+  115F9EA5: 68 4D 61 55 13     push        1355614Dh
+  115F9EAA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  115F9EB0: 50                 push        eax
+  115F9EB1: 81 EC F8 00 00 00  sub         esp,0F8h
+  115F9EB7: 53                 push        ebx
+  115F9EB8: 56                 push        esi
+  115F9EB9: 57                 push        edi
+  115F9EBA: 8D 7D BC           lea         edi,[ebp-44h]
+  115F9EBD: B9 0E 00 00 00     mov         ecx,0Eh
+  115F9EC2: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115F9EC7: F3 AB              rep stos    dword ptr es:[edi]
+  115F9EC9: A1 40 7D D9 13     mov         eax,dword ptr ds:[13D97D40h]
+  115F9ECE: 33 C5              xor         eax,ebp
+  115F9ED0: 50                 push        eax
+  115F9ED1: 8D 45 F4           lea         eax,[ebp-0Ch]
+  115F9ED4: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  115F9EDA: 8D 45 08           lea         eax,[ebp+8]
+  115F9EDD: 50                 push        eax
+  115F9EDE: E8 C3 63 BE FF     call        111E02A6
+  115F9EE3: 83 C4 04           add         esp,4
+  115F9EE6: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  115F9EE9: 8D 45 0C           lea         eax,[ebp+0Ch]
+  115F9EEC: 50                 push        eax
+  115F9EED: E8 B4 63 BE FF     call        111E02A6
+  115F9EF2: 83 C4 04           add         esp,4
+  115F9EF5: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  115F9EF8: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  115F9EFB: 50                 push        eax
+  115F9EFC: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  115F9EFF: 51                 push        ecx
+  115F9F00: 8D 4D CC           lea         ecx,[ebp-34h]
+  115F9F03: E8 07 F7 C1 FF     call        1121960F
+  115F9F08: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  115F9F0F: EB 09              jmp         115F9F1A
+  115F9F11: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  115F9F14: 83 C0 04           add         eax,4
+  115F9F17: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  115F9F1A: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  115F9F1D: 3B 45 E0           cmp         eax,dword ptr [ebp-20h]
+  115F9F20: 74 0F              je          115F9F31
+  115F9F22: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  115F9F25: 50                 push        eax
+  115F9F26: 8D 4D CC           lea         ecx,[ebp-34h]
+  115F9F29: E8 13 73 BE FF     call        111E1241
+  115F9F2E: 90                 nop
+  115F9F2F: EB E0              jmp         115F9F11
+  115F9F31: 8D 4D CC           lea         ecx,[ebp-34h]
+  115F9F34: E8 BC AE BF FF     call        111F4DF5
+  115F9F39: 89 85 00 FF FF FF  mov         dword ptr [ebp+FFFFFF00h],eax
+  115F9F3F: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  115F9F46: 8D 4D CC           lea         ecx,[ebp-34h]
+  115F9F49: E8 0D BF C1 FF     call        11215E5B
+  115F9F4E: 8B 85 00 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF00h]
+  115F9F54: 52                 push        edx
+  115F9F55: 8B CD              mov         ecx,ebp
+  115F9F57: 50                 push        eax
+  115F9F58: 8D 15 84 9F 5F 11  lea         edx,ds:[115F9F84h]
+  115F9F5E: E8 2C F7 BE FF     call        111E968F
+  115F9F63: 58                 pop         eax
+  115F9F64: 5A                 pop         edx
+  115F9F65: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  115F9F68: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  115F9F6F: 59                 pop         ecx
+  115F9F70: 5F                 pop         edi
+  115F9F71: 5E                 pop         esi
+  115F9F72: 5B                 pop         ebx
+  115F9F73: 81 C4 04 01 00 00  add         esp,104h
+  115F9F79: 3B EC              cmp         ebp,esp
+  115F9F7B: E8 B9 9D BE FF     call        111E3D39
+  115F9F80: 8B E5              mov         esp,ebp
+  115F9F82: 5D                 pop         ebp
+  115F9F83: C3                 ret
+  115F9F84: 01 00              add         dword ptr [eax],eax
+  115F9F86: 00 00              add         byte ptr [eax],al
+  115F9F88: 8C 9F 5F 11 CC FF  mov         word ptr [edi+FFCC115Fh],ds
+  115F9F8E: FF
+  115F9F8F: FF 0C 00           dec         dword ptr [eax+eax]
+  115F9F92: 00 00              add         byte ptr [eax],al
+  115F9F94: 98                 cwde
+  115F9F95: 9F                 lahf
+  115F9F96: 5F                 pop         edi
+  115F9F97: 11 5F 42           adc         dword ptr [edi+42h],ebx
+  115F9F9A: 61                 popad
+  115F9F9B: 63 6B 6F           arpl        word ptr [ebx+6Fh],bp
+  115F9F9E: 75 74              jne         115FA014
+  115F9FA0: 00 CC              add         ah,cl
+
+  Summary
+
+     2489000 .text

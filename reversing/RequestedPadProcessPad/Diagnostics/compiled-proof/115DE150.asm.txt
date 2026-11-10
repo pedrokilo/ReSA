@@ -1,0 +1,42 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115DE150: 55                 push        ebp
+  115DE151: 8B EC              mov         ebp,esp
+  115DE153: 81 EC CC 00 00 00  sub         esp,0CCh
+  115DE159: 53                 push        ebx
+  115DE15A: 56                 push        esi
+  115DE15B: 57                 push        edi
+  115DE15C: 51                 push        ecx
+  115DE15D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  115DE160: B9 03 00 00 00     mov         ecx,3
+  115DE165: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115DE16A: F3 AB              rep stos    dword ptr es:[edi]
+  115DE16C: 59                 pop         ecx
+  115DE16D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115DE170: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  115DE173: E8 95 20 C3 FF     call        1121020D
+  115DE178: 90                 nop
+  115DE179: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  115DE17C: E8 AB 54 C5 FF     call        1123362C
+  115DE181: 90                 nop
+  115DE182: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115DE185: 5F                 pop         edi
+  115DE186: 5E                 pop         esi
+  115DE187: 5B                 pop         ebx
+  115DE188: 81 C4 CC 00 00 00  add         esp,0CCh
+  115DE18E: 3B EC              cmp         ebp,esp
+  115DE190: E8 A4 5B C0 FF     call        111E3D39
+  115DE195: 8B E5              mov         esp,ebp
+  115DE197: 5D                 pop         ebp
+  115DE198: C2 04 00           ret         4
+  115DE19B: CC                 int         3
+
+  Summary
+
+     2489000 .text

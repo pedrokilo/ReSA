@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115E6100: 55                 push        ebp
+  115E6101: 8B EC              mov         ebp,esp
+  115E6103: 81 EC CC 00 00 00  sub         esp,0CCh
+  115E6109: 53                 push        ebx
+  115E610A: 56                 push        esi
+  115E610B: 57                 push        edi
+  115E610C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115E610F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115E6112: 5F                 pop         edi
+  115E6113: 5E                 pop         esi
+  115E6114: 5B                 pop         ebx
+  115E6115: 8B E5              mov         esp,ebp
+  115E6117: 5D                 pop         ebp
+  115E6118: C2 04 00           ret         4
+  115E611B: CC                 int         3
+  115E611C: CC                 int         3
+  115E611D: CC                 int         3
+  115E611E: CC                 int         3
+  115E611F: CC                 int         3
+  115E6120: CC                 int         3
+  115E6121: CC                 int         3
+  115E6122: CC                 int         3
+  115E6123: CC                 int         3
+  115E6124: CC                 int         3
+  115E6125: CC                 int         3
+  115E6126: CC                 int         3
+  115E6127: CC                 int         3
+  115E6128: CC                 int         3
+  115E6129: CC                 int         3
+  115E612A: CC                 int         3
+  115E612B: CC                 int         3
+  115E612C: CC                 int         3
+  115E612D: CC                 int         3
+  115E612E: CC                 int         3
+  115E612F: CC                 int         3
+  115E6130: 55                 push        ebp
+  115E6131: 8B EC              mov         ebp,esp
+  115E6133: 81 EC CC 00 00 00  sub         esp,0CCh
+  115E6139: 53                 push        ebx
+  115E613A: 56                 push        esi
+  115E613B: 57                 push        edi
+  115E613C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115E613F: 8B
+  115E6140: 45                 inc         ebp
+
+  Summary
+
+     2489000 .text

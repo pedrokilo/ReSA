@@ -1,0 +1,139 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11631AF0: 55                 push        ebp
+  11631AF1: 8B EC              mov         ebp,esp
+  11631AF3: 81 EC E0 00 00 00  sub         esp,0E0h
+  11631AF9: 53                 push        ebx
+  11631AFA: 56                 push        esi
+  11631AFB: 57                 push        edi
+  11631AFC: 51                 push        ecx
+  11631AFD: 8D 7D E0           lea         edi,[ebp-20h]
+  11631B00: B9 08 00 00 00     mov         ecx,8
+  11631B05: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11631B0A: F3 AB              rep stos    dword ptr es:[edi]
+  11631B0C: 59                 pop         ecx
+  11631B0D: 89 55 EC           mov         dword ptr [ebp-14h],edx
+  11631B10: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11631B13: 0F B6 05 31 20 C6  movzx       eax,byte ptr ds:[13C62031h]
+            13
+  11631B1A: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  11631B20: 8B 0D 50 5D D2 13  mov         ecx,dword ptr ds:[13D25D50h]
+  11631B26: 51                 push        ecx
+  11631B27: E8 77 AB BE FF     call        1121C6A3
+  11631B2C: 83 C4 04           add         esp,4
+  11631B2F: 39 45 F8           cmp         dword ptr [ebp-8],eax
+  11631B32: 75 0C              jne         11631B40
+  11631B34: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],1
+            01 00 00 00
+  11631B3E: EB 0A              jmp         11631B4A
+  11631B40: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],0
+            00 00 00 00
+  11631B4A: 8B 95 24 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF24h]
+  11631B50: 23 95 20 FF FF FF  and         edx,dword ptr [ebp+FFFFFF20h]
+  11631B56: 88 15 31 20 C6 13  mov         byte ptr ds:[13C62031h],dl
+  11631B5C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11631B5F: 50                 push        eax
+  11631B60: E8 F4 5C BB FF     call        111E7859
+  11631B65: 83 C4 04           add         esp,4
+  11631B68: 5F                 pop         edi
+  11631B69: 5E                 pop         esi
+  11631B6A: 5B                 pop         ebx
+  11631B6B: 81 C4 E0 00 00 00  add         esp,0E0h
+  11631B71: 3B EC              cmp         ebp,esp
+  11631B73: E8 0C 82 BB FF     call        111E9D84
+  11631B78: 8B E5              mov         esp,ebp
+  11631B7A: 5D                 pop         ebp
+  11631B7B: C2 04 00           ret         4
+  11631B7E: CC                 int         3
+  11631B7F: CC                 int         3
+  11631B80: CC                 int         3
+  11631B81: CC                 int         3
+  11631B82: CC                 int         3
+  11631B83: CC                 int         3
+  11631B84: CC                 int         3
+  11631B85: CC                 int         3
+  11631B86: CC                 int         3
+  11631B87: CC                 int         3
+  11631B88: CC                 int         3
+  11631B89: CC                 int         3
+  11631B8A: CC                 int         3
+  11631B8B: CC                 int         3
+  11631B8C: CC                 int         3
+  11631B8D: CC                 int         3
+  11631B8E: CC                 int         3
+  11631B8F: CC                 int         3
+  11631B90: CC                 int         3
+  11631B91: CC                 int         3
+  11631B92: CC                 int         3
+  11631B93: CC                 int         3
+  11631B94: CC                 int         3
+  11631B95: CC                 int         3
+  11631B96: CC                 int         3
+  11631B97: CC                 int         3
+  11631B98: CC                 int         3
+  11631B99: CC                 int         3
+  11631B9A: CC                 int         3
+  11631B9B: CC                 int         3
+  11631B9C: CC                 int         3
+  11631B9D: CC                 int         3
+  11631B9E: CC                 int         3
+  11631B9F: CC                 int         3
+  11631BA0: CC                 int         3
+  11631BA1: CC                 int         3
+  11631BA2: CC                 int         3
+  11631BA3: CC                 int         3
+  11631BA4: CC                 int         3
+  11631BA5: CC                 int         3
+  11631BA6: CC                 int         3
+  11631BA7: CC                 int         3
+  11631BA8: CC                 int         3
+  11631BA9: CC                 int         3
+  11631BAA: CC                 int         3
+  11631BAB: CC                 int         3
+  11631BAC: CC                 int         3
+  11631BAD: CC                 int         3
+  11631BAE: CC                 int         3
+  11631BAF: CC                 int         3
+  11631BB0: 55                 push        ebp
+  11631BB1: 8B EC              mov         ebp,esp
+  11631BB3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11631BB9: 53                 push        ebx
+  11631BBA: 56                 push        esi
+  11631BBB: 57                 push        edi
+  11631BBC: 8B FD              mov         edi,ebp
+  11631BBE: 33 C9              xor         ecx,ecx
+  11631BC0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11631BC5: F3 AB              rep stos    dword ptr es:[edi]
+  11631BC7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11631BCA: 50                 push        eax
+  11631BCB: E8 89 5C BB FF     call        111E7859
+  11631BD0: 83 C4 04           add         esp,4
+  11631BD3: 5F                 pop         edi
+  11631BD4: 5E                 pop         esi
+  11631BD5: 5B                 pop         ebx
+  11631BD6: 81 C4 C0 00 00 00  add         esp,0C0h
+  11631BDC: 3B EC              cmp         ebp,esp
+  11631BDE: E8 A1 81 BB FF     call        111E9D84
+  11631BE3: 8B E5              mov         esp,ebp
+  11631BE5: 5D                 pop         ebp
+  11631BE6: C3                 ret
+  11631BE7: CC                 int         3
+  11631BE8: CC                 int         3
+  11631BE9: CC                 int         3
+  11631BEA: CC                 int         3
+  11631BEB: CC                 int         3
+  11631BEC: CC                 int         3
+  11631BED: CC                 int         3
+  11631BEE: CC                 int         3
+  11631BEF: CC                 int         3
+  11631BF0: CC                 int         3
+
+  Summary
+
+     2496000 .text

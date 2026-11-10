@@ -1,0 +1,77 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115E83F0: 55                 push        ebp
+  115E83F1: 8B EC              mov         ebp,esp
+  115E83F3: 81 EC 28 01 00 00  sub         esp,128h
+  115E83F9: 53                 push        ebx
+  115E83FA: 56                 push        esi
+  115E83FB: 57                 push        edi
+  115E83FC: 8D 7D 98           lea         edi,[ebp-68h]
+  115E83FF: B9 1A 00 00 00     mov         ecx,1Ah
+  115E8404: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115E8409: F3 AB              rep stos    dword ptr es:[edi]
+  115E840B: 8D 45 10           lea         eax,[ebp+10h]
+  115E840E: 50                 push        eax
+  115E840F: E8 3C 8E BF FF     call        111E1250
+  115E8414: 83 C4 04           add         esp,4
+  115E8417: 88 85 3B FF FF FF  mov         byte ptr [ebp+FFFFFF3Bh],al
+  115E841D: 8A 8D 3B FF FF FF  mov         cl,byte ptr [ebp+FFFFFF3Bh]
+  115E8423: 88 8D 17 FF FF FF  mov         byte ptr [ebp+FFFFFF17h],cl
+  115E8429: 8A 95 17 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF17h]
+  115E842F: 88 95 FF FE FF FF  mov         byte ptr [ebp+FFFFFEFFh],dl
+  115E8435: 8A 85 FF FE FF FF  mov         al,byte ptr [ebp+FFFFFEFFh]
+  115E843B: 88 85 E7 FE FF FF  mov         byte ptr [ebp+FFFFFEE7h],al
+  115E8441: 8D 4D 0C           lea         ecx,[ebp+0Ch]
+  115E8444: 51                 push        ecx
+  115E8445: 8D 95 2F FF FF FF  lea         edx,[ebp+FFFFFF2Fh]
+  115E844B: 52                 push        edx
+  115E844C: E8 20 95 C4 FF     call        11231971
+  115E8451: 83 C4 08           add         esp,8
+  115E8454: 0F B6 00           movzx       eax,byte ptr [eax]
+  115E8457: 88 85 23 FF FF FF  mov         byte ptr [ebp+FFFFFF23h],al
+  115E845D: 8A 8D 23 FF FF FF  mov         cl,byte ptr [ebp+FFFFFF23h]
+  115E8463: 88 8D 0B FF FF FF  mov         byte ptr [ebp+FFFFFF0Bh],cl
+  115E8469: 8A 95 0B FF FF FF  mov         dl,byte ptr [ebp+FFFFFF0Bh]
+  115E846F: 88 95 F3 FE FF FF  mov         byte ptr [ebp+FFFFFEF3h],dl
+  115E8475: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115E8478: 50                 push        eax
+  115E8479: E8 37 88 C4 FF     call        11230CB5
+  115E847E: 83 C4 04           add         esp,4
+  115E8481: 89 85 DC FE FF FF  mov         dword ptr [ebp+FFFFFEDCh],eax
+  115E8487: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  115E848A: 51                 push        ecx
+  115E848B: E8 6C 8B C0 FF     call        111F0FFC
+  115E8490: 83 C4 04           add         esp,4
+  115E8493: 89 85 D8 FE FF FF  mov         dword ptr [ebp+FFFFFED8h],eax
+  115E8499: 0F B6 95 E7 FE FF  movzx       edx,byte ptr [ebp+FFFFFEE7h]
+            FF
+  115E84A0: 52                 push        edx
+  115E84A1: 0F B6 85 F3 FE FF  movzx       eax,byte ptr [ebp+FFFFFEF3h]
+            FF
+  115E84A8: 50                 push        eax
+  115E84A9: 8B 8D DC FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEDCh]
+  115E84AF: 51                 push        ecx
+  115E84B0: 8B 95 D8 FE FF FF  mov         edx,dword ptr [ebp+FFFFFED8h]
+  115E84B6: 52                 push        edx
+  115E84B7: E8 04 EC C3 FF     call        112270C0
+  115E84BC: 83 C4 10           add         esp,10h
+  115E84BF: 5F                 pop         edi
+  115E84C0: 5E                 pop         esi
+  115E84C1: 5B                 pop         ebx
+  115E84C2: 81 C4 28 01 00 00  add         esp,128h
+  115E84C8: 3B EC              cmp         ebp,esp
+  115E84CA: E8 6A B8 BF FF     call        111E3D39
+  115E84CF: 8B E5              mov         esp,ebp
+  115E84D1: 5D                 pop         ebp
+  115E84D2: C3                 ret
+  115E84D3: CC                 int         3
+
+  Summary
+
+     2489000 .text

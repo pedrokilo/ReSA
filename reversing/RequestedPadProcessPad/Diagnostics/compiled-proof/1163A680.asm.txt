@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1163A680: 55                 push        ebp
+  1163A681: 8B EC              mov         ebp,esp
+  1163A683: 81 EC E4 00 00 00  sub         esp,0E4h
+  1163A689: 53                 push        ebx
+  1163A68A: 56                 push        esi
+  1163A68B: 57                 push        edi
+  1163A68C: 51                 push        ecx
+  1163A68D: 8D 7D DC           lea         edi,[ebp-24h]
+  1163A690: B9 09 00 00 00     mov         ecx,9
+  1163A695: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1163A69A: F3 AB              rep stos    dword ptr es:[edi]
+  1163A69C: 59                 pop         ecx
+  1163A69D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1163A6A0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1163A6A3: E8 D7 8C BA FF     call        111E337F
+  1163A6A8: 50                 push        eax
+  1163A6A9: E8 DA CE BA FF     call        111E7588
+  1163A6AE: 83 C4 04           add         esp,4
+  1163A6B1: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  1163A6B7: E8 E7 95 BF FF     call        11233CA3
+  1163A6BC: 89 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],eax
+  1163A6C2: 8D 85 2C FF FF FF  lea         eax,[ebp+FFFFFF2Ch]
+  1163A6C8: 50                 push        eax
+  1163A6C9: 8D 8D 20 FF FF FF  lea         ecx,[ebp+FFFFFF20h]
+  1163A6CF: 51                 push        ecx
+  1163A6D0: E8 17 9C BB FF     call        111F42EC
+  1163A6D5: 83 C4 08           add         esp,8
+  1163A6D8: 8B 00              mov         eax,dword ptr [eax]
+  1163A6DA: 5F                 pop         edi
+  1163A6DB: 5E                 pop         esi
+  1163A6DC: 5B                 pop         ebx
+  1163A6DD: 81 C4 E4 00 00 00  add         esp,0E4h
+  1163A6E3: 3B EC              cmp         ebp,esp
+  1163A6E5: E8 4F 96 BA FF     call        111E3D39
+  1163A6EA: 8B E5              mov         esp,ebp
+  1163A6EC: 5D                 pop         ebp
+  1163A6ED: C3                 ret
+  1163A6EE: CC                 int         3
+
+  Summary
+
+     2489000 .text

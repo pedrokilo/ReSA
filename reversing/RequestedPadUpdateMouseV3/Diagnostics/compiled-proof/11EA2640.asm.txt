@@ -1,0 +1,76 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11EA2640: 55                 push        ebp
+  11EA2641: 8B EC              mov         ebp,esp
+  11EA2643: 81 EC D0 00 00 00  sub         esp,0D0h
+  11EA2649: 53                 push        ebx
+  11EA264A: 56                 push        esi
+  11EA264B: 57                 push        edi
+  11EA264C: 51                 push        ecx
+  11EA264D: 8D 7D F0           lea         edi,[ebp-10h]
+  11EA2650: B9 04 00 00 00     mov         ecx,4
+  11EA2655: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11EA265A: F3 AB              rep stos    dword ptr es:[edi]
+  11EA265C: 59                 pop         ecx
+  11EA265D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11EA2660: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11EA2663: 0F B6 08           movzx       ecx,byte ptr [eax]
+  11EA2666: 85 C9              test        ecx,ecx
+  11EA2668: 75 60              jne         11EA26CA
+  11EA266A: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11EA266D: 0F B6 42 01        movzx       eax,byte ptr [edx+1]
+  11EA2671: 85 C0              test        eax,eax
+  11EA2673: 75 55              jne         11EA26CA
+  11EA2675: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11EA2678: 0F B6 51 02        movzx       edx,byte ptr [ecx+2]
+  11EA267C: 85 D2              test        edx,edx
+  11EA267E: 75 4A              jne         11EA26CA
+  11EA2680: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11EA2683: 0F B6 48 03        movzx       ecx,byte ptr [eax+3]
+  11EA2687: 85 C9              test        ecx,ecx
+  11EA2689: 75 3F              jne         11EA26CA
+  11EA268B: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11EA268E: 0F B6 42 04        movzx       eax,byte ptr [edx+4]
+  11EA2692: 85 C0              test        eax,eax
+  11EA2694: 75 34              jne         11EA26CA
+  11EA2696: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11EA2699: 0F B6 51 05        movzx       edx,byte ptr [ecx+5]
+  11EA269D: 85 D2              test        edx,edx
+  11EA269F: 75 29              jne         11EA26CA
+  11EA26A1: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11EA26A4: 0F B6 48 06        movzx       ecx,byte ptr [eax+6]
+  11EA26A8: 85 C9              test        ecx,ecx
+  11EA26AA: 75 1E              jne         11EA26CA
+  11EA26AC: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11EA26AF: 83 C1 0C           add         ecx,0Ch
+  11EA26B2: E8 79 8F 38 FF     call        1122B630
+  11EA26B7: 0F B6 D0           movzx       edx,al
+  11EA26BA: 85 D2              test        edx,edx
+  11EA26BC: 74 0C              je          11EA26CA
+  11EA26BE: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  11EA26C8: EB 0A              jmp         11EA26D4
+  11EA26CA: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  11EA26D4: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  11EA26DB: 5F                 pop         edi
+  11EA26DC: 5E                 pop         esi
+  11EA26DD: 5B                 pop         ebx
+  11EA26DE: 81 C4 D0 00 00 00  add         esp,0D0h
+  11EA26E4: 3B EC              cmp         ebp,esp
+  11EA26E6: E8 99 76 34 FF     call        111E9D84
+  11EA26EB: 8B E5              mov         esp,ebp
+  11EA26ED: 5D                 pop         ebp
+  11EA26EE: C3                 ret
+  11EA26EF: CC                 int         3
+
+  Summary
+
+     2496000 .text

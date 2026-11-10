@@ -1,0 +1,55 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1160BB70: 55                 push        ebp
+  1160BB71: 8B EC              mov         ebp,esp
+  1160BB73: 81 EC CC 00 00 00  sub         esp,0CCh
+  1160BB79: 53                 push        ebx
+  1160BB7A: 56                 push        esi
+  1160BB7B: 57                 push        edi
+  1160BB7C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1160BB7F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1160BB82: 5F                 pop         edi
+  1160BB83: 5E                 pop         esi
+  1160BB84: 5B                 pop         ebx
+  1160BB85: 8B E5              mov         esp,ebp
+  1160BB87: 5D                 pop         ebp
+  1160BB88: C3                 ret
+  1160BB89: CC                 int         3
+  1160BB8A: CC                 int         3
+  1160BB8B: CC                 int         3
+  1160BB8C: CC                 int         3
+  1160BB8D: CC                 int         3
+  1160BB8E: CC                 int         3
+  1160BB8F: CC                 int         3
+  1160BB90: 55                 push        ebp
+  1160BB91: 8B EC              mov         ebp,esp
+  1160BB93: 81 EC CC 00 00 00  sub         esp,0CCh
+  1160BB99: 53                 push        ebx
+  1160BB9A: 56                 push        esi
+  1160BB9B: 57                 push        edi
+  1160BB9C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1160BB9F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1160BBA2: 5F                 pop         edi
+  1160BBA3: 5E                 pop         esi
+  1160BBA4: 5B                 pop         ebx
+  1160BBA5: 8B E5              mov         esp,ebp
+  1160BBA7: 5D                 pop         ebp
+  1160BBA8: C3                 ret
+  1160BBA9: CC                 int         3
+  1160BBAA: CC                 int         3
+  1160BBAB: CC                 int         3
+  1160BBAC: CC                 int         3
+  1160BBAD: CC                 int         3
+  1160BBAE: CC                 int         3
+  1160BBAF: CC                 int         3
+  1160BBB0: 55                 push        ebp
+
+  Summary
+
+     2489000 .text

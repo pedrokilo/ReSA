@@ -1,58 +1,58 @@
 {
-  "asi_sha256": "d8807e7d05b4f5685253c636bdc9599574fbe62ca08b29f962e3f1e37beef240",
-  "pdb_sha256": "2b9bb0a2422420238895ef844200b53486d96972213d1bf40c794adf9612a10f",
-  "manifest_sha256": "d0da2e75843747e68ac553659cd7644c133a27a35efd087971b856d213e5a58c",
+  "asi_sha256": "7eea3c41a1bcbf35f3f997ff219f7f6e134002db7a7811fd8a5c8ed622df75e4",
+  "pdb_sha256": "31009c506355b961ff29540a25fb412348ff9cf13574cd1e4b87444374a7bfea",
+  "manifest_sha256": "865991faa9b859b302aada4f137a999c6dad1f59df08efc23a1779bdbef4a0df",
   "pdb_rsds_match": true,
   "passed": true,
   "event_call_paths_verified": true,
   "inline_getpad_and_float_paths_reviewed": true,
   "failures": [],
   "target": {
-    "ProcessPad": "0x11afc1e0",
-    "size": 1744,
-    "lambda": "0x11af1160",
-    "NormalizePadAxis": "0x11afc0c0"
+    "ProcessPad": "0x11eab9a0",
+    "size": 1732,
+    "lambda": "0x11e9ed70",
+    "NormalizePadAxis": "0x11eab740"
   },
   "rs_pad_event_handler": {
     "native": "0x6195a0",
-    "dll_function_body": "0x11331400",
+    "dll_function_body": "0x115c1300",
     "dll_function_size": 105,
     "calls": [
       {
-        "site": "0x11afc518",
+        "site": "0x11eabcd8",
         "event": 32,
-        "thunk_entry": "0x11058cca",
-        "final_body": "0x11331400",
+        "thunk_entry": "0x111dfcbb",
+        "final_body": "0x115c1300",
         "chain": [
           [
-            "0x11058cca",
-            "0x11331400"
+            "0x111dfcbb",
+            "0x115c1300"
           ]
         ],
         "second_arg_is_&padID(ebx+8)_cdecl_add_esp_8": true
       },
       {
-        "site": "0x11afc6b9",
+        "site": "0x11eabe3f",
         "event": 32,
-        "thunk_entry": "0x11058cca",
-        "final_body": "0x11331400",
+        "thunk_entry": "0x111dfcbb",
+        "final_body": "0x115c1300",
         "chain": [
           [
-            "0x11058cca",
-            "0x11331400"
+            "0x111dfcbb",
+            "0x115c1300"
           ]
         ],
         "second_arg_is_&padID(ebx+8)_cdecl_add_esp_8": true
       },
       {
-        "site": "0x11afc6c7",
+        "site": "0x11eabe4d",
         "event": 31,
-        "thunk_entry": "0x11058cca",
-        "final_body": "0x11331400",
+        "thunk_entry": "0x111dfcbb",
+        "final_body": "0x115c1300",
         "chain": [
           [
-            "0x11058cca",
-            "0x11331400"
+            "0x111dfcbb",
+            "0x115c1300"
           ]
         ],
         "second_arg_is_&padID(ebx+8)_cdecl_add_esp_8": true
@@ -60,41 +60,41 @@
     ],
     "hook_install_sites": [
       {
-        "push_native_site": "0x1132fb2b",
-        "thunk": "0x11058cca",
-        "body": "0x11331400"
+        "push_native_site": "0x115bf6c7",
+        "thunk": "0x111dfcbb",
+        "body": "0x115c1300"
       }
     ],
     "all_imm32_refs_to_native_in_asi": [
-      "0x1132fb2c",
-      "0x11391f28",
-      "0x11391f4f",
-      "0x11392484"
+      "0x115bf6c8",
+      "0x116212d8",
+      "0x116212ff",
+      "0x11621834"
     ],
     "dll_function_dispatches_via": "RsGlobal.ps->padHandler (see 113327D0 listing), so the hook target is the single Simple hook"
   },
   "com": {
     "poll_acquire_slots_in_order": [
       {
-        "site": "0x11afc29a",
+        "site": "0x11eaba5a",
         "slot": "0x64"
       },
       {
-        "site": "0x11afc2c8",
+        "site": "0x11eaba88",
         "slot": "0x1c"
       },
       {
-        "site": "0x11afc2f5",
+        "site": "0x11eabab5",
         "slot": "0x1c"
       },
       {
-        "site": "0x11afc326",
+        "site": "0x11eabae6",
         "slot": "0x64"
       }
     ],
     "inputlost_value": "0x8007001E",
     "get_device_state": {
-      "site": "0x11afc354",
+      "site": "0x11eabb14",
       "cb": 272,
       "buffer_ebp_offset": -296,
       "buffer_end_ebp_offset": -24,
@@ -116,13 +116,13 @@
     "native": "0x53fb70",
     "called": [
       {
-        "site": "0x11afc6f8",
-        "thunk_entry": "0x1105fbdd",
-        "final_body": "0x11321d60",
+        "site": "0x11eabe7e",
+        "thunk_entry": "0x111e6c37",
+        "final_body": "0x115b1320",
         "chain": [
           [
-            "0x1105fbdd",
-            "0x11321d60"
+            "0x111e6c37",
+            "0x115b1320"
           ]
         ]
       }
@@ -134,32 +134,32 @@
   "ftol": {
     "native": "0x821b40",
     "called_anywhere": false,
-    "replacement": "inline cvttss2si ecx,xmm0 after mulss 128.0f (lambda 0x11af1160), result stored as 16-bit",
-    "cvttss2si_site": "0x11af11db",
+    "replacement": "inline cvttss2si ecx,xmm0 after mulss 128.0f (lambda 0x11e9ed70), result stored as 16-bit",
+    "cvttss2si_site": "0x11e9edeb",
     "lambda_call_sites_dest_offsets": [
       {
-        "site": "0x11afc748",
+        "site": "0x11eabece",
         "dest_offsets": [
           "0xa8",
           "0xaa"
         ]
       },
       {
-        "site": "0x11afc793",
+        "site": "0x11eabf19",
         "dest_offsets": [
           "0xaa",
           "0xa8"
         ]
       },
       {
-        "site": "0x11afc7db",
+        "site": "0x11eabf61",
         "dest_offsets": [
           "0xac",
           "0xae"
         ]
       },
       {
-        "site": "0x11afc826",
+        "site": "0x11eabfac",
         "dest_offsets": [
           "0xae",
           "0xac"
@@ -168,32 +168,62 @@
     ]
   },
   "pov_float_path": {
-    "fild_site": "0x11afc5c3",
-    "fadd_float_constant": 4294967296.0,
+    "angle_helper_body": "0x12c21760",
+    "sincos_helper_body": "0x12c217d0",
+    "fadd_double_constant": 4294967296.0,
     "multipliers_float": [
       0.009999999776482582,
       0.01745329238474369
     ],
-    "sequence": [
-      "0x11afc5c3: fild dword ptr [ebp+FFFFFD84h]",
-      "0x11afc5c9: cmp dword ptr [ebp+FFFFFD84h],0",
-      "0x11afc5d0: jge 11AFC5D8",
-      "0x11afc5d2: fadd dword ptr [ebp+FFFFFD78h]",
-      "0x11afc5d8: fmul dword ptr [ebp+FFFFFD6Ch]",
-      "0x11afc5de: fmul dword ptr [ebp+FFFFFD60h]",
-      "0x11afc5e4: fld st(0)",
-      "0x11afc5e6: fsin",
-      "0x11afc5e8: fstp dword ptr [ebp+FFFFFD54h]",
-      "0x11afc5ee: fcos",
-      "0x11afc5f0: fchs",
-      "0x11afc5f2: fstp dword ptr [ebp+FFFFFD48h]"
+    "angle_helper_sequence": [
+      "0x12c21760: push ebp",
+      "0x12c21761: mov ebp,esp",
+      "0x12c21763: sub esp,0Ch",
+      "0x12c21766: cmp dword ptr [ebp+8],0",
+      "0x12c2176a: fild dword ptr [ebp+8]",
+      "0x12c2176d: fst qword ptr [ebp-0Ch]",
+      "0x12c21770: jge 12C2177D",
+      "0x12c21772: fadd qword ptr ds:[1377FA08h]",
+      "0x12c21778: fstp qword ptr [ebp-0Ch]",
+      "0x12c2177b: jmp 12C2177F",
+      "0x12c2177d: fstp st(0)",
+      "0x12c2177f: lea eax,[ebp+8]",
+      "0x12c21782: mov dword ptr [ebp+8],3C23D70Ah",
+      "0x12c21789: push eax",
+      "0x12c2178a: mov dword ptr [ebp-4],3C8EFA35h",
+      "0x12c21791: call 11223C04",
+      "0x12c21796: fmul qword ptr [ebp-0Ch]",
+      "0x12c21799: lea eax,[ebp-4]",
+      "0x12c2179c: push eax",
+      "0x12c2179d: fstp qword ptr [ebp-0Ch]",
+      "0x12c217a0: call 11223C04",
+      "0x12c217a5: fmul qword ptr [ebp-0Ch]",
+      "0x12c217a8: add esp,8",
+      "0x12c217ab: mov esp,ebp",
+      "0x12c217ad: pop ebp",
+      "0x12c217ae: ret"
+    ],
+    "sincos_helper_sequence": [
+      "0x12c217d0: push ebp",
+      "0x12c217d1: mov ebp,esp",
+      "0x12c217d3: fld qword ptr [ebp+8]",
+      "0x12c217d6: fld st(0)",
+      "0x12c217d8: mov eax,dword ptr [ebp+10h]",
+      "0x12c217db: fsin",
+      "0x12c217dd: fstp dword ptr [eax]",
+      "0x12c217df: mov eax,dword ptr [ebp+14h]",
+      "0x12c217e2: fcos",
+      "0x12c217e4: fchs",
+      "0x12c217e6: fstp dword ptr [eax]",
+      "0x12c217e8: pop ebp",
+      "0x12c217e9: ret"
     ],
     "exe_sequence": "fild dword [pov]; test eax,eax; jge skip; fadd dword [2^32 float] (PC width: 24 bits in game); fmul 0.01f; fmul 0.017453292f; fld st0; fsin; fstp; fcos; fmul -1.0; fstp",
-    "compiled_sequence": "fild dword [povSigned]; cmp [povSigned],0; jge skip; fadd dword [2^32 float local]; fmul dword [0.01f local]; fmul dword [0.017453292f local]; fld st0; fsin; fstp dword; fcos; fchs; fstp dword",
+    "compiled_sequence": "PadPovAngleCpp: fild dword; cmp [pov],0; jge; fadd qword 2^32; fmul qword (0.01f via fld dword); fmul qword (0.017453292f via fld dword) -> double; PadPovSinCosCpp: fld qword; fld st0; fsin; fstp dword; fcos; fchs; fstp dword",
     "equivalent_to_exe": true
   },
   "axis_float_path": {
-    "normalize_pad_axis": "0x11afc0c0",
+    "normalize_pad_axis": "0x11eab740",
     "calls": 4,
     "same_as_exe": "fild; fmul 0.0005f; fstp float (no difference found)",
     "deadzone_compare": "comiss 0.3f < fabs(x), jb taken when ordered-less OR unordered (NaN proceeds); EXE skips on NaN; NaN is excluded from the corpus"

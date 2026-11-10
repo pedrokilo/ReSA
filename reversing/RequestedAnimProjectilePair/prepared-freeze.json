@@ -4,19 +4,23 @@
   "executed": false,
   "expected_pairs": 60624,
   "inputs": {
-    "reversing/RequestedAnimProjectilePair/LiveComparison.hpp": "a4913bcb109d6dbec7881c50ee1a441c01078c3c5a39c9cd7f187149dc5813b0",
-    "reversing/RequestedAnimProjectilePair/Preflight.hpp": "801f27ed49284bac3ff834599facfe20c0027b19e69ad0784acbdf294a385d26",
-    "reversing/RequestedAnimProjectilePair/VTableRanges.hpp": "b7f681b3ca57e6ec472d2e330d3f939304c4c712a62b4e2f5ce4768c7483b1d3",
-    "reversing/RequestedAnimProjectilePair/build_probe.py": "4073a2483da157fcd91bae9da48e615a0602eb5c20285171360096abdd47f676",
-    "reversing/RequestedAnimProjectilePair/run_local.py": "8e41633860ff02f2fdcced7d15d3c034ecc3759adaf08018a175a9fd3e9930f3",
-    "reversing/RequestedAnimProjectilePair/preparation-plan.json": "c10b07c94bbf9aef03e79022dc99cea858115670c60832ede4684e3fe6effab8",
-    "reversing/RequestedAnimProjectilePair/evidence/0313-0x00739860-body.json": "6fc9f1a3027aaa4b96cad0ab73a94ea7a143a5f1003d601362d2aa510a016707",
+    "reversing/RequestedAnimProjectilePair/LiveComparison.hpp": "0fe19260240037566d19f6356e249350311bb144249478a887991e2b07955cc5",
+    "reversing/RequestedAnimProjectilePair/Preflight.hpp": "5261abb6be861996cea9b5f1ed34539e18418ff62f109ef6e25c9edff587d8b3",
+    "reversing/RequestedAnimProjectilePair/VTableRanges.hpp": "48a35b6edbd3a28652c9bcfaccc0dfa5f70b53dce63bf56c968aea4328e3c3d3",
+    "reversing/RequestedAnimProjectilePair/build_probe.py": "34620a83cf3a26935fab1a1f5ab3cd67c6fb788080711c1c2d597533a073d481",
+    "reversing/RequestedAnimProjectilePair/run_local.py": "c4d9ac4abe7ec21976ebbfac0a66b147ae38597d0882a1d9e8b8afd5290cc5b5",
+    "reversing/RequestedAnimProjectilePair/preparation-plan.json": "eb9e2f96738b159d088f53efc7001766191f2d1c1e286c09c7d0711c51f66766",
+    "reversing/RequestedAnimProjectilePair/evidence/0313-0x00739860-body.json": "ddab3714dcfc6244f72c740b037fdc3770a6f203af27b127a325f86d1742756b",
     "reversing/RequestedAnimProjectilePair/evidence/0313-0x00739860.json": "e4ea9eab9462652fae17d73efce665e26c33c8a32cd4242f0411fd6f735c7bf1",
-    "reversing/RequestedAnimProjectilePair/evidence/1510-0x005950D0-body.json": "157f46a67eb7ff5558820f710bdf46e7d542be2ba8506a26f0179991a99f7376",
+    "reversing/RequestedAnimProjectilePair/evidence/1510-0x005950D0-body.json": "66786e3a9b23a04484f48c92dd65097f4c10466f08e95b3756f99d850c84c476",
     "reversing/RequestedAnimProjectilePair/evidence/1510-0x005950D0.json": "5eb2dadb1d190062a0e6fbd7673373e3d2884a781385c58a9ab2d31e41429d86",
-    "reversing/RequestedAnimProjectilePair/evidence/helper-00465070.json": "21fcb0647f172dda44861d75f0fa9a44c1f0cd8079bc82e1d39b4e92a97533a1",
-    "reversing/RequestedAnimProjectilePair/evidence/helper-004AA3F0.json": "1f93e4ce49587cea41019a975f2c49d413dccce9350fbd7ffe4699f7f690b5fa"
+    "reversing/RequestedAnimProjectilePair/evidence/helper-00465070.json": "900a0937b4a655816984d97f1593372a989a7a57dabcf2077953aff324dca077",
+    "reversing/RequestedAnimProjectilePair/evidence/helper-004AA3F0.json": "e0df1210b7d13b780df7fb43c2120bdb9b1f79a088248335e2e637402c57e35d"
   },
   "scope": "Full32slot selection is exercised one active candidate slot at a time; no simultaneous active32 scenario yet. Both destroy routes included with traced collaborators; real pool handle arithmetic. No real lifecycle or helper accreditation.",
-  "instrumentation_revision": "Explicit syntax repair1 after failed build; corpus60624 and primary evidence unchanged"
+  "instrumentation_revision": "Explicit syntax repair1 after failed build; corpus60624 and primary evidence unchanged",
+  "refrozen": {
+    "date": "2026-11-10",
+    "reason": "REPARAR-REQUESTED: hashes recalculados sobre LF y versiones actuales de ProbeRuntime.hpp/runtime_runner.py/VTableRanges.hpp"
+  }
 }

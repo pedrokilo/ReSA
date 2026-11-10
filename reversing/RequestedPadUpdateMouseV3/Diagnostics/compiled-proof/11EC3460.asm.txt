@@ -1,0 +1,224 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11EC3460: 55                 push        ebp
+  11EC3461: 8B EC              mov         ebp,esp
+  11EC3463: 81 EC 18 01 00 00  sub         esp,118h
+  11EC3469: 53                 push        ebx
+  11EC346A: 56                 push        esi
+  11EC346B: 57                 push        edi
+  11EC346C: 51                 push        ecx
+  11EC346D: 8D 7D A8           lea         edi,[ebp-58h]
+  11EC3470: B9 16 00 00 00     mov         ecx,16h
+  11EC3475: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11EC347A: F3 AB              rep stos    dword ptr es:[edi]
+  11EC347C: 59                 pop         ecx
+  11EC347D: A1 40 9D D0 13     mov         eax,dword ptr ds:[13D09D40h]
+  11EC3482: 33 C5              xor         eax,ebp
+  11EC3484: 89 45 FC           mov         dword ptr [ebp-4],eax
+  11EC3487: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  11EC348A: E8 E9 11 36 FF     call        11224678
+  11EC348F: 0F B6 C0           movzx       eax,al
+  11EC3492: 85 C0              test        eax,eax
+  11EC3494: 75 05              jne         11EC349B
+  11EC3496: E9 53 02 00 00     jmp         11EC36EE
+  11EC349B: A1 DC 01 D3 13     mov         eax,dword ptr ds:[13D301DCh]
+  11EC34A0: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11EC34A3: 83 79 1C 00        cmp         dword ptr [ecx+1Ch],0
+  11EC34A7: 75 39              jne         11EC34E2
+  11EC34A9: A1 E8 FB D2 13     mov         eax,dword ptr ds:[13D2FBE8h]
+  11EC34AE: 0F B6 48 5C        movzx       ecx,byte ptr [eax+5Ch]
+  11EC34B2: 85 C9              test        ecx,ecx
+  11EC34B4: 75 15              jne         11EC34CB
+  11EC34B6: E8 1F 60 35 FF     call        112194DA
+  11EC34BB: 0F B6 D0           movzx       edx,al
+  11EC34BE: 85 D2              test        edx,edx
+  11EC34C0: 74 09              je          11EC34CB
+  11EC34C2: C6 85 EB FE FF FF  mov         byte ptr [ebp+FFFFFEEBh],1
+            01
+  11EC34C9: EB 07              jmp         11EC34D2
+  11EC34CB: C6 85 EB FE FF FF  mov         byte ptr [ebp+FFFFFEEBh],0
+            00
+  11EC34D2: 0F B6 85 EB FE FF  movzx       eax,byte ptr [ebp+FFFFFEEBh]
+            FF
+  11EC34D9: 50                 push        eax
+  11EC34DA: E8 3E DB 35 FF     call        1122101D
+  11EC34DF: 83 C4 04           add         esp,4
+  11EC34E2: A1 DC 01 D3 13     mov         eax,dword ptr ds:[13D301DCh]
+  11EC34E7: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11EC34EA: 83 79 1C 00        cmp         dword ptr [ecx+1Ch],0
+  11EC34EE: 74 10              je          11EC3500
+  11EC34F0: 8D 45 D8           lea         eax,[ebp-28h]
+  11EC34F3: 50                 push        eax
+  11EC34F4: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11EC34F7: E8 9B E4 34 FF     call        11211997
+  11EC34FC: 85 C0              test        eax,eax
+  11EC34FE: 7D 05              jge         11EC3505
+  11EC3500: E9 E9 01 00 00     jmp         11EC36EE
+  11EC3505: A1 E8 FB D2 13     mov         eax,dword ptr ds:[13D2FBE8h]
+  11EC350A: 0F B6 48 5C        movzx       ecx,byte ptr [eax+5Ch]
+  11EC350E: 85 C9              test        ecx,ecx
+  11EC3510: 75 19              jne         11EC352B
+  11EC3512: 8B 15 FC 48 D2 13  mov         edx,dword ptr ds:[13D248FCh]
+  11EC3518: 0F B6 02           movzx       eax,byte ptr [edx]
+  11EC351B: 85 C0              test        eax,eax
+  11EC351D: 74 0C              je          11EC352B
+  11EC351F: C7 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],0FFFFFFFFh
+            FF FF FF FF
+  11EC3529: EB 0A              jmp         11EC3535
+  11EC352B: C7 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],1
+            01 00 00 00
+  11EC3535: 8B 8D E8 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEE8h]
+  11EC353B: 89 4D CC           mov         dword ptr [ebp-34h],ecx
+  11EC353E: A1 E8 FB D2 13     mov         eax,dword ptr ds:[13D2FBE8h]
+  11EC3543: 0F B6 48 5C        movzx       ecx,byte ptr [eax+5Ch]
+  11EC3547: 85 C9              test        ecx,ecx
+  11EC3549: 75 19              jne         11EC3564
+  11EC354B: 8B 15 00 49 D2 13  mov         edx,dword ptr ds:[13D24900h]
+  11EC3551: 0F B6 02           movzx       eax,byte ptr [edx]
+  11EC3554: 85 C0              test        eax,eax
+  11EC3556: 74 0C              je          11EC3564
+  11EC3558: C7 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],0FFFFFFFFh
+            FF FF FF FF
+  11EC3562: EB 0A              jmp         11EC356E
+  11EC3564: C7 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],1
+            01 00 00 00
+  11EC356E: 8B 8D E8 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEE8h]
+  11EC3574: 89 4D C0           mov         dword ptr [ebp-40h],ecx
+  11EC3577: 8B 45 CC           mov         eax,dword ptr [ebp-34h]
+  11EC357A: 0F AF 45 D8        imul        eax,dword ptr [ebp-28h]
+  11EC357E: F3 0F 2A C0        cvtsi2ss    xmm0,eax
+  11EC3582: 8B 4D C0           mov         ecx,dword ptr [ebp-40h]
+  11EC3585: 0F AF 4D DC        imul        ecx,dword ptr [ebp-24h]
+  11EC3589: F3 0F 2A C9        cvtsi2ss    xmm1,ecx
+  11EC358D: 51                 push        ecx
+  11EC358E: F3 0F 11 0C 24     movss       dword ptr [esp],xmm1
+  11EC3593: 51                 push        ecx
+  11EC3594: F3 0F 11 04 24     movss       dword ptr [esp],xmm0
+  11EC3599: 8D 8D F0 FE FF FF  lea         ecx,[ebp+FFFFFEF0h]
+  11EC359F: E8 88 F9 34 FF     call        11212F2C
+  11EC35A4: 8D 95 F0 FE FF FF  lea         edx,[ebp+FFFFFEF0h]
+  11EC35AA: 52                 push        edx
+  11EC35AB: 8B 0D 3C 49 D2 13  mov         ecx,dword ptr ds:[13D2493Ch]
+  11EC35B1: 83 C1 0C           add         ecx,0Ch
+  11EC35B4: E8 D9 63 32 FF     call        111E9992
+  11EC35B9: 90                 nop
+  11EC35BA: F3 0F 2A 45 E0     cvtsi2ss    xmm0,dword ptr [ebp-20h]
+  11EC35BF: A1 3C 49 D2 13     mov         eax,dword ptr ds:[13D2493Ch]
+  11EC35C4: F3 0F 11 40 08     movss       dword ptr [eax+8],xmm0
+  11EC35C9: 83 7D E0 00        cmp         dword ptr [ebp-20h],0
+  11EC35CD: 7E 0C              jle         11EC35DB
+  11EC35CF: C7 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],1
+            01 00 00 00
+  11EC35D9: EB 0A              jmp         11EC35E5
+  11EC35DB: C7 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],0
+            00 00 00 00
+  11EC35E5: A1 3C 49 D2 13     mov         eax,dword ptr ds:[13D2493Ch]
+  11EC35EA: 8A 8D E8 FE FF FF  mov         cl,byte ptr [ebp+FFFFFEE8h]
+  11EC35F0: 88 48 03           mov         byte ptr [eax+3],cl
+  11EC35F3: 83 7D E0 00        cmp         dword ptr [ebp-20h],0
+  11EC35F7: 7D 0C              jge         11EC3605
+  11EC35F9: C7 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],1
+            01 00 00 00
+  11EC3603: EB 0A              jmp         11EC360F
+  11EC3605: C7 85 E8 FE FF FF  mov         dword ptr [ebp+FFFFFEE8h],0
+            00 00 00 00
+  11EC360F: A1 3C 49 D2 13     mov         eax,dword ptr ds:[13D2493Ch]
+  11EC3614: 8A 8D E8 FE FF FF  mov         cl,byte ptr [ebp+FFFFFEE8h]
+  11EC361A: 88 48 04           mov         byte ptr [eax+4],cl
+  11EC361D: B8 01 00 00 00     mov         eax,1
+  11EC3622: 6B C8 00           imul        ecx,eax,0
+  11EC3625: 0F B6 54 0D E4     movzx       edx,byte ptr [ebp+ecx-1Ch]
+  11EC362A: 81 E2 80 00 00 00  and         edx,80h
+  11EC3630: A1 3C 49 D2 13     mov         eax,dword ptr ds:[13D2493Ch]
+  11EC3635: 88 10              mov         byte ptr [eax],dl
+  11EC3637: B8 01 00 00 00     mov         eax,1
+  11EC363C: C1 E0 00           shl         eax,0
+  11EC363F: 0F B6 4C 05 E4     movzx       ecx,byte ptr [ebp+eax-1Ch]
+  11EC3644: 81 E1 80 00 00 00  and         ecx,80h
+  11EC364A: 8B 15 3C 49 D2 13  mov         edx,dword ptr ds:[13D2493Ch]
+  11EC3650: 88 4A 01           mov         byte ptr [edx+1],cl
+  11EC3653: B8 01 00 00 00     mov         eax,1
+  11EC3658: D1 E0              shl         eax,1
+  11EC365A: 0F B6 4C 05 E4     movzx       ecx,byte ptr [ebp+eax-1Ch]
+  11EC365F: 81 E1 80 00 00 00  and         ecx,80h
+  11EC3665: 8B 15 3C 49 D2 13  mov         edx,dword ptr ds:[13D2493Ch]
+  11EC366B: 88 4A 02           mov         byte ptr [edx+2],cl
+  11EC366E: B8 01 00 00 00     mov         eax,1
+  11EC3673: 6B C8 03           imul        ecx,eax,3
+  11EC3676: 0F B6 54 0D E4     movzx       edx,byte ptr [ebp+ecx-1Ch]
+  11EC367B: 81 E2 80 00 00 00  and         edx,80h
+  11EC3681: A1 3C 49 D2 13     mov         eax,dword ptr ds:[13D2493Ch]
+  11EC3686: 88 50 05           mov         byte ptr [eax+5],dl
+  11EC3689: B8 01 00 00 00     mov         eax,1
+  11EC368E: C1 E0 02           shl         eax,2
+  11EC3691: 0F B6 4C 05 E4     movzx       ecx,byte ptr [ebp+eax-1Ch]
+  11EC3696: 81 E1 80 00 00 00  and         ecx,80h
+  11EC369C: 8B 15 3C 49 D2 13  mov         edx,dword ptr ds:[13D2493Ch]
+  11EC36A2: 88 4A 06           mov         byte ptr [edx+6],cl
+  11EC36A5: 6A 14              push        14h
+  11EC36A7: A1 40 49 D2 13     mov         eax,dword ptr ds:[13D24940h]
+  11EC36AC: 50                 push        eax
+  11EC36AD: 8B 0D 44 49 D2 13  mov         ecx,dword ptr ds:[13D24944h]
+  11EC36B3: 51                 push        ecx
+  11EC36B4: E8 88 01 35 FF     call        11213841
+  11EC36B9: 83 C4 0C           add         esp,0Ch
+  11EC36BC: 6A 14              push        14h
+  11EC36BE: A1 3C 49 D2 13     mov         eax,dword ptr ds:[13D2493Ch]
+  11EC36C3: 50                 push        eax
+  11EC36C4: 8B 0D 40 49 D2 13  mov         ecx,dword ptr ds:[13D24940h]
+  11EC36CA: 51                 push        ecx
+  11EC36CB: E8 71 01 35 FF     call        11213841
+  11EC36D0: 83 C4 0C           add         esp,0Ch
+  11EC36D3: 8B 0D 40 49 D2 13  mov         ecx,dword ptr ds:[13D24940h]
+  11EC36D9: E8 E6 43 33 FF     call        111F7AC4
+  11EC36DE: 0F B6 C0           movzx       eax,al
+  11EC36E1: 85 C0              test        eax,eax
+  11EC36E3: 74 09              je          11EC36EE
+  11EC36E5: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11EC36E8: E8 60 2C 35 FF     call        1121634D
+  11EC36ED: 90                 nop
+  11EC36EE: 52                 push        edx
+  11EC36EF: 8B CD              mov         ecx,ebp
+  11EC36F1: 50                 push        eax
+  11EC36F2: 8D 15 20 37 EC 11  lea         edx,ds:[11EC3720h]
+  11EC36F8: E8 2D C0 32 FF     call        111EF72A
+  11EC36FD: 58                 pop         eax
+  11EC36FE: 5A                 pop         edx
+  11EC36FF: 5F                 pop         edi
+  11EC3700: 5E                 pop         esi
+  11EC3701: 5B                 pop         ebx
+  11EC3702: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  11EC3705: 33 CD              xor         ecx,ebp
+  11EC3707: E8 56 4C 32 FF     call        111E8362
+  11EC370C: 81 C4 18 01 00 00  add         esp,118h
+  11EC3712: 3B EC              cmp         ebp,esp
+  11EC3714: E8 6B 66 32 FF     call        111E9D84
+  11EC3719: 8B E5              mov         esp,ebp
+  11EC371B: 5D                 pop         ebp
+  11EC371C: C3                 ret
+  11EC371D: 0F 1F 00           nop         dword ptr [eax]
+  11EC3720: 01 00              add         dword ptr [eax],eax
+  11EC3722: 00 00              add         byte ptr [eax],al
+  11EC3724: 28 37              sub         byte ptr [edi],dh
+  11EC3726: EC                 in          al,dx
+  11EC3727: 11 D8              adc         eax,ebx
+  11EC3729: FF
+  11EC372A: FF
+  11EC372B: FF 14 00           call        dword ptr [eax+eax]
+  11EC372E: 00 00              add         byte ptr [eax],al
+  11EC3730: 34 37              xor         al,37h
+  11EC3732: EC                 in          al,dx
+  11EC3733: 11 73 74           adc         dword ptr [ebx+74h],esi
+  11EC3736: 61                 popad
+  11EC3737: 74 65              je          11EC379E
+  11EC3739: 00 CC              add         ah,cl
+
+  Summary
+
+     2496000 .text

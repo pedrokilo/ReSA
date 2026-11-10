@@ -4,7 +4,7 @@
   "pairs": 384,
   "differences": 0,
   "model_mismatches": 0,
-  "scope": "384 cases:16poisons x3priority x null/private event x bool child return x null/private ped; real delegation through childslot6, threearguments and raw definedreturn checked; nonnull subtask contract. Pregraphics private task36B/ped/vehicle/child arenas; exact all non-vptr bytes, declared raw native/DLL/terminal-vptr roles checked against compiled PE tables without silent vptr normalization; ordered ref/cleanup/weapon/CreateSub traces with strict native+registered candidate entry/body gates. Collaborators and actors are isolated fixtures, not accredited helper bodies, runtime task/actor integration, graphics or resource lifecycle. Natural exit0, FP, all17692 entries/tables/flags/timer ranges and INIs/saves restored. Historical only; dependency_review=null. Wrong-output-path baseline remains rejected and immutable; external adapter changes only analyzer input path, same original frozen ASI.",
+  "scope": "384 cases:16poisons x3priority x null/private event x bool child return x null/private ped; real delegation through childslot6, threearguments and raw definedreturn checked; nonnull subtask contract. Pregraphics private task36B/ped/vehicle/child arenas; exact all non-vptr bytes, declared raw native/DLL/terminal-vptr roles checked against compiled PE tables without silent vptr normalization; ordered ref/cleanup/weapon/CreateSub traces with strict native+registered candidate entry/body gates. Collaborators and actors are isolated fixtures, not accredited helper bodies, runtime task/actor integration, graphics or resource lifecycle. Natural exit0, FP, all17692 entries/tables/flags/timer ranges and INIs/saves restored. Historical only; dependency_review=null. Wrong-output-path baseline remains rejected and immutable; external adapter changes only analyzer input path, same original frozen ASI. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
   "native_virtual_address": "0x0068BA60",
   "parent_summary_path": "reversing/RequestedArrestRemainingFour/runs/20261008-162857-422102/enriched-summary.json",
@@ -53,36 +53,20 @@
   "model_sha256": "9b544b40f27d0784e7099ffed417f777f6dbcf56e1d24de86c56ab927b147e76",
   "compiled_call_path_proof_sha256": "aba4131c0c8d0dabbb1d117c02e530646a3341b6e7a56f107ab8697940678f88",
   "manifest": {
-    "head": "ef0654e8e032dc8de779b6ed39282ba956daff0a",
-    "tested_sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "cb0d2c13b751877950b20367d122e055c31d45f22740b8470cd387ddb35483ea",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "0a0743beed4f90e2a628168d1ac3b401dc77a135ddcebc50724ac35ae905e6b5",
-      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
-      "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
-      "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
-      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
-      "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-      "source/game_sa/Entity/Ped/Ped.cpp": "90d80d2d8b15f900cee469afc299eabd3e7494c0d04275699bec1fefe8b3f324",
-      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
-      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "fd2839383afe6ba5f5489be146d65dd3a0b9157d8c7660381905123478defe75",
-      "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6",
-      "source/game_sa/Weapon.cpp": "69d27ecf030d88ea0302452ec0fc89cff9351eb97e4a0cfa8c15ed7fc0d61b12",
-      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0"
-    },
+    "head": "4e56b7bf19437ef4b8fcd45f4ad84a40e81bcb19",
     "bank_sources": {
-      "reversing/RequestedArrestRemainingFour/LiveComparison.hpp": "02308f129734bfbe07174ad56418971e60025cd3536fa5da44e99db4d2a9dd37",
-      "reversing/RequestedArrestRemainingFour/Preflight.hpp": "9b6689f2db68dcfe3c55d7062dd71d29e85157f58c15a39d7ba7762e4d782fb3",
-      "reversing/RequestedArrestRemainingFour/VTableRanges.hpp": "dfc26eef1b41f24281cc4c3ae5fb9bdb4ec96a7738b4ba62522e32fda873befa",
-      "reversing/RequestedArrestRemainingFour/build_probe.py": "ef1c428b5830df35600726da10aca3dcac01d402a4eb966492e1cccc1719cff9",
-      "reversing/RequestedArrestRemainingFour/run_local.py": "e6e3c34b634fd27554f7936f2e010f560f309f9824df74706f5f2360d571ba39",
-      "reversing/RequestedArrestRemainingFour/model.py": "9b544b40f27d0784e7099ffed417f777f6dbcf56e1d24de86c56ab927b147e76",
-      "reversing/RequestedArrestRemainingFour/prepared-freeze.json": "7821913002bbffaf3f4d2990802cdc1bbf9d42110780377ec3022ab74e7009a2",
-      "reversing/RequestedArrestRemainingFour/preparation-plan.json": "26bb8d780382170a76431871f44d80e10a5a16e2c6f2f8be6f95377dc718ea78",
+      "reversing/RequestedArrestRemainingFour/LiveComparison.hpp": "a4fe18c32582e744c8ebd57b69eeb2d96d239fe37907f2a4468e1ff8ff6a15d8",
+      "reversing/RequestedArrestRemainingFour/Preflight.hpp": "15486ef61d1e4a7e7f1cc1448434e22e2e1e286e74a0226e71cc8f583d1e4999",
+      "reversing/RequestedArrestRemainingFour/VTableRanges.hpp": "8ae54b689947958e55f7875d7bf878dda429b89f3db94af780108477142e3967",
+      "reversing/RequestedArrestRemainingFour/build_probe.py": "b6519a0874c30c920a28e6998873028e0c3185fc4ed9016fe70dd99c8e77193f",
+      "reversing/RequestedArrestRemainingFour/run_local.py": "dfeed2180c472e0a6018e2a7d6694679c48413d01612a145decbd9ae398fcc8b",
+      "reversing/RequestedArrestRemainingFour/model.py": "c04cd5f3073119b38520e74acc27dc8188577156fb3331ca3a487edd701e2706",
+      "reversing/RequestedArrestRemainingFour/prepared-freeze.json": "d591a837eda848c56b729fc82e1ba7bf5d3ec76aca6d9e6c9b17b24fa104aeee",
+      "reversing/RequestedArrestRemainingFour/preparation-plan.json": "7008dfbb9e1844a73bc9808d6c13868ade1178fed41f4eca806a906dec948520",
       "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
       "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
-      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
-      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+      "reversing/ProbeRuntime.hpp": "8e7a7badac510d0a3d0f96104607989b8efae936cf4583b6e546dfaa8be889d3",
+      "reversing/runtime_runner.py": "e745f9f062de2b427d4f47d35381ff14b4d687aef3fc4798f9a7f079913260fb"
     },
     "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
     "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
@@ -92,8 +76,45 @@
       "source/app/platform/win/WinMain.cpp": "c96143c40d41bd4f59cf8abb1cd5c324a1a99f8d58d53dfaf311549906ae25ec"
     },
     "asi": "39779f785144b5481e7b37944a6cc8035e5ddd35ef94686a43039f542ada758b",
-    "pdb": "051c3f1b90f95f029f813f38acdbe57dc5c9c91defd30056abae62ed71eb76d8"
+    "pdb": "051c3f1b90f95f029f813f38acdbe57dc5c9c91defd30056abae62ed71eb76d8",
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "c09c2429259a326f21bb7e921933f0a0ba61849a81759f3df166cc7617e29341",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "0a0743beed4f90e2a628168d1ac3b401dc77a135ddcebc50724ac35ae905e6b5",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
+      "source/game_sa/Tasks/Task.cpp": "f55b521efb046d5c9564d62102e8cbe862334641203ff8be8f65031ddbf3beb7",
+      "source/game_sa/Entity/Entity.h": "fb745e7188806b0b3c0810b1534dbc9aa21d8923e53fbb65d37fa1338fc454a9",
+      "source/game_sa/Entity/Entity.cpp": "6f9dc3b8ced38440b6c1fc191d3e593941729124759c92ca039d6cb4295c76d9",
+      "source/game_sa/Entity/Ped/Ped.h": "7d4f653e046e428073f2b3eae35c29eb9a771bfbffee79b86589e69f27e55404",
+      "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "5f84b9d4b74327f0f40913ce007f62be7f89e44ee74aaa0929036d5116e022e0",
+      "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed",
+      "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0"
+    }
   },
   "natural_exit0": true,
-  "all17692ranges_restored": true
+  "all17692ranges_restored": true,
+  "log_sha256": "9a0890f638935b14e6f7cb08f1060d66635e9c46e514ecb9b0e1eca38999d99c",
+  "state_restored": true,
+  "all_equal": true,
+  "run": "reversing/CppTwelveLevel6Final/runs/RequestedArrestRemainingFour-20261110-125011-939327",
+  "summary_sha256": "cf4072af887b628e3a833f67e30116c0ff3c44a4fcbbae798155d32d54f5ef3b",
+  "result_txt_sha256": "3703b39c8dc37665e5d68064127dd75c015cb09d5cc82f8f4babc31850163eb7",
+  "executed_probe_sha256": "8d4a1560fae3f14f574e16817f2b65485b7df33841199b7e3c5a021af0123778",
+  "functions": {
+    "CTaskComplexArrestPed::MakeAbortable": 384
+  },
+  "covered_functions": {
+    "CTaskComplexArrestPed::MakeAbortable": true
+  },
+  "registered_pairs": 384,
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/RequestedArrestRemainingFour-20261110-125011-939327/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "dfa507c6f25b185c51c313d4981c14de772d969e1243d6f42bd101b1684fb7b2",
+    "uncompressed_sha256": "9a0890f638935b14e6f7cb08f1060d66635e9c46e514ecb9b0e1eca38999d99c"
+  }
 }

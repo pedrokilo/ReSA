@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115FFE10: 55                 push        ebp
+  115FFE11: 8B EC              mov         ebp,esp
+  115FFE13: 81 EC CC 00 00 00  sub         esp,0CCh
+  115FFE19: 53                 push        ebx
+  115FFE1A: 56                 push        esi
+  115FFE1B: 57                 push        edi
+  115FFE1C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  115FFE20: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115FFE23: 5F                 pop         edi
+  115FFE24: 5E                 pop         esi
+  115FFE25: 5B                 pop         ebx
+  115FFE26: 8B E5              mov         esp,ebp
+  115FFE28: 5D                 pop         ebp
+  115FFE29: C3                 ret
+  115FFE2A: CC                 int         3
+  115FFE2B: CC                 int         3
+  115FFE2C: CC                 int         3
+  115FFE2D: CC                 int         3
+  115FFE2E: CC                 int         3
+  115FFE2F: CC                 int         3
+  115FFE30: 55                 push        ebp
+  115FFE31: 8B EC              mov         ebp,esp
+  115FFE33: 81 EC CC 00 00 00  sub         esp,0CCh
+  115FFE39: 53                 push        ebx
+  115FFE3A: 56                 push        esi
+  115FFE3B: 57                 push        edi
+  115FFE3C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  115FFE40: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115FFE43: 5F                 pop         edi
+  115FFE44: 5E                 pop         esi
+  115FFE45: 5B                 pop         ebx
+  115FFE46: 8B E5              mov         esp,ebp
+  115FFE48: 5D                 pop         ebp
+  115FFE49: C3                 ret
+  115FFE4A: CC                 int         3
+  115FFE4B: CC                 int         3
+  115FFE4C: CC                 int         3
+  115FFE4D: CC                 int         3
+  115FFE4E: CC                 int         3
+  115FFE4F: CC                 int         3
+  115FFE50: 55                 push        ebp
+
+  Summary
+
+     2496000 .text

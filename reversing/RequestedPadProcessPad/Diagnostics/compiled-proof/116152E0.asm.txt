@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  116152E0: 55                 push        ebp
+  116152E1: 8B EC              mov         ebp,esp
+  116152E3: 81 EC CC 00 00 00  sub         esp,0CCh
+  116152E9: 53                 push        ebx
+  116152EA: 56                 push        esi
+  116152EB: 57                 push        edi
+  116152EC: 51                 push        ecx
+  116152ED: 8D 7D F4           lea         edi,[ebp-0Ch]
+  116152F0: B9 03 00 00 00     mov         ecx,3
+  116152F5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  116152FA: F3 AB              rep stos    dword ptr es:[edi]
+  116152FC: 59                 pop         ecx
+  116152FD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11615300: 83 7D 08 02        cmp         dword ptr [ebp+8],2
+  11615304: 72 2D              jb          11615333
+  11615306: 68 A0 20 67 13     push        136720A0h
+  1161530B: 68 BC E9 66 13     push        1366E9BCh
+  11615310: 6A 00              push        0
+  11615312: 68 0D 02 00 00     push        20Dh
+  11615317: 68 C8 20 67 13     push        136720C8h
+  1161531C: 6A 02              push        2
+  1161531E: E8 CB EC BE FF     call        11203FEE
+  11615323: 83 C4 18           add         esp,18h
+  11615326: 83 F8 01           cmp         eax,1
+  11615329: 75 01              jne         1161532C
+  1161532B: CC                 int         3
+  1161532C: B9 05 00 00 00     mov         ecx,5
+  11615331: CD 29              int         29h
+  11615333: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11615336: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11615339: 8D 04 C1           lea         eax,[ecx+eax*8]
+  1161533C: 5F                 pop         edi
+  1161533D: 5E                 pop         esi
+  1161533E: 5B                 pop         ebx
+  1161533F: 81 C4 CC 00 00 00  add         esp,0CCh
+  11615345: 3B EC              cmp         ebp,esp
+  11615347: E8 ED E9 BC FF     call        111E3D39
+  1161534C: 8B E5              mov         esp,ebp
+  1161534E: 5D                 pop         ebp
+  1161534F: C2 04 00           ret         4
+  11615352: CC                 int         3
+
+  Summary
+
+     2489000 .text

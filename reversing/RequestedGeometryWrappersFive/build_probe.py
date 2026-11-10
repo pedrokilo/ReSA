@@ -31,7 +31,7 @@ def main():
         source=source.replace('#include "StdInc.h"','#include "StdInc.h"\n#include "'+(HERE/'LiveComparison.hpp').as_posix()+'"',1)
         win.write_text(source,encoding='utf-8',newline='\n')
         manifest['compiled_instruments']={'source/app/platform/win/WinMain.cpp':digest(win)}
-        task_env=os.environ.copy();task_env['_CL_']='/MP6'
+        task_env=os.environ.copy();task_env['_CL_']=os.environ.get('_CL_','/MP6')
         cmake=next((ROOT/'reversing/CVehicle/conan-cache/p').glob('cmake*/p/bin/cmake.exe'))
         with (ART/'build.log').open('w',encoding='utf-8') as log:
             subprocess.run([str(cmake),'--build',str(ROOT/'build'),'--config','Debug','--parallel','1'],stdout=log,stderr=subprocess.STDOUT,env=task_env,check=True)

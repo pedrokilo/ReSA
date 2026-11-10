@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1162E7F0: 55                 push        ebp
+  1162E7F1: 8B EC              mov         ebp,esp
+  1162E7F3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1162E7F9: 53                 push        ebx
+  1162E7FA: 56                 push        esi
+  1162E7FB: 57                 push        edi
+  1162E7FC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1162E7FF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1162E802: 83 C0 68           add         eax,68h
+  1162E805: 5F                 pop         edi
+  1162E806: 5E                 pop         esi
+  1162E807: 5B                 pop         ebx
+  1162E808: 8B E5              mov         esp,ebp
+  1162E80A: 5D                 pop         ebp
+  1162E80B: C3                 ret
+  1162E80C: CC                 int         3
+  1162E80D: CC                 int         3
+  1162E80E: CC                 int         3
+  1162E80F: CC                 int         3
+  1162E810: CC                 int         3
+  1162E811: CC                 int         3
+  1162E812: CC                 int         3
+  1162E813: CC                 int         3
+  1162E814: CC                 int         3
+  1162E815: CC                 int         3
+  1162E816: CC                 int         3
+  1162E817: CC                 int         3
+  1162E818: CC                 int         3
+  1162E819: CC                 int         3
+  1162E81A: CC                 int         3
+  1162E81B: CC                 int         3
+  1162E81C: CC                 int         3
+  1162E81D: CC                 int         3
+  1162E81E: CC                 int         3
+  1162E81F: CC                 int         3
+  1162E820: 55                 push        ebp
+  1162E821: 8B EC              mov         ebp,esp
+  1162E823: 81 EC CC 00 00 00  sub         esp,0CCh
+  1162E829: 53                 push        ebx
+  1162E82A: 56                 push        esi
+  1162E82B: 57                 push        edi
+  1162E82C: 51                 push        ecx
+  1162E82D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1162E830: B9
+
+  Summary
+
+     2489000 .text

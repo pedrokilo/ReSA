@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  115F5A50: 55                 push        ebp
+  115F5A51: 8B EC              mov         ebp,esp
+  115F5A53: 81 EC C0 00 00 00  sub         esp,0C0h
+  115F5A59: 53                 push        ebx
+  115F5A5A: 56                 push        esi
+  115F5A5B: 57                 push        edi
+  115F5A5C: 8B FD              mov         edi,ebp
+  115F5A5E: 33 C9              xor         ecx,ecx
+  115F5A60: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115F5A65: F3 AB              rep stos    dword ptr es:[edi]
+  115F5A67: EB 09              jmp         115F5A72
+  115F5A69: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F5A6C: 83 C0 04           add         eax,4
+  115F5A6F: 89 45 08           mov         dword ptr [ebp+8],eax
+  115F5A72: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F5A75: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  115F5A78: 74 2A              je          115F5AA4
+  115F5A7A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F5A7D: 50                 push        eax
+  115F5A7E: 8D 4D 14           lea         ecx,[ebp+14h]
+  115F5A81: 51                 push        ecx
+  115F5A82: E8 5E 32 C4 FF     call        11238CE5
+  115F5A87: 83 C4 08           add         esp,8
+  115F5A8A: 50                 push        eax
+  115F5A8B: 8D 55 10           lea         edx,[ebp+10h]
+  115F5A8E: 52                 push        edx
+  115F5A8F: E8 80 FD BF FF     call        111F5814
+  115F5A94: 83 C4 08           add         esp,8
+  115F5A97: 0F B6 C0           movzx       eax,al
+  115F5A9A: 85 C0              test        eax,eax
+  115F5A9C: 75 04              jne         115F5AA2
+  115F5A9E: 32 C0              xor         al,al
+  115F5AA0: EB 04              jmp         115F5AA6
+  115F5AA2: EB C5              jmp         115F5A69
+  115F5AA4: B0 01              mov         al,1
+  115F5AA6: 5F                 pop         edi
+  115F5AA7: 5E                 pop         esi
+  115F5AA8: 5B                 pop         ebx
+  115F5AA9: 81 C4 C0 00 00 00  add         esp,0C0h
+  115F5AAF: 3B EC              cmp         ebp,esp
+  115F5AB1: E8 CE 42 BF FF     call        111E9D84
+  115F5AB6: 8B E5              mov         esp,ebp
+  115F5AB8: 5D                 pop         ebp
+  115F5AB9: C3                 ret
+  115F5ABA: CC                 int         3
+
+  Summary
+
+     2496000 .text

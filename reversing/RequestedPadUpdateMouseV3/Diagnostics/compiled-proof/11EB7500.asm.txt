@@ -1,0 +1,160 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadUpdateMouseV3\artifacts\gta_reversed-pad-update-mouse-v3.asi
+
+File Type: DLL
+
+  11EB7500: 55                 push        ebp
+  11EB7501: 8B EC              mov         ebp,esp
+  11EB7503: 81 EC F8 00 00 00  sub         esp,0F8h
+  11EB7509: 53                 push        ebx
+  11EB750A: 56                 push        esi
+  11EB750B: 57                 push        edi
+  11EB750C: 51                 push        ecx
+  11EB750D: 8D 7D C8           lea         edi,[ebp-38h]
+  11EB7510: B9 0E 00 00 00     mov         ecx,0Eh
+  11EB7515: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11EB751A: F3 AB              rep stos    dword ptr es:[edi]
+  11EB751C: 59                 pop         ecx
+  11EB751D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11EB7520: A1 DC 01 D3 13     mov         eax,dword ptr ds:[13D301DCh]
+  11EB7525: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11EB7528: 83 79 1C 00        cmp         dword ptr [ecx+1Ch],0
+  11EB752C: 75 0A              jne         11EB7538
+  11EB752E: B8 01 00 00 00     mov         eax,1
+  11EB7533: E9 A2 01 00 00     jmp         11EB76DA
+  11EB7538: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11EB753B: C7 40 08 00 00 00  mov         dword ptr [eax+8],0
+            00
+  11EB7542: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11EB7545: C7 41 04 00 00 00  mov         dword ptr [ecx+4],0
+            00
+  11EB754C: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11EB754F: C7 02 00 00 00 00  mov         dword ptr [edx],0
+  11EB7555: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],0
+            00 00 00 00
+  11EB755F: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11EB7562: 83 C0 0C           add         eax,0Ch
+  11EB7565: 50                 push        eax
+  11EB7566: E8 08 6A 34 FF     call        111FDF73
+  11EB756B: 83 C4 04           add         esp,4
+  11EB756E: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11EB7574: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11EB7577: 83 C1 0C           add         ecx,0Ch
+  11EB757A: 51                 push        ecx
+  11EB757B: E8 6E 94 34 FF     call        112009EE
+  11EB7580: 83 C4 04           add         esp,4
+  11EB7583: 89 85 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],eax
+  11EB7589: 8D 95 20 FF FF FF  lea         edx,[ebp+FFFFFF20h]
+  11EB758F: 52                 push        edx
+  11EB7590: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11EB7596: 50                 push        eax
+  11EB7597: 8B 8D 08 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF08h]
+  11EB759D: 51                 push        ecx
+  11EB759E: E8 AC E0 36 FF     call        1122564F
+  11EB75A3: 83 C4 0C           add         esp,0Ch
+  11EB75A6: A1 DC 01 D3 13     mov         eax,dword ptr ds:[13D301DCh]
+  11EB75AB: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11EB75AE: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11EB75B1: 89 95 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],edx
+  11EB75B7: A1 DC 01 D3 13     mov         eax,dword ptr ds:[13D301DCh]
+  11EB75BC: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11EB75BF: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11EB75C2: 8B 02              mov         eax,dword ptr [edx]
+  11EB75C4: 8B 48 24           mov         ecx,dword ptr [eax+24h]
+  11EB75C7: 89 8D 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],ecx
+  11EB75CD: 8B F4              mov         esi,esp
+  11EB75CF: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11EB75D2: 52                 push        edx
+  11EB75D3: 6A 14              push        14h
+  11EB75D5: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11EB75DB: 50                 push        eax
+  11EB75DC: FF 95 08 FF FF FF  call        dword ptr [ebp+FFFFFF08h]
+  11EB75E2: 3B F4              cmp         esi,esp
+  11EB75E4: E8 9B 27 33 FF     call        111E9D84
+  11EB75E9: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11EB75EC: 83 7D EC 00        cmp         dword ptr [ebp-14h],0
+  11EB75F0: 7C 07              jl          11EB75F9
+  11EB75F2: 33 C0              xor         eax,eax
+  11EB75F4: E9 E1 00 00 00     jmp         11EB76DA
+  11EB75F9: A1 DC 01 D3 13     mov         eax,dword ptr ds:[13D301DCh]
+  11EB75FE: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11EB7601: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11EB7604: A1 DC 01 D3 13     mov         eax,dword ptr ds:[13D301DCh]
+  11EB7609: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11EB760C: 8B 41 1C           mov         eax,dword ptr [ecx+1Ch]
+  11EB760F: 8B 0A              mov         ecx,dword ptr [edx]
+  11EB7611: 8B F4              mov         esi,esp
+  11EB7613: 50                 push        eax
+  11EB7614: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11EB7617: FF D2              call        edx
+  11EB7619: 3B F4              cmp         esi,esp
+  11EB761B: E8 64 27 33 FF     call        111E9D84
+  11EB7620: 3D 1E 00 07 80     cmp         eax,8007001Eh
+  11EB7625: 75 02              jne         11EB7629
+  11EB7627: EB D0              jmp         11EB75F9
+  11EB7629: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11EB762C: C7 40 08 00 00 00  mov         dword ptr [eax+8],0
+            00
+  11EB7633: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11EB7636: C7 41 04 00 00 00  mov         dword ptr [ecx+4],0
+            00
+  11EB763D: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11EB7640: C7 02 00 00 00 00  mov         dword ptr [edx],0
+  11EB7646: C7 85 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],0
+            00 00 00 00
+  11EB7650: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11EB7653: 83 C0 0C           add         eax,0Ch
+  11EB7656: 50                 push        eax
+  11EB7657: E8 17 69 34 FF     call        111FDF73
+  11EB765C: 83 C4 04           add         esp,4
+  11EB765F: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11EB7665: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11EB7668: 83 C1 0C           add         ecx,0Ch
+  11EB766B: 51                 push        ecx
+  11EB766C: E8 7D 93 34 FF     call        112009EE
+  11EB7671: 83 C4 04           add         esp,4
+  11EB7674: 89 85 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],eax
+  11EB767A: 8D 95 14 FF FF FF  lea         edx,[ebp+FFFFFF14h]
+  11EB7680: 52                 push        edx
+  11EB7681: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11EB7687: 50                 push        eax
+  11EB7688: 8B 8D 08 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF08h]
+  11EB768E: 51                 push        ecx
+  11EB768F: E8 BB DF 36 FF     call        1122564F
+  11EB7694: 83 C4 0C           add         esp,0Ch
+  11EB7697: A1 DC 01 D3 13     mov         eax,dword ptr ds:[13D301DCh]
+  11EB769C: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11EB769F: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11EB76A2: 89 95 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],edx
+  11EB76A8: A1 DC 01 D3 13     mov         eax,dword ptr ds:[13D301DCh]
+  11EB76AD: 8B 48 14           mov         ecx,dword ptr [eax+14h]
+  11EB76B0: 8B 51 1C           mov         edx,dword ptr [ecx+1Ch]
+  11EB76B3: 8B 02              mov         eax,dword ptr [edx]
+  11EB76B5: 8B 48 24           mov         ecx,dword ptr [eax+24h]
+  11EB76B8: 89 8D 08 FF FF FF  mov         dword ptr [ebp+FFFFFF08h],ecx
+  11EB76BE: 8B F4              mov         esi,esp
+  11EB76C0: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11EB76C3: 52                 push        edx
+  11EB76C4: 6A 14              push        14h
+  11EB76C6: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11EB76CC: 50                 push        eax
+  11EB76CD: FF 95 08 FF FF FF  call        dword ptr [ebp+FFFFFF08h]
+  11EB76D3: 3B F4              cmp         esi,esp
+  11EB76D5: E8 AA 26 33 FF     call        111E9D84
+  11EB76DA: 5F                 pop         edi
+  11EB76DB: 5E                 pop         esi
+  11EB76DC: 5B                 pop         ebx
+  11EB76DD: 81 C4 F8 00 00 00  add         esp,0F8h
+  11EB76E3: 3B EC              cmp         ebp,esp
+  11EB76E5: E8 9A 26 33 FF     call        111E9D84
+  11EB76EA: 8B E5              mov         esp,ebp
+  11EB76EC: 5D                 pop         ebp
+  11EB76ED: C2 04 00           ret         4
+  11EB76F0: CC                 int         3
+
+  Summary
+
+     2496000 .text

@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115F89B0: 55                 push        ebp
+  115F89B1: 8B EC              mov         ebp,esp
+  115F89B3: 81 EC C0 00 00 00  sub         esp,0C0h
+  115F89B9: 53                 push        ebx
+  115F89BA: 56                 push        esi
+  115F89BB: 57                 push        edi
+  115F89BC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115F89BF: 5F                 pop         edi
+  115F89C0: 5E                 pop         esi
+  115F89C1: 5B                 pop         ebx
+  115F89C2: 8B E5              mov         esp,ebp
+  115F89C4: 5D                 pop         ebp
+  115F89C5: C3                 ret
+  115F89C6: CC                 int         3
+  115F89C7: CC                 int         3
+  115F89C8: CC                 int         3
+  115F89C9: CC                 int         3
+  115F89CA: CC                 int         3
+  115F89CB: CC                 int         3
+  115F89CC: CC                 int         3
+  115F89CD: CC                 int         3
+  115F89CE: CC                 int         3
+  115F89CF: CC                 int         3
+  115F89D0: 55                 push        ebp
+  115F89D1: 8B EC              mov         ebp,esp
+  115F89D3: 81 EC C4 00 00 00  sub         esp,0C4h
+  115F89D9: 53                 push        ebx
+  115F89DA: 56                 push        esi
+  115F89DB: 57                 push        edi
+  115F89DC: 8D 7D FC           lea         edi,[ebp-4]
+  115F89DF: B9 01 00 00 00     mov         ecx,1
+  115F89E4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115F89E9: F3 AB              rep stos    dword ptr es:[edi]
+  115F89EB: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  115F89EE: 50                 push        eax
+  115F89EF: 8B
+  115F89F0: 4D                 dec         ebp
+
+  Summary
+
+     2489000 .text

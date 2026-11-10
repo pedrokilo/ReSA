@@ -1,46 +1,46 @@
 {
-  "asi_sha256": "ac4b86f836d2239fc5c371485bb0c9334357913ddc7b098a592f97f9e82d46b5",
-  "pdb_sha256": "e4e4ef5c313e33b69b704013fcd281c7d2b31e55b5222e011887fa95b6e37985",
+  "asi_sha256": "7d468cd2a3f7f9c4060f21b1a0a9b3cfcbff6e175ebabd040483e245f3d94b30",
+  "pdb_sha256": "9f775c8b82f67473cdec245d40d9171a404fc37be8cd1c1cfe3c913ccc60deb0",
   "base": 268435456,
   "symbols": [
     {
       "name": "RequestedGeometryWrappersFiveV4Live::Update",
-      "address": 288936256,
-      "size": 17472
+      "address": 291614992,
+      "size": 17473
     },
     {
       "name": "`RequestedGeometryWrappersFiveV4Live::Update'::`2'::<lambda_1>::operator()",
-      "address": 288908928,
+      "address": 291587440,
       "size": 243
     },
     {
       "name": "`RequestedGeometryWrappersFiveV4Live::Update'::`1'::<lambda_2>::operator()<ReversibleHooks::ReversibleHook::Simple>",
-      "address": 288724160,
+      "address": 291403136,
       "size": 59
     },
     {
       "name": "std::find_if<std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<SmallPendingSupport::HookSnapshot> > >,`RequestedGeometryWrappersFiveV4Live::Update'::`64'::<lambda_3> >",
-      "address": 288827984,
+      "address": 291507056,
       "size": 316
     },
     {
       "name": "`RequestedGeometryWrappersFiveV4Live::Update'::`64'::<lambda_3>::operator()<SmallPendingSupport::HookSnapshot>",
-      "address": 288724000,
+      "address": 291402976,
       "size": 123
     },
     {
       "name": "`RequestedGeometryWrappersFiveV4Live::Update'::`2'::<lambda_1>::<lambda_1>",
-      "address": 288846864,
+      "address": 291525936,
       "size": 35
     },
     {
       "name": "`RequestedGeometryWrappersFiveV4Live::Update'::`64'::<lambda_3>::<lambda_3>",
-      "address": 288847152,
+      "address": 291526224,
       "size": 44
     },
     {
       "name": "std::any_of<std::_Array_iterator<ReversibleHooks::ReversibleHook::Simple *,5>,`RequestedGeometryWrappersFiveV4Live::Update'::`1'::<lambda_2> >",
-      "address": 288775680,
+      "address": 291454800,
       "size": 141
     }
   ]

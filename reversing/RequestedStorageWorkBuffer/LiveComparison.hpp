@@ -9,14 +9,9 @@ namespace RequestedStorageWorkBufferLive {
 inline std::ofstream log;
 inline void Write(const json& value){log<<value.dump()<<'\n';log.flush();}
 inline std::string Hex(const void* ptr,size_t n){const auto*b=static_cast<const uint8*>(ptr);constexpr char digits[]="0123456789abcdef";std::string s(n*2,'0');for(size_t i=0;i<n;++i){s[2*i]=digits[b[i]>>4];s[2*i+1]=digits[b[i]&15];}return s;}
-inline uint8 Call(uintptr_t target,void* data,int32 size){uint32 out{};
-    __asm {
-        push size
-        push data
-        call target
-        add esp,8
-        mov out,eax
-    }
+inline uint8 Call(uintptr_t target,void* data,int32 size){
+    // REPARAR-REQUESTED: llamada cdecl (push size, push data, call, add esp,8) escrita en C++ puro; el __asm original no compilaba ("size" es un operador reservado del ensamblador de MSVC).
+    const uint32 out=reinterpret_cast<uint32(__cdecl*)(void*,int32)>(target)(data,size);
     return uint8(out);
 }
 inline void Update(){

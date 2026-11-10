@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\wv-1\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  115E4170: 55                 push        ebp
+  115E4171: 8B EC              mov         ebp,esp
+  115E4173: 81 EC CC 00 00 00  sub         esp,0CCh
+  115E4179: 53                 push        ebx
+  115E417A: 56                 push        esi
+  115E417B: 57                 push        edi
+  115E417C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115E417F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115E4182: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  115E4185: 8B 11              mov         edx,dword ptr [ecx]
+  115E4187: 89 10              mov         dword ptr [eax],edx
+  115E4189: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115E418C: 5F                 pop         edi
+  115E418D: 5E                 pop         esi
+  115E418E: 5B                 pop         ebx
+  115E418F: 8B E5              mov         esp,ebp
+  115E4191: 5D                 pop         ebp
+  115E4192: C2 0C 00           ret         0Ch
+  115E4195: CC                 int         3
+  115E4196: CC                 int         3
+  115E4197: CC                 int         3
+  115E4198: CC                 int         3
+  115E4199: CC                 int         3
+  115E419A: CC                 int         3
+  115E419B: CC                 int         3
+  115E419C: CC                 int         3
+  115E419D: CC                 int         3
+  115E419E: CC                 int         3
+  115E419F: CC                 int         3
+  115E41A0: 55                 push        ebp
+  115E41A1: 8B EC              mov         ebp,esp
+  115E41A3: 81 EC DC 00 00 00  sub         esp,0DCh
+  115E41A9: 53                 push        ebx
+  115E41AA: 56                 push        esi
+  115E41AB: 57                 push        edi
+  115E41AC: 51                 push        ecx
+  115E41AD: 8D 7D E4           lea         edi,[ebp-1Ch]
+  115E41B0: B9
+
+  Summary
+
+     2489000 .text
