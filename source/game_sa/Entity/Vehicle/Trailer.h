@@ -78,6 +78,9 @@ public:
     bool SetTowLink(CVehicle* tractor, bool setMyPosToTowBar) override;
     bool BreakTowLink() override;
 
+    // 0x6D0AF0 (lote 153A, banco Fn153A): verdadero si m_fTrailerTowedRatio (+0x9EC) tiene los bits de -1000.0f, el valor centinela de los remolques de equipaje (cmp de dword, no de float).
+    [[nodiscard]] bool IsBaggageTrailer() const;
+
     void ScanForTowLink();
 
     int32 ProcessEntityCollision(CEntity* entity, CColPoint* colPoint) override;

@@ -39,7 +39,7 @@ public:
     static int32 AddColSlot(const char* name);
     static void AddCollisionNeededAtPosn(const CVector& pos);
     static void AddRef(int32 colNum);
-    static int32 FindColSlot() { return -1; }
+    static int32 FindColSlot(); // 0x410390 (lote 153A, banco Fn153A)
     static int32 FindColSlot(const char*);
     static void BoundingBoxesPostProcess();
     static void EnsureCollisionIsInMemory(const CVector& pos);

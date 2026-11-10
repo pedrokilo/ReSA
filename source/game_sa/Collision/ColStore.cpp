@@ -173,6 +173,12 @@ void CColStore::AddRef(int32 colNum)
     ++colDef->m_nRefCount; //BUG: We don't check whether the GetAt returned nullptr, which it can
 }
 
+// 0x410390 (lote 153A, banco Fn153A; cdecl sin argumentos, `ret`, 4 bytes: `or eax,0FFFFFFFFh`): como el original no hay busqueda por nombre y devuelve siempre -1.
+int32 CColStore::FindColSlot()
+{
+    return -1;
+}
+
 // Como el original no hay búsqueda por nombre (`FindColSlot()` devuelve -1) y AddColSlot no guarda el nombre,
 // así que esta variante tampoco encuentra nada: cada archivo COL recibe un slot nuevo, como en el EXE.
 int32 CColStore::FindColSlot(const char*)
@@ -494,6 +500,7 @@ void CColStore::InjectHooks()
     RH_ScopedClass(CColStore);
     RH_ScopedCategory("Collision");
 
+    RH_ScopedOverloadedInstall(FindColSlot, "", 0x410390, int32(*)()); // lote 153A (banco Fn153A)
     RH_ScopedInstall(Initialise, 0x4113F0);
     RH_ScopedInstall(Shutdown, 0x4114D0);
     RH_ScopedInstall(AddCollisionNeededAtPosn, 0x4103A0);

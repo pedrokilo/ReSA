@@ -23,6 +23,10 @@ public:
     int32 GetLifeTime() override { return 0; }
     CEvent* Clone() const noexcept override { return new CEventInteriorUseInfo(m_InteriorInfo, m_Interior, m_ActionAnimTime, m_nLoopAction); }
     bool AffectsPed(CPed* ped) override;
-    bool IsValid(CPed* ped) override;
+    bool IsValid(CPed* ped) override; // 0x4B1640 (lote 153A, banco Fn153A)
+
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
 };
 VALIDATE_SIZE(CEventInteriorUseInfo, 0x1C);

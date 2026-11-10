@@ -15,17 +15,9 @@ public:
     float       m_fThickness{};
 
 public:
-    // 0x40FD50
-    /*
-    void Set(float startRadius, const CVector& start, const CVector& end, float endRadius, eSurfaceType material, uint8 pieceType, tColLighting lighting) {
-        m_fStartRadius = startRadius;
-        m_vecStart = start;
-        m_vecEnd = end;
-        m_fEndRadius = endRadius;
-        m_Surface.m_nMaterial = material;
-        m_Surface.m_nPiece = pieceType;
-        m_Surface.ligthing = lighting;
-    }
-    */
+    static void InjectHooks();
+
+    // 0x40FD50 (lote 153A, banco Fn153A): extremo inicial (centro y radio de CColSphere), extremo final (m_vThickness y m_fThickness), material, pieza e iluminacion en una sola operacion.
+    void Set(float startRadius, const CVector& start, const CVector& end, float endRadius, eSurfaceType material, uint8 pieceType, tColLighting lighting);
 };
 VALIDATE_SIZE(CColDisk, 0x24);

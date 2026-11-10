@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "0261f43cbb64e49fe862deafb1211c999daf40735ba8d0da65f7c3b2c82d17ab",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CEventStuckInAir::GetEventType: 588/2048; CEventStuckInAir::GetLifeTime: 570/2048; CEventStuckInAir::CanBeInterruptedBySameEvent: 579/2048; CTaskGangHasslePed::GetTaskType: 306/2048; CColStore::FindColSlot: 2048/2048; CRideAnimData::Destructor: 597/2048; CRideAnimData::DefaultConstructor: 608/2048; CAETwinLoopSoundEntity::DefaultConstructor: 591/2048; CTrailer::IsBaggageTrailer: 230/2048; CVector::Sum: 273/2048; CColDisk::Set: 906/2048; CAEVehicleAudioEntity::UpdateVehicleEngineSoundExe: 141/2048; CEvent::operator delete: 396/2048; CEventInteriorUseInfo::IsValid: 719/2048; CEvent::IsValidAliveOrBase: 731/2048; CAnimBlendAssociation::ScalarDeletingDestructor: 605/2048; CTaskComplexChat::ScalarDeletingDestructor: 609/2048; CTaskComplexUseWaterCannon::ScalarDeletingDestructor: 889/2048; CTaskComplexStareAtPed::ScalarDeletingDestructor: 587/2048; CTaskSimpleDoHandSignal::ScalarDeletingDestructor: 908/2048; CEventEditableResponse::ScalarDeletingDestructor: 613/2048; CAnimBlendAssociation::DestructorBody: 378/2048; CTaskComplexUseSwatRope::DestructorBody: 578/2048; CTaskComplexPartnerChat::DestructorBody: 590/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

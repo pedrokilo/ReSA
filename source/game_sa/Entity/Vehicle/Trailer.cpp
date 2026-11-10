@@ -111,6 +111,7 @@ void CTrailer::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x6D03A0);
     RH_ScopedNamedGlobalInstall(TrailerScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6CF180); // lote 140A (banco Fn140A)
+    RH_ScopedInstall(IsBaggageTrailer, 0x6D0AF0); // lote 153A (banco Fn153A)
     RH_ScopedInstall(ScanForTowLink, 0x6CF030);
 
     RH_ScopedVMTInstall(SetupSuspensionLines, 0x6CF1A0);
@@ -124,6 +125,11 @@ void CTrailer::InjectHooks() {
     RH_ScopedVMTInstall(GetTowHitchPos, 0x6CEEA0);
     RH_ScopedVMTInstall(GetTowBarPos, 0x6CFD60);
     RH_ScopedVMTInstall(BreakTowLink, 0x6CEFB0);
+}
+
+// 0x6D0AF0 (lote 153A, banco Fn153A; thiscall, `ret`, 18 bytes: `cmp dword [ecx+9ECh],0C47A0000h; jne ..; mov al,1; ret; xor al,al; ret`): compara los BITS del dword con los de -1000.0f (solo AL).
+bool CTrailer::IsBaggageTrailer() const {
+    return std::bit_cast<uint32>(m_fTrailerTowedRatio) == std::bit_cast<uint32>(BAGGAGE_TRAILER_TOWED_RATIO);
 }
 
 // 0x6D03A0

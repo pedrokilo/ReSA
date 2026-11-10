@@ -39,7 +39,7 @@
 // CPedGroupMembership::RemoveMember(CPed*) 0x5FB210, CTask::operator new 0x61A5A0 y delete 0x61A5B0, FindPlayerPed 0x56E210, CEventGroup::Add 0x4AB420, CPedGroupMembership::AddFollower 0x5F8020,
 // CPedGroup::Process 0x5FC7E0, CPed::GiveWeaponWhenJoiningGang 0x5E8BE0, CPedGroupIntelligence::AddEvent 0x5F7470, CStats::IncrementStat 0x55C180 y DisplayScriptStatUpdateMessage 0x55B980,
 // CPedPool::GetRef 0x4442D0, CRadar::SetEntityBlip 0x5839A0, ChangeBlipScale 0x583CC0, ChangeBlipColour 0x583AB0 y SetBlipFriendly 0x583EB0, CEntity::RegisterReference 0x571B70 y
-// CleanUpOldReference 0x571A00 (todos con hook); y sin hook: la funcion 0x609380 (sin reconstruir) y CEvent::operator new 0x4B5620 / delete 0x4B5630 (cuerpo propio en la DLL).
+// CleanUpOldReference 0x571A00 (todos con hook); y sin hook: la funcion 0x609380 (sin reconstruir) y CEvent::operator new 0x4B5620 / delete 0x4B5630 (este ultimo con hook desde el lote 153A).
 // Corren de verdad en ambos lados: los constructores y destructores de CTaskComplexBeInGroup, CEventScriptCommand, CEventNewGangMember, CEventGroupEvent y CEventDontJoinPlayerGroup (sobre las arenas).
 
 namespace Pg75Layout {
@@ -301,7 +301,7 @@ inline void Update() {
                   {Pair{0x5FC7E0,processBody,true},reinterpret_cast<void*>(&FakeProcess)},
                   {Pair{0x5E8BE0,giveBody,true},reinterpret_cast<void*>(&FakeGiveWeapon)},
                   {Pair{0x4B5620,eventNewBody,true},reinterpret_cast<void*>(&FakeEventNew)},
-                  {Pair{0x4B5630,eventDeleteBody,false},reinterpret_cast<void*>(&FakeEventDelete)},
+                  {Pair{0x4B5630,eventDeleteBody,true},reinterpret_cast<void*>(&FakeEventDelete)},
                   {Pair{0x571B70,registerBody,true},reinterpret_cast<void*>(&FakeRegister)},
                   {Pair{0x571A00,cleanBody,true},reinterpret_cast<void*>(&FakeCleanUp)},
                   {Pair{0x5F7470,addEventBody,true},reinterpret_cast<void*>(&FakeAddEvent)},

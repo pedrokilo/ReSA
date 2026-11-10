@@ -25,7 +25,7 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh
 HOOKS = {NAMES[0]: 0x60CD20, NAMES[1]: 0x60DC50}
 # (direccion del EXE, hooked) EN EL ORDEN de LiveComparison.hpp
 STUBBED = {NAMES[0]: [(0x71D780, True), (0x5DEF20, True), (0x5E1950, True), (0x5393F0, True), (0x5E4500, True), (0x5DEC00, True), (0x601DA0, True), (0x4D6C00, True), (0x61A5A0, True),
-                      (0x681AF0, True), (0x60A9C0, True), (0x681B60, True), (0x5FBB70, True), (0x4B57A0, True), (0x4AC490, True), (0x4B5620, True), (0x4B5630, False), (0x5F7470, True),
+                      (0x681AF0, True), (0x60A9C0, True), (0x681B60, True), (0x5FBB70, True), (0x4B57A0, True), (0x4AC490, True), (0x4B5620, True), (0x4B5630, True), (0x5F7470, True),
                       (0x56F210, True), (0x571B70, True), (0x571A00, True), (0x821B1E, False)],
            NAMES[1]: [(0x5E6580, True), (0x743C60, True), (0x73B380, True), (0x53CC70, True), (0x53FC90, True), (0x53FD30, True), (0x53CBE0, True), (0x53CB50, True), (0x59C910, True), (0x4082C0, True),
                       (0x60D020, True), (0x60B550, True), (0x5F7F40, True), (0x49CCE0, True), (0x49CF90, True), (0x564A20, True), (0x59F320, True), (0x609F80, True), (0x441390, True),

@@ -37,12 +37,24 @@ void __fastcall EditableResponseDestructorBody(CEventEditableResponse* self, voi
 }
 #pragma optimize("", on)
 #pragma runtime_checks("", restore)
+
+// 0x4B5670 (lote 153A, banco Fn153A): destructor con borrado de CEventEditableResponse del EXE (ranura 0 de su vtable 0x85AB80; thiscall, un argumento de pila, `ret 4`, 77 bytes: `push esi; call 0x4AC480;
+// test byte [esp+8],1; je ..;` y, con el bit 0 del BYTE de banderas, el operator delete de CEvent EN LINEA (pool de eventos 0xB744AC, como 0x4B5630); devuelve `this`). Se engancha como S (RH_ScopedVMTInstall no puede
+// nombrar la ranura del destructor).
+CEventEditableResponse* __fastcall EditableResponseScalarDeletingDestructor(CEventEditableResponse* self, void* /*edx*/, uint8 flags) {
+    EditableResponseDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CEventEditableResponse::InjectHooks() {
     RH_ScopedVirtualClass(CEventEditableResponse, 0x85AB80, 17);
     RH_ScopedCategory("Events");
     RH_ScopedNamedGlobalInstall(EditableResponseDestructorBody, "Destructor", 0x4AC480);
+    RH_ScopedNamedGlobalInstall(EditableResponseScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B5670); // lote 153A (banco Fn153A)
 
     RH_ScopedInstall(Constructor, 0x4AC450);
     RH_ScopedVMTInstall(Clone, 0x420ED0);

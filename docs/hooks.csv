@@ -9862,3 +9862,27 @@ CPlayerRelationshipRecorder,GetPlayerRelationshipRecorder,0x0061A2E0,1,0,1,S
 CTaskSimpleLookAbout,Destructor,0x0048EA90,1,0,1,S
 CTaskSimpleHandsUp,ScalarDeletingDestructor,0x0048EA40,1,0,1,S
 CTaskSimpleLookAbout,ScalarDeletingDestructor,0x0048EA70,1,0,1,S
+CEventStuckInAir,GetEventType,0x00000000,1,0,1,V
+CEventStuckInAir,GetLifeTime,0x00000000,1,0,1,V
+CEventStuckInAir,CanBeInterruptedBySameEvent,0x00000000,1,0,1,V
+CTaskGangHasslePed,GetTaskType,0x00000000,1,0,1,V
+CColStore,FindColSlot-,0x00410390,1,0,1,S
+CRideAnimData,Destructor,0x006D0B30,1,0,1,S
+CRideAnimData,DefaultConstructor,0x006D0B10,1,0,1,S
+CAETwinLoopSoundEntity,DefaultConstructorExe,0x004F63B0,1,0,1,S
+CTrailer,IsBaggageTrailer,0x006D0AF0,1,0,1,S
+CVector,Sum,0x0040FDD0,1,0,1,S
+CColDisk,Set,0x0040FD50,1,0,1,S
+CAEVehicleAudioEntity,UpdateVehicleEngineSoundExe,0x004F56D0,1,0,1,S
+CEvent,operator delete,0x004B5630,1,0,1,S
+CEventInteriorUseInfo,IsValid,0x00000000,1,0,1,V
+CEvent,IsValidAliveOrBase,0x004B1680,1,0,1,S
+CAnimBlendAssociation,ScalarDeletingDestructor,0x004CEFA0,1,0,1,S
+CTaskComplexChat,ScalarDeletingDestructor,0x006846D0,1,0,1,S
+CTaskComplexUseWaterCannon,ScalarDeletingDestructor,0x0065A620,1,0,1,S
+CTaskComplexStareAtPed,ScalarDeletingDestructor,0x00664480,1,0,1,S
+CTaskSimpleDoHandSignal,ScalarDeletingDestructor,0x006644A0,1,0,1,S
+CEventEditableResponse,ScalarDeletingDestructor,0x004B5670,1,0,1,S
+CAnimBlendAssociation,DestructorBody,0x004CECF0,1,0,1,S
+CTaskComplexUseSwatRope,DestructorBody,0x006594D0,1,0,1,S
+CTaskComplexPartnerChat,DestructorBody,0x00684320,1,0,1,S

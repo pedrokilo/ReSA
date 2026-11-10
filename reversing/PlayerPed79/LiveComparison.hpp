@@ -45,7 +45,7 @@
 // de la DLL): CMBlur::ClearDrunkBlur 0x71D780 (con hook RH desde el lote 108A), CPed::ClearAimFlag 0x5DEF20, ClearLookFlag 0x5E1950, CFire::Extinguish 0x5393F0, CPed::SetPedState 0x5E4500, SetMoveState 0x5DEC00,
 // CPedIntelligence::FlushIntelligence 0x601DA0, RpAnimBlendClumpRemoveAllAssociations 0x4D6C00, CTask::operator new 0x61A5A0, CTaskManager::SetTask 0x681AF0 y SetTaskSecondary 0x681B60,
 // CPlayerPed::SetRealMoveAnim 0x60A9C0 (sin hook), CPedGroupIntelligence::SetDefaultTaskAllocatorType 0x5FBB70, CEventEditableResponse::ComputeResponseTaskType(grupo) 0x4B57A0 y WillRespond 0x4AC490,
-// CEvent::operator new/delete 0x4B5620 / 0x4B5630 (sin hook), CPedGroupIntelligence::AddEvent 0x5F7470, CPlayerPedData::SetInitialState 0x56F210, CEntity::RegisterReference 0x571B70 y
+// CEvent::operator new/delete 0x4B5620 / 0x4B5630 (con hook; el de 0x4B5630 desde el lote 153A), CPedGroupIntelligence::AddEvent 0x5F7470, CPlayerPedData::SetInitialState 0x56F210, CEntity::RegisterReference 0x571B70 y
 // CleanUpOldReference 0x571A00, rand() 0x821B1E (sin hook; la DLL: CGeneral::GetRandomNumber). Corren de verdad en ambos lados: los constructores de CTaskSimplePlayerOnFoot, CTaskComplexFacial,
 // CEventPlayerCommandToGroupAttack/Gather y CEventGroupEvent (sobre las arenas / la pila).
 
@@ -287,7 +287,7 @@ inline void Update() {
                   {Pair{0x4B57A0,computeBody,true},reinterpret_cast<void*>(&FakeCompute)},
                   {Pair{0x4AC490,willBody,true},reinterpret_cast<void*>(&FakeWill)},
                   {Pair{0x4B5620,eventNewBody,true},reinterpret_cast<void*>(&FakeEventNew)},
-                  {Pair{0x4B5630,eventDeleteBody,false},reinterpret_cast<void*>(&FakeEventDelete)},
+                  {Pair{0x4B5630,eventDeleteBody,true},reinterpret_cast<void*>(&FakeEventDelete)},
                   {Pair{0x5F7470,addEventBody,true},reinterpret_cast<void*>(&FakeAddEvent)},
                   {Pair{0x56F210,playerDataBody,true},reinterpret_cast<void*>(&FakePlayerData)},
                   {Pair{0x571B70,registerBody,true},reinterpret_cast<void*>(&FakeRegister)},

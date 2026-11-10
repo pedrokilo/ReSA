@@ -27,9 +27,27 @@ END GENERATED HOOK STATUS */
 #include "Rope.h"
 #include "Ropes.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
+namespace {
+// 0x6594D0 (lote 153A, banco Fn153A): cuerpo del destructor de CTaskComplexUseSwatRope del EXE (thiscall, sin argumentos de pila, `ret`, 96 bytes con marco SEH que solo desenrolla): deja la vtable de la clase (0x86F59C);
+// si el bit 0 del byte +0x14 (m_bIsOnHeli) esta puesto y el helicoptero (+0x18) no es nulo, libera la referencia con CEntity::CleanUpOldReference (0x571A00, con hook); y llama al cuerpo de ~CTaskComplex
+// (0x61A3D0, con hook). El destructor generado por el compilador dejaria la vtable de la DLL. Lo llama el destructor con borrado 0x65A3C0. El marco SEH se omite.
+void __fastcall CTaskComplexUseSwatRopeDestructorBodyExe(CTaskComplexUseSwatRope* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86F59C;
+    if (self->m_bIsOnHeli) {
+        CEntity::SafeCleanUpRef(self->m_pHeli);
+    }
+    CTaskComplexBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexUseSwatRope::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexUseSwatRope, 0x86F59C, 13);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexUseSwatRopeDestructorBodyExe, "DestructorBody", 0x6594D0); // lote 153A (banco Fn153A)
     RH_ScopedInstall(Constructor, 0x659470);
     RH_ScopedInstall(CreateSubTask, 0x659620);
     RH_ScopedVMTInstall(Clone, 0x659C30);

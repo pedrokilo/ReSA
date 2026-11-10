@@ -25,7 +25,9 @@ public:
     float        AnimLeanFwd{};
 
 public:
-    CRideAnimData() = default; // 0x6D0B10
+    static void InjectHooks();
+
+    CRideAnimData() = default; // 0x6D0B10 (lote 153A, banco Fn153A: RideAnimData.cpp)
     CRideAnimData(AssocGroupId animGroup) : AnimGroup(animGroup) {} // NOTSA
 };
 VALIDATE_SIZE(CRideAnimData, 0x1C);

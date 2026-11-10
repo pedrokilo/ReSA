@@ -25,9 +25,27 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleChat.h"
 #include "TaskSimpleStandStill.h"
 
+namespace CTaskComplexPartnerBody {
+void __fastcall Destructor(CTaskComplexPartner* self, void* edx); // TaskComplexPartner.cpp: 0x683A40
+}
+
+namespace {
+// 0x684320 (lote 153A, banco Fn153A): cuerpo del destructor de CTaskComplexPartnerChat del EXE (thiscall, sin argumentos de pila, `ret`, 93 bytes con marco SEH que solo desenrolla): deja la vtable de la clase (0x8707C4);
+// si m_conversationEnabled (+0x74) y m_pedConversationLoaded (+0x76) no son cero (cada byte entero) llama a CAEPedSpeechAudioEntity::ReleasePedConversation (0x4E52A0); y llama al cuerpo de ~CTaskComplexPartner
+// (0x683A40, con hook). El destructor generado por el compilador dejaria la vtable de la DLL. El marco SEH se omite.
+void __fastcall CTaskComplexPartnerChatDestructorBodyExe(CTaskComplexPartnerChat* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x8707C4;
+    if (self->m_conversationEnabled && self->m_pedConversationLoaded) {
+        CAEPedSpeechAudioEntity::ReleasePedConversation();
+    }
+    CTaskComplexPartnerBody::Destructor(self, nullptr);
+}
+} // namespace
+
 void CTaskComplexPartnerChat::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexPartnerChat, 0x8707C4, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexPartnerChatDestructorBodyExe, "DestructorBody", 0x684320); // lote 153A (banco Fn153A)
     RH_ScopedInstall(Constructor, 0x684290);
     RH_ScopedVMTInstall(MakeAbortable, 0x682C60);
     RH_ScopedVMTInstall(GetPartnerSequence, 0x684380);

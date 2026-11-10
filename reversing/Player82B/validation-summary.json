@@ -12,24 +12,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol principal (HEAD 13b3e2992 + PlayerPed.cpp y X87Math.cpp, source.patch). CPlayerPed::Compute3rdPersonMouseTarget 0x60B650 (thiscall, un bool de pila, ret 4; void; 1060 bytes): con el raton en tercera persona traza una linea (vector de apuntado de la camara o linea calculada con x87 a 24 bits) con el alcance del arma activa, elige al primer peaton vivo golpeado (referencias, plazo +0x7A0, tipo de disparo, banderas del arma, rango de vision, tareas pendientes, frase, evento CEventGunAimedAt al grupo o a su grupo de eventos) y caduca el objetivo anterior. Sustituidos por falsos identicos en ambos lados (entrada del EXE y cuerpo de la DLL): GetWeaponSkill, GetWeaponInfo, Find3rdPersonCamTargetVector, ProcessLineOfSight, ResetLineTestOptions, IsAlive, CleanUpOldReference, RegisterReference, IsInSeeingRange, Say, GetPedsGroup, AreInSameGroup, AddEvent, CEventGroup::Add y CEvent::operator new/delete (sin hook). Corren de verdad en ambos lados los constructores y destructores de CEventGunAimedAt y CEventGroupEvent. Dominio: NaN canonicalizado (carga util distinta entre x87 y SSE); camaras activas 0..2; ranuras de arma entre -20 y 20. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Player82B-20261107-015505-009102",
-  "summary_sha256": "70b3215b3aa407be738b884e507505140307d2b27174e54f134ca87ae6a6a67d",
-  "result_txt_sha256": "40319109630b18d0e908d7ff5281c0df6fc8eb10f4f1ed70ab448644b3078b93",
-  "log_sha256": "f60436ec8ed2c07e257bb765203abac9ae6a7f2034be0cba562cdacc0027a471",
+  "run": "reversing/CppTwelveLevel6Final/runs/Player82B-20261110-054347-628725",
+  "summary_sha256": "506c2be16b68f934e25722f7681b2b5301e34f762bc4e36097f7dbdb7fdde28a",
+  "result_txt_sha256": "8f0b9cec528d0373f2588c5372f8abe7f22f4625a392e65046bb4aff5d9adec4",
+  "log_sha256": "080b10e31765b2ad4d5386d3c9dfbfeb1160aca4f98d385f6a310bf491ebd1e2",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "17927c5f8e50419508e00e0dd01b6fc6f768ef4861a74d44ea50d9961122ea11",
+  "executed_probe_sha256": "50724ec75c6d81fe7eb59d669072f4efd188353d5045168797177efbade69728",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "035e0940c056da05267b3c8598dbbee578f96d2c563a8385c11eb03358f51e6e",
-      "source/InjectHooksMain.cpp": "ca0f37390ddeafc2ea445f60fd4e814292907c5109715e7cf103a43951b0cf05",
+      "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
+      "source/InjectHooksMain.cpp": "f1789bb172ba766b680a5a3fcefcbec5277b76d246403e4f7815456e469c5420",
       "source/game_sa/Entity/Ped/PlayerPed.cpp": "9f819a6becb44f6c694339910a0bdc93f1208209db40fc1498d64c71e3d25f5d",
       "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
-      "source/game_sa/X87Math.cpp": "5e243fc7fb4d52ac1f49082e7a95936db4f8c8ca575382df880ba611987f3402",
-      "source/game_sa/X87Math.h": "4ee615e11df7d5828093a0f23b90e86fac16de3ad5ad771c71209338cead8fae",
+      "source/game_sa/X87Math.cpp": "e74bb27255955aec7fd18c24baf4f38e57349c8ae8c2d3a77c4fbfe26e363cbc",
+      "source/game_sa/X87Math.h": "2128b97fd23e860393ba1d062319071d294b32f50cdb4bca472dd8039ab41f58",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Player82B/LiveComparison.hpp": "74a7d0d40faa8687f5f0db4049ee2cd4ffcfc54d57749a0d2579cc1323055429",
       "reversing/Player82B/Core.hpp": "ec1e1e2fe4ae1f86772a2e69a0516fd2859fe4dd7716da0903fad60a268bb0cd",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Player82B-20261107-015505-009102/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Player82B-20261110-054347-628725/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "0ee33a20c6bc27067b11ad887b383089f76cb7b7865939285e5ec12a72a5c23d",
-    "uncompressed_sha256": "f60436ec8ed2c07e257bb765203abac9ae6a7f2034be0cba562cdacc0027a471"
+    "compressed_sha256": "eda13b439d6b2231f72ec519c7d8d728fea754f815eea29bba35e6df1da5b6c6",
+    "uncompressed_sha256": "080b10e31765b2ad4d5386d3c9dfbfeb1160aca4f98d385f6a310bf491ebd1e2"
   }
 }

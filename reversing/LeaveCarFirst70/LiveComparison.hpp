@@ -66,7 +66,7 @@ inline void Update() {
     env.stub[6]={0x571B70,Body(std::bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference)))};
     env.stub[7]={0x5F7470,Body(std::bit_cast<uintptr_t>(static_cast<bool(CPedGroupIntelligence::*)(CEvent*)>(&CPedGroupIntelligence::AddEvent)))};
     env.stub[8]={0x571A00,Body(std::bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference)))};
-    env.stub[9]={0x4B5630,Body(std::bit_cast<uintptr_t>(static_cast<void(*)(void*)>(&CEvent::operator delete))),false};
+    env.stub[9]={0x4B5630,Body(std::bit_cast<uintptr_t>(static_cast<void(*)(void*)>(&CEvent::operator delete))),true};
     env.stub[10]={0x5DFD90,Body(std::bit_cast<uintptr_t>(&CPed::SetRadioStation))};
     env.stub[11]={0x4F5BA0,Body(std::bit_cast<uintptr_t>(&CAEVehicleAudioEntity::PlayerAboutToExitVehicleAsDriver)),false};
     {   // banderas del ped (anonimas) sobre un bufer crudo: bInVehicle = bit 8 de +0x46C, bIsBeingArrested = bit 6 del byte +0x474

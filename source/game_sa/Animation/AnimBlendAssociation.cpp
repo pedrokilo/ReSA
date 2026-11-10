@@ -20,6 +20,35 @@ END GENERATED HOOK STATUS */
 
 #include "AnimBlendAssociation.h"
 
+namespace {
+// 0x4CECF0 (lote 153A, banco Fn153A): cuerpo del destructor de CAnimBlendAssociation del EXE (thiscall, sin argumentos de pila, `ret`, 94 bytes sin marco SEH): lee el puntero de nodos (+0x10), deja la vtable de la clase
+// (0x85C6D0) y libera los nodos con CMemoryMgr::FreeAlign (0x72F4F0, con hook) si no es nulo; desenlaza la asociacion de la lista del clump (+4 siguiente, +8 anterior: anterior->siguiente = siguiente, siguiente->anterior
+// = anterior, ambos a 0) y, si la bandera 0x4000 de la palabra +0x2E esta puesta, quita la referencia del bloque de animaciones de la jerarquia (+0x14, id en +0xC) con CAnimManager::RemoveAnimBlockRef (0x4D3FD0,
+// con hook). Escribe la vtable del EXE (el destructor generado por el compilador dejaria la de la DLL).
+__declspec(noinline) void __fastcall CAnimBlendAssociationDestructorBodyExe(CAnimBlendAssociation* self, void* /*edx*/) {
+    CAnimBlendNode* const nodes = self->m_BlendNodes;
+    *reinterpret_cast<uint32*>(self) = 0x85C6D0;
+    if (nodes) {
+        CMemoryMgr::FreeAlign(nodes);
+    }
+    self->m_Link.Remove();
+    if (self->m_Flags & ANIMATION_REFERENCE_BLOCK) {
+        CAnimManager::RemoveAnimBlockRef(self->m_BlendHier->m_nAnimBlockId);
+    }
+}
+
+// 0x4CEFA0 (lote 153A, banco Fn153A): destructor con borrado de CAnimBlendAssociation del EXE (ranura 0 de su vtable 0x85C6D0; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call
+// 0x4CECF0; test byte [esp+8],1; je ..; push esi; call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo (0x4CECF0), libera `this` con operator delete (0x8214BD, CRT, sin
+// hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CAnimBlendAssociation* __fastcall CAnimBlendAssociationScalarDeletingDestructor(CAnimBlendAssociation* self, void* /*edx*/, uint8 flags) {
+    CAnimBlendAssociationDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 /**
  * Registra las operaciones del estado dinámico de reproducción de una animación.
  */
@@ -27,6 +56,8 @@ void CAnimBlendAssociation::InjectHooks() {
     RH_ScopedClass(CAnimBlendAssociation);
     RH_ScopedCategory("Animation");
 
+    RH_ScopedNamedGlobalInstall(CAnimBlendAssociationDestructorBodyExe, "DestructorBody", 0x4CECF0);                  // lote 153A (banco Fn153A)
+    RH_ScopedNamedGlobalInstall(CAnimBlendAssociationScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4CEFA0); // lote 153A (banco Fn153A)
     RH_ScopedOverloadedInstall(Constructor0, "", 0x4CE9B0, CAnimBlendAssociation*(CAnimBlendAssociation::*)());
     RH_ScopedOverloadedInstall(Constructor1, "clump_hier", 0x4CEFC0, CAnimBlendAssociation*(CAnimBlendAssociation::*)(RpClump*, CAnimBlendHierarchy*));
     RH_ScopedOverloadedInstall(Constructor2, "blend", 0x4CF020, CAnimBlendAssociation*(CAnimBlendAssociation::*)(CAnimBlendAssociation&));

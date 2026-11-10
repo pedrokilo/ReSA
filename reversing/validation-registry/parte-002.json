@@ -5056,7 +5056,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CScriptsForBrains::GetIndexOfScriptBrainWithThisName"
@@ -5065,11 +5065,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5091,7 +5091,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CScriptsForBrains::HasAttractorScriptBrainWithThisNameLoaded"
@@ -5100,11 +5100,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5126,7 +5126,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CScriptsForBrains::Init"
@@ -5135,11 +5135,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5161,7 +5161,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CScriptsForBrains::IsObjectWithinBrainActivationRange"
@@ -5170,11 +5170,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5196,7 +5196,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CScriptsForBrains::StartAttractorScriptBrainWithThisName"
@@ -5205,11 +5205,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5231,7 +5231,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CScriptsForBrains::StartOrRequestNewStreamedScriptBrain"
@@ -5240,11 +5240,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5266,7 +5266,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::Constructor"
@@ -5275,11 +5275,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5301,7 +5301,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::Destructor"
@@ -5310,11 +5310,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5336,7 +5336,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::FindDistanceToFurthestMember"
@@ -5345,11 +5345,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5371,7 +5371,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::FindDistanceToNearestMember"
@@ -5380,11 +5380,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5406,7 +5406,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::Flush"
@@ -5415,11 +5415,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5441,7 +5441,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::GetClosestGroupPed"
@@ -5450,11 +5450,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5476,7 +5476,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::IsAnyoneUsingCar"
@@ -5485,11 +5485,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5511,7 +5511,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::PlayerGaveCommand_Attack"
@@ -5520,11 +5520,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5546,7 +5546,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::PlayerGaveCommand_Gather"
@@ -5555,11 +5555,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5581,7 +5581,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::Process"
@@ -5590,11 +5590,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5616,7 +5616,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::RemoveAllFollowers"
@@ -5625,11 +5625,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5651,7 +5651,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CPedGroup::Teleport"
@@ -5660,11 +5660,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5686,7 +5686,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::AddRain"
@@ -5695,11 +5695,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5721,7 +5721,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::AddSandStormParticles"
@@ -5730,11 +5730,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5756,7 +5756,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::FindWeatherTypesList"
@@ -5765,11 +5765,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5791,7 +5791,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::ForceWeather"
@@ -5800,11 +5800,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5826,7 +5826,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::ForceWeatherNow"
@@ -5835,11 +5835,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5861,7 +5861,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::ForecastWeather"
@@ -5870,11 +5870,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5896,7 +5896,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::Init"
@@ -5905,11 +5905,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5931,7 +5931,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::IsRainy"
@@ -5940,11 +5940,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -5966,7 +5966,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::ReleaseWeather"
@@ -5975,11 +5975,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6001,7 +6001,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::RenderRainStreaks"
@@ -6010,11 +6010,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6036,7 +6036,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::SetWeatherToAppropriateTypeNow"
@@ -6045,11 +6045,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6071,7 +6071,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::Update"
@@ -6080,11 +6080,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6106,7 +6106,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CWeather::UpdateInTunnelness"
@@ -6115,11 +6115,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6141,7 +6141,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CRopes::CreateRopeForSwatPed"
@@ -6150,11 +6150,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6176,7 +6176,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CRopes::FindCoorsAlongRope"
@@ -6185,11 +6185,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6211,7 +6211,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CRopes::FindPickupHeight"
@@ -6220,11 +6220,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6246,7 +6246,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CRopes::FindRope"
@@ -6255,11 +6255,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6281,7 +6281,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CRopes::Init"
@@ -6290,11 +6290,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6316,7 +6316,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CRopes::IsCarriedByRope"
@@ -6325,11 +6325,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6351,7 +6351,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CRopes::RegisterRope"
@@ -6360,11 +6360,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6386,7 +6386,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CRopes::Render"
@@ -6395,11 +6395,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6421,7 +6421,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CRopes::SetSpeedOfTopNode"
@@ -6430,11 +6430,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6456,7 +6456,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CRopes::Shutdown"
@@ -6465,11 +6465,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
@@ -6491,7 +6491,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61a/validation-summary.json",
-        "sha256": "59f18b4cf5adb582d8949ff56a331d20927c88f5151c719d8225aaeea3609618",
+        "sha256": "89eac06613d48d9fc4ff9bda8ce4ca570a5a42e9f3372c23a16ba1457b820572",
         "passed_path": [
           "covered_functions",
           "CRopes::Update"
@@ -6500,11 +6500,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
+        "source/game_sa/ScriptsForBrains.cpp": "27dd6d07b31a597802e735063505fa3ebaecf90785207909812e480ea4e51eaf",
         "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
         "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
         "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
-        "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+        "source/game_sa/PedGroupIntelligence.h": "b2d148a5afccb7dcca774bdcb81aa996cd235f4da7776d53a2bf9e1991cb3250",
         "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
         "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",

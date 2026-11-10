@@ -44,6 +44,19 @@ CAETwinLoopSoundEntity::CAETwinLoopSoundEntity(
     rng::fill(m_SoundsLengths, -1);
 }
 
+// 0x4F63B0 (lote 153A, banco Fn153A; thiscall, sin argumentos de pila, `ret`, 33 bytes: `mov eax,ecx; xor ecx,ecx; mov [eax+10h],ecx; mov [eax],85F438h; mov [eax+88h],cx; mov [eax+0A0h],ecx;
+// mov [eax+0A4h],ecx`): el constructor por defecto del EXE solo escribe estos campos y devuelve `this`; el resto del objeto queda sin inicializar (el `= default` de la DLL pondria a cero todos los miembros).
+// +0x10 es m_tempSound.m_PhysicalEntity (escritura cruda: no pasa por EntityRef, que tocaria referencias); la vtable es la del EXE (0x85F438). El listado de pendientes lo atribuia a CAEVehicleAudioEntity.
+CAETwinLoopSoundEntity* CAETwinLoopSoundEntity::DefaultConstructorExe() {
+    uint8* const raw = reinterpret_cast<uint8*>(this);
+    *reinterpret_cast<uint32*>(raw + 0x10) = 0;
+    *reinterpret_cast<uint32*>(raw) = 0x85F438;
+    m_IsInUse = 0;
+    m_Sounds[0] = nullptr;
+    m_Sounds[1] = nullptr;
+    return this;
+}
+
 // 0x4F2B80
 CAETwinLoopSoundEntity::~CAETwinLoopSoundEntity() {
     if (m_IsInUse) {
@@ -225,6 +238,7 @@ void CAETwinLoopSoundEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAETwinLoopSoundEntity, 0x85F438, 1);
     RH_ScopedCategory("Audio/Entities");
 
+    RH_ScopedInstall(DefaultConstructorExe, 0x4F63B0); // lote 153A (banco Fn153A)
     RH_ScopedInstall(Initialise, 0x4F28A0);
     RH_ScopedInstall(UpdateTwinLoopSound, 0x4F29A0);
     RH_ScopedVMTInstall(UpdateParameters, 0x4F2E90);

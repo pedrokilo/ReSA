@@ -24,7 +24,7 @@ public:
 public:
     static void InjectHooks();
     static void InjectHooksExactMath(); // Solo Magnitude, Magnitude2D, Normalise y NormaliseAndMag (el resto de CVector::InjectHooks sigue desactivado)
-    static void InjectHooksExactOperators(); // Solo DotProduct, CrossProduct, Multiply3x3Exe, VectorAdd, VectorSubtract, FloatTimesVector, VectorTimesFloat, operator+= y operator*=(float) (lote 97A), Multiply3x3VMExe y Difference (lote 99A)
+    static void InjectHooksExactOperators(); // Sum (lote 153A), solo DotProduct, CrossProduct, Multiply3x3Exe, VectorAdd, VectorSubtract, FloatTimesVector, VectorTimesFloat, operator+= y operator*=(float) (lote 97A), Multiply3x3VMExe y Difference (lote 99A)
 
     static CVector Random(float min, float max);
     static CVector Random(CVector min, CVector max);

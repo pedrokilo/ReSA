@@ -22,6 +22,8 @@ END GENERATED HOOK STATUS */
 #pragma warning(pop)
 #include "X87Math.h"
 #include "Event.h"
+#include "EventDamage.h"
+#include "Pools/PoolRawDelete.h"
 
 
 // El cuerpo se exporta (espacio de nombres con nombre) para que los destructores de eventos del EXE reconstruidos en otros archivos (lote 115A) lo llamen como el original.
@@ -38,12 +40,24 @@ void __fastcall EventDestructorBody(CEvent* self, void* /*edx*/) {
 #pragma runtime_checks("", restore)
 } // namespace CEventBody
 
+// 0x4B1680 (lote 153A, banco Fn153A; thiscall, un puntero en la pila, `ret 4`, 54 bytes; sin llamadores ni ranura de vtable en el EXE, igual que las IsValid de CEventInteriorUseInfo 0x4B1640, CEventLeanOnVehicle
+// 0x4B16C0 y CEventPassObject 0x4B1700): con ped no nulo devuelve CPed::IsAlive (0x5E0170, con hook) con ECX = ped; sin ped, como CEvent::IsValid en linea (m_bValid, o m_nTimeActive <= GetLifeTime(), llamada virtual
+// de la ranura 3, con signo). El listado de pendientes lo atribuia a CEventStuckInAir; no se conoce la clase propietaria (codigo muerto), asi que es una funcion libre.
+__declspec(noinline) bool __fastcall EventIsValidAliveOrBaseExe(CEvent* self, void* /*edx*/, CPed* ped) {
+    if (ped) {
+        return ped->IsAlive();
+    }
+    return self->CEvent::IsValid(nullptr);
+}
+
 void CEvent::InjectHooks() {
     RH_ScopedVirtualClass(CEvent, 0x85AB38, 16);
     RH_ScopedCategory("Events");
     RH_ScopedNamedGlobalInstall(CEventBody::EventDestructorBody, "Destructor", 0x4AC010);
 
     RH_ScopedInstall(operator new, 0x4B5620);
+    RH_ScopedInstall(operator delete, 0x4B5630);                               // lote 153A (banco Fn153A)
+    RH_ScopedNamedGlobalInstall(EventIsValidAliveOrBaseExe, "IsValidAliveOrBase", 0x4B1680); // lote 153A (banco Fn153A)
     RH_ScopedInstall(Constructor, 0x4ABFC0);
     RH_ScopedInstall(CalcSoundLevelIncrement, 0x4AC050);
     RH_ScopedInstall(GetSoundLevel, 0x4B2850);
@@ -91,9 +105,10 @@ void* CEvent::operator new(unsigned) {
     return GetEventPool()->New();
 }
 
-// 0x4B5630
+// 0x4B5630 (lote 153A, banco Fn153A; cdecl, un puntero en la pila, `ret`, 49 bytes): libera la ranura del evento en el pool de eventos (0xB744AC) exactamente como el EXE, sin comprobar que el puntero pertenezca
+// al pool (indice = (objeto - almacenamiento) / 0x44 con signo; estados[indice] |= 0x80; cursor = min(cursor, indice) con signo). No destruye ni rellena nada.
 void CEvent::operator delete(void* object) {
-    GetEventPool()->Delete(static_cast<CEvent*>(object));
+    PoolFreeSlotRaw(GetEventPool(), object, sizeof(CEventDamage));
 }
 
 // 0x4ABFC0

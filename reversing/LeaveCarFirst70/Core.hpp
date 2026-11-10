@@ -18,7 +18,7 @@
 // Banco par a par de UNA funcion (hook virtual: HookRoute con el cuerpo del hook Virtual). Original = bytes del EXE con el hook RH apagado; candidato = DLL con SOLO ese hook encendido.
 // Sustituidos por falsos identicos en ambos lados (parche de entrada en la direccion del EXE y en el cuerpo de la DLL, resuelto ANTES de escribir ningun parche): con hook en HEAD CPed::IsPlayer 0x5DF8F0,
 // CTask::operator new 0x61A5A0, CPedGroups::GetPedsGroup 0x5F7E80, CPedGroupMembership::IsLeader 0x5F69C0, CEntity::RegisterReference 0x571B70, CPedGroupIntelligence::AddEvent 0x5F7470,
-// CEntity::CleanUpOldReference 0x571A00 y CPed::SetRadioStation 0x5DFD90; sin hook en HEAD CEvent::operator new 0x4B5620, CEvent::operator delete 0x4B5630 y
+// CEntity::CleanUpOldReference 0x571A00 y CPed::SetRadioStation 0x5DFD90; sin hook en HEAD CEvent::operator new 0x4B5620 y (CEvent::operator delete 0x4B5630 tiene hook desde el lote 153A)
 // CAEVehicleAudioEntity::PlayerAboutToExitVehicleAsDriver 0x4F5BA0 (CAEVehicleAudioEntity::InjectHooks no esta encendido; la entrada del EXE sigue siendo codigo original); y el printf del CRT del EXE 0x821982
 // (con salto a la DLL en HEAD; la DLL lo llama por esa direccion: solo se parchea la del EXE, sin cuerpo aparte).
 // Real en ambos lados (saltos a la DLL, se comparan las palabras de los objetos construidos en arena): CTaskSimplePause 0x48E750, CTaskComplexLeaveBoat 0x63BB60, CTaskSimpleCarDriveTimed 0x5FF940,

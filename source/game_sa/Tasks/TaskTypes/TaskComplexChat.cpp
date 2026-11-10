@@ -25,9 +25,29 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleRunAnim.h"
 #include "TaskSimpleStandStill.h"
 
+namespace {
+// 0x682D40 (lote 153A, banco Fn153A): cuerpo del destructor de CTaskComplexChat del EXE (con hook (Destructor); vtable 0x8706A0). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor
+// con borrado como el `call 0x682D40` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexChatDestructorBody(CTaskComplexChat* self, void* /*edx*/) { self->CTaskComplexChat::~CTaskComplexChat(); }
+
+// 0x6846D0 (lote 153A, banco Fn153A): destructor con borrado de CTaskComplexChat del EXE (ranura 0 de su vtable 0x8706A0; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x682D40; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexChat* __fastcall CTaskComplexChatScalarDeletingDestructor(CTaskComplexChat* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexChatDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote153ABody_CTaskComplexChat() { return reinterpret_cast<uintptr_t>(&CTaskComplexChatDestructorBody); } // para el banco Fn153A
+
 void CTaskComplexChat::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexChat, 0x8706A0, 11); // Como el original: 11 entradas, en 0x8706CC empieza la de CTaskComplexWalkAlongsidePed
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexChatScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6846D0); // lote 153A (banco Fn153A)
 
     RH_ScopedInstall(Constructor, 0x682CB0);
     RH_ScopedInstall(Destructor, 0x682D40);

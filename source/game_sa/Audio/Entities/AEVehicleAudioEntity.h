@@ -666,6 +666,7 @@ public:
     void  UpdateOrRequestVehicleEngineSound(eVehicleEngineSoundType st, float freq, float volume);
     void  StopGenericEngineSound(eVehicleEngineSoundType st);
     bool  UpdateVehicleEngineSound(eVehicleEngineSoundType st, float speed, float volume);
+    void  UpdateVehicleEngineSoundExe(int16 st, float speed, float volume); // 0x4F56D0 (lote 153A, banco Fn153A): la version del EXE, sin valor devuelto
 
     void UpdateGasPedalAudio(CVehicle* vehicle, int32 vehType);
     void UpdateBoatSound(eBoatEngineSoundType st, eSoundBankSlot bslot, eSoundID sfx, float speed, float volume);

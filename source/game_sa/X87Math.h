@@ -2325,3 +2325,7 @@ void __cdecl EntryExitGetPositionCpp(const void* entry, void* out);
 void __cdecl AcquaintanceDeltaCpp(const float* other, const float* self, float* out);
 // 0x607A90: ((z*fz) + (y*fy)) + (x*fx) con la x87 (sin guardar) mayor (ordenado) que `threshold`; `v` y `fwd` son 3 floats.
 bool __cdecl AcquaintanceInViewCpp(const float* v, const float* fwd, float threshold);
+
+// Lote 153A (Fn153A).
+// 0x4F56D0 (CAEVehicleAudioEntity): *destination = first + *second con la x87 (fld first; fadd [second]; fstp [destination]). Ver X87Math.cpp.
+void __cdecl FloatSumStoreCpp(float first, const volatile float* second, volatile float* destination);

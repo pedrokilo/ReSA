@@ -63,7 +63,7 @@ void CVector::InjectHooks()
 
     // Magnitude, Magnitude2D, Normalise y NormaliseAndMag se instalan por separado en InjectHooksExactMath
     RH_ScopedInstall(Cross_OG, 0x70F890);
-    RH_ScopedInstall(Sum, 0x40FDD0);
+    // Sum (0x40FDD0) se instala por separado en InjectHooksExactOperators (lote 153A)
     // Difference (0x40FE00) se instala por separado en InjectHooksExactOperators (lote 99A)
     // FromMultiply (0x59C670) se instala por separado en InjectHooksExactOperators (lote 101A)
     // FromMultiply3x3 (0x59C6D0) se instala por separado en InjectHooksExactOperators (lote 103A)
@@ -140,6 +140,7 @@ void CVector::InjectHooksExactOperators()
     RH_ScopedNamedGlobalInstall(VectorDefaultConstructorExe, "DefaultConstructor", 0x404350); // lote 150A (banco Fn150A)
     RH_ScopedGlobalInstall(Multiply3x3Exe, 0x59C790);
     RH_ScopedGlobalInstall(Multiply3x3VMExe, 0x59C810);
+    RH_ScopedInstall(Sum, 0x40FDD0); // lote 153A (banco Fn153A)
     RH_ScopedInstall(Difference, 0x40FE00);
     RH_ScopedInstall(FromMultiply, 0x59C670);
     RH_ScopedInstall(FromMultiply3x3, 0x59C6D0);
@@ -255,11 +256,14 @@ void CVector::Cross_OG(const CVector& a, const CVector& b) {
 }
 
 // Adds left + right and stores result
+// 0x40FDD0 (lote 153A, banco Fn153A; thiscall, `ret 8`): como el original, cada componente se carga (fld left.k, en el registro), se suma (fadd right.k, en memoria) y se guarda antes de pasar a la siguiente: con
+// `this` solapado con `left` o `right` se ven las escrituras anteriores. Las lecturas volatiles fijan que operando va en el registro de la x87 (cuenta para los NaN senalizantes).
 void CVector::Sum(const CVector& left, const CVector &right)
 {
-    x = left.x + right.x;
-    y = left.y + right.y;
-    z = left.z + right.z;
+    const volatile float* l = &left.x;
+    const double lx = l[0]; x = float(lx + right.x);
+    const double ly = l[1]; y = float(ly + right.y);
+    const double lz = l[2]; z = float(lz + right.z);
 }
 
 // Subtracts left - right and stores result

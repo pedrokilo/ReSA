@@ -36,10 +36,16 @@ CTaskGangHasslePed* CTaskGangHasslePed::ScalarDeletingDestructor(uint8 flags) {
     return this;
 }
 
+// 0x65FF50 (lote 153A, banco Fn153A; thiscall, `ret`, 6 bytes: `mov eax,4BCh`): TASK_COMPLEX_GANG_HASSLE_PED (1212); no lee el objeto (ranura 4 de la vtable 0x86FA00).
+eTaskType CTaskGangHasslePed::GetTaskType() const {
+    return Type;
+}
+
 void CTaskGangHasslePed::InjectHooks() {
     RH_ScopedVirtualClass(CTaskGangHasslePed, 0x86FA00, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedVMTInstall(GetTaskType, 0x65FF50); // lote 153A (banco Fn153A): retorno de constante
     RH_ScopedInstall(Constructor, 0x65FED0);
     RH_ScopedInstall(Destructor, 0x65FF60);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x6642A0); // lote 140A (banco Fn140A)

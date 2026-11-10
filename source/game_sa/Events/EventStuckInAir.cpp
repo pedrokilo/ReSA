@@ -37,9 +37,27 @@ void CEventStuckInAir::InjectHooks()
     RH_ScopedNamedGlobalInstall(StuckInAirDestructorBody, "Destructor", 0x4B1520);
 
     RH_ScopedInstall(Constructor, 0x4B1490);
+    RH_ScopedVMTInstall(GetEventType, 0x4B14F0);                    // lote 153A (banco Fn153A)
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B1500);                     // lote 153A
+    RH_ScopedVMTInstall(CanBeInterruptedBySameEvent, 0x4B1510);     // lote 153A
     RH_ScopedVMTInstall(GetEventPriority, 0x4B1600);
     RH_ScopedVMTInstall(AffectsPed, 0x4B1580);
     RH_ScopedVMTInstall(TakesPriorityOver, 0x4B15B0);
+}
+
+// 0x4B14F0 (lote 153A, banco Fn153A; thiscall, `ret`, 6 bytes: `mov eax,5Dh`): EVENT_STUCK_IN_AIR (93); no lee el objeto.
+eEventType CEventStuckInAir::GetEventType() const {
+    return EVENT_STUCK_IN_AIR;
+}
+
+// 0x4B1500 (lote 153A, banco Fn153A; thiscall, `ret`, 3 bytes: `xor eax,eax`): vida util 0; no lee el objeto.
+int32 CEventStuckInAir::GetLifeTime() {
+    return 0;
+}
+
+// 0x4B1510 (lote 153A, banco Fn153A; thiscall, `ret`, 3 bytes: `mov al,1`): siempre verdadero; no lee el objeto.
+bool CEventStuckInAir::CanBeInterruptedBySameEvent() {
+    return true;
 }
 
 // 0x4B1490

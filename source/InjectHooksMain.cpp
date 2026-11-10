@@ -558,6 +558,7 @@
 #include "EventSeenCop.h"
 #include "EventScriptedAttractor.h"
 #include "EventStuckInAir.h"
+#include "EventInteriorUseInfo.h"
 #include "EventDontJoinPlayerGroup.h"
 #include "EventNewGangMember.h"
 #include "EventAcquaintancePedHate.h"
@@ -824,6 +825,7 @@ void InjectHooksMain() {
     CTempColModels::InjectHooks();
     CSphere::InjectHooks();
     CColSphere::InjectHooks();
+    CColDisk::InjectHooks();
     CColLine::InjectHooks();
     CColTrianglePlane::InjectHooks();
     CBox::InjectHooks();
@@ -1547,7 +1549,7 @@ void InjectHooksMain() {
         CEventHandler::InjectHooks();
         CEventAcquaintancePedHate::InjectHooks();
         CEventAcquaintancePedHateBadlyLit::InjectHooks();
-        // + CEventInteriorUseInfo
+        CEventInteriorUseInfo::InjectHooks();
         // + CEventLowAngerAtPlayer
         CEventPedEnteredMyVehicle::InjectHooks();
         CEventPotentialGetRunOver::InjectHooks();
@@ -1592,6 +1594,7 @@ void InjectHooksMain() {
         CPlane::InjectHooks();
         CQuadBike::InjectHooks();
         CTrailer::InjectHooks();
+        CRideAnimData::InjectHooks();
         CTrain::InjectHooks();
         CTrainNode::InjectHooks();
         CVehicle::InjectHooks();

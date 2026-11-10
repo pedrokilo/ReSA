@@ -20,9 +20,29 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleDoHandSignal.h"
 #include "TaskComplexPlayHandSignalAnim.h"
 
+namespace {
+// 0x6608B0 (lote 153A, banco Fn153A): cuerpo del destructor de CTaskSimpleDoHandSignal del EXE (con hook (Destructor); vtable 0x86FA68). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor
+// con borrado como el `call 0x6608B0` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleDoHandSignalDestructorBody(CTaskSimpleDoHandSignal* self, void* /*edx*/) { self->CTaskSimpleDoHandSignal::~CTaskSimpleDoHandSignal(); }
+
+// 0x6644A0 (lote 153A, banco Fn153A): destructor con borrado de CTaskSimpleDoHandSignal del EXE (ranura 0 de su vtable 0x86FA68; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x6608B0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleDoHandSignal* __fastcall CTaskSimpleDoHandSignalScalarDeletingDestructor(CTaskSimpleDoHandSignal* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleDoHandSignalDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote153ABody_CTaskSimpleDoHandSignal() { return reinterpret_cast<uintptr_t>(&CTaskSimpleDoHandSignalDestructorBody); } // para el banco Fn153A
+
 void CTaskSimpleDoHandSignal::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleDoHandSignal, 0x86fa68, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleDoHandSignalScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6644A0); // lote 153A (banco Fn153A)
 
     RH_ScopedInstall(Constructor, 0x660880);
     RH_ScopedInstall(Destructor, 0x6608B0);

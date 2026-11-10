@@ -69,6 +69,9 @@ public:
 private:
     void ReCalculateSwapTime();
 
+    // 0x4F63B0 (lote 153A, banco Fn153A): constructor por defecto del EXE (lo usan los iteradores de constructores de vectores): escribe solo la vtable, +0x10, m_IsInUse y las dos voces.
+    CAETwinLoopSoundEntity* DefaultConstructorExe();
+
 private:
     friend void InjectHooksMain();
     static void InjectHooks();

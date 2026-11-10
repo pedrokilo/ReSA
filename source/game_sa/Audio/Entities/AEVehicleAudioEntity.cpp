@@ -1580,8 +1580,18 @@ void CAEVehicleAudioEntity::CancelAllVehicleEngineSounds(std::optional<eVehicleE
     }
 }
 
+// 0x4F56D0 (lote 153A, banco Fn153A; thiscall, tres dwords en la pila, `ret 0Ch`, 44 bytes, sin valor devuelto): `st` es la PALABRA baja del primer dword (movsx); toma la voz de m_EngineSounds[st] (+0xE8 + 8 * st) y, si
+// no es nula, guarda en su volumen (+0x14) la suma `volume + m_EventVolume` (+0xD8) hecha en la x87 (fld volume; fadd memoria; fstp) y en su velocidad (+0x1C) los bits de `speed`. Sin voz no escribe nada. Sin comprobar el rango de `st`.
+void CAEVehicleAudioEntity::UpdateVehicleEngineSoundExe(int16 st, float speed, float volume) {
+    CAESound* const sound = *reinterpret_cast<CAESound* const*>(reinterpret_cast<const uint8*>(this) + 0xE8 + 8 * int32(st));
+    if (sound) {
+        FloatSumStoreCpp(volume, &m_EventVolume, &sound->m_Volume);
+        *reinterpret_cast<volatile uint32*>(&sound->m_Speed) = std::bit_cast<uint32>(speed);
+    }
+}
+
 // 0x4F56D0
-// NB: Our function returns whenever the sound was updated, original doesn't, (!) so this function IS NOT hooked!
+// NB: Our function returns whenever the sound was updated, original doesn't, (!) so this function IS NOT hooked (el del EXE es UpdateVehicleEngineSoundExe)!
 bool CAEVehicleAudioEntity::UpdateVehicleEngineSound(eVehicleEngineSoundType st, float speed, float volume) {
     return UpdateVehicleEngineSoundRawVolume(st, speed, m_EventVolume + volume);
 }
@@ -5571,6 +5581,7 @@ void CAEVehicleAudioEntity::InjectHooks() {
     RH_ScopedInstall(GetFreqForPlayerEngineSound, 0x4F8070);
     RH_ScopedNamedGlobalInstall(VehAudioPlayerVolume_KeepEcx, "GetVolForPlayerEngineSound", 0x4F5D00);
     //RH_ScopedInstall(UpdateVehicleEngineSound, 0x4F56D0); // Don't hook because original function doesn't return a bool, ours does
+    RH_ScopedInstall(UpdateVehicleEngineSoundExe, 0x4F56D0); // lote 153A (banco Fn153A): la version del EXE (void), que es la que engancha 0x4F56D0
     RH_ScopedInstall(StopGenericEngineSound, 0x4F6320);
 
     // Car + bike
