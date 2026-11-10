@@ -24,8 +24,8 @@
 // umbral 0xC0B034 (global real del juego, guardado y restaurado). Falsos de los colaboradores: el mismo falso en la direccion del EXE y en el cuerpo de la DLL (MakeCollab / Pair):
 //   con hook RH (apagado): CPed::IsAlive 0x5E0170, CVector::Normalise 0x59C910, CAcquaintance::GetAcquaintances 0x608970, CPedType::GetPedFlag 0x608830, CGameLogic::LaRiotsActiveHere 0x441C10,
 //   CPedGeometryAnalyser::CanPedTargetPed 0x5F1C40 y CDecisionMakerTypes::GetInstance 0x4684F0 (SEH en el EXE);
-//   SIN hook, con funcion propia en la DLL (el falso va en la direccion del EXE y en esa funcion): 0x603AF0 (CPedAcquaintanceScanner::CanJoinRiotAgainst), 0x6042B0 (CDecisionMakerTypes::HasResponseToAnyEvent)
-//   y 0x607560 (CPedAcquaintanceScanner::FindAcquaintance).
+//   y, desde el caso COLAB-607A (banco Fn607B), tambien con hook RH (el falso va en la direccion del EXE y en el cuerpo de la DLL): 0x603AF0 (CPedAcquaintanceScanner::CanJoinRiotAgainst),
+//   0x6042B0 (CDecisionMakerTypes::HasResponseToAnyEvent) y 0x607560 (CPedAcquaintanceScanner::FindAcquaintance).
 // Los falsos tienen comportamiento por llamada: IsAlive, GetAcquaintances y GetPedFlag aplican la regla exacta del EXE sobre la memoria de la arena; los demas devuelven la secuencia del caso (los bool con basura en
 // los bits 8..31, porque el EXE solo mira AL); la normalizacion reescribe el vector local con la secuencia y, segun el caso, hace una escritura lateral sobre la matriz del ped (reescribe fwd.x o cambia el puntero de
 // matriz a la alternativa) para probar que el vector adelante y la matriz se leen DESPUES de la llamada; 0x607560 escribe en salidaA y salidaB los valores de la secuencia.
@@ -378,9 +378,9 @@ inline void Update() {
         return S(Pair{exe, body, false}, reinterpret_cast<void*>(fake));
     };
     env.stubs[0] = {F(0x5E0170, &FkIsAlive), F(0x59C910, &FkNormalise), F(0x608970, &FkGetAcq), F(0x608830, &FkGetPedFlag), F(0x441C10, &FkRiots), F(0x5F1C40, &FkCant), F(0x4684F0, &FkInstance),
-                    U(0x603AF0, std::bit_cast<uintptr_t>(&CPedAcquaintanceScanner::CanJoinRiotAgainst), &Fk603),
-                    U(0x6042B0, std::bit_cast<uintptr_t>(&CDecisionMakerTypes::HasResponseToAnyEvent), &Fk6042),
-                    U(0x607560, std::bit_cast<uintptr_t>(&CPedAcquaintanceScanner::FindAcquaintance), &Fk607)};
+                    F(0x603AF0, &Fk603),
+                    F(0x6042B0, &Fk6042),
+                    F(0x607560, &Fk607)};
     const char* dllReal[kFunctions];
     for (unsigned f = 0; f < kFunctions; ++f) dllReal[f] = "toda la funcion salvo los colaboradores falseados (falso identico en la direccion del EXE y en la funcion de la DLL); la x87 vive en X87Math.cpp (AcquaintanceDeltaCpp, AcquaintanceInViewCpp)";
     for (unsigned f = 0; f < kFunctions; ++f) {

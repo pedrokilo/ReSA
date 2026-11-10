@@ -59,7 +59,7 @@ public:
     void AddEventResponse(int32 decisionMakerIndex, eEventType eventType, eTaskType taskId, float* responseChances, int32* flags);
     void FlushDecisionMakerEventResponse(int32 decisionMakerIndex, eEventType eventId);
     void LoadEventIndices();
-    bool HasResponseToAnyEvent(CPed* ped, const int32* eventTypes, int32 count); // 0x6042B0 (funcion propia, sin hook: la usa CPedAcquaintanceScanner::ScanEntities 0x607A90)
+    bool HasResponseToAnyEvent(CPed* ped, const int32* eventTypes, int32 count); // 0x6042B0 (hook S, banco Fn607B: la usa CPedAcquaintanceScanner::ScanEntities 0x607A90)
     static void __stdcall ReadEventIndices(int32* indices, const char* fileName);
 
 public:

@@ -42,6 +42,7 @@ void CDecisionMakerTypes::InjectHooks() {
     RH_ScopedInstall(ReadEventIndices, 0x5BB9F0);
     RH_ScopedInstall(FlushDecisionMakerEventResponse, 0x604490);
     RH_ScopedInstall(AddEventResponse, 0x6044C0);
+    RH_ScopedInstall(HasResponseToAnyEvent, 0x6042B0); // caso COLAB-607A (banco Fn607B)
 }
 
 // Registros de las funciones de este archivo (los bancos DependenciesDecisionPed7, DependenciesDecisionRelationship6 y DependenciesTask11
@@ -375,7 +376,7 @@ void __stdcall CDecisionMakerTypes::ReadEventIndices(int32* indices, const char*
 }
 
 
-// 0x6042B0 (thiscall, ped + lista + contador en la pila, `ret 0Ch`): funcion propia, sin hook (la llama CPedAcquaintanceScanner::ScanEntities, 0x607A90, tras GetInstance 0x4684F0). Dice si ALGUNO de los
+// 0x6042B0 (thiscall, ped + lista + contador en la pila, `ret 0Ch`), hook S (banco Fn607B; la llama CPedAcquaintanceScanner::ScanEntities, 0x607A90, tras GetInstance 0x4684F0). Dice si ALGUNO de los
 // `count` tipos de evento de la lista tiene una respuesta en el decision maker del ped (alguna de sus 6 tareas distinta de 200 = TASK_NONE). Decision maker: el tipo del ped (+0x47C -> +0xB4): -2 el
 // predeterminado del jugador (+0xD4EC), -1 el predeterminado de mision (+0xCB50) si el ped fue creado por mision (byte +0x484 == 2) o el aleatorio (+0xC1B4), y si no el de ese indice (41 decisiones de 60 bytes
 // cada uno). El indice de la decision sale de `m_EventIndices[tipo]` (sin comprobar rango, como el EXE); el recorrido se detiene en el primer acierto. Sin comprobaciones de rango (`.data()`).

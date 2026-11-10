@@ -8696,6 +8696,7 @@ CRadar,ClipRadarPoly,0x00585040,1,0,1,S
 CDecisionMakerTypes,RemoveDecisionMaker,0x006043A0,1,0,1,S
 CDecisionMakerTypes,AddDecisionMaker,0x00607050,1,0,1,S
 CDecisionMakerTypes,LoadEventIndices,0x00600840,1,0,1,S
+CDecisionMakerTypes,HasResponseToAnyEvent,0x006042B0,1,0,1,S
 CPlayerRelationshipRecorder,RecordRelationshipWithPlayer,0x0061A1D0,1,0,1,S
 CDecisionMakerTypes,MakeDecision-Ped,0x00606E70,1,0,1,S
 CDecisionMakerTypes,MakeDecision-Group,0x00606F80,1,0,1,S
@@ -9193,6 +9194,8 @@ CTaskSimpleGangDriveBy,FireGun,0x00627CC0,1,0,1,S
 CFont,PrintSegment,0x00719B40,1,0,1,S
 CPedAcquaintanceScanner,ScanForPedAcquaintances,0x00607D80,1,0,1,S
 CPedAcquaintanceScanner,ScanEntities,0x00607A90,1,0,1,S
+CPedAcquaintanceScanner,CanJoinRiotAgainst,0x00603AF0,1,0,1,S
+CPedAcquaintanceScanner,FindAcquaintance,0x00607560,1,0,1,S
 CNearbyFireScanner,ScanForNearbyFires,0x00603E70,1,0,1,S
 CSexyPedScanner,ScanForSexyPeds,0x00603BF0,1,0,1,S
 CPad,GetPad,0x0053FB70,1,0,1,S

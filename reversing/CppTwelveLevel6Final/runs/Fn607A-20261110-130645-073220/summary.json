@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "9493c10968a5df011ce112be8521fe25e786529cdeb7cdd391fd4638846518c5",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CPedAcquaintanceScanner::ScanEntities": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "83d4e4bda996d8f09e3127e83ee7588bf83241c465473a1f23391d219c0173cf",
+  "compare_dead_x87_registers": false,
+  "pairs_with_different_eax_ecx_edx_info_only": {
+    "CPedAcquaintanceScanner::ScanEntities": 16384
+  },
+  "families": {
+    "CPedAcquaintanceScanner::ScanEntities": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    }
+  },
+  "branch_coverage": {
+    "CPedAcquaintanceScanner::ScanEntities": {
+      "fill0": 4096,
+      "accepted_dm": 5408,
+      "f607_called": 8881,
+      "entry_dead": 7282,
+      "acc4_skip": 4554,
+      "kind0": 4096,
+      "cant_true": 8881,
+      "acq_hit": 7062,
+      "count_pos": 14005,
+      "prio_all": 9509,
+      "nan_delta": 6806,
+      "not_in_view_skip": 6730,
+      "cand_no_matrix": 9140,
+      "rejected_dm": 5373,
+      "in_view": 9125,
+      "entry_self": 4764,
+      "entry_null": 10265,
+      "kind1": 4096,
+      "kind2": 4096,
+      "side2": 2568,
+      "riots_603_false": 3919,
+      "not_in_view_vehicle": 7918,
+      "inf_delta": 4973,
+      "kind3": 4096,
+      "count_neg": 1243,
+      "fill1": 4096,
+      "count_zero": 1136,
+      "riots_603_true": 3929,
+      "riots_false": 4524,
+      "prio_one": 4663,
+      "accepted_cop": 6440,
+      "cop_direct": 4598,
+      "cant_false": 4605,
+      "dot_tie": 1007,
+      "accepted_riots": 4673,
+      "fill2": 4096,
+      "prio_other": 2212,
+      "count_gt16": 2521,
+      "fill3": 4096,
+      "table_16": 1099,
+      "side1": 2378
+    }
+  },
+  "independent_oracle": "fixture_oracle.py: cada lado de cada par coincide con el modelo",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

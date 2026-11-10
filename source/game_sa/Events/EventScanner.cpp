@@ -110,6 +110,8 @@ void CPedAcquaintanceScanner::InjectHooks() {
 
     RH_ScopedInstall(ScanForPedAcquaintances, 0x607D80);
     RH_ScopedInstall(ScanEntities, 0x607A90); // caso 607A90 (banco Fn607A)
+    RH_ScopedInstall(CanJoinRiotAgainst, 0x603AF0); // caso COLAB-607A (banco Fn607B)
+    RH_ScopedInstall(FindAcquaintance, 0x607560); // caso COLAB-607A (banco Fn607B)
 }
 
 void CSexyPedScanner::InjectHooks() {
@@ -596,11 +598,11 @@ int32 CPedAcquaintanceScanner::ScanEntities(CPed& ped, int32 priority, CEntity**
     return numCandidates;
 }
 
-// 0x607560: funcion propia (sin hook; la llama ScanEntities). Thiscall con seis argumentos de pila (`ret 18h`): para los indices 4..0 (parando con -1 si llega al ya usado, `current`) comprueba si el ped tiene al
+// 0x607560 (hook S, banco Fn607B; la llama ScanEntities). Thiscall con seis argumentos de pila (`ret 18h`): para los indices 4..0 (parando con -1 si llega al ya usado, `current`) comprueba si el ped tiene al
 // candidato como acquaintance de ese indice (0x608970/0x608830, o disturbios y CanJoinRiotAgainst; con prioridad -1 el indice 2 y un policia pasan directo) y la visibilidad con luces (0x605550, float): sigue si
 // es mayor que 0 o, solo con el indice 4, si es distinta de 0 (negativa o NaN). Entonces escribe *outA = candidato, *outB = indice; con una prioridad distinta de -1 devuelve la prioridad; con -1 pide el evento a
 // 0x606BA0 (por direccion: aun sin reconstruir) y fija el temporizador del escaner (inicio = hora, intervalo = 200 si el indice es 4 y la visibilidad es negativa, 3000 si no, arrancado), devolviendo
-// el indice si el evento se creo. Devuelve -1 si ningun indice sirve. Sin banco propio: la valida solo como colaborador falseado el banco Fn607A.
+// el indice si el evento se creo. Devuelve -1 si ningun indice sirve. Validada por el banco Fn607B.
 int32 CPedAcquaintanceScanner::FindAcquaintance(CPed& ped, int32 priority, int32 current, CPed* candidate, int32* outA, int32* outB) {
     const float visibility = ped.GetIntelligence()->CanSeeEntityWithLights(candidate, 0);
     for (int32 id = 4; id >= 0; --id) {
@@ -643,7 +645,7 @@ int32 CPedAcquaintanceScanner::FindAcquaintance(CPed& ped, int32 priority, int32
     return -1;
 }
 
-// 0x603AF0: funcion propia (sin hook, cdecl; la llaman ScanEntities y FindAcquaintance). Dice si `ped` puede unirse a un disturbio contra `other`: falso si el ped es policia, medico o bombero (tipos 6, 18 y 19),
+// 0x603AF0 (hook S, cdecl, banco Fn607B; la llaman ScanEntities y FindAcquaintance). Dice si `ped` puede unirse a un disturbio contra `other`: falso si el ped es policia, medico o bombero (tipos 6, 18 y 19),
 // es el jugador (0x5DF8F0) o fue creado por mision (byte +0x484 == 2); si `other` es el jugador, es lo contrario de que el ped lo respete (0x601C90); si no, si `other` tiene un grupo (0x5F7E80) cuyo lider (0x5F69A0)
 // es el jugador, es lo contrario de que el ped respete al lider; en el resto de casos es falso solo si los dos son de la misma banda (tipos de banda, 0x5FE9C0) y verdadero en caso contrario.
 bool CPedAcquaintanceScanner::CanJoinRiotAgainst(CPed* ped, CPed* other) {

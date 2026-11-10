@@ -31772,7 +31772,7 @@
       },
       "evidence": {
         "path": "reversing/Fn607A/validation-summary.json",
-        "sha256": "db90fec00226047c17a6aa3c9a2ae5e0d765799f2cc596744ec97da2f2c29ca2",
+        "sha256": "3e6cfbfc0868373e89f6b2a543e373e1b6859734e20fd156e6374f54a5148878",
         "passed_path": [
           "covered_functions",
           "CPedAcquaintanceScanner::ScanEntities"
@@ -31781,18 +31781,18 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "7a28dc21dcade44d2cb01fba8a911c85960e6d2f3a26271198f9a716084e5646",
-        "source/InjectHooksMain.cpp": "63add088b8f903cf16873584c8ecd33bcfd0605a8a65474f4fe48ccde8b8f19f",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "53d9f21d86b197863edc0b5f1935bf097161c0ac75020ae6fe0dc1805a761dd9",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "6b7dcfe53ae96eb2e6147b1c05c47a791340401ce4920ddb04c630ca2c6c815c",
-        "source/game_sa/Events/EventScanner.cpp": "9911aa507c58bdaf4ea3aef5f36e7e778abb3caff3ea67987270ebfc85d95567",
-        "source/game_sa/Events/EventScanner.h": "d020d4482260786a12c85b0cb8b1ae19b4a67298bf70b5c6b4335ef0fb2b30a6",
-        "source/game_sa/X87Math.cpp": "58787ae2d48fa37ad2de1c73a5cddbc7baf5607bfa5d8462c0fbd61676c81969",
-        "source/game_sa/X87Math.h": "efe8b9c6a929bc9c75676ad62b8a7964b279323b419dfd6bd8fbe8d8da497004",
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "a3a1458962cfad8c40ef12c0f94c4651d7e9decdee85b66c1480c0ccbeb228f2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "226830f040d672a5a8c2a7b6d889e951b27a983655e1695762eeef5e2937c295",
+        "source/game_sa/Events/EventScanner.cpp": "35ff4bd03575b76ab32e514f73340b0f5c37c6f8044c4d3767054f14607daa38",
+        "source/game_sa/Events/EventScanner.h": "f64be768a0c494633fdbf0c4716388b4c06ccdffc24a758afb9521087d55ffc7",
+        "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
+        "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Fn607A/LiveComparison.hpp": "75edc69163edf60b1fcba9dc0b0cad1ea87628cb003d0f8f20c414292691da1c",
+        "reversing/Fn607A/LiveComparison.hpp": "6d524839ba51775266499b8236c639fd764bc033dbf904c33fd3f9e7be1fea4d",
         "reversing/Fn607A/Core.hpp": "ea73e90db96b3005f0c121d9703e5801b5cccc0a95999c6dba47b4eefdcb9a73",
-        "reversing/Fn607A/Fixtures.hpp": "76b0a2be0053092e2e10395c40c621594ba4c8175ef8c6d09936986b5e0a9eb8",
+        "reversing/Fn607A/Fixtures.hpp": "69d262ab2d6c01932a2f385365f0d231d9d942a4111964e8bd12a80a09ad08ff",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -36064,6 +36064,126 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main ea483b5279 con los cambios del lote (ver artifacts/build-manifest.json). 21 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia varias a clases equivocadas): destructores con borrado de CAEStreamingChannel (0x4F27F0), CBaseModelInfo (0x4C4AF0, vtable en linea), CColModel (0x4C4C00, sin vtable ni llamadores), CQuadTreeNode (0x404590, sin vtable ni llamadores) y de seis tareas (0x61BA80 CTaskSimpleAnim, 0x61BAA0 CTaskSimpleRunAnim, 0x61BEF0 CTaskSimpleRunNamedAnim, 0x64B440 CTaskSimpleCarWaitToSlowDown, 0x64B460 CTaskSimpleCarWaitForDoorNotToBeInUse, 0x64B480 CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse); insercion al principio de una lista doble (0x5329A0, el listado decia CRect); constructor vacio de CVector (0x404350), CEntity::GetStatus (0x4043E0) y CEntity::GetModelIndex (0x404420) (el listado decia CRect); CEntryExit::GetPosition (0x43E090, x87 de 24 bits en X87Math.cpp); CGarages::CameraShouldBeOutside (0x448650) y GivePlayerDetonator (0x448660); GetTaskType (V) y cuerpo del destructor de CTaskSimpleGiveCPR (0x658890, 0x6588A0) y CTaskSimpleHitHead (0x653080, 0x653090). 0x4F21C0 (CAEStreamingChannel::Stop, ranura 7) ya tenia hook y se salto. Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL: cuerpos de destructor (con hook propio, el hook se apaga y el falso va en la envoltura de la DLL; sin hook en 0x61A6F0, 0x48DE60 y 0x552520, funciones propias de la DLL), CTask::operator delete 0x61A5B0, CColModel::operator delete 0x40FC40, la liberacion del pool de CQuadTreeNode 0x552C90 (funcion propia de la DLL), operator delete del CRT 0x8214BD (sin hook; la DLL lo llama por esa direccion), ~CTask 0x61A3A0, CAnimBlendAssociation::SetFinishCallback 0x4CEBE0, FindPlayerPed 0x56E210, GetWeaponInfo 0x743C60 y CPed::GiveWeapon 0x5E6080. Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o la salida como etiqueta de arena; EAX completo en getters y constantes; solo AL en CameraShouldBeOutside), el byte global 0x96BFE4, pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py (x87 de 24 bits con fracciones exactas para GetPosition). Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, valores de bool distintos de 0 y 1 en 0x96BFE4, ranuras de arma fuera de -0x20..0x30, dos NaN en los operandos de una misma suma de GetPosition y la exactitud de los colaboradores falseados (tienen bancos propios).",
       "review_reference": "reversing/Fn153A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAcquaintanceScanner",
+        "fn_name": "CanJoinRiotAgainst",
+        "address": "0x00603AF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn607B/validation-summary.json",
+        "sha256": "877da18afc77482737f662d2d7fb135cfd0852555a8df92c544e227e4de2a4dd",
+        "passed_path": [
+          "covered_functions",
+          "CPedAcquaintanceScanner::CanJoinRiotAgainst"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "a3a1458962cfad8c40ef12c0f94c4651d7e9decdee85b66c1480c0ccbeb228f2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "226830f040d672a5a8c2a7b6d889e951b27a983655e1695762eeef5e2937c295",
+        "source/game_sa/Events/EventScanner.cpp": "35ff4bd03575b76ab32e514f73340b0f5c37c6f8044c4d3767054f14607daa38",
+        "source/game_sa/Events/EventScanner.h": "f64be768a0c494633fdbf0c4716388b4c06ccdffc24a758afb9521087d55ffc7",
+        "source/game_sa/PedType.cpp": "c2404b789bee2a080a0194bf61b09cccd541529be8482f72919dad3029f16d16",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn607B/LiveComparison.hpp": "b0b6dd07b4c109c84904c37f32e6f933e4c2abbb5a3cd3f369fdcb2af075b023",
+        "reversing/Fn607B/Core.hpp": "1c8f6a9907107f2082f3f85fee35824e62652541d6cda3e921347b3cc5bdcfe5",
+        "reversing/Fn607B/Fixtures.hpp": "3f7d5dbf6ccc71226a69509ceaa9da7f7a0cf33a6a092be2e250f08f90b58965",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 93c20236c3 con los cambios del caso COLAB-607A (ver artifacts/build-manifest.json). Tres funciones del EXE sin hook antes del caso, colaboradoras de 0x607A90 (CPedAcquaintanceScanner::ScanEntities): 0x603AF0 (CPedAcquaintanceScanner::CanJoinRiotAgainst, cdecl), 0x6042B0 (CDecisionMakerTypes::HasResponseToAnyEvent, thiscall `ret 0Ch`) y 0x607560 (CPedAcquaintanceScanner::FindAcquaintance, thiscall `ret 18h`); ninguna es __usercall (todos los argumentos van en la pila o en ECX), asi que no hace falta ningun shim. Colaboradores con hook RH (apagado durante el banco) sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL: CPed::IsPlayer 0x5DF8F0, CPedIntelligence::Respects 0x601C90, CPedGroups::GetPedsGroup 0x5F7E80 y CPedGroupMembership::GetLeader 0x5F69A0 (funcion 0); CPedIntelligence::CanSeeEntityWithLights 0x605550 (float en ST0), CAcquaintance::GetAcquaintances 0x608970, CPedType::GetPedFlag 0x608830, CGameLogic::LaRiotsActiveHere 0x441C10 y 0x603AF0 (funcion 2); 0x606BA0 (sin hook ni funcion propia) con falso solo en la direccion del EXE, que la DLL llama por esa direccion; IsPedTypeGang 0x5FE9C0 corre REAL (en el EXE con el hook apagado y expandido en linea en la DLL). La funcion 1 no tiene colaboradores. Se observan bytes cambiados de las arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos con todos sus argumentos, el valor devuelto (AL en las dos bool, EAX en 0x607560), pila, no volatiles, DF, SEH y x87 vacia; el hash de las regiones globales que lee 0x607560 (CTimer::m_snTimeInMilliseconds 0xB7CB84 y los enteros de 0x8D235C/0x8D2360, que se fijan por caso y se restauran); cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: la exactitud de los colaboradores falseados (tienen bancos propios), los punteros de pila basura del EXE, el valor de EAX/ECX/EDX tras la llamada (informativo; los llamadores solo leen AL o EAX segun la funcion), peatones reales construidos por el EXE y decision makers cargados desde los ficheros del juego (el banco usa un CDecisionMakerTypes sintetico), indices de decision maker o de evento que salen de las arenas del banco.",
+      "review_reference": "reversing/Fn607B/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDecisionMakerTypes",
+        "fn_name": "HasResponseToAnyEvent",
+        "address": "0x006042B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn607B/validation-summary.json",
+        "sha256": "877da18afc77482737f662d2d7fb135cfd0852555a8df92c544e227e4de2a4dd",
+        "passed_path": [
+          "covered_functions",
+          "CDecisionMakerTypes::HasResponseToAnyEvent"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "a3a1458962cfad8c40ef12c0f94c4651d7e9decdee85b66c1480c0ccbeb228f2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "226830f040d672a5a8c2a7b6d889e951b27a983655e1695762eeef5e2937c295",
+        "source/game_sa/Events/EventScanner.cpp": "35ff4bd03575b76ab32e514f73340b0f5c37c6f8044c4d3767054f14607daa38",
+        "source/game_sa/Events/EventScanner.h": "f64be768a0c494633fdbf0c4716388b4c06ccdffc24a758afb9521087d55ffc7",
+        "source/game_sa/PedType.cpp": "c2404b789bee2a080a0194bf61b09cccd541529be8482f72919dad3029f16d16",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn607B/LiveComparison.hpp": "b0b6dd07b4c109c84904c37f32e6f933e4c2abbb5a3cd3f369fdcb2af075b023",
+        "reversing/Fn607B/Core.hpp": "1c8f6a9907107f2082f3f85fee35824e62652541d6cda3e921347b3cc5bdcfe5",
+        "reversing/Fn607B/Fixtures.hpp": "3f7d5dbf6ccc71226a69509ceaa9da7f7a0cf33a6a092be2e250f08f90b58965",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 93c20236c3 con los cambios del caso COLAB-607A (ver artifacts/build-manifest.json). Tres funciones del EXE sin hook antes del caso, colaboradoras de 0x607A90 (CPedAcquaintanceScanner::ScanEntities): 0x603AF0 (CPedAcquaintanceScanner::CanJoinRiotAgainst, cdecl), 0x6042B0 (CDecisionMakerTypes::HasResponseToAnyEvent, thiscall `ret 0Ch`) y 0x607560 (CPedAcquaintanceScanner::FindAcquaintance, thiscall `ret 18h`); ninguna es __usercall (todos los argumentos van en la pila o en ECX), asi que no hace falta ningun shim. Colaboradores con hook RH (apagado durante el banco) sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL: CPed::IsPlayer 0x5DF8F0, CPedIntelligence::Respects 0x601C90, CPedGroups::GetPedsGroup 0x5F7E80 y CPedGroupMembership::GetLeader 0x5F69A0 (funcion 0); CPedIntelligence::CanSeeEntityWithLights 0x605550 (float en ST0), CAcquaintance::GetAcquaintances 0x608970, CPedType::GetPedFlag 0x608830, CGameLogic::LaRiotsActiveHere 0x441C10 y 0x603AF0 (funcion 2); 0x606BA0 (sin hook ni funcion propia) con falso solo en la direccion del EXE, que la DLL llama por esa direccion; IsPedTypeGang 0x5FE9C0 corre REAL (en el EXE con el hook apagado y expandido en linea en la DLL). La funcion 1 no tiene colaboradores. Se observan bytes cambiados de las arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos con todos sus argumentos, el valor devuelto (AL en las dos bool, EAX en 0x607560), pila, no volatiles, DF, SEH y x87 vacia; el hash de las regiones globales que lee 0x607560 (CTimer::m_snTimeInMilliseconds 0xB7CB84 y los enteros de 0x8D235C/0x8D2360, que se fijan por caso y se restauran); cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: la exactitud de los colaboradores falseados (tienen bancos propios), los punteros de pila basura del EXE, el valor de EAX/ECX/EDX tras la llamada (informativo; los llamadores solo leen AL o EAX segun la funcion), peatones reales construidos por el EXE y decision makers cargados desde los ficheros del juego (el banco usa un CDecisionMakerTypes sintetico), indices de decision maker o de evento que salen de las arenas del banco.",
+      "review_reference": "reversing/Fn607B/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedAcquaintanceScanner",
+        "fn_name": "FindAcquaintance",
+        "address": "0x00607560",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn607B/validation-summary.json",
+        "sha256": "877da18afc77482737f662d2d7fb135cfd0852555a8df92c544e227e4de2a4dd",
+        "passed_path": [
+          "covered_functions",
+          "CPedAcquaintanceScanner::FindAcquaintance"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "a3a1458962cfad8c40ef12c0f94c4651d7e9decdee85b66c1480c0ccbeb228f2",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "226830f040d672a5a8c2a7b6d889e951b27a983655e1695762eeef5e2937c295",
+        "source/game_sa/Events/EventScanner.cpp": "35ff4bd03575b76ab32e514f73340b0f5c37c6f8044c4d3767054f14607daa38",
+        "source/game_sa/Events/EventScanner.h": "f64be768a0c494633fdbf0c4716388b4c06ccdffc24a758afb9521087d55ffc7",
+        "source/game_sa/PedType.cpp": "c2404b789bee2a080a0194bf61b09cccd541529be8482f72919dad3029f16d16",
+        "source/game_sa/Entity/Ped/Ped.cpp": "0aa19b8c20be89e8f14b419fa9996d0f7f2d0075bc5b2a46ee3af20a779a9ca2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn607B/LiveComparison.hpp": "b0b6dd07b4c109c84904c37f32e6f933e4c2abbb5a3cd3f369fdcb2af075b023",
+        "reversing/Fn607B/Core.hpp": "1c8f6a9907107f2082f3f85fee35824e62652541d6cda3e921347b3cc5bdcfe5",
+        "reversing/Fn607B/Fixtures.hpp": "3f7d5dbf6ccc71226a69509ceaa9da7f7a0cf33a6a092be2e250f08f90b58965",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 93c20236c3 con los cambios del caso COLAB-607A (ver artifacts/build-manifest.json). Tres funciones del EXE sin hook antes del caso, colaboradoras de 0x607A90 (CPedAcquaintanceScanner::ScanEntities): 0x603AF0 (CPedAcquaintanceScanner::CanJoinRiotAgainst, cdecl), 0x6042B0 (CDecisionMakerTypes::HasResponseToAnyEvent, thiscall `ret 0Ch`) y 0x607560 (CPedAcquaintanceScanner::FindAcquaintance, thiscall `ret 18h`); ninguna es __usercall (todos los argumentos van en la pila o en ECX), asi que no hace falta ningun shim. Colaboradores con hook RH (apagado durante el banco) sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL: CPed::IsPlayer 0x5DF8F0, CPedIntelligence::Respects 0x601C90, CPedGroups::GetPedsGroup 0x5F7E80 y CPedGroupMembership::GetLeader 0x5F69A0 (funcion 0); CPedIntelligence::CanSeeEntityWithLights 0x605550 (float en ST0), CAcquaintance::GetAcquaintances 0x608970, CPedType::GetPedFlag 0x608830, CGameLogic::LaRiotsActiveHere 0x441C10 y 0x603AF0 (funcion 2); 0x606BA0 (sin hook ni funcion propia) con falso solo en la direccion del EXE, que la DLL llama por esa direccion; IsPedTypeGang 0x5FE9C0 corre REAL (en el EXE con el hook apagado y expandido en linea en la DLL). La funcion 1 no tiene colaboradores. Se observan bytes cambiados de las arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos con todos sus argumentos, el valor devuelto (AL en las dos bool, EAX en 0x607560), pila, no volatiles, DF, SEH y x87 vacia; el hash de las regiones globales que lee 0x607560 (CTimer::m_snTimeInMilliseconds 0xB7CB84 y los enteros de 0x8D235C/0x8D2360, que se fijan por caso y se restauran); cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: la exactitud de los colaboradores falseados (tienen bancos propios), los punteros de pila basura del EXE, el valor de EAX/ECX/EDX tras la llamada (informativo; los llamadores solo leen AL o EAX segun la funcion), peatones reales construidos por el EXE y decision makers cargados desde los ficheros del juego (el banco usa un CDecisionMakerTypes sintetico), indices de decision maker o de evento que salen de las arenas del banco.",
+      "review_reference": "reversing/Fn607B/README.md"
     }
   ]
 }

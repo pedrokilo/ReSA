@@ -1,0 +1,7 @@
+pares 6144 con diferencias EXE/DLL 563
+lado EXE fuera del oraculo 0
+lado DLL mutado fuera del oraculo con las mutaciones de la ronda 0
+mutaciones de la ronda y pares en que cada una SOLA cambia lo observable (el banco la detecta):
+  1 (CanJoinRiotAgainst: los bomberos (tipo 19) dejan de estar excluidos): 88
+  2 (HasResponseToAnyEvent: la sexta tarea de la decision deja de comprobarse): 24
+  3 (FindAcquaintance: la visibilidad no positiva solo se admite con el indice 3 en lugar del 4): 451

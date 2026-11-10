@@ -1,0 +1,3 @@
+FALLO: Fn607B
+Funciones con diferencias: CPedAcquaintanceScanner::CanJoinRiotAgainst: 209/2048; CDecisionMakerTypes::HasResponseToAnyEvent: 30/2048; CPedAcquaintanceScanner::FindAcquaintance: 333/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn607b\20261110-125941-323883

@@ -26,8 +26,8 @@ HOOKS = dict(zip(NAMES, oracle.ENTRIES))
 SLOTS = ()
 # colaboradores sustituidos por falsos: (direccion del EXE, hooked). Con hook RH en la DLL (apagado durante el banco): el mismo falso va en el cuerpo de la DLL (IsAlive, Normalise, GetAcquaintances, GetPedFlag,
 # LaRiotsActiveHere, CanPedTargetPed y GetInstance). Sin hook (hooked False) pero con funcion propia de la DLL (DLL_BODY_WITHOUT_HOOK: 0x603AF0, 0x6042B0 y 0x607560, reconstruidas por este caso): el falso va tambien en esa funcion.
-DLL_BODY_WITHOUT_HOOK = {0x603AF0, 0x6042B0, 0x607560}
-STUBBED = {NAMES[0]: [(0x5E0170, True), (0x59C910, True), (0x608970, True), (0x608830, True), (0x441C10, True), (0x5F1C40, True), (0x4684F0, True), (0x603AF0, False), (0x6042B0, False), (0x607560, False)]}
+DLL_BODY_WITHOUT_HOOK = set()   # desde COLAB-607A (banco Fn607B) las tres tienen hook RH
+STUBBED = {NAMES[0]: [(0x5E0170, True), (0x59C910, True), (0x608970, True), (0x608830, True), (0x441C10, True), (0x5F1C40, True), (0x4684F0, True), (0x603AF0, True), (0x6042B0, True), (0x607560, True)]}
 REAL = {}
 WATCHED = set(HOOKS.values()) | set(SLOTS) | {a for lst in STUBBED.values() for a, _ in lst} | {a for lst in REAL.values() for a, _ in lst}
 COVER_FLOOR = 50

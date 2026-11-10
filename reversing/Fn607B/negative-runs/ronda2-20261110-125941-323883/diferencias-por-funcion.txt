@@ -1,0 +1,7 @@
+pares 6144 con diferencias EXE/DLL 572
+lado EXE fuera del oraculo 0
+lado DLL mutado fuera del oraculo con las mutaciones de la ronda 0
+mutaciones de la ronda y pares en que cada una SOLA cambia lo observable (el banco la detecta):
+  4 (CanJoinRiotAgainst: contra el jugador se devuelve Respects sin negar): 209
+  5 (HasResponseToAnyEvent: el decision maker -1 se elige al reves (mision / aleatorio)): 30
+  6 (FindAcquaintance: el intervalo corto se elige con la visibilidad positiva en lugar de la negativa): 333
