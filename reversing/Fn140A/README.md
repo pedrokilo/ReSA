@@ -84,3 +84,6 @@ Una corrida de los 344064 pares: unos 14 min (~400 pares/s; el compilado increme
 
 ## Actualizacion del lote 146A (09/11/2026)
 `CBuilding::operator delete` (0x4040A0) tiene hook RH y banco propio desde el lote 146A (`reversing/Fn146A`): lo dicho arriba de que es "sin hook" (funcion de la DLL, falso solo en la direccion del EXE y en la funcion) ya no aplica. El banco se adapto como el de los demas colaboradores con hook: el falso de 0x4040A0 va ahora en la direccion del EXE y en el cuerpo del hook (`F` en lugar de `U`; `run_local.py` lo declara con hook) y se repitio aprobado con el codigo final (344064 pares, cero diferencias, `runs/Fn140A-20261109-204033-108936`).
+
+## Revalidacion conjunta 140R (10/11/2026)
+Tras integrar 146A (0x4040A0, `F`) y 148A (0x63CB50, cuerpo de `CTaskComplexCarDriveWander`, `H`), ambas adaptaciones se fusionaron a mano en `run_local.py` (`DLL_BODY_WITHOUT_HOOK = {0x6E2D90}`) sin ejecutar nunca el banco con las dos juntas. Se ejecuto tal cual sobre el codigo final de main (7b867c2695), sin cambios al banco ni a produccion: aprobado a la primera, 344064 pares, cero diferencias (`reversing/CppTwelveLevel6Final/runs/Fn140A-20261110-013931-267122`).
