@@ -26,7 +26,7 @@ END GENERATED HOOK STATUS */
 #include "PedType.h"
 #include "Ragdoll/IKChainManager.h"
 
-namespace {
+namespace CEventEditableBody {
 // 0x4AC480 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventEditableResponse que usan los destructores del EXE (57 llamadores, muchos con `jmp` final desde los destructores de los eventos).
 // Es `mov dword ptr [ecx], 0x85AB38; ret`: deja la vtable de CEvent del EXE y conserva EAX, ECX y EDX (algun llamador, p. ej. el destructor con borrado, sigue usando ECX tras la llamada), asi que el codigo no puede
 // llevar marco ni comprobaciones: se optimiza por pragma (CMakeLists.txt: /Zi y BasicRuntimeChecks=Default para este archivo). __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos. (Lote 107A, banco Fn107A.)
@@ -48,13 +48,13 @@ CEventEditableResponse* __fastcall EditableResponseScalarDeletingDestructor(CEve
     }
     return self;
 }
-} // namespace
+} // namespace CEventEditableBody
 
 void CEventEditableResponse::InjectHooks() {
     RH_ScopedVirtualClass(CEventEditableResponse, 0x85AB80, 17);
     RH_ScopedCategory("Events");
-    RH_ScopedNamedGlobalInstall(EditableResponseDestructorBody, "Destructor", 0x4AC480);
-    RH_ScopedNamedGlobalInstall(EditableResponseScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B5670); // lote 153A (banco Fn153A)
+    RH_ScopedNamedGlobalInstall(CEventEditableBody::EditableResponseDestructorBody, "Destructor", 0x4AC480);
+    RH_ScopedNamedGlobalInstall(CEventEditableBody::EditableResponseScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4B5670); // lote 153A (banco Fn153A)
 
     RH_ScopedInstall(Constructor, 0x4AC450);
     RH_ScopedVMTInstall(Clone, 0x420ED0);

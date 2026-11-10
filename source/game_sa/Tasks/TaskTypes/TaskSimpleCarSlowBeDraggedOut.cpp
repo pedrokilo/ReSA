@@ -65,6 +65,26 @@ auto CTaskSimpleCarSlowBeDraggedOut::ComputeAnimID() {
     return std::make_tuple(m_Vehicle->GetAnimGroup().GetGroup(animId), animId);
 }
 
+// 0x648330 (lote 155A, banco Fn155A): la funcion del EXE (thiscall, dos punteros de pila, `ret 8`, 81 bytes; la reconstruida ComputeAnimID devuelve una tupla y no se puede enganchar). Como el original: con la puerta
+// (+0x14) 8 o 9 escribe ANIM_ID_CAR_JACKEDRHS (0x17B) en *animId y con 10 u 11 ANIM_ID_CAR_JACKEDLHS (0x17A); cualquier otra puerta no escribe nada (el EXE usa entonces el valor que ya hubiera en *animId); despues
+// lee el grupo de animacion del vehiculo (byte +0xDE de su handling) y guarda en *outGroup lo que devuelve CVehicleAnimGroup::GetGroup (0x6E3B00, con hook) sobre el grupo 0xC1CDC0 + 0x94 * indice con ese *animId.
+void CTaskSimpleCarSlowBeDraggedOut::ComputeAnimIDExe(AssocGroupId* outGroup, AnimationId* animId) {
+    switch (static_cast<uint32>(m_Door) - static_cast<uint32>(TARGET_DOOR_FRONT_RIGHT)) {
+    case 0:
+    case 1:
+        *animId = ANIM_ID_CAR_JACKEDRHS;
+        break;
+    case 2:
+    case 3:
+        *animId = ANIM_ID_CAR_JACKEDLHS;
+        break;
+    default:
+        break; // Como el original: no escribe
+    }
+    const auto id = *animId;
+    *outGroup = m_Vehicle->GetAnimGroup().GetGroup(id);
+}
+
 // notsa
 void CTaskSimpleCarSlowBeDraggedOut::DoOpenCarDoor(CPed* ped, float time) {
     const auto [animGrp, animId] = ComputeAnimID();
@@ -161,6 +181,7 @@ void CTaskSimpleCarSlowBeDraggedOut::InjectHooks() {
     RH_ScopedGlobalInstall(FinishAnimCarSlowBeDraggedOutCB, 0x6483A0);
 
     //RH_ScopedInstall(ComputeAnimID, 0x648330); // cant hook, I've changed the signature
+    RH_ScopedInstall(ComputeAnimIDExe, 0x648330); // lote 155A (banco Fn155A): la forma del EXE
     RH_ScopedInstall(StartAnim, 0x64C190);
 
     RH_ScopedVMTInstall(Clone, 0x64A040);

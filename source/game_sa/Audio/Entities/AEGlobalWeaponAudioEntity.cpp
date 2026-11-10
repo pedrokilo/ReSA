@@ -332,7 +332,7 @@ void CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire() {
     }
 }
 
-// 0x4DEFE0
+// 0x4DEFE0 (lote 155A, banco Fn155A): elige el tipo de disparo ambiental; no lee this
 void CAEGlobalWeaponAudioEntity::PickAmbientGunFire(int32& gunShots, eWeaponType& weaponType, uint32& delay) {
     // Como el original: CAEAudioUtility::GetRandomNumberInRange(0, 1); cualquier otro valor no toca nada
     switch (CAEAudioUtility::GetRandomNumberInRange(0, 1)) {
@@ -360,6 +360,7 @@ void CAEGlobalWeaponAudioEntity::InjectHooks() {
     RH_ScopedInstall(AddAudioEvent, 0x4DFAA0);
     RH_ScopedInstall(ProjectileFire, 0x4DF060);
     RH_ScopedInstall(ServiceAmbientGunFire, 0x4DF210);
+    RH_ScopedInstall(PickAmbientGunFire, 0x4DEFE0); // lote 155A (banco Fn155A): thiscall con tres referencias de pila (`ret 0Ch`); no lee this
 }
 
 CAEGlobalWeaponAudioEntity* CAEGlobalWeaponAudioEntity::Constructor() {

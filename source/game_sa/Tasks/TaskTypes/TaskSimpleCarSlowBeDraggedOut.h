@@ -27,6 +27,7 @@ public:
 private:
     void DoOpenCarDoor(CPed* ped, float time);
     auto ComputeAnimID();
+    void ComputeAnimIDExe(AssocGroupId* outGroup, AnimationId* animId); // 0x648330 (lote 155A, banco Fn155A): la forma del EXE de ComputeAnimID (dos salidas por puntero)
     void StartAnim(CPed* ped);
     static void FinishAnimCarSlowBeDraggedOutCB(CAnimBlendAssociation* anim, void* data);
 

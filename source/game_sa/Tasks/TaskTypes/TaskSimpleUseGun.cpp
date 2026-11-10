@@ -24,12 +24,28 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleDuck.h"
 #include "TaskSimpleFight.h"
 
+namespace {
+// 0x61DF30 (lote 155A, banco Fn155A): cuerpo del destructor de CTaskSimpleUseGun del EXE (thiscall, sin argumentos de pila, `ret`, 109 bytes con marco SEH que solo desenrolla; lo llama el destructor con borrado
+// 0x624D80). Deja la vtable de CTaskSimpleUseGun del EXE (0x86D724); libera con CEntity::CleanUpOldReference (0x571A00, con hook) la referencia no nula de la entidad objetivo (+0x1C); si hay animacion (+0x2C) le
+// pone el callback de borrado por defecto (CAnimBlendAssociation::SetDeleteCallback 0x4CEBC0, con hook, con el DefaultAnimCB del EXE 0x4D1390 y dato nulo); y llama a CTask::Destructor (0x61A3A0, con hook).
+// El destructor generado por el compilador dejaria la vtable de la DLL. El marco SEH se omite.
+__declspec(noinline) void __fastcall CTaskSimpleUseGunDestructorBodyExe(CTaskSimpleUseGun* self, void* /*edx*/) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x86D724;
+    CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0x1C));
+    if (self->m_Anim) {
+        self->m_Anim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+    }
+    self->CTask::Destructor();
+}
+} // namespace
+
 void CTaskSimpleUseGun::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleUseGun, 0x86D724, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     //RH_ScopedInstall(Constructor, 0x61DE60);
-    //RH_ScopedInstall(Destructor, 0x61DF30);
+    RH_ScopedNamedGlobalInstall(CTaskSimpleUseGunDestructorBodyExe, "DestructorBody", 0x61DF30); // lote 155A (banco Fn155A)
 
     RH_ScopedGlobalInstall(FinishGunAnimCB, 0x61F3A0);
     RH_ScopedGlobalInstall(RequirePistolWhip, 0x61E200);

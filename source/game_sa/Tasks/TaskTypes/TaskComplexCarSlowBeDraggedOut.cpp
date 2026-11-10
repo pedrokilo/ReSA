@@ -25,12 +25,32 @@ END GENERATED HOOK STATUS */
 #include <Tasks/TaskTypes/TaskSimpleCarFallOut.h>
 #include <Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h>
 
+namespace {
+// 0x64C580 (lote 155A, banco Fn155A): cuerpo del destructor de CTaskComplexCarSlowBeDraggedOut del EXE (con hook (Destructor); vtable 0x86EF54). Funcion propia sin expansion en linea para que el banco pueda
+// sustituirla; la llama el destructor con borrado como el `call 0x64C580` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexCarSlowBeDraggedOutDestructorBody(CTaskComplexCarSlowBeDraggedOut* self, void* /*edx*/) { self->CTaskComplexCarSlowBeDraggedOut::~CTaskComplexCarSlowBeDraggedOut(); }
+
+// 0x64E2A0 (lote 155A, banco Fn155A): destructor con borrado de CTaskComplexCarSlowBeDraggedOut del EXE (ranura 0 de su vtable 0x86EF54; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x64C580; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexCarSlowBeDraggedOut* __fastcall CTaskComplexCarSlowBeDraggedOutScalarDeletingDestructor(CTaskComplexCarSlowBeDraggedOut* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexCarSlowBeDraggedOutDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote155ABody_CTaskComplexCarSlowBeDraggedOut() { return reinterpret_cast<uintptr_t>(&CTaskComplexCarSlowBeDraggedOutDestructorBody); } // para el banco Fn155A
+
 void CTaskComplexCarSlowBeDraggedOut::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexCarSlowBeDraggedOut, 0x86EF54, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x648490);
     RH_ScopedInstall(Destructor, 0x64C580);
+    RH_ScopedNamedGlobalInstall(CTaskComplexCarSlowBeDraggedOutScalarDeletingDestructor, "ScalarDeletingDestructor", 0x64E2A0); // lote 155A (banco Fn155A)
 
     RH_ScopedInstall(CreateTaskUtilityLineUpPedWithCar, 0x648520);
     RH_ScopedInstall(CreateSubTask, 0x64C6A0);

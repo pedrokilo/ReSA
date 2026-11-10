@@ -14,12 +14,12 @@ public:
     CEventDontJoinPlayerGroup(CPed* player);
     ~CEventDontJoinPlayerGroup() override;
 
-    eEventType GetEventType() const override { return EVENT_DONT_JOIN_GROUP; }
+    eEventType GetEventType() const override; // 0x6091A0 (lote 155A, banco Fn155A)
     int32 GetEventPriority() const override { return 43; }
-    int32 GetLifeTime() override { return 0; }
-    CEventDontJoinPlayerGroup* Clone() const noexcept override { return new CEventDontJoinPlayerGroup(m_player); }
-    bool AffectsPed(CPed* ped) override { return true; }
+    int32 GetLifeTime() override; // 0x6091B0 (lote 155A, banco Fn155A)
+    CEventDontJoinPlayerGroup* Clone() const noexcept override; // 0x6091C0 (lote 155A, banco Fn155A)
+    bool AffectsPed(CPed* ped) override; // 0x609220 (lote 155A, banco Fn155A)
 
-    CEventDontJoinPlayerGroup* Constructor(CPed* player);
+    __declspec(noinline) CEventDontJoinPlayerGroup* Constructor(CPed* player);
 };
 VALIDATE_SIZE(CEventDontJoinPlayerGroup, 0x10);
