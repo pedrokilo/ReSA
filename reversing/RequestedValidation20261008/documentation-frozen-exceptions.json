@@ -131,7 +131,7 @@
       ]
     },
     "reversing/RequestedDispatchShadowFour/README.md": {
-      "sha256": "16fe5f78ad4b855115d19deb503d4ba57b4ac42547561582c330447e7be3f272",
+      "sha256": "4b936a3cbb51ce8794a141e014382ef03d81fe3d92ea1916f1e5cdb85fe632b7",
       "referenced_by": [
         "reversing/RequestedDispatchShadowFour/artifacts/manifest.json",
         "reversing/RequestedDispatchShadowFour/prepared-freeze.json",
@@ -143,7 +143,7 @@
       ]
     },
     "reversing/RequestedPadDistanceTrainNop/README.md": {
-      "sha256": "cdf96987aa7508deb1ac952ad950c5b5fd6c1f95ad3ca0fad8d44d0897bc597f",
+      "sha256": "74d6f5f03e381f782d2141324a3ae35e256251fe1ffb67a3c66112e75091f4e0",
       "referenced_by": [
         "reversing/RequestedPadDistanceTrainNop/artifacts/manifest.json",
         "reversing/RequestedPadDistanceTrainNop/prepared-freeze.json",
@@ -289,7 +289,7 @@
       ]
     },
     "reversing/RequestedPadDistanceTrainNopHex/README.md": {
-      "sha256": "b4f101b6dbbf5c352362a8581eb0e88ec19755c39086c19ce17a0bc3da308006",
+      "sha256": "f57c09bf5472ba8ed8b0a7e2d00291800a4adc6d5e7a167a724e99ee678cab06",
       "referenced_by": [
         "Root coordination: preserve pending DistanceHex bank README byte-exact",
         "reversing/RequestedPadDistanceTrainNopHex/artifacts/manifest.json",
@@ -297,7 +297,7 @@
       ]
     },
     "reversing/RequestedPadDistanceTrainNopHexV2/README.md": {
-      "sha256": "694bbf6365b1dfa0a4be4d5eff3dd679dca72ecd07fd1e5179e549f20998897d",
+      "sha256": "4d772027c1a4b750acb621665bb20b727abdc7925eef94938ea32bfc895f00de",
       "referenced_by": [
         "reversing/RequestedPadDistanceTrainNopHexV2/artifacts/manifest.json",
         "reversing/RequestedPadDistanceTrainNopHexV2/instrument-freeze.json"
