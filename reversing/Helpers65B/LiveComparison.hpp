@@ -98,7 +98,7 @@ inline uintptr_t DllBody(const char* cls,const char* fn){
 // direcciones de la DLL de los colaboradores (CEntity tiene sobrecargas de plantilla estaticas con el mismo nombre)
 inline uintptr_t DllRegisterReference(){ return Addr(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference)); }
 inline uintptr_t DllCleanUpOldReference(){ return Addr(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference)); }
-inline uintptr_t DllRemoveAnimBlockRef(){ return Addr(static_cast<void(*)(int32)>(&CAnimManager::RemoveAnimBlockRef)); }
+inline uintptr_t DllRemoveAnimBlockRef(){ return Addr(static_cast<CAnimBlock*(*)(int32)>(&CAnimManager::RemoveAnimBlockRef)); }
 inline uintptr_t DllGetWaterLevel(){ return Addr(static_cast<bool(*)(float,float,float,float&,uint8,CVector*)>(&CWaterLevel::GetWaterLevel)); }
 
 // ======================= estado x87 / SSE =======================

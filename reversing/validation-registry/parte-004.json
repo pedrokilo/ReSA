@@ -13197,7 +13197,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13205,8 +13205,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13225,7 +13225,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13233,8 +13233,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13253,7 +13253,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13261,8 +13261,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13281,7 +13281,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13289,8 +13289,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13309,7 +13309,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13317,8 +13317,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13337,7 +13337,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13345,8 +13345,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13365,7 +13365,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13373,8 +13373,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13393,7 +13393,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13401,8 +13401,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13421,7 +13421,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13429,8 +13429,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13449,7 +13449,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13457,8 +13457,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13477,7 +13477,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13485,8 +13485,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13505,7 +13505,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13513,8 +13513,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13533,7 +13533,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13541,8 +13541,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13561,7 +13561,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13569,8 +13569,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13589,7 +13589,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13597,8 +13597,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13617,7 +13617,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13625,8 +13625,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13645,7 +13645,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13653,8 +13653,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13673,7 +13673,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13681,8 +13681,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13701,7 +13701,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13709,8 +13709,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13729,7 +13729,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13737,8 +13737,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13757,7 +13757,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13765,8 +13765,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13785,7 +13785,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13793,8 +13793,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13813,7 +13813,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13821,8 +13821,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13841,7 +13841,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13849,8 +13849,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13869,7 +13869,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13877,8 +13877,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13897,7 +13897,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13905,8 +13905,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13925,7 +13925,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13933,8 +13933,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13953,7 +13953,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13961,8 +13961,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -13981,7 +13981,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -13989,8 +13989,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14009,7 +14009,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14017,8 +14017,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14037,7 +14037,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14045,8 +14045,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14065,7 +14065,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14073,8 +14073,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14093,7 +14093,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14101,8 +14101,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14121,7 +14121,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14129,8 +14129,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14149,7 +14149,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14157,8 +14157,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14177,7 +14177,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14185,8 +14185,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14205,7 +14205,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14213,8 +14213,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14233,7 +14233,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14241,8 +14241,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14261,7 +14261,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14269,8 +14269,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14289,7 +14289,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14297,8 +14297,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14317,7 +14317,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14325,8 +14325,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14345,7 +14345,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14353,8 +14353,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14373,7 +14373,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14381,8 +14381,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14401,7 +14401,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14409,8 +14409,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14429,7 +14429,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14437,8 +14437,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14457,7 +14457,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14465,8 +14465,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14485,7 +14485,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14493,8 +14493,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14513,7 +14513,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14521,8 +14521,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14541,7 +14541,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14549,8 +14549,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14569,7 +14569,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14577,8 +14577,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -14597,7 +14597,7 @@
       },
       "evidence": {
         "path": "reversing/RequestedPadSelectors/validation-summary-51.json",
-        "sha256": "e642a522ee6f6b4f619360b4ade3a36e9d34af04065b7c5a487c3af04df29403",
+        "sha256": "94ac32ea73e84366df9efed3c290ead70fe5824b9b4540a5066c2ca1b9765b3d",
         "passed_path": [
           "passed"
         ],
@@ -14605,8 +14605,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pad.cpp": "256a7f84d13146a575561c6f57e9848f2873e106188565c5f5f7a4a3d4dc5563",
-        "source/game_sa/Pad.h": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25",
+        "source/game_sa/Pad.cpp": "46c21391b08300d220395e5bf9e5c5b93ba06d8907b6467f9cb6392ea7b56e74",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
         "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
@@ -92948,7 +92948,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers65B/validation-summary.json",
-        "sha256": "c0c190248231b05eaff458c6e272cfda99f22e10293d9d0b557d79d52cff8936",
+        "sha256": "c3e2666eabc8599a6387f2292908234b6a813f9ff9e5c075896b214d9699fa3b",
         "passed_path": [
           "covered_functions",
           "CCamera::IsActiveCamUnderWater"
@@ -92957,15 +92957,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "0f999d0839afcbbdc4b62f29c07ef9bfd8956bbf3756a3221a6ad9c3c748979c",
-        "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
-        "source/game_sa/Cam.cpp": "75df902d06100accbfc6417aed1d150798b58906b007e5ff37abcde023794e26",
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "3c0664c39f19c0b476e65ce9d354ad6e1ab7d888bac054e87275bcc4123317b8",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "cde58aa7f7d5e9f6352964fca30a05bcb810d93fc774e6ca4e7c0b84fc1c2b8f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "6a5775b8eef8c53c32cce7cb3af0d490edb757e5c3590983a0c0200082b00400",
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "92b5ed6df0119d1691430d65e4b1f3184dda6c2be8c5ea7a563852c596d50998",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "c5d0cd29a8671a468f5f7b1edbd8dd6ca7c3cd558456034149f32d5a9ff60a19",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "cbff387a21140586a36f495da45d196f00acb95dd6666265496355d89ffea51e",
         "source/game_sa/PlayerInfoProcess.cpp.inc": "a3c4ca4439508d7c33a6c06a723039305cd475d6b62f47cf655085a698cb6f6c",
-        "source/InjectHooksMain.cpp": "3941819f8e3be4f3cadda67ecc6a811c90ebaa117c06c97171e242d0767332ee"
+        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -92981,7 +92981,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers65B/validation-summary.json",
-        "sha256": "c0c190248231b05eaff458c6e272cfda99f22e10293d9d0b557d79d52cff8936",
+        "sha256": "c3e2666eabc8599a6387f2292908234b6a813f9ff9e5c075896b214d9699fa3b",
         "passed_path": [
           "covered_functions",
           "CCam::ResetDWHeliChaseParams"
@@ -92990,15 +92990,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "0f999d0839afcbbdc4b62f29c07ef9bfd8956bbf3756a3221a6ad9c3c748979c",
-        "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
-        "source/game_sa/Cam.cpp": "75df902d06100accbfc6417aed1d150798b58906b007e5ff37abcde023794e26",
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "3c0664c39f19c0b476e65ce9d354ad6e1ab7d888bac054e87275bcc4123317b8",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "cde58aa7f7d5e9f6352964fca30a05bcb810d93fc774e6ca4e7c0b84fc1c2b8f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "6a5775b8eef8c53c32cce7cb3af0d490edb757e5c3590983a0c0200082b00400",
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "92b5ed6df0119d1691430d65e4b1f3184dda6c2be8c5ea7a563852c596d50998",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "c5d0cd29a8671a468f5f7b1edbd8dd6ca7c3cd558456034149f32d5a9ff60a19",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "cbff387a21140586a36f495da45d196f00acb95dd6666265496355d89ffea51e",
         "source/game_sa/PlayerInfoProcess.cpp.inc": "a3c4ca4439508d7c33a6c06a723039305cd475d6b62f47cf655085a698cb6f6c",
-        "source/InjectHooksMain.cpp": "3941819f8e3be4f3cadda67ecc6a811c90ebaa117c06c97171e242d0767332ee"
+        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -93014,7 +93014,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers65B/validation-summary.json",
-        "sha256": "c0c190248231b05eaff458c6e272cfda99f22e10293d9d0b557d79d52cff8936",
+        "sha256": "c3e2666eabc8599a6387f2292908234b6a813f9ff9e5c075896b214d9699fa3b",
         "passed_path": [
           "covered_functions",
           "CCam::RandomiseDWHeliChaseParams"
@@ -93023,15 +93023,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "0f999d0839afcbbdc4b62f29c07ef9bfd8956bbf3756a3221a6ad9c3c748979c",
-        "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
-        "source/game_sa/Cam.cpp": "75df902d06100accbfc6417aed1d150798b58906b007e5ff37abcde023794e26",
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "3c0664c39f19c0b476e65ce9d354ad6e1ab7d888bac054e87275bcc4123317b8",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "cde58aa7f7d5e9f6352964fca30a05bcb810d93fc774e6ca4e7c0b84fc1c2b8f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "6a5775b8eef8c53c32cce7cb3af0d490edb757e5c3590983a0c0200082b00400",
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "92b5ed6df0119d1691430d65e4b1f3184dda6c2be8c5ea7a563852c596d50998",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "c5d0cd29a8671a468f5f7b1edbd8dd6ca7c3cd558456034149f32d5a9ff60a19",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "cbff387a21140586a36f495da45d196f00acb95dd6666265496355d89ffea51e",
         "source/game_sa/PlayerInfoProcess.cpp.inc": "a3c4ca4439508d7c33a6c06a723039305cd475d6b62f47cf655085a698cb6f6c",
-        "source/InjectHooksMain.cpp": "3941819f8e3be4f3cadda67ecc6a811c90ebaa117c06c97171e242d0767332ee"
+        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -93047,7 +93047,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers65B/validation-summary.json",
-        "sha256": "c0c190248231b05eaff458c6e272cfda99f22e10293d9d0b557d79d52cff8936",
+        "sha256": "c3e2666eabc8599a6387f2292908234b6a813f9ff9e5c075896b214d9699fa3b",
         "passed_path": [
           "covered_functions",
           "CHeli::FindSwatPositionRelativeToHeli"
@@ -93056,15 +93056,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "0f999d0839afcbbdc4b62f29c07ef9bfd8956bbf3756a3221a6ad9c3c748979c",
-        "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
-        "source/game_sa/Cam.cpp": "75df902d06100accbfc6417aed1d150798b58906b007e5ff37abcde023794e26",
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "3c0664c39f19c0b476e65ce9d354ad6e1ab7d888bac054e87275bcc4123317b8",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "cde58aa7f7d5e9f6352964fca30a05bcb810d93fc774e6ca4e7c0b84fc1c2b8f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "6a5775b8eef8c53c32cce7cb3af0d490edb757e5c3590983a0c0200082b00400",
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "92b5ed6df0119d1691430d65e4b1f3184dda6c2be8c5ea7a563852c596d50998",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "c5d0cd29a8671a468f5f7b1edbd8dd6ca7c3cd558456034149f32d5a9ff60a19",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "cbff387a21140586a36f495da45d196f00acb95dd6666265496355d89ffea51e",
         "source/game_sa/PlayerInfoProcess.cpp.inc": "a3c4ca4439508d7c33a6c06a723039305cd475d6b62f47cf655085a698cb6f6c",
-        "source/InjectHooksMain.cpp": "3941819f8e3be4f3cadda67ecc6a811c90ebaa117c06c97171e242d0767332ee"
+        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -93080,7 +93080,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers65B/validation-summary.json",
-        "sha256": "c0c190248231b05eaff458c6e272cfda99f22e10293d9d0b557d79d52cff8936",
+        "sha256": "c3e2666eabc8599a6387f2292908234b6a813f9ff9e5c075896b214d9699fa3b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoPickUpEntity::Constructor"
@@ -93089,15 +93089,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "0f999d0839afcbbdc4b62f29c07ef9bfd8956bbf3756a3221a6ad9c3c748979c",
-        "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
-        "source/game_sa/Cam.cpp": "75df902d06100accbfc6417aed1d150798b58906b007e5ff37abcde023794e26",
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "3c0664c39f19c0b476e65ce9d354ad6e1ab7d888bac054e87275bcc4123317b8",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "cde58aa7f7d5e9f6352964fca30a05bcb810d93fc774e6ca4e7c0b84fc1c2b8f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "6a5775b8eef8c53c32cce7cb3af0d490edb757e5c3590983a0c0200082b00400",
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "92b5ed6df0119d1691430d65e4b1f3184dda6c2be8c5ea7a563852c596d50998",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "c5d0cd29a8671a468f5f7b1edbd8dd6ca7c3cd558456034149f32d5a9ff60a19",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "cbff387a21140586a36f495da45d196f00acb95dd6666265496355d89ffea51e",
         "source/game_sa/PlayerInfoProcess.cpp.inc": "a3c4ca4439508d7c33a6c06a723039305cd475d6b62f47cf655085a698cb6f6c",
-        "source/InjectHooksMain.cpp": "3941819f8e3be4f3cadda67ecc6a811c90ebaa117c06c97171e242d0767332ee"
+        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -93113,7 +93113,7 @@
       },
       "evidence": {
         "path": "reversing/Helpers65B/validation-summary.json",
-        "sha256": "c0c190248231b05eaff458c6e272cfda99f22e10293d9d0b557d79d52cff8936",
+        "sha256": "c3e2666eabc8599a6387f2292908234b6a813f9ff9e5c075896b214d9699fa3b",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoPickUpEntity::Destructor"
@@ -93122,15 +93122,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.cpp": "0f999d0839afcbbdc4b62f29c07ef9bfd8956bbf3756a3221a6ad9c3c748979c",
-        "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
-        "source/game_sa/Cam.cpp": "75df902d06100accbfc6417aed1d150798b58906b007e5ff37abcde023794e26",
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "3c0664c39f19c0b476e65ce9d354ad6e1ab7d888bac054e87275bcc4123317b8",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "cde58aa7f7d5e9f6352964fca30a05bcb810d93fc774e6ca4e7c0b84fc1c2b8f",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "6a5775b8eef8c53c32cce7cb3af0d490edb757e5c3590983a0c0200082b00400",
+        "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
+        "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+        "source/game_sa/Cam.cpp": "5e97b72c743d5f5eecc1c0dbfb928e25dae96b9c55412d525d77141706ed38c0",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "92b5ed6df0119d1691430d65e4b1f3184dda6c2be8c5ea7a563852c596d50998",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "c5d0cd29a8671a468f5f7b1edbd8dd6ca7c3cd558456034149f32d5a9ff60a19",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "cbff387a21140586a36f495da45d196f00acb95dd6666265496355d89ffea51e",
         "source/game_sa/PlayerInfoProcess.cpp.inc": "a3c4ca4439508d7c33a6c06a723039305cd475d6b62f47cf655085a698cb6f6c",
-        "source/InjectHooksMain.cpp": "3941819f8e3be4f3cadda67ecc6a811c90ebaa117c06c97171e242d0767332ee"
+        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
