@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,171** funciones en 272 clases/módulos (rango 0x401000–0x74FFFF): 2,149 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,148** funciones en 265 clases/módulos (rango 0x401000–0x74FFFF): 2,126 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,6 +10,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
+| CTaskComplexWaitForBus | 1 | 21 |
 | FxPrimBP_c | 5 | 70 |
 | CPedGroupIntelligence | 2 | 71 |
 | CTaskComplexCarDriveWander | 3 | 71 |
@@ -17,14 +18,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CPedIK | 2 | 72 |
 | CCollision | 2 | 76 |
 | CTaskComplexInAirAndLand | 4 | 77 |
-| CTaskSimplePause | 4 | 77 |
-| Securom | 2 | 78 |
-| CTaskComplexDrivePointRoute | 3 | 78 |
-| CTaskComplexWaitForBus | 3 | 81 |
-| CEventBuildingCollision | 6 | 82 |
-| CBuilding | 2 | 83 |
-| CPedGroupDefaultTaskAllocatorChat | 2 | 86 |
-| CAEAudioChannel | 2 | 88 |
 | CAEStreamingChannel | 2 | 88 |
 | CBaseModelInfo | 3 | 88 |
 | CRect | 5 | 88 |
@@ -283,6 +276,12 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
 
+## CTaskComplexWaitForBus (1)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00638A40 | 21 | B | CTaskComplexSequence::CreateNextSubTask-V | 0 | 0 | sí | baja |
+
 ## FxPrimBP_c (5)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -337,70 +336,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00678CC0 | 11 | C |  | 1 | 0 |  | baja |
 | 0x0067D340 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x0067D360 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimplePause (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0048E800 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x0048E8A0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0048E880 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0048E8E0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## Securom (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00744D90 | 29 | C |  | 1 | 0 |  | baja |
-| 0x00744D50 | 49 | C |  | 1 | 0 |  | baja |
-
-## CTaskComplexDrivePointRoute (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0063D0D0 | 18 | D |  | 0 | 0 |  | baja |
-| 0x006434F0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00643A40 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexWaitForBus (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00638A40 | 21 | B | CTaskComplexSequence::CreateNextSubTask-V | 0 | 0 | sí | baja |
-| 0x006389B0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006389D0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CEventBuildingCollision (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004ACFC0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004ACFD0 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004ACFB0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004ACFE0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004AD050 | 32 | B |  | 0 | 0 | sí | alta |
-| 0x004AD3A0 | 32 | D |  | 0 | 0 |  | baja |
-
-## CBuilding (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00404180 | 5 | C |  | 1 | 0 |  | baja |
-| 0x00404130 | 78 | B |  | 0 | 0 | sí | baja |
-
-## CPedGroupDefaultTaskAllocatorChat (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F6510 | 9 | C |  | 1 | 0 |  | baja |
-| 0x005F8510 | 77 | A |  | 11 | 11 |  | baja |
-
-## CAEAudioChannel (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004D7990 | 7 | A |  | 3 | 3 |  | alta |
-| 0x004D7C00 | 81 | B |  | 0 | 0 | sí | alta |
 
 ## CAEStreamingChannel (2)
 
@@ -1327,7 +1262,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x00632B60 | 5 | B |  | 0 | 0 | sí | baja |
 | 0x00632B50 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00632B70 | 11 | C |  | 1 | 0 |  | baja |
+| 0x00632B70 | 11 | A |  | 1 | 1 |  | baja |
 | 0x00632B30 | 32 | D |  | 0 | 0 |  | baja |
 | 0x00632B80 | 72 | B |  | 0 | 0 | sí | baja |
 | 0x00636B40 | 113 | B |  | 0 | 0 | sí | baja |
