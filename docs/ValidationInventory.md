@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,814 entradas reversed=1**, de 9,814 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,815 entradas reversed=1**, de 9,815 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9814 |
+| `validated=1` · evidencia aprobada vinculada | 9815 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9814 |
+| Evidencia histórica vinculada; revisión pendiente | 9815 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -4197,6 +4197,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPed | `operator delete-anon` | [Resumen](../reversing/FixCore/validation-summary.json) |
 | CPed | `operator new-anon` | [Resumen](../reversing/FixCore/validation-summary.json) |
 | CPed | `operator new-poolIndexed` | [Resumen](../reversing/FixCore/validation-summary.json) |
+| CPedAcquaintanceScanner | `ScanEntities` | [Resumen](../reversing/Fn607A/validation-summary.json) |
 | CPedAcquaintanceScanner | `ScanForPedAcquaintances` | [Resumen](../reversing/Fn92A/validation-summary.json) |
 | CPedAttractor | `AbortPedTasks` | [Resumen](../reversing/IdleAttractorPending/validation-summary.json) |
 | CPedAttractor | `BroadcastArrival` | [Resumen](../reversing/FixPeds/validation-summary.json) |
@@ -10171,7 +10172,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPatrolRoute` | 2 | 0 | 2 | 0 |
 | `CPatrolRoutePool` | 1 | 0 | 1 | 0 |
 | `CPed` | 152 | 0 | 152 | 0 |
-| `CPedAcquaintanceScanner` | 1 | 0 | 1 | 0 |
+| `CPedAcquaintanceScanner` | 2 | 0 | 2 | 0 |
 | `CPedAttractor` | 20 | 0 | 20 | 0 |
 | `CPedAttractorManager` | 14 | 0 | 14 | 0 |
 | `CPedAttractorPedPlacer` | 1 | 0 | 1 | 0 |
