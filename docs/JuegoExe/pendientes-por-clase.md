@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,016** funciones en 223 clases/módulos (rango 0x401000–0x74FFFF): 1,994 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,000** funciones en 220 clases/módulos (rango 0x401000–0x74FFFF): 1,978 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -12,16 +12,13 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---:|
 | CTaskComplexWaitForBus | 1 | 21 |
 | CAEStreamingChannel | 1 | 61 |
+| CEventLeaderExitedCarAsDriver | 6 | 61 |
 | CCompressedMatrixNotAligned | 1 | 74 |
+| VideoPlayer | 1 | 110 |
 | CAEGlobalWeaponAudioEntity | 1 | 121 |
 | CTaskSimpleUseGun | 2 | 139 |
 | CEventDontJoinPlayerGroup | 5 | 140 |
 | CTaskSimpleCarSlowBeDraggedOut | 3 | 141 |
-| CEventLeaderExitedCarAsDriver | 7 | 141 |
-| CTaskLeanOnVehicle | 3 | 142 |
-| VideoPlayer | 2 | 145 |
-| CTaskSimpleJump | 3 | 145 |
-| CEventLeaderQuitEnteringCarAsDriver | 8 | 146 |
 | CTaskComplexFleePoint | 5 | 150 |
 | CTaskComplexSitDownThenIdleThenStandUp | 5 | 150 |
 | CTaskSimpleIKChain | 5 | 150 |
@@ -233,7 +230,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (223 clases / módulos)** | **2,016** | **252,870** |
+| **TOTAL (220 clases / módulos)** | **2,000** | **252,322** |
 
 ## CTaskComplexWaitForBus (1)
 
@@ -247,11 +244,28 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x004F21C0 | 61 | B | CAEStreamingChannel::Stop-virtual | 0 | 0 | sí | alta |
 
+## CEventLeaderExitedCarAsDriver (6)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004B8330 | 3 | B |  | 0 | 0 | sí | baja |
+| 0x004B8390 | 5 | B |  | 0 | 0 | sí | baja |
+| 0x004B8320 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x004B84D0 | 6 | B |  | 0 | 0 | sí | baja |
+| 0x004B83C0 | 11 | C |  | 1 | 0 |  | baja |
+| 0x004B83A0 | 30 | B |  | 0 | 0 | sí | baja |
+
 ## CCompressedMatrixNotAligned (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x0059BB60 | 74 | A |  | 5 | 5 |  | baja |
+
+## VideoPlayer (1)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00746800 | 110 | D |  | 0 | 0 |  | baja |
 
 ## CAEGlobalWeaponAudioEntity (1)
 
@@ -283,54 +297,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0064C200 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x0064E2A0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00648330 | 81 | A |  | 4 | 4 |  | alta |
-
-## CEventLeaderExitedCarAsDriver (7)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B8330 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004B8390 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x004B8320 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B84D0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x004B83C0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x004B83A0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x004B8340 | 80 | B |  | 0 | 0 | sí | baja |
-
-## CTaskLeanOnVehicle (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00661020 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00664A30 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006610A0 | 106 | B |  | 0 | 0 | sí | alta |
-
-## VideoPlayer (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x007467D0 | 35 | C |  | 1 | 0 |  | baja |
-| 0x00746800 | 110 | D |  | 0 | 0 |  | baja |
-
-## CTaskSimpleJump (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00679AE0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x0067D960 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00679AF0 | 109 | C |  | 1 | 0 |  | alta |
-
-## CEventLeaderQuitEnteringCarAsDriver (8)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0063A140 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x004B1040 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x0063A1A0 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x0063A130 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0063A1E0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0063A1D0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0063A1B0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0063A150 | 80 | B |  | 0 | 0 | sí | baja |
 
 ## CTaskComplexFleePoint (5)
 
