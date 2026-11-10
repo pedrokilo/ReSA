@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/11/2026 (Ciudad de México):** 880 grupos / 9863 funciones reconstruidas; 9863 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/11/2026 (Ciudad de México):** 883 grupos / 9887 funciones reconstruidas; 9887 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,22 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-561"></a>
+
+## CTaskComplexBeStill
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * __fastcall BeStillConstructorBody(CTaskComplexBeStill* self, void* /*edx*/) | [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp:33](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskComplexBeStill::Constructor 0x005F6660 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexBeStill::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp:40](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskComplexBeStill::CreateNextSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp:56](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexBeStill::CreateNextSubTask 0x0062F8D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskComplexBeStill::CreateFirstSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp:65](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexBeStill::CreateFirstSubTask 0x0062F910 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskComplexBeStill::ControlSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp:73](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexBeStill::ControlSubTask 0x0062F9F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskComplexBeStill::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp:80](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskComplexBeStill::ScalarDeletingDestructor 0x005F66E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.h:14](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexBeStill::GetTaskType 0x005F66D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.h:15](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexBeStill::Clone 0x005F6680 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.h:23](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.h#L23) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexBeStill::Destructor 0x005F6700 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-562"></a>
 
 ## CTaskComplexBody
 
@@ -17,7 +33,7 @@
 | SetSubTask(CTask* self, void* /*edx*/, CTask* subTask) | [source/game_sa/Tasks/Task.cpp:138](../../source/game_sa/Tasks/Task.cpp#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | InjectHooks() | [source/game_sa/Tasks/Task.cpp:152](../../source/game_sa/Tasks/Task.cpp#L152) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-562"></a>
+<a id="grupo-563"></a>
 
 ## CTaskComplexCarDrive
 
@@ -42,7 +58,7 @@
 | * Constructor_1(CVehicle* vehicle, float speed, eModelID carModelIndexToCreate, eCarDrivingStyle carDrivingStyle) | [source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h:36](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexCarDrive::Constructor_1 0x0063C940 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h:41](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h#L41) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexCarDrive::Destructor 0x0063CA40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-563"></a>
+<a id="grupo-564"></a>
 
 ## CTaskComplexCarDriveMission
 
@@ -58,7 +74,7 @@
 | * Constructor(CVehicle* vehicle, CEntity* targetVehicle, eCarMission carDriveMission, eCarDrivingStyle carDrivingStyle, float fSpeed) | [source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h:28](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexCarDriveMission::Constructor 0x0063CC30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h:29](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h#L29) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexCarDriveMission::Destructor 0x0063CCC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-564"></a>
+<a id="grupo-565"></a>
 
 ## CTaskComplexCarDriveMissionFleeScene
 
@@ -72,7 +88,7 @@
 | * Constructor(CVehicle* vehicle) | [source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h:48](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexCarDriveMissionFleeScene::Constructor 0x004B8920 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h:50](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h#L50) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexCarDriveMissionFleeScene::Destructor 0x004B89F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-565"></a>
+<a id="grupo-566"></a>
 
 ## CTaskComplexCarDriveMissionKillPed
 
@@ -86,7 +102,7 @@
 | * Constructor(CVehicle* vehicle, CEntity* targetVehicle) | [source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h:68](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexCarDriveMissionKillPed::Constructor 0x004B8A00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h:70](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.h#L70) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexCarDriveMissionKillPed::Destructor 0x004B8AD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-566"></a>
+<a id="grupo-567"></a>
 
 ## CTaskComplexCarDriveWander
 
@@ -102,7 +118,7 @@
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h:19](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexCarDriveWander::GetTaskType 0x0063CB40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(CVehicle* vehicle, eCarDrivingStyle carDrivingStyle, float fSpeed) | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h:25](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexCarDriveWander::Constructor 0x0063CB10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-567"></a>
+<a id="grupo-568"></a>
 
 ## CTaskComplexCarSlowBeDraggedOut
 
@@ -124,7 +140,7 @@
 | * Constructor(CVehicle* car, eTargetDoor a3, bool a4) | [source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOut.h:41](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOut.h#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexCarSlowBeDraggedOut::Constructor 0x00648490 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOut.h:42](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOut.h#L42) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexCarSlowBeDraggedOut::Destructor 0x0064C580 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-568"></a>
+<a id="grupo-569"></a>
 
 ## CTaskComplexCarSlowBeDraggedOutAndStandUp
 
@@ -144,25 +160,26 @@
 | * Constructor(CVehicle* veh, int32 a3) | [source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.h:31](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexCarSlowBeDraggedOutAndStandUp::Constructor 0x00648620 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.h:32](../../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.h#L32) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexCarSlowBeDraggedOutAndStandUp::Destructor 0x00648690 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-569"></a>
+<a id="grupo-570"></a>
 
 ## CTaskComplexChat
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CTaskComplexChat::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:28](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexChat::CTaskComplexChat(bool isChatter, CPed* partner, int32 stage, int16 globalSpeechContext) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:42](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::Constructor 0x00682CB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexChat::CTaskComplexChat(const CTaskComplexChat& o) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:51](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexChat::~CTaskComplexChat() | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:63](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::Destructor 0x00682D40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskComplexChat::CreateNextSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:68](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::CreateNextSubTask 0x00682E10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskComplexChat::CreateFirstSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:73](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::CreateFirstSubTask 0x00682E20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskComplexChat::ControlSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:102](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L102) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::ControlSubTask 0x00683060 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall CTaskComplexChatScalarDeletingDestructor(CTaskComplexChat* self, void* /*edx*/, uint8 flags) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:36](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskComplexChat::ScalarDeletingDestructor 0x006846D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexChat::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:47](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexChat::CTaskComplexChat(bool isChatter, CPed* partner, int32 stage, int16 globalSpeechContext) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:62](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::Constructor 0x00682CB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexChat::CTaskComplexChat(const CTaskComplexChat& o) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:71](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexChat::~CTaskComplexChat() | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:83](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::Destructor 0x00682D40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskComplexChat::CreateNextSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:88](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::CreateNextSubTask 0x00682E10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskComplexChat::CreateFirstSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:93](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::CreateFirstSubTask 0x00682E20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CTaskComplexChat::ControlSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp:122](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp#L122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::ControlSubTask 0x00683060 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.h:26](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::GetTaskType 0x00682D30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::Clone 0x00682DA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(uint8 a, CPed* b, int32 c, int16 d) | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.h:34](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexChat::Constructor 0x00682CB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexChat.h:40](../../source/game_sa/Tasks/TaskTypes/TaskComplexChat.h#L40) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexChat::Destructor 0x00682D40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-570"></a>
+<a id="grupo-571"></a>
 
 ## CTaskComplexClimb
 
@@ -176,7 +193,7 @@
 | * Constructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexClimb.h:20](../../source/game_sa/Tasks/TaskTypes/TaskComplexClimb.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexClimb::Constructor 0x0046A630 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexClimb.h:25](../../source/game_sa/Tasks/TaskTypes/TaskComplexClimb.h#L25) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexClimb::Destructor 0x0046A6E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-571"></a>
+<a id="grupo-572"></a>
 
 ## CTaskComplexCopInCar
 
@@ -196,7 +213,7 @@
 | * Constructor(CVehicle* vehicle, CPed* cop1, CPed* cop2, bool flag_0x1) | [source/game_sa/Tasks/TaskTypes/TaskComplexCopInCar.h:48](../../source/game_sa/Tasks/TaskTypes/TaskComplexCopInCar.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexCopInCar::Constructor 0x0068C7F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexCopInCar.h:49](../../source/game_sa/Tasks/TaskTypes/TaskComplexCopInCar.h#L49) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexCopInCar::Destructor 0x0068C8C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-572"></a>
+<a id="grupo-573"></a>
 
 ## CTaskComplexCrossRoadLookAndAchieveHeading
 
@@ -215,7 +232,7 @@
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h:21](../../source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexCrossRoadLookAndAchieveHeading::GetTaskType 0x00631B10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h:34](../../source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h#L34) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexCrossRoadLookAndAchieveHeading::Destructor 0x00631B50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-573"></a>
+<a id="grupo-574"></a>
 
 ## CTaskComplexDestroyCar
 
@@ -235,7 +252,7 @@
 | * Constructor(CVehicle* vehicleToDestroy, uint32 a3, uint32 a4, uint32 a5) | [source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h:31](../../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDestroyCar::Constructor 0x00621C00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h:32](../../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h#L32) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexDestroyCar::Destructor 0x00621CB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-574"></a>
+<a id="grupo-575"></a>
 
 ## CTaskComplexDestroyCarArmed
 
@@ -257,7 +274,7 @@
 | * Constructor(CVehicle* vehicleToDestroy, uint32 a3, uint32 a4, uint32 a5) | [source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.h:48](../../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDestroyCarArmed::Constructor 0x00621F50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.h:49](../../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.h#L49) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexDestroyCarArmed::Destructor 0x00622010 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-575"></a>
+<a id="grupo-576"></a>
 
 ## CTaskComplexDestroyCarMelee
 
@@ -278,7 +295,7 @@
 | * Constructor(CVehicle* vehToDestroy) | [source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarMelee.h:40](../../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarMelee.h#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDestroyCarMelee::Constructor 0x00621D10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarMelee.h:41](../../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarMelee.h#L41) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexDestroyCarMelee::Destructor 0x00621DA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-576"></a>
+<a id="grupo-577"></a>
 
 ## CTaskComplexDie
 
@@ -295,7 +312,7 @@
 | * ControlSubTask(CPed*) override | [source/game_sa/Tasks/TaskTypes/TaskComplexDie.h:48](../../source/game_sa/Tasks/TaskTypes/TaskComplexDie.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CTaskComplexDie::ControlSubTask 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexDie.h:49](../../source/game_sa/Tasks/TaskTypes/TaskComplexDie.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-577"></a>
+<a id="grupo-578"></a>
 
 ## CTaskComplexDieInCar
 
@@ -312,7 +329,7 @@
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexDieInCar.h:19](../../source/game_sa/Tasks/TaskTypes/TaskComplexDieInCar.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexDieInCar.h:20](../../source/game_sa/Tasks/TaskTypes/TaskComplexDieInCar.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-578"></a>
+<a id="grupo-579"></a>
 
 ## CTaskComplexDiveFromAttachedEntityAndGetUp
 
@@ -330,7 +347,7 @@
 | * Constructor(int32 nTimeOnGround) | [source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDiveFromAttachedEntityAndGetUp::Constructor 0x00492E20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.h:33](../../source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.h#L33) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexDiveFromAttachedEntityAndGetUp::Destructor 0x00492F10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-579"></a>
+<a id="grupo-580"></a>
 
 ## CTaskComplexDragPedFromCar
 
@@ -342,20 +359,3 @@
 | * CTaskComplexDragPedFromCar::CreateFirstSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.cpp:58](../../source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDragPedFromCar::CreateFirstSubTask 0x00643D00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.h:16](../../source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.h:17](../../source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-580"></a>
-
-## CTaskComplexDriveFireTruck
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexDriveFireTruck::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp:29](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskComplexDriveFireTruck::Constructor(CVehicle* vehicle, CPed* partnerFireman, bool bIsDriver) | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp:40](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDriveFireTruck::Constructor 0x00659310 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexDriveFireTruck::CTaskComplexDriveFireTruck(CVehicle* vehicle, CPed* partnerFireman, bool bIsDriver) | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp:46](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDriveFireTruck::Constructor 0x00659310 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexDriveFireTruck::~CTaskComplexDriveFireTruck() | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp:57](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskComplexDriveFireTruck::Clone() const | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp:63](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDriveFireTruck::Clone 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskComplexDriveFireTruck::CreateNextSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp:68](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDriveFireTruck::CreateNextSubTask 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskComplexDriveFireTruck::CreateFirstSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp:87](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDriveFireTruck::CreateFirstSubTask 0x00000000 | 0 / 0 | Posible dato fijo gFireManager: source/game_sa/FireManager.h:81 (0x00B71F80) |
-| * CTaskComplexDriveFireTruck::ControlSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp:100](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDriveFireTruck::ControlSubTask 0x00000000 | 0 / 0 | Posible dato fijo gFireManager: source/game_sa/FireManager.h:81 (0x00B71F80) |
-| * CTaskComplexDriveFireTruck::CreateSubTask(eTaskType taskType, CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp:130](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexDriveFireTruck::CreateSubTask 0x0065A240 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

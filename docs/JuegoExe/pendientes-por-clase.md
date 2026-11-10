@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,058** funciones en 235 clases/módulos (rango 0x401000–0x74FFFF): 2,036 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **2,034** funciones en 228 clases/módulos (rango 0x401000–0x74FFFF): 2,012 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -11,15 +11,8 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Clase | Funciones | Bytes |
 |---|---:|---:|
 | CTaskComplexWaitForBus | 1 | 21 |
+| CTaskGangHasslePed | 2 | 60 |
 | CAEStreamingChannel | 1 | 61 |
-| CEventStuckInAir | 5 | 120 |
-| CAnimBlendStaticAssociation | 2 | 121 |
-| CAEVehicleAudioEntity | 5 | 121 |
-| CTaskComplexPartnerChat | 2 | 123 |
-| CColSphere | 3 | 124 |
-| CEventPool | 2 | 126 |
-| CTaskComplexUseSwatRope | 2 | 126 |
-| CTaskGangHasslePed | 5 | 126 |
 | CTaskSimpleFall | 3 | 129 |
 | CEventHandler | 2 | 130 |
 | CEventObjectCollision | 5 | 130 |
@@ -252,77 +245,18 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x00638A40 | 21 | B | CTaskComplexSequence::CreateNextSubTask-V | 0 | 0 | sí | baja |
 
+## CTaskGangHasslePed (2)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x006644C0 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x006644E0 | 30 | B |  | 0 | 0 | sí | baja |
+
 ## CAEStreamingChannel (1)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x004F21C0 | 61 | B | CAEStreamingChannel::Stop-virtual | 0 | 0 | sí | alta |
-
-## CEventStuckInAir (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B1500 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B1510 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x004B14F0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x004B1640 | 54 | D |  | 0 | 0 |  | baja |
-| 0x004B1680 | 54 | D |  | 0 | 0 |  | baja |
-
-## CAnimBlendStaticAssociation (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004CEFA0 | 27 | D |  | 0 | 0 |  | baja |
-| 0x004CECF0 | 94 | C |  | 1 | 0 |  | baja |
-
-## CAEVehicleAudioEntity (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006D0B30 | 1 | A |  | 5 | 1 |  | baja |
-| 0x006D0AF0 | 18 | A |  | 1 | 1 |  | baja |
-| 0x006D0B10 | 25 | A |  | 2 | 2 |  | baja |
-| 0x004F63B0 | 33 | C |  | 2 | 0 |  | alta |
-| 0x004F56D0 | 44 | A |  | 9 | 9 |  | alta |
-
-## CTaskComplexPartnerChat (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006846D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00684320 | 93 | C |  | 1 | 0 |  | baja |
-
-## CColSphere (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00410390 | 4 | A |  | 1 | 1 |  | baja |
-| 0x0040FDD0 | 35 | D |  | 0 | 0 |  | alta |
-| 0x0040FD50 | 85 | A |  | 1 | 1 |  | alta |
-
-## CEventPool (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004B5630 | 49 | A |  | 119 | 3 |  | baja |
-| 0x004B5670 | 77 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexUseSwatRope (2)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0065A620 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006594D0 | 96 | C |  | 1 | 0 |  | alta |
-
-## CTaskGangHasslePed (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0065FF50 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x00664480 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006644A0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006644C0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006644E0 | 30 | B |  | 0 | 0 | sí | baja |
 
 ## CTaskSimpleFall (3)
 
@@ -2001,7 +1935,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006597A0 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x006598A0 | 6 | B |  | 0 | 0 | sí | baja |
 | 0x00659980 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x006597B0 | 11 | C |  | 1 | 0 |  | alta |
+| 0x006597B0 | 11 | A |  | 1 | 1 |  | alta |
 | 0x006598B0 | 11 | C |  | 1 | 0 |  | baja |
 | 0x00659DE0 | 30 | D |  | 0 | 0 |  | baja |
 | 0x00659E10 | 30 | B |  | 0 | 0 | sí | baja |

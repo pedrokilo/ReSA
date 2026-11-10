@@ -4453,8 +4453,7 @@ __declspec(noinline) bool __cdecl GarageEntityNearCpp(const float* g, float radi
 }
 #pragma float_control(pop)
 
-// ==============================================================================================================================}
-#pragma float_control(pop)
+// =====================================================================================================================================
 // Lote Shadows.cpp (prefijo Shadows). Anadir AL FINAL de source/game_sa/X87Math.cpp (usa UnsignedAsX87, definida mas arriba, y ShadowSqrtCpp).
 // Regla comun: el EXE corre la x87 a 24 bits de mantisa con exponente extendido y no guarda entre operaciones; por eso los intermedios son
 // `double` (un volcado a pila no los redondea a float y el rango de un double cubre el de la x87 a 24 bits) y solo lo que el EXE guarda con
@@ -18890,7 +18889,8 @@ __declspec(noinline) void __cdecl AcquaintanceDeltaCpp(const float* other, const
 __declspec(noinline) bool __cdecl AcquaintanceInViewCpp(const float* v, const float* fwd, float threshold) {
     const double dot = (double(v[2]) * double(fwd[2]) + double(v[1]) * double(fwd[1])) + double(v[0]) * double(fwd[0]);
     return dot > double(threshold);
-=======
+}
+#pragma float_control(pop)
 // Lote 153A (Fn153A).
 #pragma float_control(precise, on, push)
 // 0x4F56D0 (CAEVehicleAudioEntity::UpdateVehicleEngineSoundExe): `fld dword [volumen]; fadd dword [m_EventVolume]; fstp dword [sonido+14h]`. El primer operando va al registro (fld) y el segundo se suma desde memoria (fadd); la

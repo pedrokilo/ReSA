@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/11/2026 (Ciudad de México):** 880 grupos / 9863 funciones reconstruidas; 9863 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/11/2026 (Ciudad de México):** 883 grupos / 9887 funciones reconstruidas; 9887 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo D: Falta: sin llamadas ni vtable (¿muerto o por puntero?)
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-380 funciones, 58,084 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+376 funciones, 57,914 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -173,8 +173,6 @@
 | `0x0043F780` | 54 | CEntryExitManager | alta | 0 (0) |  |
 | `0x0049C440` | 54 | CShopping | baja | 0 (0) |  |
 | `0x0049C950` | 54 | CStuntJumpManager | alta | 0 (0) |  |
-| `0x004B1640` | 54 | CEventStuckInAir | baja | 0 (0) |  |
-| `0x004B1680` | 54 | CEventStuckInAir | baja | 0 (0) |  |
 | `0x0054FA10` | 54 | CPlaceable | baja | 0 (0) |  |
 | `0x0054FA60` | 54 | CPlaceable | baja | 0 (0) |  |
 | `0x0054FAB0` | 54 | CPlaceable | baja | 0 (0) |  |
@@ -263,7 +261,6 @@
 | `0x005EC3E0` | 39 | CPedAttractorManager | baja | 0 (0) |  |
 | `0x005EC820` | 39 | CPedAttractor | baja | 0 (0) |  |
 | `0x00667460` | 37 | CTaskComplexProstituteSolicit | baja | 0 (0) |  |
-| `0x0040FDD0` | 35 | CColSphere | alta | 0 (0) |  |
 | `0x004AEDC0` | 35 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x004AF100` | 35 | CEventVehicleHitAndRun | baja | 0 (0) |  |
 | `0x004F2930` | 35 | CAETwinLoopSoundEntity | alta | 0 (0) |  |
@@ -329,7 +326,6 @@
 | `0x004A8D50` | 27 | FxInfoManager_c | baja | 0 (0) |  |
 | `0x004A8D70` | 27 | FxInfoManager_c | baja | 0 (0) |  |
 | `0x004A8D90` | 27 | FxInfoManager_c | baja | 0 (0) |  |
-| `0x004CEFA0` | 27 | CAnimBlendStaticAssociation | baja | 0 (0) |  |
 | `0x004D5F20` | 27 | RpAnimBlend | alta | 0 (0) |  |
 | `0x004F3D60` | 27 | CAEUserRadioTrackManager | alta | 0 (0) |  |
 | `0x004F4110` | 27 | CAEUserRadioTrackManager | alta | 0 (0) |  |

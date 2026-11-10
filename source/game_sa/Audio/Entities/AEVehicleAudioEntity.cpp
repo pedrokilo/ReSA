@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAEVehicleAudioEntity
- * Reconstrucción: COMPLETA — 106/106 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 107/107 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 106/106 entradas.
+ * Validación registrada: 107/107 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.

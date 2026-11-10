@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/11/2026 (Ciudad de México):** 880 grupos / 9863 funciones reconstruidas; 9863 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/11/2026 (Ciudad de México):** 883 grupos / 9887 funciones reconstruidas; 9887 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-610 funciones, 92,722 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+604 funciones, 92,507 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -35,7 +35,6 @@
 | `0x0061DE60` | 185 | CTaskSimpleFightingControl | baja | 9 (9) |  |
 | `0x0059AD20` | 77 | CMaths | baja | 9 (9) |  |
 | `0x00749B20` | 65 | Win | baja | 9 (9) |  |
-| `0x004F56D0` | 44 | CAEVehicleAudioEntity | alta | 9 (9) |  |
 | `0x004C6200` | 5 | CModelInfo | alta | 9 (9) |  |
 | `0x006682D0` | 661 | CTaskComplexGoToPointAndStandStill | alta | 8 (8) |  |
 | `0x005EF980` | 659 | CPedAttractorManager | baja | 8 (8) |  |
@@ -116,7 +115,6 @@
 | `0x0053E8D0` | 63 | Game | alta | 3 (3) |  |
 | `0x00552830` | 63 | CQuadTreeNode<T> | alta | 3 (3) |  |
 | `0x0072E360` | 60 | CCullZones | baja | 6 (3) |  |
-| `0x004B5630` | 49 | CEventPool | baja | 119 (3) |  |
 | `0x00459350` | 47 | CPed | baja | 3 (3) |  |
 | `0x005335E0` | 47 | CEntity | alta | 5 (3) |  |
 | `0x0064E4B0` | 41 | CTaskComplexGoToBoatSteeringWheel | baja | 3 (3) |  |
@@ -190,7 +188,6 @@
 | `0x0074DC20` | 34 | Win | baja | 5 (2) |  |
 | `0x00454920` | 28 | CPathFind | baja | 2 (2) |  |
 | `0x0054F1E0` | 26 | CMatrixLinkList | baja | 2 (2) |  |
-| `0x006D0B10` | 25 | CAEVehicleAudioEntity | baja | 2 (2) |  |
 | `0x0057C400` | 24 | CMenuManager | alta | 2 (2) |  |
 | `0x0057C420` | 24 | CMenuManager | alta | 2 (2) |  |
 | `0x004D59E0` | 23 | CAnimManager | baja | 2 (2) |  |
@@ -370,7 +367,6 @@
 | `0x00460D80` | 87 | CTaskComplexWanderCop | baja | 2 (1) |  |
 | `0x0066C3E0` | 86 | CTaskComplexGotoDoorAndOpen | baja | 3 (1) |  |
 | `0x0074E150` | 86 | Win | baja | 9 (1) |  |
-| `0x0040FD50` | 85 | CColSphere | alta | 1 (1) |  |
 | `0x006CDC30` | 85 | CPlane | baja | 1 (1) |  |
 | `0x004CFA30` | 83 | CAnimBlendHierarchy | baja | 1 (1) |  |
 | `0x0045BF90` | 81 | CReplay | alta | 1 (1) |  |
@@ -443,7 +439,6 @@
 | `0x004A1900` | 18 | FxEmitterBP_c | alta | 1 (1) |  |
 | `0x00537A10` | 18 | CFileLoader | baja | 1 (1) |  |
 | `0x0059EA00` | 18 | BreakManager_c | baja | 1 (1) |  |
-| `0x006D0AF0` | 18 | CAEVehicleAudioEntity | baja | 1 (1) |  |
 | `0x00407A10` | 17 | CStreaming | alta | 1 (1) |  |
 | `0x004CEB60` | 16 | CAnimBlendAssociation | alta | 2 (1) |  |
 | `0x00406360` | 15 | CIplStore | baja | 1 (1) |  |
@@ -457,6 +452,7 @@
 | `0x0059EAB0` | 11 | BreakManager_c | baja | 1 (1) |  |
 | `0x005B1A80` | 11 | CCutsceneMgr | baja | 1 (1) |  |
 | `0x00632B70` | 11 | CTaskSimpleWaitForBus | baja | 1 (1) |  |
+| `0x006597B0` | 11 | CTaskComplexUseWaterCannon | alta | 1 (1) |  |
 | `0x00668240` | 11 | CTaskComplexGoToPointAndStandStill | alta | 1 (1) |  |
 | `0x0067BA70` | 11 | CTaskComplexStuckInAir | alta | 1 (1) |  |
 | `0x006C7D10` | 11 | CHeli | baja | 1 (1) |  |
@@ -467,7 +463,6 @@
 | `0x00541E50` | 5 | CPad | baja | 1 (1) |  |
 | `0x005CFA30` | 5 | FxEmitterBP_c | baja | 1 (1) |  |
 | `0x005FF860` | 5 | CEventSeenCop | baja | 2 (1) |  |
-| `0x00410390` | 4 | CColSphere | baja | 1 (1) |  |
 | `0x0044D2C0` | 3 | CPathFind | alta | 1 (1) |  |
 | `0x0044D2D0` | 3 | CPathFind | alta | 1 (1) |  |
 | `0x0044D2E0` | 3 | CPathFind | alta | 1 (1) |  |
@@ -477,7 +472,6 @@
 | `0x005531C0` | 1 | CQuadTreeNode<T> | baja | 1 (1) |  |
 | `0x005531D0` | 1 | CQuadTreeNode<T> | baja | 1 (1) |  |
 | `0x0060F8C0` | 1 | CPlayerPed | baja | 1 (1) |  |
-| `0x006D0B30` | 1 | CAEVehicleAudioEntity | baja | 5 (1) |  |
 | `0x0072F3B0` | 1 | CCullZones | baja | 1 (1) |  |
 | `0x00734610` | 1 | CVisibilityPlugins | baja | 1 (1) |  |
 | `0x00734620` | 1 | CVisibilityPlugins | baja | 1 (1) |  |
