@@ -22,9 +22,30 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleSwim.h"
 #include "TaskSimpleClimb.h"
 
+namespace {
+// 0x688A00 (sin hook): cuerpo del destructor de CTaskSimpleSwim del EXE. Funcion propia sin expansion en linea para que el banco Fn160A pueda sustituirla; la llama el destructor con borrado como el
+// `call 0x688A00` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleSwimDestructorBody(CTaskSimpleSwim* self, void* /*edx*/) { self->CTaskSimpleSwim::~CTaskSimpleSwim(); }
+
+// 0x68B0E0 (lote 160A, banco Fn160A): destructor con borrado de CTaskSimpleSwim del EXE (ranura 0 de su vtable 0x870920; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x688A00; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskSimpleSwim* __fastcall CTaskSimpleSwimScalarDeletingDestructor(CTaskSimpleSwim* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleSwimDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote160ABody_CTaskSimpleSwim() { return reinterpret_cast<uintptr_t>(&CTaskSimpleSwimDestructorBody); } // para el banco Fn160A
+
 void CTaskSimpleSwim::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleSwim, 0x870920, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleSwimScalarDeletingDestructor, "ScalarDeletingDestructor", 0x68B0E0); // lote 160A (banco Fn160A)
+    RH_ScopedVMTInstall(Clone, 0x68B050); // lote 160A: ranura 1 de la vtable 0x870920
 
     RH_ScopedInstall(Constructor, 0x688930);
     RH_ScopedVMTInstall(ProcessPed, 0x68B1C0);
@@ -38,6 +59,13 @@ void CTaskSimpleSwim::InjectHooks() {
     RH_ScopedInstall(CreateFxSystem, 0x68A9F0);
     RH_ScopedInstall(DestroyFxSystem, 0x68AA50);
 }
+// 0x68B050 (lote 160A, banco Fn160A; thiscall, `ret`, 100 bytes con marco SEH que solo desenrolla): reserva la tarea con CTask::operator new (0x61A5A0, con hook) para 0x64 bytes y, si hay memoria, llama al
+// constructor (0x688930, con hook; aqui Constructor, sin expansion en linea) con la direccion de la posicion (+0x14) y el ped (+0x20), devolviendo su EAX; sin memoria devuelve nulo. El marco SEH se omite.
+CTask* CTaskSimpleSwim::Clone() const {
+    auto* const object = static_cast<CTaskSimpleSwim*>(CTask::operator new(sizeof(CTaskSimpleSwim)));
+    return object ? object->Constructor(const_cast<CVector*>(&m_vecPos), m_pPed) : nullptr;
+}
+
 CTaskSimpleSwim* CTaskSimpleSwim::Constructor(CVector* pos, CPed* ped) { this->CTaskSimpleSwim::CTaskSimpleSwim(pos, ped); return this; }
 
 // 0x688930

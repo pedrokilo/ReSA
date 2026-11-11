@@ -164,6 +164,9 @@ public:
     /// Get uncompressed world position
     CVector GetPosition() const { return m_vPos; }
 
+    /// 0x667310 (lote 160A, banco Fn160A): escribe la posicion descomprimida (tres enteros de 16 bits en +8, +A y +C por 0.125) en el destino; no devuelve nada
+    void GetNodeCoors(CVector* out) const;
+
     CNodeAddress GetAddress() const {
         return { m_wAreaId, m_wNodeId };
     }

@@ -27,9 +27,30 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleCreateCarAndGetIn.h"
 #include "CarEnterExit.h"
 
+namespace {
+// 0x66B830 (con hook propio, Destructor): cuerpo del destructor de CTaskComplexGoToPointAnyMeans del EXE. Funcion propia sin expansion en linea para que el banco Fn160A pueda sustituirla; la llama el destructor con
+// borrado como el `call 0x66B830` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexGoToPointAnyMeansDestructorBody(CTaskComplexGoToPointAnyMeans* self, void* /*edx*/) { self->CTaskComplexGoToPointAnyMeans::~CTaskComplexGoToPointAnyMeans(); }
+
+// 0x6705B0 (lote 160A, banco Fn160A; el listado decia CTaskComplexGoToAttractor): destructor con borrado de CTaskComplexGoToPointAnyMeans del EXE (ranura 0 de su vtable 0x86FF68; thiscall, un argumento de pila,
+// `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x66B830; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexGoToPointAnyMeans* __fastcall CTaskComplexGoToPointAnyMeansScalarDeletingDestructor(CTaskComplexGoToPointAnyMeans* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexGoToPointAnyMeansDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote160ABody_CTaskComplexGoToPointAnyMeans() { return reinterpret_cast<uintptr_t>(&CTaskComplexGoToPointAnyMeansDestructorBody); } // para el banco Fn160A
+
 void CTaskComplexGoToPointAnyMeans::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGoToPointAnyMeans, 0x86FF68, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexGoToPointAnyMeansScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6705B0); // lote 160A (banco Fn160A)
+    RH_ScopedVMTInstall(Clone, 0x66D1E0); // lote 160A: ranura 1 de la vtable 0x86FF68
 
     RH_ScopedOverloadedInstall(Constructor, "1", 0x66B720, CTaskComplexGoToPointAnyMeans*(CTaskComplexGoToPointAnyMeans::*)(int32, CVector const&, float, int32));
     RH_ScopedOverloadedInstall(Constructor, "2", 0x66B790, CTaskComplexGoToPointAnyMeans*(CTaskComplexGoToPointAnyMeans::*)(int32, CVector const&, CVehicle*, float, int32));
@@ -51,6 +72,14 @@ CTaskComplexGoToPointAnyMeans::CTaskComplexGoToPointAnyMeans(int32 moveState, co
     m_bRefreshTime = false;
     m_bResetStartTime = false;
     m_Vehicle = nullptr;
+}
+
+// 0x66D1E0 (lote 160A, banco Fn160A; thiscall, `ret`, 112 bytes con marco SEH que solo desenrolla): reserva la tarea con CTask::operator new (0x61A5A0, con hook) para 0x34 bytes y, si hay memoria, llama al
+// constructor 0x66B790 (con hook; aqui Constructor, sin expansion en linea) con (estado de movimiento +0x18, direccion de la posicion +0xC, vehiculo +0x20, radio +0x1C, modelo +0x24), devolviendo su EAX; sin
+// memoria devuelve nulo. El marco SEH se omite.
+CTask* CTaskComplexGoToPointAnyMeans::Clone() const {
+    auto* const object = static_cast<CTaskComplexGoToPointAnyMeans*>(CTask::operator new(sizeof(CTaskComplexGoToPointAnyMeans)));
+    return object ? object->Constructor(static_cast<int32>(m_MoveState), m_Pos, m_Vehicle, m_fRadius, m_nModelId) : nullptr;
 }
 
 // optimized (DRY)

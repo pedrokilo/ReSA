@@ -264,6 +264,20 @@ void CPathNode::InjectHooks() {
     RH_ScopedClass(CPathNode);
     RH_ScopedCategoryGlobal();
     RH_ScopedInstall(GetPosition, 0x420A10);
+    RH_ScopedInstall(GetNodeCoors, 0x667310); // lote 160A (banco Fn160A)
+}
+
+// 0x667310 (lote 160A, banco Fn160A; thiscall, destino en la pila, `ret 4`, 99 bytes; el listado decia CTaskComplexProstituteSolicit: lo llaman 0x66F0CC, 0x66F19C, 0x66F262 y 0x66F313 con un nodo de
+// CPathFind::m_pPathNodes): lee los tres enteros de 16 bits con signo (+8, +A y +C) ANTES de escribir nada (el destino puede solaparse con el nodo) y escribe (x, y, z) = entero * 0.125 (0x858C48; exacto en
+// float). No devuelve nada (EAX queda con los bits de z).
+void CPathNode::GetNodeCoors(CVector* out) const {
+    const int16* const raw = reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(this) + 8);
+    const int32 x = raw[0];
+    const int32 y = raw[1];
+    const int32 z = raw[2];
+    out->x = static_cast<float>(x) * 0.125f;
+    out->y = static_cast<float>(y) * 0.125f;
+    out->z = static_cast<float>(z) * 0.125f;
 }
 
 void CCarPathLink::InjectHooks() {

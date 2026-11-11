@@ -37,9 +37,29 @@ auto& gLastTouchTimeDelta = StaticRef<uint32>(0xC19664);
 auto& gDuckAnimBlendData = StaticRef<float>(0x8D2FF0); // 4.0f
 auto& gbUnknown_8D2FE8 = StaticRef<bool>(0x8D2FE8);     // default value true; also always true
 
+namespace {
+// 0x6857D0 (con hook propio, Destructor): cuerpo del destructor de CTaskSimplePlayerOnFoot del EXE. Funcion propia sin expansion en linea para que el banco Fn160A pueda sustituirla; la llama el destructor con borrado
+// como el `call 0x6857D0` del EXE.
+__declspec(noinline) void __fastcall CTaskSimplePlayerOnFootDestructorBody(CTaskSimplePlayerOnFoot* self, void* /*edx*/) { self->CTaskSimplePlayerOnFoot::~CTaskSimplePlayerOnFoot(); }
+
+// 0x68B0C0 (lote 160A, banco Fn160A; el listado decia CTaskSimplePlayerOnFoot y lo es): destructor con borrado de CTaskSimplePlayerOnFoot del EXE (ranura 0 de su vtable 0x8708EC; thiscall, un argumento de pila,
+// `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6857D0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskSimplePlayerOnFoot* __fastcall CTaskSimplePlayerOnFootScalarDeletingDestructor(CTaskSimplePlayerOnFoot* self, void* /*edx*/, uint8 flags) {
+    CTaskSimplePlayerOnFootDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote160ABody_CTaskSimplePlayerOnFoot() { return reinterpret_cast<uintptr_t>(&CTaskSimplePlayerOnFootDestructorBody); } // para el banco Fn160A
+
 void CTaskSimplePlayerOnFoot::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimplePlayerOnFoot, 0x8708ec, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimplePlayerOnFootScalarDeletingDestructor, "ScalarDeletingDestructor", 0x68B0C0); // lote 160A (banco Fn160A)
 
     RH_ScopedInstall(Constructor, 0x685750);
     RH_ScopedInstall(Destructor, 0x6857D0);

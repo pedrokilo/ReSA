@@ -17,7 +17,7 @@ public:
     CTaskComplexGoToAttractor(CPedAttractor* attractor, CVector const& pos, float heading, float attrTime, int32 queueNumber, eMoveState ms);
     ~CTaskComplexGoToAttractor() override = default; // 0x66B6A0
 
-    eTaskType GetTaskType() const override { return Type;  }
+    eTaskType GetTaskType() const override; // 0x66B690 (lote 160A, banco Fn160A)
     CTask* Clone() const override { return new CTaskComplexGoToAttractor(m_Attractor, m_vecAttrPosn, m_fAttrHeading, m_fAttrTime, m_nQueueNumber, m_MoveState); } // 0x66D130
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;

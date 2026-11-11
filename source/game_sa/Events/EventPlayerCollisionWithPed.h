@@ -16,8 +16,8 @@ public:
     CEventPlayerCollisionWithPed(int16 pieceType, float damageIntensity, CPed* victim, const CVector& collisionImpactVelocity, const CVector& collisionPos, eMoveState moveState, eMoveState victimMoveState);
     ~CEventPlayerCollisionWithPed() override = default;
 
-    eEventType GetEventType() const override { return EVENT_PLAYER_COLLISION_WITH_PED; }
-    CEventPlayerCollisionWithPed* Clone() const noexcept override { return new CEventPlayerCollisionWithPed(m_pieceType, m_damageIntensity, m_victim, m_collisionImpactVelocity, m_collisionPos, m_movestate, m_victimMoveState); }
+    eEventType GetEventType() const override; // 0x5FEE90 (lote 160A, banco Fn160A)
+    CEventPlayerCollisionWithPed* Clone() const noexcept override; // 0x5FEEA0 (lote 160A, banco Fn160A)
 
 private:
     friend void InjectHooksMain();

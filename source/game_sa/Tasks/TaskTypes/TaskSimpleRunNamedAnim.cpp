@@ -38,6 +38,13 @@ CTaskSimpleRunNamedAnim* __fastcall CTaskSimpleRunNamedAnimScalarDeletingDestruc
     }
     return self;
 }
+
+// 0x667460 (lote 160A, banco Fn160A; thiscall, `ret`, 37 bytes; el listado decia CTaskComplexProstituteSolicit; sin llamadores ni referencias en el EXE; vecina de las comparaciones de nombre de animacion
+// 0x6673B0 y 0x667440 y del constructor 0x6674B0): compara el primer byte de la cadena de ECX con el de la cadena vacia del EXE (0x858B54, un solo byte, `repe cmpsb` con ECX = 1) y devuelve AL = 1 si son
+// iguales (cadena vacia) y 0 si no. La clase propietaria no se pudo identificar: se deja como funcion global enganchada de forma nombrada.
+__declspec(noinline) bool __fastcall AnimNameIsEmpty(const char* name, void* /*edx*/) {
+    return *name == 0;
+}
 } // namespace
 
 uintptr_t Lote150ABody_CTaskSimpleRunNamedAnim() { return reinterpret_cast<uintptr_t>(&CTaskSimpleRunNamedAnimDestructorBody); } // para el banco Fn150A
@@ -45,6 +52,7 @@ uintptr_t Lote150ABody_CTaskSimpleRunNamedAnim() { return reinterpret_cast<uintp
 void CTaskSimpleRunNamedAnim::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleRunNamedAnim, 0x86D54C, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(AnimNameIsEmpty, "AnimNameIsEmpty", 0x667460); // lote 160A (banco Fn160A)
     RH_ScopedNamedGlobalInstall(CTaskSimpleRunNamedAnimScalarDeletingDestructor, "ScalarDeletingDestructor", 0x61BEF0); // lote 150A (banco Fn150A)
 
     RH_ScopedOverloadedInstall(Constructor, "Default", 0x6674B0, CTaskSimpleRunNamedAnim*(CTaskSimpleRunNamedAnim::*)());

@@ -56,7 +56,7 @@ public:
     CTaskSimpleSwim(const CVector* pos, CPed* ped);
     ~CTaskSimpleSwim() override;
 
-    CTask* Clone() const override { return new CTaskSimpleSwim{&m_vecPos, m_pPed}; } // 0x68B050
+    CTask* Clone() const override; // 0x68B050 (lote 160A, banco Fn160A)
     eTaskType GetTaskType() const override { return Type; }; // 0x6889F0
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;
@@ -75,6 +75,6 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    CTaskSimpleSwim* Constructor(CVector* pos, CPed* ped);
+    __declspec(noinline) CTaskSimpleSwim* Constructor(CVector* pos, CPed* ped);
 };
 VALIDATE_SIZE(CTaskSimpleSwim, 0x64);

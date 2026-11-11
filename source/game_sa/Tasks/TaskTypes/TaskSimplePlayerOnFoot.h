@@ -56,7 +56,7 @@ private:
         return this;
     }
 
-    // 0x68B0C0
+    // 0x6857D0
     CTaskSimplePlayerOnFoot* Destructor() {
         this->CTaskSimplePlayerOnFoot::~CTaskSimplePlayerOnFoot();
         return this;

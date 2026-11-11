@@ -34,7 +34,7 @@ public:
     ~CTaskSimpleClimb() override;
 
     eTaskType GetTaskType() const override; // 0x67A1C0 (lote 157A, banco Fn157A)
-    CTask*    Clone() const override { return new CTaskSimpleClimb(m_ClimbEntity, m_HandholdPos, m_HandholdHeading, m_SurfaceType, (eClimbHeights)m_HeightForAnim, m_HasToForceClimb); }
+    CTask*    Clone() const override; // 0x67C610 (lote 160A, banco Fn160A)
     bool      ProcessPed(CPed* ped) override;
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
 
@@ -86,7 +86,7 @@ public:
     static void InjectHooks();
 
 private:
-    CTaskSimpleClimb* Constructor(CEntity* pClimbEnt, const CVector& vecTarget, float fHeading, eSurfaceType nSurfaceType, eClimbHeights nHeight, bool bForceClimb) {
+    __declspec(noinline) CTaskSimpleClimb* Constructor(CEntity* pClimbEnt, const CVector& vecTarget, float fHeading, eSurfaceType nSurfaceType, eClimbHeights nHeight, bool bForceClimb) {
         this->CTaskSimpleClimb::CTaskSimpleClimb(pClimbEnt, vecTarget, fHeading, nSurfaceType, nHeight, bForceClimb);
         return this;
     }

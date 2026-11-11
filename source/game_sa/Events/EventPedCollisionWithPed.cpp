@@ -21,7 +21,7 @@ END GENERATED HOOK STATUS */
 #include "EventPedCollisionWithPed.h"
 #include "TaskComplexAvoidOtherPedWhileWandering.h"
 
-namespace {
+namespace CEventBody {
 // 0x4ACA70 (thiscall, sin argumentos de pila, `ret`): cuerpo no virtual de ~CEventPedCollisionWithPed que usan los destructores del EXE. Deja la vtable de CEventPedCollisionWithPed del EXE (0x85AC68), libera la referencia de m_victim (+0x14) con CEntity::CleanUpOldReference (0x571A00) si no son nulas
 // y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 107A, banco Fn107A.)
 void __fastcall PedCollisionWithPedDestructorBody(CEventPedCollisionWithPed* self, void* /*edx*/) {
@@ -29,13 +29,13 @@ void __fastcall PedCollisionWithPedDestructorBody(CEventPedCollisionWithPed* sel
     CEntity::SafeCleanUpRef(self->m_victim);
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }
-} // namespace
+} // namespace CEventBody
 
 void CEventPedCollisionWithPed::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventPedCollisionWithPed, 0x85AC68, 16);
     RH_ScopedCategory("Events");
-    RH_ScopedNamedGlobalInstall(PedCollisionWithPedDestructorBody, "Destructor", 0x4ACA70);
+    RH_ScopedNamedGlobalInstall(CEventBody::PedCollisionWithPedDestructorBody, "Destructor", 0x4ACA70);
 
     RH_ScopedInstall(Constructor, 0x4AC990);
     RH_ScopedVMTInstall(GetEventType, 0x4ACA40);     // lote 137A (banco Fn137A)

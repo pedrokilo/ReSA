@@ -22,9 +22,9 @@ public:
     explicit CTaskComplexJump(eForceClimb forceClimb = CTaskComplexJump::eForceClimb::OK);
     ~CTaskComplexJump() override = default;
 
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x67A050 (lote 160A, banco Fn160A)
     CTask* Clone() const override;
-    CTask* ControlSubTask(CPed* ped) override { return m_pSubTask; }
+    CTask* ControlSubTask(CPed* ped) override; // 0x67A100 (lote 160A, banco Fn160A)
     CTask* CreateFirstSubTask(CPed* ped) override;
     CTask* CreateNextSubTask(CPed* ped) override;
     bool   MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;

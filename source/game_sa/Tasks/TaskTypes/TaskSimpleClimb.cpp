@@ -139,12 +139,25 @@ __declspec(noinline) void __fastcall CTaskSimpleClimbDestructorBodyExe(CTaskSimp
     }
     self->CTask::Destructor();
 }
+
+// 0x67DBC0 (lote 160A, banco Fn160A; el listado decia CTaskComplexJump): destructor con borrado de CTaskSimpleClimb del EXE (ranura 0 de su vtable 0x87059C; thiscall, un argumento de pila, `ret 4`, 30 bytes:
+// `push esi; mov esi,ecx; call 0x67A1D0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x67A1D0, con hook;
+// aqui CTaskSimpleClimbDestructorBodyExe), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+CTaskSimpleClimb* __fastcall CTaskSimpleClimbScalarDeletingDestructor(CTaskSimpleClimb* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleClimbDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
 } // namespace
 
 void CTaskSimpleClimb::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleClimb, 0x87059C, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskSimpleClimbDestructorBodyExe, "DestructorBody", 0x67A1D0); // lote 157A (banco Fn157A)
+    RH_ScopedNamedGlobalInstall(CTaskSimpleClimbScalarDeletingDestructor, "ScalarDeletingDestructor", 0x67DBC0); // lote 160A (banco Fn160A)
+    RH_ScopedVMTInstall(Clone, 0x67C610); // lote 160A: ranura 1 de la vtable 0x87059C
 
     RH_ScopedInstall(ScanToGrabSectorList<CPtrListSingleLink<CPhysical*>>, 0x67DE10);
     RH_ScopedInstall(ScanToGrab, 0x67FD30);
@@ -167,6 +180,14 @@ void CTaskSimpleClimb::InjectHooks() {
 // 0x67A1C0 (lote 157A, banco Fn157A; thiscall, `ret`, 6 bytes: `mov eax,0FEh`): TASK_SIMPLE_CLIMB (254); no lee el objeto.
 eTaskType CTaskSimpleClimb::GetTaskType() const {
     return Type;
+}
+
+// 0x67C610 (lote 160A, banco Fn160A; thiscall, `ret`, 122 bytes con marco SEH que solo desenrolla): reserva la tarea con CTask::operator new (0x61A5A0, con hook) para 0x30 bytes y, si hay memoria, llama al
+// constructor 0x67A110 (con hook; aqui Constructor, sin expansion en linea) con (entidad +0x24, direccion del punto de agarre +0x18, rumbo +0x14, superficie +0xF, altura +0xD, forzar +0xB; los tres ultimos como
+// bytes), devolviendo su EAX; sin memoria devuelve nulo. El marco SEH se omite.
+CTask* CTaskSimpleClimb::Clone() const {
+    auto* const object = static_cast<CTaskSimpleClimb*>(CTask::operator new(sizeof(CTaskSimpleClimb)));
+    return object ? object->Constructor(m_ClimbEntity, m_HandholdPos, m_HandholdHeading, m_SurfaceType, static_cast<eClimbHeights>(m_HeightForAnim), m_HasToForceClimb) : nullptr;
 }
 
 // 0x67A110

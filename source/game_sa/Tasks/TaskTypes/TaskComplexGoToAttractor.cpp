@@ -54,8 +54,16 @@ void CTaskComplexGoToAttractor::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x66B6A0);
 
     RH_ScopedVMTInstall(Clone, 0x66D130);
+    RH_ScopedVMTInstall(GetTaskType, 0x66B690);      // lote 160A (banco Fn160A): ranura 4 de la vtable 0x86FF3C
+    RH_ScopedVMTInstall(MakeAbortable, 0x66B6B0);    // lote 160A: ranura 6
+    RH_ScopedVMTInstall(ControlSubTask, 0x66B710);   // lote 160A: ranura 10
     RH_ScopedVMTInstall(CreateNextSubTask, 0x66B6C0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x670420);
+}
+
+// 0x66B690 (lote 160A, banco Fn160A; thiscall, `ret`, 6 bytes: `mov eax,393h`): TASK_COMPLEX_GO_TO_ATTRACTOR (915); no lee el objeto.
+eTaskType CTaskComplexGoToAttractor::GetTaskType() const {
+    return Type;
 }
 
 // 0x66B640
@@ -68,7 +76,7 @@ CTaskComplexGoToAttractor::CTaskComplexGoToAttractor(CPedAttractor* attractor, c
     m_nQueueNumber = queueNumber;
 }
 
-// 0x66B6B0
+// 0x66B6B0 (lote 160A, banco Fn160A; thiscall, `ret 0Ch`, 8 bytes: `mov ecx,[ecx+8]; mov eax,[ecx]; jmp [eax+18h]`): salto a la ranura 6 (MakeAbortable) de la subtarea (+8) con los mismos tres argumentos.
 bool CTaskComplexGoToAttractor::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
     return m_pSubTask->MakeAbortable(ped, priority, event);
 }
@@ -99,7 +107,7 @@ CTask* CTaskComplexGoToAttractor::CreateFirstSubTask(CPed* ped) {
     return sequence;
 }
 
-// 0x66B710
+// 0x66B710 (lote 160A, banco Fn160A; thiscall, `ret 4`, 6 bytes: `mov eax,[ecx+8]; ret 4`): devuelve la subtarea (+8); no lee el ped.
 CTask* CTaskComplexGoToAttractor::ControlSubTask(CPed* ped) {
     return m_pSubTask;
 }

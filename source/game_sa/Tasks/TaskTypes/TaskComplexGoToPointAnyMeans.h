@@ -26,7 +26,7 @@ public:
     ~CTaskComplexGoToPointAnyMeans() override;
 
     eTaskType GetTaskType() const override { return Type; } // 0x66B780
-    CTask* Clone() const override { return new CTaskComplexGoToPointAnyMeans(m_MoveState, m_Pos, m_Vehicle, m_fRadius, m_nModelId); } // 0x66D1E0
+    CTask* Clone() const override; // 0x66D1E0 (lote 160A, banco Fn160A)
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;
     CTask* ControlSubTask(CPed* ped) override;
@@ -37,7 +37,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
     CTaskComplexGoToPointAnyMeans* Constructor(int32 a2, CVector const& posn, float a4, int32 a5) { this->CTaskComplexGoToPointAnyMeans::CTaskComplexGoToPointAnyMeans(a2, posn, a4, a5); return this; }
-    CTaskComplexGoToPointAnyMeans* Constructor(int32 moveState, CVector const& posn, CVehicle* vehicle, float radius, int32 a6) { this->CTaskComplexGoToPointAnyMeans::CTaskComplexGoToPointAnyMeans(moveState, posn, vehicle, radius, a6); return this; }
+    __declspec(noinline) CTaskComplexGoToPointAnyMeans* Constructor(int32 moveState, CVector const& posn, CVehicle* vehicle, float radius, int32 a6) { this->CTaskComplexGoToPointAnyMeans::CTaskComplexGoToPointAnyMeans(moveState, posn, vehicle, radius, a6); return this; }
     CTaskComplexGoToPointAnyMeans* Destructor() { this->CTaskComplexGoToPointAnyMeans::~CTaskComplexGoToPointAnyMeans(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexGoToPointAnyMeans, 0x34);

@@ -29,10 +29,12 @@ public:
     eMoveState GetVictimMoveState() const { return m_victimMoveState; }
     eMoveState GetMoveState() const { return m_movestate; }
 
+protected:
+    // 0x4AC990 (lote 160A: protegido y sin expansion en linea; lo llaman los Clone de CEventPedCollisionWithPlayer y CEventPlayerCollisionWithPed y el banco Fn160A lo sustituye)
+    __declspec(noinline) CEventPedCollisionWithPed* Constructor(int16 pieceType, float damageIntensity, CPed* victim, const CVector& collisionImpactVelocity, const CVector& collisionPos, eMoveState moveState, eMoveState victimMoveState);
+
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
-    CEventPedCollisionWithPed* Constructor(int16 pieceType, float damageIntensity, CPed* victim, const CVector& collisionImpactVelocity, const CVector& collisionPos, eMoveState moveState, eMoveState victimMoveState);
-
 };
 VALIDATE_SIZE(CEventPedCollisionWithPed, 0x34);

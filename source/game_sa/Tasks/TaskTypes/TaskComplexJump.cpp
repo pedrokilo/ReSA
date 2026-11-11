@@ -61,6 +61,18 @@ void CTaskComplexJump::InjectHooks() {
     RH_ScopedVMTInstall(CreateNextSubTask, 0x67FC00);
     RH_ScopedVMTInstall(Clone, 0x67C5A0);
     RH_ScopedVMTInstall(MakeAbortable, 0x67A070);
+    RH_ScopedVMTInstall(GetTaskType, 0x67A050);    // lote 160A (banco Fn160A): ranura 4 de la vtable 0x870570
+    RH_ScopedVMTInstall(ControlSubTask, 0x67A100); // lote 160A: ranura 10
+}
+
+// 0x67A050 (lote 160A, banco Fn160A; thiscall, `ret`, 6 bytes: `mov eax,0D3h`): TASK_COMPLEX_JUMP (211); no lee el objeto.
+eTaskType CTaskComplexJump::GetTaskType() const {
+    return Type;
+}
+
+// 0x67A100 (lote 160A, banco Fn160A; thiscall, `ret 4`, 6 bytes: `mov eax,[ecx+8]; ret 4`): devuelve la subtarea (+8); no lee el ped.
+CTask* CTaskComplexJump::ControlSubTask(CPed* /*ped*/) {
+    return m_pSubTask;
 }
 
 CTaskComplexJump* CTaskComplexJump::Constructor(eForceClimb jumpType) {

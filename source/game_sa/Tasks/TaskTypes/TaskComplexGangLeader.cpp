@@ -48,9 +48,29 @@ constexpr AnimationId s_gangTalkAnims[]{
 AnimationId GangDrinkAnimOfPed(CPed* ped);
 AnimationId GangSmokeAnimOfPed(CPed* ped);
 
+namespace {
+// 0x65DF30 (con hook propio, Destructor): cuerpo del destructor de CTaskComplexGangLeader del EXE. Funcion propia sin expansion en linea para que el banco Fn160A pueda sustituirla; la llama el destructor con borrado
+// como el `call 0x65DF30` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexGangLeaderDestructorBody(CTaskComplexGangLeader* self, void* /*edx*/) { self->CTaskComplexGangLeader::~CTaskComplexGangLeader(); }
+
+// 0x662350 (lote 160A, banco Fn160A; el listado decia CTaskComplexProstituteSolicit): destructor con borrado de CTaskComplexGangLeader del EXE (ranura 0 de su vtable 0x86F8FC; thiscall, un argumento de pila,
+// `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x65DF30; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase,
+// libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
+CTaskComplexGangLeader* __fastcall CTaskComplexGangLeaderScalarDeletingDestructor(CTaskComplexGangLeader* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexGangLeaderDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote160ABody_CTaskComplexGangLeader() { return reinterpret_cast<uintptr_t>(&CTaskComplexGangLeaderDestructorBody); } // para el banco Fn160A
+
 void CTaskComplexGangLeader::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexGangLeader, 0x86F8FC, 12);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexGangLeaderScalarDeletingDestructor, "ScalarDeletingDestructor", 0x662350); // lote 160A (banco Fn160A)
 
     RH_ScopedGlobalInstall(GangDrinkAnimOfPed, 0x65E6F0);
     RH_ScopedGlobalInstall(GangSmokeAnimOfPed, 0x65E710);
