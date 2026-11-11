@@ -14,6 +14,7 @@ CTaskComplexSeekEntityRadiusAngleOffset::CreateFirstSubTask,0x00000000,hooks.csv
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::CreateFirstSubTask,0x00000000,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,253,C++,plantilla genérica
 CTaskComplexSeekEntityRadiusAngleOffset::ControlSubTask,0x00000000,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,282,C++,plantilla heredada
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::ControlSubTask,0x00000000,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,282,C++,plantilla genérica
+CTaskComplexSeekEntityStandard::ScalarDeletingDestructor,0x0046AD50,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,470,C++,plantilla heredada
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::Constructor,0x00661DC0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,480,C++,plantilla genérica
 CTaskComplexSeekEntityStandard::Destructor,0x0046AD70,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,496,C++,plantilla heredada
 CWorld::TestForBuildingsOnTopOfEachOther<CPtrListDoubleLink<CPhysical*>>-,0x00563950,hooks.csv,1,1,source/game_sa/World.cpp,549,C++,plantilla genérica

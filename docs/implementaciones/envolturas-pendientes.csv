@@ -210,4 +210,3 @@ class,function,address,source,origins
 (biblioteca) RenderWare SDK,RxPipelineExecute,0x00805710,source/game_sa/RenderWare/rw/rwcore.cpp:82,cohorte nuevo 2026-10-17 (biblioteca)
 (biblioteca) RenderWare SDK,RxPipelineNodeCloneDefinition,0x008059C0,source/game_sa/RenderWare/rw/rwcore.cpp:166,cohorte nuevo 2026-10-17 (biblioteca)
 (biblioteca) RenderWare SDK,RxRenderStateVectorSetDefaultRenderStateVector,0x0080EA40,source/game_sa/RenderWare/rw/rwcore.cpp:351,cohorte nuevo 2026-10-17 (biblioteca)
-(helpers y globales sin clase),CTaskSimpleTriggerLookAtDestructorBody,0x00634500,source/game_sa/Tasks/TaskTypes/TaskSimpleTriggerLookAt.cpp:26,envoltura en el código fuente

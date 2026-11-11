@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 884 grupos / 10050 funciones reconstruidas; 10050 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 11/11/2026 (Ciudad de México):** 885 grupos / 10129 funciones reconstruidas; 10129 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,158 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1081"></a>
+
+## Globales y helpers: source/game_sa/Buoyancy.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| BuoyancyMultiply3x3(const CMatrix& m, const CVector& v) | [source/game_sa/Buoyancy.cpp:32](../../source/game_sa/Buoyancy.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| BuoyancyMultiplyPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Buoyancy.cpp:41](../../source/game_sa/Buoyancy.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1082"></a>
+
+## Globales y helpers: source/game_sa/Cam.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CamExeFloat(uintptr_t address) | [source/game_sa/Cam.cpp:58](../../source/game_sa/Cam.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamAddr(T value) | [source/game_sa/Cam.cpp:64](../../source/game_sa/Cam.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamExeSin(float angle) | [source/game_sa/Cam.cpp:73](../../source/game_sa/Cam.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamExeCos(float angle) | [source/game_sa/Cam.cpp:78](../../source/game_sa/Cam.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamMultiplyMatrixVector(const CMatrix& m, const CVector& v) | [source/game_sa/Cam.cpp:85](../../source/game_sa/Cam.cpp#L85) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVector::Multiply3x3Exe 0x0059C790 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamMultiplyVectorMatrix(const CVector& v, const CMatrix& m) | [source/game_sa/Cam.cpp:94](../../source/game_sa/Cam.cpp#L94) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CVector::Multiply3x3VMExe 0x0059C810 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| WrapAngleKeepEdx(float* angle) | [source/game_sa/Cam.cpp:152](../../source/game_sa/Cam.cpp#L152) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| LookSideOrbit(float directionX,float directionY,float sign,float distance,float targetX,float targetY,float& outputX,float& outputY) | [source/game_sa/Cam.cpp:676](../../source/game_sa/Cam.cpp#L676) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCam::LookRight 0x00520E40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamVelocityInverseStep(float step) | [source/game_sa/Cam.cpp:794](../../source/game_sa/Cam.cpp#L794) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamVehicleTargetSpeed(float forwardX,float forwardY,float velocityX,float velocityY) | [source/game_sa/Cam.cpp:801](../../source/game_sa/Cam.cpp#L801) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamVehicleSmoothedSpeed(float previous,float target) | [source/game_sa/Cam.cpp:807](../../source/game_sa/Cam.cpp#L807) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamPowerComplement(float base,float step) | [source/game_sa/Cam.cpp:814](../../source/game_sa/Cam.cpp#L814) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| DeadCamWave(float elapsed, const CVector& side, const CVector& target) | [source/game_sa/Cam.cpp:1228](../../source/game_sa/Cam.cpp#L1228) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamAimHeading355(float frontX, float frontY, float headingOffset) | [source/game_sa/Cam.cpp:1548](../../source/game_sa/Cam.cpp#L1548) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamAimOffsets355(float fov, float& horizontal, float& vertical) | [source/game_sa/Cam.cpp:1554](../../source/game_sa/Cam.cpp#L1554) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamAimTargetAngles355(const CVector& target, const CVector& focal, float& horizontal, float& flat, float& pitch) | [source/game_sa/Cam.cpp:1560](../../source/game_sa/Cam.cpp#L1560) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamAimProjection355(CCam* cam, const CVector& focal, uint32 rowOffset) | [source/game_sa/Cam.cpp:1568](../../source/game_sa/Cam.cpp#L1568) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamAimMeleeBlend355(float desiredHorizontal,float desiredVertical,float desiredBlend) | [source/game_sa/Cam.cpp:1575](../../source/game_sa/Cam.cpp#L1575) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamAimMouseAngles355(CCam* cam) | [source/game_sa/Cam.cpp:1580](../../source/game_sa/Cam.cpp#L1580) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamAimVehicleResetPitch355(float clampedZ,float initialAlpha) | [source/game_sa/Cam.cpp:1584](../../source/game_sa/Cam.cpp#L1584) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamPower(float base, float step) | [source/game_sa/Cam.cpp:1827](../../source/game_sa/Cam.cpp#L1827) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| MouseCameraStick(const CPad* pad, bool vertical) | [source/game_sa/Cam.cpp:1833](../../source/game_sa/Cam.cpp#L1833) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| TwoPlayerCameraVisible(const CVector& source) | [source/game_sa/Cam.cpp:1837](../../source/game_sa/Cam.cpp#L1837) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| TwoPlayerCameraGeometry(CCam* cam, float beta, CVector& source, CVector& front, CVector& target) | [source/game_sa/Cam.cpp:1844](../../source/game_sa/Cam.cpp#L1844) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| TwoPlayerChangeCamera(const CPad* pad) | [source/game_sa/Cam.cpp:1867](../../source/game_sa/Cam.cpp#L1867) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamShootingSourceZ355(float alpha, float radius, float targetZ) | [source/game_sa/Cam.cpp:1975](../../source/game_sa/Cam.cpp#L1975) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCam::Process_Cam_TwoPlayer_InCarAndShooting 0x00519810 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamShootingOrbit355(CCam* cam, const CVector& target, float excess) | [source/game_sa/Cam.cpp:1982](../../source/game_sa/Cam.cpp#L1982) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamShootingTilt355(CCam* cam, CVehicle* vehicle, float wantedAlpha) | [source/game_sa/Cam.cpp:1990](../../source/game_sa/Cam.cpp#L1990) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamShootingFov355(CCam* cam, CVehicle* vehicle) | [source/game_sa/Cam.cpp:1996](../../source/game_sa/Cam.cpp#L1996) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamTwoCarsBlend355(CCam* cam,const CVector* firstPos,const CVector* secondPos,const CVector* firstSource,const CVector* secondSource,const CVector* towardSecond,const CVector* towardFirst,const CVector* side,float blend) | [source/game_sa/Cam.cpp:2107](../../source/game_sa/Cam.cpp#L2107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCam::Process_Cam_TwoPlayer_Separate_Cars 0x00513510 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamTwoCarsSources355(const CVector& first, const CVector& second, const CVector& between, float firstHeight, float secondHeight, CVector& firstSource, CVector& secondSource) | [source/game_sa/Cam.cpp:2117](../../source/game_sa/Cam.cpp#L2117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| BirdyCameraEase(float ratio, float from, float to) | [source/game_sa/Cam.cpp:2230](../../source/game_sa/Cam.cpp#L2230) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCam::Process_DW_BirdyCam 0x0051B850 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| BirdyLampHeight355(float pointZ,float height,int randomValue) | [source/game_sa/Cam.cpp:2237](../../source/game_sa/Cam.cpp#L2237) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamManFov(const CVector& target, const CVector& source, float progress) | [source/game_sa/Cam.cpp:2330](../../source/game_sa/Cam.cpp#L2330) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| HeliChaseInitialFov(float progress, float duration, float from, float to) | [source/game_sa/Cam.cpp:2384](../../source/game_sa/Cam.cpp#L2384) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| HeliChaseReturnFov355(int32 now, int32 start, int32 end, float from, float to) | [source/game_sa/Cam.cpp:2392](../../source/game_sa/Cam.cpp#L2392) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| HeliChaseDistanceFov355(const CVector& camera, const CVector& dest, float progress, float duration, float from, float to, bool initial, float nearDistance, float farDistance, float reduction) | [source/game_sa/Cam.cpp:2401](../../source/game_sa/Cam.cpp#L2401) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PlaneOrbitWave(const CVector& up, float amplitude, int32 cycles, int32 now, int32 start, int32 end) | [source/game_sa/Cam.cpp:2516](../../source/game_sa/Cam.cpp#L2516) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ProcessPlaneOrbit(CCam* cam, bool second) | [source/game_sa/Cam.cpp:2523](../../source/game_sa/Cam.cpp#L2523) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo gLastFrameProcessedDWCineyCam: source/game_sa/Cam.cpp:45 (0x008CCB9C); Posible dato fijo pIgnoreEntity: source/game_sa/World.h:67 (0x00B7CD68) |
+| PlaneSpotterEase(float ratio,float from,float to) | [source/game_sa/Cam.cpp:2613](../../source/game_sa/Cam.cpp#L2613) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PlaneSpotterRandomCoordinate(int randomValue, float range, float halfRange, float origin) | [source/game_sa/Cam.cpp:2618](../../source/game_sa/Cam.cpp#L2618) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamApplyUnderwaterBlurInlined() | [source/game_sa/Cam.cpp:2780](../../source/game_sa/Cam.cpp#L2780) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x008CC7A4 |
+| CamFollowCarBetaBlend355(float betaInput,float betaCorrection,float maximumSpeed,float smoothing,float previous) | [source/game_sa/Cam.cpp:2878](../../source/game_sa/Cam.cpp#L2878) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCam::Process_FollowCar_SA 0x005245B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowCarHistory355(const CVector& focal,const CVector& front,float radius) | [source/game_sa/Cam.cpp:2886](../../source/game_sa/Cam.cpp#L2886) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowCarFinalHistory355(CCam* cam,const CVector& focal,float alpha,float historyDistance,float distance) | [source/game_sa/Cam.cpp:2894](../../source/game_sa/Cam.cpp#L2894) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowCarBetaCorrection355(CCam* cam,CVehicle* vehicle,uint32 rowOffset) | [source/game_sa/Cam.cpp:2905](../../source/game_sa/Cam.cpp#L2905) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowCarActualDistance355(const CVector& focal, const CVector& history) | [source/game_sa/Cam.cpp:2913](../../source/game_sa/Cam.cpp#L2913) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowCarAutoAlpha355(float base,float step,float wanted,float previous,float maximum) | [source/game_sa/Cam.cpp:2919](../../source/game_sa/Cam.cpp#L2919) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowCarAlphaBlend355(CCam* cam,float smoothing,float alphaInput,float maximumSpeed) | [source/game_sa/Cam.cpp:2925](../../source/game_sa/Cam.cpp#L2925) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamMouseFinalDistance355(CCam* cam, const CVector& target) | [source/game_sa/Cam.cpp:3139](../../source/game_sa/Cam.cpp#L3139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCam::Process_FollowPedWithMouse 0x0050F970 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamMouseChanges355(float fov,float inputX,float inputY,bool sticks,float& beta,float& alpha) | [source/game_sa/Cam.cpp:3147](../../source/game_sa/Cam.cpp#L3147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamMouseRepeatedRadius355(float fov,float nearPlane) | [source/game_sa/Cam.cpp:3159](../../source/game_sa/Cam.cpp#L3159) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamMousePerpendicularDistance355(const CVector& source,const CVector& front,float radiusFactor) | [source/game_sa/Cam.cpp:3166](../../source/game_sa/Cam.cpp#L3166) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamMouseSphereCenter355(CVector& result,const CVector& front,const CVector& source,float nearPlane) | [source/game_sa/Cam.cpp:3173](../../source/game_sa/Cam.cpp#L3173) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamMouseInitialSource355(CVector& result,const CVector& target,const CVector& front,float distance) | [source/game_sa/Cam.cpp:3178](../../source/game_sa/Cam.cpp#L3178) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamMouseFirstHitDistance355(const CVector& target,const CVector& hit) | [source/game_sa/Cam.cpp:3182](../../source/game_sa/Cam.cpp#L3182) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamMousePullSource355(CVector& source,const CVector& target) | [source/game_sa/Cam.cpp:3187](../../source/game_sa/Cam.cpp#L3187) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamMouseRecenterDelta355(const CVector& direction,float orientation,float beta) | [source/game_sa/Cam.cpp:3193](../../source/game_sa/Cam.cpp#L3193) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraRound4(float value) | [source/game_sa/Cam.cpp:3299](../../source/game_sa/Cam.cpp#L3299) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraHeadingMinusHalfPI(CPlaceable* ped) | [source/game_sa/Cam.cpp:3309](../../source/game_sa/Cam.cpp#L3309) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraRoundVector4(CVector& v) | [source/game_sa/Cam.cpp:3317](../../source/game_sa/Cam.cpp#L3317) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowPedAutoAlpha355(float base,float step,float wanted,float previous,float maximum) | [source/game_sa/Cam.cpp:3319](../../source/game_sa/Cam.cpp#L3319) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowPedPitchCorrection355(float wantedPitch, float historyPitch, float followWeight, float followMaximum, float taskWeight, float verticalOffset) | [source/game_sa/Cam.cpp:3325](../../source/game_sa/Cam.cpp#L3325) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowPedDistance355(const CVector& focal,const CVector& history,float distance,float rowMinimum,float minimumDistance) | [source/game_sa/Cam.cpp:3331](../../source/game_sa/Cam.cpp#L3331) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowPedLimitHistoryPitch355(float separation,float historyPitch,float step) | [source/game_sa/Cam.cpp:3337](../../source/game_sa/Cam.cpp#L3337) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowPedHistoryBase355(float step,float speed,float wanted) | [source/game_sa/Cam.cpp:3343](../../source/game_sa/Cam.cpp#L3343) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowPedResetHistory355(const CVector& focal, const CVector& front, float firstDistance, float secondDistance, CVector& first, CVector& second) | [source/game_sa/Cam.cpp:3349](../../source/game_sa/Cam.cpp#L3349) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowPedHistory355(float historyDelta,float verticalOffset,float beta,const CVector& focal,float historyDistance,float distance,CVector& first,CVector& second) | [source/game_sa/Cam.cpp:3355](../../source/game_sa/Cam.cpp#L3355) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamFollowPedHistoryHeading355(const CVector& front) | [source/game_sa/Cam.cpp:3363](../../source/game_sa/Cam.cpp#L3363) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| M16Asin(float input) | [source/game_sa/Cam.cpp:3564](../../source/game_sa/Cam.cpp#L3564) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| M16Direction(float horizontal, float vertical) | [source/game_sa/Cam.cpp:3569](../../source/game_sa/Cam.cpp#L3569) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamM16Blend355(float smoothing,float betaInput,float alphaInput,float* betaSpeed,float* alphaSpeed,float* betaAngle,float* alphaAngle) | [source/game_sa/Cam.cpp:3576](../../source/game_sa/Cam.cpp#L3576) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCam::Process_M16_1stPerson 0x005105C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamM16Bump355(float* beta,float* alpha,float* horz,float* vert,uint32 elapsed) | [source/game_sa/Cam.cpp:3581](../../source/game_sa/Cam.cpp#L3581) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamM16StickInputs355(bool attached,float horizontal,float vertical,float fov,float step,float* beta,float* alpha) | [source/game_sa/Cam.cpp:3587](../../source/game_sa/Cam.cpp#L3587) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamM16MouseAngles355(float horizontal,float vertical,float fov,float* beta,float* alpha) | [source/game_sa/Cam.cpp:3593](../../source/game_sa/Cam.cpp#L3593) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CamM16SideRay355(float beta,float alpha,bool positive,const CVector& source) | [source/game_sa/Cam.cpp:3598](../../source/game_sa/Cam.cpp#L3598) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| WheelCameraUp(const CVector& side, const CVector& vertical, uint32 time) | [source/game_sa/Cam.cpp:3964](../../source/game_sa/Cam.cpp#L3964) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCam::Process_WheelCam 0x00512110 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1083"></a>
+
+## Globales y helpers: source/game_sa/Camera.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * ActivePlayerPed() | [source/game_sa/Camera.cpp:64](../../source/game_sa/Camera.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| ElapsedSeconds(int32 elapsedMs) | [source/game_sa/Camera.cpp:70](../../source/game_sa/Camera.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CutSceneElapsed(float percent, uint32 finishTime) | [source/game_sa/Camera.cpp:75](../../source/game_sa/Camera.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| StoreTimeAndTimePlus(float& start, float& end, float plus) | [source/game_sa/Camera.cpp:81](../../source/game_sa/Camera.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & CameraRawField(CCamera* camera, uint32 offset) | [source/game_sa/Camera.cpp:1457](../../source/game_sa/Camera.cpp#L1457) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraLinearComponent(float from, float to, float ratio, bool ease) | [source/game_sa/Camera.cpp:1701](../../source/game_sa/Camera.cpp#L1701) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraLinearTime() | [source/game_sa/Camera.cpp:1704](../../source/game_sa/Camera.cpp#L1704) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraObbeCinemaCycle(CCamera& camera, const ObbeCinemaKind& kind) | [source/game_sa/Camera.cpp:1860](../../source/game_sa/Camera.cpp#L1860) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
+| CameraProcessPhase(uint32 elapsed,uint32 duration) | [source/game_sa/Camera.cpp:2556](../../source/game_sa/Camera.cpp#L2556) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraProcessFractionEase(double phase,float moving,float catchup,bool initial) | [source/game_sa/Camera.cpp:2559](../../source/game_sa/Camera.cpp#L2559) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraProcessAdvance(CVector& result,const CVector& base,const CVector& speed,double coefficient,int mode) | [source/game_sa/Camera.cpp:2562](../../source/game_sa/Camera.cpp#L2562) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraProcessAdvanceToward(CVector& result,const CVector& base,const CVector& destination,double coefficient,int mode) | [source/game_sa/Camera.cpp:2565](../../source/game_sa/Camera.cpp#L2565) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraProcessFovAdvance(float base,float operand,float coefficient,bool difference) | [source/game_sa/Camera.cpp:2568](../../source/game_sa/Camera.cpp#L2568) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraProcessShakeForce(float force, uint32 elapsed) | [source/game_sa/Camera.cpp:2571](../../source/game_sa/Camera.cpp#L2571) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraProcessAccumulateDistance(const CVector& current,const CVector& previous,float sum) | [source/game_sa/Camera.cpp:2574](../../source/game_sa/Camera.cpp#L2574) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraProcessAverageDistance(double sum,int32 frames) | [source/game_sa/Camera.cpp:2577](../../source/game_sa/Camera.cpp#L2577) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraProcessTruncateProduct(float value, float multiplier) | [source/game_sa/Camera.cpp:2582](../../source/game_sa/Camera.cpp#L2582) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraProcessOrthonormalise(CVector& front, CVector& up, eCamMode mode) | [source/game_sa/Camera.cpp:2585](../../source/game_sa/Camera.cpp#L2585) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraProcessMinimumDistance(CVector& source, const CVector& target) | [source/game_sa/Camera.cpp:2599](../../source/game_sa/Camera.cpp#L2599) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraFrustumDot355(const CVector& normal,const CVector& position) | [source/game_sa/Camera.cpp:2913](../../source/game_sa/Camera.cpp#L2913) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCamera::CalculateFrustumPlanes 0x00514D60 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CineyModeRotatedDirection(CVector velocity, float rotation) | [source/game_sa/Camera.cpp:3050](../../source/game_sa/Camera.cpp#L3050) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCamera::TryToStartNewCamMode 0x0051E560 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlMode(const CCam& cam) | [source/game_sa/Camera.cpp:3268](../../source/game_sa/Camera.cpp#L3268) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlModeIn(uint16 mode, std::initializer_list&lt;uint16&gt; modes) | [source/game_sa/Camera.cpp:3271](../../source/game_sa/Camera.cpp#L3271) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlSetTarget(CCam& cam, CEntity* entity) | [source/game_sa/Camera.cpp:3279](../../source/game_sa/Camera.cpp#L3279) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlCopyFixedState(CCamera& camera, bool lookingAtVector) | [source/game_sa/Camera.cpp:3286](../../source/game_sa/Camera.cpp#L3286) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlFinish(CCamera& camera, uint16 initialMode, bool cinematicAllowed) | [source/game_sa/Camera.cpp:3298](../../source/game_sa/Camera.cpp#L3298) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo gPlayerPedVisible: source/game_sa/Camera.cpp:48 (0x008CC380) |
+| CameraControlCommitJump(CCamera& camera, uint16 mode, bool lookingAtVector) | [source/game_sa/Camera.cpp:3346](../../source/game_sa/Camera.cpp#L3346) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlBegin(CCamera& camera) | [source/game_sa/Camera.cpp:3357](../../source/game_sa/Camera.cpp#L3357) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCamera::CamControl 0x00527FA0 | 0 / 0 | Conversión de dirección fija: 0x00B7CD98 |
+| CameraControlApplyPlayerOverrides(CCamera& camera) | [source/game_sa/Camera.cpp:3392](../../source/game_sa/Camera.cpp#L3392) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00B7CD98 |
+| CameraControlApplyRestore(CCamera& camera) | [source/game_sa/Camera.cpp:3465](../../source/game_sa/Camera.cpp#L3465) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlApplyCinematic(CCamera& camera, bool& jump) | [source/game_sa/Camera.cpp:3488](../../source/game_sa/Camera.cpp#L3488) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x005267C0: CCamera::ProcessObbeCinemaCameraCar; ruta efectiva sin resolver; Colaborador por dirección 0x00526950: CCamera::ProcessObbeCinemaCameraTrain; ruta efectiva sin resolver; Colaborador por dirección 0x00526AE0: CCamera::ProcessObbeCinemaCameraHeli; ruta efectiva sin resolver; Colaborador por dirección 0x00526C80: CCamera::ProcessObbeCinemaCameraPlane; ruta efectiva sin resolver; Colaborador por dirección 0x00526E20: CCamera::ProcessObbeCinemaCameraBoat; ruta efectiva sin resolver; Posible dato fijo gbModelViewer: source/game_sa/Camera.cpp:42 (0x00BA6728) |
+| CameraControlStepZoom(float& value, float target) | [source/game_sa/Camera.cpp:3555](../../source/game_sa/Camera.cpp#L3555) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlVehicleZoom(CCamera& camera) | [source/game_sa/Camera.cpp:3566](../../source/game_sa/Camera.cpp#L3566) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x00509AE0: CCam::WellBufferMe; ruta efectiva sin resolver |
+| CameraControlPedZoom(CCamera& camera) | [source/game_sa/Camera.cpp:3607](../../source/game_sa/Camera.cpp#L3607) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x00509AE0: CCam::WellBufferMe; ruta efectiva sin resolver |
+| CameraControlScriptTransition(CCamera& camera) | [source/game_sa/Camera.cpp:3635](../../source/game_sa/Camera.cpp#L3635) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlPlayerTransition(CCamera& camera, bool jump) | [source/game_sa/Camera.cpp:3680](../../source/game_sa/Camera.cpp#L3680) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlPolarSource(float angle, float radius, const CVector& position, CVector& source) | [source/game_sa/Camera.cpp:3749](../../source/game_sa/Camera.cpp#L3749) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlWeaponMode(CCamera& camera, bool stairs) | [source/game_sa/Camera.cpp:3756](../../source/game_sa/Camera.cpp#L3756) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x00B7CD98 |
+| CameraControlCycleUp(CPad* pad) | [source/game_sa/Camera.cpp:3837](../../source/game_sa/Camera.cpp#L3837) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlVehicleCycle(CCamera& camera) | [source/game_sa/Camera.cpp:3840](../../source/game_sa/Camera.cpp#L3840) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlPedCycle(CCamera& camera) | [source/game_sa/Camera.cpp:3867](../../source/game_sa/Camera.cpp#L3867) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlWrapHeading(float heading, float reference) | [source/game_sa/Camera.cpp:3923](../../source/game_sa/Camera.cpp#L3923) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlTargetHeadingMinusHalfPi(CPed* ped) | [source/game_sa/Camera.cpp:3933](../../source/game_sa/Camera.cpp#L3933) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, bool& jump) | [source/game_sa/Camera.cpp:3944](../../source/game_sa/Camera.cpp#L3944) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlGarageDoors(CGarage* garage, CObject*& first, CObject*& second) | [source/game_sa/Camera.cpp:4046](../../source/game_sa/Camera.cpp#L4046) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlZoneExtent(const CAttributeZone* zone) | [source/game_sa/Camera.cpp:4049](../../source/game_sa/Camera.cpp#L4049) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlZoneCameraPosition(CAttributeZone* zone) | [source/game_sa/Camera.cpp:4056](../../source/game_sa/Camera.cpp#L4056) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlZoneSide(CCamera& camera, CAttributeZone* zone, bool vehicle, CVector& source, CVector& center) | [source/game_sa/Camera.cpp:4062](../../source/game_sa/Camera.cpp#L4062) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlGarageDoorSource(CCamera& camera, CObject* first, CObject* second, const CVector& center, const CVector& target, bool vehicle) | [source/game_sa/Camera.cpp:4082](../../source/game_sa/Camera.cpp#L4082) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlLeaveGarage(CCamera& camera) | [source/game_sa/Camera.cpp:4117](../../source/game_sa/Camera.cpp#L4117) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlVehicleGarage(CCamera& camera, bool& stairs) | [source/game_sa/Camera.cpp:4124](../../source/game_sa/Camera.cpp#L4124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CameraControlPedGarage(CCamera& camera, bool& stairs) | [source/game_sa/Camera.cpp:4199](../../source/game_sa/Camera.cpp#L4199) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1084"></a>
 
 ## Globales y helpers: source/game_sa/CarAI.cpp
 
@@ -24,7 +176,7 @@
 | SetTempActionFor(CAutoPilot& ap, eAutoPilotTempAction action, uint32 durMs) | [source/game_sa/CarAI.cpp:157](../../source/game_sa/CarAI.cpp#L157) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PlayerWantedLevel() | [source/game_sa/CarAI.cpp:162](../../source/game_sa/CarAI.cpp#L162) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1082"></a>
+<a id="grupo-1085"></a>
 
 ## Globales y helpers: source/game_sa/CarCtrl.cpp
 
@@ -57,7 +209,7 @@
 | SteerPhysicsForward(const CPlaceable& placeable) | [source/game_sa/CarCtrl.cpp:4844](../../source/game_sa/CarCtrl.cpp#L4844) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlaceable::GetForwardVector 0x0041CCB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | WeaveVehicleMaxX(const void* vehicle) | [source/game_sa/CarCtrl.cpp:7260](../../source/game_sa/CarCtrl.cpp#L7260) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1083"></a>
+<a id="grupo-1086"></a>
 
 ## Globales y helpers: source/game_sa/CarEnterExit.cpp
 
@@ -65,7 +217,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ComputePassengerIndexFromCarDoor_KeepEdx(const CVehicle* vehicle, int32 doorId) | [source/game_sa/CarEnterExit.cpp:39](../../source/game_sa/CarEnterExit.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1084"></a>
+<a id="grupo-1087"></a>
 
 ## Globales y helpers: source/game_sa/CdStreamInfo.cpp
 
@@ -74,7 +226,7 @@
 | InjectCdStreamHooks() | [source/game_sa/CdStreamInfo.cpp:37](../../source/game_sa/CdStreamInfo.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CdStreamHandleToFileID(CdStreamHandle h) | [source/game_sa/CdStreamInfo.cpp:326](../../source/game_sa/CdStreamInfo.cpp#L326) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1085"></a>
+<a id="grupo-1088"></a>
 
 ## Globales y helpers: source/game_sa/ClothesBuilder.cpp
 
@@ -87,7 +239,7 @@
 | AssertTextureLayouts(std::initializer_list&lt;RwTexture*&gt; textures) | [source/game_sa/ClothesBuilder.cpp:459](../../source/game_sa/ClothesBuilder.cpp#L459) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ClothesBlendByte(float v) | [source/game_sa/ClothesBuilder.cpp:528](../../source/game_sa/ClothesBuilder.cpp#L528) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1086"></a>
+<a id="grupo-1089"></a>
 
 ## Globales y helpers: source/game_sa/Clouds.cpp
 
@@ -96,7 +248,7 @@
 | CloudsFtol(float value) | [source/game_sa/Clouds.cpp:51](../../source/game_sa/Clouds.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CloudsCameraRight() | [source/game_sa/Clouds.cpp:56](../../source/game_sa/Clouds.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 
-<a id="grupo-1087"></a>
+<a id="grupo-1090"></a>
 
 ## Globales y helpers: source/game_sa/Collision/BoundingBox.cpp
 
@@ -104,7 +256,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * BoundingBoxConstructorAliasBody(CBoundingBox* self) | [source/game_sa/Collision/BoundingBox.cpp:27](../../source/game_sa/Collision/BoundingBox.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1088"></a>
+<a id="grupo-1091"></a>
 
 ## Globales y helpers: source/game_sa/Collision/ColDisk.cpp
 
@@ -112,7 +264,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CopyThreeDwords(volatile uint32* dst, const volatile uint32* src) | [source/game_sa/Collision/ColDisk.cpp:26](../../source/game_sa/Collision/ColDisk.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1089"></a>
+<a id="grupo-1092"></a>
 
 ## Globales y helpers: source/game_sa/Collision/ColModel.cpp
 
@@ -120,7 +272,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ColModelDestructorExe(CColModel* self, void* /*edx*/) | [source/game_sa/Collision/ColModel.cpp:33](../../source/game_sa/Collision/ColModel.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CColModel::Destructor 0x0040F700 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1090"></a>
+<a id="grupo-1093"></a>
 
 ## Globales y helpers: source/game_sa/Collision/ColPoint.cpp
 
@@ -131,7 +283,7 @@
 | CColPointInjectHooksLote105A() | [source/game_sa/Collision/ColPoint.cpp:78](../../source/game_sa/Collision/ColPoint.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | tColLightingInjectHooksLote116A() | [source/game_sa/Collision/ColPoint.cpp:88](../../source/game_sa/Collision/ColPoint.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1091"></a>
+<a id="grupo-1094"></a>
 
 ## Globales y helpers: source/game_sa/Collision/ColSphere.cpp
 
@@ -139,7 +291,7 @@
 | --- | --- | --- | --- | --- | --- |
 | TransformObject(const CColSphere& sp, const CMatrix& transform) -&gt; CColSphere | [source/game_sa/Collision/ColSphere.cpp:129](../../source/game_sa/Collision/ColSphere.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1092"></a>
+<a id="grupo-1095"></a>
 
 ## Globales y helpers: source/game_sa/Collision/ColStore.cpp
 
@@ -147,7 +299,7 @@
 | --- | --- | --- | --- | --- | --- |
 | EntityAreaCode(const CEntity* entity) | [source/game_sa/Collision/ColStore.cpp:34](../../source/game_sa/Collision/ColStore.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1093"></a>
+<a id="grupo-1096"></a>
 
 ## Globales y helpers: source/game_sa/Collision/Collision.cpp
 
@@ -159,7 +311,7 @@
 | IsPointInPoly2D(CVector2D pt, CVector2D a, CVector2D b, CVector2D c) | [source/game_sa/Collision/Collision.cpp:3297](../../source/game_sa/Collision/Collision.cpp#L3297) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SphereVsEntityBody(CColSphere* /*sphere: ignorada, como en el EXE*/, CEntity* entity) | [source/game_sa/Collision/Collision.cpp:4118](../../source/game_sa/Collision/Collision.cpp#L4118) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 
-<a id="grupo-1094"></a>
+<a id="grupo-1097"></a>
 
 ## Globales y helpers: source/game_sa/Collision/CollisionData.cpp
 
@@ -167,7 +319,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * __fastcall CollisionDataConstructorExe(CCollisionData* self, void* /*edx*/) | [source/game_sa/Collision/CollisionData.cpp:27](../../source/game_sa/Collision/CollisionData.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCollisionData::Constructor 0x0040F030 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1095"></a>
+<a id="grupo-1098"></a>
 
 ## Globales y helpers: source/game_sa/Collision/CollisionEventScanner.cpp
 
@@ -180,7 +332,7 @@
 | ClampBelowZero(float value) | [source/game_sa/Collision/CollisionEventScanner.cpp:93](../../source/game_sa/Collision/CollisionEventScanner.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CCarAI::FloatMax 0x00420800 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DamageFromAttachedVehicle(CPed* victim, CVehicle* vehicle) | [source/game_sa/Collision/CollisionEventScanner.cpp:98](../../source/game_sa/Collision/CollisionEventScanner.cpp#L98) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1096"></a>
+<a id="grupo-1099"></a>
 
 ## Globales y helpers: source/game_sa/Collision/ColourSet.cpp
 
@@ -188,42 +340,10 @@
 | --- | --- | --- | --- | --- | --- |
 | Ftol(float value) | [source/game_sa/Collision/ColourSet.cpp:110](../../source/game_sa/Collision/ColourSet.cpp#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1097"></a>
+<a id="grupo-1100"></a>
 
 ## Globales y helpers: source/game_sa/Collision/Sphere.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | TransformObject(const CSphere& sp, const CMatrix& transform) -&gt; CSphere | [source/game_sa/Collision/Sphere.cpp:90](../../source/game_sa/Collision/Sphere.cpp#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1098"></a>
-
-## Globales y helpers: source/game_sa/CompressedVector.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CompressedVectorInjectHooksLote105A() | [source/game_sa/CompressedVector.cpp:48](../../source/game_sa/CompressedVector.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1099"></a>
-
-## Globales y helpers: source/game_sa/CompressedVector.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CompressVector(const CVector& v) | [source/game_sa/CompressedVector.h:12](../../source/game_sa/CompressedVector.h#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| UncompressVector(const CompressedVector& v) | [source/game_sa/CompressedVector.h:16](../../source/game_sa/CompressedVector.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CompressLargeVector(const CVector& v) | [source/game_sa/CompressedVector.h:21](../../source/game_sa/CompressedVector.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| UncompressLargeVector(const CompressedLargeVector& v) | [source/game_sa/CompressedVector.h:25](../../source/game_sa/CompressedVector.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CompressUnitVector(const CVector& v) | [source/game_sa/CompressedVector.h:30](../../source/game_sa/CompressedVector.h#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| UncompressUnitVector(const CompressedUnitVector& v) | [source/game_sa/CompressedVector.h:34](../../source/game_sa/CompressedVector.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CompressFxVector(const CVector& v) | [source/game_sa/CompressedVector.h:39](../../source/game_sa/CompressedVector.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| UncompressFxVector(const CompressedFxVector& v) | [source/game_sa/CompressedVector.h:43](../../source/game_sa/CompressedVector.h#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1100"></a>
-
-## Globales y helpers: source/game_sa/ControllerConfigManager.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| MouseButtonByte(const CMouseControllerState& state, KeyCode key) | [source/game_sa/ControllerConfigManager.cpp:950](../../source/game_sa/ControllerConfigManager.cpp#L950) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| KeyCharToGxtChar(uint8 ch) | [source/game_sa/ControllerConfigManager.cpp:1218](../../source/game_sa/ControllerConfigManager.cpp#L1218) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x008D5AD8 |

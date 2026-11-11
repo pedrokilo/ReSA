@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 11/11/2026 (Ciudad de México):** 884 grupos / 10050 funciones reconstruidas; 10050 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 11/11/2026 (Ciudad de México):** 885 grupos / 10129 funciones reconstruidas; 10129 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-385 funciones, 60,798 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+380 funciones, 60,369 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -103,7 +103,6 @@
 | `0x0068B690` | 162 | CTaskSimpleSwim | baja | 1 (0) |  |
 | `0x004C8D60` | 161 | CVehicleModelInfo | alta | 1 (0) |  |
 | `0x0066AA20` | 161 | CTaskComplexAvoidOtherPedWhileWandering | baja | 1 (0) |  |
-| `0x004A9D20` | 159 | FxMemoryPool_c | baja | 1 (0) |  |
 | `0x005CAB70` | 157 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CC050` | 157 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x0066D4B0` | 155 | CTaskComplexInvestigateDisturbance | baja | 1 (0) |  |
@@ -152,7 +151,6 @@
 | `0x006E3F20` | 106 | WaterCreature_c | baja | 1 (0) |  |
 | `0x00493480` | 105 | CTheScripts | alta | 1 (0) |  |
 | `0x006E3EB0` | 105 | WaterCreature_c | baja | 1 (0) |  |
-| `0x0046AE80` | 104 | CTaskComplexSeekEntityStandard | baja | 2 (0) |  |
 | `0x004CAD90` | 104 | CWeaponModelInfo | baja | 3 (0) |  |
 | `0x005A7350` | 104 | CClothesBuilder | baja | 1 (0) |  |
 | `0x005C54F0` | 104 | FxEmitterBP_c | baja | 12 (0) |  |
@@ -175,7 +173,6 @@
 | `0x004C62F0` | 90 | CModelInfo | alta | 1 (0) |  |
 | `0x00609080` | 90 | CEventNewGangMember | baja | 1 (0) |  |
 | `0x00620B90` | 90 | CTaskSimpleBeHit | baja | 1 (0) |  |
-| `0x006404D0` | 90 | CTaskComplexOpenPassengerDoor | baja | 1 (0) |  |
 | `0x00659240` | 90 | CTaskComplexMedicTreatInjuredPed | baja | 1 (0) |  |
 | `0x0065DC10` | 90 | CEventLeanOnVehicle | baja | 1 (0) |  |
 | `0x0066AAE0` | 90 | CTaskComplexAvoidOtherPedWhileWandering | baja | 1 (0) |  |
@@ -196,7 +193,6 @@
 | `0x0046B1A0` | 80 | CRunningScript | baja | 1 (0) |  |
 | `0x004CB560` | 78 | CWeaponModelInfo | baja | 7 (0) |  |
 | `0x0054F440` | 77 | CPlaceable | alta | 1 (0) |  |
-| `0x007304B0` | 75 | CGame | baja | 1 (0) |  |
 | `0x00401000` | 74 | CEntity | baja | 1 (0) |  |
 | `0x0049ACD0` | 74 | CShopping | alta | 1 (0) |  |
 | `0x006070F0` | 74 | CDecisionMakerTypes | baja | 3 (0) |  |
@@ -393,5 +389,4 @@
 | `0x006935E0` | 5 | CTaskSimpleHoldEntity | baja | 1 (0) |  |
 | `0x00403B7B` | 2 | CEntity | baja | 3 (0) |  |
 | `0x00486AE0` | 1 | CTheScripts | alta | 1 (0) |  |
-| `0x004A4950` | 1 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x0074EAC0` | 1 | Win | baja | 2 (0) |  |

@@ -12,3 +12,4 @@ CAEAudioEntity,Destructor-2,0x004A9F60,1,0,1,S,hooks.csv
 CLinkList<CCollisionData*>,Insert-Data,0x004161F0,1,0,1,S,hooks.csv
 CAnimBlendAssociation,ScalarDeletingDestructor,0x004CEFA0,1,0,1,S,hooks.csv
 CAEAudioEntity,Destructor-3,0x00506CC0,1,0,1,S,hooks.csv
+CEventSoundQuiet,ScalarDeletingDestructor,0x005DEAB0,1,0,1,S,hooks.csv
