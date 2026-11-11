@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "cde7ca87e8c1f96291d9335e67b50403a6645c5eec8e7327ddc0a64ac0c473e7",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CBike::OpenDoor: 435/2048; CBike::GetDooorAngleOpenRatioU32: 570/2048; CBike::IsOpenTopCar: 579/2048; CBike::BlowUpCarCutSceneNoExtras: 454/2048; CBike::AddMovingCollisionSpeed: 597/2048; CBike::SetTowLink: 598/2048; CBike::BreakTowLink: 608/2048; CBike::GetNumContactWheels: 591/2048; CBike::GetHeightAboveRoad: 635/2048; CBike::GetRideAnimData: 615/2048; CBike::IsDoorReady: 620/2048; CBike::IsDoorFullyOpen: 612/2048; CBike::IsDoorClosed: 628/2048; CBike::IsDoorMissing: 567/2048; CBike::IsDoorReadyU32: 596/2048; CBike::IsDoorFullyOpenU32: 595/2048; CBike::IsDoorClosedU32: 604/2048; CBike::IsDoorMissingU32: 617/2048; CBike::IsComponentPresent: 262/2048; CBike::IsRoomForPedToLeaveCar: 610/2048; CBike::FindWheelWidth: 603/2048; CBike::ScalarDeletingDestructor: 590/2048; CTaskSimpleStealthKill::DestructorBody: 447/2048; CTaskComplexKillPedFromBoat::ScalarDeletingDestructor: 605/2048; CTaskComplexSeekCoverUntilTargetDead::ScalarDeletingDestructor: 885/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

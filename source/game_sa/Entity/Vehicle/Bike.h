@@ -116,21 +116,30 @@ public:
     void GetComponentWorldPosition(int32 componentId, CVector& outPos) override;
     void ProcessOpenDoor(CPed* ped, uint32 doorComponentId, uint32 animGroup, uint32 animId, float fTime) override;
 
-    bool IsDoorReady(eDoors door) override { return true; }      // 0x6B58E0
-    bool IsDoorFullyOpen(eDoors door) override { return false; } // 0x6B58F0
-    bool IsDoorClosed(eDoors door) override { return false; }    // 0x6B5900
-    bool IsDoorMissing(eDoors door) override { return true; }    // 0x6B5910
-    bool IsDoorReadyU32(uint32 door) override { return true; }      // 0x6B5920
-    bool IsDoorFullyOpenU32(uint32 door) override { return false; } // 0x6B5930
-    bool IsDoorClosedU32(uint32 door) override { return false; }    // 0x6B5940
-    bool IsDoorMissingU32(uint32 door) override { return true; }    // 0x6B5950
+    // Lote 164A (banco Fn164A): funciones triviales del EXE (vtable 0x871360) con hook V; declaradas aqui y definidas en Bike.cpp
+    void OpenDoor(CPed* ped, int32 componentId, eDoors door, float doorOpenRatio, bool playSound) override;      // 0x6B5820
+    float GetDooorAngleOpenRatioU32(uint32 door) override;                                                         // 0x6B5830
+    bool IsOpenTopCar() override;                                                                                  // 0x6B5840
+    void BlowUpCarCutSceneNoExtras(bool bNoCamShake, bool bNoSpawnFlyingComps, bool bDetachWheels, bool bExplosionSound) override; // 0x6B5850
+    CVector AddMovingCollisionSpeed(CVector& point) override;                                                      // 0x6B5860
+    bool SetTowLink(CVehicle* tractor, bool setMyPosToTowBar) override;                                            // 0x6B5880
+    bool BreakTowLink() override;                                                                                  // 0x6B5890
 
-    bool IsRoomForPedToLeaveCar(uint32 door, CVector* pvecCarJackOffset) override { return true; }                    // 0x6B7270
-    inline bool IsComponentPresent(int32 componentId) const override { return m_aBikeNodes[componentId] != nullptr; } // 0x6B59E0
-    CRideAnimData* GetRideAnimData() override { return &m_RideAnimData; }                                             // 0x6B58C0
-    float GetHeightAboveRoad() override { return m_fHeightAboveRoad; }                                                // 0x6B58B0
-    int32 GetNumContactWheels() override { return m_nNoOfContactWheels; }                                             // 0x6B58A0
-    float FindWheelWidth(bool bRear) override { return 0.15f; }                                                       // 0x6B8940
+    bool IsDoorReady(eDoors door) override;      // 0x6B58E0
+    bool IsDoorFullyOpen(eDoors door) override;  // 0x6B58F0
+    bool IsDoorClosed(eDoors door) override;     // 0x6B5900
+    bool IsDoorMissing(eDoors door) override;    // 0x6B5910
+    bool IsDoorReadyU32(uint32 door) override;      // 0x6B5920
+    bool IsDoorFullyOpenU32(uint32 door) override;  // 0x6B5930
+    bool IsDoorClosedU32(uint32 door) override;     // 0x6B5940
+    bool IsDoorMissingU32(uint32 door) override;    // 0x6B5950
+
+    bool IsRoomForPedToLeaveCar(uint32 door, CVector* pvecCarJackOffset) override;  // 0x6B7270
+    bool IsComponentPresent(int32 componentId) const override;                       // 0x6B59E0
+    CRideAnimData* GetRideAnimData() override;                                       // 0x6B58C0
+    float GetHeightAboveRoad() override;                                             // 0x6B58B0
+    int32 GetNumContactWheels() override;                                            // 0x6B58A0
+    float FindWheelWidth(bool bRear) override;                                       // 0x6B8940
 
     virtual bool ProcessAI(uint32& extraHandlingFlags);
 
@@ -162,4 +171,8 @@ public: // NOTSA
     CBike* Destructor() {this->CBike::~CBike(); return this; }
                                                                                     };
 VALIDATE_SIZE(CBike, 0x814);
+VALIDATE_OFFSET(CBike, m_aBikeNodes, 0x5A0);
+VALIDATE_OFFSET(CBike, m_RideAnimData, 0x640);
+VALIDATE_OFFSET(CBike, m_fHeightAboveRoad, 0x790);
+VALIDATE_OFFSET(CBike, m_nNoOfContactWheels, 0x804);
 VALIDATE_OFFSET(CBike, m_GasPedalAudioRevs, 0x808);

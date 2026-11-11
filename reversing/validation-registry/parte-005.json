@@ -47560,6 +47560,1077 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre main 284fb34374 con los cambios del lote (ver artifacts/build-manifest.json). 24 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia muchas a clases equivocadas). Colaboradores sustituidos por falso identico en el EXE y en el cuerpo de la DLL (los que tienen hook) o en la direccion del EXE (ampliacion del vector 0x7304B0, operator new 0x82119A, RwTextureDestroy 0x7F3820). Los callbacks de la DLL (FinishRunAnimMovePedCB, FinishRunAnimCB y los tres de TxdParent) se normalizan a las direcciones del EXE en los falsos. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, listas con cadenas sin terminador que se salen de la arena, capacidad cero o negativa con numero mayor en el vector que crece (bucle sin fin del EXE), y la exactitud de los colaboradores falseados (tienen bancos propios).",
       "review_reference": "reversing/Fn166A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "OpenDoor",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::OpenDoor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5820"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "GetDooorAngleOpenRatioU32",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::GetDooorAngleOpenRatioU32"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5830"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "IsOpenTopCar",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::IsOpenTopCar"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5840"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "BlowUpCarCutSceneNoExtras",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::BlowUpCarCutSceneNoExtras"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5850"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "AddMovingCollisionSpeed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::AddMovingCollisionSpeed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5860"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "SetTowLink",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::SetTowLink"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5880"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "BreakTowLink",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::BreakTowLink"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5890"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "GetNumContactWheels",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::GetNumContactWheels"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B58A0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "GetHeightAboveRoad",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::GetHeightAboveRoad"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B58B0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "GetRideAnimData",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::GetRideAnimData"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B58C0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "IsDoorReady",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::IsDoorReady"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B58E0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "IsDoorFullyOpen",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::IsDoorFullyOpen"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B58F0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "IsDoorClosed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::IsDoorClosed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5900"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "IsDoorMissing",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::IsDoorMissing"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5910"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "IsDoorReadyU32",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::IsDoorReadyU32"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5920"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "IsDoorFullyOpenU32",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::IsDoorFullyOpenU32"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5930"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "IsDoorClosedU32",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::IsDoorClosedU32"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5940"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "IsDoorMissingU32",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::IsDoorMissingU32"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B5950"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "IsComponentPresent",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::IsComponentPresent"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B59E0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "IsRoomForPedToLeaveCar",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::IsRoomForPedToLeaveCar"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B7270"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "FindWheelWidth",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::FindWheelWidth"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006B8940"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBike",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x006B8950",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CBike::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleStealthKill",
+        "fn_name": "DestructorBody",
+        "address": "0x00622680",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleStealthKill::DestructorBody"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexKillPedFromBoat",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x006298E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexKillPedFromBoat::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexSeekCoverUntilTargetDead",
+        "fn_name": "ScalarDeletingDestructor",
+        "address": "0x00629900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn164A/validation-summary.json",
+        "sha256": "3109c505e50b01a08012a44500f3805ca9ea70204cb0cfc6e6319fb29ddd8b74",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexSeekCoverUntilTargetDead::ScalarDeletingDestructor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Entity/Vehicle/Bike.cpp": "38d6d02dc50bb8bbcc1a0c117289004cdb21f79129a11e41736b267a977ce406",
+        "source/game_sa/Entity/Vehicle/Bike.h": "2463b8909df5f78b18350c995b8b593c889063304f0b3d5e196e1dc878b811bb",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp": "3ffd50ca4c818a03bd692ba70c4a758fc6bc8d29d88a12a025cea8f84671ed92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.h": "c8b218a72a77b6aa52e216e4b08efe53799dd631f0bd3f46cfe4b32839e27f5d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp": "50954a94d1cd6785035318c0c3b98c8d740722691d1c9113bbff988cea87223d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h": "1312ef22005861c737d90f3c1583431280d1d47229fdb365ca0fa6e27b2fa833",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp": "ede4dc39dff0c66e2f917d85b82eea1359626f8c1cb69f7bedcd96a9cbf041e8",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.h": "38da20d7da5ad7c0f966e48c1a01f7cd644681603466b140efdedd26f8355b78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn164A/LiveComparison.hpp": "b4f273a3b30a5a5b7997ea225c41c01da40dc0564da1439e571652c74cf08835",
+        "reversing/Fn164A/Core.hpp": "00518188aa8e0d993d50f2dc10e3a8322353e82ba0700ab152a7370414f42519",
+        "reversing/Fn164A/Fixtures.hpp": "3726fad091e30528af8818887bdfc57ce4d9480e8dc8ef99c61cce6f5b82e1c8",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados con falso identico en la direccion del EXE y en la DLL: cuerpos de destructor con hook (0x6B57A0, 0x622830, 0x622C20), CTask::operator delete 0x61A5B0, CVehicle::operator delete 0x6E2D90 (sin hook; falso tambien en la funcion propia de la DLL), CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0 y ~CTask 0x61A3A0. Fuera de los fixtures: this nulo o crudo, objetos reales y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn164A/README.md"
     }
   ]
 }

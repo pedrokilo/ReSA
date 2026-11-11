@@ -47,6 +47,24 @@ END GENERATED HOOK STATUS */
 
 
 
+namespace {
+// 0x6B57A0: llamada no virtual al cuerpo de ~CBike (con hook propio, Destructor), en una funcion propia sin expansion en linea para que el banco Fn164A pueda sustituirla.
+__declspec(noinline) void __fastcall CBikeDestructorBodyCall(CBike* self, void* /*edx*/) { self->CBike::~CBike(); }
+
+// 0x6B8950 (lote 164A, banco Fn164A): destructor con borrado de CBike del EXE (ranura 0 de su vtable 0x871360; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx;
+// call 0x6B57A0; test byte [esp+8],1; je ..; push esi; call 0x6E2D90; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6B57A0), libera `this`
+// con CVehicle::operator delete (0x6E2D90, sin hook: pool de vehiculos) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+CBike* __fastcall CBikeScalarDeletingDestructor(CBike* self, void* /*edx*/, uint8 flags) {
+    CBikeDestructorBodyCall(self, nullptr);
+    if (flags & 1) {
+        CVehicle::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote164ABody_CBike() { return reinterpret_cast<uintptr_t>(&CBikeDestructorBodyCall); } // para el banco Fn164A
+
 void CBike::InjectHooks() {
     RH_ScopedVirtualClass(CBike, 0x871360, 67);
     RH_ScopedCategory("Vehicle");
@@ -91,6 +109,30 @@ void CBike::InjectHooks() {
     RH_ScopedVMTInstall(ProcessControlCollisionCheck, 0x6B6620);
     RH_ScopedVMTInstall(GetComponentWorldPosition, 0x6B5990);
     RH_ScopedVMTInstall(ProcessOpenDoor, 0x6B58D0);
+
+    // Lote 164A (banco Fn164A)
+    RH_ScopedVMTInstall(OpenDoor, 0x6B5820);
+    RH_ScopedVMTInstall(GetDooorAngleOpenRatioU32, 0x6B5830);
+    RH_ScopedVMTInstall(IsOpenTopCar, 0x6B5840);
+    RH_ScopedVMTInstall(BlowUpCarCutSceneNoExtras, 0x6B5850);
+    RH_ScopedVMTInstall(AddMovingCollisionSpeed, 0x6B5860);
+    RH_ScopedVMTInstall(SetTowLink, 0x6B5880);
+    RH_ScopedVMTInstall(BreakTowLink, 0x6B5890);
+    RH_ScopedVMTInstall(GetNumContactWheels, 0x6B58A0);
+    RH_ScopedVMTInstall(GetHeightAboveRoad, 0x6B58B0);
+    RH_ScopedVMTInstall(GetRideAnimData, 0x6B58C0);
+    RH_ScopedVMTInstall(IsDoorReady, 0x6B58E0);
+    RH_ScopedVMTInstall(IsDoorFullyOpen, 0x6B58F0);
+    RH_ScopedVMTInstall(IsDoorClosed, 0x6B5900);
+    RH_ScopedVMTInstall(IsDoorMissing, 0x6B5910);
+    RH_ScopedVMTInstall(IsDoorReadyU32, 0x6B5920);
+    RH_ScopedVMTInstall(IsDoorFullyOpenU32, 0x6B5930);
+    RH_ScopedVMTInstall(IsDoorClosedU32, 0x6B5940);
+    RH_ScopedVMTInstall(IsDoorMissingU32, 0x6B5950);
+    RH_ScopedVMTInstall(IsComponentPresent, 0x6B59E0);
+    RH_ScopedVMTInstall(IsRoomForPedToLeaveCar, 0x6B7270);
+    RH_ScopedVMTInstall(FindWheelWidth, 0x6B8940);
+    RH_ScopedNamedGlobalInstall(CBikeScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6B8950);
 }
 
 // Como el original (0x6BF59E..0x6BF5BD): fld [mi+58h]; fmul [8595ECh] (0.017453292f = 0x3C8EFA35); fptan; fstp st(0); fstp [this+7A4h].
@@ -2621,3 +2663,54 @@ void CBike::GetComponentWorldPosition(int32 componentId, CVector& outPos) {
 void CBike::ProcessOpenDoor(CPed* ped, uint32 doorComponentId, uint32 animGroup, uint32 animId, float fTime) {
     // NOP
 }
+
+// ---- Lote 164A (banco Fn164A): funciones triviales del EXE, una por una como el desensamblado ----
+
+// 0x6B5820 (thiscall, 5 argumentos de pila, `ret 14h`): no hace nada
+void CBike::OpenDoor(CPed* /*ped*/, int32 /*componentId*/, eDoors /*door*/, float /*doorOpenRatio*/, bool /*playSound*/) {}
+
+// 0x6B5830 (`ret 4`): fld [0x858B50] = 0.0f
+float CBike::GetDooorAngleOpenRatioU32(uint32 /*door*/) { return 0.0f; }
+
+// 0x6B5840: xor al,al
+bool CBike::IsOpenTopCar() { return false; }
+
+// 0x6B5850 (4 argumentos, `ret 10h`): no hace nada
+void CBike::BlowUpCarCutSceneNoExtras(bool, bool, bool, bool) {}
+
+// 0x6B5860 (`ret 8`): escribe {0,0,0} en la salida y la devuelve
+CVector CBike::AddMovingCollisionSpeed(CVector& /*point*/) { return {}; }
+
+// 0x6B5880 (`ret 8`): xor al,al
+bool CBike::SetTowLink(CVehicle* /*tractor*/, bool /*setMyPosToTowBar*/) { return false; }
+
+// 0x6B5890: xor al,al
+bool CBike::BreakTowLink() { return false; }
+
+// 0x6B58A0: movzx eax, byte [ecx+0x804]
+int32 CBike::GetNumContactWheels() { return m_nNoOfContactWheels; }
+
+// 0x6B58B0: fld dword [ecx+0x790]
+float CBike::GetHeightAboveRoad() { return m_fHeightAboveRoad; }
+
+// 0x6B58C0: lea eax,[ecx+0x640]
+CRideAnimData* CBike::GetRideAnimData() { return &m_RideAnimData; }
+
+// 0x6B58E0 / 0x6B58F0 / 0x6B5900 / 0x6B5910 y las variantes U32 0x6B5920 / 0x6B5930 / 0x6B5940 / 0x6B5950 (`ret 4`)
+bool CBike::IsDoorReady(eDoors /*door*/) { return true; }
+bool CBike::IsDoorFullyOpen(eDoors /*door*/) { return false; }
+bool CBike::IsDoorClosed(eDoors /*door*/) { return false; }
+bool CBike::IsDoorMissing(eDoors /*door*/) { return true; }
+bool CBike::IsDoorReadyU32(uint32 /*door*/) { return true; }
+bool CBike::IsDoorFullyOpenU32(uint32 /*door*/) { return false; }
+bool CBike::IsDoorClosedU32(uint32 /*door*/) { return false; }
+bool CBike::IsDoorMissingU32(uint32 /*door*/) { return true; }
+
+// 0x6B7270 (`ret 8`): mov al,1
+bool CBike::IsRoomForPedToLeaveCar(uint32 /*door*/, CVector* /*pvecCarJackOffset*/) { return true; }
+
+// 0x6B59E0: [ecx+indice*4+0x5A0] != 0, sin comprobar el indice (como el EXE; data() evita la comprobacion de limites de std::array)
+bool CBike::IsComponentPresent(int32 componentId) const { return m_aBikeNodes.data()[componentId] != nullptr; }
+
+// 0x6B8940: fld [0x858FCC] = 0.15f
+float CBike::FindWheelWidth(bool /*bRear*/) { return 0.15f; }

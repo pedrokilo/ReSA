@@ -22,6 +22,25 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexTurnToFaceEntityOrCoord.h"
 #include "TaskSimpleStandStill.h"
 
+namespace {
+// 0x622C20: cuerpo del destructor de CTaskComplexSeekCoverUntilTargetDead del EXE (con hook, Destructor). Funcion propia sin expansion en linea para que el banco Fn164A pueda sustituirla; la llama el destructor con borrado como
+// el `call 0x622C20` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexSeekCoverUntilTargetDeadDestructorBody(CTaskComplexSeekCoverUntilTargetDead* self, void* /*edx*/) { self->CTaskComplexSeekCoverUntilTargetDead::~CTaskComplexSeekCoverUntilTargetDead(); }
+
+// 0x629900 (lote 164A, banco Fn164A): destructor con borrado de CTaskComplexSeekCoverUntilTargetDead del EXE (ranura 0 de su vtable 0x86dac4; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx;
+// call 0x622C20; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexSeekCoverUntilTargetDead* __fastcall CTaskComplexSeekCoverUntilTargetDeadScalarDeletingDestructor(CTaskComplexSeekCoverUntilTargetDead* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexSeekCoverUntilTargetDeadDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote164ABody_CTaskComplexSeekCoverUntilTargetDead() { return reinterpret_cast<uintptr_t>(&CTaskComplexSeekCoverUntilTargetDeadDestructorBody); } // para el banco Fn164A
+
 void CTaskComplexSeekCoverUntilTargetDead::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexSeekCoverUntilTargetDead, 0x86dac4, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
@@ -29,6 +48,7 @@ void CTaskComplexSeekCoverUntilTargetDead::InjectHooks() {
     RH_ScopedInstall(Constructor_Ped, 0x622BC0);
     RH_ScopedInstall(Constructor_Grp, 0x622B80);
     RH_ScopedInstall(Destructor, 0x622C20);
+    RH_ScopedNamedGlobalInstall(CTaskComplexSeekCoverUntilTargetDeadScalarDeletingDestructor, "ScalarDeletingDestructor", 0x629900); // lote 164A (banco Fn164A)
 
     RH_ScopedInstall(GetCoverPed, 0x622D50);
     RH_ScopedInstall(GetTargetPed, 0x622CC0);

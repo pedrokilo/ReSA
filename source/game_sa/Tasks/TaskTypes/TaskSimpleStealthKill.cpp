@@ -21,11 +21,28 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleStealthKill.h"
 
+namespace {
+// 0x622680 (lotes 126A y 164A, bancos Fn126A y Fn164A): cuerpo del destructor de CTaskSimpleStealthKill del EXE (thiscall, sin argumentos de pila, `ret`, 109 bytes con marco SEH que solo desenrolla;
+// lo llama el destructor con borrado 0x6296B0). Deja la vtable de CTaskSimpleStealthKill del EXE (0x86DA74); libera con CEntity::CleanUpOldReference (0x571A00, con hook) la referencia no nula del
+// objetivo (+0x0C); si hay animacion (+0x18) le pone el callback de borrado por defecto (CAnimBlendAssociation::SetDeleteCallback 0x4CEBC0, con hook, con el DefaultAnimCB del EXE 0x4D1390 y dato
+// nulo); y llama a CTask::Destructor (0x61A3A0, con hook). El destructor generado por el compilador dejaria la vtable de la DLL; el marco SEH se omite. Funcion propia sin expansion en linea para
+// que el banco pueda sustituirla; la llama ScalarDeletingDestructor como el `call 0x622680` del EXE. Se engancha como S.
+__declspec(noinline) void __fastcall StealthKillDestructorBody(CTaskSimpleStealthKill* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86DA74;
+    CEntity::SafeCleanUpRef(self->m_target);
+    if (self->m_anim) {
+        self->m_anim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+    }
+    self->CTask::Destructor();
+}
+} // namespace
+
 void CTaskSimpleStealthKill::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleStealthKill, 0x86da74, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x6225F0);
+    RH_ScopedNamedGlobalInstall(StealthKillDestructorBody, "DestructorBody", 0x622680); // lote 164A (banco Fn164A)
     RH_ScopedInstall(ScalarDeletingDestructor, 0x6296B0);
 
     RH_ScopedInstall(ManageAnim, 0x6296D0);
@@ -53,7 +70,7 @@ CTaskSimpleStealthKill::CTaskSimpleStealthKill(const CTaskSimpleStealthKill& o) 
 {
 }
 
-// 0x622680 (el EXE lo tiene; sin el la referencia al objetivo quedaba registrada al borrar la tarea)
+// Destructor de la DLL (el del EXE es StealthKillDestructorBody, 0x622680; sin el la referencia al objetivo quedaba registrada al borrar la tarea)
 CTaskSimpleStealthKill::~CTaskSimpleStealthKill() {
     CEntity::SafeCleanUpRef(m_target);
     if (m_anim) {
@@ -205,14 +222,6 @@ void CTaskSimpleStealthKill::FinishAnimStealthKillCB(CAnimBlendAssociation* pAni
     }
     self->m_anim = nullptr;
 }
-
-namespace {
-// 0x622680 (lote 126A, banco Fn126A): cuerpo del destructor de CTaskSimpleStealthKill del EXE; sin hook propio (el destructor de la clase). Funcion propia sin expansion en linea para que el banco pueda
-// sustituirla; la llama ScalarDeletingDestructor como el `call 0x622680` del EXE.
-__declspec(noinline) void __fastcall StealthKillDestructorBody(CTaskSimpleStealthKill* self, void* /*edx*/) {
-    self->CTaskSimpleStealthKill::~CTaskSimpleStealthKill();
-}
-} // namespace
 
 uintptr_t Lote126AStealthKillDestructorBody() { return reinterpret_cast<uintptr_t>(&StealthKillDestructorBody); } // para el banco Fn126A
 

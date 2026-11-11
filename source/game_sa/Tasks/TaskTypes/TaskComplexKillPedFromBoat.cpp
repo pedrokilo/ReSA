@@ -21,11 +21,31 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleStandStill.h"
 #include "TaskComplexKillPedOnFoot.h"
 
+namespace {
+// 0x622830: cuerpo del destructor de CTaskComplexKillPedFromBoat del EXE (con hook, Destructor). Funcion propia sin expansion en linea para que el banco Fn164A pueda sustituirla; la llama el destructor con borrado como
+// el `call 0x622830` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexKillPedFromBoatDestructorBody(CTaskComplexKillPedFromBoat* self, void* /*edx*/) { self->CTaskComplexKillPedFromBoat::~CTaskComplexKillPedFromBoat(); }
+
+// 0x6298E0 (lote 164A, banco Fn164A): destructor con borrado de CTaskComplexKillPedFromBoat del EXE (ranura 0 de su vtable 0x86da98; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx;
+// call 0x622830; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con
+// CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexKillPedFromBoat* __fastcall CTaskComplexKillPedFromBoatScalarDeletingDestructor(CTaskComplexKillPedFromBoat* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexKillPedFromBoatDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote164ABody_CTaskComplexKillPedFromBoat() { return reinterpret_cast<uintptr_t>(&CTaskComplexKillPedFromBoatDestructorBody); } // para el banco Fn164A
+
 void CTaskComplexKillPedFromBoat::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexKillPedFromBoat, 0x86da98, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x6227C0);
     RH_ScopedInstall(Destructor, 0x622830);
+    RH_ScopedNamedGlobalInstall(CTaskComplexKillPedFromBoatScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6298E0); // lote 164A (banco Fn164A)
 
     RH_ScopedVMTInstall(Clone, 0x6238A0);
     RH_ScopedVMTInstall(GetTaskType, 0x622820);
