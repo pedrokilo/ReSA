@@ -1,6 +1,10 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 10/11/2026 (Ciudad de México):** 884 grupos / 10008 funciones reconstruidas; 10008 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,936** funciones en 207 clases/módulos (rango 0x401000–0x74FFFF): 1,913 sin reemplazar (A–D) + 23 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,913** funciones en 202 clases/módulos (rango 0x401000–0x74FFFF): 1,890 sin reemplazar (A–D) + 23 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -14,11 +18,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CAEStreamingChannel | 1 | 61 |
 | CCompressedMatrixNotAligned | 1 | 74 |
 | VideoPlayer | 1 | 110 |
-| CTaskSimpleCarJumpOut | 5 | 150 |
-| CFileLoader | 6 | 158 |
-| CTaskSimpleDie | 4 | 159 |
-| CTaskSimpleGetUp | 4 | 159 |
-| CTaskSimpleLand | 4 | 159 |
 | CIplStore | 3 | 160 |
 | CTaskSimplePlayerOnFoot | 3 | 160 |
 | CTaskComplexGoToAttractor | 5 | 162 |
@@ -217,7 +216,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (207 clases / módulos)** | **1,936** | **250,499** |
+| **TOTAL (202 clases / módulos)** | **1,913** | **249,714** |
 
 ## CTaskComplexWaitForBus (1)
 
@@ -242,54 +241,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00746800 | 110 | D |  | 0 | 0 |  | baja |
-
-## CTaskSimpleCarJumpOut (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0064BEE0 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x0064BF50 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0064BF70 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0064BF90 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0064D290 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CFileLoader (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00537550 | 12 | D |  | 0 | 0 |  | alta |
-| 0x00537560 | 12 | D |  | 0 | 0 |  | alta |
-| 0x00537570 | 12 | D |  | 0 | 0 |  | alta |
-| 0x00537A10 | 18 | A |  | 1 | 1 |  | baja |
-| 0x00537290 | 49 | D |  | 0 | 0 |  | alta |
-| 0x00537510 | 55 | A |  | 2 | 2 |  | alta |
-
-## CTaskSimpleDie (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0062FA50 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x006375B0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006375D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0062FB40 | 93 | A |  | 3 | 1 |  | alta |
-
-## CTaskSimpleGetUp (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00677F70 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x0067CA00 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0067CA20 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00677F80 | 93 | C |  | 1 | 0 |  | alta |
-
-## CTaskSimpleLand (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00678ED0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x0067D550 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0067D570 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00678EE0 | 93 | A |  | 1 | 1 |  | alta |
 
 ## CIplStore (3)
 
@@ -1058,7 +1009,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0062FF50 | 5 | B |  | 0 | 0 | sí | baja |
 | 0x0062FF00 | 6 | B |  | 0 | 0 | sí | baja |
 | 0x0062FF40 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0062FCF0 | 11 | C |  | 1 | 0 |  | alta |
+| 0x0062FCF0 | 11 | A |  | 1 | 1 |  | alta |
 | 0x0062FF10 | 11 | C |  | 1 | 0 |  | baja |
 | 0x0062FF60 | 11 | C |  | 1 | 0 |  | baja |
 | 0x0062FF20 | 18 | D |  | 0 | 0 |  | baja |
@@ -2878,7 +2829,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0040335F | 26 | C |  | 1 | 0 |  | baja |
 | 0x00536C20 | 27 | B |  | 0 | 0 | sí | baja |
 | 0x00403379 | 29 | C |  | 1 | 0 |  | baja |
-| 0x00403E00 | 32 | A |  | 4 | 3 |  | baja |
+| 0x00403E00 | 32 | A |  | 4 | 4 |  | baja |
 | 0x004634D0 | 32 | D |  | 0 | 0 |  | baja |
 | 0x00533020 | 35 | A |  | 2 | 2 | sí | alta |
 | 0x005335E0 | 47 | A |  | 5 | 3 |  | alta |
@@ -2969,7 +2920,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0074CDA0 | 34 | A |  | 6 | 3 |  | baja |
 | 0x0074DC20 | 34 | A |  | 5 | 2 |  | baja |
 | 0x0074C690 | 35 | A |  | 3 | 3 |  | baja |
-| 0x0074A490 | 37 | A |  | 16 | 11 |  | baja |
+| 0x0074A490 | 37 | A |  | 16 | 12 |  | baja |
 | 0x0074BDA0 | 39 | A |  | 7 | 3 |  | baja |
 | 0x0074BDD0 | 39 | A |  | 4 | 3 |  | baja |
 | 0x0074CD70 | 39 | A |  | 7 | 3 |  | baja |
@@ -3023,7 +2974,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x007460A0 | 205 | A |  | 1 | 1 |  | baja |
 | 0x0074FDA0 | 237 | A |  | 1 | 1 |  | baja |
 | 0x00747DB0 | 255 | D |  | 0 | 0 |  | baja |
-| 0x00749E60 | 258 | A |  | 17 | 7 |  | baja |
+| 0x00749E60 | 258 | A |  | 17 | 8 |  | baja |
 | 0x0074C200 | 269 | A |  | 2 | 2 |  | baja |
 | 0x0074F610 | 288 | A |  | 1 | 1 |  | baja |
 | 0x007491F0 | 318 | A |  | 12 | 5 |  | baja |

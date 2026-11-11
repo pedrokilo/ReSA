@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/11/2026 (Ciudad de México):** 884 grupos / 9985 funciones reconstruidas; 9985 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 10/11/2026 (Ciudad de México):** 884 grupos / 10008 funciones reconstruidas; 10008 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,6 +8,15 @@
 
 <a id="grupo-1121"></a>
 
+## Globales y helpers: source/game_sa/Entity/Dummy/Dummy.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * __fastcall DummyConstructorBody(CDummy* self, void* /*edx*/) | [source/game_sa/Entity/Dummy/Dummy.cpp:56](../../source/game_sa/Entity/Dummy/Dummy.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Lote130ADummyDestructorBody() | [source/game_sa/Entity/Dummy/Dummy.cpp:65](../../source/game_sa/Entity/Dummy/Dummy.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1122"></a>
+
 ## Globales y helpers: source/game_sa/Entity/Dummy/DummyObject.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -15,7 +24,7 @@
 | DummyObjectDestructorBody(CDummyObject* self, void* /*edx*/) | [source/game_sa/Entity/Dummy/DummyObject.cpp:107](../../source/game_sa/Entity/Dummy/DummyObject.cpp#L107) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Lote125ADummyObjectDestructorBody() | [source/game_sa/Entity/Dummy/DummyObject.cpp:112](../../source/game_sa/Entity/Dummy/DummyObject.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1122"></a>
+<a id="grupo-1123"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Entity.cpp
 
@@ -34,7 +43,7 @@
 | EntityGroupB_MultiplyPoint59C890(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Entity.cpp:1049](../../source/game_sa/Entity/Entity.cpp#L1049) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | EntityGroupC_HeadingDegreesPlus(const CMatrix* mat, float placementHeading, float baseAngle) | [source/game_sa/Entity/Entity.cpp:1132](../../source/game_sa/Entity/Entity.cpp#L1132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1123"></a>
+<a id="grupo-1124"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Object/CutsceneObject.cpp
 
@@ -43,7 +52,7 @@
 | CutsceneObjectDestructorBody(CCutsceneObject* self, void* /*edx*/) | [source/game_sa/Entity/Object/CutsceneObject.cpp:220](../../source/game_sa/Entity/Object/CutsceneObject.cpp#L220) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Lote125ACutsceneObjectDestructorBody() | [source/game_sa/Entity/Object/CutsceneObject.cpp:225](../../source/game_sa/Entity/Object/CutsceneObject.cpp#L225) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1124"></a>
+<a id="grupo-1125"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Object/Object.cpp
 
@@ -57,7 +66,7 @@
 | ObjCeilSteps(float f) | [source/game_sa/Entity/Object/Object.cpp:91](../../source/game_sa/Entity/Object/Object.cpp#L91) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ObjIsInObjectPool(const CObject* object) | [source/game_sa/Entity/Object/Object.cpp:1542](../../source/game_sa/Entity/Object/Object.cpp#L1542) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1125"></a>
+<a id="grupo-1126"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Object/Projectile.cpp
 
@@ -65,7 +74,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ProjectileDestructorBody(CProjectile* self, void* /*edx*/) | [source/game_sa/Entity/Object/Projectile.cpp:31](../../source/game_sa/Entity/Object/Projectile.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CProjectile::Destructor 0x005A40E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1126"></a>
+<a id="grupo-1127"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Ped/CivilianPed.cpp
 
@@ -73,7 +82,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CivilianPedDestructorBody(CCivilianPed* self, void* /*edx*/) | [source/game_sa/Entity/Ped/CivilianPed.cpp:25](../../source/game_sa/Entity/Ped/CivilianPed.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CCivilianPed::DestructorBody 0x005DDBE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1127"></a>
+<a id="grupo-1128"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Ped/CopPed.cpp
 
@@ -81,7 +90,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ResolveModelForCopType(uint32_t typeOrModelID) | [source/game_sa/Entity/Ped/CopPed.cpp:62](../../source/game_sa/Entity/Ped/CopPed.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1128"></a>
+<a id="grupo-1129"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Ped/Ped.cpp
 
@@ -101,7 +110,7 @@
 | PecCopyColPoint(CColPoint& dst, const CColPoint& src) | [source/game_sa/Entity/Ped/Ped.cpp:5145](../../source/game_sa/Entity/Ped/Ped.cpp#L5145) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PecDamageEvent(CPed* ped, CEntity* damager, float damage, uint8 direction) | [source/game_sa/Entity/Ped/Ped.cpp:5160](../../source/game_sa/Entity/Ped/Ped.cpp#L5160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84) |
 
-<a id="grupo-1129"></a>
+<a id="grupo-1130"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Ped/PedStdBonePositions.h
 
@@ -109,7 +118,7 @@
 | --- | --- | --- | --- | --- | --- |
 | & GetPedBoneStdPosition(uint32 bone) | [source/game_sa/Entity/Ped/PedStdBonePositions.h:11](../../source/game_sa/Entity/Ped/PedStdBonePositions.h#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1130"></a>
+<a id="grupo-1131"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Ped/PlayerPed.cpp
 
@@ -118,7 +127,7 @@
 | GetButtonSprintResultsKeepEdx(CPlayerPed* self, uint32 entryEdx, eSprintType sprintType) | [source/game_sa/Entity/Ped/PlayerPed.cpp:83](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PlayerPedATanMinus(float x, float y, float compensation) | [source/game_sa/Entity/Ped/PlayerPed.cpp:1922](../../source/game_sa/Entity/Ped/PlayerPed.cpp#L1922) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1131"></a>
+<a id="grupo-1132"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Physical.cpp
 
@@ -136,7 +145,7 @@
 | PhysAttachMatPoint59C890(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Physical.cpp:2279](../../source/game_sa/Entity/Physical.cpp#L2279) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PhysAttachMat3x3_59C790(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Physical.cpp:2288](../../source/game_sa/Entity/Physical.cpp#L2288) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1132"></a>
+<a id="grupo-1133"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Placeable.cpp
 
@@ -144,7 +153,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * __fastcall PlaceableGetMatrixCopy(CPlaceable* self, void* /*edx*/) | [source/game_sa/Entity/Placeable.cpp:34](../../source/game_sa/Entity/Placeable.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPlaceable::GetMatrixCopy 0x0041BD80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1133"></a>
+<a id="grupo-1134"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Automobile.cpp
 
@@ -197,7 +206,7 @@
 | * GetCurrentAtomicObjectCB(RwObject* object, void* data) | [source/game_sa/Entity/Vehicle/Automobile.cpp:8030](../../source/game_sa/Entity/Vehicle/Automobile.cpp#L8030) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * GetCurrentAtomicObject(RwFrame* frame) | [source/game_sa/Entity/Vehicle/Automobile.cpp:8038](../../source/game_sa/Entity/Vehicle/Automobile.cpp#L8038) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1134"></a>
+<a id="grupo-1135"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Bike.cpp
 
@@ -232,7 +241,7 @@
 | BikeSetupHeight355(float force, float suspensionLength, float wheel, float startZ) | [source/game_sa/Entity/Vehicle/Bike.cpp:2389](../../source/game_sa/Entity/Vehicle/Bike.cpp#L2389) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | BikeSetupSphere355(CColSphere* sphere,float limit) | [source/game_sa/Entity/Vehicle/Bike.cpp:2394](../../source/game_sa/Entity/Vehicle/Bike.cpp#L2394) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1135"></a>
+<a id="grupo-1136"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Bmx.cpp
 
@@ -245,7 +254,7 @@
 | CBmxDestructorBodyExe(CBmx* self, void* /*edx*/) | [source/game_sa/Entity/Vehicle/Bmx.cpp:65](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Lote152ABody_CBmxBaseDestructor() | [source/game_sa/Entity/Vehicle/Bmx.cpp:84](../../source/game_sa/Entity/Vehicle/Bmx.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1136"></a>
+<a id="grupo-1137"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Boat.cpp
 
@@ -253,7 +262,7 @@
 | --- | --- | --- | --- | --- | --- |
 | BoatMultiply3x3(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/Boat.cpp:63](../../source/game_sa/Entity/Vehicle/Boat.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1137"></a>
+<a id="grupo-1138"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Heli.cpp
 
@@ -265,7 +274,7 @@
 | HeliIsFarFromPlayer(const CVector& player, const CVector& heli) | [source/game_sa/Entity/Vehicle/Heli.cpp:724](../../source/game_sa/Entity/Vehicle/Heli.cpp#L724) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | HeliQuietNan(float value) | [source/game_sa/Entity/Vehicle/Heli.cpp:1142](../../source/game_sa/Entity/Vehicle/Heli.cpp#L1142) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1138"></a>
+<a id="grupo-1139"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/MonsterTruck.cpp
 
@@ -274,7 +283,7 @@
 | MonsterTruckDestructorBody(CMonsterTruck* self, void* /*edx*/) | [source/game_sa/Entity/Vehicle/MonsterTruck.cpp:327](../../source/game_sa/Entity/Vehicle/MonsterTruck.cpp#L327) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Lote125AMonsterTruckDestructorBody() | [source/game_sa/Entity/Vehicle/MonsterTruck.cpp:332](../../source/game_sa/Entity/Vehicle/MonsterTruck.cpp#L332) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1139"></a>
+<a id="grupo-1140"></a>
 
 ## Globales y helpers: source/game_sa/Entity/Vehicle/Plane.cpp
 
@@ -287,16 +296,3 @@
 | PlaneGenerationEngine355(CVehicle* vehicle) | [source/game_sa/Entity/Vehicle/Plane.cpp:557](../../source/game_sa/Entity/Vehicle/Plane.cpp#L557) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PlaneQuaternionToMatrix(const CQuaternion& quaternion, RwMatrix* matrix) | [source/game_sa/Entity/Vehicle/Plane.cpp:620](../../source/game_sa/Entity/Vehicle/Plane.cpp#L620) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CQuaternion::Get-matrix 0x0059C080 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | PlaneTransformPoint(const CMatrix* matrix, const CVector& point) | [source/game_sa/Entity/Vehicle/Plane.cpp:625](../../source/game_sa/Entity/Vehicle/Plane.cpp#L625) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CMatrix::operator*-Vec 0x0059C890 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1140"></a>
-
-## Globales y helpers: source/game_sa/Entity/Vehicle/QuadBike.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| QuadMultiply3x3_MV(const CMatrix& m, const CVector& v) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:32](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| QuadMultiply3x3_VM(const CVector& v, const CMatrix& m) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:41](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| QuadMax(float a, float b) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:50](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| QuadMin(float a, float b) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:51](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| QuadBikeDestructorBody(CQuadBike* self, void* /*edx*/) | [source/game_sa/Entity/Vehicle/QuadBike.cpp:57](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L57) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Lote141AQuadBikeDestructorBody() | [source/game_sa/Entity/Vehicle/QuadBike.cpp:62](../../source/game_sa/Entity/Vehicle/QuadBike.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
