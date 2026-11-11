@@ -20,12 +20,27 @@ END GENERATED HOOK STATUS */
 #include "FurnitureSubGroup_c.h"
 #include "Furniture_c.h"
 
+namespace {
+// 0x590E00 (lote 165A, banco Fn165A; el listado decia CLoadingScreen): constructor del EXE de la base ListItem_c<FurnitureSubGroup_c> (thiscall, sin argumentos de pila, `ret`, 12 bytes: `push esi; mov esi,ecx; call
+// 0x4A8DB0 (enlaces anterior y siguiente a cero); mov eax,esi; pop esi; ret`). Codigo muerto: ningun `call` ni dword del PE lo referencia (el constructor de FurnitureSubGroup_c, 0x590E20, llama a 0x4A8DB0 directamente).
+// Solo escribe m_pPrev y m_pNext y devuelve `this`.
+__declspec(noinline) ListItem_c<FurnitureSubGroup_c>* __fastcall FurnitureSubGroupListItemConstructorExe(ListItem_c<FurnitureSubGroup_c>* self, void* /*edx*/) {
+    self->m_pPrev = nullptr;
+    self->m_pNext = nullptr;
+    return self;
+}
+} // namespace
+
 /**
  * Registra las operaciones de selección y creación de mobiliario de un subgrupo.
  */
 void FurnitureSubGroup_c::InjectHooks() {
     RH_ScopedClass(FurnitureSubGroup_c);
     RH_ScopedCategory("Interior");
+
+    RH_ScopedNamedGlobalInstall(FurnitureSubGroupListItemConstructorExe, "ListItemConstructor", 0x590E00); // lote 165A (banco Fn165A)
+    RH_ScopedInstall(Constructor, 0x590E20); // lote 165A (banco Fn165A): base 0x4A8DB0 (+0, +4) y lista 0x4A8DD0 en +0xC (+0xC, +0x10, +0x14) a cero; no toca el resto
+    RH_ScopedInstall(Destructor, 0x590E70);  // lote 165A (banco Fn165A): marco SEH y dos llamadas a funciones vacias (0x4A8DE0, 0x4A8DC0); no escribe nada
 
     RH_ScopedInstall(GetFurniture, 0x590EE0);
     RH_ScopedInstall(GetRandomId, 0x590FD0);

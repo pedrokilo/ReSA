@@ -21,6 +21,29 @@ END GENERATED HOOK STATUS */
 #include "AEAudioUtility.h"
 #include "AESoundManager.h"
 
+namespace {
+// 0x4F2B80 (lote 165A, banco Fn165A): cuerpo del destructor de CAETwinLoopSoundEntity del EXE (thiscall, sin argumentos de pila, `ret`, 139 bytes con marco SEH que solo desenrolla y aqui se omite). Como el original,
+// con el orden exacto de escrituras y llamadas: vtable de la clase (0x85F438); si el WORD +0x88 (m_IsInUse) no es cero, StopSoundAndForget (0x4EF850) sobre cada voz no nula de +0xA0 y +0xA4 (la casilla se pone
+// a cero DESPUES de la llamada) y el WORD a cero; vtable base 0x859988 y destructor de CAESound (0x4EF660) sobre m_tempSound (+8). El destructor generado por el compilador deja vtables propias y limpia
+// campos que el EXE no toca, por eso se escribe a mano (como CAEPedAudioEntity::Destructor, que lo expande en linea).
+__declspec(noinline) void __fastcall TwinLoopSoundEntityDestructorExe(CAETwinLoopSoundEntity* self, void* /*edx*/) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x85F438;
+    if (*reinterpret_cast<uint16*>(bytes + 0x88) != 0) {
+        for (const size_t off : { size_t(0xA0), size_t(0xA4) }) {
+            auto*& sound = *reinterpret_cast<CAESound**>(bytes + off);
+            if (sound) {
+                sound->StopSoundAndForget();
+                sound = nullptr;
+            }
+        }
+        *reinterpret_cast<uint16*>(bytes + 0x88) = 0;
+    }
+    *reinterpret_cast<uint32*>(bytes) = 0x859988;
+    reinterpret_cast<CAESound*>(bytes + 8)->Destructor();
+}
+} // namespace
+
 // 0x4F2AE0
 CAETwinLoopSoundEntity::CAETwinLoopSoundEntity(
     eSoundBankSlot  bankSlot,
@@ -57,7 +80,7 @@ CAETwinLoopSoundEntity* CAETwinLoopSoundEntity::DefaultConstructorExe() {
     return this;
 }
 
-// 0x4F2B80
+// 0x4F2B80 (el cuerpo del EXE esta enganchado como TwinLoopSoundEntityDestructorExe, ver arriba)
 CAETwinLoopSoundEntity::~CAETwinLoopSoundEntity() {
     if (m_IsInUse) {
         StopSoundAndForget();
@@ -239,6 +262,8 @@ void CAETwinLoopSoundEntity::InjectHooks() {
     RH_ScopedCategory("Audio/Entities");
 
     RH_ScopedInstall(DefaultConstructorExe, 0x4F63B0); // lote 153A (banco Fn153A)
+    RH_ScopedNamedGlobalInstall(TwinLoopSoundEntityDestructorExe, "Destructor", 0x4F2B80); // lote 165A (banco Fn165A)
+    RH_ScopedInstall(StopSound, 0x4F2930); // lote 165A (banco Fn165A)
     RH_ScopedInstall(Initialise, 0x4F28A0);
     RH_ScopedInstall(UpdateTwinLoopSound, 0x4F29A0);
     RH_ScopedVMTInstall(UpdateParameters, 0x4F2E90);

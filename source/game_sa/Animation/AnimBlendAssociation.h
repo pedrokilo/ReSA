@@ -218,7 +218,7 @@ public:
     void SetSpeed(float speed) { m_Speed = speed; }
 
     std::span<CAnimBlendNode> GetNodes();
-    CAnimBlendNode*           GetNode(int32 nodeIndex) { return &GetNodes()[nodeIndex]; } // 0x4CEB60
+    CAnimBlendNode*           GetNode(int32 nodeIndex); // 0x4CEB60 (lote 165A, banco Fn165A)
     CAnimBlendNode*           GetNodesPtr() { return m_BlendNodes; }
 
     auto& GetLink() { return m_Link; }

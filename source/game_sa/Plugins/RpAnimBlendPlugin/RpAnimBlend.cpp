@@ -1120,13 +1120,13 @@ void FrameUpdateCallBackOffscreen(AnimBlendFrameData* fd, void* data) {
     }
 }
 
-// 0x4D1570
-void RpAnimBlendNodeUpdateKeyFrames(AnimBlendUpdateData* c, AnimBlendFrameData* frames, uint32 nFrames) {
+// 0x4D1570 (lote 165A, banco Fn165A). Como el original: el contador se compara con signo (`test ebx,ebx; jle`: con cero o negativo no recorre ningun frame, aunque si lee la asociacion del primer nodo de cada array).
+void RpAnimBlendNodeUpdateKeyFrames(AnimBlendUpdateData* c, AnimBlendFrameData* frames, int32 nFrames) {
     for (auto it = c->BlendNodeArrays; *it; it++) {
         const auto nodeArray = *it; // #nodes == nFrames
 
         const auto assoc = nodeArray[0].GetAnimAssoc();
-        for (size_t frameN = 0; frameN < nFrames; frameN++) {
+        for (int32 frameN = 0; frameN < nFrames; frameN++) {
             const auto fd = &frames[frameN];
 
             if (fd->HasVelocity && gpAnimBlendClump->m_PedPosition) {
@@ -1142,6 +1142,15 @@ void RpAnimBlendNodeUpdateKeyFrames(AnimBlendUpdateData* c, AnimBlendFrameData* 
         }
     }
 }
+
+// 0x4D1570 con la convencion del EXE (lote 165A, banco Fn165A): el EXE recibe el contexto en EAX y los otros dos argumentos en la pila (cdecl, `ret`: limpia el llamador). EntryEaxCpp (X87Math) devuelve el EAX de
+// entrada y tiene que ser lo primero que se ejecuta (sin comprobaciones de ejecucion ni /GS). Su unico llamador del EXE (0x4D3696) esta dentro de RpAnimBlendClumpUpdateAnimations (0x4D34F0, con hook).
+#pragma runtime_checks("", off)
+__declspec(safebuffers) void __cdecl RpAnimBlendNodeUpdateKeyFramesExe(AnimBlendFrameData* frames, int32 nFrames) {
+    const uint32 entryEax = EntryEaxCpp();
+    RpAnimBlendNodeUpdateKeyFrames(reinterpret_cast<AnimBlendUpdateData*>(entryEax), frames, nFrames);
+}
+#pragma runtime_checks("", restore)
 
 // 0x4D34F0
 void RpAnimBlendClumpUpdateAnimations(RpClump* clump, float timeStep, bool isOnScreen) {
@@ -1334,6 +1343,7 @@ void RpAnimBlendPlugin::InjectHooks() {
     RH_ScopedGlobalOverloadedInstall(RpAnimBlendGetNextAssociation, "Flags", 0x4D6AD0, CAnimBlendAssociation * (*)(CAnimBlendAssociation * association, uint32 flags));
 
     RH_ScopedGlobalInstall(RpAnimBlendClumpUpdateAnimations, 0x4D34F0);
+    RH_ScopedGlobalInstall(RpAnimBlendNodeUpdateKeyFramesExe, 0x4D1570); // lote 165A (banco Fn165A)
 #ifdef USE_COPY_PASTE_FRAME_UPDATE
     // Most of these functions aren't hookable (without effort) they take args in <eax> and whatnot, they aren't regular `__cdecl` calls
     //RH_ScopedGlobalInstall(FrameUpdateCallBackWithVelocityExtractionCompressedSkinned, 0x4D1DB0);

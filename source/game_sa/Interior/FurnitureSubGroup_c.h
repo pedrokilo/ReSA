@@ -30,5 +30,9 @@ public:
     bool                 m_bCanPlaceInFrontOfWindow; //!< Regla copiada a cada Furniture_c añadido.
     bool                 m_bIsTall;                  //!< Clasificación de altura usada al colocar interiores.
     bool                 m_bCanSteal;                //!< Habilita comportamiento de objeto robable y afecta dimensiones.
+
+private:
+    FurnitureSubGroup_c* Constructor() { this->FurnitureSubGroup_c::FurnitureSubGroup_c(); return this; } // 0x590E20 (lote 165A, banco Fn165A)
+    FurnitureSubGroup_c* Destructor() { this->FurnitureSubGroup_c::~FurnitureSubGroup_c(); return this; } // 0x590E70 (lote 165A, banco Fn165A)
 };
 VALIDATE_SIZE(FurnitureSubGroup_c, 0x1C);

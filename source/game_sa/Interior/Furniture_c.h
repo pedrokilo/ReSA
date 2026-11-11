@@ -20,5 +20,8 @@ public:
 
     Furniture_c() = default;  // 0x590EC0
     ~Furniture_c() = default; // 0x590ED0
+
+private:
+    Furniture_c* Constructor() { this->Furniture_c::Furniture_c(); return this; } // 0x590EC0 (lote 165A, banco Fn165A)
 };
 VALIDATE_SIZE(Furniture_c, 0x14);

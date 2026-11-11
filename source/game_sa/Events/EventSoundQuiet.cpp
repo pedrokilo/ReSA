@@ -20,10 +20,48 @@ END GENERATED HOOK STATUS */
 
 #include "EventSoundQuiet.h"
 
+namespace CEventEditableBody {
+void __fastcall EditableResponseDestructorBody(CEventEditableResponse* self, void* edx); // EventEditableResponse.cpp: 0x4AC480
+}
+
+namespace {
+// 0x5DEA00 (lote 165A, banco Fn165A): cuerpo no virtual de ~CEventSoundQuiet del EXE (thiscall, sin argumentos de pila, `ret`, 90 bytes con marco SEH que solo desenrolla y aqui se omite). Deja la vtable de
+// CEventSoundQuiet del EXE (0x86C2B0), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula en +0x14 (ECX = la entidad, argumento = la direccion de la casilla) y llama al cuerpo de
+// ~CEventEditableResponse (0x4AC480, con hook), que deja la vtable de CEvent. Funcion propia sin expansion en linea para que el banco pueda sustituirla.
+__declspec(noinline) void __fastcall SoundQuietDestructorBody(CEventSoundQuiet* self, void* /*edx*/) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x86C2B0;
+    CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0x14));
+    CEventEditableBody::EditableResponseDestructorBody(self, nullptr);
+}
+
+// 0x5DEAB0 (lote 165A, banco Fn165A): destructor con borrado de CEventSoundQuiet del EXE (ranura 0 de su vtable 0x86C2B0; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call
+// 0x5DEA00; test byte [esp+8],1; je ..; push esi; call 0x4B5630; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x5DEA00), libera `this` con CEvent::operator
+// delete (0x4B5630, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CEventSoundQuiet* __fastcall SoundQuietScalarDeletingDestructor(CEventSoundQuiet* self, void* /*edx*/, uint8 flags) {
+    SoundQuietDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CEvent::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote165ABody_CEventSoundQuiet() { return reinterpret_cast<uintptr_t>(&SoundQuietDestructorBody); } // para el banco Fn165A
+
 void CEventSoundQuiet::InjectHooks()
 {
     RH_ScopedVirtualClass(CEventSoundQuiet, 0x86C2B0, 17);
     RH_ScopedCategory("Events");
+
+    RH_ScopedNamedGlobalInstall(SoundQuietDestructorBody, "Destructor", 0x5DEA00);                                  // lote 165A (banco Fn165A)
+    RH_ScopedNamedGlobalInstall(SoundQuietScalarDeletingDestructor, "ScalarDeletingDestructor", 0x5DEAB0);          // lote 165A
+    RH_ScopedVMTInstall(GetEventType, 0x5DEA60);                // lote 165A: ranura 1 de la vtable 0x86C2B0
+    RH_ScopedVMTInstall(GetEventPriority, 0x5DEAD0);            // lote 165A: ranura 2
+    RH_ScopedVMTInstall(GetLifeTime, 0x5DEA70);                 // lote 165A: ranura 3
+    RH_ScopedVMTInstall(GetSourceEntity, 0x5DEA80);             // lote 165A
+    RH_ScopedVMTInstall(GetLocalSoundLevel, 0x5DEA90);          // lote 165A
+    RH_ScopedVMTInstall(CanBeInterruptedBySameEvent, 0x5DEAA0); // lote 165A
 
     RH_ScopedInstall(Constructor, 0x5E05B0);
     RH_ScopedVMTInstall(AffectsPed, 0x4B5240);
@@ -79,6 +117,36 @@ bool CEventSoundQuiet::AffectsPed(CPed* ped)
         if (soundLevel - currentEvent->GetSoundLevel(nullptr, ped->GetPosition()) < 3.0f)
             return false;
     }
+    return true;
+}
+
+// 0x5DEA60 (lote 165A, banco Fn165A; thiscall, `ret`, 5 bytes: `mov eax,3Eh`): EVENT_SOUND_QUIET (62); no lee el objeto.
+eEventType CEventSoundQuiet::GetEventType() const {
+    return EVENT_SOUND_QUIET;
+}
+
+// 0x5DEAD0 (lote 165A, banco Fn165A; thiscall, `ret`, 6 bytes: `mov eax,8`): prioridad 8; no lee el objeto.
+int32 CEventSoundQuiet::GetEventPriority() const {
+    return 8;
+}
+
+// 0x5DEA70 (lote 165A, banco Fn165A; thiscall, `ret`, 3 bytes: `xor eax,eax`): vida util 0; no lee el objeto.
+int32 CEventSoundQuiet::GetLifeTime() {
+    return 0;
+}
+
+// 0x5DEA80 (lote 165A, banco Fn165A; thiscall, `ret`, 4 bytes: `mov eax,[ecx+14h]`): la entidad origen (m_entity) tal cual, sin comprobar nada.
+CEntity* CEventSoundQuiet::GetSourceEntity() const {
+    return m_entity;
+}
+
+// 0x5DEA90 (lote 165A, banco Fn165A; thiscall, `ret`, 4 bytes: `fld dword [ecx+18h]`): el nivel de sonido local (m_fLocalSoundLevel) cargado en ST0.
+float CEventSoundQuiet::GetLocalSoundLevel() {
+    return m_fLocalSoundLevel;
+}
+
+// 0x5DEAA0 (lote 165A, banco Fn165A; thiscall, `ret`, 3 bytes: `mov al,1`): siempre verdadero; no lee el objeto.
+bool CEventSoundQuiet::CanBeInterruptedBySameEvent() {
     return true;
 }
 

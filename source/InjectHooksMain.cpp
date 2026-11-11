@@ -155,6 +155,7 @@
 #include "FallingGlassPane.h"
 #include "Glass.h"
 #include "FurnitureGroup_c.h"
+#include "Furniture_c.h"
 #include "FurnitureManager_c.h"
 #include "FurnitureSubGroup_c.h"
 #include "Interior_c.h"
@@ -1603,6 +1604,7 @@ void InjectHooksMain() {
     };
 
     const auto Interior = []() {
+        Furniture_c::InjectHooks();
         FurnitureGroup_c::InjectHooks();
         FurnitureManager_c::InjectHooks();
         FurnitureSubGroup_c::InjectHooks();

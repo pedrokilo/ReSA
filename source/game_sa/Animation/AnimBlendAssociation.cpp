@@ -66,6 +66,7 @@ void CAnimBlendAssociation::InjectHooks() {
     RH_ScopedOverloadedInstall(Init, "0", 0x4CED50, void(CAnimBlendAssociation::*)(RpClump*, CAnimBlendHierarchy*));
     RH_ScopedOverloadedInstall(Init, "1", 0x4CEE40, void(CAnimBlendAssociation::*)(CAnimBlendAssociation&));
     RH_ScopedOverloadedInstall(Init, "2", 0x4CEEC0, void(CAnimBlendAssociation::*)(CAnimBlendStaticAssociation&));
+    RH_ScopedInstall(GetNode, 0x4CEB60); // lote 165A (banco Fn165A)
     RH_ScopedInstall(Start, 0x4CEB70);
     RH_ScopedInstall(AllocateAnimBlendNodeArray, 0x4CE9F0);
     RH_ScopedInstall(FreeAnimBlendNodeArray, 0x4CEA40);
@@ -210,6 +211,12 @@ void CAnimBlendAssociation::Init(CAnimBlendStaticAssociation& assoc) {
         m_BlendNodes[i].m_Seq = assoc.m_BlendSeqs[i];
         m_BlendNodes[i].m_BlendAssoc = this;
     }
+}
+
+// 0x4CEB60 (lote 165A, banco Fn165A; thiscall, un argumento de pila, `ret 4`, 16 bytes: `mov eax,[esp+4]; mov ecx,[ecx+10h]; lea eax,[eax+eax*2]; lea eax,[ecx+eax*8]`): puntero al nodo `nodeIndex` del array de
+// nodos (+0x10, 0x18 bytes por nodo) sin comprobar el indice ni que el array exista (aritmetica de punteros de 32 bits). Antes pasaba por el span de GetNodes() (con comprobacion de rango).
+CAnimBlendNode* CAnimBlendAssociation::GetNode(int32 nodeIndex) {
+    return m_BlendNodes + nodeIndex;
 }
 
 // 0x4CEB70

@@ -20,10 +20,35 @@ END GENERATED HOOK STATUS */
 
 #include "TaskComplexDragPedFromCar.h"
 
+namespace {
+// 0x6404D0 (lote 165A, banco Fn165A): cuerpo no virtual de ~CTaskComplexDragPedFromCar del EXE (thiscall, sin argumentos de pila, `ret`, 90 bytes con marco SEH que solo desenrolla y aqui se omite). Deja la vtable de la
+// clase del EXE (0x86EB6C), libera con CEntity::CleanUpOldReference (0x571A00) la referencia no nula en +0x50 (m_Ped) y llama a CTaskComplexEnterCar::Destructor (0x63DFA0, con hook). Sin hook propio (no es
+// de este lote): es la funcion que llama el destructor con borrado; el destructor generado por el compilador dejaria la vtable de la DLL.
+__declspec(noinline) void __fastcall DragPedFromCarDestructorBodyExe(CTaskComplexDragPedFromCar* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86EB6C;
+    CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(reinterpret_cast<uint8*>(self) + 0x50));
+    self->CTaskComplexEnterCar::Destructor();
+}
+
+// 0x643CE0 (lote 165A, banco Fn165A): destructor con borrado de CTaskComplexDragPedFromCar del EXE (ranura 0 de su vtable 0x86EB6C; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x6404D0; test byte
+// [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x6404D0, con hook), libera `this` con CTask::operator delete (0x61A5B0, con hook) solo
+// si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexDragPedFromCar* __fastcall DragPedFromCarScalarDeletingDestructor(CTaskComplexDragPedFromCar* self, void* /*edx*/, uint8 flags) {
+    DragPedFromCarDestructorBodyExe(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote165ABody_CTaskComplexDragPedFromCar() { return reinterpret_cast<uintptr_t>(&DragPedFromCarDestructorBodyExe); } // para el banco Fn165A
+
 void CTaskComplexDragPedFromCar__InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDragPedFromCar, 0x86EB6C, 12); // 12 huecos, como CTaskComplexEnterCar
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedNamedGlobalInstall(DragPedFromCarScalarDeletingDestructor, "ScalarDeletingDestructor", 0x643CE0); // lote 165A (banco Fn165A)
     RH_ScopedVMTInstall(ControlSubTask, 0x640530);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x643D00);
 }

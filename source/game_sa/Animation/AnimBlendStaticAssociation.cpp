@@ -20,6 +20,34 @@ END GENERATED HOOK STATUS */
 
 #include "AnimBlendStaticAssociation.h"
 
+namespace {
+// 0x4CEC00 (lote 165A, banco Fn165A): cuerpo del destructor de CAnimBlendStaticAssociation del EXE (thiscall, sin argumentos de pila, `ret`, 20 bytes sin marco SEH: `mov [ecx],85C6CCh; mov ecx,[ecx+0Ch];
+// test ecx,ecx; je ..; push ecx; call 0x72F430; pop ecx; ret`). Deja la vtable de la clase del EXE (0x85C6CC) y libera con CMemoryMgr::Free (0x72F430, con hook) el mapa de secuencias (+0xC) si no es nulo, SIN poner
+// el puntero a cero (el destructor generado por el compilador dejaria la vtable de la DLL y FreeSequenceArray pone el puntero a cero). Lo llama la tabla de destructores del CRT (0x4CDF8A).
+__declspec(noinline) void __fastcall CAnimBlendStaticAssociationDestructorBodyExe(CAnimBlendStaticAssociation* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x85C6CC;
+    void* const sequences = self->m_BlendSeqs;
+    if (sequences) {
+        CMemoryMgr::Free(sequences);
+    }
+}
+
+// 0x4CEF30 (lote 165A, banco Fn165A): destructor con borrado de CAnimBlendStaticAssociation del EXE (vtable 0x85C6CC, 41 bytes; thiscall, un argumento de pila, `ret 4`) con el cuerpo expandido en linea: lee el
+// mapa de secuencias (+0xC), deja la vtable (0x85C6CC) y libera el mapa con CMemoryMgr::Free (0x72F430, con hook) si no es nulo; despues libera `this` con operator delete (0x8214BD, CRT, sin hook) solo si el bit 0
+// del BYTE de banderas esta puesto (a diferencia de 0x4CDF50, no mira el bit 1) y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CAnimBlendStaticAssociation* __fastcall CAnimBlendStaticAssociationScalarDeletingDestructor(CAnimBlendStaticAssociation* self, void* /*edx*/, uint8 flags) {
+    void* const sequences = self->m_BlendSeqs;
+    *reinterpret_cast<uint32*>(self) = 0x85C6CC;
+    if (sequences) {
+        CMemoryMgr::Free(sequences);
+    }
+    if (flags & 1) {
+        ::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
 /**
  * Registra el ciclo de vida de las asociaciones estáticas de animación.
  */
@@ -30,6 +58,8 @@ void CAnimBlendStaticAssociation::InjectHooks() {
     RH_ScopedInstall(Constructor1, 0x4CE940);
     RH_ScopedInstall(Constructor2, 0x4CEF60);
     RH_ScopedInstall(Destructor, 0x4CDF50);
+    RH_ScopedNamedGlobalInstall(CAnimBlendStaticAssociationDestructorBodyExe, "DestructorBody", 0x4CEC00);                          // lote 165A (banco Fn165A)
+    RH_ScopedNamedGlobalInstall(CAnimBlendStaticAssociationScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4CEF30);        // lote 165A (banco Fn165A)
 
     RH_ScopedInstall(Init, 0x4CEC20);
     RH_ScopedInstall(AllocateSequenceArray, 0x4CE960);

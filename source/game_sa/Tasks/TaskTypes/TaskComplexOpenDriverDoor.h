@@ -28,8 +28,11 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x6403D0 (destructor no-deleting, llamado desde el deleting 0x643CA0 del vtable)
-    CTaskComplexOpenDriverDoor* Destructor() {
+    __declspec(noinline) CTaskComplexOpenDriverDoor* Destructor() {
         this->CTaskComplexOpenDriverDoor::~CTaskComplexOpenDriverDoor();
         return this;
     }
+
+public:
+    CTaskComplexOpenDriverDoor* ScalarDeletingDestructorExe(uint8 flags); // 0x643CA0 (lote 165A, banco Fn165A)
 };

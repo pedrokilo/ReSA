@@ -23,8 +23,11 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x640420
-    CTaskComplexOpenPassengerDoor* Destructor() {
+    __declspec(noinline) CTaskComplexOpenPassengerDoor* Destructor() {
         this->CTaskComplexOpenPassengerDoor::~CTaskComplexOpenPassengerDoor();
         return this;
     }
+
+public:
+    CTaskComplexOpenPassengerDoor* ScalarDeletingDestructorExe(uint8 flags); // 0x643CC0 (lote 165A, banco Fn165A)
 };

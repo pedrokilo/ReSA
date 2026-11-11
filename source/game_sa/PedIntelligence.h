@@ -172,6 +172,9 @@ public:
 private:
     CPedIntelligence* Constructor(CPed* ped);
     CPedIntelligence* Destructor();
+
+public:
+    CPedIntelligence* ScalarDeletingDestructorExe(uint8 flags); // 0x5DEB90 (lote 165A, banco Fn165A)
 };
 
 VALIDATE_SIZE(CPedIntelligence, 0x294);

@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "fe2b7a3c6bba2c4390c37b3be47721925370cbb64be88ed30940d925388f0aad",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CAETwinLoopSoundEntity::StopSound: 760/2048; CAETwinLoopSoundEntity::Destructor: 884/2048; CEventSoundQuiet::DestructorBody: 892/2048; CEventSoundQuiet::GetEventType: 909/2048; CEventSoundQuiet::GetLifeTime: 906/2048; CEventSoundQuiet::GetSourceEntity: 869/2048; CEventSoundQuiet::GetLocalSoundLevel: 493/2048; CEventSoundQuiet::CanBeInterruptedBySameEvent: 889/2048; CEventSoundQuiet::ScalarDeletingDestructor: 376/2048; CEventSoundQuiet::GetEventPriority: 905/2048; CPedIntelligence::ScalarDeletingDestructorExe: 360/2048; CAnimBlendAssociation::GetNode: 901/2048; CAnimBlendStaticAssociation::DestructorBody: 899/2048; CAnimBlendStaticAssociation::ScalarDeletingDestructor: 361/2048; RpAnimBlendNodeUpdateKeyFramesExe: 268/2048; CTaskUtilityLineUpPedWithCar::ScalarDeletingDestructorExe: 358/2048; CTaskComplexEnterCarAsDriver::ScalarDeletingDestructor: 372/2048; CTaskComplexEnterCarAsPassenger::ScalarDeletingDestructor: 352/2048; CTaskComplexOpenDriverDoor::ScalarDeletingDestructorExe: 352/2048; CTaskComplexOpenPassengerDoor::ScalarDeletingDestructorExe: 388/2048; CTaskComplexDragPedFromCar::ScalarDeletingDestructor: 372/2048; FurnitureGroup_c::Constructor: 876/2048; FurnitureSubGroup_c::ListItemConstructor: 664/2048; FurnitureSubGroup_c::Constructor: 912/2048; FurnitureSubGroup_c::Destructor: 885/2048; Furniture_c::Constructor: 890/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

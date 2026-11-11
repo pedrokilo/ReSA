@@ -27,6 +27,7 @@ void FurnitureGroup_c::InjectHooks() {
     RH_ScopedClass(FurnitureGroup_c);
     RH_ScopedCategory("Interior");
 
+    RH_ScopedInstall(Constructor, 0x590DE0); // lote 165A (banco Fn165A): `push esi; mov esi,ecx; call 0x4A8DD0 (lista: cabeza, cola y contador a cero); mov eax,esi; pop esi; ret`
     RH_ScopedInstall(Init, 0x5910A0);
     RH_ScopedInstall(Exit, 0x5910B0);
     RH_ScopedInstall(AddSubGroup, 0x5910E0);

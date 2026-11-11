@@ -14,13 +14,13 @@ public:
     CEventSoundQuiet(CEntity* entity, float fLocalSoundLevel, uint32 startTime, const CVector& position);
     ~CEventSoundQuiet() override;
 
-    eEventType GetEventType() const override { return EVENT_SOUND_QUIET; }
-    int32 GetEventPriority() const override { return 8; }
-    int32 GetLifeTime() override { return 0; }
+    eEventType GetEventType() const override; // 0x5DEA60 (lote 165A, banco Fn165A)
+    int32 GetEventPriority() const override; // 0x5DEAD0 (lote 165A)
+    int32 GetLifeTime() override; // 0x5DEA70 (lote 165A)
     bool AffectsPed(CPed* ped) override;
-    CEntity* GetSourceEntity() const override { return m_entity; }
-    float GetLocalSoundLevel() override { return m_fLocalSoundLevel; }
-    bool CanBeInterruptedBySameEvent() override { return true; }
+    CEntity* GetSourceEntity() const override; // 0x5DEA80 (lote 165A)
+    float GetLocalSoundLevel() override; // 0x5DEA90 (lote 165A)
+    bool CanBeInterruptedBySameEvent() override; // 0x5DEAA0 (lote 165A)
     CEventEditableResponse* CloneEditable() const noexcept override;
 
 private:

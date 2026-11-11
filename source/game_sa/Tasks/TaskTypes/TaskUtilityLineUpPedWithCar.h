@@ -30,7 +30,12 @@ private:
     static void InjectHooks();
 
     CTaskUtilityLineUpPedWithCar* Constructor(const CVector& offsets, int32 nTime, int32 doorOpenPosType, int32 doorIdx) { this->CTaskUtilityLineUpPedWithCar::CTaskUtilityLineUpPedWithCar(offsets, nTime, doorOpenPosType, doorIdx); return this; }
-    CTaskUtilityLineUpPedWithCar* Destructor() { this->CTaskUtilityLineUpPedWithCar::~CTaskUtilityLineUpPedWithCar(); return this; }
+    __declspec(noinline) CTaskUtilityLineUpPedWithCar* Destructor() { this->CTaskUtilityLineUpPedWithCar::~CTaskUtilityLineUpPedWithCar(); return this; }
+
+public:
+    CTaskUtilityLineUpPedWithCar* ScalarDeletingDestructorExe(uint8 flags); // 0x63A2E0 (lote 165A, banco Fn165A)
+
+private:
 
     friend class CTaskComplexEnterCar;
 };

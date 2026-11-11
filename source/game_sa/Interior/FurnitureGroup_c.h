@@ -30,6 +30,9 @@ public:
     FurnitureSubGroup_c* GetSubGroup(int32 subGroupId);
 
 private:
+    FurnitureGroup_c* Constructor() { this->FurnitureGroup_c::FurnitureGroup_c(); return this; } // 0x590DE0 (lote 165A, banco Fn165A)
+
+private:
     TList_c<FurnitureSubGroup_c> m_subGroupsList; //!< Subgrupos activos pertenecientes a esta categoría.
 };
 VALIDATE_SIZE(FurnitureGroup_c, 0xC);

@@ -68,6 +68,7 @@ void CPedIntelligence::InjectHooks()
     RH_ScopedInstall(operator delete, 0x6074E0);
     RH_ScopedInstall(Constructor, 0x607140);
     RH_ScopedInstall(Destructor, 0x607300);
+    RH_ScopedInstall(ScalarDeletingDestructorExe, 0x5DEB90); // lote 165A (banco Fn165A)
 
     RH_ScopedInstall(GetPedEntities, 0x4893E0);
     RH_ScopedInstall(SetPedDecisionMakerType, 0x600B50);
@@ -1117,6 +1118,17 @@ CVehicle* CPedIntelligence::GetEnteringVehicle() {
 // 0x607140
 CPedIntelligence* CPedIntelligence::Constructor(CPed* ped) {
     this->CPedIntelligence::CPedIntelligence(ped);
+    return this;
+}
+
+// 0x5DEB90 (lote 165A, banco Fn165A; el listado decia CAEAudioEntity): destructor con borrado de CPedIntelligence del EXE (thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call
+// 0x607300; test byte [esp+8],1; je ..; push esi; call 0x6074E0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo (0x607300, con hook; Destructor, sin expansion en linea),
+// libera `this` con CPedIntelligence::operator delete (0x6074E0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. La clase no tiene vtable: ningun dword la referencia.
+__declspec(noinline) CPedIntelligence* CPedIntelligence::ScalarDeletingDestructorExe(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CPedIntelligence::operator delete(this);
+    }
     return this;
 }
 

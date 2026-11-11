@@ -30,10 +30,22 @@ void CTaskUtilityLineUpPedWithCar::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x64FBB0);
     RH_ScopedInstall(Destructor, 0x64FC00);
+    RH_ScopedInstall(ScalarDeletingDestructorExe, 0x63A2E0); // lote 165A (banco Fn165A)
 
     RH_ScopedInstall(GetLocalPositionToOpenCarDoor, 0x64FC10);
     RH_ScopedInstall(GetPositionToOpenCarDoor, 0x650A80);
     RH_ScopedInstall(ProcessPed, 0x6513A0);
+}
+
+// 0x63A2E0 (lote 165A, banco Fn165A; el listado decia CTaskComplexEnterCar): destructor con borrado de CTaskUtilityLineUpPedWithCar del EXE (clase sin vtable: ningun dword la referencia; thiscall, un argumento de
+// pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x64FC00; test byte [esp+8],1; je ..; push esi; call 0x8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo (0x64FC00,
+// con hook; Destructor, sin expansion en linea), libera `this` con operator delete (0x8214BD, CRT, sin hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+__declspec(noinline) CTaskUtilityLineUpPedWithCar* CTaskUtilityLineUpPedWithCar::ScalarDeletingDestructorExe(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        ::operator delete(this);
+    }
+    return this;
 }
 
 // 0x64FBB0
