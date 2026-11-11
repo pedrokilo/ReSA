@@ -58,7 +58,7 @@
   "log_sha256": "38c4ec325ca804c2b5aeac902c8de392e13546015cd4d7cc377e00b687518719",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks7a\\20261104-011031-430186",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks7a\\20261111-024341-905172",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexChat::Clone": true,
@@ -106,19 +106,19 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "e1ef928c66cf83767ee8c1120af8df5ba38bc10ca33b135ee2030473cf8216e3",
-      "pdb": "a526dd81e91e15d60dfc1cd9a399a44de4c066f48251ad2abb39c84f559ad56e"
+      "asi": "f321d1c294c75c78b63c2f98359b71233b96f79ac81e3e4e8c86495890244b91",
+      "pdb": "b77ea151534783019d900f9931c206cab4d13a890ff269d39c1cd110a7c717b4"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp": "43fd9a84ae99e1ce5a13dc9aa4dd1dc3b3b2063ccdb73bdb031283e2b38c74b9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp": "1e51b223349e3e7b3113e40a3ff6d6ec2125acdbee5d4cf62b752fa2a68554b7",
       "source/game_sa/Tasks/TaskTypes/TaskComplexChat.h": "de62e8ce6761237f32ad24eb30d5e0a21e77dedebb599bc3f8cbdd70998f306c",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.cpp": "b2afdd17f925652a1d22b9004a21c1e85a59680cc6ac1769bd753ed7566660a2",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.cpp": "e60f8f838a2bf4f00633cc96a881fe27edeab21a805da90049e8ee87ecd16cb8",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.h": "b90ce8d9b93e4c76f6b3a8902aec5851bd9fa4139ea281149f0adebdb8f5823a",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.cpp": "f255af0c2f80d609cc78193545eb8243d506f5e479f66530b61c6726482df871",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.h": "521643dbbecd539abc2a2ce6659f493318cd64f1f2de0d83835156214b36d9b3",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.cpp": "199ab2f07f4ab4d3884cef04a659b81e4d4d51fc71af6f13951eb363676c3291",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.h": "0b6a2de878eb532c90c7b408c1fb4c1a57e998b8faa79cb610faa01a6654dcc2",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.h": "70a6149b4fe79ca1505be3b8fa9cd90fee360a3f73d8d7b5f3417d09491163e9",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexHitResponse.cpp": "e178099b699abba0fc3eedaa00791f21167e8983ef2c9cfe5e9aa28c24e0eb63",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexHitResponse.cpp": "98c99d40032f5e02d46c681c6479578996851d440d36028fa3e77ccf3a1b7401",
       "source/game_sa/Tasks/TaskTypes/TaskComplexHitResponse.h": "fb4438ed239898d88268372befe00a6aab6ca74e534eb23be6cae591c396eb0f",
       "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "f589aa8d0332bf71c49448573afae9487aad90246d1ae5ea3079f2c0c0fba236",
       "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "cf39223c1b2204730c17b496d36264f07728fe548869ad5f7efe7028ccce07a3"

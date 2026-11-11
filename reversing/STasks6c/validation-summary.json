@@ -64,7 +64,7 @@
   "log_sha256": "83e7138e14d3d3282e94c06fd3bc5441ab00f2134009b22301d29f5692929a16",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks6c\\20261002-190342-365612",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks6c\\20261111-030128-120553",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleSetKindaStayInSamePlace::Clone": true,
@@ -118,40 +118,41 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "13259d21ef2f9e27befe840a51979757300dc488aff29c5847029908ab2fd855",
-      "pdb": "480eb1d8a0b6e6108362759cf9e67a0e82e1b28f5868368875ea937978d39c62"
+      "asi": "2a8bdf79110fa4aa2de24f605da5a028ed927d54b8169dca1e516417be6ae398",
+      "pdb": "e0cf95ff72b2437f33df0770a9f1fd46a07c0f7ce2cdd5de377ea52baa6178d8"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleSetKindaStayInSamePlace.cpp": "86581641e4442e1403131435a2fa0da2b68135b4965e22d99475199bc491d3b7",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSetKindaStayInSamePlace.cpp": "cd56d48306f77917a98965e08ad931a95b9407310155809b47a7bc69ec7ad59a",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleSetKindaStayInSamePlace.h": "a9db0a497a418952cd05ad811c1372b867873aee72737534fdcc948987b4f149",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleSetPedAsAutoDriver.cpp": "33ebfefdc2a3dd640c6494e4333734c80d4d9f983e5d8103cb97dfb80b6b0c24",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSetPedAsAutoDriver.cpp": "416cba6844e4dfb28ff621ba799d5d59ec36947a9cecb12bcff38acb7ba957e0",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleSetPedAsAutoDriver.h": "96e9af9ef85f14a3e1c3ec5cd1293cbc2b6905ac3760fba506d542b79b1a12e0",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "c7c248e0119c74aa71ea73eda34c23618c2c00ada76148141a041b3fb56b0d81",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "0081100116f1467fd3c6fdd22152960e6559eb509ff6eef7f191fcd3822dab3b",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.h": "122fabde06fcd9649f3cca9933a6a33e3bb48ac5d03ccb9090318a47936d97f0",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "d6ec19a312bfd01ced44d512359f48ea3d4a63e85a372a427e500a284c410911",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.h": "10c3a505072fb1a879de4d18ab76f95126f7dc39dc7fbe203e49d716d8f92bff",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleTurn180.cpp": "8ba155a58ff9e56a4b2df208876c76483570bd549406b23365980d5d2ab4ef27",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "7feda2de249288db7fdb3233b370f38c80e34b6ebf0cc2355ef31aae07ac3e46",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.h": "cb72353bd91ae141417bec0d93f42846350b13d0cbb9acba7f224f6be6bc5602",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleTurn180.cpp": "f0339e2b8b1840c72f8970ee6feb2e4edb60c12ba304968b467b75ab19f29348",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleTurn180.h": "29b08ca8b355043e295318bb3a6a27d33c70a04167010f8e1b018630d0972041",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp": "3864c1876586466df024eb747429e91d327879ff89918f8d3565743ce214a112",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp": "f2e1ce97066ea8e8af3d697903d8b1424ef1dd3cd421199304eff55a1c931521",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.h": "c4d03589abb3bb4c9da8ee357daaacc9dc0c8cf5471301aef1240a92565ae37d",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilAreaCodesMatch.cpp": "412f622f09b67716831027fc3b9ede2367ff2972665267b78469c5cb8c78b3b7",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilAreaCodesMatch.cpp": "fb2405e7e44d965964334a7eafb690469a17814d2c86e35827ce7f279e908704",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilAreaCodesMatch.h": "0f67954d47624841290ae57bc4d09c8c9d2eae3e0733f209c4c491bff8a7fd06",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "953d25222b373fc6f370bbfbb0eb0441fd907a1723e8bf6375448dcfdcdb903e",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.cpp": "d75cf394d9f1d58aea4bc76359611417259303cfa7f6836fd980cc1b98ee10f1",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.cpp": "2a6747599e702ebfbfb02ecc45b30ae116595b500970b09c650e7daa6cf12396",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.h": "e7a11e1755f313465098833f5687f5c6b5f119ccebbfaf094e79ce6a3c82cb4b",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.cpp": "6f55a3d11c673af2f06ae2f5f211a85158ab7376a230e39364b68221b9eda94d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.cpp": "59082b441bbf79b5bb7e41485ec9a764131e37499076f55f88cb58e26ff69a08",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.h": "0c6b0e6efb4deaba84ab287c122c44279b0a276851c3dbe309fc1e6967ebfc8a"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "5ebbb11c3d2d5507f18379e1916014a0306e4aaef87928f40fe6f0e04aee1859",
+      "LiveComparison.hpp": "fc5092248e2f5b9aa652f00532cb2a336e20bb2abe3229a42432b9001dea97a3",
       "build_probe.py": "b813d73f646fcd95aabb7d1796f94978c5136c47395648fe3242a3a2b71fa7aa",
       "run_local.py": "3254b5704a80b22ff64d298bbbe4ae536bbc6c6cc5ba7eadc12ba33647c47c4e"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "El StandStill::ProcessPed y el constructor de ThrowProjectile de la DLL corren de verdad y se comparan indirectamente."
+    "El StandStill::ProcessPed y el constructor de ThrowProjectile de la DLL corren de verdad y se comparan indirectamente.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
