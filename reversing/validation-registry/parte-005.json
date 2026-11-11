@@ -22004,7 +22004,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CKeyArray::Destructor"
@@ -22014,7 +22014,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22035,7 +22035,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22075,7 +22075,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CData::Destructor"
@@ -22085,7 +22085,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22106,7 +22106,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22146,7 +22146,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CAEBankLoader::ScalarDeletingDestructor"
@@ -22156,7 +22156,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22177,7 +22177,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22217,7 +22217,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CAEMP3TrackLoader::ScalarDeletingDestructor"
@@ -22227,7 +22227,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22248,7 +22248,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22288,7 +22288,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CCarGenerator::SwitchOnWithCount"
@@ -22298,7 +22298,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22319,7 +22319,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22359,7 +22359,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CColPoint::GetSurfaceTypeB"
@@ -22369,7 +22369,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22390,7 +22390,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22430,7 +22430,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CCutsceneMgr::SetCutsceneOffset"
@@ -22440,7 +22440,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22461,7 +22461,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22501,7 +22501,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "Particle_c::Constructor"
@@ -22511,7 +22511,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22532,7 +22532,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22572,7 +22572,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "FxSystem_c::ScalarDeletingDestructor"
@@ -22582,7 +22582,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22603,7 +22603,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22643,7 +22643,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "FxEmitterPrt_c::Constructor"
@@ -22653,7 +22653,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22674,7 +22674,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22714,7 +22714,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "FxMemoryPool_c::Constructor"
@@ -22724,7 +22724,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22745,7 +22745,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22785,7 +22785,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "FxMemoryPool_c::Destructor"
@@ -22795,7 +22795,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22816,7 +22816,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22856,7 +22856,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CEventAreaCodes::GetEventType"
@@ -22867,7 +22867,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22888,7 +22888,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -22928,7 +22928,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CEventAreaCodes::GetLifeTime"
@@ -22939,7 +22939,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -22960,7 +22960,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -23000,7 +23000,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CEventLeaderEntryExit::TakesPriorityOver"
@@ -23011,7 +23011,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -23032,7 +23032,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -23072,7 +23072,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CEventLeaderEntryExit::AffectsPedGroup"
@@ -23083,7 +23083,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -23104,7 +23104,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -23144,7 +23144,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CAEPedSpeechSlot::Reset"
@@ -23154,7 +23154,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -23175,7 +23175,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -23215,7 +23215,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CAEPedSpeechAudioEntity::Destructor"
@@ -23225,7 +23225,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -23246,7 +23246,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -23286,7 +23286,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleTired::GetTaskType"
@@ -23297,7 +23297,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -23318,7 +23318,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -23358,7 +23358,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleTired::MakeAbortable"
@@ -23369,7 +23369,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -23390,7 +23390,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -23430,7 +23430,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CDecisionMaker::From"
@@ -23440,7 +23440,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -23461,7 +23461,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -23501,7 +23501,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "WaterCreature_c::Constructor"
@@ -23511,7 +23511,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -23532,7 +23532,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -23572,7 +23572,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CAEGlobalWeaponAudioEntity::ScalarDeletingDestructor"
@@ -23582,7 +23582,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -23603,7 +23603,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -23643,7 +23643,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CAudioEngine::StopPoliceScanner"
@@ -23653,7 +23653,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -23674,7 +23674,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",
@@ -23714,7 +23714,7 @@
       },
       "evidence": {
         "path": "reversing/Fn144A/validation-summary.json",
-        "sha256": "d7b2c87aa7337ea3e9268cb5fcd915af8c3cce03143ea5cc5a42380ef3445bff",
+        "sha256": "f2f40ebc966d7b1c80e0ea703e33b9fe2a1ac3192631fa875608dc44ec27ba9e",
         "passed_path": [
           "covered_functions",
           "CAEExplosionAudioEntity::Constructor"
@@ -23724,7 +23724,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Audio/AESound.h": "0180ed37575b8edee0ff007a871f5753fec0c764671e501fd39a5786444abf24",
         "source/game_sa/Audio/AudioEngine.cpp": "399eb22c46c8bb5a51eac2b4d4c04a399ec935157f7f7e1010808580a3151942",
         "source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp": "c3648ea2b8e5f941ea8d67407970eb87b3304b6e8db68a4adc5e56234f871f95",
@@ -23745,7 +23745,7 @@
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "d59770518ca31e788f16c72a9ec8a0ff77754284866a45d44631e184bddfbf6f",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "7d4d20d175aceb3303296eec4757832d4ec6f7926ce7c63e5516292b4eedaabe",
         "source/game_sa/Events/EventAreaCodes.cpp": "dbd8ea198c5d470304a9fbd8dd65be6497f9638003e4c9fbc1661fe2b323c6d7",
-        "source/game_sa/Events/EventLeaderEntryExit.cpp": "c77fee734d1ba05de83585059ce681cb4acbc9dfd0620deb300dd2af28ef188b",
+        "source/game_sa/Events/EventLeaderEntryExit.cpp": "9130e9fe39d1a52ade8ba8ee4b4dcc79c787da22476159b85187e4dc4b668cb1",
         "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
         "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
         "source/game_sa/Fx/FxMemoryPool.cpp": "275b77d7c19b5f4b7966bb80f980c167088e280ea9c613dded411d45e57dbc98",

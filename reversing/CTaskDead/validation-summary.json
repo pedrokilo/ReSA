@@ -23,7 +23,7 @@
   "log_sha256": "1a89d003e6a34d72b1df8e9c0ab682e82d3e76a7ed981d82a6748cc86a90655c",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctaskdead\\20261110-193015-713139",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctaskdead\\20261111-142046-418812",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleDead::Constructor": true,
@@ -35,8 +35,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "2ac305e7b4188be7f53f9a4f921015c7c9d19611bcef798f774eaf9758da0283",
-      "pdb": "7e4b1d13167e8c6487b36132d6c4bbe4d1d9d11121628f3e557e90052cbedaf9"
+      "asi": "6b104c1494aa152e4534ddb4f570982fff2b7576420ff39abbae9f0bf5ea9cb9",
+      "pdb": "e48fdd7cb4f5cd08ded6357e22a6f52856a1ff1ff3e24ea94d6d002301c71936"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "9f2b72512cd8a335d468dc6ac768118e57ff11a07185bc8526e9cf6e3e24225f",

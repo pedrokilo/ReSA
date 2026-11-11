@@ -28523,7 +28523,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
+        "sha256": "ad5e54fce8ce753f0478e80abff713e579fa394cf43fc05dc8f2642a6ed14696",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::Constructor"
@@ -28549,7 +28549,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
+        "sha256": "ad5e54fce8ce753f0478e80abff713e579fa394cf43fc05dc8f2642a6ed14696",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::Destructor"
@@ -28575,7 +28575,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
+        "sha256": "ad5e54fce8ce753f0478e80abff713e579fa394cf43fc05dc8f2642a6ed14696",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::Clone"
@@ -28601,7 +28601,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
+        "sha256": "ad5e54fce8ce753f0478e80abff713e579fa394cf43fc05dc8f2642a6ed14696",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::GetTaskType"
@@ -28627,7 +28627,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
+        "sha256": "ad5e54fce8ce753f0478e80abff713e579fa394cf43fc05dc8f2642a6ed14696",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::MakeAbortable"
@@ -28653,7 +28653,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
+        "sha256": "ad5e54fce8ce753f0478e80abff713e579fa394cf43fc05dc8f2642a6ed14696",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::ProcessPed"
