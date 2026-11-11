@@ -93630,7 +93630,7 @@
       },
       "evidence": {
         "path": "reversing/ForcePedOutVt71/validation-summary.json",
-        "sha256": "b150b529a1bdc501a039e9f55b52a0ed275ee229654e89cf75804d5b49a0ea25",
+        "sha256": "5ec534edd47074d0ef5ff225517e983177b169a0ecc1abe893bae28979713ff3",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarForcePedOut::Destructor"
@@ -93641,9 +93641,9 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "9ff5f2530107d3f18f7491a8e7cba8d8e56861e8bca6f84f7e3f503e86dd462c",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "f22da1781866f3aac7bf3c1309f7de6845a3227569e104e96c125c3e81109371",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "3e801c56a90bdf0972816595c94068786ff065edbbfff686074bc4a51f24833a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "5c3b66772e2aab7ae26675a309b4280fd5b5fe1143596cd2d26a2452fdc5beaf",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "546c0d4fefa422b88495cc578989d66dc711b80039293998939c537897643e97",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/ForcePedOutVt71/LiveComparison.hpp": "8f69450fb9c131bb9ac707c9bc85df7c1fcbc1856d0e11032a7b25d5f8bedb73",
@@ -93666,7 +93666,7 @@
       },
       "evidence": {
         "path": "reversing/ForcePedOutVt71/validation-summary.json",
-        "sha256": "b150b529a1bdc501a039e9f55b52a0ed275ee229654e89cf75804d5b49a0ea25",
+        "sha256": "5ec534edd47074d0ef5ff225517e983177b169a0ecc1abe893bae28979713ff3",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarForcePedOut::Clone"
@@ -93677,9 +93677,9 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "9ff5f2530107d3f18f7491a8e7cba8d8e56861e8bca6f84f7e3f503e86dd462c",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "f22da1781866f3aac7bf3c1309f7de6845a3227569e104e96c125c3e81109371",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "3e801c56a90bdf0972816595c94068786ff065edbbfff686074bc4a51f24833a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "5c3b66772e2aab7ae26675a309b4280fd5b5fe1143596cd2d26a2452fdc5beaf",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "546c0d4fefa422b88495cc578989d66dc711b80039293998939c537897643e97",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/ForcePedOutVt71/LiveComparison.hpp": "8f69450fb9c131bb9ac707c9bc85df7c1fcbc1856d0e11032a7b25d5f8bedb73",
@@ -93702,7 +93702,7 @@
       },
       "evidence": {
         "path": "reversing/ForcePedOutVt71/validation-summary.json",
-        "sha256": "b150b529a1bdc501a039e9f55b52a0ed275ee229654e89cf75804d5b49a0ea25",
+        "sha256": "5ec534edd47074d0ef5ff225517e983177b169a0ecc1abe893bae28979713ff3",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarForcePedOut::MakeAbortable"
@@ -93713,9 +93713,9 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "9ff5f2530107d3f18f7491a8e7cba8d8e56861e8bca6f84f7e3f503e86dd462c",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "f22da1781866f3aac7bf3c1309f7de6845a3227569e104e96c125c3e81109371",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "3e801c56a90bdf0972816595c94068786ff065edbbfff686074bc4a51f24833a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "5c3b66772e2aab7ae26675a309b4280fd5b5fe1143596cd2d26a2452fdc5beaf",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "546c0d4fefa422b88495cc578989d66dc711b80039293998939c537897643e97",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/ForcePedOutVt71/LiveComparison.hpp": "8f69450fb9c131bb9ac707c9bc85df7c1fcbc1856d0e11032a7b25d5f8bedb73",
@@ -93738,7 +93738,7 @@
       },
       "evidence": {
         "path": "reversing/ForcePedOutVt71/validation-summary.json",
-        "sha256": "b150b529a1bdc501a039e9f55b52a0ed275ee229654e89cf75804d5b49a0ea25",
+        "sha256": "5ec534edd47074d0ef5ff225517e983177b169a0ecc1abe893bae28979713ff3",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleCarForcePedOut::ProcessPed"
@@ -93749,9 +93749,9 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "9ff5f2530107d3f18f7491a8e7cba8d8e56861e8bca6f84f7e3f503e86dd462c",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "f22da1781866f3aac7bf3c1309f7de6845a3227569e104e96c125c3e81109371",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "3e801c56a90bdf0972816595c94068786ff065edbbfff686074bc4a51f24833a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "5c3b66772e2aab7ae26675a309b4280fd5b5fe1143596cd2d26a2452fdc5beaf",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "546c0d4fefa422b88495cc578989d66dc711b80039293998939c537897643e97",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/ForcePedOutVt71/LiveComparison.hpp": "8f69450fb9c131bb9ac707c9bc85df7c1fcbc1856d0e11032a7b25d5f8bedb73",

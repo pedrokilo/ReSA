@@ -28991,7 +28991,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "FxPrim_c::Constructor"
@@ -29001,7 +29001,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29026,7 +29026,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29050,7 +29050,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "FxPrim_c::Destructor"
@@ -29060,7 +29060,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29085,7 +29085,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29109,7 +29109,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "FxPrim_c::Enable"
@@ -29119,7 +29119,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29144,7 +29144,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29168,7 +29168,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CAEAudioEntity::Destructor-2"
@@ -29178,7 +29178,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29203,7 +29203,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29227,7 +29227,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "FxSphere_c::Constructor"
@@ -29237,7 +29237,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29262,7 +29262,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29286,7 +29286,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::SetDefaultTask"
@@ -29296,7 +29296,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29321,7 +29321,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29345,7 +29345,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CPedGroupIntelligence::ReportAllBarDefaultTasksFinished"
@@ -29355,7 +29355,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29380,7 +29380,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29404,7 +29404,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CTaskComplexCarDriveWander::Destructor"
@@ -29414,7 +29414,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29439,7 +29439,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29463,7 +29463,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CTaskComplexCarDriveMission::ScalarDeletingDestructor"
@@ -29473,7 +29473,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29498,7 +29498,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29522,7 +29522,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CTaskComplexDriveToPoint::ScalarDeletingDestructor"
@@ -29532,7 +29532,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29557,7 +29557,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29581,7 +29581,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleChat::ScalarDeletingDestructor"
@@ -29591,7 +29591,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29616,7 +29616,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29640,7 +29640,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CPedGroupMembership::Destructor"
@@ -29650,7 +29650,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29675,7 +29675,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29699,7 +29699,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "tUserList::IsPedTypeAllowed"
@@ -29709,7 +29709,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29734,7 +29734,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29758,7 +29758,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "IsPedTypeGang"
@@ -29768,7 +29768,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29793,7 +29793,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29817,7 +29817,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CLinkList<CCollisionData*>::Shutdown"
@@ -29827,7 +29827,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29852,7 +29852,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29876,7 +29876,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CLinkList<CCollisionData*>::Insert"
@@ -29886,7 +29886,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29911,7 +29911,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29935,7 +29935,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CTaskComplexInAirAndLand::GetTaskType"
@@ -29946,7 +29946,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -29971,7 +29971,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -29995,7 +29995,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CTaskComplexInAirAndLand::Destructor"
@@ -30005,7 +30005,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -30030,7 +30030,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -30054,7 +30054,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleInAir::ScalarDeletingDestructor"
@@ -30064,7 +30064,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -30089,7 +30089,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
@@ -30113,7 +30113,7 @@
       },
       "evidence": {
         "path": "reversing/Fn148A/validation-summary.json",
-        "sha256": "53c2fa15fa0d9523fdecb9b649622ec065ad3305b44768dc55dc63a18bd3f5b5",
+        "sha256": "1798c64db2c19125d3a2049b05e5d170d08827bb7fc30030652c3d22d9e5bad6",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleLand::ScalarDeletingDestructor"
@@ -30123,7 +30123,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/AttractorScanner.cpp": "f6d9343e991b7002f74a60296844481b7c6f4d73f297fa1aadbcf69b31e34122",
         "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "b9ea46842b6acec6c1e9da73d741554b985552ef149ca381ae479e59f4b3120e",
         "source/game_sa/Audio/Entities/AEAudioEntity.h": "a4047675c872d561f88f5783c1050a025817b6f907a6e476decf029c9e5417df",
@@ -30148,7 +30148,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "0f6bcc2eec9c9dbb7aeb3c437f8a8fa6f98bc37d9f6b7b720c7724d655e8d2da",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "b35ed3c95409911ebe881cbbbcf703d791e1028f81a310606881d8b83c8bbf6d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp": "faf1584078d3858ea3906c1f2f4937bdc4682a5464f51e61a004e7b4df72fafc",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "f592e42d0288ce3b683c521f743c8dcb80c704794107a9bf18da6581de92dcfd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp": "2f928f2b620839b8ec5741edc5bb0900c3692de77145f7ef4960133aaf4c70a1",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Fn148A/LiveComparison.hpp": "8f2b0c36a08cc1ec514302c1f7ca5915061c4af655ef88af2658bb1b7c809e39",
         "reversing/Fn148A/Core.hpp": "498b8e2a9d267e70f69c14d0ecda51b2a075fe4caab5dcee5baf5ee7b1834363",
