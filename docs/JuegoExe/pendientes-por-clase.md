@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (10/11/2026). Total: **1,983** funciones en 215 clases/módulos (rango 0x401000–0x74FFFF): 1,961 sin reemplazar (A–D) + 22 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,959** funciones en 210 clases/módulos (rango 0x401000–0x74FFFF): 1,936 sin reemplazar (A–D) + 23 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -14,11 +14,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CAEStreamingChannel | 1 | 61 |
 | CCompressedMatrixNotAligned | 1 | 74 |
 | VideoPlayer | 1 | 110 |
-| CTaskComplexFleePoint | 5 | 150 |
-| CTaskComplexSitDownThenIdleThenStandUp | 5 | 150 |
-| CTaskSimpleIKChain | 5 | 150 |
-| CEventPlayerCommandToGroupAttack | 6 | 151 |
-| CTaskSimpleClimb | 3 | 152 |
 | CEventLeaderEntryExit | 9 | 153 |
 | CTaskSimpleUninterruptable | 9 | 154 |
 | CTaskSimpleGoToPointFine | 4 | 155 |
@@ -225,7 +220,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (215 clases / módulos)** | **1,983** | **251,720** |
+| **TOTAL (210 clases / módulos)** | **1,959** | **250,967** |
 
 ## CTaskComplexWaitForBus (1)
 
@@ -250,55 +245,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x00746800 | 110 | D |  | 0 | 0 |  | baja |
-
-## CTaskComplexFleePoint (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0065D240 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0065D260 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0065D280 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0065D2A0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0065D2C0 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexSitDownThenIdleThenStandUp (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00637F60 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637F80 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637FA0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00637FC0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00638020 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleIKChain (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00639490 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006394B0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006394D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006394F0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00639510 | 30 | B |  | 0 | 0 | sí | baja |
-
-## CEventPlayerCommandToGroupAttack (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005F6360 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005F6400 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005F6450 | 9 | C |  | 1 | 0 |  | baja |
-| 0x005F63F0 | 11 | C |  | 3 | 0 |  | baja |
-| 0x005F63D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x005F6370 | 89 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleClimb (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0067A1C0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x006801D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0067A1D0 | 116 | C |  | 1 | 0 |  | alta |
 
 ## CEventLeaderEntryExit (9)
 
@@ -771,7 +717,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x00631980 | 11 | C |  | 1 | 0 |  | alta |
+| 0x00631980 | 11 | A |  | 1 | 1 |  | alta |
 | 0x00631990 | 218 | A |  | 3 | 3 |  | alta |
 
 ## CEventNewGangMember (6)
@@ -1595,7 +1541,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00634610 | 5 | B |  | 0 | 0 | sí | baja |
 | 0x006344F0 | 6 | B |  | 0 | 0 | sí | baja |
 | 0x00634620 | 76 | B |  | 0 | 0 | sí | baja |
-| 0x00634500 | 90 | C |  | 1 | 0 |  | baja |
+| 0x00634500 | 90 | envoltura |  | 1 | 1 |  | baja |
 | 0x00634440 | 163 | C |  | 5 | 0 |  | baja |
 | 0x00634560 | 176 | B |  | 0 | 0 | sí | baja |
 
