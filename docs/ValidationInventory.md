@@ -1,18 +1,14 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 10/11/2026 (Ciudad de México):** 884 grupos / 10008 funciones reconstruidas; 10008 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Inventario de validación de funciones reconstruidas
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **10,008 entradas reversed=1**, de 10,008 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **10,015 entradas reversed=1**, de 10,015 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 10008 |
+| `validated=1` · evidencia aprobada vinculada | 10015 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 10008 |
+| Evidencia histórica vinculada; revisión pendiente | 10015 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -3646,9 +3642,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMatrix | `AttachRW` | [Resumen](../reversing/Fn154A/validation-summary.json) |
 | CMatrix | `ConstructAttached` | [Resumen](../reversing/Fn97B/validation-summary.json) |
 | CMatrix | `ConstructCopy` | [Resumen](../reversing/Fn97B/validation-summary.json) |
+| CMatrix | `CopyOnlyMatrix` | [Resumen](../reversing/Fn162A/validation-summary.json) |
 | CMatrix | `CopyToRwMatrix` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CMatrix | `Destructor` | [Resumen](../reversing/Fn97B/validation-summary.json) |
 | CMatrix | `DestructorThunk` | [Resumen](../reversing/Fn140A/validation-summary.json) |
+| CMatrix | `Detach` | [Resumen](../reversing/Fn162A/validation-summary.json) |
 | CMatrix | `ForceUpVector` | [Resumen](../reversing/Fn103A/validation-summary.json) |
 | CMatrix | `GetForwardCopy` | [Resumen](../reversing/Fn140A/validation-summary.json) |
 | CMatrix | `GetRightCopy` | [Resumen](../reversing/Fn140A/validation-summary.json) |
@@ -3661,6 +3659,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMatrix | `RotateX` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CMatrix | `RotateY` | [Resumen](../reversing/Fn101A/validation-summary.json) |
 | CMatrix | `RotateZ` | [Resumen](../reversing/Fn101A/validation-summary.json) |
+| CMatrix | `Scale` | [Resumen](../reversing/Fn162A/validation-summary.json) |
 | CMatrix | `SetRotate-quat` | [Resumen](../reversing/Fn103A/validation-summary.json) |
 | CMatrix | `SetRotate-xyz` | [Resumen](../reversing/Fn99A/validation-summary.json) |
 | CMatrix | `SetRotateX` | [Resumen](../reversing/Fn101A/validation-summary.json) |
@@ -3674,11 +3673,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMatrix | `SetTranslate` | [Resumen](../reversing/Fn97A/validation-summary.json) |
 | CMatrix | `SetTranslateOnly` | [Resumen](../reversing/Fn99A/validation-summary.json) |
 | CMatrix | `SetUnity` | [Resumen](../reversing/Fn99A/validation-summary.json) |
+| CMatrix | `Update` | [Resumen](../reversing/Fn162A/validation-summary.json) |
+| CMatrix | `UpdateMatrix` | [Resumen](../reversing/Fn162A/validation-summary.json) |
 | CMatrix | `UpdateRW` | [Resumen](../reversing/Fn97B/validation-summary.json) |
 | CMatrix | `UpdateRwMatrix` | [Resumen](../reversing/Fn97B/validation-summary.json) |
 | CMatrix | `operator*-Vec` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
 | CMatrix | `operator*=` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | CMatrix | `operator+-` | [Resumen](../reversing/Fn103A/validation-summary.json) |
+| CMatrix | `operator+=` | [Resumen](../reversing/Fn162A/validation-summary.json) |
 | CMatrix | `operator=` | [Resumen](../reversing/MatrixOps76/validation-summary.json) |
 | CMatrixLink | `Insert` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLink | `Remove` | [Resumen](../reversing/Small2/validation-summary.json) |
@@ -8606,6 +8608,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVector | `operator+=-v3d` | [Resumen](../reversing/Fn97A/validation-summary.json) |
 | CVector | `operator-=-v3d` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | CVector2D | `Magnitude` | [Resumen](../reversing/Fn124A/validation-summary.json) |
+| CVector2D | `operator=` | [Resumen](../reversing/Fn162A/validation-summary.json) |
 | CVehicle | `ActivateBomb` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `ActivateBombWhenEntered` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `AddDamagedVehicleParticles` | [Resumen](../reversing/CVehD/validation-summary.json) |
@@ -10334,7 +10337,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CLodTimeModelInfo` | 4 | 0 | 4 | 0 |
 | `CMBlur` | 5 | 0 | 5 | 0 |
 | `CMaths` | 6 | 0 | 6 | 0 |
-| `CMatrix` | 38 | 0 | 38 | 0 |
+| `CMatrix` | 44 | 0 | 44 | 0 |
 | `CMatrixLink` | 2 | 0 | 2 | 0 |
 | `CMatrixLinkList` | 10 | 0 | 10 | 0 |
 | `CMemoryHeap` | 1 | 0 | 1 | 0 |
@@ -10826,7 +10829,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
 | `CVector` | 23 | 0 | 23 | 0 |
-| `CVector2D` | 1 | 0 | 1 | 0 |
+| `CVector2D` | 2 | 0 | 2 | 0 |
 | `CVehicle` | 170 | 0 | 170 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
