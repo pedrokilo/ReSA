@@ -28523,7 +28523,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "ae0e8260c30b91a2c137af9182d3b52a59b34dc21b51800564258fc7a06a11e3",
+        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::Constructor"
@@ -28532,7 +28532,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "0c925a03920c616731081f793b8ee613b86c6b0fad81bc66c117fcf6cf522f92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "9f2b72512cd8a335d468dc6ac768118e57ff11a07185bc8526e9cf6e3e24225f",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.h": "0ab2404eaaf13900d6551a1b2bc2048a8ce76fa2c547d3c35167d3092c9acd70"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-201226-271151).",
@@ -28549,7 +28549,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "ae0e8260c30b91a2c137af9182d3b52a59b34dc21b51800564258fc7a06a11e3",
+        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::Destructor"
@@ -28558,7 +28558,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "0c925a03920c616731081f793b8ee613b86c6b0fad81bc66c117fcf6cf522f92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "9f2b72512cd8a335d468dc6ac768118e57ff11a07185bc8526e9cf6e3e24225f",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.h": "0ab2404eaaf13900d6551a1b2bc2048a8ce76fa2c547d3c35167d3092c9acd70"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-201226-271151).",
@@ -28575,7 +28575,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "ae0e8260c30b91a2c137af9182d3b52a59b34dc21b51800564258fc7a06a11e3",
+        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::Clone"
@@ -28584,7 +28584,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "0c925a03920c616731081f793b8ee613b86c6b0fad81bc66c117fcf6cf522f92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "9f2b72512cd8a335d468dc6ac768118e57ff11a07185bc8526e9cf6e3e24225f",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.h": "0ab2404eaaf13900d6551a1b2bc2048a8ce76fa2c547d3c35167d3092c9acd70"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-201226-271151).",
@@ -28601,7 +28601,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "ae0e8260c30b91a2c137af9182d3b52a59b34dc21b51800564258fc7a06a11e3",
+        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::GetTaskType"
@@ -28610,7 +28610,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "0c925a03920c616731081f793b8ee613b86c6b0fad81bc66c117fcf6cf522f92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "9f2b72512cd8a335d468dc6ac768118e57ff11a07185bc8526e9cf6e3e24225f",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.h": "0ab2404eaaf13900d6551a1b2bc2048a8ce76fa2c547d3c35167d3092c9acd70"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-201226-271151).",
@@ -28627,7 +28627,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "ae0e8260c30b91a2c137af9182d3b52a59b34dc21b51800564258fc7a06a11e3",
+        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::MakeAbortable"
@@ -28636,7 +28636,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "0c925a03920c616731081f793b8ee613b86c6b0fad81bc66c117fcf6cf522f92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "9f2b72512cd8a335d468dc6ac768118e57ff11a07185bc8526e9cf6e3e24225f",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.h": "0ab2404eaaf13900d6551a1b2bc2048a8ce76fa2c547d3c35167d3092c9acd70"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-201226-271151).",
@@ -28653,7 +28653,7 @@
       },
       "evidence": {
         "path": "reversing/CTaskDead/validation-summary.json",
-        "sha256": "ae0e8260c30b91a2c137af9182d3b52a59b34dc21b51800564258fc7a06a11e3",
+        "sha256": "737329a3c666066b1d981e35f9f5f3787d4c89396e64fd4a3530de9bb97ce3e9",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDead::ProcessPed"
@@ -28662,7 +28662,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "0c925a03920c616731081f793b8ee613b86c6b0fad81bc66c117fcf6cf522f92",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "9f2b72512cd8a335d468dc6ac768118e57ff11a07185bc8526e9cf6e3e24225f",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.h": "0ab2404eaaf13900d6551a1b2bc2048a8ce76fa2c547d3c35167d3092c9acd70"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-201226-271151).",

@@ -23,7 +23,7 @@ public:
     ~CTaskGangHasslePed() override;
 
     eTaskType GetTaskType() const override; // 0x65FF50 (lote 153A, banco Fn153A)
-    CTask* Clone() const override { return new CTaskGangHasslePed(m_Ped, dword10, m_RndMin, m_RndMax); } // 0x6620D0
+    CTask* Clone() const override; // 0x6620D0 (lote 158A, banco Fn158A)
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;
     CTask* ControlSubTask(CPed* ped) override;
@@ -31,7 +31,7 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
-    CTaskGangHasslePed* Constructor(CPed* ped, int32 a3, int32 a4, int32 a5) { this->CTaskGangHasslePed::CTaskGangHasslePed(ped, a3, a4, a5); return this; }
+    __declspec(noinline) CTaskGangHasslePed* Constructor(CPed* ped, int32 a3, int32 a4, int32 a5) { this->CTaskGangHasslePed::CTaskGangHasslePed(ped, a3, a4, a5); return this; }
     __declspec(noinline) CTaskGangHasslePed* Destructor() { this->CTaskGangHasslePed::~CTaskGangHasslePed(); return this; }
     CTaskGangHasslePed* ScalarDeletingDestructor(uint8 flags); // 0x6642A0 (lote 140A, banco Fn140A): destructor con borrado (ranura 0 de la vtable 0x86FA00), `ret 4`
 };

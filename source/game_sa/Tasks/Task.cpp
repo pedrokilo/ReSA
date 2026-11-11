@@ -208,5 +208,6 @@ void CTask::InjectHooks() {
     RH_ScopedVMTInstall(StopTimer, 0x421180);
 
     CTaskSimpleBody::InjectHooks();
+    CTaskSimple::InjectHooks();
     CTaskComplexBody::InjectHooks();
 }

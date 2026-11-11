@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "c08323b766d2f9dc9588e5496a877040b6a7c8ca6425fa134019588209e578af",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CEventLeaderEntryExit::HasEditableResponse: 884/2048; CEventLeaderEntryExit::GetSourceEntity: 884/2048; CEventLeaderEntryExit::GetLifeTime: 892/2048; CEventLeaderEntryExit::CanBeInterruptedBySameEvent: 909/2048; CEventLeaderEntryExit::GetEventType: 906/2048; CEventLeaderEntryExit::GetEventPriority: 919/2048; CEventLeaderEntryExit::DestructorBody: 899/2048; CEventLeaderEntryExit::ScalarDeletingDestructor: 350/2048; CEventLeaderEntryExit::Clone: 693/2048; CTaskSimple::GetSubTask: 905/2048; CTaskSimple::IsSimple: 906/2048; CTaskSimple::SetPedPosition: 901/2048; CTaskSimpleUninterruptable::ProcessPed: 899/2048; CTaskSimpleUninterruptable::GetTaskType: 896/2048; CTaskSimpleUninterruptable::MakeAbortable: 164/2048; CTaskSimpleUninterruptable::DestructorBody: 890/2048; CTaskSimpleUninterruptable::ScalarDeletingDestructor: 372/2048; CTaskSimpleUninterruptable::Clone: 702/2048; CTaskSimpleGoToPointFine::GetTaskType: 908/2048; CTaskSimpleGoToPointFine::DestructorBody: 908/2048; CTaskComplexTrackEntity::ScalarDeletingDestructor: 372/2048; CTaskGangHasslePed::Clone: 702/2048; CTaskSimpleCarForcePedOut::GetTaskType: 890/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

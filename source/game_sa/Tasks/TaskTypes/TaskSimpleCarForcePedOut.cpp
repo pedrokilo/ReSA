@@ -80,12 +80,18 @@ bool CTaskSimpleCarForcePedOut::ProcessPed(CPed* ped) {
     return true;
 }
 
+// 0x647770 (lote 158A, banco Fn158A; thiscall, `ret`, 6 bytes: `mov eax,32Fh`): TASK_SIMPLE_CAR_FORCE_PED_OUT (815); no lee el objeto (ranura 4 de la vtable 0x86EE94).
+eTaskType CTaskSimpleCarForcePedOut::GetTaskType() const {
+    return Type;
+}
+
 void CTaskSimpleCarForcePedOut::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarForcePedOut, 0x86EE94, 9); // vtable verificado en gta_sa.exe (GetTaskType en [4]); N por confirmar
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x647710);
     RH_ScopedInstall(Destructor, 0x647790);
+    RH_ScopedVMTInstall(GetTaskType, 0x647770); // lote 158A (banco Fn158A): retorno de constante, ranura 4 de la vtable 0x86EE94
     RH_ScopedVMTInstall(Clone, 0x649EE0);
     RH_ScopedVMTInstall(MakeAbortable, 0x647780);
     RH_ScopedVMTInstall(ProcessPed, 0x6477F0);

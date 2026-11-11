@@ -22,9 +22,24 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 #include "TaskSimpleDuck.h"
 
+namespace CTaskSimpleGoToBody {
+void __fastcall GoToDestructorBody(CTaskSimpleGoTo* self, void* edx); // TaskSimpleGoTo.cpp: 0x667A00 / 0x667D50
+}
+
+namespace {
+// 0x65EEF0 (lote 158A, banco Fn158A): cuerpo no virtual de ~CTaskSimpleGoToPointFine del EXE (thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],86F964h ; jmp 667A00`).
+// Deja la vtable de CTaskSimpleGoToPointFine del EXE (0x86F964) y salta al cuerpo de ~CTaskSimpleGoTo (0x667A00, con hook), que deja la vtable de CTask tras pasar por CTask::Destructor.
+__declspec(noinline) void __fastcall GoToPointFineDestructorBody(CTaskSimpleGoToPointFine* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86F964;
+    CTaskSimpleGoToBody::GoToDestructorBody(self, nullptr);
+}
+} // namespace
+
 void CTaskSimpleGoToPointFine::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleGoToPointFine, 0x86F964, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(GoToPointFineDestructorBody, "DestructorBody", 0x65EEF0); // lote 158A (banco Fn158A)
+    RH_ScopedVMTInstall(GetTaskType, 0x65EEE0);                                           // lote 158A: ranura 4 de la vtable 0x86F964, retorno de constante
     RH_ScopedInstall(Constructor, 0x65EEB0);
     RH_ScopedVMTInstall(Clone, 0x662040);
     RH_ScopedVMTInstall(MakeAbortable, 0x663500);
@@ -34,6 +49,11 @@ void CTaskSimpleGoToPointFine::InjectHooks() {
     RH_ScopedNamedInstall(SetTargetPos_Reversed, "SetTargetPos", 0x65F330);
     RH_ScopedInstall(BaseRatio, 0x65EF30);
     RH_ScopedInstall(SetMoveRatio, 0x65F3A0);
+}
+
+// 0x65EEE0 (lote 158A, banco Fn158A; thiscall, `ret`, 6 bytes: `mov eax,39Eh`): TASK_SIMPLE_GO_TO_POINT_FINE (926); no lee el objeto (ranura 4 de la vtable 0x86F964).
+eTaskType CTaskSimpleGoToPointFine::GetTaskType() const {
+    return Type;
 }
 
 // 0x65F3A0

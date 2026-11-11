@@ -1,0 +1,3 @@
+APROBADO: Fn144A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn144a\20261110-193239-480658

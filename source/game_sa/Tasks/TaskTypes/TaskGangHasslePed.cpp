@@ -41,11 +41,23 @@ eTaskType CTaskGangHasslePed::GetTaskType() const {
     return Type;
 }
 
+// 0x6620D0 (lote 158A, banco Fn158A; thiscall, sin argumentos, `ret`, 108 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite); ranura 1 de la vtable 0x86FA00).
+// Como el original: CTask::operator new (0x61A5A0, con hook) con 0x2C bytes; sin memoria devuelve nulo; si no, llama al constructor (0x65FED0, con hook; ECX = memoria) con el ped (+0xC), el dword +0x10, el minimo
+// (+0x14) y el maximo (+0x18) y devuelve lo que el constructor deja en EAX (el EXE no lo sustituye por la direccion reservada).
+CTask* CTaskGangHasslePed::Clone() const {
+    void* const memory = CTask::operator new(sizeof(CTaskGangHasslePed));
+    if (!memory) {
+        return nullptr;
+    }
+    return static_cast<CTaskGangHasslePed*>(memory)->Constructor(m_Ped, dword10, m_RndMin, m_RndMax);
+}
+
 void CTaskGangHasslePed::InjectHooks() {
     RH_ScopedVirtualClass(CTaskGangHasslePed, 0x86FA00, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedVMTInstall(GetTaskType, 0x65FF50); // lote 153A (banco Fn153A): retorno de constante
+    RH_ScopedVMTInstall(Clone, 0x6620D0);       // lote 158A (banco Fn158A): ranura 1 de la vtable 0x86FA00
     RH_ScopedInstall(Constructor, 0x65FED0);
     RH_ScopedInstall(Destructor, 0x65FF60);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x6642A0); // lote 140A (banco Fn140A)

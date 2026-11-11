@@ -12,7 +12,7 @@ public:
     CTaskSimpleGoToPointFine(float moveRatio, CVector targetPoint, float fRadius = 0.5f, CEntity* entity = nullptr);
     ~CTaskSimpleGoToPointFine() override = default;
 
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x65EEE0 (lote 158A, banco Fn158A)
     CTask*    Clone() const override;
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

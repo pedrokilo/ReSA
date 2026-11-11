@@ -22,7 +22,7 @@ public:
     CTaskSimpleCarForcePedOut(CVehicle* vehicle, int32 door); // 0x647710
     ~CTaskSimpleCarForcePedOut() override;                    // 0x647790
 
-    eTaskType GetTaskType() const override { return Type; } // 0x647770
+    eTaskType GetTaskType() const override; // 0x647770 (lote 158A, banco Fn158A)
     CTask* Clone() const override;                          // 0x649EE0
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;                 // 0x647780
     bool ProcessPed(CPed* ped) override;                    // 0x6477F0

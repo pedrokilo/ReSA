@@ -24,6 +24,7 @@ public:
     bool TakesPriorityOver(const CEvent& refEvent) override;
 
 private:
-    CEventAreaCodes* Constructor(CPed* ped);
+    friend class CEventLeaderEntryExit; // lote 158A (banco Fn158A): su Clone del EXE (0x43E220) llama al cuerpo enganchado Constructor (0x4B2190)
+    __declspec(noinline) CEventAreaCodes* Constructor(CPed* ped);
 };
 VALIDATE_SIZE(CEventAreaCodes, 0x10);

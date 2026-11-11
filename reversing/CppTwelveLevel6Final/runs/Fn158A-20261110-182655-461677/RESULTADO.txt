@@ -1,0 +1,3 @@
+APROBADO: Fn158A
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn158a\20261110-182655-461677

@@ -9,10 +9,10 @@ public:
     CTaskSimpleUninterruptable() = default;
     ~CTaskSimpleUninterruptable() override = default;
 
-    eTaskType GetTaskType() const override { return Type; }
-    CTask* Clone() const override { return new CTaskSimpleUninterruptable(); }
-    bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return priority == ABORT_PRIORITY_IMMEDIATE; }
-    bool ProcessPed(CPed* ped) override { return false; }
+    eTaskType GetTaskType() const override;   // 0x43E380 (lote 158A, banco Fn158A)
+    CTask* Clone() const override;            // 0x43E330 (lote 158A)
+    bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override; // 0x43E390 (lote 158A)
+    bool ProcessPed(CPed* ped) override;      // 0x43E3A0 (lote 158A)
 
     static void InjectHooks();
     CTaskSimpleUninterruptable* Constructor();

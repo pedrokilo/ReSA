@@ -23,7 +23,7 @@
   "log_sha256": "1a89d003e6a34d72b1df8e9c0ab682e82d3e76a7ed981d82a6748cc86a90655c",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctaskdead\\20261007-201226-271151",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctaskdead\\20261110-193015-713139",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleDead::Constructor": true,
@@ -35,11 +35,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "3fd4858615cb3714e767f627c46f522a67ad1ca5d6a4c419583f034f65540747",
-      "pdb": "5e3dbe44ed8443a373eee7e68518b9b5e69a974408b666d0b7b6dd2c83def063"
+      "asi": "2ac305e7b4188be7f53f9a4f921015c7c9d19611bcef798f774eaf9758da0283",
+      "pdb": "7e4b1d13167e8c6487b36132d6c4bbe4d1d9d11121628f3e557e90052cbedaf9"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "0c925a03920c616731081f793b8ee613b86c6b0fad81bc66c117fcf6cf522f92",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "9f2b72512cd8a335d468dc6ac768118e57ff11a07185bc8526e9cf6e3e24225f",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.h": "0ab2404eaaf13900d6551a1b2bc2048a8ce76fa2c547d3c35167d3092c9acd70"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
@@ -50,6 +50,7 @@
     }
   },
   "limitations": [
-    "Peatones y objetos falsos; dependencias simuladas y trazadas en EXE y DLL; estado global y pool restaurados. No certifica regresion de juego completa. El constructor de copia es un helper NOTSA sin direccion propia en el EXE."
+    "Peatones y objetos falsos; dependencias simuladas y trazadas en EXE y DLL; estado global y pool restaurados. No certifica regresion de juego completa. El constructor de copia es un helper NOTSA sin direccion propia en el EXE.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

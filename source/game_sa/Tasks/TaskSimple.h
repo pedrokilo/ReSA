@@ -15,8 +15,10 @@ public:
     CTaskSimple() = default;
     ~CTaskSimple() override = default;
 
-    CTask* GetSubTask() const final override { return nullptr; }
-    bool IsSimple() const final override { return true; }
+    static void InjectHooks();
+
+    CTask* GetSubTask() const final override; // 0x43E300 (lote 158A, banco Fn158A)
+    bool IsSimple() const final override;     // 0x43E310 (lote 158A)
 
     /*!
     * @brief Process this task.
@@ -34,6 +36,6 @@ public:
     *
     * @return If the ped's posiiton was changed
     */
-    virtual bool SetPedPosition(CPed* ped) { return false; }
+    virtual bool SetPedPosition(CPed* ped); // 0x43E320 (lote 158A)
 };
 VALIDATE_SIZE(CTaskSimple, 0x8);

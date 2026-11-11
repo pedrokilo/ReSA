@@ -34,7 +34,7 @@
   "log_sha256": "aa172a838dc2da465f5c7640b430c0542750ecab2dd2366e8231d3f7a528f9b4",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks18\\20261110-054650-051390",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks18\\20261110-191308-928349",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskManager::Constructor": true,
@@ -58,15 +58,15 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "663cafe132ffc48aa9f297509472574280f797d565c3f0f152ad3f87fccb7bdd",
-      "pdb": "4bca0e5b97e2b4b0415958273d633505dc21bd8b70a55bbd1d06cb985f3118be"
+      "asi": "6f54007227725d0546737777027feee6642a4807cd29119e09980c1530cb286e",
+      "pdb": "e2730b3f864a10965067464c9a8a6dee973859f302a4243a8aa123605dd58c15"
     },
     "sources": {
       "source/game_sa/Tasks/TaskManager.cpp": "62b37ec0c0f6030dc75f64e0b44cfa71f390b2804c06bacd996eeb16cc1217fb",
       "source/game_sa/Tasks/TaskManager.h": "f8bf074abe06c23e52d073835b18586de53f94699040f66e82a128b535ead630",
       "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
       "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
-      "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
+      "source/game_sa/Tasks/TaskSimple.h": "10ebe88dcca38114ab79fc652fea0f79dc55e430a86d914fda221dadf8e39efd"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
