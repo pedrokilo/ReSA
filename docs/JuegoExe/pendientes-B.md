@@ -6,15 +6,11 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-532 funciones, 31,991 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+523 funciones, 25,895 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `0x006C7050` | 2352 | CHeli | alta | 0 (0) | sí |
-| `0x006C4830` | 1571 | CHeli | alta | 0 (0) | sí |
-| `0x006A2B10` | 1005 | CAutomobile | alta | 0 (0) | sí |
 | `0x00670E20` | 968 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) | sí |
-| `0x005347D0` | 763 | CEntity | alta | 0 (0) | sí |
 | `0x006F6370` | 719 | CTrain | alta | 0 (0) | sí |
 | `0x006A3060` | 584 | CAutomobile | alta | 0 (0) | sí |
 | `0x00625C70` | 429 | CTaskSimpleThrowProjectile | baja | 0 (0) | sí |
@@ -28,7 +24,6 @@
 | `0x00672530` | 204 | CTaskComplexAvoidOtherPedWhileWandering | baja | 0 (0) | sí |
 | `0x006F7190` | 197 | CTrain | alta | 0 (0) | sí |
 | `0x00629480` | 194 | CTaskComplexRoadRage | baja | 0 (0) | sí |
-| `0x004C5140` | 189 | CClumpModelInfo | alta | 1 (0) | sí |
 | `0x004C95C0` | 183 | CVehicleModelInfo | alta | 0 (0) | sí |
 | `0x006598C0` | 180 | CTaskComplexUseWaterCannon | baja | 0 (0) | sí |
 | `0x006293C0` | 178 | CTaskComplexRoadRage | baja | 0 (0) | sí |
@@ -107,7 +102,6 @@
 | `0x0068CD70` | 96 | CTaskComplexCopInCar | baja | 0 (0) | sí |
 | `0x00695890` | 96 | CTaskComplexSeekEntityAiming | alta | 0 (0) | sí |
 | `0x004C7670` | 95 | CVehicleModelInfo | alta | 0 (0) | sí |
-| `0x004DC340` | 93 | CAEDataStream | alta | 0 (0) | sí |
 | `0x005FEF90` | 93 | CEventScriptedAttractor | baja | 0 (0) | sí |
 | `0x00609280` | 90 | CEventPlayerCommandToGroupGather | baja | 0 (0) | sí |
 | `0x004B86C0` | 89 | CTaskSimpleStandStill | baja | 0 (0) | sí |
@@ -162,7 +156,6 @@
 | `0x00625C20` | 68 | CTaskSimpleThrowProjectile | baja | 0 (0) | sí |
 | `0x00694640` | 68 | CTaskSimpleDuck | baja | 0 (0) | sí |
 | `0x00620BF0` | 64 | CTaskSimpleBeHit | baja | 0 (0) | sí |
-| `0x004F21C0` | 61 | CAEStreamingChannel | alta | 0 (0) | sí |
 | `0x004C4530` | 60 | CAtomicModelInfo | alta | 0 (0) | sí |
 | `0x0069D9C0` | 59 | CTaskAllocatorPool | baja | 0 (0) | sí |
 | `0x0069DA00` | 59 | CTaskAllocatorPool | baja | 0 (0) | sí |
@@ -178,7 +171,6 @@
 | `0x0066AD70` | 48 | CTaskComplexAvoidOtherPedWhileWandering | baja | 0 (0) | sí |
 | `0x0067CBE0` | 45 | CTaskComplexFallAndGetUp | baja | 0 (0) | sí |
 | `0x004B7A40` | 43 | CEventVehicleOnFire | baja | 0 (0) | sí |
-| `0x004C5110` | 41 | CClumpModelInfo | alta | 0 (0) | sí |
 | `0x00620E00` | 41 | CTaskSimpleBeHit | baja | 0 (0) | sí |
 | `0x004C76D0` | 37 | CVehicleModelInfo | alta | 0 (0) | sí |
 | `0x004AC020` | 35 | CEvent | alta | 0 (0) | sí |
@@ -345,7 +337,6 @@
 | `0x004C4910` | 24 | CDamageAtomicModelInfo | alta | 0 (0) | sí |
 | `0x0066BB00` | 23 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) | sí |
 | `0x006F59C0` | 22 | CTrain | alta | 0 (0) | sí |
-| `0x00638A40` | 21 | CTaskComplexWaitForBus | baja | 0 (0) | sí |
 | `0x006B59E0` | 19 | CBike | alta | 0 (0) | sí |
 | `0x0065B050` | 18 | CTaskComplexMedicTreatInjuredPed | baja | 0 (0) | sí |
 | `0x006B5860` | 17 | CBike | alta | 0 (0) | sí |

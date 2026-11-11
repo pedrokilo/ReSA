@@ -6,7 +6,7 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-393 funciones, 61,806 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+390 funciones, 61,108 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -29,7 +29,6 @@
 | `0x004CAAE0` | 673 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x00670B00` | 631 | CTaskComplexTurnToFaceEntityOrCoord | baja | 6 (0) |  |
 | `0x005CB8C0` | 599 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x00749F70` | 592 | Win | baja | 1 (0) |  |
 | `0x005CBC00` | 587 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x004024C0` | 581 | CEntity | baja | 1 (0) |  |
 | `0x005C4D50` | 571 | FxEmitterBP_c | baja | 2 (0) |  |
@@ -246,8 +245,6 @@
 | `0x005CA6E0` | 59 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x004027CD` | 58 | CEntity | baja | 1 (0) |  |
 | `0x0074EB40` | 58 | Win | baja | 2 (0) |  |
-| `0x00533670` | 54 | CEntity | alta | 1 (0) |  |
-| `0x0074A1C0` | 52 | Win | baja | 1 (0) |  |
 | `0x004CBDE0` | 51 | CWeaponModelInfo | baja | 35 (0) |  |
 | `0x0046A340` | 49 | CEntity | baja | 1 (0) |  |
 | `0x004C9580` | 49 | CVehicleModelInfo | alta | 1 (0) |  |

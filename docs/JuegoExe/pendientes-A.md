@@ -6,7 +6,7 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-591 funciones, 90,799 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+594 funciones, 91,497 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -59,6 +59,7 @@
 | `0x00733F40` | 63 | CVisibilityPlugins | alta | 5 (5) |  |
 | `0x005A2CB0` | 59 | CObject | baja | 5 (5) |  |
 | `0x006E2D90` | 49 | CVehicle | alta | 72 (5) |  |
+| `0x005335E0` | 47 | CEntity | alta | 5 (5) |  |
 | `0x004D6CC0` | 40 | CAEAmbienceTrackManager | alta | 5 (5) |  |
 | `0x004A8DE0` | 1 | FxInfoManager_c | baja | 35 (5) |  |
 | `0x005132D0` | 568 | CCam | alta | 4 (4) |  |
@@ -113,7 +114,6 @@
 | `0x0053E8D0` | 63 | Game | alta | 3 (3) |  |
 | `0x00552830` | 63 | CQuadTreeNode<T> | alta | 3 (3) |  |
 | `0x0072E360` | 60 | CCullZones | baja | 6 (3) |  |
-| `0x005335E0` | 47 | CEntity | alta | 5 (3) |  |
 | `0x0064E4B0` | 41 | CTaskComplexGoToBoatSteeringWheel | baja | 3 (3) |  |
 | `0x0074BDA0` | 39 | Win | baja | 7 (3) |  |
 | `0x0074BDD0` | 39 | Win | baja | 4 (3) |  |
@@ -205,6 +205,7 @@
 | `0x00606BA0` | 694 | CPedIntelligencePool | baja | 1 (1) |  |
 | `0x004F4320` | 645 | CAEUserRadioTrackManager | alta | 1 (1) |  |
 | `0x005ED4B0` | 645 | CPedAttractorManager | baja | 2 (1) |  |
+| `0x00749F70` | 592 | Win | baja | 1 (1) |  |
 | `0x0059F660` | 480 | CObject | alta | 6 (1) |  |
 | `0x005FFFD0` | 429 | CAttractorScanner | baja | 2 (1) |  |
 | `0x00603570` | 422 | CEntityScanner | baja | 1 (1) |  |
@@ -379,6 +380,7 @@
 | `0x005FFF30` | 55 | CEntityScanner | baja | 1 (1) |  |
 | `0x0045AFB0` | 54 | CVehicleRecording | baja | 5 (1) |  |
 | `0x004650A0` | 54 | CTheScripts | baja | 1 (1) |  |
+| `0x00533670` | 54 | CEntity | alta | 1 (1) |  |
 | `0x0059F050` | 54 | CHandObject | baja | 1 (1) |  |
 | `0x00669FB0` | 54 | CTaskComplexWander | baja | 1 (1) |  |
 | `0x005EC220` | 49 | CPedAttractorManager | baja | 1 (1) |  |
@@ -555,6 +557,7 @@
 | `0x005C6B50` | 56 | FxEmitterBP_c | baja | 3 (0) |  |
 | `0x005EB340` | 55 | CPedAttractor | alta | 3 (0) |  |
 | `0x0074EA40` | 55 | Win | baja | 1 (0) |  |
+| `0x0074A1C0` | 52 | Win | baja | 1 (0) |  |
 | `0x005EB170` | 50 | CPedAttractor | alta | 1 (0) |  |
 | `0x005EB1E0` | 50 | CPedAttractor | alta | 1 (0) |  |
 | `0x005EB220` | 50 | CPedAttractor | alta | 1 (0) |  |

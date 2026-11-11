@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,906** funciones en 200 clases/módulos (rango 0x401000–0x74FFFF): 1,883 sin reemplazar (A–D) + 23 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,897** funciones en 198 clases/módulos (rango 0x401000–0x74FFFF): 1,874 sin reemplazar (A–D) + 23 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -10,8 +10,8 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 
 | Clase | Funciones | Bytes |
 |---|---:|---:|
-| CTaskComplexWaitForBus | 1 | 21 |
-| CAEStreamingChannel | 1 | 61 |
+| CClumpModelInfo | 2 | 25 |
+| CAEDataStream | 2 | 77 |
 | VideoPlayer | 1 | 110 |
 | CIplStore | 3 | 160 |
 | CTaskSimplePlayerOnFoot | 3 | 160 |
@@ -25,7 +25,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CEventPlayerCollisionWithPed | 4 | 167 |
 | CBike | 22 | 168 |
 | CTaskSimpleStealthKill | 3 | 169 |
-| CAEDataStream | 3 | 170 |
 | CAETwinLoopSoundEntity | 2 | 174 |
 | CAEAudioEntity | 9 | 176 |
 | CAnimBlendAssociation | 4 | 177 |
@@ -48,6 +47,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | WaterCreature_c | 2 | 211 |
 | CMenuManager | 5 | 214 |
 | CTaskSimpleFightingControl | 2 | 215 |
+| CHeli | 4 | 218 |
 | CWaterLevel | 2 | 219 |
 | CAECutsceneTrackManager | 4 | 219 |
 | CAESoundManager | 3 | 220 |
@@ -67,7 +67,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CFont | 3 | 251 |
 | CTaskComplexCopInCar | 4 | 252 |
 | CTaskSimpleGangDriveBy | 2 | 254 |
-| CClumpModelInfo | 4 | 255 |
 | Common | 3 | 260 |
 | CAEWeatherAudioEntity | 4 | 264 |
 | CTaskComplexWalkRoundObject | 3 | 273 |
@@ -194,10 +193,9 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CAEUserRadioTrackManager | 30 | 2533 |
 | CTaskComplexTurnToFaceEntityOrCoord | 14 | 2607 |
 | CTaskComplexGoToPointAnyMeans | 6 | 2633 |
+| CAutomobile | 10 | 2917 |
 | CCustomCarEnvMapPipeline | 25 | 3547 |
 | CPools | 52 | 3733 |
-| CAutomobile | 11 | 3922 |
-| CHeli | 6 | 4141 |
 | CReplay | 10 | 4172 |
 | CRunningScript | 4 | 5919 |
 | RpAnimBlend | 16 | 6102 |
@@ -205,24 +203,26 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | FxInfoManager_c | 116 | 6591 |
 | CPedAttractorManager | 71 | 8097 |
 | CTaskComplexSeekEntityRadiusAngleOffset | 5 | 8771 |
+| CEntity | 42 | 9537 |
 | CTheScripts | 14 | 9864 |
-| CEntity | 43 | 10300 |
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (200 clases / módulos)** | **1,906** | **249,328** |
+| **TOTAL (198 clases / módulos)** | **1,897** | **243,232** |
 
-## CTaskComplexWaitForBus (1)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00638A40 | 21 | B | CTaskComplexSequence::CreateNextSubTask-V | 0 | 0 | sí | baja |
-
-## CAEStreamingChannel (1)
+## CClumpModelInfo (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x004F21C0 | 61 | B | CAEStreamingChannel::Stop-virtual | 0 | 0 | sí | alta |
+| 0x004C5750 | 7 | C |  | 2 | 0 |  | baja |
+| 0x004C5760 | 18 | D |  | 0 | 0 |  | baja |
+
+## CAEDataStream (2)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x004DC2A0 | 15 | A |  | 1 | 1 |  | alta |
+| 0x004DC550 | 62 | D |  | 0 | 0 |  | alta |
 
 ## VideoPlayer (1)
 
@@ -349,14 +349,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x006298E0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00629900 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x00622680 | 109 | A |  | 1 | 1 |  | alta |
-
-## CAEDataStream (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004DC2A0 | 15 | A |  | 1 | 1 |  | alta |
-| 0x004DC550 | 62 | D |  | 0 | 0 |  | alta |
-| 0x004DC340 | 93 | B | CAEDataStream::Seek-istream | 0 | 0 | sí | alta |
 
 ## CAETwinLoopSoundEntity (2)
 
@@ -562,6 +554,15 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00624DA0 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x0061DE60 | 185 | A |  | 9 | 9 |  | baja |
 
+## CHeli (4)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x006C4550 | 8 | B |  | 0 | 0 | sí | alta |
+| 0x006C7D10 | 11 | A |  | 1 | 1 |  | baja |
+| 0x006C4810 | 30 | B |  | 0 | 0 | sí | alta |
+| 0x006C4340 | 169 | C |  | 1 | 0 |  | alta |
+
 ## CWaterLevel (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -734,15 +735,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x00623750 | 106 | B |  | 0 | 0 | sí | baja |
 | 0x006218C0 | 148 | A |  | 7 | 4 |  | baja |
-
-## CClumpModelInfo (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x004C5750 | 7 | C |  | 2 | 0 |  | baja |
-| 0x004C5760 | 18 | D |  | 0 | 0 |  | baja |
-| 0x004C5110 | 41 | B | CClumpModelInfo::CreateInstance-mat | 0 | 0 | sí | alta |
-| 0x004C5140 | 189 | B | CClumpModelInfo::CreateInstance-void | 1 | 0 | sí | alta |
 
 ## Common (3)
 
@@ -2394,6 +2386,21 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00673070 | 878 | C |  | 8 | 0 |  | baja |
 | 0x00673540 | 1628 | D |  | 0 | 0 |  | baja |
 
+## CAutomobile (10)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x006A6290 | 1 | B |  | 0 | 0 | sí | alta |
+| 0x006A6280 | 3 | B |  | 0 | 0 | sí | alta |
+| 0x006B1330 | 30 | B |  | 0 | 0 | sí | alta |
+| 0x006A3030 | 35 | B |  | 0 | 0 | sí | alta |
+| 0x006A6590 | 49 | B |  | 0 | 0 | sí | alta |
+| 0x006A2F80 | 167 | D |  | 0 | 0 |  | alta |
+| 0x006A32B0 | 384 | B |  | 0 | 0 | sí | alta |
+| 0x006A3060 | 584 | B |  | 0 | 0 | sí | alta |
+| 0x006A3BD0 | 646 | A |  | 3 | 3 |  | alta |
+| 0x006B0690 | 1018 | A |  | 2 | 2 |  | alta |
+
 ## CCustomCarEnvMapPipeline (25)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -2480,33 +2487,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00550B00 | 94 | A |  | 1 | 1 |  | alta |
 | 0x00550D70 | 94 | A |  | 1 | 1 |  | alta |
 | 0x00550E40 | 94 | A |  | 1 | 1 |  | alta |
-
-## CAutomobile (11)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006A6290 | 1 | B |  | 0 | 0 | sí | alta |
-| 0x006A6280 | 3 | B |  | 0 | 0 | sí | alta |
-| 0x006B1330 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x006A3030 | 35 | B |  | 0 | 0 | sí | alta |
-| 0x006A6590 | 49 | B |  | 0 | 0 | sí | alta |
-| 0x006A2F80 | 167 | D |  | 0 | 0 |  | alta |
-| 0x006A32B0 | 384 | B |  | 0 | 0 | sí | alta |
-| 0x006A3060 | 584 | B |  | 0 | 0 | sí | alta |
-| 0x006A3BD0 | 646 | A |  | 3 | 3 |  | alta |
-| 0x006A2B10 | 1005 | B |  | 0 | 0 | sí | alta |
-| 0x006B0690 | 1018 | A |  | 2 | 2 |  | alta |
-
-## CHeli (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x006C4550 | 8 | B |  | 0 | 0 | sí | alta |
-| 0x006C7D10 | 11 | A |  | 1 | 1 |  | baja |
-| 0x006C4810 | 30 | B |  | 0 | 0 | sí | alta |
-| 0x006C4340 | 169 | C |  | 1 | 0 |  | alta |
-| 0x006C4830 | 1571 | B |  | 0 | 0 | sí | alta |
-| 0x006C7050 | 2352 | B |  | 0 | 0 | sí | alta |
 
 ## CReplay (10)
 
@@ -2769,26 +2749,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00493960 | 136 | C |  | 1 | 0 |  | baja |
 | 0x00496E00 | 8462 | D |  | 0 | 0 |  | baja |
 
-## CTheScripts (14)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00486AE0 | 1 | C |  | 1 | 0 |  | alta |
-| 0x0046B260 | 12 | C |  | 1 | 0 |  | baja |
-| 0x004748D0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0046A7E0 | 33 | C |  | 1 | 0 |  | alta |
-| 0x00465070 | 40 | A |  | 5 | 1 |  | baja |
-| 0x00465040 | 41 | A |  | 98 | 1 |  | baja |
-| 0x00474870 | 46 | C |  | 1 | 0 |  | baja |
-| 0x004748A0 | 46 | C |  | 1 | 0 |  | baja |
-| 0x004650A0 | 54 | A |  | 1 | 1 |  | baja |
-| 0x00493420 | 88 | C |  | 2 | 0 |  | alta |
-| 0x00493480 | 105 | C |  | 1 | 0 |  | alta |
-| 0x00493360 | 185 | C |  | 1 | 0 |  | alta |
-| 0x004654B0 | 226 | A |  | 22 | 4 |  | baja |
-| 0x00481300 | 8957 | D |  | 0 | 0 |  | alta |
-
-## CEntity (43)
+## CEntity (42)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
@@ -2809,9 +2770,9 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00403E00 | 32 | A |  | 4 | 4 |  | baja |
 | 0x004634D0 | 32 | D |  | 0 | 0 |  | baja |
 | 0x00533020 | 35 | A |  | 2 | 2 | sí | alta |
-| 0x005335E0 | 47 | A |  | 5 | 3 |  | alta |
+| 0x005335E0 | 47 | A |  | 5 | 5 |  | alta |
 | 0x0046A340 | 49 | C |  | 1 | 0 |  | baja |
-| 0x00533670 | 54 | C |  | 1 | 0 |  | alta |
+| 0x00533670 | 54 | A |  | 1 | 1 |  | alta |
 | 0x004027CD | 58 | C |  | 1 | 0 |  | baja |
 | 0x00401000 | 74 | C |  | 1 | 0 |  | baja |
 | 0x005336B0 | 79 | A |  | 2 | 2 |  | alta |
@@ -2832,9 +2793,27 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00403902 | 513 | C |  | 1 | 0 |  | baja |
 | 0x004033F5 | 525 | C |  | 1 | 0 |  | baja |
 | 0x004024C0 | 581 | C |  | 1 | 0 |  | baja |
-| 0x005347D0 | 763 | B | CEntity::Add-rect | 0 | 0 | sí | alta |
 | 0x00401FBB | 949 | C |  | 1 | 0 |  | baja |
 | 0x004012E9 | 3282 | C |  | 3 | 0 |  | baja |
+
+## CTheScripts (14)
+
+| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
+|---|---:|---|---|---:|---:|---|---|
+| 0x00486AE0 | 1 | C |  | 1 | 0 |  | alta |
+| 0x0046B260 | 12 | C |  | 1 | 0 |  | baja |
+| 0x004748D0 | 30 | B |  | 0 | 0 | sí | baja |
+| 0x0046A7E0 | 33 | C |  | 1 | 0 |  | alta |
+| 0x00465070 | 40 | A |  | 5 | 1 |  | baja |
+| 0x00465040 | 41 | A |  | 98 | 1 |  | baja |
+| 0x00474870 | 46 | C |  | 1 | 0 |  | baja |
+| 0x004748A0 | 46 | C |  | 1 | 0 |  | baja |
+| 0x004650A0 | 54 | A |  | 1 | 1 |  | baja |
+| 0x00493420 | 88 | C |  | 2 | 0 |  | alta |
+| 0x00493480 | 105 | C |  | 1 | 0 |  | alta |
+| 0x00493360 | 185 | C |  | 1 | 0 |  | alta |
+| 0x004654B0 | 226 | A |  | 22 | 4 |  | baja |
+| 0x00481300 | 8957 | D |  | 0 | 0 |  | alta |
 
 ## CWeaponModelInfo (41)
 
@@ -2905,7 +2884,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0074DBF0 | 39 | A |  | 5 | 2 |  | baja |
 | 0x0074A520 | 44 | envoltura |  | 1 | 0 |  | baja |
 | 0x0074C7D0 | 44 | A |  | 13 | 8 |  | baja |
-| 0x0074A1C0 | 52 | C |  | 1 | 0 |  | baja |
+| 0x0074A1C0 | 52 | A |  | 1 | 0 |  | baja |
 | 0x0074E010 | 52 | envoltura |  | 1 | 0 |  | baja |
 | 0x0074EA40 | 55 | A |  | 1 | 0 |  | baja |
 | 0x0074EB40 | 58 | C |  | 2 | 0 |  | baja |
@@ -2961,7 +2940,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0074A310 | 377 | A |  | 21 | 14 |  | baja |
 | 0x0074C310 | 443 | envoltura |  | 2 | 0 |  | baja |
 | 0x0074CA90 | 543 | A |  | 4 | 3 |  | baja |
-| 0x00749F70 | 592 | C |  | 1 | 0 |  | baja |
+| 0x00749F70 | 592 | A |  | 1 | 1 |  | baja |
 | 0x0074C800 | 595 | A |  | 14 | 11 |  | baja |
 | 0x0074F210 | 710 | envoltura |  | 1 | 0 |  | baja |
 | 0x0074DD30 | 724 | envoltura |  | 1 | 0 |  | baja |

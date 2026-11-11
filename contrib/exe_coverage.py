@@ -69,6 +69,33 @@ def size_label(size):
     return 'pequeña'
 
 
+def _source_hook_addresses(root, catalogued):
+    """Direcciones del EXE de los macros RH_Scoped*Install activos cuya (clase, funcion) figura en el catalogo."""
+    import re
+    cls_re = re.compile(r'^\s*RH_Scoped(?:Virtual)?Class\(\s*(\w+)')
+    ins_re = re.compile(r'^\s*RH_Scoped\w*Install\(\s*([\w:~]+)\s*,(.*?)\);')
+    found = set()
+    for path in (Path(root) / 'source').rglob('*.cpp'):
+        try:
+            text = path.read_text(encoding='utf-8', errors='replace')
+        except OSError:
+            continue
+        cls = None
+        for line in text.splitlines():
+            m = cls_re.match(line)
+            if m:
+                cls = m.group(1)
+                continue
+            m = ins_re.match(line)
+            if not m or cls is None:
+                continue
+            fn = m.group(1).split('::')[-1]
+            addr = re.search(r'0x([0-9A-Fa-f]{6,8})', m.group(2))
+            if addr and (cls, fn) in catalogued:
+                found.add(int(addr.group(1), 16))
+    return found
+
+
 def compute(root, internals=False):
     root = Path(root)
     mm = root / 'docs/MemoryMap'
@@ -91,6 +118,11 @@ def compute(root, internals=False):
                 original = _hex(entry.get('evidence', {}).get('original_address', ''))
                 if original:
                     addresses.add(original)
+
+    # Los hooks V (virtuales) llevan direccion 0x00000000 en hooks.csv y no siempre dejan original_address en el registro:
+    # la direccion del EXE se toma del macro RH_Scoped*Install del codigo cuando (clase, funcion) coincide con una fila
+    # reconstruida de hooks.csv (asi no se cuentan como pendientes funciones ya enganchadas y validadas).
+    addresses |= _source_hook_addresses(root, {(r['class'], r['fn_name'].split('-')[0]) for r in reversed_rows})
 
     pending = {_hex(r.get('address', '')) for r in _rows(root / 'docs/implementaciones/envolturas-pendientes.csv')} - {0}
     covered = ({va for va in funcs if va in addresses or any(n in names for n in funcs[va]['names'])}) - pending
