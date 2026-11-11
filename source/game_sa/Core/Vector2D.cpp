@@ -33,6 +33,15 @@ void CVector2D::InjectHooks() {
 
     //RH_ScopedInstall(Magnitude, 0x420860); - se instala (como copia fuera de linea con la x87 exacta) en CVector::InjectHooksExactMath, lote 124A
     //RH_ScopedInstall(Normalise, 0x44E480); - Added extra parameter, must unhook
+    // operator= (0x43E110) se instala por InjectHooksLote162A (banco Fn162A).
+}
+
+// CVector2D::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); esta es la unica entrada de CVector2D que se instala (lote 162A, banco Fn162A): operator= (0x43E110; thiscall, un
+// puntero, `ret 4`; copia x e y como dwords y devuelve this).
+void CVector2D::InjectHooksLote162A() {
+    RH_ScopedClass(CVector2D);
+    RH_ScopedCategory("Core");
+
     RH_ScopedInstall(operator=, 0x43E110);
 }
 

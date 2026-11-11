@@ -9464,6 +9464,7 @@ CTaskComplexBeStill,Constructor,0x005F6660,1,0,1,S
 CObject,CeilFloat,0x00538AD0,1,0,1,S
 CTaskSimpleCarWaitToSlowDown,SetPedPosition,0x00000000,1,0,1,V
 CVector2D,Magnitude,0x00420860,1,0,1,S
+CVector2D,operator=,0x0043E110,1,0,1,S
 CTimer,GetOSWPerformanceTime,0x005617A0,1,0,1,S
 BreakManager_c,Constructor,0x0059E620,1,0,1,S
 CAEVorbisDecoder,ScalarDeletingDestructor,0x00502700,1,0,1,S
@@ -9903,6 +9904,12 @@ CEventObjectCollision,TakesPriorityOver,0x00000000,1,0,1,V
 CEventObjectCollision,IsHeadOnCollision,0x004ACE80,1,0,1,S
 CPedIntelligence,AddInterestingEntity,0x00602240,1,0,1,S
 CMatrix,AttachRW,0x0059BD90,1,0,1,S
+CMatrix,Update,0x0059BB60,1,0,1,S
+CMatrix,UpdateMatrix,0x0059AD20,1,0,1,S
+CMatrix,Detach,0x0059ACF0,1,0,1,S
+CMatrix,CopyOnlyMatrix,0x0059ADD0,1,0,1,S
+CMatrix,operator+=,0x0059ADF0,1,0,1,S
+CMatrix,Scale,0x00459350,1,0,1,S
 CAEAudioEntity,Destructor-3,0x00506CC0,1,0,1,S
 CEventLeaderExitedCarAsDriver,CloneEditable,0x00000000,1,0,1,V
 CTaskLeanOnVehicle,GetTaskType,0x00000000,1,0,1,V

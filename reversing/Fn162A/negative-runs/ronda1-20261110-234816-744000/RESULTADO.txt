@@ -1,0 +1,3 @@
+FALLO: Fn162A
+Funciones con diferencias: CMatrix::Update: 2048/2048; CMatrix::UpdateMatrix: 2048/2048; CMatrix::Detach: 729/2048; CMatrix::CopyOnlyMatrix: 1599/2048; CMatrix::operator+=: 2047/2048; CMatrix::Scale: 1332/2048; CVector2D::operator=: 563/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn162a\20261110-234816-744000

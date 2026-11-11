@@ -31,6 +31,7 @@ public:
     CVector2D(const CVector& vec3d);
 
     static void InjectHooks();
+    static void InjectHooksLote162A(); // Solo operator= 0x43E110 (lote 162A)
 
     /*!
     * @brief Normalize this vector in-place

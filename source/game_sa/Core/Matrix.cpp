@@ -40,10 +40,7 @@ void CMatrix::InjectHooks()
     RH_ScopedCategory("Core");
 
     // Attach (0x59BD10) y operator= (0x59BBC0) se instalan por InjectHooksAttachAssign.
-    RH_ScopedInstall(Detach, 0x59ACF0);
-    RH_ScopedInstall(CopyOnlyMatrix, 0x59ADD0);
-    RH_ScopedInstall(Update, 0x59BB60);
-    RH_ScopedInstall(UpdateMatrix, 0x59AD20);
+    // Detach (0x59ACF0), CopyOnlyMatrix (0x59ADD0), Update (0x59BB60), UpdateMatrix (0x59AD20), operator+= (0x59ADF0) y Scale (0x459350) se instalan por InjectHooksLote162A (banco Fn162A).
     // UpdateRW (0x59BBB0), UpdateRwMatrix (0x59AD70), SetTranslate (0x59AF40) y SetRotateZOnly (0x59B020) se instalan por InjectHooksExactOps.
     // SetUnity (0x59AE70), ResetOrientation (0x59AEA0), SetScale (0x59AED0, 0x59AF00), SetTranslateOnly (0x59AF80), SetRotate xyz (0x59B120), Invert (0x59B920) y la multiplicacion
     // de matrices (0x59BE30) se instalan por InjectHooksLote99A.
@@ -51,10 +48,8 @@ void CMatrix::InjectHooks()
     // se instalan por CMatrixInjectHooksLote103A (lote 103A, banco Fn103A).
     // SetRotateX/Y/Z (0x59B060, 0x59B0A0, 0x59B0E0), RotateX/Y/Z (0x59B1E0, 0x59B2C0, 0x59B390), Reorthogonalise (0x59B6A0), CopyToRwMatrix (0x59B8B0) e Invert(in) (0x59BDD0)
     // se instalan por CMatrixInjectHooksLote101A (lote 101A, banco Fn101A).
-    RH_ScopedInstall(Scale, 0x459350);
     RH_ScopedInstall(ConvertToEulerAngles, 0x59A840);
     RH_ScopedInstall(ConvertFromEulerAngles, 0x59AA40);
-    RH_ScopedInstall(operator+=, 0x59ADF0);
     // operator*= (0x411A80) se instala por CMatrixInjectHooksLote105A (lote 105A, banco Fn105A).
     //RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&)); // ver InjectHooksMultiplyVector
 }
@@ -81,6 +76,21 @@ void CMatrix::InjectHooksAttachAssign()
     RH_ScopedInstall(Attach, 0x59BD10);
     RH_ScopedInstall(AttachRW, 0x59BD90); // lote 154A (banco Fn154A)
     RH_ScopedInstall(operator=, 0x59BBC0);
+}
+
+// Lote 162A (banco Fn162A): Detach (0x59ACF0), CopyOnlyMatrix (0x59ADD0), Update (0x59BB60), UpdateMatrix (0x59AD20), operator+= (0x59ADF0) y Scale (0x459350). ConvertToEulerAngles (0x59A840) y
+// ConvertFromEulerAngles (0x59AA40) siguen en la lista desactivada (fsin/fcos de la x87: sin oraculo independiente exacto; ver reversing/Fn162A/README.md).
+void CMatrix::InjectHooksLote162A()
+{
+    RH_ScopedClass(CMatrix);
+    RH_ScopedCategory("Core");
+
+    RH_ScopedInstall(Detach, 0x59ACF0);
+    RH_ScopedInstall(CopyOnlyMatrix, 0x59ADD0);
+    RH_ScopedInstall(Update, 0x59BB60);
+    RH_ScopedInstall(UpdateMatrix, 0x59AD20);
+    RH_ScopedInstall(operator+=, 0x59ADF0);
+    RH_ScopedInstall(Scale, 0x459350);
 }
 
 namespace {
@@ -245,9 +255,11 @@ void CMatrix::AttachRW(RwMatrix* matrix, bool bOwnsMatrix)
         CMatrix::UpdateRwMatrix(matrix);
 }
 
+// 0x59ACF0 (lote 162A, banco Fn162A; thiscall, sin argumentos): como el EXE, la matriz enlazada (+0x40) se comprueba primero y la bandera de propiedad se LEE como dword (+0x44; el relleno cuenta);
+// RwMatrixDestroy (0x7F2A20) solo si ambas son distintas de cero; despues +0x40 = 0 (la bandera no se toca).
 void CMatrix::Detach()
 {
-    if (m_bOwnsAttachedMatrix && m_pAttachMatrix)
+    if (m_pAttachMatrix && *reinterpret_cast<const uint32*>(&m_bOwnsAttachedMatrix))
         RwMatrixDestroy(m_pAttachMatrix);
 
     m_pAttachMatrix = nullptr;
@@ -261,9 +273,22 @@ void CMatrix::CopyOnlyMatrix(const CMatrix& matrix)
 
 // update RwMatrix with attaching matrix. This doesn't check if attaching matrix is present, so use it only if you know it is present.
 // Using UpdateRW() is more safe since it perform this check.
+namespace {
+// Copia las 12 palabras de la RwMatrix (right, up, at, pos sin las palabras de relleno) a la matriz, en el orden del EXE (0, 4, 8, 0x10, 0x14, 0x18, 0x20, 0x24, 0x28, 0x30, 0x34, 0x38). Sin llamadas
+// (los dos hooks, 0x59BB60 y 0x59AD20, deben ser independientes entre si: con un hook Simple apagado la funcion de la DLL salta al EXE).
+__declspec(noinline) void MatrixCopyFromRw(volatile uint32* dst, const volatile uint32* src)
+{
+    dst[0] = src[0]; dst[1] = src[1]; dst[2] = src[2];
+    dst[4] = src[4]; dst[5] = src[5]; dst[6] = src[6];
+    dst[8] = src[8]; dst[9] = src[9]; dst[10] = src[10];
+    dst[12] = src[12]; dst[13] = src[13]; dst[14] = src[14];
+}
+} // namespace
+
+// 0x59BB60 (lote 162A, banco Fn162A; thiscall, sin argumentos): copia las 12 palabras de la matriz enlazada (+0x40) a esta matriz; no comprueba que exista.
 void CMatrix::Update()
 {
-    CMatrix::UpdateMatrix(m_pAttachMatrix);
+    MatrixCopyFromRw(reinterpret_cast<uint32*>(this), reinterpret_cast<const uint32*>(m_pAttachMatrix));
 }
 
 // update RwMatrix with attaching matrix.
@@ -286,12 +311,10 @@ void CMatrix::UpdateRwMatrix(RwMatrix* matrix) const
     RwMatrixUpdate(matrix);
 }
 
+// 0x59AD20 (lote 162A, banco Fn162A; thiscall, un puntero, `ret 4`): como Update, con la RwMatrix del argumento.
 void CMatrix::UpdateMatrix(RwMatrix* rwMatrix)
 {
-    m_right = *RwMatrixGetRight(rwMatrix);
-    m_forward = *RwMatrixGetUp(rwMatrix);
-    m_up = *RwMatrixGetAt(rwMatrix);
-    m_pos = *RwMatrixGetPos(rwMatrix);
+    MatrixCopyFromRw(reinterpret_cast<uint32*>(this), reinterpret_cast<const uint32*>(rwMatrix));
 }
 
 void CMatrix::SetUnity()

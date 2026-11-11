@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "pairs": 114688,
+  "differences": 0,
+  "registered_pairs": 114688,
+  "registered_functions": 7,
+  "functions": {
+    "CMatrix::Update": 16384,
+    "CMatrix::UpdateMatrix": 16384,
+    "CMatrix::Detach": 16384,
+    "CMatrix::CopyOnlyMatrix": 16384,
+    "CMatrix::operator+=": 16384,
+    "CMatrix::Scale": 16384,
+    "CVector2D::operator=": 16384
+  },
+  "covered_functions": {
+    "CMatrix::Update": true,
+    "CMatrix::UpdateMatrix": true,
+    "CMatrix::Detach": true,
+    "CMatrix::CopyOnlyMatrix": true,
+    "CMatrix::operator+=": true,
+    "CMatrix::Scale": true,
+    "CVector2D::operator=": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 7 funciones del EXE cuyo hook estaba dentro de CMatrix::InjectHooks / CVector2D::InjectHooks (desactivados en InjectHooksMain: el hook NO estaba activo) y que el lote activa (CMatrix::InjectHooksLote162A, CVector2D::InjectHooksLote162A): CMatrix::Update, UpdateMatrix, Detach (la bandera de propiedad +0x44 se lee como dword, como el EXE), CopyOnlyMatrix, operator+=, Scale y CVector2D::operator=. ConvertToEulerAngles (0x59A840) y ConvertFromEulerAngles (0x59AA40) no se validan aqui (fsin/fcos de la x87 sin oraculo independiente exacto). Colaborador sustituido por falso: RwMatrixDestroy 0x7F2A20 (solo en el EXE; la DLL lo llama por esa direccion) en Detach. Fuera de los fixtures: this nulo o crudo, matriz enlazada cruda en Update/UpdateMatrix (el EXE se cae), solape parcial entre origen y destino, NaN fuera del modelo (SNaN o NaN de igual carga con distinto signo en los dos operandos).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn162A-20261110-224946-375239",
+  "summary_sha256": "073caff9765f83367a251dc96b06a269b5e4377459cd52e3360a3312a6ecf224",
+  "result_txt_sha256": "63dd95f51ac4fef3bb547c5ab6590753489799113d8719a4ea62f4dc1b16577e",
+  "log_sha256": "0e54462d4529948b5a211393ae210cceef1c00d60f562058c93e7208096f104b",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "59eee36b004a7edc17495dffc35a050683ab5666e2ba3e55bb2717c93ea4da27",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+      "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+      "source/game_sa/Core/Matrix.cpp": "f2cfc139c2b7722606306b6266756de3747a545511e933718d1ebfc180655c7b",
+      "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
+      "source/game_sa/Core/Vector2D.cpp": "69e794256b8f87ef00066759a3003aa4eb7d3c72f4c17ecf099565e03892366f",
+      "source/game_sa/Core/Vector2D.h": "48f3f16e88c8f0a78726f1c8732d2312638564d278915e7b834a44f90e6faf57",
+      "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn162A/LiveComparison.hpp": "584f415a08ee782dfa2d9919ff246703475ce05d137d9794ab47a583b849afdd",
+      "reversing/Fn162A/Core.hpp": "507b13510f6bc41fac7e26096ed5b2c3aa45570ded1f6137b25ad9f0a5d6d446",
+      "reversing/Fn162A/Fixtures.hpp": "aaab454690bc243d1509ba49262dd1ff7c671dd6c725f10cad501f382aec62dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

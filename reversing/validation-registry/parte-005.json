@@ -42379,6 +42379,279 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 9277fb4c56 con los cambios del lote (ver artifacts/build-manifest.json). 23 funciones del EXE sin hook (clases por desensamblado, vtables y llamadores; el listado atribuia varias a clases equivocadas): destructores con borrado de CTaskSimpleCarJumpOut, CTaskSimpleCarForcePedOut, CTaskSimpleCarSetPedOut, CTaskSimpleCarSlowDragPedOut, CTaskComplexGoToCarDoorAndStandStill, CTaskSimpleDieInCar, CTaskComplexDieInCar, CTaskComplexGetUpAndStandStill, CTaskSimpleFall, CTaskComplexFallToDeath y CTaskSimpleJump; constantes virtuales de CTaskSimpleDie, CTaskSimpleGetUp y CTaskSimpleLand; cuerpos de destructor de esas tres tareas; tres alias del constructor de CBoundingBox (0x537550, 0x537560, 0x537570); constructor de CAnimatedBuilding (0x537A10); CloneAtomicToClumpCB (0x537290); CCollisionData::GetNoOfShdwVerts (0x537510). Colaboradores sustituidos por falso identico en la direccion del EXE y en la DLL (cuerpos de destructor, ~CTask, CTask::operator delete, SetFinishCallback, constructores de CBoundingBox y de CEntity, RpAtomicSetFrame, RpAtomicClone y RpClumpAddAtomic). El constructor de CBuilding (0x403E00, sin hook) corre real en el EXE y la DLL pliega sus efectos. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, constructores reales, atomics o marcos nulos en CloneAtomicToClumpCB (el EXE se cae) y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn159A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "Update",
+        "address": "0x0059BB60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn162A/validation-summary.json",
+        "sha256": "48659f2bb60ed8466264d510bd746fe3831a711714885e2632804b359a07a3b0",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::Update"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Core/Matrix.cpp": "f2cfc139c2b7722606306b6266756de3747a545511e933718d1ebfc180655c7b",
+        "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
+        "source/game_sa/Core/Vector2D.cpp": "69e794256b8f87ef00066759a3003aa4eb7d3c72f4c17ecf099565e03892366f",
+        "source/game_sa/Core/Vector2D.h": "48f3f16e88c8f0a78726f1c8732d2312638564d278915e7b834a44f90e6faf57",
+        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn162A/LiveComparison.hpp": "584f415a08ee782dfa2d9919ff246703475ce05d137d9794ab47a583b849afdd",
+        "reversing/Fn162A/Core.hpp": "507b13510f6bc41fac7e26096ed5b2c3aa45570ded1f6137b25ad9f0a5d6d446",
+        "reversing/Fn162A/Fixtures.hpp": "aaab454690bc243d1509ba49262dd1ff7c671dd6c725f10cad501f382aec62dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 7 funciones del EXE cuyo hook estaba dentro de CMatrix::InjectHooks / CVector2D::InjectHooks (desactivados en InjectHooksMain: el hook NO estaba activo) y que el lote activa (CMatrix::InjectHooksLote162A, CVector2D::InjectHooksLote162A): CMatrix::Update, UpdateMatrix, Detach (la bandera de propiedad +0x44 se lee como dword, como el EXE), CopyOnlyMatrix, operator+=, Scale y CVector2D::operator=. ConvertToEulerAngles (0x59A840) y ConvertFromEulerAngles (0x59AA40) no se validan aqui (fsin/fcos de la x87 sin oraculo independiente exacto). Colaborador sustituido por falso: RwMatrixDestroy 0x7F2A20 (solo en el EXE; la DLL lo llama por esa direccion) en Detach. Fuera de los fixtures: this nulo o crudo, matriz enlazada cruda en Update/UpdateMatrix (el EXE se cae), solape parcial entre origen y destino, NaN fuera del modelo (SNaN o NaN de igual carga con distinto signo en los dos operandos).",
+      "review_reference": "reversing/Fn162A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "UpdateMatrix",
+        "address": "0x0059AD20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn162A/validation-summary.json",
+        "sha256": "48659f2bb60ed8466264d510bd746fe3831a711714885e2632804b359a07a3b0",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::UpdateMatrix"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Core/Matrix.cpp": "f2cfc139c2b7722606306b6266756de3747a545511e933718d1ebfc180655c7b",
+        "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
+        "source/game_sa/Core/Vector2D.cpp": "69e794256b8f87ef00066759a3003aa4eb7d3c72f4c17ecf099565e03892366f",
+        "source/game_sa/Core/Vector2D.h": "48f3f16e88c8f0a78726f1c8732d2312638564d278915e7b834a44f90e6faf57",
+        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn162A/LiveComparison.hpp": "584f415a08ee782dfa2d9919ff246703475ce05d137d9794ab47a583b849afdd",
+        "reversing/Fn162A/Core.hpp": "507b13510f6bc41fac7e26096ed5b2c3aa45570ded1f6137b25ad9f0a5d6d446",
+        "reversing/Fn162A/Fixtures.hpp": "aaab454690bc243d1509ba49262dd1ff7c671dd6c725f10cad501f382aec62dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 7 funciones del EXE cuyo hook estaba dentro de CMatrix::InjectHooks / CVector2D::InjectHooks (desactivados en InjectHooksMain: el hook NO estaba activo) y que el lote activa (CMatrix::InjectHooksLote162A, CVector2D::InjectHooksLote162A): CMatrix::Update, UpdateMatrix, Detach (la bandera de propiedad +0x44 se lee como dword, como el EXE), CopyOnlyMatrix, operator+=, Scale y CVector2D::operator=. ConvertToEulerAngles (0x59A840) y ConvertFromEulerAngles (0x59AA40) no se validan aqui (fsin/fcos de la x87 sin oraculo independiente exacto). Colaborador sustituido por falso: RwMatrixDestroy 0x7F2A20 (solo en el EXE; la DLL lo llama por esa direccion) en Detach. Fuera de los fixtures: this nulo o crudo, matriz enlazada cruda en Update/UpdateMatrix (el EXE se cae), solape parcial entre origen y destino, NaN fuera del modelo (SNaN o NaN de igual carga con distinto signo en los dos operandos).",
+      "review_reference": "reversing/Fn162A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "Detach",
+        "address": "0x0059ACF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn162A/validation-summary.json",
+        "sha256": "48659f2bb60ed8466264d510bd746fe3831a711714885e2632804b359a07a3b0",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::Detach"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Core/Matrix.cpp": "f2cfc139c2b7722606306b6266756de3747a545511e933718d1ebfc180655c7b",
+        "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
+        "source/game_sa/Core/Vector2D.cpp": "69e794256b8f87ef00066759a3003aa4eb7d3c72f4c17ecf099565e03892366f",
+        "source/game_sa/Core/Vector2D.h": "48f3f16e88c8f0a78726f1c8732d2312638564d278915e7b834a44f90e6faf57",
+        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn162A/LiveComparison.hpp": "584f415a08ee782dfa2d9919ff246703475ce05d137d9794ab47a583b849afdd",
+        "reversing/Fn162A/Core.hpp": "507b13510f6bc41fac7e26096ed5b2c3aa45570ded1f6137b25ad9f0a5d6d446",
+        "reversing/Fn162A/Fixtures.hpp": "aaab454690bc243d1509ba49262dd1ff7c671dd6c725f10cad501f382aec62dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 7 funciones del EXE cuyo hook estaba dentro de CMatrix::InjectHooks / CVector2D::InjectHooks (desactivados en InjectHooksMain: el hook NO estaba activo) y que el lote activa (CMatrix::InjectHooksLote162A, CVector2D::InjectHooksLote162A): CMatrix::Update, UpdateMatrix, Detach (la bandera de propiedad +0x44 se lee como dword, como el EXE), CopyOnlyMatrix, operator+=, Scale y CVector2D::operator=. ConvertToEulerAngles (0x59A840) y ConvertFromEulerAngles (0x59AA40) no se validan aqui (fsin/fcos de la x87 sin oraculo independiente exacto). Colaborador sustituido por falso: RwMatrixDestroy 0x7F2A20 (solo en el EXE; la DLL lo llama por esa direccion) en Detach. Fuera de los fixtures: this nulo o crudo, matriz enlazada cruda en Update/UpdateMatrix (el EXE se cae), solape parcial entre origen y destino, NaN fuera del modelo (SNaN o NaN de igual carga con distinto signo en los dos operandos).",
+      "review_reference": "reversing/Fn162A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "CopyOnlyMatrix",
+        "address": "0x0059ADD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn162A/validation-summary.json",
+        "sha256": "48659f2bb60ed8466264d510bd746fe3831a711714885e2632804b359a07a3b0",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::CopyOnlyMatrix"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Core/Matrix.cpp": "f2cfc139c2b7722606306b6266756de3747a545511e933718d1ebfc180655c7b",
+        "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
+        "source/game_sa/Core/Vector2D.cpp": "69e794256b8f87ef00066759a3003aa4eb7d3c72f4c17ecf099565e03892366f",
+        "source/game_sa/Core/Vector2D.h": "48f3f16e88c8f0a78726f1c8732d2312638564d278915e7b834a44f90e6faf57",
+        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn162A/LiveComparison.hpp": "584f415a08ee782dfa2d9919ff246703475ce05d137d9794ab47a583b849afdd",
+        "reversing/Fn162A/Core.hpp": "507b13510f6bc41fac7e26096ed5b2c3aa45570ded1f6137b25ad9f0a5d6d446",
+        "reversing/Fn162A/Fixtures.hpp": "aaab454690bc243d1509ba49262dd1ff7c671dd6c725f10cad501f382aec62dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 7 funciones del EXE cuyo hook estaba dentro de CMatrix::InjectHooks / CVector2D::InjectHooks (desactivados en InjectHooksMain: el hook NO estaba activo) y que el lote activa (CMatrix::InjectHooksLote162A, CVector2D::InjectHooksLote162A): CMatrix::Update, UpdateMatrix, Detach (la bandera de propiedad +0x44 se lee como dword, como el EXE), CopyOnlyMatrix, operator+=, Scale y CVector2D::operator=. ConvertToEulerAngles (0x59A840) y ConvertFromEulerAngles (0x59AA40) no se validan aqui (fsin/fcos de la x87 sin oraculo independiente exacto). Colaborador sustituido por falso: RwMatrixDestroy 0x7F2A20 (solo en el EXE; la DLL lo llama por esa direccion) en Detach. Fuera de los fixtures: this nulo o crudo, matriz enlazada cruda en Update/UpdateMatrix (el EXE se cae), solape parcial entre origen y destino, NaN fuera del modelo (SNaN o NaN de igual carga con distinto signo en los dos operandos).",
+      "review_reference": "reversing/Fn162A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "operator+=",
+        "address": "0x0059ADF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn162A/validation-summary.json",
+        "sha256": "48659f2bb60ed8466264d510bd746fe3831a711714885e2632804b359a07a3b0",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::operator+="
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Core/Matrix.cpp": "f2cfc139c2b7722606306b6266756de3747a545511e933718d1ebfc180655c7b",
+        "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
+        "source/game_sa/Core/Vector2D.cpp": "69e794256b8f87ef00066759a3003aa4eb7d3c72f4c17ecf099565e03892366f",
+        "source/game_sa/Core/Vector2D.h": "48f3f16e88c8f0a78726f1c8732d2312638564d278915e7b834a44f90e6faf57",
+        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn162A/LiveComparison.hpp": "584f415a08ee782dfa2d9919ff246703475ce05d137d9794ab47a583b849afdd",
+        "reversing/Fn162A/Core.hpp": "507b13510f6bc41fac7e26096ed5b2c3aa45570ded1f6137b25ad9f0a5d6d446",
+        "reversing/Fn162A/Fixtures.hpp": "aaab454690bc243d1509ba49262dd1ff7c671dd6c725f10cad501f382aec62dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 7 funciones del EXE cuyo hook estaba dentro de CMatrix::InjectHooks / CVector2D::InjectHooks (desactivados en InjectHooksMain: el hook NO estaba activo) y que el lote activa (CMatrix::InjectHooksLote162A, CVector2D::InjectHooksLote162A): CMatrix::Update, UpdateMatrix, Detach (la bandera de propiedad +0x44 se lee como dword, como el EXE), CopyOnlyMatrix, operator+=, Scale y CVector2D::operator=. ConvertToEulerAngles (0x59A840) y ConvertFromEulerAngles (0x59AA40) no se validan aqui (fsin/fcos de la x87 sin oraculo independiente exacto). Colaborador sustituido por falso: RwMatrixDestroy 0x7F2A20 (solo en el EXE; la DLL lo llama por esa direccion) en Detach. Fuera de los fixtures: this nulo o crudo, matriz enlazada cruda en Update/UpdateMatrix (el EXE se cae), solape parcial entre origen y destino, NaN fuera del modelo (SNaN o NaN de igual carga con distinto signo en los dos operandos).",
+      "review_reference": "reversing/Fn162A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "Scale",
+        "address": "0x00459350",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn162A/validation-summary.json",
+        "sha256": "48659f2bb60ed8466264d510bd746fe3831a711714885e2632804b359a07a3b0",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::Scale"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Core/Matrix.cpp": "f2cfc139c2b7722606306b6266756de3747a545511e933718d1ebfc180655c7b",
+        "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
+        "source/game_sa/Core/Vector2D.cpp": "69e794256b8f87ef00066759a3003aa4eb7d3c72f4c17ecf099565e03892366f",
+        "source/game_sa/Core/Vector2D.h": "48f3f16e88c8f0a78726f1c8732d2312638564d278915e7b834a44f90e6faf57",
+        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn162A/LiveComparison.hpp": "584f415a08ee782dfa2d9919ff246703475ce05d137d9794ab47a583b849afdd",
+        "reversing/Fn162A/Core.hpp": "507b13510f6bc41fac7e26096ed5b2c3aa45570ded1f6137b25ad9f0a5d6d446",
+        "reversing/Fn162A/Fixtures.hpp": "aaab454690bc243d1509ba49262dd1ff7c671dd6c725f10cad501f382aec62dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 7 funciones del EXE cuyo hook estaba dentro de CMatrix::InjectHooks / CVector2D::InjectHooks (desactivados en InjectHooksMain: el hook NO estaba activo) y que el lote activa (CMatrix::InjectHooksLote162A, CVector2D::InjectHooksLote162A): CMatrix::Update, UpdateMatrix, Detach (la bandera de propiedad +0x44 se lee como dword, como el EXE), CopyOnlyMatrix, operator+=, Scale y CVector2D::operator=. ConvertToEulerAngles (0x59A840) y ConvertFromEulerAngles (0x59AA40) no se validan aqui (fsin/fcos de la x87 sin oraculo independiente exacto). Colaborador sustituido por falso: RwMatrixDestroy 0x7F2A20 (solo en el EXE; la DLL lo llama por esa direccion) en Detach. Fuera de los fixtures: this nulo o crudo, matriz enlazada cruda en Update/UpdateMatrix (el EXE se cae), solape parcial entre origen y destino, NaN fuera del modelo (SNaN o NaN de igual carga con distinto signo en los dos operandos).",
+      "review_reference": "reversing/Fn162A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVector2D",
+        "fn_name": "operator=",
+        "address": "0x0043E110",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn162A/validation-summary.json",
+        "sha256": "48659f2bb60ed8466264d510bd746fe3831a711714885e2632804b359a07a3b0",
+        "passed_path": [
+          "covered_functions",
+          "CVector2D::operator="
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Core/Matrix.cpp": "f2cfc139c2b7722606306b6266756de3747a545511e933718d1ebfc180655c7b",
+        "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
+        "source/game_sa/Core/Vector2D.cpp": "69e794256b8f87ef00066759a3003aa4eb7d3c72f4c17ecf099565e03892366f",
+        "source/game_sa/Core/Vector2D.h": "48f3f16e88c8f0a78726f1c8732d2312638564d278915e7b834a44f90e6faf57",
+        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn162A/LiveComparison.hpp": "584f415a08ee782dfa2d9919ff246703475ce05d137d9794ab47a583b849afdd",
+        "reversing/Fn162A/Core.hpp": "507b13510f6bc41fac7e26096ed5b2c3aa45570ded1f6137b25ad9f0a5d6d446",
+        "reversing/Fn162A/Fixtures.hpp": "aaab454690bc243d1509ba49262dd1ff7c671dd6c725f10cad501f382aec62dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 7 funciones del EXE cuyo hook estaba dentro de CMatrix::InjectHooks / CVector2D::InjectHooks (desactivados en InjectHooksMain: el hook NO estaba activo) y que el lote activa (CMatrix::InjectHooksLote162A, CVector2D::InjectHooksLote162A): CMatrix::Update, UpdateMatrix, Detach (la bandera de propiedad +0x44 se lee como dword, como el EXE), CopyOnlyMatrix, operator+=, Scale y CVector2D::operator=. ConvertToEulerAngles (0x59A840) y ConvertFromEulerAngles (0x59AA40) no se validan aqui (fsin/fcos de la x87 sin oraculo independiente exacto). Colaborador sustituido por falso: RwMatrixDestroy 0x7F2A20 (solo en el EXE; la DLL lo llama por esa direccion) en Detach. Fuera de los fixtures: this nulo o crudo, matriz enlazada cruda en Update/UpdateMatrix (el EXE se cae), solape parcial entre origen y destino, NaN fuera del modelo (SNaN o NaN de igual carga con distinto signo en los dos operandos).",
+      "review_reference": "reversing/Fn162A/README.md"
     }
   ]
 }

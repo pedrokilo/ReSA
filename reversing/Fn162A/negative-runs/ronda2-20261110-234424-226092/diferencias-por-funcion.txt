@@ -1,0 +1,3 @@
+{"CMatrix::Update": 704, "CMatrix::UpdateMatrix": 456, "CMatrix::Detach": 908, "CMatrix::CopyOnlyMatrix": 2048, "CMatrix::operator+=": 2048, "CMatrix::Scale": 1924, "CVector2D::operator=": 642}
+pares 14336 con diferencias 8730 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
