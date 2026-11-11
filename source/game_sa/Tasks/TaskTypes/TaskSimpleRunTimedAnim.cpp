@@ -27,12 +27,24 @@ void CTaskSimpleRunTimedAnim::InjectHooks() {
     RH_ScopedOverloadedInstall(Constructor, "2", 0x61ABE0, CTaskSimpleRunTimedAnim*(CTaskSimpleRunTimedAnim::*)(AssocGroupId, AnimationId, float, float, uint32, eTaskType, const char*, bool));
 
     RH_ScopedInstall(Destructor, 0x48E090);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x61BBC0); // lote 166A (banco Fn166A)
 
     RH_ScopedInstall(StartAnim, 0x61AC50);
 
     RH_ScopedVMTInstall(Clone, 0x61B810);
     RH_ScopedVMTInstall(GetTaskType, 0x48E0E0);
     RH_ScopedVMTInstall(ProcessPed, 0x61BBE0);
+}
+
+// 0x61BBC0 (lote 166A, banco Fn166A): destructor con borrado de CTaskSimpleRunTimedAnim del EXE (ranura 0 de su vtable 0x86D570; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx;
+// call 0x48E090; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x48E090), libera `this` con
+// CTask::operator delete (0x61A5B0) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. El listado decia CTaskSimpleRunAnim.
+CTaskSimpleRunTimedAnim* CTaskSimpleRunTimedAnim::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x61AB70

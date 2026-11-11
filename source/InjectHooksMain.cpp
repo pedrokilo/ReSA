@@ -603,6 +603,7 @@ void RpAnisotInjectHooks();
 void CMatrixInjectHooksLote101A(); // Matrix.cpp (lote 101A)
 void CMatrixInjectHooksLote103A(); // Matrix.cpp (lote 103A)
 void CMatrixInjectHooksLote105A(); // Matrix.cpp (lote 105A)
+void CMatrixInjectHooksLote166A(); // Matrix.cpp (lote 166A)
 void CColPointInjectHooksLote105A(); // ColPoint.cpp (lote 105A)
 void tColLightingInjectHooksLote116A(); // ColPoint.cpp (lote 116A)
 void CompressedVectorInjectHooksLote105A(); // CompressedVector.cpp (lote 105A)
@@ -751,6 +752,7 @@ void InjectHooksMain() {
     CMatrixInjectHooksLote101A(); // Only SetRotateX/Y/Z 0x59B060/0x59B0A0/0x59B0E0, RotateX/Y/Z 0x59B1E0/0x59B2C0/0x59B390, Reorthogonalise 0x59B6A0, CopyToRwMatrix 0x59B8B0 and Invert(in) 0x59BDD0.
     CMatrixInjectHooksLote103A(); // Only SetRotateXOnly 0x59AFA0, SetRotateYOnly 0x59AFE0, Rotate 0x59B460, ForceUpVector 0x59B7E0, SetRotate(quat) 0x59BBF0 and operator+ 0x59BFA0.
     CMatrixInjectHooksLote105A(); // Only operator*= 0x411A80.
+    CMatrixInjectHooksLote166A(); // Only AddTranslation 0x46AE00.
     CMatrix::InjectHooksLote162A(); // Only Detach 0x59ACF0, CopyOnlyMatrix 0x59ADD0, Update 0x59BB60, UpdateMatrix 0x59AD20, operator+= 0x59ADF0 and Scale 0x459350.
     CVector2D::InjectHooksLote162A(); // Only operator= 0x43E110.
     CColPointInjectHooksLote105A(); // Only CColPoint::operator= 0x40FC80.

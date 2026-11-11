@@ -13,12 +13,12 @@ public:
     CEventHitByWaterCannon(const CVector& point, const CVector& moveSpeed);
     ~CEventHitByWaterCannon() override = default;
 
-    eEventType GetEventType() const override { return EVENT_WATER_CANNON; }
-    int32 GetEventPriority() const override { return 64; }
-    int32 GetLifeTime() override { return 0; }
+    eEventType GetEventType() const override;   // 0x4B12E0 (lote 166A, banco Fn166A)
+    int32 GetEventPriority() const override;    // 0x4B1310 (lote 166A)
+    int32 GetLifeTime() override;               // 0x4B12F0 (lote 166A)
     CEvent* Clone() const noexcept override { return new CEventHitByWaterCannon(m_point, m_moveSpeed); }
     bool AffectsPed(CPed* ped) override;
-    float GetLocalSoundLevel() override { return 55.0f; }
+    float GetLocalSoundLevel() override;        // 0x4B1300 (lote 166A): `fld dword [0x85ADBC]` (55.0f); `ret`
 
 private:
     friend void InjectHooksMain();

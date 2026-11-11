@@ -44,6 +44,7 @@ public:
     void Clear() { m_nNumEntries = 0; }
 private:
     friend void InjectHooksMain();
+    friend bool ScratchDirectoryInit(); // 0x7315A0 (lote 166A, D3DResourceSystem.cpp): construye un CDirectory con la funcion enganchada 0x5322A0
     static void InjectHooks();
 
     CDirectory* Destructor();

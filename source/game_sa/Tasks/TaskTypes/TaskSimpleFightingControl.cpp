@@ -40,6 +40,7 @@ void CTaskSimpleFightingControl::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x61DC10);
     RH_ScopedInstall(Destructor, 0x61DCA0);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x624B30); // lote 166A (banco Fn166A)
 
     RH_ScopedInstall(CalcMoveCommand, 0x624B50);
 
@@ -67,6 +68,17 @@ CTaskSimpleFightingControl::CTaskSimpleFightingControl(const CTaskSimpleFighting
 // 0x61DCA0
 CTaskSimpleFightingControl::~CTaskSimpleFightingControl() {
     CEntity::SafeCleanUpRef(m_target);
+}
+
+// 0x624B30 (lote 166A, banco Fn166A): destructor con borrado de CTaskSimpleFightingControl del EXE (ranura 0 de su vtable 0x86D700; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx;
+// call 0x61DCA0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x61DCA0), libera `this` con
+// CTask::operator delete (0x61A5B0) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
+CTaskSimpleFightingControl* CTaskSimpleFightingControl::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x624B50

@@ -35,6 +35,30 @@ void CEventHitByWaterCannon::InjectHooks()
 
     RH_ScopedInstall(Constructor, 0x4B1290);
     RH_ScopedVMTInstall(AffectsPed, 0x4B1330);
+    RH_ScopedVMTInstall(GetEventType, 0x4B12E0);        // lote 166A (banco Fn166A)
+    RH_ScopedVMTInstall(GetLifeTime, 0x4B12F0);         // lote 166A
+    RH_ScopedVMTInstall(GetLocalSoundLevel, 0x4B1300);  // lote 166A
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B1310);    // lote 166A
+}
+
+// 0x4B12E0 (lote 166A, banco Fn166A; ranura 1 de la vtable 0x85B488; thiscall, `ret`): `mov eax, 0x40` (EVENT_WATER_CANNON = 64).
+eEventType CEventHitByWaterCannon::GetEventType() const {
+    return EVENT_WATER_CANNON;
+}
+
+// 0x4B1310 (lote 166A; ranura 2): `mov eax, 0x40` (prioridad 64).
+int32 CEventHitByWaterCannon::GetEventPriority() const {
+    return 64;
+}
+
+// 0x4B12F0 (lote 166A; ranura 3): `xor eax, eax` (vida util 0).
+int32 CEventHitByWaterCannon::GetLifeTime() {
+    return 0;
+}
+
+// 0x4B1300 (lote 166A; ranura 12): `fld dword [0x85ADBC]` (55.0f); `ret`. El resultado queda en ST0.
+float CEventHitByWaterCannon::GetLocalSoundLevel() {
+    return 55.0f;
 }
 
 // 0x4B1290

@@ -22,7 +22,7 @@ public:
     CTask* Clone() const override {
         return new CTaskComplexFollowPedFootsteps(m_targetPed);
     }
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x694EC0 (lote 166A, banco Fn166A)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;

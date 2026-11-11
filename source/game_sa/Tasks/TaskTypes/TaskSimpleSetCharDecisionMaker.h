@@ -32,8 +32,11 @@ private: // Wrappers for hooks
         return this;
     }
     // 0x46AF10
-    CTaskSimpleSetCharDecisionMaker* Destructor() {
+    __declspec(noinline) CTaskSimpleSetCharDecisionMaker* Destructor() {
         this->CTaskSimpleSetCharDecisionMaker::~CTaskSimpleSetCharDecisionMaker();
         return this;
     }
+
+    // 0x46AEF0 (lote 166A, banco Fn166A): destructor con borrado (ranura 0 de la vtable 0x859DA0), `ret 4`
+    CTaskSimpleSetCharDecisionMaker* ScalarDeletingDestructor(uint8 flags);
 };

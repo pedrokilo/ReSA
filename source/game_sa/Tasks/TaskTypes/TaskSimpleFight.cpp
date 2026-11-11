@@ -1873,6 +1873,8 @@ void CTaskSimpleFight::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x61C470);
     RH_ScopedInstall(Destructor, 0x61C530);
+    RH_ScopedInstall(ScalarDeletingDestructor, 0x6239D0); // lote 166A (banco Fn166A)
+    RH_ScopedVMTInstall(Clone, 0x622E40);                 // lote 166A
     // Como el original: EAX/ECX/EDX de salida (y el EDX de entrada) que comparan los bancos; los miembros de C++ no los reproducen
     RH_ScopedNamedGlobalInstall(FightControlFightExe, "ControlFight", 0x61C5E0);
     RH_ScopedNamedGlobalInstall(FightGetComboAnimGroupIDExe, "GetComboAnimGroupID", 0x4ABDA0);
@@ -1898,6 +1900,28 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedVMTInstall(MakeAbortable, 0x6239F0);
     RH_ScopedVMTInstall(ProcessPed, 0x629920);
 
+}
+
+// 0x622E40 (lote 166A, banco Fn166A; ranura 1 de la vtable 0x86D684; thiscall, `ret`, 106 bytes con marco SEH que solo desenrolla): como el original reserva 0x28 bytes con CTask::operator new
+// (0x61A5A0) y, si no es nulo, llama al constructor (0x61C470) con (objetivo (+0x18), movsx del BYTE +0x27, movzx del WORD +0x10) y devuelve SU EAX (no el puntero reservado); sin memoria devuelve 0.
+// El constructor propio (Constructor) escribe la vtable del EXE, no la de la DLL.
+CTask* CTaskSimpleFight::Clone() const {
+    auto* const memory = static_cast<CTaskSimpleFight*>(CTask::operator new(sizeof(CTaskSimpleFight)));
+    if (!memory) {
+        return nullptr;
+    }
+    return memory->Constructor(m_pTargetEntity, static_cast<int32>(static_cast<int8>(m_nLastCommand)), static_cast<uint32>(m_nIdlePeriod));
+}
+
+// 0x6239D0 (lote 166A, banco Fn166A): destructor con borrado de CTaskSimpleFight del EXE (ranura 0 de su vtable 0x86D684; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x61C530;
+// test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase (0x61C530), libera `this` con CTask::operator delete
+// (0x61A5B0) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S.
+CTaskSimpleFight* CTaskSimpleFight::ScalarDeletingDestructor(uint8 flags) {
+    Destructor();
+    if (flags & 1) {
+        CTask::operator delete(this);
+    }
+    return this;
 }
 
 // 0x61C470 (ret 0Ch): como el original registra el marco de excepciones en fs:[0], integra CTaskSimple (0x61A390: padre a 0; la vtable 0x86D4A8 se sobrescribe), rellena los

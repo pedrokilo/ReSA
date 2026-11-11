@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "1d814f09f1ae588eb51e8da90f3213adcc66e5658246cf68c17f2d8338594925",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CTaskSimpleFight::Clone: 304/2048; CTaskSimpleFight::ScalarDeletingDestructor: 884/2048; CTaskSimpleFightingControl::ScalarDeletingDestructor: 892/2048; CTaskSimpleIKChain::ConstructorDefaultBody: 603/2048; CTaskComplexFollowPedFootsteps::GetTaskType: 597/2048; CTaskComplexFollowPedFootsteps::SetMaxEntityDist2D: 481/2048; CTaskComplexSeekEntityAnyMeansXYOffset::ConstructorExe: 608/2048; D3DResourceSystem::GrowableArrayPushBack: 336/2048; D3DResourceSystem::ScratchDirectoryInit: 821/2048; CTxdStore::PluginAttach: 207/2048; FxPrimBP_c::ConstructorBody: 620/2048; FxPrimBP_c::DestructorBody: 612/2048; CEventHitByWaterCannon::GetEventType: 628/2048; CEventHitByWaterCannon::GetLifeTime: 567/2048; CEventHitByWaterCannon::GetLocalSoundLevel: 596/2048; CEventHitByWaterCannon::GetEventPriority: 595/2048; CEventInWater::AffectsPed: 79/2048; CEventInWater::TakesPriorityOver: 35/2048; CTaskSimpleRunNamedAnim::StartAnim: 283/2048; CTaskSimpleRunTimedAnim::ScalarDeletingDestructor: 908/2048; CTaskComplexSeekEntityStandard::ScalarDeletingDestructor: 603/2048; CMatrix::AddTranslation: 352/2048; CTheScripts::ScriptEntryListAdd: 449/2048; CTaskSimpleSetCharDecisionMaker::ScalarDeletingDestructor: 912/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

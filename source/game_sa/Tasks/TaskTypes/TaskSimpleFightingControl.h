@@ -38,6 +38,9 @@ private: // Wrappers for hooks
     CTaskSimpleFightingControl* Constructor(CEntity* entityToFight, float angleRad, float dist) { this->CTaskSimpleFightingControl::CTaskSimpleFightingControl(entityToFight, angleRad, dist); return this; }
 
     // 0x61DCA0
-    CTaskSimpleFightingControl* Destructor() { this->CTaskSimpleFightingControl::~CTaskSimpleFightingControl(); return this; }
+    __declspec(noinline) CTaskSimpleFightingControl* Destructor() { this->CTaskSimpleFightingControl::~CTaskSimpleFightingControl(); return this; }
+
+    // 0x624B30 (lote 166A, banco Fn166A): destructor con borrado (ranura 0 de la vtable 0x86D700), `ret 4`
+    CTaskSimpleFightingControl* ScalarDeletingDestructor(uint8 flags);
 };
 VALIDATE_SIZE(CTaskSimpleFightingControl, 0x24);

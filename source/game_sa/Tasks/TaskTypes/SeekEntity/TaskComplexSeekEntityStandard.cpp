@@ -24,7 +24,8 @@ void CTaskComplexSeekEntityStandard::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes/SeekEntity");
 
     RH_ScopedInstall(Constructor, 0x46AC10);
-    RH_ScopedInstall(Destructor, 0x46AD70); // 0x46AD50 is the scalar deleting wrapper (ret 4).
+    RH_ScopedInstall(Destructor, 0x46AD70);
+    RH_ScopedNamedInstall(ScalarDeletingDestructorExe, "ScalarDeletingDestructor", 0x46AD50); // lote 166A (banco Fn166A): destructor con borrado (ranura 0 de la vtable 0x859DF8), `ret 4`
 
     RH_ScopedInstall(CreateSubTask, 0x46F1E0);
 

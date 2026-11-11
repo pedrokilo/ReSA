@@ -48,6 +48,41 @@ void RawNullEntityRef(notsa::EntityRef<>& ref) {
 }
 }
 
+namespace {
+// 0x46AE80 (lote 166A, banco Fn166A; thiscall, dos punteros en la pila, `ret 8`, 104 bytes; el listado decia CTaskComplexSeekEntityStandard; sus dos llamadores son comandos de script, 0x46E9C2 y 0x46E9F0, sobre
+// el objeto global del EXE en 0xC18DB8, cuya clase no se ha identificado): alta de una entrada en una lista de 8 elementos (`[this]` = numero de elementos, con signo; entradas de 0x28 bytes desde +4: dos cadenas
+// de 0x18 y 0x10 bytes; posiciones de 12 bytes desde +0x144). Con 8 o mas devuelve falso. Como el original: copia el vector (3 dwords, uno a uno: leer y escribir) a pos[numero]; relee el numero y copia la primera
+// cadena del argumento de texto (byte a byte hasta el cero INCLUIDO, sin limite) a +4 + numero * 0x28 y la segunda (texto + 0x18) a esa entrada + 0x18 (otra cadena de longitud libre); relee el numero, lo incrementa
+// y devuelve verdadero. Accesos volatiles: fijan el orden (las cadenas largas desbordan y pueden solapar lo que viene despues, incluso el propio texto de origen).
+__declspec(noinline) bool __fastcall ScriptEntryListAdd(void* self, void* /*edx*/, const uint32* position, const char* text) {
+    auto* const raw = static_cast<uint8*>(self);
+    volatile int32* const count = reinterpret_cast<volatile int32*>(raw);
+    if (*count >= 8) {
+        return false;
+    }
+    volatile uint32* const destination = reinterpret_cast<volatile uint32*>(raw + 0x144 + static_cast<uint32>(*count) * 12u);
+    destination[0] = position[0];
+    destination[1] = position[1];
+    destination[2] = position[2];
+    volatile uint8* const entry = raw + 4 + static_cast<uint32>(*count) * 0x28u;
+    uint8 character;
+    const volatile uint8* source = reinterpret_cast<const volatile uint8*>(text);
+    volatile uint8* target = entry;
+    do {
+        character = *source++;
+        *target++ = character;
+    } while (character != 0);
+    source = reinterpret_cast<const volatile uint8*>(text + 0x18);
+    target = entry + 0x18;
+    do {
+        character = *source++;
+        *target++ = character;
+    } while (character != 0);
+    *count = *count + 1;
+    return true;
+}
+} // namespace
+
 void CTheScripts::InjectHooks() {
 #ifndef NOTSA_STANDALONE
     // Has to have these, because there seems to be something going on with the variable init order
@@ -60,6 +95,7 @@ void CTheScripts::InjectHooks() {
     RH_ScopedCategory("Scripts");
 
     RH_ScopedInstall(Init, 0x468D50);
+    RH_ScopedNamedGlobalInstall(ScriptEntryListAdd, "ScriptEntryListAdd", 0x46AE80); // lote 166A (banco Fn166A)
     RH_ScopedInstall(IsPointWithinSearchLight, 0x493280);
     RH_ScopedInstall(InitialiseAllConnectLodObjects, 0x470960);
     RH_ScopedInstall(InitialiseConnectLodObjects, 0x470940);

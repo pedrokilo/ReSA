@@ -55,6 +55,7 @@ void CTxdStore::InjectHooks() {
     RH_ScopedInstall(TxdStoreFindCB, 0x731720);
     RH_ScopedInstall(TxdStoreLoadCB, 0x731710);
     RH_ScopedInstall(SetupTxdParent, 0x731D50);
+    RH_ScopedInstall(PluginAttach, 0x731650); // lote 166A (banco Fn166A)
 
     // global
     RH_ScopedGlobalInstall(RemoveIfRefCountIsGreaterThanOne, 0x731680);

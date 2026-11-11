@@ -21,6 +21,20 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleIKChain.h"
 #include "Ragdoll/IKChainManager.h"
 
+namespace CTaskSimpleBody {
+void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
+}
+
+namespace {
+// 0x62EC10 (lote 166A, banco Fn166A; thiscall, sin argumentos de pila, 18 bytes; el listado decia CTaskComplexSeekCoverUntilTargetDead; sin llamadores ni referencias en el EXE, vecina de GetTaskType 0x62EC30): cuerpo
+// del constructor por defecto de CTaskSimpleIKChain. Como el original: base CTaskSimple (0x61A390, con hook), vtable 0x86DB48 (la del EXE; la de la DLL no vale) y devuelve this. No escribe ningun campo propio.
+__declspec(noinline) void* __fastcall IKChainDefaultConstructorBody(CTaskSimpleIKChain* self, void* /*edx*/) {
+    CTaskSimpleBody::Constructor(self, nullptr);
+    *reinterpret_cast<uint32*>(self) = 0x86DB48;
+    return self;
+}
+} // namespace
+
 void CTaskSimpleIKChain::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleIKChain, 0x86DB48, 10);
     RH_ScopedCategory("Tasks/TaskTypes");
@@ -28,6 +42,7 @@ void CTaskSimpleIKChain::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x6339C0);
     RH_ScopedInstall(Destructor, 0x633A90);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x636F00);
+    RH_ScopedNamedGlobalInstall(IKChainDefaultConstructorBody, "ConstructorDefaultBody", 0x62EC10); // lote 166A (banco Fn166A)
 
     RH_ScopedInstall(BlendOut, 0x633C40);
     RH_ScopedInstall(GetIKChain, 0x633C70);

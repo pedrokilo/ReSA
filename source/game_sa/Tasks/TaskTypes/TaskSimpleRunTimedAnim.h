@@ -46,8 +46,11 @@ private: // Wrappers for hooks
     }
 
     // 0x48E090
-    CTaskSimpleRunTimedAnim* Destructor() {
+    __declspec(noinline) CTaskSimpleRunTimedAnim* Destructor() {
         this->CTaskSimpleRunTimedAnim::~CTaskSimpleRunTimedAnim();
         return this;
     }
+
+    // 0x61BBC0 (lote 166A, banco Fn166A): destructor con borrado (ranura 0 de la vtable 0x86D570), `ret 4`
+    CTaskSimpleRunTimedAnim* ScalarDeletingDestructor(uint8 flags);
 };

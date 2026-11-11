@@ -187,6 +187,29 @@ void CMatrixInjectHooksLote105A()
     RH_ScopedInstall(operator*=, 0x411A80);
 }
 
+// Lote 166A (banco Fn166A): 0x46AE00 (thiscall, un puntero a vector en la pila, `ret 4`, 33 bytes; el listado decia CTaskComplexSeekEntityStandard; solo lo llaman CAutomobile::SpawnFlyingComponent y una
+// funcion de comandos de script): suma un vector a la posicion de la matriz (+0x30), con la x87 del EXE (24 bits): lee z e y del vector ANTES de tocar nada (`fld [v+8]; fld [v+4]`), x = pos.x + v.x
+// (`fld [pos]; fadd [v]; fstp [pos]`; v.x se lee al sumar), y = y + pos.y (`fadd [pos+4]`, la y ya cargada) y z = z + pos.z. Cada resultado se guarda como float antes de leer la siguiente posicion de memoria.
+namespace {
+__declspec(noinline) void __fastcall MatrixAddTranslationExe(CMatrix* self, void* /*edx*/, const CVector* offset) {
+    CVector& pos = self->GetPosition();
+    const float offsetY = offset->y;
+    const float offsetZ = offset->z;
+    FloatSumStoreCpp(pos.x, &offset->x, &pos.x);
+    FloatSumStoreCpp(offsetY, &pos.y, &pos.y);
+    FloatSumStoreCpp(offsetZ, &pos.z, &pos.z);
+}
+} // namespace
+
+// Lote 166A (banco Fn166A): 0x46AE00. Funcion libre para no tocar Matrix.h; se llama desde InjectHooksMain.cpp junto a las demas listas activas.
+void CMatrixInjectHooksLote166A()
+{
+    RH_ScopedClass(CMatrix);
+    RH_ScopedCategory("Core");
+
+    RH_ScopedNamedGlobalInstall(MatrixAddTranslationExe, "AddTranslation", 0x46AE00);
+}
+
 CMatrix::CMatrix(const CMatrix& matrix) {
     CMatrix::ConstructCopy(matrix);
 }

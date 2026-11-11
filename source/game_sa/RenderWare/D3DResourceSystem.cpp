@@ -43,6 +43,9 @@ D3DIndexDataBuffer&  D3DResourceSystem::IndexDataBuffer         = *reinterpret_c
 uint32&              D3DResourceSystem::FreeTextureBufferIndex  = *reinterpret_cast<uint32*>(0xC87FE0);
 uint32&              D3DResourceSystem::FreeIndexBufferIndex    = *reinterpret_cast<uint32*>(0xC87FE4);
 
+void __fastcall GrowableArrayPushBack(void* self, void* edx, uint32 value); // 0x730B30 (lote 166A)
+bool ScratchDirectoryInit();                                                  // 0x7315A0 (lote 166A)
+
 void D3DResourceSystem::InjectHooks() {
     RH_ScopedClass(D3DResourceSystem);
     RH_ScopedCategory("RenderWare");
@@ -58,6 +61,8 @@ void D3DResourceSystem::InjectHooks() {
     RH_ScopedInstall(Shutdown, 0x730A00);
     RH_ScopedInstall(GetTotalIndexDataSize, 0x7307F0);
     RH_ScopedInstall(GetTotalPixelsSize, 0x730660);
+    RH_ScopedNamedGlobalInstall(GrowableArrayPushBack, "GrowableArrayPushBack", 0x730B30);       // lote 166A (banco Fn166A)
+    RH_ScopedNamedGlobalInstall(ScratchDirectoryInit, "ScratchDirectoryInit", 0x7315A0);         // lote 166A
 }
 
 namespace {
@@ -80,6 +85,35 @@ inline D3DIndexDataBuffer* IndexDataBufferAt(int32 index) {
 inline void StoreResource(void* array, int32 index, void* resource) {
     static_cast<void**>(array)[index] = resource;
 }
+}
+
+// Funciones sueltas del EXE de esta zona (lote 166A, banco Fn166A). Funciones sin llamadores ni referencias en el EXE; el listado las atribuia a D3DResourceSystem por cercania de direcciones.
+// 0x730B30 (thiscall, un dword en la pila, `ret 4`, 55 bytes): alta de un dword al final de un vector que crece (`[this]` = capacidad, `[this+4]` = numero de elementos, `[this+8]` = datos). Como el original:
+// mientras el numero (con signo) no sea menor que la capacidad la duplica (`shl 1`, 32 bits) llamando a la funcion de ampliacion 0x7304B0 (sin hook, thiscall con la capacidad nueva; con capacidad cero no
+// termina), releyendo capacidad y numero de memoria en cada vuelta; guarda el dword en datos[numero] (indice de 32 bits sin signo) y DESPUES incrementa el numero (que se relee de memoria: si los datos
+// solapan la cabecera se incrementa el valor nuevo). Escrituras y lecturas volatiles: fijan el numero y el orden de los accesos.
+__declspec(noinline) void __fastcall GrowableArrayPushBack(void* self, void* /*edx*/, uint32 value) {
+    auto* const raw = static_cast<uint8*>(self);
+    volatile int32* const capacity = reinterpret_cast<volatile int32*>(raw);
+    volatile int32* const count    = reinterpret_cast<volatile int32*>(raw + 4);
+    while (*count >= *capacity) {
+        reinterpret_cast<void(__thiscall*)(void*, uint32)>(0x7304B0)(self, static_cast<uint32>(*capacity) << 1);
+    }
+    const uint32 data = *reinterpret_cast<volatile uint32*>(raw + 8);
+    *reinterpret_cast<volatile uint32*>(static_cast<uintptr_t>(data + static_cast<uint32>(*count) * 4u)) = value;
+    *count = *count + 1;
+}
+
+// 0x7315A0 (thiscall sin argumentos, `ret`, 87 bytes con marco SEH que solo desenrolla): reserva 0x800 bytes con operator new (0x82119A, sin hook; el resultado se descarta, no se libera ni se guarda), reserva otros
+// 0x10 y, si no es nulo, construye un CDirectory con capacidad 0x1388 (0x5322A0, con hook) sobre el; tampoco guarda ese objeto. Devuelve verdadero (AL = 1).
+__declspec(noinline) bool ScratchDirectoryInit() {
+    using NewFn = void*(__cdecl*)(uint32);
+    const auto exeOperatorNew = reinterpret_cast<NewFn>(0x82119A);
+    exeOperatorNew(0x800);
+    if (void* const memory = exeOperatorNew(0x10)) {
+        static_cast<CDirectory*>(memory)->Constructor(0x1388);
+    }
+    return true;
 }
 
 // 0x730900

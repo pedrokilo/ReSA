@@ -66,7 +66,7 @@ public:
     ~CTaskSimpleFight() override;
 
     eTaskType GetTaskType() const override { return Type; }
-    CTask* Clone() const override { return new CTaskSimpleFight(m_pTargetEntity, m_nLastCommand, m_nIdlePeriod); }
+    CTask* Clone() const override; // 0x622E40 (lote 166A, banco Fn166A)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;
 
@@ -107,7 +107,8 @@ private:
     static void InjectHooks();
 
 
-    CTaskSimpleFight* Destructor();
+    __declspec(noinline) CTaskSimpleFight* Destructor();
+    CTaskSimpleFight* ScalarDeletingDestructor(uint8 flags); // 0x6239D0 (lote 166A, banco Fn166A): destructor con borrado (ranura 0 de la vtable 0x86D684), `ret 4`
 
 };
 VALIDATE_SIZE(CTaskSimpleFight, 0x28);

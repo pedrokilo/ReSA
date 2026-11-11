@@ -58,6 +58,7 @@ void CTaskSimpleRunNamedAnim::InjectHooks() {
     RH_ScopedOverloadedInstall(Constructor, "Default", 0x6674B0, CTaskSimpleRunNamedAnim*(CTaskSimpleRunNamedAnim::*)());
     RH_ScopedOverloadedInstall(Constructor, "Anim", 0x61A990, CTaskSimpleRunNamedAnim*(CTaskSimpleRunNamedAnim::*)(char const*, char const*, int32, float, int32, bool, bool, bool, bool));
     RH_ScopedInstall(Destructor, 0x61BF10);
+    RH_ScopedInstall(StartAnim, 0x61BB10); // lote 166A (banco Fn166A; el listado decia CTaskSimpleRunAnim)
 
     RH_ScopedVMTInstall(Clone, 0x61B770);
     RH_ScopedVMTInstall(GetTaskType, 0x61AA90);
@@ -167,7 +168,7 @@ bool CTaskSimpleRunNamedAnim::ProcessPed(CPed* ped) {
     return true;
 }
 
-// 0x61BB10
+// 0x61BB10 (lote 166A): el clump se lee crudo (m_pRwObject, +0x18) sin comprobar el tipo, como el EXE
 void CTaskSimpleRunNamedAnim::StartAnim(CPed* ped) {
     // Como el original: el temporizador solo arranca con un tiempo final con signo no negativo
     if (static_cast<int32>(m_Time) >= 0) {
@@ -178,7 +179,7 @@ void CTaskSimpleRunNamedAnim::StartAnim(CPed* ped) {
     if (!(m_animFlags & ANIMATION_IS_FINISH_AUTO_REMOVE)) {
         m_animFlags |= ANIMATION_IS_BLEND_AUTO_REMOVE;
     }
-    m_pAnim = CAnimManager::BlendAnimation(ped->GetRpClump(), m_pAnimHierarchy, static_cast<int32>(m_animFlags), m_fBlendDelta);
+    m_pAnim = CAnimManager::BlendAnimation(reinterpret_cast<RpClump*>(ped->GetRwObject()), m_pAnimHierarchy, static_cast<int32>(m_animFlags), m_fBlendDelta);
     if (m_bOffsetAtEnd) {
         m_pAnim->SetFinishCallback(FinishRunAnimMovePedCB, this);
     } else if (!(m_animFlags & ANIMATION_IS_FINISH_AUTO_REMOVE) && !m_bRunInSequence) {

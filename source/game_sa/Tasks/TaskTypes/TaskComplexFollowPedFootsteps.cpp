@@ -29,15 +29,25 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleStandStill.h"
 #include "TaskSimpleHitHead.h"
 #include "SeekEntity/TaskComplexSeekEntityStandard.h"
+#include "SeekEntity/TaskComplexSeekEntity.h"
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
+
+// 0x694EC0 (lote 166A, banco Fn166A; ranura 4 de la vtable 0x870CC0; thiscall, `ret`): `mov eax, 0x3A8`.
+eTaskType CTaskComplexFollowPedFootsteps::GetTaskType() const {
+    return Type;
+}
 
 void CTaskComplexFollowPedFootsteps::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFollowPedFootsteps, 0x870CC0, 12);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x694E20);
+    // 0x6955D0 (lote 166A, banco Fn166A; el listado decia CTaskComplexFollowPedFootsteps): misma forma que 0x4BC470 (SetMaxEntityDist2D de la plantilla de CTaskComplexSeekEntity): si la distancia (float de la pila)
+    // no es igual a la de +0x18 (un NaN la cambia), la guarda y reinicia el temporizador de +0x28 (inicio = hora, intervalo 0, arrancado). Se reutiliza el mismo cuerpo.
+    RH_ScopedNamedGlobalInstall(SetMaxEntityDist2DRegs, "SetMaxEntityDist2D", 0x6955D0);
+    RH_ScopedVMTInstall(GetTaskType, 0x694EC0);
     RH_ScopedVMTInstall(MakeAbortable, 0x694ED0);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x694EE0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x695000);
