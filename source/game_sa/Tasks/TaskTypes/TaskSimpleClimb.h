@@ -33,7 +33,7 @@ public:
     CTaskSimpleClimb(CEntity* climbEntity, const CVector& vecTarget, float fHeading, eSurfaceType nSurfaceType, eClimbHeights nHeight, bool bForceClimb);
     ~CTaskSimpleClimb() override;
 
-    eTaskType GetTaskType() const override { return Type; }
+    eTaskType GetTaskType() const override; // 0x67A1C0 (lote 157A, banco Fn157A)
     CTask*    Clone() const override { return new CTaskSimpleClimb(m_ClimbEntity, m_HandholdPos, m_HandholdHeading, m_SurfaceType, (eClimbHeights)m_HeightForAnim, m_HasToForceClimb); }
     bool      ProcessPed(CPed* ped) override;
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;

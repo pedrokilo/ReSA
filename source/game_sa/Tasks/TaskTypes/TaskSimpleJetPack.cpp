@@ -55,9 +55,28 @@ const float kJpJetBallPeriod = std::bit_cast<float>(0x429F27AAu); // 0x8D2F80
 const float kJpRandRecip     = std::bit_cast<float>(0x38000100u); // 0x858C7C (1/32767)
 } // namespace
 
+namespace {
+// 0x67E600 (lote 157A, banco Fn157A): cuerpo del destructor de CTaskSimpleJetPack del EXE (con hook (Destructor)). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x67E600` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleJetPackDestructorBody(CTaskSimpleJetPack* self, void* /*edx*/) { self->CTaskSimpleJetPack::~CTaskSimpleJetPack(); }
+
+// 0x6801D0 (lote 157A, banco Fn157A): destructor con borrado de CTaskSimpleJetPack del EXE (ranura 0 de su vtable 0x8705C4; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x67E600; test byte [esp+8],1; je ..; push esi;
+// call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta
+// puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskSimpleJetPack* __fastcall CTaskSimpleJetPackScalarDeletingDestructor(CTaskSimpleJetPack* self, void* /*edx*/, uint8 flags) {
+    CTaskSimpleJetPackDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote157ABody_CTaskSimpleJetPack() { return reinterpret_cast<uintptr_t>(&CTaskSimpleJetPackDestructorBody); } // para el banco Fn157A
+
 void CTaskSimpleJetPack::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleJetPack, 0x8705c4, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleJetPackScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6801D0); // lote 157A (banco Fn157A)
 
     RH_ScopedInstall(Constructor, 0x67B4E0);
     RH_ScopedInstall(Destructor, 0x67E600);

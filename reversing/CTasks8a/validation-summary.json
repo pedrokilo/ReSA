@@ -64,7 +64,7 @@
   "log_sha256": "b46989035c966502a3b9dfc59e9c4b46eee8a6f51ef1f2c965d8ba9e3b4dafad",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks8a\\20261003-014258-439929",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks8a\\20261110-195112-966650",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexEnterBoatAsDriver::Clone": true,
@@ -118,24 +118,24 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "28172724b0bc6f4944565bfd544af7806a6528840a8956be9844a6ddd1131a3b",
-      "pdb": "75572536cb6527ad122007c046bb02ad7e8744d968d62fe5269fa23ddc9bd36b"
+      "asi": "7cf858abada7102bf3432a85d5e8721649f2bf11317a8fd0c0644334aaf068f7",
+      "pdb": "ca6f5a129174b480783bda1a83e603ce02be48666781998386803917425c4c72"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.cpp": "a6387ac366733d767f2c810e37258f3400cf1c3158adca58ad8c043c13d55985",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.h": "56016576dc4cb257d5ec28cd42386381deeab9842fd45d919ec3a818b1544339",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.cpp": "5e95a3dae5fea50862c52912b9ce5fb16dd2decae9d49a6782f2e47b72d6e4f2",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.h": "07978917e1a3d19542ee79924fef81ac88c8d3bae4526a936571168a3b1025ec",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexFleeAnyMeans.cpp": "a8250cc7b0af877f8082db860b9c22122d7eb50cdf9d3f4c4a85b12c1dc99f2a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.cpp": "b4c13e2662c02b90e5537d5fe3c138639f7efd6db50edb837f535f579c29b90c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.h": "6448483dc92a98238aea135297eacc813d1109bdc2e593f2e06c6ffe750b2b5c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.cpp": "7becf3fdd353d054eb85cc53c501986adf8aa7523047b5a817932df7b1969a8f",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.h": "e86b208867a2f148082b4b841d2ea5412f9eccf5e82c21ae9b599370d6211789",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFleeAnyMeans.cpp": "042ccc186f4401fb4a92006303ea3f7d0c6b4cc01633918e8b4915f5ef98a7f2",
       "source/game_sa/Tasks/TaskTypes/TaskComplexFleeAnyMeans.h": "4ee3f3a84f73865014fffe474f4c4f6fb770d1faed96b74b9a9f8b62dd9bc835",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexFleeEntity.cpp": "f8a2aa9d568fcf526b20904356d564b166f00fe966a718fec27c961d3f65c748",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFleeEntity.cpp": "d4dd5ba5188c546ffdae1326178217b1a767669bdf927d44d8002441b80c0a3a",
       "source/game_sa/Tasks/TaskTypes/TaskComplexFleeEntity.h": "5f5669e53d607b275d9791ecc471ceeeb0076ec57c9214e98026ef38b09f4df2",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexFleeShooting.cpp": "52ef9ea26401a36c56a97007f36c8649928fdb98f4f98d8e62e9a4a690734123",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFleeShooting.cpp": "337abeb27d28095cd8396ee8863eaee6a204ec092f6ad4dd8d1d4a96f5dcfb0d",
       "source/game_sa/Tasks/TaskTypes/TaskComplexFleeShooting.h": "96f7f86242b399c9804b9bede89f334dbb4cbea89b038aa1ccf62349d43faa2e",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderAnyMeans.cpp": "d14dcfdd7f465573b29a1b7f870925f0464fc8b9f94678ea2b958cad99643a66",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderAnyMeans.cpp": "09f4a8b086e8f14d5bb2cb86373ca68aadad55c9a33274485f2e88d2f536278d",
       "source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderAnyMeans.h": "cff4426b10b2318f8c7b11b43fd5a4845dc74f110ef0e746fd8f48072fc54728"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "ebba06c500ecbe19e9367837f68951a0ff907bda27a814fe98669a236439b4fc",
       "build_probe.py": "3fbd8d2f99d00e5a7d2a079f1f60bf9ce719b0e47efaf07fdecb2105bc7454f9",
@@ -144,6 +144,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

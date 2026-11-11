@@ -13,10 +13,10 @@ public:
     CEventPlayerCommandToGroupAttack(CPed* target) : CEventPlayerCommandToGroup(PLAYER_GROUP_COMMAND_ATTACK, target) {}
     ~CEventPlayerCommandToGroupAttack() override = default;
 
-    eEventType GetEventType() const override { return EVENT_PLAYER_COMMAND_TO_GROUP; }
-    int32 GetEventPriority() const override { return 44; }
+    eEventType GetEventType() const override;         // 0x5F6360 (lote 157A, banco Fn157A)
+    int32 GetEventPriority() const override;          // 0x5F6400 (lote 157A)
     bool AffectsPedGroup(CPedGroup* pedGroup) override;
-    CEventPlayerCommandToGroupAttack* CloneEditable() const noexcept override { return new CEventPlayerCommandToGroupAttack(m_target); }
+    CEventPlayerCommandToGroupAttack* CloneEditable() const noexcept override; // 0x5F6370 (lote 157A)
 
 private:
     CEventPlayerCommandToGroupAttack* Constructor(CPed* target);

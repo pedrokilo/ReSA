@@ -76,7 +76,7 @@
   "log_sha256": "329316af6b7a87839f802bab348b3b1b4b16af41809bdd2e500722646d00cb1e",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61c\\20261005-204726-593103",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61c\\20261110-212050-274141",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexGoToPointAndStandStillAndAchieveHeading::Clone": true,
@@ -142,36 +142,37 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "e799fa8961f2291b951288faf837772a88332381022cfa63f1263d2b135a5aa8",
-      "pdb": "9b8e8af97c3ffa586a5cb0a03ce778b2f8bbf9bcd1f7f2a9d7bd5c52201b4aca"
+      "asi": "747b0119cde89fe253c25503b29cf7aba73ecefbeea8d522a95fea12d45a0084",
+      "pdb": "0cf46acd276e7bf30570a31d32e915266aaf6c0579c3a1cf0282f22649f5bd04"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.cpp": "424a02727085ee893d43bfa9e3f024365a6256e80f881ddd8500a5fed811a097",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.cpp": "c0fd49efa2592920602c6a96fc8c3e76006a7520872d3a2aa9fbf3f068e9e026",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.h": "c1cadae418dd6e4ee2b560ac2d49532c91d6a2887d3a8af7d17d5ab6f64fe2ef",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.cpp": "9821a74d5490a284222fc4a1f5a92825af707fb5ea798b423b678a44f88812a4",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.cpp": "7ad93492187e3417e5d06d28a1ff6a20663a83cc13b54aceef6ecbe78a421033",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.h": "31be0924cd56767db59ef9fec43b4c3d77ea0f5fcfab489f5d706fe78c3df8d9",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.cpp": "2167c1b64bd30b0e289cb22654fd12a0252d6cb078204b53465da6af72a92d87",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.cpp": "2328d417561235522e96a62693d700dc9b1895ff8ac677b8601c6a38b8f82c8b",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.h": "0958fa5fd3727b32c809b747f8c00941447ab90a99297b6c1afefde6ffcbb7c6",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "9d54ff9be9a9fa37e2466b7e34ef4e6fce18d3dc7cdb73765bde48bc97add4d6",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "83e6c71c749b40129ab983ddf929a392934b5fe53f35d04dbce41f02ad5ec3ee",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp": "7cd22337ce6aa8f7e0cacf74ef8a7a1de994a47fb753e5b81a7bd5fcea3a3deb",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.h": "42caab592b3e0e27b4c8c867bc84765a2ca5bb55b4021a5316d90c51b98afacb",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp": "d85387ecf96ba44ca8dff6af00f8b971ba93bd5c59540953d70c7bd78cdfeb56",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.h": "d192f48cb427c9a28ca961e7b423707a3b9c1c711897c44703dfb48da2bc43bb",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp": "2c95e6956926886e35d23731abda2b1f5069df9902c5877f135cec1a7cade057",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.h": "e5a26e5a49f9f6b7420425f7b7280d00061bd3284bc05edb193a0fb9d1d48c4d",
-      "source/game_sa/Attractors/PedShelterAttractor.cpp": "c9f4b81dd5c8eb818bf317d7b542ac6f376fb1aac407cb0cb99c2276cb4eb8e2",
-      "source/game_sa/Attractors/PedShelterAttractor.h": "79a5cd3ffaf6606950efd9e16de0fe304f8906704b3b7818a730776fb4e80a67"
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "8d7e4c158593b30ec510104307675bbd67e1ef9a8e31e398ed1b3d1612e9d192",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "839d7e86194fa8b40bc5192becd60ff9660704c05a8280cc8e15ef2366329613",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp": "a86e3c3b4c2d8dececab4a6657655c14476c3d0af25faa253591f2f574881338",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.h": "7305260bc5bad0af32602683cfc029a68bfd9d9f1248428f5bc01bcc134424be",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp": "4b74504b460b1cabcacc2ba1f9c69371e080c99f9732a3d07af255959e32b3e6",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.h": "c9f3b62b2547a53e5b44af1dd0b24f3a8062a2341b4e2e3742b69fdc71fc46da",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp": "b568fbdc8387f734a2c2efc8fb28c10780a9472333dd60874fec35d01ab5f111",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.h": "b437b61301f20f887c02d704b57fc504e1bdd4287c848f27afd3684bfbcc9a8f",
+      "source/game_sa/Attractors/PedShelterAttractor.cpp": "75449906b536e0b22fa3753fd0f4231c9b86d46150e767298a505227312a7f29",
+      "source/game_sa/Attractors/PedShelterAttractor.h": "38b610410749ccfcc2ba82bf6dacdf9a6729622a81ed241609c8794e28791687"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "0e42b1aa4c463d03f21f593e74f56738f8275d77743968fff1d7e4fa96672bf5",
+      "LiveComparison.hpp": "0a5a047c057d06f0912afdb8a88a732aa9c6346bb8d437ef21898bedc9c64607",
       "build_probe.py": "bfb280b7e1047ef3286ad448a16e61240a9ebb86fe50e22f25434869335d7902",
       "run_local.py": "9565bed52fb600983f723004d7d3e46342ce42ecb0bda3ea4de925f7d10a9142"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

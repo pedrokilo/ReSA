@@ -104508,7 +104508,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventAcquaintancePed::Destructor"
@@ -104518,7 +104518,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -104535,10 +104535,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -104567,7 +104567,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventVehicleDamage::Destructor"
@@ -104577,7 +104577,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -104594,10 +104594,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -104626,7 +104626,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventAreaCodes::Destructor"
@@ -104636,7 +104636,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -104653,10 +104653,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -104685,7 +104685,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventGunShot::Destructor"
@@ -104695,7 +104695,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -104712,10 +104712,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -104744,7 +104744,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventPedCollisionWithPed::Destructor"
@@ -104754,7 +104754,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -104771,10 +104771,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -104803,7 +104803,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventCopCarBeingStolen::Destructor"
@@ -104813,7 +104813,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -104830,10 +104830,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -104862,7 +104862,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventVehicleOnFire::Destructor"
@@ -104872,7 +104872,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -104889,10 +104889,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -104921,7 +104921,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventAttractor::Destructor"
@@ -104931,7 +104931,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -104948,10 +104948,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -104980,7 +104980,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventVehicleToSteal::Destructor"
@@ -104990,7 +104990,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105007,10 +105007,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105039,7 +105039,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventVehicleDied::Destructor"
@@ -105049,7 +105049,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105066,10 +105066,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105098,7 +105098,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventSeenPanickedPed::Destructor"
@@ -105108,7 +105108,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105125,10 +105125,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105157,7 +105157,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventPlayerCommandToGroup::Destructor"
@@ -105167,7 +105167,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105184,10 +105184,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105216,7 +105216,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventCarUpsideDown::Destructor"
@@ -105226,7 +105226,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105243,10 +105243,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105275,7 +105275,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventVehicleCollision::Destructor"
@@ -105285,7 +105285,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105302,10 +105302,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105334,7 +105334,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventObjectCollision::Destructor"
@@ -105344,7 +105344,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105361,10 +105361,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105393,7 +105393,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventBuildingCollision::Destructor"
@@ -105403,7 +105403,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105420,10 +105420,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105452,7 +105452,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventPotentialWalkIntoVehicle::Destructor"
@@ -105462,7 +105462,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105479,10 +105479,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105511,7 +105511,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventPotentialWalkIntoObject::Destructor"
@@ -105521,7 +105521,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105538,10 +105538,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105570,7 +105570,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventStuckInAir::Destructor"
@@ -105580,7 +105580,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105597,10 +105597,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105629,7 +105629,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventDanger::Destructor"
@@ -105639,7 +105639,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105656,10 +105656,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105688,7 +105688,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventPotentialWalkIntoPed::Destructor"
@@ -105698,7 +105698,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105715,10 +105715,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105747,7 +105747,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventVehicleHitAndRun::Destructor"
@@ -105757,7 +105757,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105774,10 +105774,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105806,7 +105806,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEvent::Destructor"
@@ -105816,7 +105816,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105833,10 +105833,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105865,7 +105865,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "CEventEditableResponse::Destructor"
@@ -105875,7 +105875,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105892,10 +105892,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",
@@ -105924,7 +105924,7 @@
       },
       "evidence": {
         "path": "reversing/Fn107A/validation-summary.json",
-        "sha256": "7b819402da9423c8a3153a3e82c85fc60e8de4f69977891e60fbddc0183ef4a7",
+        "sha256": "3e4b11b937db9be5acdd1ce6c86714c727c7a8a5072001f6d94789127b2627ce",
         "passed_path": [
           "covered_functions",
           "Common::RoundVectorToDecimals"
@@ -105934,7 +105934,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "16c4faceb519e7a370791d422c4f7bf8e781ac5e0d796fad547563b33dcb9e38",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/common.cpp": "741ab67a5c008d27e9f881096c878824a931abd9ab81fed800c6b1de0161a338",
@@ -105951,10 +105951,10 @@
         "source/game_sa/Events/EventVehicleToSteal.cpp": "1ad177979f552ba467170e93c4a9591a82caa55406f5cd81fab7d20d6d2a2704",
         "source/game_sa/Events/EventVehicleDied.cpp": "6fcf8d62cafa3b8acfd1affb5a4157c42e4e7ab54d48a5b838c68b2225c96a11",
         "source/game_sa/Events/EventSeenPanickedPed.cpp": "ab54595f90a6e34a1ceba6eae22b076bdfe5de3cb4679b2e1f3c90287d40c37b",
-        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "f406666c5fb12bb21b53dce1dc467a215ae2bf59ebd5a5517ffb6aa34181c2bf",
+        "source/game_sa/Events/EventPlayerCommandToGroup.cpp": "d341a2628b1619ec57ffdb4f0e8b9e2818ffbdc66e276ce3e26a5e69d43ce83c",
         "source/game_sa/Events/EventCarUpsideDown.cpp": "4ea97a5ec972d5543249a6e1a241c5f27d8d3a319899e9fd3c04e0aeb114853a",
         "source/game_sa/Events/EventVehicleCollision.cpp": "c3b8a11fd67b9d460eba8b03151bf5eaff75186c77595e4527857d5fa63910e9",
-        "source/game_sa/Events/EventObjectCollision.cpp": "9d1cdf768cf8bc1642592b4b364a358b52092050a3b49566dd9d5175646adcf4",
+        "source/game_sa/Events/EventObjectCollision.cpp": "7e9abe61f5570fa0c0e2e7cd2a8f97d06a0cfb618c1e17e986fe4f3a1d7072d4",
         "source/game_sa/Events/EventBuildingCollision.cpp": "d9aaedd3c2eea09ffd7d82c3cd36d6ebc2efa6dacc3503224723d637f209c491",
         "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "7bfa3a5b8efc6ed9367e8fd304fced609187d91d5e7a6320518448ff7d053444",
         "source/game_sa/Events/EventPotentialWalkIntoObject.cpp": "06e0d507b86d6b15e9e4fc07cca0b0da3dea54278335a3d73ff90fac4deeb6a7",

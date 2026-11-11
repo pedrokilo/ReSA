@@ -42,9 +42,28 @@ CTaskComplexObserveTrafficLightsAndAchieveHeading* __fastcall ObserveTrafficLigh
 }
 } // namespace
 
+namespace {
+// 0x631980 (lote 157A, banco Fn157A): cuerpo del destructor de CTaskComplexObserveTrafficLightsAndAchieveHeading del EXE (SIN hook: `mov [ecx],vtable; jmp ~CTaskComplex`; el destructor generado de la DLL hace lo mismo). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x631980` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexObserveTrafficLightsAndAchieveHeadingDestructorBody(CTaskComplexObserveTrafficLightsAndAchieveHeading* self, void* /*edx*/) { self->CTaskComplexObserveTrafficLightsAndAchieveHeading::~CTaskComplexObserveTrafficLightsAndAchieveHeading(); }
+
+// 0x637F80 (lote 157A, banco Fn157A): destructor con borrado de CTaskComplexObserveTrafficLightsAndAchieveHeading del EXE (ranura 0 de su vtable 0x86DFC4; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x631980; test byte [esp+8],1; je ..; push esi;
+// call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta
+// puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexObserveTrafficLightsAndAchieveHeading* __fastcall CTaskComplexObserveTrafficLightsAndAchieveHeadingScalarDeletingDestructor(CTaskComplexObserveTrafficLightsAndAchieveHeading* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexObserveTrafficLightsAndAchieveHeadingDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote157ABody_CTaskComplexObserveTrafficLightsAndAchieveHeading() { return reinterpret_cast<uintptr_t>(&CTaskComplexObserveTrafficLightsAndAchieveHeadingDestructorBody); } // para el banco Fn157A
+
 void CTaskComplexObserveTrafficLightsAndAchieveHeading::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexObserveTrafficLightsAndAchieveHeading, 0x86DFC4, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexObserveTrafficLightsAndAchieveHeadingScalarDeletingDestructor, "ScalarDeletingDestructor", 0x637F80); // lote 157A (banco Fn157A)
 
     RH_ScopedNamedGlobalInstall(ObserveTrafficLightsAndAchieveHeadingConstructorBody, "Constructor", 0x631910); // lote 141A (banco Fn141A)
 

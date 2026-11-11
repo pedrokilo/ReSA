@@ -123,9 +123,28 @@ bool ClimbNormalFacesPed(const CPed* ped, const CColPoint& cp, CVector& outNorma
 }
 } // namespace
 
+namespace {
+// 0x67A1D0 (lote 157A, banco Fn157A): cuerpo del destructor de CTaskSimpleClimb del EXE (thiscall, sin argumentos de pila, `ret`, 116 bytes con marco SEH que solo desenrolla; se omite). Deja la vtable de CTaskSimpleClimb
+// del EXE (0x87059C); libera con CEntity::CleanUpOldReference (0x571A00, con hook) la referencia no nula de la entidad +24h; si hay animacion (+2Ch) le pone el callback de borrado por defecto
+// (CAnimBlendAssociation::SetDeleteCallback 0x4CEBC0, con hook, con el DefaultAnimCB del EXE 0x4D1390 y dato nulo) y deja el puntero a nulo; y llama a CTask::Destructor (0x61A3A0, con hook).
+// El destructor generado por el compilador dejaria la vtable de la DLL.
+__declspec(noinline) void __fastcall CTaskSimpleClimbDestructorBodyExe(CTaskSimpleClimb* self, void* /*edx*/) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x87059C;
+    CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0x24));
+    CAnimBlendAssociation*& anim = *reinterpret_cast<CAnimBlendAssociation**>(bytes + 0x2C);
+    if (anim) {
+        anim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+        anim = nullptr;
+    }
+    self->CTask::Destructor();
+}
+} // namespace
+
 void CTaskSimpleClimb::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleClimb, 0x87059C, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleClimbDestructorBodyExe, "DestructorBody", 0x67A1D0); // lote 157A (banco Fn157A)
 
     RH_ScopedInstall(ScanToGrabSectorList<CPtrListSingleLink<CPhysical*>>, 0x67DE10);
     RH_ScopedInstall(ScanToGrab, 0x67FD30);
@@ -140,8 +159,14 @@ void CTaskSimpleClimb::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x67A110);
     RH_ScopedInstall(GetCameraStickModifier, 0x67A5D0);
     RH_ScopedInstall(GetCameraTargetPos, 0x67A390);
+    RH_ScopedVMTInstall(GetTaskType, 0x67A1C0); // lote 157A: ranura 4 de la vtable 0x87059C
     RH_ScopedVMTInstall(ProcessPed, 0x680DC0);
     RH_ScopedVMTInstall(MakeAbortable, 0x67A280);
+}
+
+// 0x67A1C0 (lote 157A, banco Fn157A; thiscall, `ret`, 6 bytes: `mov eax,0FEh`): TASK_SIMPLE_CLIMB (254); no lee el objeto.
+eTaskType CTaskSimpleClimb::GetTaskType() const {
+    return Type;
 }
 
 // 0x67A110

@@ -31,7 +31,6 @@ public:
     CEntity* GetSourceEntity() const override { return reinterpret_cast<CEntity*>(m_target); }
     bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
 
-private:
-    CEventPlayerCommandToGroup* Constructor(ePlayerGroupCommand command, CPed* target);
+    CEventPlayerCommandToGroup* Constructor(ePlayerGroupCommand command, CPed* target); // 0x4B23D0 (publico: CEventPlayerCommandToGroupAttack::CloneEditable, lote 157A, lo llama como el EXE)
 };
 VALIDATE_SIZE(CEventPlayerCommandToGroup, 0x1C);

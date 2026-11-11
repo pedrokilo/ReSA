@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "82d77fd221e79a5d67b9961ff49522efe6d61ffd9cd448a7fcb5212a2fcfeaab",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CTaskComplexFleeEntity::ScalarDeletingDestructor: 592/2048; CTaskComplexSmartFleePoint::ScalarDeletingDestructor: 884/2048; CTaskComplexSmartFleeEntity::ScalarDeletingDestructor: 604/2048; CTaskComplexFleeShooting::ScalarDeletingDestructor: 909/2048; CTaskComplexFleeAnyMeans::ScalarDeletingDestructor: 576/2048; CTaskComplexObserveTrafficLights::ScalarDeletingDestructor: 919/2048; CTaskComplexObserveTrafficLightsAndAchieveHeading::ScalarDeletingDestructor: 574/2048; CTaskComplexCrossRoadLookAndAchieveHeading::ScalarDeletingDestructor: 889/2048; CTaskSimpleTurn180::ScalarDeletingDestructor: 585/2048; CTaskComplexHitResponse::ScalarDeletingDestructor: 905/2048; CTaskSimpleIKLookAt::ScalarDeletingDestructor: 601/2048; CTaskSimpleIKPointArm::ScalarDeletingDestructor: 901/2048; CTaskSimpleTriggerLookAt::ScalarDeletingDestructor: 584/2048; CTaskSimpleClearLookAt::ScalarDeletingDestructor: 896/2048; CTaskComplexUseClosestFreeScriptedAttractor::ScalarDeletingDestructor: 617/2048; CEventPlayerCommandToGroupAttack::GetEventType: 595/2048; CEventPlayerCommandToGroupAttack::GetEventPriority: 604/2048; CPedGroupDefaultTaskAllocatorFollowAnyMeans::Constructor: 617/2048; CEventPlayerCommandToGroupAttack::DestructorBody: 599/2048; CEventPlayerCommandToGroupAttack::ScalarDeletingDestructor: 908/2048; CEventPlayerCommandToGroupAttack::CloneEditable: 603/2048; CTaskSimpleClimb::GetTaskType: 596/2048; CTaskSimpleJetPack::ScalarDeletingDestructor: 591/2048; CTaskSimpleClimb::DestructorBody: 449/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -61,7 +61,7 @@
   "log_sha256": "c0326801b431cd740bad2ecc432b8018577771e81f8d6d668a2c1e305c94cc28",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks15\\20261106-182752-711938",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks15\\20261110-211726-392891",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexAvoidOtherPedWhileWandering::Clone": true,
@@ -112,14 +112,14 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "90d03ba0eb9a97279b0a2c298dc97983334b5efc21b2f5a2c070e6eb3fec348e",
-      "pdb": "d402abc55e6782b5202c96ebd917f8d71e0b927a5197b99d23c29ad8448c7223"
+      "asi": "c278c402552b321d9775070a8647e7cf31f29c2c0570be6b1280eca20462e267",
+      "pdb": "bae022adc2dbddfee426c5a97df3ec527aeacdf8d5c797da6462c9f7198273d0"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp": "2ccecd7dc653cb255e7f4f87bbb521f7c83a871511beb65f470f30434c0a23a3",
       "source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h": "16966b71a1c11212c47811cddc02ac4046ecc0bd95a49c8244a202e02371314e",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "185b77e7287699dcf749592ff55c3012065d6defabad5fb0fbf23b04c5fd86f8",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.h": "945dc59db432d358c436dcffa3af5a850c50fbfaa59e6d96110d943c79d51d63",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "fb89859ef6007f16116f9515e3aa237af31daece7da1ae8a5141bf21abbae823",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.h": "da24772047ca91a2bd5b33cd8fd5dd679ca6f222ea3f4352907aeb483279d9fd",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "ab0d55663e320c6e45ede9cc6697b28bcf04b2541b2ea3867873165b6658c05f",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h": "d54eed4e75e1c79bed74f14a43ea09039db40b710404d2c67b01064653f32c84",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb_models.h": "8ea3f37578e8df2e2f15684e3938de5f291a6f99c930beccc040b939c76f9b5f"

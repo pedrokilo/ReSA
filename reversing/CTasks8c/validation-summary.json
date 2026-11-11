@@ -64,7 +64,7 @@
   "log_sha256": "e37bdb5edada6ad1a4b7a976de5e08206b78f67a6b8199e06eaaae0f14bc89b8",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks8c\\20261106-051750-582041",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks8c\\20261110-203240-711687",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexMoveBackAndJump::Clone": true,
@@ -118,21 +118,21 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "8a9da76e853241f694b3f63f1ece4df3fb5bfb2f8ac5381eee7de40469dc993f",
-      "pdb": "9d91aa07a8aabf08dfe8e45a307590ef986073e7b48532a2bab597bb8a76902b"
+      "asi": "fbd1e406221f99a214467e6b7b5d09cffe9840c7f5d9228e7feab558cae74f42",
+      "pdb": "d1a757ddb9564fd7049100f7cbd0812ae7a703a9f61d082e918f9a57e2683156"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.cpp": "1b4f7a8b6853740f08b2f3a78f95b0824f34e3000de213d6d8da6d182b175980",
       "source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h": "1e8f75053812099878d6ffe74dc0c35a170c4153356ca9664f5d368f426e45c7",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.cpp": "df9113482bbf9a7559d3dcc09700387bc49eb82dbb3f9d25554106b86ec1832a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.cpp": "ae61cc8f506ddbd49808bee478f7888d871c7debc55a071efbcb346c46d2fe0c",
       "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h": "25d48c1c2438f3fc8fcf9fcbdc95b5c7488b8896d9bbaebb635e273a29bd2d0b",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "237753025149e727fdc668299a64a3b23afc93d1caea400421495b9e92d9f710",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.h": "79cce66c095bddb0b372cd2684d5cd07c47e3b89c5c1ab374954f94e17a60550",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundFire.cpp": "e910f18f6d71b6bcf963f837e4d80a09cc0d00f2291c6ec2ee085bf2984bec6a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp": "b64c9271d0310343f05b9dd1e23dcda71fb028c7547416621d513d044fc9614c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.h": "ccd4575fb669e7ac46ffff7712ca2a718a2e124c4f7815e049ddea1db7f7c5c1",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundFire.cpp": "bc3188873974c73b3bd7d8375462e10e4b3f92026d505644ac09f7cce7ffd3a5",
       "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundFire.h": "ea058542ce537a3e0dbcf8a9a0109fe193afb2ae2f805a7a86c4282e9d579177",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp": "5807634836784a443ad1a77202a8d2ef2a50e8d9a0fc5dee2448a55bb86bf73f",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.h": "0fc4b31c640b3896a598ec2bbcf6539baccbea3b37fc81973b7d976466b07f01",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleBikeJacked.cpp": "fc8b521abc09a059ec3851670e4d35c960cfdabb0c8e24a31b15565e0e684303",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleBikeJacked.cpp": "30ce8b4eecf9723d0c9b3cfa564f439efb620c4e1d94aa63c35f0e9dfbb41833",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleBikeJacked.h": "f4410f389659dc0241315abd7f882d5ecf8b08f84aa1e381c20878d1902117c2"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",

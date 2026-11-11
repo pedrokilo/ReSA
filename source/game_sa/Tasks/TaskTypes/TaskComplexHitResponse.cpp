@@ -24,9 +24,28 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleHitFromBack.h"
 #include "TaskSimpleHitFromRight.h"
 
+namespace {
+// 0x631DA0 (lote 157A, banco Fn157A): cuerpo del destructor de CTaskComplexHitResponse del EXE (con hook (Destructor)). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x631DA0` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexHitResponseDestructorBody(CTaskComplexHitResponse* self, void* /*edx*/) { self->CTaskComplexHitResponse::~CTaskComplexHitResponse(); }
+
+// 0x638020 (lote 157A, banco Fn157A): destructor con borrado de CTaskComplexHitResponse del EXE (ranura 0 de su vtable 0x86E040; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x631DA0; test byte [esp+8],1; je ..; push esi;
+// call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta
+// puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexHitResponse* __fastcall CTaskComplexHitResponseScalarDeletingDestructor(CTaskComplexHitResponse* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexHitResponseDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote157ABody_CTaskComplexHitResponse() { return reinterpret_cast<uintptr_t>(&CTaskComplexHitResponseDestructorBody); } // para el banco Fn157A
+
 void CTaskComplexHitResponse::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexHitResponse, 0x86e040, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexHitResponseScalarDeletingDestructor, "ScalarDeletingDestructor", 0x638020); // lote 157A (banco Fn157A)
 
     RH_ScopedInstall(Constructor, 0x631D70);
     RH_ScopedInstall(Destructor, 0x631DA0);

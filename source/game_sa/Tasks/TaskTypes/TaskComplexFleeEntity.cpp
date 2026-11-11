@@ -23,9 +23,28 @@ END GENERATED HOOK STATUS */
 #include "InterestingEvents.h"
 #include "EventSeenPanickedPed.h"
 
+namespace {
+// 0x65B9D0 (lote 157A, banco Fn157A): cuerpo del destructor de CTaskComplexFleeEntity del EXE (con hook (Destructor)). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x65B9D0` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexFleeEntityDestructorBody(CTaskComplexFleeEntity* self, void* /*edx*/) { self->CTaskComplexFleeEntity::~CTaskComplexFleeEntity(); }
+
+// 0x65D240 (lote 157A, banco Fn157A): destructor con borrado de CTaskComplexFleeEntity del EXE (ranura 0 de su vtable 0x86F708; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x65B9D0; test byte [esp+8],1; je ..; push esi;
+// call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta
+// puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
+CTaskComplexFleeEntity* __fastcall CTaskComplexFleeEntityScalarDeletingDestructor(CTaskComplexFleeEntity* self, void* /*edx*/, uint8 flags) {
+    CTaskComplexFleeEntityDestructorBody(self, nullptr);
+    if (flags & 1) {
+        CTask::operator delete(self);
+    }
+    return self;
+}
+} // namespace
+
+uintptr_t Lote157ABody_CTaskComplexFleeEntity() { return reinterpret_cast<uintptr_t>(&CTaskComplexFleeEntityDestructorBody); } // para el banco Fn157A
+
 void CTaskComplexFleeEntity::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFleeEntity, 0x86f708, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexFleeEntityScalarDeletingDestructor, "ScalarDeletingDestructor", 0x65D240); // lote 157A (banco Fn157A)
 
     RH_ScopedInstall(Constructor, 0x65B930);
     RH_ScopedInstall(Destructor, 0x65B9D0);

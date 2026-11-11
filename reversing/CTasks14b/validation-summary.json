@@ -43,7 +43,7 @@
   "log_sha256": "b8afca26adf2b2b38d6293fa276bfa23c73e68805bcf8112170b8435a1e2534f",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks14b\\20261101-021631-392195",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks14b\\20261110-211044-515731",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleHoldEntity::CanThrowEntity": true,
@@ -76,13 +76,13 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "06900f842959e55dbac3d45833350cd2996da3322a01efa68bb26cb44879c750",
-      "pdb": "5f51255e10467f7918daa23773f2f1b08e2a45c79c930de68e7e73679d341ead"
+      "asi": "cb0c8c49ebfcc860b6ba40fd221490f923400698ef5756798b6af759e45216e5",
+      "pdb": "2b60c0b6ccffe2674550fd5c4aa948538a01670805b6c9faa2f45d8a857f317f"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp": "f3b282a0e69596371cdcfd6c39bdc0ead4c78aa1c4a65f98d3dc4b65e8bf2f75",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp": "113c050375257a942c1ba81e22325bc962a01f0efb259b9c89d96e2d06cd1bde",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.h": "57dbeccf436c4225e915497aaa41dc356c4463bded9cf0cfd65b4127611fff36",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp": "402c8e3f6a36610529c03053248c11f4ee030a171301d5794911590a6262bb1d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp": "3ae13e0c7f76ee29daed2fc2bff0843e7920d46cde266451b9e0a989eae49d43",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.h": "c5d43cfdca8a3e59a518fb0a0fa35616ca79fb8dcfda0e38f217229af27e4e92"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",

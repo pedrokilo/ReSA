@@ -28,6 +28,10 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexFollowLeaderAnyMeans.h"
 #include "TaskComplexFollowLeaderInFormation.h"
 
+class CPedGroupDefaultTaskAllocatorFollowAnyMeans;
+// 0x5F6450 (lote 157A, banco Fn157A): constructor del EXE (PedGroupDefaultTaskAllocatorFollowAnyMeans.cpp)
+CPedGroupDefaultTaskAllocatorFollowAnyMeans* __fastcall PedGroupDefaultTaskAllocatorFollowAnyMeansConstructorExe(CPedGroupDefaultTaskAllocatorFollowAnyMeans* self, void* edx);
+
 class NOTSA_EXPORT_VTABLE CPedGroupDefaultTaskAllocatorFollowAnyMeans final : public CPedGroupDefaultTaskAllocator {
 public:
     /* no virtual destructor */
@@ -69,6 +73,7 @@ public:
     static inline void InjectHooks() {
         RH_ScopedVirtualClass(CPedGroupDefaultTaskAllocatorFollowAnyMeans, 0x86C75C, 2);
         RH_ScopedCategory("Tasks/Allocators/PedGroup");
+        RH_ScopedNamedGlobalInstall(PedGroupDefaultTaskAllocatorFollowAnyMeansConstructorExe, "Constructor", 0x5F6450); // lote 157A (banco Fn157A)
 
         RH_ScopedVMTInstall(AllocateDefaultTasks, 0x5F6B40);
         RH_ScopedVMTInstall(GetType, 0x5F6470);
