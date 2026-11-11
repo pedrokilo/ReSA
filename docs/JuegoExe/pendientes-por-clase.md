@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,897** funciones en 198 clases/módulos (rango 0x401000–0x74FFFF): 1,874 sin reemplazar (A–D) + 23 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,874** funciones en 192 clases/módulos (rango 0x401000–0x74FFFF): 1,851 sin reemplazar (A–D) + 23 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -14,15 +14,9 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CAEDataStream | 2 | 77 |
 | VideoPlayer | 1 | 110 |
 | CIplStore | 3 | 160 |
-| CTaskSimplePlayerOnFoot | 3 | 160 |
-| CTaskComplexGoToAttractor | 5 | 162 |
 | BreakManager_c | 3 | 164 |
-| CTaskComplexJump | 4 | 164 |
 | CMatrixLinkList | 2 | 166 |
-| CTaskComplexProstituteSolicit | 3 | 166 |
 | CAtomicModelInfo | 4 | 167 |
-| CEventPedCollisionWithPlayer | 4 | 167 |
-| CEventPlayerCollisionWithPed | 4 | 167 |
 | CBike | 22 | 168 |
 | CTaskSimpleStealthKill | 3 | 169 |
 | CAETwinLoopSoundEntity | 2 | 174 |
@@ -208,7 +202,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (198 clases / módulos)** | **1,897** | **243,232** |
+| **TOTAL (192 clases / módulos)** | **1,874** | **242,246** |
 
 ## CClumpModelInfo (2)
 
@@ -238,24 +232,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x00405960 | 54 | D |  | 0 | 0 |  | baja |
 | 0x00405900 | 91 | A |  | 1 | 1 |  | baja |
 
-## CTaskSimplePlayerOnFoot (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0068B0C0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0068B0E0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0068B050 | 100 | B |  | 0 | 0 | sí | baja |
-
-## CTaskComplexGoToAttractor (5)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0066B690 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x0066B710 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0066B6B0 | 8 | B |  | 0 | 0 | sí | alta |
-| 0x006705B0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0066D1E0 | 112 | B |  | 0 | 0 | sí | baja |
-
 ## BreakManager_c (3)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
@@ -264,29 +240,12 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x0059EA00 | 18 | A |  | 1 | 1 |  | baja |
 | 0x0059EA20 | 135 | D |  | 0 | 0 |  | baja |
 
-## CTaskComplexJump (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0067A050 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x0067A100 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0067DBC0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0067C610 | 122 | B |  | 0 | 0 | sí | baja |
-
 ## CMatrixLinkList (2)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
 | 0x0054F1E0 | 26 | A |  | 2 | 2 |  | baja |
 | 0x0054EB70 | 140 | C |  | 1 | 0 |  | baja |
-
-## CTaskComplexProstituteSolicit (3)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00662350 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x00667460 | 37 | D |  | 0 | 0 |  | baja |
-| 0x00667310 | 99 | A |  | 4 | 4 |  | baja |
 
 ## CAtomicModelInfo (4)
 
@@ -296,24 +255,6 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | 0x004C55A0 | 18 | D |  | 0 | 0 |  | baja |
 | 0x004C4530 | 60 | B |  | 0 | 0 | sí | alta |
 | 0x004C44D0 | 82 | B |  | 1 | 0 | sí | alta |
-
-## CEventPedCollisionWithPlayer (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005FED90 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005FED80 | 11 | C |  | 3 | 0 |  | baja |
-| 0x005FEE20 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x005FEDA0 | 120 | B |  | 0 | 0 | sí | baja |
-
-## CEventPlayerCollisionWithPed (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x005FEE90 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x005FEE80 | 11 | C |  | 3 | 0 |  | baja |
-| 0x005FEF20 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x005FEEA0 | 120 | B |  | 0 | 0 | sí | baja |
 
 ## CBike (22)
 
@@ -879,7 +820,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x006889F0 | 6 | B |  | 0 | 0 | sí | alta |
 | 0x0068B680 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x00688A00 | 141 | C |  | 1 | 0 |  | alta |
+| 0x00688A00 | 141 | A |  | 1 | 1 |  | alta |
 | 0x0068B690 | 162 | C |  | 1 | 0 |  | baja |
 
 ## CPedDamageResponseCalculator (3)
