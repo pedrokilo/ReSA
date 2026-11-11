@@ -15533,7 +15533,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CBaseModelInfo::DestructorBody"
@@ -15543,7 +15543,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15551,10 +15551,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -15563,7 +15563,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -15590,7 +15590,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CTimeModelInfo::ConstructorBody"
@@ -15600,7 +15600,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15608,10 +15608,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -15620,7 +15620,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -15647,7 +15647,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CPhysical::ScalarDeletingDestructor"
@@ -15657,7 +15657,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15665,10 +15665,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -15677,7 +15677,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -15704,7 +15704,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CMatrix::DestructorThunk"
@@ -15714,7 +15714,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15722,10 +15722,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -15734,7 +15734,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -15761,7 +15761,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CTrailer::ScalarDeletingDestructor"
@@ -15771,7 +15771,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15779,10 +15779,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -15791,7 +15791,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -15818,7 +15818,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "cTransmission::ConstructorBody"
@@ -15828,7 +15828,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15836,10 +15836,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -15848,7 +15848,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -15875,7 +15875,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CAnimatedBuilding::ScalarDeletingDestructor"
@@ -15885,7 +15885,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15893,10 +15893,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -15905,7 +15905,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -15932,7 +15932,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CAnimatedBuilding::DestructorBody"
@@ -15942,7 +15942,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -15950,10 +15950,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -15962,7 +15962,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -15989,7 +15989,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CBridge::ThisIsABridgeObjectMovingUp"
@@ -15999,7 +15999,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16007,10 +16007,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16019,7 +16019,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16046,7 +16046,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "SinFloat"
@@ -16056,7 +16056,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16064,10 +16064,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16076,7 +16076,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16103,7 +16103,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CosFloat"
@@ -16113,7 +16113,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16121,10 +16121,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16133,7 +16133,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16160,7 +16160,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CMatrix::GetRightCopy"
@@ -16170,7 +16170,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16178,10 +16178,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16190,7 +16190,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16217,7 +16217,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CMatrix::GetForwardCopy"
@@ -16227,7 +16227,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16235,10 +16235,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16247,7 +16247,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16274,7 +16274,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CTimer::GetTimeStepCopy"
@@ -16284,7 +16284,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16292,10 +16292,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16304,7 +16304,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16331,7 +16331,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CPlaceable::GetMatrixCopy"
@@ -16341,7 +16341,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16349,10 +16349,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16361,7 +16361,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16388,7 +16388,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CTaskComplexArrestPed::GetTaskType"
@@ -16399,7 +16399,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16407,10 +16407,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16419,7 +16419,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16446,7 +16446,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPolicePursuit::ScalarDeletingDestructor"
@@ -16456,7 +16456,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16464,10 +16464,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16476,7 +16476,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16503,7 +16503,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CTaskComplexCarDrive::GetTaskType"
@@ -16514,7 +16514,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16522,10 +16522,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16534,7 +16534,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16561,7 +16561,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CTaskComplexCarDriveWander::ScalarDeletingDestructor"
@@ -16571,7 +16571,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16579,10 +16579,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16591,7 +16591,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16618,7 +16618,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CTaskGangHassleVehicle::GetTaskType"
@@ -16629,7 +16629,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16637,10 +16637,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16649,7 +16649,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -16676,7 +16676,7 @@
       },
       "evidence": {
         "path": "reversing/Fn140A/validation-summary.json",
-        "sha256": "b52eefdb7874e3cac2280d11fc5e4de30e298a9392c2f39767d3944675e0f258",
+        "sha256": "322071cf9b6499514075b26b85bc86439c4b5520baa5e525ca480257125f7c42",
         "passed_path": [
           "covered_functions",
           "CTaskGangHasslePed::ScalarDeletingDestructor"
@@ -16686,7 +16686,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
         "source/game_sa/X87Math.h": "b6498c30d2f8269dcaf862ea7bf48df0300e0c1599011da6f0561c6e282c31c9",
         "source/game_sa/Maths.cpp": "f3a72ed0ee9b41f82482a5df07097c58b9391c6bb058ff6076e302fe5616fa33",
@@ -16694,10 +16694,10 @@
         "source/game_sa/Bridge.h": "463f75eca4c9c182cfd23b5b70c50e2485859aff82d7e64ea647a10b703634e7",
         "source/game_sa/Timer.cpp": "82376c757c712c8881ed44eccdf1c40263af5c62f26b48601893c28dcd9f25bc",
         "source/game_sa/cTransmission.cpp": "e261d6def348079f65c90c6d80e455380e66b42f84e661e4f67c02a824b769d3",
-        "source/game_sa/Core/Matrix.cpp": "54e1a9e4c2dfffa291fb515ca76fe7fb3b96b03dca2f96f1c73e939a4cc66299",
-        "source/game_sa/Entity/Placeable.cpp": "5b0a61bbf3e9bfd3c34f6a8a624ecdf83bef97048287ea331de97d2c126f26ce",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Entity/Placeable.cpp": "626622f502f1fe09f1db986d8ea1b43c8a8068c7febf96dbc490e98ea28d1075",
         "source/game_sa/Entity/Physical.cpp": "2390976363ca1cbcf22117b1f5e1fff15109f04c49106a7656b5fe415559cb92",
-        "source/game_sa/Entity/AnimatedBuilding.cpp": "11b1fdd2558233bcef89a70ba0581084ed984597dcf1e5d7559856fde9ef4c39",
+        "source/game_sa/Entity/AnimatedBuilding.cpp": "1a1a493fce1348e4ad2eb3ba12a3f73c6711f32ab805d7a49fb42ced4554a220",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Models/BaseModelInfo.cpp": "abe0d6660d0bf7190d589cd6fe53ff1c7c9a6608c4337b44de8cc52727ee56a3",
         "source/game_sa/Models/TimeModelInfo.cpp": "2a15f572007d805fd37dffd6c219a76b760aa725a7ca46dfa02ab26b3e9810ff",
@@ -16706,7 +16706,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "7ce2da69e2feca77d2600d2c0e4833ca46b35648c55530d322807a322ce4605e",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "dfc4367d379869c37178b111d152cce97c2af83c87a74b86887a774470903e50",
         "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "973a9f4d8c8515b7cf8594a260a28b5e23308066da27c320f090314ef0630cd6",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp": "ed8c768175b28875e83828b820188c349a1d50d103041dc924d9f7eeb808233f",
         "source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.h": "315bcf65c57ce03b1e8c0cb93ab1326e0ecf5a364438bafb5bf852a7561b5008",
@@ -32909,7 +32909,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CEventStuckInAir::GetEventType"
@@ -32920,7 +32920,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -32930,7 +32930,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -32947,7 +32947,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -32975,7 +32975,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CEventStuckInAir::GetLifeTime"
@@ -32986,7 +32986,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -32996,7 +32996,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33013,7 +33013,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33041,7 +33041,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CEventStuckInAir::CanBeInterruptedBySameEvent"
@@ -33052,7 +33052,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33062,7 +33062,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33079,7 +33079,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33107,7 +33107,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CTaskGangHasslePed::GetTaskType"
@@ -33118,7 +33118,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33128,7 +33128,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33145,7 +33145,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33173,7 +33173,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CColStore::FindColSlot"
@@ -33183,7 +33183,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33193,7 +33193,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33210,7 +33210,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33238,7 +33238,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CRideAnimData::Destructor"
@@ -33248,7 +33248,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33258,7 +33258,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33275,7 +33275,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33303,7 +33303,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CRideAnimData::DefaultConstructor"
@@ -33313,7 +33313,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33323,7 +33323,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33340,7 +33340,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33368,7 +33368,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CAETwinLoopSoundEntity::DefaultConstructor"
@@ -33378,7 +33378,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33388,7 +33388,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33405,7 +33405,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33433,7 +33433,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CTrailer::IsBaggageTrailer"
@@ -33443,7 +33443,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33453,7 +33453,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33470,7 +33470,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33498,7 +33498,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CVector::Sum"
@@ -33508,7 +33508,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33518,7 +33518,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33535,7 +33535,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33563,7 +33563,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CColDisk::Set"
@@ -33573,7 +33573,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33583,7 +33583,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33600,7 +33600,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33628,7 +33628,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CAEVehicleAudioEntity::UpdateVehicleEngineSoundExe"
@@ -33638,7 +33638,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33648,7 +33648,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33665,7 +33665,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33693,7 +33693,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CEvent::operator delete"
@@ -33703,7 +33703,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33713,7 +33713,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33730,7 +33730,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33758,7 +33758,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CEventInteriorUseInfo::IsValid"
@@ -33769,7 +33769,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33779,7 +33779,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33796,7 +33796,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33824,7 +33824,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CEvent::IsValidAliveOrBase"
@@ -33834,7 +33834,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33844,7 +33844,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33861,7 +33861,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33889,7 +33889,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::ScalarDeletingDestructor"
@@ -33899,7 +33899,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33909,7 +33909,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33926,7 +33926,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -33954,7 +33954,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexChat::ScalarDeletingDestructor"
@@ -33964,7 +33964,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -33974,7 +33974,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -33991,7 +33991,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -34019,7 +34019,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseWaterCannon::ScalarDeletingDestructor"
@@ -34029,7 +34029,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -34039,7 +34039,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -34056,7 +34056,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -34084,7 +34084,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexStareAtPed::ScalarDeletingDestructor"
@@ -34094,7 +34094,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -34104,7 +34104,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -34121,7 +34121,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -34149,7 +34149,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleDoHandSignal::ScalarDeletingDestructor"
@@ -34159,7 +34159,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -34169,7 +34169,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -34186,7 +34186,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -34214,7 +34214,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CEventEditableResponse::ScalarDeletingDestructor"
@@ -34224,7 +34224,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -34234,7 +34234,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -34251,7 +34251,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -34279,7 +34279,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CAnimBlendAssociation::DestructorBody"
@@ -34289,7 +34289,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -34299,7 +34299,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -34316,7 +34316,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -34344,7 +34344,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexUseSwatRope::DestructorBody"
@@ -34354,7 +34354,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -34364,7 +34364,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -34381,7 +34381,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
@@ -34409,7 +34409,7 @@
       },
       "evidence": {
         "path": "reversing/Fn153A/validation-summary.json",
-        "sha256": "f79d27033ffcc3490a37a4613d047a2306a3e2a161f8a33bb6960c3bb3ecc650",
+        "sha256": "5241f5282ae66dcba4a847efd074bb9d85f60e25e5beaed2fca995231ced16b9",
         "passed_path": [
           "covered_functions",
           "CTaskComplexPartnerChat::DestructorBody"
@@ -34419,7 +34419,7 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
-        "source/InjectHooksMain.cpp": "2deb9438d463e593fc13f8e897807539f06c001518e2b48ab342d75e6740207b",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "36d3a2acc97157660b85ed4fefa54f8416da810c283b381314585c2663665298",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp": "95222c4d363f72d2f4fce57d83163547799d7b1aaf473a3403db7a93f9ab9ab4",
         "source/game_sa/Audio/Entities/AETwinLoopSoundEntity.h": "6f8140a7f436f29af3873cffc4bb71ae9c72e0c82575c0fac416eb214bd42692",
@@ -34429,7 +34429,7 @@
         "source/game_sa/Collision/ColDisk.h": "74608bdc7a42c28c8d9e68fbb491cfa7634534dee04e88ae51dc42a996df8f54",
         "source/game_sa/Collision/ColStore.cpp": "6c36487c56cc6913b4d2ab3179437e8ce7f736e7cf316447a2f91f35957880e5",
         "source/game_sa/Collision/ColStore.h": "2428e188e368be362145c38c4179379b63d36159138e3a36b56ccd9589e025e7",
-        "source/game_sa/Core/Vector.cpp": "d0fff7211ef7eda4ca32558a252d76bb92088588c3f043d4d87a55bafd37b24e",
+        "source/game_sa/Core/Vector.cpp": "a7f38d74050c553c5dcce123452a5b3adadb82bb6e92f1493d99437d8a98e072",
         "source/game_sa/Core/Vector.h": "3fb18581a32335acacd387b307ffd7d564760d393cd9f4933446ddad45c89f72",
         "source/game_sa/Entity/Vehicle/Trailer.cpp": "d47505f80a2f892edf99805f3839a595a114589d716b3c8a8d686b060f9c8b8a",
         "source/game_sa/Entity/Vehicle/Trailer.h": "4b742b711dfe836acad467ef6d3aa6920196fe6dde2ca5f70e8d0fea9d923641",
@@ -34446,7 +34446,7 @@
         "source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp": "40f9f207d175b357721c2bd804eabb0005c035175f3a3c29de5cdc705b093d80",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp": "16875ca0ed50a22f38811d733c107d9585ebd6db1337252ea6dbe2546ba6fff2",
         "source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp": "9fd2f6cafc20718437d89d3fe1d0243161f3bfa4e1d0e84117fda8883fef408f",
-        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "b27667a4aaa2fecbdb4d22b0241b8721e53e7a1584f84aa54511d3195cedd4f3",
+        "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "7c789e01f4f78a8d3c2ff5477ff65350d73c18f0c91b592ce5eea8e61d1245d7",
         "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "e55928d3f596cceef39f364b77a0f72cb1a5470a6b0e4055e0f90fe227919cbc",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp": "1f1cf694b02e812c5b5889f4341f12259a0df3cc0edc6e3b5b47eb3c962d492e",
         "source/game_sa/X87Math.cpp": "3edfc508fb218ab3f3193f26704ec074fe084357275894e2f623d2c9ebd9ff2e",
