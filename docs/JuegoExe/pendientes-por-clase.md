@@ -1,6 +1,6 @@
 # Funciones pendientes del EXE, por clase
 
-Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,959** funciones en 210 clases/módulos (rango 0x401000–0x74FFFF): 1,936 sin reemplazar (A–D) + 23 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
+Generado de `docs/JuegoExe/funciones.csv` (11/11/2026). Total: **1,936** funciones en 207 clases/módulos (rango 0x401000–0x74FFFF): 1,913 sin reemplazar (A–D) + 23 envolturas pendientes. Ordenado de menor a mayor por tamaño (bytes pendientes de la clase) y, a igualdad, por número de funciones; dentro de cada clase, de menor a mayor tamaño de función. Se resume en la [sección 11 de ReversedClasses](../ReversedClasses.md#parciales).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable · **envoltura** ya tiene hook pero llama al EXE.
 
@@ -14,10 +14,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CAEStreamingChannel | 1 | 61 |
 | CCompressedMatrixNotAligned | 1 | 74 |
 | VideoPlayer | 1 | 110 |
-| CEventLeaderEntryExit | 9 | 153 |
-| CTaskSimpleUninterruptable | 9 | 154 |
-| CTaskSimpleGoToPointFine | 4 | 155 |
-| CTaskSimpleCarJumpOut | 6 | 156 |
+| CTaskSimpleCarJumpOut | 5 | 150 |
 | CFileLoader | 6 | 158 |
 | CTaskSimpleDie | 4 | 159 |
 | CTaskSimpleGetUp | 4 | 159 |
@@ -220,7 +217,7 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 | CWeaponModelInfo | 41 | 13554 |
 | Win | 85 | 19907 |
 | FxEmitterBP_c | 141 | 28395 |
-| **TOTAL (210 clases / módulos)** | **1,959** | **250,967** |
+| **TOTAL (207 clases / módulos)** | **1,936** | **250,499** |
 
 ## CTaskComplexWaitForBus (1)
 
@@ -246,48 +243,10 @@ Aviso: la clase se atribuye por cercanía de direcciones y puede ser errónea cu
 |---|---:|---|---|---:|---:|---|---|
 | 0x00746800 | 110 | D |  | 0 | 0 |  | baja |
 
-## CEventLeaderEntryExit (9)
+## CTaskSimpleCarJumpOut (5)
 
 | Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
 |---|---:|---|---|---:|---:|---|---|
-| 0x0043E1E0 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x0043E1F0 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x0043E210 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x0043E280 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x0043E200 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0043E2C0 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0043E2B0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0043E290 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0043E220 | 88 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleUninterruptable (9)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0043E300 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x0043E310 | 3 | B |  | 0 | 0 | sí | baja |
-| 0x0043E320 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x0043E3A0 | 5 | B |  | 0 | 0 | sí | baja |
-| 0x0043E380 | 6 | B |  | 0 | 0 | sí | baja |
-| 0x0043E390 | 11 | B |  | 0 | 0 | sí | baja |
-| 0x0043E3D0 | 11 | C |  | 1 | 0 |  | baja |
-| 0x0043E3B0 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x0043E330 | 80 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleGoToPointFine (4)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x0065EEE0 | 6 | B |  | 0 | 0 | sí | alta |
-| 0x0065EEF0 | 11 | C |  | 1 | 0 |  | alta |
-| 0x00663620 | 30 | B |  | 0 | 0 | sí | baja |
-| 0x006620D0 | 108 | B |  | 0 | 0 | sí | baja |
-
-## CTaskSimpleCarJumpOut (6)
-
-| Dirección | Bytes | Estado | Nombre catálogo | Llamadas | Desde C++ | Vtable | Confianza clase |
-|---|---:|---|---|---:|---:|---|---|
-| 0x00647770 | 6 | B |  | 0 | 0 | sí | baja |
 | 0x0064BEE0 | 30 | B |  | 0 | 0 | sí | alta |
 | 0x0064BF50 | 30 | B |  | 0 | 0 | sí | baja |
 | 0x0064BF70 | 30 | B |  | 0 | 0 | sí | baja |
