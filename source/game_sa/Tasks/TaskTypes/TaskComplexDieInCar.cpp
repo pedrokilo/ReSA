@@ -25,10 +25,18 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleDieInCar.h"
 #include "CarCtrl.h"
 
+namespace CTaskComplexBody {
+void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
+}
+
 namespace {
-// 0x62FCF0 (lote 159A, banco Fn159A): cuerpo del destructor de CTaskComplexDieInCar del EXE (sin hook propio: `mov [ecx],0x86DE04; jmp 0x61A3D0`; vtable 0x86DE04). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el
-// `call 0x62FCF0` del EXE.
-__declspec(noinline) void __fastcall CTaskComplexDieInCarDestructorBody(CTaskComplexDieInCar* self, void* /*edx*/) { self->CTaskComplexDieInCar::~CTaskComplexDieInCar(); }
+// 0x62FCF0 (lote 163A, banco Fn163A; thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],86DE04h; jmp 0x61A3D0`): cuerpo del destructor de CTaskComplexDieInCar del EXE. Deja la vtable de la clase
+// del EXE (0x86DE04) y sigue con el cuerpo de ~CTaskComplex (0x61A3D0, con hook). Antes la DLL usaba el destructor generado de la clase (que deja la vtable de la DLL). Funcion propia sin expansion en linea
+// para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x62FCF0` del EXE.
+__declspec(noinline) void __fastcall CTaskComplexDieInCarDestructorBody(CTaskComplexDieInCar* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86DE04;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
 
 // 0x6375D0 (lote 159A, banco Fn159A): destructor con borrado de CTaskComplexDieInCar del EXE (ranura 0 de su vtable; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x62FCF0; test byte [esp+8],1;
 // je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0
@@ -47,6 +55,7 @@ uintptr_t Lote159ABody_CTaskComplexDieInCar() { return reinterpret_cast<uintptr_
 void CTaskComplexDieInCar::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexDieInCar, 0x86DE04, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexDieInCarDestructorBody, "DestructorBody", 0x62FCF0); // lote 163A (banco Fn163A)
     RH_ScopedNamedGlobalInstall(CTaskComplexDieInCarScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6375D0); // lote 159A (banco Fn159A)
 
     RH_ScopedVMTInstall(ControlSubTask, 0x6377B0);

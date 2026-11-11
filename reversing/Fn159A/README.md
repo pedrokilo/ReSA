@@ -78,3 +78,6 @@ Citan por direccion alguna de las 23 funciones (grep de `0x...` con y sin ceros 
 
 ## Tiempo
 Una corrida de los 376832 pares: unos 19 min (mas la compilacion incremental de la sonda, de 10 s a 6 min, y la espera de los candados compartidos con otros agentes, que fue la mayor parte del tiempo del lote).
+
+## Repeticion del 11/11/2026 (lote 163A)
+El lote 163A engancha con RH_ScopedNamedGlobalInstall el cuerpo 0x62FCF0 (lote 163A lo engancha), que este banco trataba como colaborador sin hook. Se adapto solo el banco (colaborador con hook, `H`: falso en la direccion del EXE y en la funcion de la DLL; fila `True` en `STUBBED`; `DLL_BODY_WITHOUT_HOOK` vacio) y se repitio entero: **APROBADO**, cero diferencias. Evidencia: `reversing/CppTwelveLevel6Final/runs/Fn159A-20261111-150029-189064`.

@@ -353,8 +353,8 @@ inline void Update() {
         &Lote157ABody_CTaskSimpleTurn180, &Lote157ABody_CTaskComplexHitResponse, &Lote157ABody_CTaskSimpleIKLookAt, &Lote157ABody_CTaskSimpleIKPointArm, &Lote157ABody_CTaskSimpleTriggerLookAt,
         &Lote157ABody_CTaskSimpleClearLookAt, &Lote157ABody_CTaskComplexUseClosestFreeScriptedAttractor, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, &Lote157ABody_CTaskSimpleJetPack, nullptr};
     for (unsigned f : {0u, 1u, 2u, 3u, 4u, 5u, 7u, 8u, 9u, 10u, 11u, 13u, 14u, 22u}) env.stubs[f] = {H(kBodyExe[f], bodies157[f](), K[f]), Del()};
-    env.stubs[6] = {U(kBodyExe[6], bodies157[6](), K[6]), Del()};     // 0x631980: sin hook; la DLL llama a su envoltura (el destructor generado)
-    env.stubs[12] = {U(kBodyExe[12], 0, K[12]), Del()};               // 0x634500: sin hook; la DLL llama a la direccion del EXE
+    env.stubs[6] = {H(kBodyExe[6], bodies157[6](), K[6]), Del()};     // 0x631980: sin hook; la DLL llama a su envoltura (el destructor generado)
+    env.stubs[12] = {H(kBodyExe[12], bodies157[12](), K[12]), Del()};               // 0x634500: sin hook; la DLL llama a la direccion del EXE
     env.stubs[18] = {F(0x4B2470, K[18])};                              // cuerpo de ~CEventPlayerCommandToGroup (con hook)
     env.stubs[19] = {Rt(18, K[19]), EvDel()};
     env.stubs[20] = {F(0x4B5620, &FkNew), F(0x4B23D0, &FkCtorCmd)};

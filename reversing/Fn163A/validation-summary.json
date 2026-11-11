@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "pairs": 65536,
+  "differences": 0,
+  "registered_pairs": 65536,
+  "registered_functions": 4,
+  "functions": {
+    "CTaskSimpleTriggerLookAt::DestructorBody": 16384,
+    "CTaskComplexObserveTrafficLightsAndAchieveHeading::DestructorBody": 16384,
+    "CTaskComplexDieInCar::DestructorBody": 16384,
+    "CTaskSimpleSwim::DestructorBody": 16384
+  },
+  "covered_functions": {
+    "CTaskSimpleTriggerLookAt::DestructorBody": true,
+    "CTaskComplexObserveTrafficLightsAndAchieveHeading::DestructorBody": true,
+    "CTaskComplexDieInCar::DestructorBody": true,
+    "CTaskSimpleSwim::DestructorBody": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 284fb34374 con los cambios del lote (ver artifacts/build-manifest.json). Cuatro cuerpos de destructor de tareas del EXE sin hook (la DLL los llamaba con plugin::CallMethod o usaba el destructor generado, que deja la vtable de la DLL; clases por desensamblado, vtables y llamadores): CTaskSimpleTriggerLookAt (0x634500), CTaskComplexObserveTrafficLightsAndAchieveHeading (0x631980), CTaskComplexDieInCar (0x62FCF0) y CTaskSimpleSwim (0x688A00), todos hooks S con la forma del EXE (vtable de la clase del EXE). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (todos con hook propio): CEntity::CleanUpOldReference 0x571A00, ~CTask 0x61A3A0, ~CTaskComplex 0x61A3D0 y CAnimManager::RemoveAnimBlockRef 0x4D3FD0. El cuerpo de Swim lee el puntero global ms_aAnimAssocGroups (0xB4EA34), que el banco desvia a una tabla falsa de la arena C durante la llamada y restaura. Se observan bytes cambiados de las tres arenas, eventos de los falsos, pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, y la exactitud de los colaboradores falseados (tienen bancos propios).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn163A-20261111-123532-566184",
+  "summary_sha256": "819106d82e4393f32e7b6396419ff26b1cd9502879486221f534a54fb391076d",
+  "result_txt_sha256": "4924d56476e86fab2131a1ff5a67f4ce36503741cd6d51306b1ec6cf86a6418c",
+  "log_sha256": "c03f801eabfdfcc492c908c3c698e027ea57795f745b531ff5b574a93475e8ec",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9e5da24d43ec9dfc628b9aa620b4fd66367bf2f125e56e0b9a610eef7cc72c1e",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+      "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDieInCar.cpp": "ce820acbc5c923412432d7626a9019bd5c922dbffc1239ae8d1bf324fd2e6e25",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp": "5e21a54652c451cbd08e421e717aad9d591792d4bc92feca0944773abaa72570",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "3ac128744fc7a0262df2ff5fce09af9459c2d685d7958f2618fe6f1c59b3b9f6",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleTriggerLookAt.cpp": "15d01e536e726eb017b790d4bcdb64010c9a67e1b0a369f8bffca07d07bef190",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn163A/LiveComparison.hpp": "ecf1bf82344efbd7a4a00141f4c4bb7be2dddbdc125b06871d0869b4b0fae282",
+      "reversing/Fn163A/Core.hpp": "579b238dc5244766b4fc0650679ad52f3df4f3fceddcd6368999b9aa0becfe3f",
+      "reversing/Fn163A/Fixtures.hpp": "72589a0a468bbfa0428ab81ce3937e762e5dff650cbd2da2c78f40f7a6471e1d",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

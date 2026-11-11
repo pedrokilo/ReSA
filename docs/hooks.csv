@@ -10049,3 +10049,7 @@ CAtomicModelInfo,CreateInstance-rwmat,0x00000000,1,0,1,V
 CAtomicModelInfo,CreateInstance-void,0x00000000,1,0,1,V
 CAtomicModelInfo,DestructorBody,0x004C5590,1,0,1,S
 CDamageAtomicModelInfo,ConstructorBody,0x004C55A0,1,0,1,S
+CTaskSimpleTriggerLookAt,DestructorBody,0x00634500,1,0,1,S
+CTaskComplexObserveTrafficLightsAndAchieveHeading,DestructorBody,0x00631980,1,0,1,S
+CTaskComplexDieInCar,DestructorBody,0x0062FCF0,1,0,1,S
+CTaskSimpleSwim,DestructorBody,0x00688A00,1,0,1,S

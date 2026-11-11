@@ -381,7 +381,7 @@ inline void Update() {
     const auto& K = kBodyFakes;
     env.stubs[0] = {NewTask(), F(0x688930, &FkCtorSwim)};
     env.stubs[1] = {H(0x6857D0, Lote160ABody_CTaskSimplePlayerOnFoot(), K[1]), DelTask()};
-    env.stubs[2] = {U(0x688A00, Lote160ABody_CTaskSimpleSwim(), K[2]), DelTask()};
+    env.stubs[2] = {H(0x688A00, Lote160ABody_CTaskSimpleSwim(), K[2]), DelTask()};
     env.stubs[6] = {NewTask(), F(0x66B790, &FkCtorAny)};
     env.stubs[7] = {H(0x66B830, Lote160ABody_CTaskComplexGoToPointAnyMeans(), K[7]), DelTask()};
     env.stubs[10] = {NewTask(), F(0x67A110, &FkCtorClimb)};

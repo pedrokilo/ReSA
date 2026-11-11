@@ -28785,5 +28785,61 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn161A con 196608 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 603d1e9bbc con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones del EXE sin hook (nombres por desensamblado, vtables y llamadores; el listado atribuia casi todas a clases equivocadas): constructor del pool de IPL CIplDefPool (0x405900) y su cuerpo de liberacion sin llamadores (0x405960), GetGTA3ImgSize (0x406360), constructor por defecto, constructor desde CObject y cuerpo del destructor de CDummyObject (0x59EA00, 0x59EA20, 0x59EAB0), destructor de CMatrixLinkList (0x54EB70), constructor de CPlaceable (0x54F1E0), las dos CreateInstance de CAtomicModelInfo (0x4C44D0 y 0x4C4530, hooks V), cuerpo del destructor de CAtomicModelInfo (0x4C5590) y cuerpo del constructor de CDamageAtomicModelInfo (0x4C55A0). Colaboradores sustituidos por falso identico: cuerpos de constructor y destructor de CDummy (0x532540, 0x532560), de CBaseModelInfo (0x4C4A60) y de CMatrix (0x59ACD0), SetModelIndexNoCreate (virtual, 0x533700), AttachToRwObject, DetachFromRwObject, CIplStore::IncludeEntity, CBaseModelInfo::AddRef y RemoveRef y RpAtomicSetFrame (con hook, falso en el EXE y en el cuerpo de la DLL); operator new[] y delete[] (0x821195, 0x8213AE), RpAtomicClone (0x749E60) y RwFrameCreate (0x7F0410) (sin hook, falso en la direccion del EXE; en otros hilos reenvian al operator real) y GetFileSize (casillas de la IAT del EXE y del ASI, solo alrededor de la llamada; en otros hilos llaman a la real). Se observan bytes cambiados de las tres arenas (con sus direcciones reales, anotadas en cada caso), eventos de los falsos, valor devuelto (this o el objeto nuevo como etiqueta de arena; EAX completo en GetGTA3ImgSize), pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. GetGTA3ImgSize lee gStreamFileHandles[0] tal cual esta (no se modifica: lo lee el hilo de streaming) y el oraculo conoce el manejador por la entrada del caso. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, atomics reales de RenderWare, valores de capacidad positivos mayores que la arena en el pool de IPL (el EXE escribiria fuera), pools con punteros de estados fuera de las arenas, y la exactitud de los colaboradores falseados (tienen bancos propios)."
+  },
+  "0x00634500": {
+    "identity": "CTaskSimpleTriggerLookAt::DestructorBody",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleTriggerLookAt.cpp",
+    "bank": "Fn163A",
+    "run": "20261111-123532-566184",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn163A-20261111-123532-566184/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn163A con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 284fb34374 con los cambios del lote (ver artifacts/build-manifest.json). Cuatro cuerpos de destructor de tareas del EXE sin hook (la DLL los llamaba con plugin::CallMethod o usaba el destructor generado, que deja la vtable de la DLL; clases por desensamblado, vtables y llamadores): CTaskSimpleTriggerLookAt (0x634500), CTaskComplexObserveTrafficLightsAndAchieveHeading (0x631980), CTaskComplexDieInCar (0x62FCF0) y CTaskSimpleSwim (0x688A00), todos hooks S con la forma del EXE (vtable de la clase del EXE). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (todos con hook propio): CEntity::CleanUpOldReference 0x571A00, ~CTask 0x61A3A0, ~CTaskComplex 0x61A3D0 y CAnimManager::RemoveAnimBlockRef 0x4D3FD0. El cuerpo de Swim lee el puntero global ms_aAnimAssocGroups (0xB4EA34), que el banco desvia a una tabla falsa de la arena C durante la llamada y restaura. Se observan bytes cambiados de las tres arenas, eventos de los falsos, pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, y la exactitud de los colaboradores falseados (tienen bancos propios)."
+  },
+  "0x00631980": {
+    "identity": "CTaskComplexObserveTrafficLightsAndAchieveHeading::DestructorBody",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp",
+    "bank": "Fn163A",
+    "run": "20261111-123532-566184",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn163A-20261111-123532-566184/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn163A con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 284fb34374 con los cambios del lote (ver artifacts/build-manifest.json). Cuatro cuerpos de destructor de tareas del EXE sin hook (la DLL los llamaba con plugin::CallMethod o usaba el destructor generado, que deja la vtable de la DLL; clases por desensamblado, vtables y llamadores): CTaskSimpleTriggerLookAt (0x634500), CTaskComplexObserveTrafficLightsAndAchieveHeading (0x631980), CTaskComplexDieInCar (0x62FCF0) y CTaskSimpleSwim (0x688A00), todos hooks S con la forma del EXE (vtable de la clase del EXE). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (todos con hook propio): CEntity::CleanUpOldReference 0x571A00, ~CTask 0x61A3A0, ~CTaskComplex 0x61A3D0 y CAnimManager::RemoveAnimBlockRef 0x4D3FD0. El cuerpo de Swim lee el puntero global ms_aAnimAssocGroups (0xB4EA34), que el banco desvia a una tabla falsa de la arena C durante la llamada y restaura. Se observan bytes cambiados de las tres arenas, eventos de los falsos, pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, y la exactitud de los colaboradores falseados (tienen bancos propios)."
+  },
+  "0x0062FCF0": {
+    "identity": "CTaskComplexDieInCar::DestructorBody",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskComplexDieInCar.cpp",
+    "bank": "Fn163A",
+    "run": "20261111-123532-566184",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn163A-20261111-123532-566184/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn163A con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 284fb34374 con los cambios del lote (ver artifacts/build-manifest.json). Cuatro cuerpos de destructor de tareas del EXE sin hook (la DLL los llamaba con plugin::CallMethod o usaba el destructor generado, que deja la vtable de la DLL; clases por desensamblado, vtables y llamadores): CTaskSimpleTriggerLookAt (0x634500), CTaskComplexObserveTrafficLightsAndAchieveHeading (0x631980), CTaskComplexDieInCar (0x62FCF0) y CTaskSimpleSwim (0x688A00), todos hooks S con la forma del EXE (vtable de la clase del EXE). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (todos con hook propio): CEntity::CleanUpOldReference 0x571A00, ~CTask 0x61A3A0, ~CTaskComplex 0x61A3D0 y CAnimManager::RemoveAnimBlockRef 0x4D3FD0. El cuerpo de Swim lee el puntero global ms_aAnimAssocGroups (0xB4EA34), que el banco desvia a una tabla falsa de la arena C durante la llamada y restaura. Se observan bytes cambiados de las tres arenas, eventos de los falsos, pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, y la exactitud de los colaboradores falseados (tienen bancos propios)."
+  },
+  "0x00688A00": {
+    "identity": "CTaskSimpleSwim::DestructorBody",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp",
+    "bank": "Fn163A",
+    "run": "20261111-123532-566184",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn163A-20261111-123532-566184/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn163A con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-2 sobre main 284fb34374 con los cambios del lote (ver artifacts/build-manifest.json). Cuatro cuerpos de destructor de tareas del EXE sin hook (la DLL los llamaba con plugin::CallMethod o usaba el destructor generado, que deja la vtable de la DLL; clases por desensamblado, vtables y llamadores): CTaskSimpleTriggerLookAt (0x634500), CTaskComplexObserveTrafficLightsAndAchieveHeading (0x631980), CTaskComplexDieInCar (0x62FCF0) y CTaskSimpleSwim (0x688A00), todos hooks S con la forma del EXE (vtable de la clase del EXE). Colaboradores sustituidos por falso identico en la direccion del EXE y en el cuerpo de la DLL (todos con hook propio): CEntity::CleanUpOldReference 0x571A00, ~CTask 0x61A3A0, ~CTaskComplex 0x61A3D0 y CAnimManager::RemoveAnimBlockRef 0x4D3FD0. El cuerpo de Swim lee el puntero global ms_aAnimAssocGroups (0xB4EA34), que el banco desvia a una tabla falsa de la arena C durante la llamada y restaura. Se observan bytes cambiados de las tres arenas, eventos de los falsos, pila, no volatiles, DF, SEH y x87 vacia; cada lado coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: this nulo o crudo, objetos reales construidos por el EXE, y la exactitud de los colaboradores falseados (tienen bancos propios)."
   }
 }

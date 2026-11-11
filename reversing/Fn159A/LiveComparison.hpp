@@ -370,7 +370,7 @@ inline void Update() {
     env.stubs[3] = {H(0x648070, Lote159ABody_CTaskSimpleCarSlowDragPedOut(), K[3]), Del()};
     env.stubs[4] = {H(0x64A580, Lote159ABody_CTaskComplexGoToCarDoorAndStandStill(), K[4]), Del()};
     env.stubs[5] = {H(0x62FC70, Lote159ABody_CTaskSimpleDieInCar(), K[5]), Del()};
-    env.stubs[6] = {U(0x62FCF0, Lote159ABody_CTaskComplexDieInCar(), K[6]), Del()};
+    env.stubs[6] = {H(0x62FCF0, Lote159ABody_CTaskComplexDieInCar(), K[6]), Del()};
     env.stubs[7] = {F(0x678160, K[7]), Del()};
     env.stubs[8] = {F(0x678310, K[8]), Del()};
     env.stubs[9] = {F(0x6790B0, K[9]), Del()};

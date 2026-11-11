@@ -1,0 +1,3 @@
+{"CTaskSimpleTriggerLookAt::DestructorBody": 444, "CTaskComplexObserveTrafficLightsAndAchieveHeading::DestructorBody": 570, "CTaskComplexDieInCar::DestructorBody": 579, "CTaskSimpleSwim::DestructorBody": 464}
+pares 8192 con diferencias 2057 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

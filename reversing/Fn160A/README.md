@@ -72,3 +72,6 @@ Dos rondas de mutaciones (`mutate.py`, una por funcion y ronda: 23 mutaciones; s
 
 ## Bancos que citan estas direcciones
 Grep de `0x...` con y sin ceros y de la forma `...h` en `reversing/` (sin este banco, `_handoff`, `artifacts`, evidencia archivada ni registros): **ningun banco ejecutable** cita ninguna de las 23 direcciones; `Fn157A` nombra 0x67DBC0 solo en el texto de su README (como funcion pendiente). No se repitio ni adapto ningun banco antiguo (pase final unico del coordinador). Cambios de produccion que pueden afectar a bancos antiguos de las mismas clases: `CEventPedCollisionWithPed::Constructor` ahora `protected`/`noinline`, `PedCollisionWithPedDestructorBody` movido a `CEventBody` (Fn107A), constructores de `CTaskSimpleSwim`, `CTaskComplexGoToPointAnyMeans` y `CTaskSimpleClimb` ahora `noinline` (Fn157A usa el cuerpo del destructor de Climb, sin cambios).
+
+## Repeticion del 11/11/2026 (lote 163A)
+El lote 163A engancha con RH_ScopedNamedGlobalInstall el cuerpo 0x688A00 (lote 163A lo engancha), que este banco trataba como colaborador sin hook. Se adapto solo el banco (colaborador con hook, `H`: falso en la direccion del EXE y en la funcion de la DLL; fila `True` en `STUBBED`; `DLL_BODY_WITHOUT_HOOK` vacio) y se repitio entero: **APROBADO**, cero diferencias. Evidencia: `reversing/CppTwelveLevel6Final/runs/Fn160A-20261111-153912-020103`.

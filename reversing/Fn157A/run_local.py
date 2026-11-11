@@ -28,14 +28,14 @@ SLOTS = ()
 # envoltura de la DLL; CTask::operator delete 0x61A5B0, CEvent::operator delete 0x4B5630, CleanUpOldReference 0x571A00, SetDeleteCallback 0x4CEBC0, ~CTask 0x61A3A0, CEvent::operator new 0x4B5620, constructor 0x4B23D0
 # y cuerpo ~CEventPlayerCommandToGroup 0x4B2470 en su cuerpo; 0x5F63F0 es otra funcion probada del lote, con su propia ruta). Dos cuerpos de destructor NO tienen hook: 0x631980 (el destructor generado de
 # CTaskComplexObserveTrafficLightsAndAchieveHeading; falso en la direccion del EXE y en la envoltura de la DLL) y 0x634500 (CTaskSimpleTriggerLookAt; la DLL llama a esa direccion del EXE, sin envoltura).
-DLL_BODY_WITHOUT_HOOK = {0x631980}
+DLL_BODY_WITHOUT_HOOK = set()
 DL, EV = (0x61A5B0, True), (0x4B5630, True)
 STUBBED = {n: [] for n in NAMES}
 _BODY = {0: 0x65B9D0, 1: 0x65BDB0, 2: 0x65C4D0, 3: 0x65C9A0, 4: 0x65CD10, 5: 0x6317C0, 7: 0x631B50, 8: 0x631D00, 9: 0x631DA0, 10: 0x633EF0, 11: 0x634240, 13: 0x6346A0, 14: 0x634720, 22: 0x67E600}
 for _i, _a in _BODY.items():
     STUBBED[NAMES[_i]] = [(_a, True), DL]
-STUBBED[NAMES[6]] = [(0x631980, False), DL]
-STUBBED[NAMES[12]] = [(0x634500, False), DL]
+STUBBED[NAMES[6]] = [(0x631980, True), DL]
+STUBBED[NAMES[12]] = [(0x634500, True), DL]
 STUBBED[NAMES[18]] = [(0x4B2470, True)]
 STUBBED[NAMES[19]] = [(0x5F63F0, True), EV]
 STUBBED[NAMES[20]] = [(0x4B5620, True), (0x4B23D0, True)]

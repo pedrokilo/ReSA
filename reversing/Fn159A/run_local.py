@@ -28,11 +28,11 @@ SLOTS = ()
 # propia de la DLL; F: en el cuerpo del hook), CTask::operator delete 0x61A5B0, ~CTask 0x61A3A0, SetFinishCallback 0x4CEBE0, constructor de CBoundingBox 0x40FAF0, constructor de CEntity 0x532A90 y RpAtomicSetFrame
 # 0x74BF20. Sin hook: el cuerpo 0x62FCF0 de CTaskComplexDieInCar (falso en la direccion del EXE y en la envoltura de la DLL) y las rutinas de RenderWare 0x749E60 y 0x74A490 (la DLL las llama por su direccion del EXE).
 # 0x403E00 (constructor de CBuilding, sin hook) es REAL en el EXE y la DLL pliega sus efectos en la funcion 20.
-DLL_BODY_WITHOUT_HOOK = {0x62FCF0}
+DLL_BODY_WITHOUT_HOOK = set()
 DL = (0x61A5B0, True)
 STUBBED = {n: [] for n in NAMES}
 STUBBED.update({NAMES[0]: [(0x647490, True), DL], NAMES[1]: [(0x647790, True), DL], NAMES[2]: [(0x647950, True), DL], NAMES[3]: [(0x648070, True), DL], NAMES[4]: [(0x64A580, True), DL],
-                NAMES[5]: [(0x62FC70, True), DL], NAMES[6]: [(0x62FCF0, False), DL], NAMES[7]: [(0x678160, True), DL], NAMES[8]: [(0x678310, True), DL], NAMES[9]: [(0x6790B0, True), DL],
+                NAMES[5]: [(0x62FC70, True), DL], NAMES[6]: [(0x62FCF0, True), DL], NAMES[7]: [(0x678160, True), DL], NAMES[8]: [(0x678310, True), DL], NAMES[9]: [(0x6790B0, True), DL],
                 NAMES[10]: [(0x679AF0, True), DL],
                 NAMES[14]: [(0x4CEBE0, True), (0x61A3A0, True)], NAMES[15]: [(0x4CEBE0, True), (0x61A3A0, True)], NAMES[16]: [(0x4CEBE0, True), (0x61A3A0, True)],
                 NAMES[17]: [(0x40FAF0, True)], NAMES[18]: [(0x40FAF0, True)], NAMES[19]: [(0x40FAF0, True)], NAMES[20]: [(0x532A90, True)],

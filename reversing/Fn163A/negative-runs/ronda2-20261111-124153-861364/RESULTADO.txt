@@ -1,0 +1,3 @@
+FALLO: Fn163A
+Funciones con diferencias: CTaskSimpleTriggerLookAt::DestructorBody: 444/2048; CTaskComplexObserveTrafficLightsAndAchieveHeading::DestructorBody: 570/2048; CTaskComplexDieInCar::DestructorBody: 579/2048; CTaskSimpleSwim::DestructorBody: 464/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn163a\20261111-124153-861364

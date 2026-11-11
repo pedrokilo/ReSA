@@ -23,9 +23,20 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleClimb.h"
 
 namespace {
-// 0x688A00 (sin hook): cuerpo del destructor de CTaskSimpleSwim del EXE. Funcion propia sin expansion en linea para que el banco Fn160A pueda sustituirla; la llama el destructor con borrado como el
-// `call 0x688A00` del EXE.
-__declspec(noinline) void __fastcall CTaskSimpleSwimDestructorBody(CTaskSimpleSwim* self, void* /*edx*/) { self->CTaskSimpleSwim::~CTaskSimpleSwim(); }
+// 0x688A00 (lote 163A, banco Fn163A; thiscall, sin argumentos de pila, `ret`, 141 bytes con marco SEH que solo desenrolla): cuerpo del destructor de CTaskSimpleSwim del EXE. Deja la vtable de la clase del EXE
+// (0x870920); si el BYTE +9 (referencia al bloque de animaciones) no es cero llama a CAnimManager::RemoveAnimBlockRef (0x4D3FD0, con hook) con el indice del bloque del grupo de nado; libera con
+// CEntity::CleanUpOldReference (0x571A00, con hook) las referencias no nulas de la entidad (+0x38) y del ped (+0x20), en ese orden, pasando su direccion; y termina con CTask::Destructor (0x61A3A0, con hook).
+// El marco SEH se omite. Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x688A00` del EXE.
+__declspec(noinline) void __fastcall CTaskSimpleSwimDestructorBody(CTaskSimpleSwim* self, void* /*edx*/) {
+    uint8* const bytes = reinterpret_cast<uint8*>(self);
+    *reinterpret_cast<uint32*>(bytes) = 0x870920;
+    if (bytes[9] != 0) {
+        CAnimManager::RemoveAnimBlockRef(CAnimManager::GetAnimationBlockIndex(ANIM_GROUP_SWIM));
+    }
+    CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0x38));
+    CEntity::SafeCleanUpRef(*reinterpret_cast<CEntity**>(bytes + 0x20));
+    self->CTask::Destructor();
+}
 
 // 0x68B0E0 (lote 160A, banco Fn160A): destructor con borrado de CTaskSimpleSwim del EXE (ranura 0 de su vtable 0x870920; thiscall, un argumento de pila, `ret 4`, 30 bytes:
 // `push esi; mov esi,ecx; call 0x688A00; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con
@@ -44,6 +55,7 @@ uintptr_t Lote160ABody_CTaskSimpleSwim() { return reinterpret_cast<uintptr_t>(&C
 void CTaskSimpleSwim::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleSwim, 0x870920, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskSimpleSwimDestructorBody, "DestructorBody", 0x688A00); // lote 163A (banco Fn163A)
     RH_ScopedNamedGlobalInstall(CTaskSimpleSwimScalarDeletingDestructor, "ScalarDeletingDestructor", 0x68B0E0); // lote 160A (banco Fn160A)
     RH_ScopedVMTInstall(Clone, 0x68B050); // lote 160A: ranura 1 de la vtable 0x870920
 

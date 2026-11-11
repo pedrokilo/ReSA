@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 
 namespace CTaskComplexBody {
 void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
+void __fastcall Destructor(CTask* self, void* edx);  // Task.cpp: 0x61A3D0
 }
 
 static_assert(int32(TASK_COMPLEX_OBSERVE_TRAFFIC_LIGHTS_AND_ACHIEVE_HEADING) == 0xE1); // 0x631940: mov eax,0E1h
@@ -43,8 +44,13 @@ CTaskComplexObserveTrafficLightsAndAchieveHeading* __fastcall ObserveTrafficLigh
 } // namespace
 
 namespace {
-// 0x631980 (lote 157A, banco Fn157A): cuerpo del destructor de CTaskComplexObserveTrafficLightsAndAchieveHeading del EXE (SIN hook: `mov [ecx],vtable; jmp ~CTaskComplex`; el destructor generado de la DLL hace lo mismo). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x631980` del EXE.
-__declspec(noinline) void __fastcall CTaskComplexObserveTrafficLightsAndAchieveHeadingDestructorBody(CTaskComplexObserveTrafficLightsAndAchieveHeading* self, void* /*edx*/) { self->CTaskComplexObserveTrafficLightsAndAchieveHeading::~CTaskComplexObserveTrafficLightsAndAchieveHeading(); }
+// 0x631980 (lote 163A, banco Fn163A; thiscall, sin argumentos de pila, `ret`, 11 bytes: `mov [ecx],86DFC4h; jmp 0x61A3D0`): cuerpo del destructor de CTaskComplexObserveTrafficLightsAndAchieveHeading del EXE.
+// Deja la vtable de la clase del EXE (0x86DFC4) y sigue con el cuerpo de ~CTaskComplex (0x61A3D0, con hook). Antes la DLL usaba el destructor generado de la clase (que deja la vtable de la DLL).
+// Funcion propia sin expansion en linea para que el banco pueda sustituirla.
+__declspec(noinline) void __fastcall CTaskComplexObserveTrafficLightsAndAchieveHeadingDestructorBody(CTaskComplexObserveTrafficLightsAndAchieveHeading* self, void* /*edx*/) {
+    *reinterpret_cast<uint32*>(self) = 0x86DFC4;
+    CTaskComplexBody::Destructor(self, nullptr);
+}
 
 // 0x637F80 (lote 157A, banco Fn157A): destructor con borrado de CTaskComplexObserveTrafficLightsAndAchieveHeading del EXE (ranura 0 de su vtable 0x86DFC4; thiscall, un argumento de pila, `ret 4`, 30 bytes: `push esi; mov esi,ecx; call 0x631980; test byte [esp+8],1; je ..; push esi;
 // call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta
@@ -63,6 +69,7 @@ uintptr_t Lote157ABody_CTaskComplexObserveTrafficLightsAndAchieveHeading() { ret
 void CTaskComplexObserveTrafficLightsAndAchieveHeading::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexObserveTrafficLightsAndAchieveHeading, 0x86DFC4, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedNamedGlobalInstall(CTaskComplexObserveTrafficLightsAndAchieveHeadingDestructorBody, "DestructorBody", 0x631980); // lote 163A (banco Fn163A)
     RH_ScopedNamedGlobalInstall(CTaskComplexObserveTrafficLightsAndAchieveHeadingScalarDeletingDestructor, "ScalarDeletingDestructor", 0x637F80); // lote 157A (banco Fn157A)
 
     RH_ScopedNamedGlobalInstall(ObserveTrafficLightsAndAchieveHeadingConstructorBody, "Constructor", 0x631910); // lote 141A (banco Fn141A)

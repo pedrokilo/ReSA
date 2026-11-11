@@ -27,10 +27,10 @@ SLOTS = ()
 # colaboradores sustituidos por falsos: (direccion del EXE, hooked). Con hook RH en la DLL (apagado durante el banco) el mismo falso va en el cuerpo de la DLL: cuerpos de destructor con hook propio (H: en la envoltura
 # propia de la DLL; F: en el cuerpo del hook), CTask::operator delete 0x61A5B0 y CEvent::operator delete 0x4B5630, CTask::operator new 0x61A5A0 y CEvent::operator new 0x4B5620, y los constructores 0x688930 (Swim),
 # 0x66B790 (GoToPointAnyMeans), 0x67A110 (Climb) y 0x4AC990 (CEventPedCollisionWithPed). Sin hook: el cuerpo 0x688A00 de CTaskSimpleSwim (falso en la direccion del EXE y en la envoltura de la DLL).
-DLL_BODY_WITHOUT_HOOK = {0x688A00}
+DLL_BODY_WITHOUT_HOOK = set()
 DT, DE, NT, NE = (0x61A5B0, True), (0x4B5630, True), (0x61A5A0, True), (0x4B5620, True)
 STUBBED = {n: [] for n in NAMES}
-STUBBED.update({NAMES[0]: [NT, (0x688930, True)], NAMES[1]: [(0x6857D0, True), DT], NAMES[2]: [(0x688A00, False), DT], NAMES[6]: [NT, (0x66B790, True)], NAMES[7]: [(0x66B830, True), DT],
+STUBBED.update({NAMES[0]: [NT, (0x688930, True)], NAMES[1]: [(0x6857D0, True), DT], NAMES[2]: [(0x688A00, True), DT], NAMES[6]: [NT, (0x66B790, True)], NAMES[7]: [(0x66B830, True), DT],
                 NAMES[10]: [NT, (0x67A110, True)], NAMES[11]: [(0x67A1D0, True), DT], NAMES[12]: [(0x65DF30, True), DT], NAMES[15]: [(0x4ACA70, True)],
                 NAMES[17]: [NE, (0x4AC990, True)], NAMES[18]: [(0x5FED80, True), DE], NAMES[19]: [(0x4ACA70, True)], NAMES[21]: [NE, (0x4AC990, True)], NAMES[22]: [(0x5FEE80, True), DE]})
 REAL = {}

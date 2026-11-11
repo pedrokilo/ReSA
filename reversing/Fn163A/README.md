@@ -1,0 +1,29 @@
+# Fn163A: 4 cuerpos de destructor de tareas del EXE (lote 163A)
+
+Estado: **APROBADO dentro del juego** (11/11/2026, worktree `wv-2` desde main 284fb34374 + los cambios del lote; plantilla `Fn157A`). Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn163a/20261111-123532-566184` (archivada en `reversing/CppTwelveLevel6Final/runs/Fn163A-20261111-123532-566184`, `comparisons.jsonl.gz` de 8,8 MB). 4 x 16384 = **65536 pares** EXE/DLL, cero diferencias, compuertas de ABI/ruta/SEH/DF/restauracion en ambos lados, x87 vacia y cada lado coincide con el oraculo Python independiente (`fixture_oracle.py`). SHA256 de la sonda ejecutada: `9e5da24d43ec9dfc628b9aa620b4fd66367bf2f125e56e0b9a610eef7cc72c1e`; del EXE original: `72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b`.
+
+El encargo listaba 4 direcciones y **ninguna tenia hook** (codigo, `docs/hooks.csv` y `git worktree list`); las cuatro son viables en C++ puro (sin `__asm`/`naked`) y no se salto ninguna. Antes la DLL llamaba a 0x634500 con `plugin::CallMethod` al EXE y usaba el destructor generado de la clase en las otras tres (que deja la vtable de la DLL, no la del EXE).
+
+| # | Funcion real | Entrada | Bytes | Fuente (`source/game_sa/Tasks/TaskTypes/`) | Tipo |
+|---|---|---|---|---|---|
+| 0 | `CTaskSimpleTriggerLookAt` cuerpo del destructor (vtable 0x86E3CC, marco SEH) | 0x634500 | 93 | `TaskSimpleTriggerLookAt.cpp` | S |
+| 1 | `CTaskComplexObserveTrafficLightsAndAchieveHeading` cuerpo del destructor (0x86DFC4) | 0x631980 | 11 | `TaskComplexObserveTrafficLightsAndAchieveHeading.cpp` | S |
+| 2 | `CTaskComplexDieInCar` cuerpo del destructor (0x86DE04; el listado la atribuia a otra clase) | 0x62FCF0 | 11 | `TaskComplexDieInCar.cpp` | S |
+| 3 | `CTaskSimpleSwim` cuerpo del destructor (0x870920, marco SEH) | 0x688A00 | 141 | `TaskSimpleSwim.cpp` | S |
+
+Las cuatro filas de `docs/hooks.csv` son `Clase,DestructorBody,0xADDR8digitos,1,0,1,S`. Las clases salen del desensamblado (`reversing/_handoff/dis.sh`), de las vtables leidas del PE y de los llamadores (los destructores con borrado 0x6394D0, 0x637F80, 0x6375D0 y 0x68B0E0).
+
+## Desensamblado y reconstruccion
+- **0x634500**: marco SEH que solo desenrolla; `[esi]=86E3CCh`; si `[esi+8]` (entidad) no es nulo `CEntity::CleanUpOldReference` (0x571A00, con hook) con ecx = entidad y argumento `esi+8`; `~CTask` (0x61A3A0, con hook). La clase no define su constructor, por eso se engancha bajo `RH_ScopedClass`.
+- **0x631980 / 0x62FCF0**: `mov [ecx],vtable; jmp 0x61A3D0` (cuerpo de `~CTaskComplex`, con hook, aqui `CTaskComplexBody::Destructor`). Vtables 0x86DFC4 y 0x86DE04.
+- **0x688A00**: marco SEH; `[esi]=870920h`; si el BYTE `[esi+9]` no es cero: `CAnimManager::RemoveAnimBlockRef(indice)` (0x4D3FD0, con hook), con el indice = `([[0xB4EA34]+0x58C] - 0xB5D4A0) sar 5` (bloque del grupo ANIM_GROUP_SWIM = 71); `CleanUpOldReference` de `[esi+0x38]` y de `[esi+0x20]` (en ese orden, con su direccion como argumento); `~CTask`.
+Los cuerpos propios (`...DestructorBody`, `__declspec(noinline)`) escriben la vtable del EXE a mano, como `CTaskSimpleClimbDestructorBodyExe` del lote 157A, y los destructores con borrado ya existentes los llaman como el `call` del EXE. Los exports `Lote157ABody_`, `Lote159ABody_` y `Lote160ABody_` se conservan (devuelven la misma funcion, ahora enganchada).
+
+## Banco
+Una funcion por ruta: original = bytes del EXE con el hook RH apagado; candidato = DLL con SOLO ese hook encendido. Objetos sinteticos en tres arenas propias (A, B, C; ventana de 4 KiB con guardas de 0x40). Falsos identicos en el EXE y en la DLL (`F`): `CleanUpOldReference` 0x571A00, `~CTask` 0x61A3A0, `~CTaskComplex` 0x61A3D0 y `RemoveAnimBlockRef` 0x4D3FD0 (anota el indice crudo). El cuerpo de Swim lee el puntero global `ms_aAnimAssocGroups` (0xB4EA34): el banco lo apunta a una tabla falsa de la arena C durante la llamada y lo restaura tras cada lado (`Region`, `globals_restored`). Se observan los bytes cambiados de las arenas, los eventos de los falsos con todos sus argumentos y la x87 vacia; EAX/ECX/EDX tras la llamada en `original_residue`/`candidate_residue` (informativos). 16 familias de 1024 casos por funcion (ver `Fixtures.hpp`); el relleno de bandera de Swim incluye valores no 1 del BYTE +9, indices negativos y no alineados. `python -I fixture_selfcheck.py` (sin juego) pasa los 65536 casos por el oraculo con cobertura de todas las ramas.
+
+## Prueba negativa
+Dos rondas de mutaciones (`mutate.py`, 4 por ronda, condicionadas a `this` desalineado; 2048 casos por funcion). **Las 4 funciones fallan en ambas rondas** (`negative-runs/`): ronda 1 `20261111-124012-360888` con 3569 de 8192 pares con diferencias (884, 884, 892, 909); ronda 2 `20261111-124153-861364` con 2057 (444, 570, 579, 464); el lado EXE coincide con el oraculo en todos los pares. Fuentes restauradas con `mutate.py restore` (SHA256 igual a las copias buenas) tras cada ronda.
+
+## Bancos que citan estas direcciones y adaptacion
+Grep de las cuatro direcciones (con/sin ceros y `...h`) en `reversing/` (sin este banco, `_handoff`, evidencia archivada ni registros): solo `Fn157A` (0x634500, 0x631980), `Fn159A` (0x62FCF0) y `Fn160A` (0x688A00). Como los cuerpos ahora tienen hook, esos tres bancos los trataban como colaboradores sin hook y fallaban; se adaptaron (solo bancos, nunca produccion): el cuerpo pasa a colaborador con hook (`H`: falso en la direccion del EXE y en la funcion de la DLL que exporta el `Lote...Body_`), fila `(addr, True)` en `STUBBED` y `DLL_BODY_WITHOUT_HOOK` vacio. Resultado de su repeticion: ver README de cada banco.
