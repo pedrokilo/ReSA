@@ -94500,7 +94500,7 @@
       },
       "evidence": {
         "path": "reversing/MatrixOps76/validation-summary.json",
-        "sha256": "9c8f77ae7a7b94b65f9a19e62fdd3917aafa37a25bb233463da489e70634f497",
+        "sha256": "534d04d7009050441b834690f6beb737acd4256c4f76b32ad3278867e9cdf533",
         "passed_path": [
           "covered_functions",
           "CMatrix::Attach"
@@ -94510,12 +94510,12 @@
         "original_address": "0x0059BD10"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
-        "source/game_sa/Core/Matrix.cpp": "674945c2e2c810bb050ed184d2a0e1c2056b029eabe93605e999cb55fcd40efb",
-        "source/game_sa/Core/Matrix.h": "49712b9719a98268e6abdc372e67954fd13d2941862198fccb09d66db98e957f",
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/MatrixOps76/LiveComparison.hpp": "3174dd0272e0cf1e72a1f75c6b5d486968e4a3b0b7776da505889a369eee5d03",
+        "reversing/MatrixOps76/LiveComparison.hpp": "8c62f5ea6095ec6a1e252d73be0d9a03e0a9d9c2c6e6eb3842b126e5df437f10",
         "reversing/MatrixOps76/Core.hpp": "36293b0dbf729b7d554e87d15c92680bb493db7aeec062f9e7638a88d5e876bb",
         "reversing/MatrixOps76/Fixtures.hpp": "b8bde1bb532612881af980a0bfdd76983a99d7139a260f676f6bf7e0d79dfc53",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -94535,7 +94535,7 @@
       },
       "evidence": {
         "path": "reversing/MatrixOps76/validation-summary.json",
-        "sha256": "9c8f77ae7a7b94b65f9a19e62fdd3917aafa37a25bb233463da489e70634f497",
+        "sha256": "534d04d7009050441b834690f6beb737acd4256c4f76b32ad3278867e9cdf533",
         "passed_path": [
           "covered_functions",
           "CMatrix::operator="
@@ -94545,12 +94545,12 @@
         "original_address": "0x0059BBC0"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-        "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
-        "source/game_sa/Core/Matrix.cpp": "674945c2e2c810bb050ed184d2a0e1c2056b029eabe93605e999cb55fcd40efb",
-        "source/game_sa/Core/Matrix.h": "49712b9719a98268e6abdc372e67954fd13d2941862198fccb09d66db98e957f",
+        "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+        "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+        "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+        "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/MatrixOps76/LiveComparison.hpp": "3174dd0272e0cf1e72a1f75c6b5d486968e4a3b0b7776da505889a369eee5d03",
+        "reversing/MatrixOps76/LiveComparison.hpp": "8c62f5ea6095ec6a1e252d73be0d9a03e0a9d9c2c6e6eb3842b126e5df437f10",
         "reversing/MatrixOps76/Core.hpp": "36293b0dbf729b7d554e87d15c92680bb493db7aeec062f9e7638a88d5e876bb",
         "reversing/MatrixOps76/Fixtures.hpp": "b8bde1bb532612881af980a0bfdd76983a99d7139a260f676f6bf7e0d79dfc53",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",

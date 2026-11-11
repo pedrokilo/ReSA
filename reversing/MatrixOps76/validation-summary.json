@@ -14,24 +14,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD a7266bf64 + source.patch: Matrix.cpp/.h, InjectHooksMain.cpp, Camera.cpp). CMatrix::Attach 0x59BD10 (thiscall, ret 8, void): destruye la RwMatrix previa (RwMatrixDestroy 0x7F2A20) solo si hay matriz y el DWORD de propiedad (+0x44, con los tres bytes de relleno) es distinto de cero, guarda la RwMatrix nueva y el byte del argumento ampliado a dword y copia los 12 dwords de la RwMatrix (sin banderas ni relleno). CMatrix::operator= 0x59BBC0 (thiscall, ret 4): copia 0x40 bytes y, si habia RwMatrix asociada (leida antes de copiar), la actualiza (UpdateRwMatrix + RwMatrixUpdate 0x7F18A0). El EXE devuelve this en EAX y la DLL es void: ninguno de los 89 llamadores del EXE lee EAX tras la llamada. Hooks instalados solo para estas dos por CMatrix::InjectHooksAttachAssign (CMatrix::InjectHooks completo sigue desactivado por rendimiento). Sustituidos por falsos identicos en ambos lados: RwMatrixDestroy 0x7F2A20 (Attach) y RwMatrixUpdate 0x7F18A0 (operator=), ambos de RenderWare sin hook. Corren de verdad: copia de 12 dwords, CopyOnlyMatrix, UpdateRW y UpdateRwMatrix (0x59AD70 en el EXE), sin hook en ambos lados y vigilados. No probado: matriz de origen/destino nula, RwMatrix nula en Attach, solapamiento parcial de origen y destino en operator=, bytes de RwMatrix mas alla de 0x40. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/MatrixOps76-20261105-022733-862343",
-  "summary_sha256": "a5bfa19072eb3d17196b7e405dce58b5b45ae1120cd8468a35f9263b7eeda305",
-  "result_txt_sha256": "684f277a7da7a7ac123fbdbf2d43db6419ba18195971de30414c699e93fb7c16",
-  "log_sha256": "f8279772251223be64ab7c69ea1863ac7838746b7be6a383f869f73f438aa957",
+  "run": "reversing/CppTwelveLevel6Final/runs/MatrixOps76-20261111-015754-501569",
+  "summary_sha256": "bcd62d15d45260e7a0c755e452868ee36b8570462fc92eeae6d35d2fb8d73992",
+  "result_txt_sha256": "9a03916f2b58ad35d856116d689c6b60afc16e1fb0771df3a39b938ec496b3ec",
+  "log_sha256": "907659efaeca606869aab0acb73c7620d0a8e3280d12ea09f10829e8c72102f8",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "7d73fdc39a6204b166fa021278c0ae122f822299490b172f74d45ac8dd3bb1e5",
+  "executed_probe_sha256": "5e5a5146d4660930bc1705832367e84e69bd69eb9eead7b501d02e238cb0f983",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
-      "source/InjectHooksMain.cpp": "38bafb9c096e819dcb51efe68d2f96423f591da325435f383eb207a2be9896b5",
-      "source/game_sa/Core/Matrix.cpp": "674945c2e2c810bb050ed184d2a0e1c2056b029eabe93605e999cb55fcd40efb",
-      "source/game_sa/Core/Matrix.h": "49712b9719a98268e6abdc372e67954fd13d2941862198fccb09d66db98e957f",
+      "source/CMakeLists.txt": "08416d4dcd092ddc40a0c73048764edc7b007c8c301d4e63b4c35f416ab719e9",
+      "source/InjectHooksMain.cpp": "3e3733c5b96bf2698f0e25fa92b701d1cfc7937ccaf0229265053d37ec6ebff4",
+      "source/game_sa/Core/Matrix.cpp": "03a3448a8ec83bc9c3b56f6624ab050efabaca6f334b8395a9aa0deb272a104d",
+      "source/game_sa/Core/Matrix.h": "724c69d1e950e897f17c6c56572c03055fed7a1349e536c37281f6b7aa546bd5",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/MatrixOps76/LiveComparison.hpp": "3174dd0272e0cf1e72a1f75c6b5d486968e4a3b0b7776da505889a369eee5d03",
+      "reversing/MatrixOps76/LiveComparison.hpp": "8c62f5ea6095ec6a1e252d73be0d9a03e0a9d9c2c6e6eb3842b126e5df437f10",
       "reversing/MatrixOps76/Core.hpp": "36293b0dbf729b7d554e87d15c92680bb493db7aeec062f9e7638a88d5e876bb",
       "reversing/MatrixOps76/Fixtures.hpp": "b8bde1bb532612881af980a0bfdd76983a99d7139a260f676f6bf7e0d79dfc53",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/MatrixOps76-20261105-022733-862343/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/MatrixOps76-20261111-015754-501569/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "4ab142370fbefa923b7ffa7cda7782ced2c9dc5e9fcc0381e3ad974327e5fe04",
-    "uncompressed_sha256": "f8279772251223be64ab7c69ea1863ac7838746b7be6a383f869f73f438aa957"
+    "compressed_sha256": "d540025dd99cfc0356b38afbd04eb79b5c917172c1fdcb5cc2b92000f1e71e0a",
+    "uncompressed_sha256": "907659efaeca606869aab0acb73c7620d0a8e3280d12ea09f10829e8c72102f8"
   }
 }
